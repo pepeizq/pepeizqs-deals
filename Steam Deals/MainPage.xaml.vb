@@ -54,6 +54,7 @@ Public NotInheritable Class MainPage
 
         tbCeroResultadosSteam.Text = recursos.GetString("Cero Resultados")
         tbCeroResultadosGamersGate.Text = recursos.GetString("Cero Resultados")
+        tbCeroResultadosGreenManGaming.Text = recursos.GetString("Cero Resultados")
 
         '--------------------------------------------------------
 
@@ -225,6 +226,7 @@ Public NotInheritable Class MainPage
         If tbBuscador.Text.Trim.Length > 3 Then
             Steam.BuscarOfertas(tbBuscador.Text.Trim)
             GamersGate.BuscarOfertas(tbBuscador.Text.Trim)
+            GreenManGaming.BuscarOfertas(tbBuscador.Text.Trim)
         End If
 
     End Sub
@@ -233,12 +235,14 @@ Public NotInheritable Class MainPage
 
         botonBuscadorSteam.BorderThickness = New Thickness(0, 0, 0, 0)
         botonBuscadorGamersGate.BorderThickness = New Thickness(0, 0, 0, 0)
+        botonBuscadorGreenManGaming.BorderThickness = New Thickness(0, 0, 0, 0)
 
         button.BorderThickness = New Thickness(0, 0, 0, 2)
         button.BorderBrush = New SolidColorBrush(Colors.Black)
 
         gridBuscadorSteam.Visibility = Visibility.Collapsed
         gridBuscadorGamersGate.Visibility = Visibility.Collapsed
+        gridBuscadorGreenManGaming.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -271,6 +275,21 @@ Public NotInheritable Class MainPage
     Private Sub botonBuscadorGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscadorGamersGate.Click
 
         GridBuscadorVisibilidad(botonBuscadorGamersGate, gridBuscadorGamersGate)
+
+    End Sub
+
+    Private Async Sub lvBuscadorResultadosGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvBuscadorResultadosGreenManGaming.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub botonBuscadorGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscadorGreenManGaming.Click
+
+        GridBuscadorVisibilidad(botonBuscadorGreenManGaming, gridBuscadorGreenManGaming)
 
     End Sub
 

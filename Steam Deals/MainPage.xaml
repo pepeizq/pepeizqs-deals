@@ -254,19 +254,26 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock x:Name="tbTiendasBuscador" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
                         <Button x:Name="botonBuscadorSteam" Grid.Column="1" Margin="5,0" Padding="5" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="Black">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/icon_steam.ico" Margin="0,0,5,0" />
+                                <Image Source="Assets/icon_steam.ico" Margin="0,0,5,0" Width="16" Height="16"/>
                                 <TextBlock Text="Steam"/>
                             </StackPanel>
                         </Button>
                         <Button x:Name="botonBuscadorGamersGate" Grid.Column="2" Margin="5,0" Padding="5" Background="Transparent">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/icon_gamersgate.ico" Margin="0,0,5,0" />
+                                <Image Source="Assets/icon_gamersgate.ico" Margin="0,0,5,0" Width="16" Height="16"/>
                                 <TextBlock Text="GamersGate"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="botonBuscadorGreenManGaming" Grid.Column="3" Margin="5,0" Padding="5" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/icon_gmg.ico" Margin="0,0,5,0" Width="16" Height="16"/>
+                                <TextBlock Text="Green Man Gaming"/>
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -297,6 +304,20 @@
 
                         <ProgressRing x:Name="prBuscadorGamersGate" IsActive="True" Height="54" Width="54" Visibility="Collapsed" Foreground="Black"/>
                         <TextBlock x:Name="tbCeroResultadosGamersGate" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid x:Name="gridBuscadorGreenManGaming" Grid.Row="2" Visibility="Collapsed">
+                        <ListView x:Name="lvBuscadorResultadosGreenManGaming" Grid.Row="2" IsItemClickEnabled="True">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+
+                        <ProgressRing x:Name="prBuscadorGreenManGaming" IsActive="True" Height="54" Width="54" Visibility="Collapsed" Foreground="Black"/>
+                        <TextBlock x:Name="tbCeroResultadosGreenManGaming" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </Grid>
             </PivotItem>
