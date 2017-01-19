@@ -124,7 +124,12 @@ Module GreenManGaming
                         temp7 = temp2.Remove(0, int7 + 11)
 
                         int8 = temp7.IndexOf("</image_url>")
-                        temp8 = temp7.Remove(int8, temp7.Length - int8)
+
+                        If Not int8 = -1 Then
+                            temp8 = temp7.Remove(int8, temp7.Length - int8)
+                        Else
+                            temp8 = temp7
+                        End If
 
                         Dim imagen As String = temp8.Trim
 
