@@ -50,11 +50,17 @@
         precioBase = precioBase.Replace("£", Nothing)
         precioBase = precioBase.Trim
 
+        descuento = descuento.Replace("%", Nothing)
+
         temp = (CDbl(precioBase) / 100) * (CDbl(descuento) / 100)
         temp2 = (CDbl(precioBase) / 100) - temp
 
-        precioFinal = Math.Round(temp2 * 100, 2).ToString
-        precioFinal = precioFinal.Replace(",", ".")
+        precioFinal = (temp2 * 100).ToString
+
+        If precioFinal.Contains(",") Then
+            Dim int As Integer = precioFinal.IndexOf(",")
+            precioFinal = precioFinal.Remove(int + 3, precioFinal.Length - (int + 3))
+        End If
 
         Return precioFinal
     End Function

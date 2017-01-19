@@ -10,9 +10,6 @@ Module Steam
 
         tipo_ = tipo
 
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
-
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
@@ -33,6 +30,9 @@ Module Steam
         tbProgreso.Text = "0%"
 
         listaJuegos.Clear()
+
+        bw.WorkerReportsProgress = True
+        bw.WorkerSupportsCancellation = True
 
         If bw.IsBusy = False Then
             bw.RunWorkerAsync()

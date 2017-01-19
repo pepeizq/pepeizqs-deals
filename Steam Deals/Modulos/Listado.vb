@@ -47,6 +47,9 @@ Module Listado
         ElseIf juego.Tienda = "Green Man Gaming" Then
             imagen.Height = 79
             imagen.Width = 59
+        ElseIf juego.Tienda = "BundleStars" Then
+            imagen.Height = 63
+            imagen.Width = 112
         End If
 
         imagen.Margin = New Thickness(0, 2, 10, 2)
@@ -119,23 +122,25 @@ Module Listado
 
         '-------------------------------
 
-        Dim fondoPrecio As New Grid
-        fondoPrecio.Background = New SolidColorBrush(Colors.Black)
-        fondoPrecio.Padding = New Thickness(5, 0, 5, 0)
-        fondoPrecio.Height = 34
-        fondoPrecio.Width = 60
-        fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
-        fondoPrecio.HorizontalAlignment = HorizontalAlignment.Center
+        If Not juego.PrecioRebajado = Nothing Then
+            Dim fondoPrecio As New Grid
+            fondoPrecio.Background = New SolidColorBrush(Colors.Black)
+            fondoPrecio.Padding = New Thickness(5, 0, 5, 0)
+            fondoPrecio.Height = 34
+            fondoPrecio.Width = 60
+            fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
+            fondoPrecio.HorizontalAlignment = HorizontalAlignment.Center
 
-        Dim textoPrecio As New TextBlock
-        textoPrecio.Text = juego.PrecioRebajado
-        textoPrecio.VerticalAlignment = VerticalAlignment.Center
-        textoPrecio.HorizontalAlignment = HorizontalAlignment.Center
-        textoPrecio.Foreground = New SolidColorBrush(Colors.White)
+            Dim textoPrecio As New TextBlock
+            textoPrecio.Text = juego.PrecioRebajado
+            textoPrecio.VerticalAlignment = VerticalAlignment.Center
+            textoPrecio.HorizontalAlignment = HorizontalAlignment.Center
+            textoPrecio.Foreground = New SolidColorBrush(Colors.White)
 
-        fondoPrecio.Children.Add(textoPrecio)
-        fondoPrecio.SetValue(Grid.ColumnProperty, 4)
-        grid.Children.Add(fondoPrecio)
+            fondoPrecio.Children.Add(textoPrecio)
+            fondoPrecio.SetValue(Grid.ColumnProperty, 4)
+            grid.Children.Add(fondoPrecio)
+        End If
 
         Return grid
 

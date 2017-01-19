@@ -73,6 +73,12 @@
                                 <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
+                        <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
+                                <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
 
                     </StackPanel>
 
@@ -227,6 +233,46 @@
                         <Grid x:Name="gridProgresoGreenManGaming" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="Black"/>
                             <TextBlock x:Name="tbProgresoGreenManGaming" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </Grid>
+
+                    <Grid x:Name="gridTiendaBundleStars" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
+                                <ComboBoxItem x:Name="cbTipoBundleStarsJuegos"/>
+                                <ComboBoxItem x:Name="cbTipoBundleStarsBundles"/>
+                            </ComboBox>
+                            <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="2" Width="120">
+                                <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
+                                <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
+                                <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <ListView x:Name="listadoBundleStars" Grid.Row="1" IsItemClickEnabled="True">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+
+                        <Grid x:Name="gridProgresoBundleStars" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                            <TextBlock x:Name="tbProgresoBundleStars" HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Grid>
                     </Grid>
                 </Grid>
