@@ -20,9 +20,9 @@ Public NotInheritable Class MainPage
 
         Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
-        pivotDeals.Header = recursos.GetString("Ofertas")
-        pivotBuscador.Header = recursos.GetString("Buscador")
-        pivotWeb.Header = recursos.GetString("Boton Web")
+        botonOfertas.Content = recursos.GetString("Ofertas")
+        botonMasApps.Label = recursos.GetString("Boton Web")
+        botonVotar.Label = recursos.GetString("Boton Votar")
 
         cbTipoSteamJuegos.Content = recursos.GetString("Juegos")
         cbTipoSteamBundles.Content = recursos.GetString("Bundles")
@@ -58,7 +58,15 @@ Public NotInheritable Class MainPage
         cbOrdenarBundleStarsTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarBundleStars.SelectedIndex = 0
 
+        tbOrdenarGOG.Text = recursos.GetString("Ordenar")
+        cbOrdenarGOGDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarGOGPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarGOGTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarGOG.SelectedIndex = 0
+
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
+
+        botonBuscadorTexto.Text = recursos.GetString("Buscar")
 
         tbTiendasBuscador.Text = recursos.GetString("Tiendas")
 
@@ -77,13 +85,43 @@ Public NotInheritable Class MainPage
             botonTiendaTextoHumble.Visibility = Visibility.Collapsed
             botonTiendaTextoGreenManGaming.Visibility = Visibility.Collapsed
             botonTiendaTextoBundleStars.Visibility = Visibility.Collapsed
+            botonTiendaTextoGOG.Visibility = Visibility.Collapsed
         Else
             botonTiendaSteam.Width = 170
             botonTiendaGamersGate.Width = 170
             botonTiendaHumble.Width = 170
             botonTiendaGreenManGaming.Width = 170
             botonTiendaBundleStars.Width = 170
+            botonTiendaGOG.Width = 170
         End If
+
+    End Sub
+
+    Private Sub GridVisibilidad(grid As Grid)
+
+        gridDeals.Visibility = Visibility.Collapsed
+        gridSearch.Visibility = Visibility.Collapsed
+        gridWeb.Visibility = Visibility.Collapsed
+
+        grid.Visibility = Visibility.Visible
+
+    End Sub
+
+    Private Sub botonOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertas.Click
+
+        GridVisibilidad(gridDeals)
+
+    End Sub
+
+    Private Sub botonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
+
+        GridVisibilidad(gridWeb)
+
+    End Sub
+
+    Private Async Sub botonVotar_Click(sender As Object, e As RoutedEventArgs) Handles botonVotar.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("ms-windows-store:REVIEW?PFN=" + Package.Current.Id.FamilyName))
 
     End Sub
 
@@ -96,6 +134,7 @@ Public NotInheritable Class MainPage
         botonTiendaHumble.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
+        botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
 
         button.Background = New SolidColorBrush(Microsoft.Toolkit.Uwp.ColorHelper.ToColor("#bfbfbf"))
 
@@ -104,6 +143,7 @@ Public NotInheritable Class MainPage
         gridTiendaHumble.Visibility = Visibility.Collapsed
         gridTiendaGreenManGaming.Visibility = Visibility.Collapsed
         gridTiendaBundleStars.Visibility = Visibility.Collapsed
+        gridTiendaGOG.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -273,9 +313,40 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub botonTiendaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGOG.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaGOG, botonTiendaGOG)
+
+        If listadoGOG.Items.Count = 0 Then
+            GOG.GenerarOfertas()
+            cbOrdenarGOG.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Async Sub listadoGOG_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGOG.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub cbOrdenarGOG_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGOG.SelectionChanged
+
+        If gridTiendaGOG.Visibility = Visibility.Visible Then
+            If Not gridProgresoGOG.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
     'BUSCADOR-----------------------------------------------------------------------------
 
-    Private Sub tbBuscador_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbBuscador.TextChanged
+    Private Sub botonBuscador_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscador.Click
 
         If tbBuscador.Text.Trim.Length > 3 Then
             Steam.BuscarOfertas(tbBuscador.Text.Trim)

@@ -4,9 +4,9 @@ Module BundleStars
 
     Dim WithEvents bw As New BackgroundWorker
     Dim html_ As String
-    Dim listaJuegos As New List(Of Juego)
+    Dim listaJuegos As List(Of Juego)
 
-    Public Sub GenerarOfertas(tipo As Integer)
+    Public Async Sub GenerarOfertas(tipo As Integer)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -24,7 +24,9 @@ Module BundleStars
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
         gridProgreso.Visibility = Visibility.Visible
 
-        listaJuegos.Clear()
+        listaJuegos = New List(Of Juego)
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasBundleStars", listaJuegos)
 
         Dim categoria As String = Nothing
 
@@ -36,7 +38,7 @@ Module BundleStars
 
         If Not categoria = Nothing Then
             Dim i As Integer = 1
-            While i < 15
+            While i < 5
                 Dim wb As New WebView
                 AddHandler wb.NavigationCompleted, AddressOf wb_NavigationCompleted
                 wb.Navigate(New Uri("https://www.bundlestars.com/api/products?types=" + categoria + "&sort=name&pageSize=50&sale=true&page=" + i.ToString))

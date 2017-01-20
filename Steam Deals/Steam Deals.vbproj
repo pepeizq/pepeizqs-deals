@@ -117,6 +117,7 @@
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />
     <Compile Include="Modulos\GamersGate.vb" />
+    <Compile Include="Modulos\GOG.vb" />
     <Compile Include="Modulos\GreenManGaming.vb" />
     <Compile Include="Modulos\Humble.vb" />
     <Compile Include="Modulos\Listado.vb" />
@@ -175,6 +176,7 @@
     <Content Include="Assets\icon_bundlestars.ico" />
     <Content Include="Assets\icon_gamersgate.ico" />
     <Content Include="Assets\icon_gmg.ico" />
+    <Content Include="Assets\icon_gog.ico" />
     <Content Include="Assets\icon_humble.ico" />
     <Content Include="Assets\icon_steam.ico" />
     <Content Include="Assets\drm_steam.png" />

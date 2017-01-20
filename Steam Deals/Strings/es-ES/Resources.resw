@@ -171,4 +171,7 @@
   <data name="Cero Resultados" xml:space="preserve">
     <value>No hay resultados</value>
   </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
 </root>
