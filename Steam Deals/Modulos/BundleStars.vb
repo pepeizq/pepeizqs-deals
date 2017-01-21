@@ -2,11 +2,11 @@
 
 Module BundleStars
 
-    Dim WithEvents bw As New BackgroundWorker
+    Dim WithEvents bw As BackgroundWorker
     Dim html_ As String
     Dim listaJuegos As List(Of Juego)
 
-    Public Async Sub GenerarOfertas(tipo As Integer)
+    Public Sub GenerarOfertas()
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -15,36 +15,19 @@ Module BundleStars
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim cbTipo As ComboBox = pagina.FindName("cbTipoBundleStars")
-        cbTipo.IsEnabled = False
-
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
         cbOrdenar.IsEnabled = False
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
         gridProgreso.Visibility = Visibility.Visible
 
-        listaJuegos = New List(Of Juego)
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasBundleStars", listaJuegos)
-
-        Dim categoria As String = Nothing
-
-        If tipo = 0 Then
-            categoria = "game,dlc"
-        ElseIf tipo = 1 Then
-            categoria = "bundle"
-        End If
-
-        If Not categoria = Nothing Then
-            Dim i As Integer = 1
-            While i < 5
-                Dim wb As New WebView
-                AddHandler wb.NavigationCompleted, AddressOf wb_NavigationCompleted
-                wb.Navigate(New Uri("https://www.bundlestars.com/api/products?types=" + categoria + "&sort=name&pageSize=50&sale=true&page=" + i.ToString))
-                i += 1
-            End While
-        End If
+        Dim i As Integer = 1
+        While i < 10
+            Dim wb As New WebView
+            AddHandler wb.NavigationCompleted, AddressOf wb_NavigationCompleted
+            wb.Navigate(New Uri("https://www.bundlestars.com/api/products?types=game,dlc,bundle&sort=name&pageSize=50&sale=true&page=" + i.ToString))
+            i += 1
+        End While
 
     End Sub
 
@@ -63,6 +46,7 @@ Module BundleStars
 
         html_ = html
 
+        bw = New BackgroundWorker
         bw.WorkerReportsProgress = True
         bw.WorkerSupportsCancellation = True
 
@@ -72,30 +56,11 @@ Module BundleStars
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Async Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        DecompilarHtml(html_, False)
+        listaJuegos = New List(Of Juego)
 
-    End Sub
-
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-
-        If listaJuegos.Count > 0 Then
-            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasBundleStars", listaJuegos)
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-            Dim cb As ComboBox = pagina.FindName("cbOrdenarBundleStars")
-
-            Ordenar.Ofertas("BundleStars", cb.SelectedIndex)
-        End If
-
-    End Sub
-
-    '----------------------------------------------------
-
-    Private Sub DecompilarHtml(html As String, buscador As Boolean)
+        Dim html As String = html_
 
         If Not html = Nothing Then
             Dim i As Integer = 0
@@ -219,30 +184,52 @@ Module BundleStars
 
                     Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "BundleStars")
 
-                    If buscador = False Then
-                        Dim tituloBool As Boolean = False
-                        Dim j As Integer = 0
-                        While j < listaJuegos.Count
-                            If listaJuegos(j).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            j += 1
-                        End While
-
-                        If juego.Descuento = Nothing Then
+                    Dim tituloBool As Boolean = False
+                    Dim j As Integer = 0
+                    While j < listaJuegos.Count
+                        If listaJuegos(j).Titulo = juego.Titulo Then
                             tituloBool = True
                         End If
+                        j += 1
+                    End While
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
-                    Else
+                    If juego.Descuento = Nothing Then
+                        tituloBool = True
+                    End If
 
+                    If tituloBool = False Then
+                        listaJuegos.Add(juego)
                     End If
                 End If
                 i += 1
             End While
         End If
+
+        If listaJuegos.Count > 0 Then
+            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaOfertasBundleStars") = True Then
+                Dim listaTemp As List(Of Juego) = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasBundleStars")
+
+                If Not listaTemp Is Nothing Then
+                    For Each item In listaTemp
+                        listaJuegos.Add(item)
+                    Next
+                End If
+            End If
+
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasBundleStars", listaJuegos)
+        End If
+
+    End Sub
+
+    Private Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+        Dim cb As ComboBox = pagina.FindName("cbOrdenarBundleStars")
+
+        Ordenar.Ofertas("BundleStars", cb.SelectedIndex)
 
     End Sub
 

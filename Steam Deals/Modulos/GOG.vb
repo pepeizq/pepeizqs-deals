@@ -89,7 +89,7 @@ Module GOG
                         int8 = temp7.IndexOf("</img_icon>")
                         temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                        Dim imagen As String = "http:" + temp8.Trim
+                        Dim imagen As String = "http:" + temp8.Trim.Replace("_100.", "_196.")
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer

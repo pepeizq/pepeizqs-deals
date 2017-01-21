@@ -20,7 +20,7 @@ Public NotInheritable Class MainPage
 
         Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
-        botonOfertas.Content = recursos.GetString("Ofertas")
+        botonOfertas.Label = recursos.GetString("Ofertas")
         botonMasApps.Label = recursos.GetString("Boton Web")
         botonVotar.Label = recursos.GetString("Boton Votar")
 
@@ -48,10 +48,6 @@ Public NotInheritable Class MainPage
         cbOrdenarGreenManGamingTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGreenManGaming.SelectedIndex = 0
 
-        cbTipoBundleStarsJuegos.Content = recursos.GetString("Juegos")
-        cbTipoBundleStarsBundles.Content = recursos.GetString("Bundles")
-        cbTipoBundleStars.SelectedIndex = 0
-
         tbOrdenarBundleStars.Text = recursos.GetString("Ordenar")
         cbOrdenarBundleStarsDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarBundleStarsPrecio.Content = recursos.GetString("Precio")
@@ -63,6 +59,12 @@ Public NotInheritable Class MainPage
         cbOrdenarGOGPrecio.Content = recursos.GetString("Precio")
         cbOrdenarGOGTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGOG.SelectedIndex = 0
+
+        tbOrdenarWinGameStore.Text = recursos.GetString("Ordenar")
+        cbOrdenarWinGameStoreDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarWinGameStorePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarWinGameStoreTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarWinGameStore.SelectedIndex = 0
 
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
@@ -135,6 +137,7 @@ Public NotInheritable Class MainPage
         botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
+        botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
 
         button.Background = New SolidColorBrush(Microsoft.Toolkit.Uwp.ColorHelper.ToColor("#bfbfbf"))
 
@@ -144,6 +147,7 @@ Public NotInheritable Class MainPage
         gridTiendaGreenManGaming.Visibility = Visibility.Collapsed
         gridTiendaBundleStars.Visibility = Visibility.Collapsed
         gridTiendaGOG.Visibility = Visibility.Collapsed
+        gridTiendaWinGameStore.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -279,8 +283,7 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaBundleStars, botonTiendaBundleStars)
 
         If listadoBundleStars.Items.Count = 0 Then
-            BundleStars.GenerarOfertas(0)
-            cbTipoBundleStars.SelectedIndex = 0
+            BundleStars.GenerarOfertas()
             cbOrdenarBundleStars.SelectedIndex = 0
         End If
 
@@ -292,14 +295,6 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
-
-    End Sub
-
-    Private Sub cbTipoBundleStars_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbTipoBundleStars.SelectionChanged
-
-        If gridTiendaBundleStars.Visibility = Visibility.Visible Then
-            BundleStars.GenerarOfertas(cbTipoBundleStars.SelectedIndex)
-        End If
 
     End Sub
 
@@ -339,6 +334,37 @@ Public NotInheritable Class MainPage
         If gridTiendaGOG.Visibility = Visibility.Visible Then
             If Not gridProgresoGOG.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub botonTiendaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaWinGameStore.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaWinGameStore, botonTiendaWinGameStore)
+
+        If listadoWinGameStore.Items.Count = 0 Then
+            WinGameStore.GenerarOfertas()
+            cbOrdenarWinGameStore.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Async Sub listadoWinGameStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoWinGameStore.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub cbOrdenarWinGameStore_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarWinGameStore.SelectionChanged
+
+        If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex)
             End If
         End If
 

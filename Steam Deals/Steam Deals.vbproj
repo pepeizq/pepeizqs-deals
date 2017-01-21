@@ -124,6 +124,7 @@
     <Compile Include="Modulos\Notificaciones.vb" />
     <Compile Include="Modulos\Ordenar.vb" />
     <Compile Include="Modulos\Steam.vb" />
+    <Compile Include="Modulos\WinGameStore.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +182,7 @@
     <Content Include="Assets\icon_steam.ico" />
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
+    <Content Include="Assets\icon_wingamestore.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-100.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-125.png" />
     <Content Include="Assets\Large\Large310x310Logo.scale-150.png" />

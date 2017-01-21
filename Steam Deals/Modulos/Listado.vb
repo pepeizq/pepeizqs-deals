@@ -30,31 +30,36 @@ Module Listado
 
         '-------------------------------
 
-        Dim imagen As New ImageEx
-        imagen.Source = New BitmapImage(New Uri(juego.Imagen))
-        imagen.Stretch = Stretch.UniformToFill
+        If Not juego.Imagen = Nothing Then
+            Dim imagen As New ImageEx
+            imagen.Source = New BitmapImage(New Uri(juego.Imagen))
+            imagen.Stretch = Stretch.UniformToFill
 
-        If juego.Tienda = "Steam" Then
-            imagen.Height = 45
-            imagen.Width = 120
-        ElseIf juego.Tienda = "GamersGate" Then
-            imagen.Height = 65
-            imagen.Width = 45
-        ElseIf juego.Tienda = "Humble Bundle" Then
-            imagen.Height = 50
-            imagen.Width = 400
-            imagen.Stretch = Stretch.Uniform
-        ElseIf juego.Tienda = "Green Man Gaming" Then
-            imagen.Height = 79
-            imagen.Width = 59
-        ElseIf juego.Tienda = "BundleStars" Then
-            imagen.Height = 63
-            imagen.Width = 112
+            If juego.Tienda = "Steam" Then
+                imagen.Height = 45
+                imagen.Width = 120
+            ElseIf juego.Tienda = "GamersGate" Then
+                imagen.Height = 65
+                imagen.Width = 45
+            ElseIf juego.Tienda = "Humble Bundle" Then
+                imagen.Height = 50
+                imagen.Width = 400
+                imagen.Stretch = Stretch.Uniform
+            ElseIf juego.Tienda = "Green Man Gaming" Then
+                imagen.Height = 79
+                imagen.Width = 59
+            ElseIf juego.Tienda = "BundleStars" Then
+                imagen.Height = 63
+                imagen.Width = 112
+            ElseIf juego.Tienda = "GOG" Then
+                imagen.Height = 66
+                imagen.Width = 117
+            End If
+
+            imagen.Margin = New Thickness(0, 2, 10, 2)
+            imagen.SetValue(Grid.ColumnProperty, 0)
+            grid.Children.Add(imagen)
         End If
-
-        imagen.Margin = New Thickness(0, 2, 10, 2)
-        imagen.SetValue(Grid.ColumnProperty, 0)
-        grid.Children.Add(imagen)
 
         '-------------------------------
 

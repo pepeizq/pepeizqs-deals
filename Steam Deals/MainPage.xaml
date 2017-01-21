@@ -38,25 +38,17 @@
         <CommandBar Foreground="White" VerticalAlignment="Center" VerticalContentAlignment="Center">
             <CommandBar.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Color="DarkOliveGreen" Offset="0.5" />
+                    <GradientStop Color="OliveDrab" Offset="0.5" />
                     <GradientStop Color="OliveDrab" Offset="1.0" />
                 </LinearGradientBrush>
             </CommandBar.Background>
 
-            <CommandBar.Content>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button x:Name="botonOfertas" Grid.Column="0" Background="Transparent" Foreground="White" FontSize="22" Padding="5" Margin="5"/>
-                </Grid>
-            </CommandBar.Content>
-
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="botonMasApps"/>
-                <AppBarButton x:Name="botonVotar"/>
-            </CommandBar.SecondaryCommands>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="botonOfertas" Icon="Home" Foreground="White"/>
+                <AppBarSeparator Foreground="White"/>
+                <AppBarButton x:Name="botonVotar" Icon="Like" Foreground="White"/>
+                <AppBarButton x:Name="botonMasApps" Icon="World" Foreground="White"/>
+            </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.TopAppBar>
 
@@ -75,38 +67,44 @@
 
                 <Button x:Name="botonTiendaSteam" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/icon_steam.ico" Width="16" Height="16"/>
+                        <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16"/>
                         <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="botonTiendaGamersGate" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/icon_gamersgate.ico" Width="16" Height="16"/>
+                        <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16"/>
                         <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="botonTiendaHumble" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/icon_humble.ico" Width="16" Height="16"/>
+                        <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16"/>
                         <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="botonTiendaGreenManGaming" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/icon_gmg.ico" Width="16" Height="16"/>
+                        <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16"/>
                         <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
+                        <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
                         <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
                 <Button x:Name="botonTiendaGOG" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="Assets/icon_gog.ico" Width="16" Height="16"/>
+                        <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16"/>
                         <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="botonTiendaWinGameStore" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16"/>
+                        <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
 
@@ -276,15 +274,10 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
-                        <ComboBoxItem x:Name="cbTipoBundleStarsJuegos"/>
-                        <ComboBoxItem x:Name="cbTipoBundleStarsBundles"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="2" Width="120">
+                    <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="1" Width="120">
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
@@ -338,6 +331,41 @@
                 <Grid x:Name="gridProgresoGOG" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="Black"/>
                     <TextBlock x:Name="tbProgresoGOG" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="gridTiendaWinGameStore" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="tbOrdenarWinGameStore" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarWinGameStore" Grid.Column="1" Width="120">
+                        <ComboBoxItem x:Name="cbOrdenarWinGameStoreDescuento"/>
+                        <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
+                        <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
+                    </ComboBox>
+                </Grid>
+
+                <ListView x:Name="listadoWinGameStore" Grid.Row="1" IsItemClickEnabled="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <Grid x:Name="gridProgresoWinGameStore" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressRing x:Name="prWinGameStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                    <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
             </Grid>
         </Grid>
