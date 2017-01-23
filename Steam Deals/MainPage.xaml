@@ -107,6 +107,12 @@
                         <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Margin="5,0,0,0"/>
                     </StackPanel>
                 </Button>
+                <Button x:Name="botonTiendaSilaGames" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <StackPanel Orientation="Horizontal">
+                        <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16"/>
+                        <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Button>
 
             </StackPanel>
 
@@ -366,6 +372,41 @@
                 <Grid x:Name="gridProgresoWinGameStore" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ProgressRing x:Name="prWinGameStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
                     <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="gridTiendaSilaGames" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="tbOrdenarSilaGames" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarSilaGames" Grid.Column="1" Width="120">
+                        <ComboBoxItem x:Name="cbOrdenarSilaGamesDescuento"/>
+                        <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
+                        <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
+                    </ComboBox>
+                </Grid>
+
+                <ListView x:Name="listadoSilaGames" Grid.Row="1" IsItemClickEnabled="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <Grid x:Name="gridProgresoSilaGames" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                    <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
             </Grid>
         </Grid>

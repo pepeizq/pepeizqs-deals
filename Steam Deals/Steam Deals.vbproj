@@ -123,6 +123,7 @@
     <Compile Include="Modulos\Listado.vb" />
     <Compile Include="Modulos\Notificaciones.vb" />
     <Compile Include="Modulos\Ordenar.vb" />
+    <Compile Include="Modulos\SilaGames.vb" />
     <Compile Include="Modulos\Steam.vb" />
     <Compile Include="Modulos\WinGameStore.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -179,6 +180,7 @@
     <Content Include="Assets\icon_gmg.ico" />
     <Content Include="Assets\icon_gog.ico" />
     <Content Include="Assets\icon_humble.ico" />
+    <Content Include="Assets\icon_silagames.ico" />
     <Content Include="Assets\icon_steam.ico" />
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />

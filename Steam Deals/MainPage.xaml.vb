@@ -66,6 +66,12 @@ Public NotInheritable Class MainPage
         cbOrdenarWinGameStoreTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarWinGameStore.SelectedIndex = 0
 
+        tbOrdenarSilaGames.Text = recursos.GetString("Ordenar")
+        cbOrdenarSilaGamesDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarSilaGamesPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarSilaGamesTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarSilaGames.SelectedIndex = 0
+
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
         botonBuscadorTexto.Text = recursos.GetString("Buscar")
@@ -88,6 +94,8 @@ Public NotInheritable Class MainPage
             botonTiendaTextoGreenManGaming.Visibility = Visibility.Collapsed
             botonTiendaTextoBundleStars.Visibility = Visibility.Collapsed
             botonTiendaTextoGOG.Visibility = Visibility.Collapsed
+            botonTiendaTextoWinGameStore.Visibility = Visibility.Collapsed
+            botonTiendaTextoSilaGames.Visibility = Visibility.Collapsed
         Else
             botonTiendaSteam.Width = 170
             botonTiendaGamersGate.Width = 170
@@ -95,6 +103,8 @@ Public NotInheritable Class MainPage
             botonTiendaGreenManGaming.Width = 170
             botonTiendaBundleStars.Width = 170
             botonTiendaGOG.Width = 170
+            botonTiendaWinGameStore.Width = 170
+            botonTiendaSilaGames.Width = 170
         End If
 
     End Sub
@@ -138,6 +148,7 @@ Public NotInheritable Class MainPage
         botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
+        botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
 
         button.Background = New SolidColorBrush(Microsoft.Toolkit.Uwp.ColorHelper.ToColor("#bfbfbf"))
 
@@ -148,6 +159,7 @@ Public NotInheritable Class MainPage
         gridTiendaBundleStars.Visibility = Visibility.Collapsed
         gridTiendaGOG.Visibility = Visibility.Collapsed
         gridTiendaWinGameStore.Visibility = Visibility.Collapsed
+        gridTiendaSilaGames.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -365,6 +377,37 @@ Public NotInheritable Class MainPage
         If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
             If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub botonTiendaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSilaGames.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaSilaGames, botonTiendaSilaGames)
+
+        If listadoSilaGames.Items.Count = 0 Then
+            SilaGames.GenerarOfertas()
+            cbOrdenarSilaGames.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Async Sub listadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub cbOrdenarSilaGames_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarSilaGames.SelectionChanged
+
+        If gridTiendaSilaGames.Visibility = Visibility.Visible Then
+            If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex)
             End If
         End If
 
