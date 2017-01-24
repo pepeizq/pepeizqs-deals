@@ -60,6 +60,9 @@ Module Listado
             ElseIf juego.Tienda = "Sila Games" Then
                 imagen.Height = 70
                 imagen.Width = 110
+            ElseIf juego.Tienda = "DLGamer" Then
+                imagen.Height = 97
+                imagen.Width = 70
             End If
 
             imagen.Margin = New Thickness(0, 2, 10, 2)

@@ -116,6 +116,7 @@
     <Compile Include="Modulos\BundleStars.vb" />
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />
+    <Compile Include="Modulos\DLGamer.vb" />
     <Compile Include="Modulos\GamersGate.vb" />
     <Compile Include="Modulos\GamesPlanet.vb" />
     <Compile Include="Modulos\GOG.vb" />
@@ -177,6 +178,7 @@
     <Content Include="Assets\Badge\Badge.scale-400.png" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\icon_bundlestars.ico" />
+    <Content Include="Assets\icon_dlgamer.ico" />
     <Content Include="Assets\icon_gamersgate.ico" />
     <Content Include="Assets\icon_gamesplanet.png" />
     <Content Include="Assets\icon_gmg.ico" />

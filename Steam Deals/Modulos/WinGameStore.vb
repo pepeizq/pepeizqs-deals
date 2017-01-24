@@ -31,7 +31,7 @@ Module WinGameStore
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
+        Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
         Dim html As String = html_.Result
 
         Dim i As Integer = 0

@@ -31,7 +31,7 @@ Module SilaGames
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://52.28.153.212/cjAffiliateEU.xml"))
+        Dim html_ As Task(Of String) = HttpClient(New Uri("http://52.28.153.212/cjAffiliateEU.xml"))
         Dim html As String = html_.Result
 
         Dim i As Integer = 0

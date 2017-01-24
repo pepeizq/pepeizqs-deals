@@ -2,7 +2,8 @@
 
 Module GreenManGaming
 
-    Dim listaJuegos As New List(Of Juego)
+    Dim WithEvents bw As New BackgroundWorker
+    Dim listaJuegos As List(Of Juego)
 
     Public Sub GenerarOfertas()
 
@@ -19,32 +20,7 @@ Module GreenManGaming
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGreenManGaming")
         gridProgreso.Visibility = Visibility.Visible
 
-        listaJuegos.Clear()
-
-        Dim wb As New WebView
-        AddHandler wb.NavigationCompleted, AddressOf wb_NavigationCompleted
-        wb.Navigate(New Uri("https://s3.amazonaws.com/gmg-epilive/Euro.xml"))
-
-    End Sub
-
-    Dim WithEvents bw As New BackgroundWorker
-    Dim html_ As String
-
-    Private Async Sub wb_NavigationCompleted(sender As WebView, e As WebViewNavigationCompletedEventArgs)
-
-        Dim lista As New List(Of String)
-        lista.Add("document.documentElement.outerHTML;")
-        Dim argumentos As IEnumerable(Of String) = lista
-        Dim html As String = Nothing
-
-        Try
-            html = Await sender.InvokeScriptAsync("eval", argumentos)
-        Catch ex As Exception
-
-        End Try
-
-        html_ = html
-
+        bw = New BackgroundWorker
         bw.WorkerReportsProgress = True
         bw.WorkerSupportsCancellation = True
 
@@ -56,26 +32,10 @@ Module GreenManGaming
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        DecompilarHtml(html_, False)
+        listaJuegos = New List(Of Juego)
 
-    End Sub
-
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGreenManGaming", listaJuegos)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
-
-        Ordenar.Ofertas("GreenManGaming", cb.SelectedIndex)
-
-    End Sub
-
-    '----------------------------------------------------
-
-    Private Sub DecompilarHtml(html As String, buscador As Boolean)
+        Dim html_ As Task(Of String) = HttpClient(New Uri("https://s3.amazonaws.com/gmg-epilive/Euro.xml"))
+        Dim html As String = html_.Result
 
         If Not html = Nothing Then
             Dim i As Integer = 0
@@ -104,6 +64,7 @@ Module GreenManGaming
                         int4 = temp3.IndexOf("</product_name>")
                         temp4 = temp3.Remove(int4, temp3.Length - int4)
 
+                        temp4 = temp4.Replace("&apos;", "'")
                         temp4 = temp4.Replace("&amp;", "&")
 
                         Dim titulo As String = temp4.Trim
@@ -174,68 +135,27 @@ Module GreenManGaming
 
                         Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming")
 
-                        If buscador = False Then
-                            Dim tituloBool As Boolean = False
-                            Dim j As Integer = 0
-                            While j < listaJuegos.Count
-                                If listaJuegos(j).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                                j += 1
-                            End While
-
-                            If juego.Descuento = Nothing Then
+                        Dim tituloBool As Boolean = False
+                        Dim j As Integer = 0
+                        While j < listaJuegos.Count
+                            If listaJuegos(j).Titulo = juego.Titulo Then
                                 tituloBool = True
-                            Else
-                                Dim intDescuento As Integer = Integer.Parse(juego.Descuento.Replace("%", Nothing))
-
-                                If intDescuento < 21 Then
-                                    tituloBool = True
-                                End If
                             End If
+                            j += 1
+                        End While
 
-                            If tituloBool = False Then
-                                listaJuegos.Add(juego)
-                            End If
+                        If juego.Descuento = Nothing Then
+                            tituloBool = True
                         Else
-                            Dim tituloBool As Boolean = False
-                            If listaBuscador.Count > 0 Then
-                                Dim j As Integer = 0
-                                While j < listaBuscador.Count
-                                    If listaBuscador(j).Titulo = juego.Titulo Then
-                                        tituloBool = True
-                                    End If
-                                    j += 1
-                                End While
+                            Dim intDescuento As Integer = Integer.Parse(juego.Descuento.Replace("%", Nothing))
+
+                            If intDescuento < 21 Then
+                                tituloBool = True
                             End If
+                        End If
 
-                            If tituloBool = False Then
-                                Dim tempJuegoTitulo As String = juego.Titulo
-
-                                tempJuegoTitulo = tempJuegoTitulo.ToLower
-                                tempJuegoTitulo = tempJuegoTitulo.Replace(":", Nothing)
-                                tempJuegoTitulo = tempJuegoTitulo.Replace("-", Nothing)
-                                tempJuegoTitulo = tempJuegoTitulo.Replace("’", Nothing)
-                                tempJuegoTitulo = tempJuegoTitulo.Replace("'", Nothing)
-                                tempJuegoTitulo = tempJuegoTitulo.Replace("®", Nothing)
-                                tempJuegoTitulo = tempJuegoTitulo.Replace("™", Nothing)
-                                tempJuegoTitulo = tempJuegoTitulo.Trim
-
-                                Dim tempBuscadorTitulo As String = textoBuscar_
-
-                                tempBuscadorTitulo = tempBuscadorTitulo.ToLower
-                                tempBuscadorTitulo = tempBuscadorTitulo.Replace(":", Nothing)
-                                tempBuscadorTitulo = tempBuscadorTitulo.Replace("-", Nothing)
-                                tempBuscadorTitulo = tempBuscadorTitulo.Replace("’", Nothing)
-                                tempBuscadorTitulo = tempBuscadorTitulo.Replace("'", Nothing)
-                                tempBuscadorTitulo = tempBuscadorTitulo.Replace("®", Nothing)
-                                tempBuscadorTitulo = tempBuscadorTitulo.Replace("™", Nothing)
-                                tempBuscadorTitulo = tempBuscadorTitulo.Trim
-
-                                If tempJuegoTitulo.Contains(tempBuscadorTitulo) Then
-                                    listaBuscador.Add(juego)
-                                End If
-                            End If
+                        If tituloBool = False Then
+                            listaJuegos.Add(juego)
                         End If
                     End If
                 End If
@@ -245,78 +165,16 @@ Module GreenManGaming
 
     End Sub
 
-    '----------------------------------------------------
+    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
-    Dim textoBuscar_ As String
-    Dim listaBuscador As List(Of Juego)
-    Dim WithEvents wbBuscador As WebView
-
-    Public Async Sub BuscarOfertas(textoBuscar As String)
-
-        textoBuscar_ = textoBuscar
-
-        listaBuscador = New List(Of Juego)
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaBuscadorGreenManGaming", listaBuscador)
+        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGreenManGaming", listaJuegos)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
+        Dim cb As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
 
-        Dim lv As ListView = pagina.FindName("lvBuscadorResultadosGreenManGaming")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
-        Dim pr As ProgressRing = pagina.FindName("prBuscadorGreenManGaming")
-        pr.Visibility = Visibility.Visible
-
-        Dim tb As TextBlock = pagina.FindName("tbCeroResultadosGreenManGaming")
-        tb.Visibility = Visibility.Collapsed
-
-        wbBuscador = New WebView
-        wbBuscador.Navigate(New Uri("https://s3.amazonaws.com/gmg-epilive/Euro.xml"))
-
-    End Sub
-
-    Dim WithEvents bwBuscador As BackgroundWorker
-    Dim htmlBuscador_ As String
-
-    Private Async Sub wbBuscador_NavigationCompleted(sender As WebView, e As WebViewNavigationCompletedEventArgs) Handles wbBuscador.NavigationCompleted
-
-        Dim lista As New List(Of String)
-        lista.Add("document.documentElement.outerHTML;")
-        Dim argumentos As IEnumerable(Of String) = lista
-        Dim html As String = Nothing
-
-        Try
-            html = Await sender.InvokeScriptAsync("eval", argumentos)
-        Catch ex As Exception
-
-        End Try
-
-        htmlBuscador_ = html
-
-        bwBuscador = New BackgroundWorker
-        bwBuscador.WorkerReportsProgress = True
-        bwBuscador.WorkerSupportsCancellation = True
-
-        If bwBuscador.IsBusy = False Then
-            bwBuscador.RunWorkerAsync()
-        End If
-
-    End Sub
-
-    Private Sub bwBuscador_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bwBuscador.DoWork
-
-        DecompilarHtml(htmlBuscador_, True)
-
-    End Sub
-
-    Private Async Sub bwBuscador_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bwBuscador.RunWorkerCompleted
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaBuscadorGreenManGaming", listaBuscador)
-
-        Ordenar.Buscador("GreenManGaming")
+        Ordenar.Ofertas("GreenManGaming", cb.SelectedIndex)
 
     End Sub
 

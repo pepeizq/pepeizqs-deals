@@ -8,32 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <DataTemplate x:Key="HamburgerMenuImageItem" x:DataType="controls:HamburgerMenuGlyphItem">
-            <Grid Height="64">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="64" />
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <FontIcon Grid.Column="0" Margin="10" FontSize="32" Glyph="{Binding Glyph}" FontFamily="Segoe MDL2 Assets"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" Text="{x:Bind Label}" />
-            </Grid>
-        </DataTemplate>
-
-        <DataTemplate x:Key="HamburgerMenuImageItemOption" x:DataType="controls:HamburgerMenuGlyphItem">
-            <Grid Height="64">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="64" />
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <FontIcon Grid.Column="0" Margin="10" FontSize="32" Glyph="{Binding Glyph}" FontFamily="Segoe MDL2 Assets"/>
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontSize="16" Text="{x:Bind Label}" />
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>
-
     <Page.TopAppBar>
         <CommandBar Foreground="White" VerticalAlignment="Center" VerticalContentAlignment="Center">
             <CommandBar.Background>
@@ -63,65 +37,73 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel x:Name="spTiendas" Grid.Column="0" VerticalAlignment="Top" BorderThickness="0,0,1,0" BorderBrush="Black" Padding="0,5,0,0">
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="spTiendas" VerticalAlignment="Top" BorderThickness="0,0,1,0" BorderBrush="Black" Padding="0,5,0,0">
 
-                <Button x:Name="botonTiendaSteam" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaGamersGate" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaGamesPlanet" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_gamesplanet.png" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoGamesPlanet" Text="GamesPlanet" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaHumble" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaGreenManGaming" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaGOG" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaWinGameStore" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
-                <Button x:Name="botonTiendaSilaGames" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
-                    <StackPanel Orientation="Horizontal">
-                        <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16"/>
-                        <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </Button>
+                    <Button x:Name="botonTiendaSteam" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaGamersGate" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaGamesPlanet" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_gamesplanet.png" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoGamesPlanet" Text="GamesPlanet" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaHumble" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaGreenManGaming" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaGOG" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaWinGameStore" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaSilaGames" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaDLGamer" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_dlgamer.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoDLGamer" Text="DLGamer" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
 
-            </StackPanel>
-
+                </StackPanel>
+            </ScrollViewer> 
+            
             <TextBlock x:Name="tbMensajeTienda" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
 
             <Grid x:Name="gridTiendaSteam" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
@@ -335,10 +317,16 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="1" Width="120">
+                    <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
+                        <ComboBoxItem x:Name="cbTipoBundleStarsBundles"/>
+                        <ComboBoxItem x:Name="cbTipoBundleStarsJuegos"/>
+                        <ComboBoxItem x:Name="cbTipoBundleStarsDLCs"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="2" Width="120">
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
@@ -462,6 +450,41 @@
                 <Grid x:Name="gridProgresoSilaGames" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
                     <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="gridTiendaDLGamer" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="tbOrdenarDLGamer" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarDLGamer" Grid.Column="1" Width="120">
+                        <ComboBoxItem x:Name="cbOrdenarDLGamerDescuento"/>
+                        <ComboBoxItem x:Name="cbOrdenarDLGamerPrecio"/>
+                        <ComboBoxItem x:Name="cbOrdenarDLGamerTitulo"/>
+                    </ComboBox>
+                </Grid>
+
+                <ListView x:Name="listadoDLGamer" Grid.Row="1" IsItemClickEnabled="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <Grid x:Name="gridProgresoDLGamer" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressRing x:Name="prDLGamer" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                    <TextBlock x:Name="tbProgresoDLGamer" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
             </Grid>
         </Grid>
