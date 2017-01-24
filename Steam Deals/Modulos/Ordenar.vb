@@ -10,6 +10,7 @@ Module Ordenar
         Dim lv As ListView = pagina.FindName("listado" + tienda)
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
+        Dim cbPais As ComboBox = pagina.FindName("cbPais" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
         tbProgreso.Text = ""
@@ -19,6 +20,10 @@ Module Ordenar
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = False
+            End If
+
+            If Not cbPais Is Nothing Then
+                cbPais.IsEnabled = False
             End If
 
             cbOrdenar.IsEnabled = False
@@ -52,6 +57,11 @@ Module Ordenar
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim precioX As String = x.PrecioRebajado
                                          Dim precioY As String = y.PrecioRebajado
+
+                                         precioX = precioX.Replace("$", Nothing)
+                                         precioY = precioY.Replace("$", Nothing)
+                                         precioX = precioX.Replace("£", Nothing)
+                                         precioY = precioY.Replace("£", Nothing)
 
                                          If Not precioX.Contains(".") Then
                                              precioX = precioX + ".00"
@@ -123,6 +133,10 @@ Module Ordenar
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = True
+            End If
+
+            If Not cbPais Is Nothing Then
+                cbPais.IsEnabled = True
             End If
 
             cbOrdenar.IsEnabled = True

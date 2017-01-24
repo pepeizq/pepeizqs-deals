@@ -42,6 +42,15 @@ Public NotInheritable Class MainPage
         cbOrdenarGamersGateTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGamersGate.SelectedIndex = 0
 
+        tbPaisGamesPlanet.Text = recursos.GetString("Pais")
+        cbPaisGamesPlanet.SelectedIndex = 0
+
+        tbOrdenarGamesPlanet.Text = recursos.GetString("Ordenar")
+        cbOrdenarGamesPlanetDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarGamesPlanetPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarGamesPlanetTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarGamesPlanet.SelectedIndex = 0
+
         tbOrdenarGreenManGaming.Text = recursos.GetString("Ordenar")
         cbOrdenarGreenManGamingDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGreenManGamingPrecio.Content = recursos.GetString("Precio")
@@ -90,6 +99,7 @@ Public NotInheritable Class MainPage
 
             botonTiendaTextoSteam.Visibility = Visibility.Collapsed
             botonTiendaTextoGamersGate.Visibility = Visibility.Collapsed
+            botonTiendaTextoGamesPlanet.Visibility = Visibility.Collapsed
             botonTiendaTextoHumble.Visibility = Visibility.Collapsed
             botonTiendaTextoGreenManGaming.Visibility = Visibility.Collapsed
             botonTiendaTextoBundleStars.Visibility = Visibility.Collapsed
@@ -99,6 +109,7 @@ Public NotInheritable Class MainPage
         Else
             botonTiendaSteam.Width = 170
             botonTiendaGamersGate.Width = 170
+            botonTiendaGamesPlanet.Width = 170
             botonTiendaHumble.Width = 170
             botonTiendaGreenManGaming.Width = 170
             botonTiendaBundleStars.Width = 170
@@ -143,6 +154,7 @@ Public NotInheritable Class MainPage
 
         botonTiendaSteam.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaGamersGate.Background = New SolidColorBrush(Colors.Transparent)
+        botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaHumble.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
         botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
@@ -154,6 +166,7 @@ Public NotInheritable Class MainPage
 
         gridTiendaSteam.Visibility = Visibility.Collapsed
         gridTiendaGamersGate.Visibility = Visibility.Collapsed
+        gridTiendaGamesPlanet.Visibility = Visibility.Collapsed
         gridTiendaHumble.Visibility = Visibility.Collapsed
         gridTiendaGreenManGaming.Visibility = Visibility.Collapsed
         gridTiendaBundleStars.Visibility = Visibility.Collapsed
@@ -231,6 +244,45 @@ Public NotInheritable Class MainPage
         If gridTiendaGamersGate.Visibility = Visibility.Visible Then
             If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub botonTiendaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamesPlanet.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaGamesPlanet, botonTiendaGamesPlanet)
+
+        If listadoGamesPlanet.Items.Count = 0 Then
+            GamesPlanet.GenerarOfertas()
+            cbOrdenarGamesPlanet.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub cbPaisGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPaisGamesPlanet.SelectionChanged
+
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            GamesPlanet.GenerarOfertas()
+        End If
+
+    End Sub
+
+    Private Async Sub listadoGamesPlanet_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamesPlanet.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub cbOrdenarGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGamesPlanet.SelectionChanged
+
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex)
             End If
         End If
 

@@ -117,6 +117,7 @@
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />
     <Compile Include="Modulos\GamersGate.vb" />
+    <Compile Include="Modulos\GamesPlanet.vb" />
     <Compile Include="Modulos\GOG.vb" />
     <Compile Include="Modulos\GreenManGaming.vb" />
     <Compile Include="Modulos\Humble.vb" />
@@ -177,6 +178,7 @@
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\icon_bundlestars.ico" />
     <Content Include="Assets\icon_gamersgate.ico" />
+    <Content Include="Assets\icon_gamesplanet.png" />
     <Content Include="Assets\icon_gmg.ico" />
     <Content Include="Assets\icon_gog.ico" />
     <Content Include="Assets\icon_humble.ico" />
@@ -195,6 +197,9 @@
     <Content Include="Assets\Medium\Medium150x150Logo.scale-150.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-200.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-400.png" />
+    <Content Include="Assets\pais_de.png" />
+    <Content Include="Assets\pais_fr.png" />
+    <Content Include="Assets\pais_uk.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-100.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-125.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />

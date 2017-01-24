@@ -174,4 +174,7 @@
   <data name="Buscar" xml:space="preserve">
     <value>Buscar</value>
   </data>
+  <data name="Pais" xml:space="preserve">
+    <value>País:</value>
+  </data>
 </root>

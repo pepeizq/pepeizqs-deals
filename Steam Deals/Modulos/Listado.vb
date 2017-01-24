@@ -41,6 +41,9 @@ Module Listado
             ElseIf juego.Tienda = "GamersGate" Then
                 imagen.Height = 65
                 imagen.Width = 45
+            ElseIf juego.Tienda = "GamesPlanet" Then
+                imagen.Height = 85
+                imagen.Width = 150
             ElseIf juego.Tienda = "Humble Bundle" Then
                 imagen.Height = 50
                 imagen.Width = 400
