@@ -58,20 +58,24 @@ Module WinGameStore
                     int4 = temp3.IndexOf(ChrW(34))
                     temp4 = temp3.Remove(int4, temp3.Length - int4)
 
+                    temp4 = temp4.Replace("\u00ae", "®")
+                    temp4 = temp4.Replace("\u2013", "–")
+                    temp4 = temp4.Replace("\u2122", "™")
+
                     Dim titulo As String = temp4.Trim
 
                     Dim temp5, temp6 As String
                     Dim int5, int6 As Integer
 
-                    int5 = temp2.IndexOf("WGSURL" + ChrW(34) + ":" + ChrW(34))
-                    temp5 = temp2.Remove(0, int5 + 9)
+                    int5 = temp2.IndexOf("http:\/\/www.wingamestore")
+                    temp5 = temp2.Remove(0, int5)
 
                     int6 = temp5.IndexOf(ChrW(34))
                     temp6 = temp5.Remove(int6, temp5.Length - int6)
 
                     temp6 = temp6.Replace("\", Nothing)
 
-                    Dim enlace As String = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + temp6.Trim
+                    Dim enlace As String = temp6.Trim
 
                     Dim imagen As String = Nothing
 
@@ -83,6 +87,10 @@ Module WinGameStore
 
                     If Not temp7 = "0" Then
                         Dim precio As String = "$" + temp7.Trim
+
+                        If Not precio.Contains(".") Then
+                            precio = precio + ".00"
+                        End If
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
@@ -120,6 +128,63 @@ Module WinGameStore
             End If
             i += 1
         End While
+
+        i = 0
+        For Each juego In listaJuegos
+
+            Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
+            Dim htmlJuego As String = htmlJuego_.Result
+
+            If Not htmlJuego = Nothing Then
+                If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
+                    Dim temp, temp2, temp3 As String
+                    Dim int, int2, int3 As Integer
+
+                    int = htmlJuego.IndexOf("<meta property=" + ChrW(34) + "og:image")
+                    temp = htmlJuego.Remove(0, int + 5)
+
+                    int2 = temp.IndexOf("content=")
+                    temp2 = temp.Remove(0, int2 + 9)
+
+                    int3 = temp2.IndexOf(ChrW(34))
+                    temp3 = temp2.Remove(int3, temp2.Length - int3)
+
+                    juego.Imagen = temp3.Trim
+                End If
+
+                If htmlJuego.Contains("<div class=" + ChrW(34) + "image-wrap220") Then
+                    Dim temp, temp2, temp3 As String
+                    Dim int, int2, int3 As Integer
+
+                    int = htmlJuego.IndexOf("<div class=" + ChrW(34) + "image-wrap220")
+                    temp = htmlJuego.Remove(0, int + 5)
+
+                    int2 = temp.IndexOf("<img src=")
+                    temp2 = temp.Remove(0, int2 + 10)
+
+                    int3 = temp2.IndexOf(ChrW(34))
+                    temp3 = temp2.Remove(int3, temp2.Length - int3)
+
+                    juego.Imagen = "http://www.wingamestore.com" + temp3.Trim
+                End If
+
+                If htmlJuego.Contains("<label>DRM</label><b>Steam</b>") Then
+                    juego.DRM = "steam"
+                ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam & DRM Free</b>") Then
+                    juego.DRM = "steam"
+                End If
+
+                If juego.Enlace.Contains("3861/XCOM-Enemy-Within") Then
+                    juego.DRM = "steam"
+                End If
+            End If
+
+            juego.Enlace = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + juego.Enlace
+
+            Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
+            bw.ReportProgress(porcentaje)
+            i += 1
+        Next
 
     End Sub
 

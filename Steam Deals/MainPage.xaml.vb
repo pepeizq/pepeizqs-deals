@@ -51,6 +51,16 @@ Public NotInheritable Class MainPage
         cbOrdenarGamesPlanetTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGamesPlanet.SelectedIndex = 0
 
+        cbTipoHumbleBundles.Content = recursos.GetString("Bundles")
+        cbTipoHumbleJuegos.Content = recursos.GetString("Juegos")
+        cbTipoHumble.SelectedIndex = 0
+
+        tbOrdenarHumble.Text = recursos.GetString("Ordenar")
+        cbOrdenarHumbleDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarHumblePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarHumbleTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarHumble.SelectedIndex = 0
+
         tbOrdenarGreenManGaming.Text = recursos.GetString("Ordenar")
         cbOrdenarGreenManGamingDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGreenManGamingPrecio.Content = recursos.GetString("Precio")
@@ -324,6 +334,32 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub cbTipoHumble_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbTipoHumble.SelectionChanged
+
+        If gridTiendaHumble.Visibility = Visibility.Visible Then
+            If cbTipoHumble.SelectedIndex = 0 Then
+                tbOrdenarHumble.Visibility = Visibility.Collapsed
+                cbOrdenarHumble.Visibility = Visibility.Collapsed
+                Humble.GenerarBundles()
+            Else
+                tbOrdenarHumble.Visibility = Visibility.Visible
+                cbOrdenarHumble.Visibility = Visibility.Visible
+                Humble.GenerarOfertas()
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbOrdenarHumble_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarHumble.SelectionChanged
+
+        If gridTiendaHumble.Visibility = Visibility.Visible Then
+            If Not gridProgresoHumble.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex)
+            End If
+        End If
 
     End Sub
 

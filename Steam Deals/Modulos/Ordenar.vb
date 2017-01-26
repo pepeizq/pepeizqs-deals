@@ -4,6 +4,13 @@ Module Ordenar
 
     Public Async Sub Ofertas(tienda As String, tipo As Integer)
 
+        Dim bundle As Boolean = False
+
+        If tienda = "HumbleBundle" Then
+            tienda = "Humble"
+            bundle = True
+        End If
+
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
@@ -32,11 +39,11 @@ Module Ordenar
             Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
             Dim listaJuegos As List(Of Juego) = Nothing
 
-            If Await helper.FileExistsAsync("listaOfertas" + tienda) = True Then
-                listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda)
-            End If
-
-            If listaJuegos Is Nothing Then
+            If bundle = False Then
+                If Await helper.FileExistsAsync("listaOfertas" + tienda) = True Then
+                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda)
+                End If
+            Else
                 If Await helper.FileExistsAsync("listaBundles" + tienda) = True Then
                     listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaBundles" + tienda)
                 End If

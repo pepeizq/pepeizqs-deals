@@ -39,8 +39,8 @@ Module Listado
                 imagen.Height = 45
                 imagen.Width = 120
             ElseIf juego.Tienda = "GamersGate" Then
-                imagen.Height = 65
-                imagen.Width = 45
+                imagen.Height = 90
+                imagen.Width = 63
             ElseIf juego.Tienda = "GamesPlanet" Then
                 imagen.Height = 85
                 imagen.Width = 150
@@ -48,6 +48,9 @@ Module Listado
                 imagen.Height = 50
                 imagen.Width = 400
                 imagen.Stretch = Stretch.Uniform
+            ElseIf juego.Tienda = "Humble Store" Then
+                imagen.Height = 63
+                imagen.Width = 101
             ElseIf juego.Tienda = "Green Man Gaming" Then
                 imagen.Height = 79
                 imagen.Width = 59
@@ -63,6 +66,9 @@ Module Listado
             ElseIf juego.Tienda = "DLGamer" Then
                 imagen.Height = 97
                 imagen.Width = 70
+            ElseIf juego.Tienda = "WinGameStore" Then
+                imagen.Height = 70
+                imagen.Width = 110
             End If
 
             imagen.Margin = New Thickness(0, 2, 10, 2)

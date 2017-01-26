@@ -238,7 +238,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,10" Visibility="Collapsed">
+                <Grid Grid.Row="0" Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -249,8 +249,8 @@
                         <ComboBoxItem x:Name="cbTipoHumbleBundles"/>
                         <ComboBoxItem x:Name="cbTipoHumbleJuegos"/>
                     </ComboBox>
-                    <TextBlock x:Name="tbOrdenarHumble" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarHumble" Grid.Column="2" Width="120">
+                    <TextBlock x:Name="tbOrdenarHumble" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <ComboBox x:Name="cbOrdenarHumble" Grid.Column="2" Width="120" Visibility="Collapsed">
                         <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
