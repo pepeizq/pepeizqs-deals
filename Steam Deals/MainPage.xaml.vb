@@ -1,4 +1,5 @@
-﻿Imports Windows.System
+﻿Imports Windows.ApplicationModel.DataTransfer
+Imports Windows.System
 Imports Windows.System.Profile
 Imports Windows.UI
 
@@ -20,9 +21,13 @@ Public NotInheritable Class MainPage
 
         Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
-        botonOfertas.Label = recursos.GetString("Ofertas")
-        botonMasApps.Label = recursos.GetString("Boton Web")
+        botonPrincipal.Label = recursos.GetString("Ofertas")
         botonVotar.Label = recursos.GetString("Boton Votar")
+        botonCompartir.Label = recursos.GetString("Boton Compartir")
+        botonContacto.Label = recursos.GetString("Boton Contactar")
+        botonMasApps.Label = recursos.GetString("Boton Web")
+
+        tbHamburgerTiendas.Text = recursos.GetString("Tiendas")
 
         cbTipoSteamJuegos.Content = recursos.GetString("Juegos")
         cbTipoSteamBundles.Content = recursos.GetString("Bundles")
@@ -118,27 +123,11 @@ Public NotInheritable Class MainPage
             Dim barraMobile As StatusBar = StatusBar.GetForCurrentView()
             Await barraMobile.HideAsync()
 
-            botonTiendaTextoSteam.Visibility = Visibility.Collapsed
-            botonTiendaTextoGamersGate.Visibility = Visibility.Collapsed
-            botonTiendaTextoGamesPlanet.Visibility = Visibility.Collapsed
-            botonTiendaTextoHumble.Visibility = Visibility.Collapsed
-            botonTiendaTextoGreenManGaming.Visibility = Visibility.Collapsed
-            botonTiendaTextoBundleStars.Visibility = Visibility.Collapsed
-            botonTiendaTextoGOG.Visibility = Visibility.Collapsed
-            botonTiendaTextoWinGameStore.Visibility = Visibility.Collapsed
-            botonTiendaTextoSilaGames.Visibility = Visibility.Collapsed
-            botonTiendaTextoDLGamer.Visibility = Visibility.Collapsed
+            spTiendas.Visibility = Visibility.Collapsed
+            botonPrincipal.Visibility = Visibility.Collapsed
         Else
-            botonTiendaSteam.Width = 170
-            botonTiendaGamersGate.Width = 170
-            botonTiendaGamesPlanet.Width = 170
-            botonTiendaHumble.Width = 170
-            botonTiendaGreenManGaming.Width = 170
-            botonTiendaBundleStars.Width = 170
-            botonTiendaGOG.Width = 170
-            botonTiendaWinGameStore.Width = 170
-            botonTiendaSilaGames.Width = 170
-            botonTiendaDLGamer.Width = 170
+            commadBarTop.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right
+            botonHamburger.Visibility = Visibility.Collapsed
         End If
 
     End Sub
@@ -147,21 +136,16 @@ Public NotInheritable Class MainPage
 
         gridDeals.Visibility = Visibility.Collapsed
         gridSearch.Visibility = Visibility.Collapsed
+        gridWebContacto.Visibility = Visibility.Collapsed
         gridWeb.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
     End Sub
 
-    Private Sub botonOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertas.Click
+    Private Sub botonPrincipal_Click(sender As Object, e As RoutedEventArgs) Handles botonPrincipal.Click
 
         GridVisibilidad(gridDeals)
-
-    End Sub
-
-    Private Sub botonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
-
-        GridVisibilidad(gridWeb)
 
     End Sub
 
@@ -171,22 +155,55 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub botonCompartir_Click(sender As Object, e As RoutedEventArgs) Handles botonCompartir.Click
+
+        Dim datos As DataTransferManager = DataTransferManager.GetForCurrentView()
+        AddHandler datos.DataRequested, AddressOf MainPage_DataRequested
+        DataTransferManager.ShowShareUI()
+
+    End Sub
+
+    Private Sub MainPage_DataRequested(sender As DataTransferManager, e As DataRequestedEventArgs)
+
+        Dim request As DataRequest = e.Request
+        request.Data.SetText("Download: https://www.microsoft.com/store/apps/9p7836m1tw15")
+        request.Data.Properties.Title = "Steam Deals"
+        request.Data.Properties.Description = "Find the best deals on Steam and other digital stores"
+
+    End Sub
+
+    Private Sub botonContacto_Click(sender As Object, e As RoutedEventArgs) Handles botonContacto.Click
+
+        GridVisibilidad(gridWebContacto)
+
+    End Sub
+
+    Private Sub botonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
+
+        GridVisibilidad(gridWeb)
+
+    End Sub
+
     'OFERTAS-----------------------------------------------------------------------------
 
     Private Sub GridTiendasVisibilidad(grid As Grid, button As Button)
 
-        botonTiendaSteam.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaGamersGate.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaHumble.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
-        botonTiendaDLGamer.Background = New SolidColorBrush(Colors.Transparent)
+        GridVisibilidad(gridDeals)
 
-        button.Background = New SolidColorBrush(Microsoft.Toolkit.Uwp.ColorHelper.ToColor("#bfbfbf"))
+        If Not button Is Nothing Then
+            botonTiendaSteam.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaGamersGate.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaHumble.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaDLGamer.Background = New SolidColorBrush(Colors.Transparent)
+
+            button.Background = New SolidColorBrush(Microsoft.Toolkit.Uwp.ColorHelper.ToColor("#bfbfbf"))
+        End If
 
         gridTiendaSteam.Visibility = Visibility.Collapsed
         gridTiendaGamersGate.Visibility = Visibility.Collapsed
@@ -207,6 +224,19 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaSteam, botonTiendaSteam)
+
+        If listadoSteam.Items.Count = 0 Then
+            Steam.GenerarOfertas(0)
+            cbTipoSteam.SelectedIndex = 0
+            cbOrdenarSteam.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaSteam_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaSteam.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaSteam, Nothing)
 
         If listadoSteam.Items.Count = 0 Then
             Steam.GenerarOfertas(0)
@@ -255,6 +285,18 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub menuItemTiendaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaGamersGate.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaGamersGate, Nothing)
+
+        If listadoGamersGate.Items.Count = 0 Then
+            GamersGate.GenerarOfertas()
+            cbOrdenarGamersGate.SelectedIndex = 0
+        End If
+
+    End Sub
+
     Private Async Sub listadoGamersGate_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamersGate.ItemClick
 
         Dim grid As Grid = e.ClickedItem
@@ -278,6 +320,18 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGamesPlanet, botonTiendaGamesPlanet)
+
+        If listadoGamesPlanet.Items.Count = 0 Then
+            GamesPlanet.GenerarOfertas()
+            cbOrdenarGamesPlanet.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaGamesPlanet.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaGamesPlanet, Nothing)
 
         If listadoGamesPlanet.Items.Count = 0 Then
             GamesPlanet.GenerarOfertas()
@@ -319,6 +373,19 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaHumble, botonTiendaHumble)
+
+        If listadoHumble.Items.Count = 0 Then
+            Humble.GenerarBundles()
+            cbTipoHumble.SelectedIndex = 0
+            cbOrdenarHumble.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaHumble_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaHumble.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaHumble, Nothing)
 
         If listadoHumble.Items.Count = 0 Then
             Humble.GenerarBundles()
@@ -375,6 +442,18 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub menuItemTiendaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaGreenManGaming.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaGreenManGaming, Nothing)
+
+        If listadoGreenManGaming.Items.Count = 0 Then
+            GreenManGaming.GenerarOfertas()
+            cbOrdenarGreenManGaming.SelectedIndex = 0
+        End If
+
+    End Sub
+
     Private Sub cbOrdenarGreenManGaming_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGreenManGaming.SelectionChanged
 
         If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
@@ -398,6 +477,18 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaBundleStars, botonTiendaBundleStars)
+
+        If listadoBundleStars.Items.Count = 0 Then
+            BundleStars.GenerarOfertas()
+            cbOrdenarBundleStars.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaBundleStars.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaBundleStars, Nothing)
 
         If listadoBundleStars.Items.Count = 0 Then
             BundleStars.GenerarOfertas()
@@ -445,6 +536,18 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub menuItemTiendaGOG_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaGOG.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaGOG, Nothing)
+
+        If listadoGOG.Items.Count = 0 Then
+            GOG.GenerarOfertas()
+            cbOrdenarGOG.SelectedIndex = 0
+        End If
+
+    End Sub
+
     Private Async Sub listadoGOG_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGOG.ItemClick
 
         Dim grid As Grid = e.ClickedItem
@@ -468,6 +571,18 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaWinGameStore, botonTiendaWinGameStore)
+
+        If listadoWinGameStore.Items.Count = 0 Then
+            WinGameStore.GenerarOfertas()
+            cbOrdenarWinGameStore.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaWinGameStore.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaWinGameStore, Nothing)
 
         If listadoWinGameStore.Items.Count = 0 Then
             WinGameStore.GenerarOfertas()
@@ -507,6 +622,18 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub menuItemTiendaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaSilaGames.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaSilaGames, Nothing)
+
+        If listadoSilaGames.Items.Count = 0 Then
+            SilaGames.GenerarOfertas()
+            cbOrdenarSilaGames.SelectedIndex = 0
+        End If
+
+    End Sub
+
     Private Async Sub listadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
 
         Dim grid As Grid = e.ClickedItem
@@ -530,6 +657,18 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaDLGamer, botonTiendaDLGamer)
+
+        If listadoDLGamer.Items.Count = 0 Then
+            DLGamer.GenerarOfertas()
+            cbOrdenarDLGamer.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaDLGamer.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaDLGamer, Nothing)
 
         If listadoDLGamer.Items.Count = 0 Then
             DLGamer.GenerarOfertas()

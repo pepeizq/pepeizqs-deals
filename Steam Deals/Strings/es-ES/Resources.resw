@@ -166,7 +166,7 @@
     <value>Selecciona una tienda para cargar las ofertas</value>
   </data>
   <data name="Tiendas" xml:space="preserve">
-    <value>Tiendas:</value>
+    <value>Tiendas</value>
   </data>
   <data name="Cero Resultados" xml:space="preserve">
     <value>No hay resultados</value>

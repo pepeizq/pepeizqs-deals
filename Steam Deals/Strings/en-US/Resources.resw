@@ -166,7 +166,7 @@
     <value>Select a store to load deals</value>
   </data>
   <data name="Tiendas" xml:space="preserve">
-    <value>Stores:</value>
+    <value>Stores</value>
   </data>
   <data name="Cero Resultados" xml:space="preserve">
     <value>No results</value>

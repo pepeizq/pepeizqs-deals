@@ -9,7 +9,7 @@
     mc:Ignorable="d" Loaded="Page_Loaded" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.TopAppBar>
-        <CommandBar Foreground="White" VerticalAlignment="Center" VerticalContentAlignment="Center">
+        <CommandBar x:Name="commadBarTop" Foreground="White">
             <CommandBar.Background>
                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                     <GradientStop Color="OliveDrab" Offset="0.5" />
@@ -17,21 +17,59 @@
                 </LinearGradientBrush>
             </CommandBar.Background>
 
+            <CommandBar.Content>
+                <Grid Height="48">
+                    <Button x:Name="botonHamburger" Background="Transparent" Foreground="White">
+                        <Button.Content>
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon Glyph="&#59136;"/>
+                                    <TextBlock x:Name="tbHamburgerTiendas" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Button.Content>
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Name="menuItemTiendaSteam" Text="Steam"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaGamersGate" Text="GamersGate"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaGamesPlanet" Text="GamesPlanet"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaHumble" Text="Humble"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaGreenManGaming" Text="Green Man Gaming"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaBundleStars" Text="BundleStars"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaGOG" Text="GOG"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaWinGameStore" Text="WinGameStore"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaSilaGames" Text="Sila Games"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaDLGamer" Text="DLGamer"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                </Grid>
+            </CommandBar.Content>
+
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="botonOfertas" Icon="Home" Foreground="White"/>
-                <AppBarSeparator Foreground="White"/>
-                <AppBarButton x:Name="botonVotar" Icon="Like" Foreground="White"/>
-                <AppBarButton x:Name="botonMasApps" Icon="World" Foreground="White"/>
+                <AppBarButton x:Name="botonPrincipal" Icon="Home" Foreground="White" FontSize="17"/>
             </CommandBar.PrimaryCommands>
+
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="botonVotar" Icon="Like"/>
+                <AppBarButton x:Name="botonCompartir">
+                    <AppBarButton.Icon>
+                        <FontIcon Glyph="&#59181;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarSeparator/>
+                <AppBarButton x:Name="botonContacto" Icon="Contact"/>
+                <AppBarButton x:Name="botonMasApps" Icon="World"/>
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.TopAppBar>
 
-    <Grid Background="#FFE4E4E4">
+    <Grid Background="#FFE4E4E4" Padding="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="gridDeals" Grid.Row="0" Padding="5">
+        <Grid x:Name="gridDeals" Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -40,61 +78,61 @@
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
                 <StackPanel x:Name="spTiendas" VerticalAlignment="Top" BorderThickness="0,0,1,0" BorderBrush="Black" Padding="0,5,0,0">
 
-                    <Button x:Name="botonTiendaSteam" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaSteam" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGamersGate" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaGamersGate" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGamesPlanet" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaGamesPlanet" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_gamesplanet.png" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoGamesPlanet" Text="GamesPlanet" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaHumble" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaHumble" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGreenManGaming" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaGreenManGaming" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGOG" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaGOG" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaWinGameStore" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaWinGameStore" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaSilaGames" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaSilaGames" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaDLGamer" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0">
+                    <Button x:Name="botonTiendaDLGamer" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_dlgamer.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoDLGamer" Text="DLGamer" Margin="5,0,0,0"/>
@@ -489,7 +527,7 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="gridSearch" Grid.Row="0" Padding="5" Visibility="Collapsed">
+        <Grid x:Name="gridSearch" Grid.Row="0" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -583,7 +621,11 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="gridWeb" Grid.Row="0" Padding="5" Visibility="Collapsed">
+        <Grid x:Name="gridWebContacto" Grid.Row="0" Visibility="Collapsed">
+            <WebView x:Name="webViewContacto" Source="https://pepeizqapps.com/contact/" />
+        </Grid>
+
+        <Grid x:Name="gridWeb" Grid.Row="0" Visibility="Collapsed">
             <WebView x:Name="webViewWeb" Source="https://pepeizqapps.com/" />
         </Grid>
     </Grid>
