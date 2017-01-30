@@ -22,6 +22,9 @@ Module GamersGate
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
         cbOrdenar.IsEnabled = False
 
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
+        cbPlataforma.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamersGate")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -76,8 +79,9 @@ Module GamersGate
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarGamersGate")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
 
-        Ordenar.Ofertas("GamersGate", cb.SelectedIndex)
+        Ordenar.Ofertas("GamersGate", cb.SelectedIndex, cbPlataforma.SelectedIndex)
 
     End Sub
 
@@ -253,7 +257,7 @@ Module GamersGate
                                         linux = True
                                     End If
 
-                                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate")
+                                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate", True)
 
                                     bw.ReportProgress(0, juego)
                                 End If

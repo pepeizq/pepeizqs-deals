@@ -22,6 +22,9 @@ Module BundleStars
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
         cbOrdenar.IsEnabled = False
 
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaBundleStars")
+        cbPlataforma.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -225,7 +228,7 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "BundleStars")
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "BundleStars", True)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -271,8 +274,9 @@ Module BundleStars
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarBundleStars")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaBundleStars")
 
-        Ordenar.Ofertas("BundleStars", cb.SelectedIndex)
+        Ordenar.Ofertas("BundleStars", cb.SelectedIndex, cbPlataforma.SelectedIndex)
 
     End Sub
 

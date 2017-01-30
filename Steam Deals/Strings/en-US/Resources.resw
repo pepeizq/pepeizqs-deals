@@ -177,4 +177,7 @@
   <data name="Pais" xml:space="preserve">
     <value>Country:</value>
   </data>
+  <data name="Plataforma" xml:space="preserve">
+    <value>Platforms:</value>
+  </data>
 </root>

@@ -10,6 +10,12 @@ Module Listado
         grid.Tag = juego.Enlace
         grid.Padding = New Thickness(0, 0, 10, 0)
 
+        If juego.Visibilidad = True Then
+            grid.Visibility = Visibility.Visible
+        Else
+            grid.Visibility = Visibility.Collapsed
+        End If
+
         Dim col1 As New ColumnDefinition
         Dim col2 As New ColumnDefinition
         Dim col3 As New ColumnDefinition
@@ -184,18 +190,6 @@ Module Listado
         '-------------------------------
 
         If Not juego.DRM = Nothing Then
-            Dim fondoDRM As New Grid
-            fondoDRM.Height = 34
-            fondoDRM.Background = New SolidColorBrush(Colors.Silver)
-
-            If boolSistemas = True Then
-                fondoDRM.Padding = New Thickness(0, 0, 6, 0)
-                fondoDRM.Margin = New Thickness(0, 0, 0, 0)
-            Else
-                fondoDRM.Padding = New Thickness(6, 0, 6, 0)
-                fondoDRM.Margin = New Thickness(10, 0, 0, 0)
-            End If
-
             Dim imagenDRM As New ImageEx
 
             If juego.DRM.ToLower.Contains("steam") Then
@@ -208,11 +202,26 @@ Module Listado
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_gog.ico"))
             End If
 
-            imagenDRM.Width = 16
-            imagenDRM.Height = 16
-            fondoDRM.Children.Add(imagenDRM)
-            fondoDRM.SetValue(Grid.ColumnProperty, 3)
-            grid.Children.Add(fondoDRM)
+            If Not imagenDRM.Source Is Nothing Then
+                imagenDRM.Width = 16
+                imagenDRM.Height = 16
+
+                Dim fondoDRM As New Grid
+                fondoDRM.Height = 34
+                fondoDRM.Background = New SolidColorBrush(Colors.Silver)
+
+                If boolSistemas = True Then
+                    fondoDRM.Padding = New Thickness(0, 0, 6, 0)
+                    fondoDRM.Margin = New Thickness(0, 0, 0, 0)
+                Else
+                    fondoDRM.Padding = New Thickness(6, 0, 6, 0)
+                    fondoDRM.Margin = New Thickness(10, 0, 0, 0)
+                End If
+
+                fondoDRM.Children.Add(imagenDRM)
+                fondoDRM.SetValue(Grid.ColumnProperty, 3)
+                grid.Children.Add(fondoDRM)
+            End If
         End If
 
         '-------------------------------
@@ -244,8 +253,13 @@ Module Listado
             fondoPrecio.Padding = New Thickness(5, 0, 5, 0)
             fondoPrecio.Height = 34
             fondoPrecio.MinWidth = 60
-            fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
             fondoPrecio.HorizontalAlignment = HorizontalAlignment.Center
+
+            If Not AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
+                fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
+            Else
+                fondoPrecio.Margin = New Thickness(10, 0, 0, 0)
+            End If
 
             Dim textoPrecio As New TextBlock
             textoPrecio.Text = juego.PrecioRebajado

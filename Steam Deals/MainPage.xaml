@@ -155,6 +155,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <ComboBox x:Name="cbTipoSteam" Grid.Column="0" Width="120">
@@ -168,6 +170,12 @@
                         <ComboBoxItem x:Name="cbOrdenarSteamDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarSteamPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarSteamTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaSteam" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaSteam" Grid.Column="4" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
                     </ComboBox>
                 </Grid>
 
@@ -196,6 +204,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarGamersGate" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -203,6 +213,12 @@
                         <ComboBoxItem x:Name="cbOrdenarGamersGateDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarGamersGatePrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarGamersGateTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaGamersGate" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaGamersGate" Grid.Column="3" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
                     </ComboBox>
                 </Grid>
 
@@ -233,6 +249,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbPaisGamesPlanet" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -252,6 +270,12 @@
                         <ComboBoxItem x:Name="cbOrdenarGamesPlanetDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarGamesPlanetPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarGamesPlanetTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaGamesPlanet" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaGamesPlanet" Grid.Column="5" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
                     </ComboBox>
                 </Grid>
 
@@ -281,6 +305,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <ComboBox x:Name="cbTipoHumble" Grid.Column="0" Width="120">
@@ -292,6 +318,12 @@
                         <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaHumble" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <ComboBox x:Name="cbPlataformaHumble" Grid.Column="4" Width="120" Visibility="Collapsed">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
                     </ComboBox>
                 </Grid>
 
@@ -356,6 +388,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
@@ -368,6 +402,12 @@
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaBundleStars" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaBundleStars" Grid.Column="4" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
                     </ComboBox>
                 </Grid>
 
@@ -396,6 +436,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarGOG" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -403,6 +445,12 @@
                         <ComboBoxItem x:Name="cbOrdenarGOGDescuento"/>
                         <ComboBoxItem x:Name="cbOrdenarGOGPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarGOGTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaGOG" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaGOG" Grid.Column="3" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
                     </ComboBox>
                 </Grid>
 

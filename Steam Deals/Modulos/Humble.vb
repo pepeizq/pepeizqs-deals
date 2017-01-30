@@ -21,6 +21,9 @@ Module Humble
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False
 
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
+        cbPlataforma.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -38,7 +41,7 @@ Module Humble
 
         listaBundles = New List(Of Juego)
 
-        Dim monthly As New Juego("Humble Monthly", "https://humble.com/monthly?refc=VyPXaW", "https://pepeizqapps.files.wordpress.com/2017/01/humblemontly.png", "$12.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle")
+        Dim monthly As New Juego("Humble Monthly", "https://humble.com/monthly?refc=VyPXaW", "https://pepeizqapps.files.wordpress.com/2017/01/humblemontly.png", "$12.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", True)
         listaBundles.Add(monthly)
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com"))
@@ -136,7 +139,7 @@ Module Humble
 
                     Dim enlace As String = temp13.Trim
 
-                    Dim bundle As New Juego(titulo, enlace, imagen, "$1.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle")
+                    Dim bundle As New Juego(titulo, enlace, imagen, "$1.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", True)
 
                     listaBundles.Add(bundle)
                 End If
@@ -150,7 +153,7 @@ Module Humble
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaBundlesHumble", listaBundles)
 
-        Ordenar.Ofertas("HumbleBundle", 2)
+        Ordenar.Ofertas("HumbleBundle", 2, Nothing)
 
     End Sub
 
@@ -173,6 +176,9 @@ Module Humble
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False
+
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
+        cbPlataforma.IsEnabled = False
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
@@ -231,6 +237,7 @@ Module Humble
                             temp4 = temp3.Remove(int4, temp3.Length - int4)
 
                             temp4 = temp4.Replace("\u007e", "ç")
+                            temp4 = temp4.Replace("\u00b2", "²")
                             temp4 = temp4.Replace("\u00fc", "ü")
                             temp4 = temp4.Replace("\u00ae", "®")
                             temp4 = temp4.Replace("\u2019", "'")
@@ -343,7 +350,7 @@ Module Humble
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Humble Store")
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Humble Store", True)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -399,8 +406,9 @@ Module Humble
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarHumble")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
 
-        Ordenar.Ofertas("Humble", cb.SelectedIndex)
+        Ordenar.Ofertas("Humble", cb.SelectedIndex, cbPlataforma.SelectedIndex)
 
     End Sub
 

@@ -41,11 +41,17 @@ Public NotInheritable Class MainPage
         cbOrdenarSteamTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarSteam.SelectedIndex = 0
 
+        tbPlataformaSteam.Text = recursos.GetString("Plataforma")
+        cbPlataformaSteam.SelectedIndex = 0
+
         tbOrdenarGamersGate.Text = recursos.GetString("Ordenar")
         cbOrdenarGamersGateDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGamersGatePrecio.Content = recursos.GetString("Precio")
         cbOrdenarGamersGateTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGamersGate.SelectedIndex = 0
+
+        tbPlataformaGamersGate.Text = recursos.GetString("Plataforma")
+        cbPlataformaGamersGate.SelectedIndex = 0
 
         tbPaisGamesPlanet.Text = recursos.GetString("Pais")
         cbPaisGamesPlanet.SelectedIndex = 0
@@ -56,6 +62,9 @@ Public NotInheritable Class MainPage
         cbOrdenarGamesPlanetTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGamesPlanet.SelectedIndex = 0
 
+        tbPlataformaGamesPlanet.Text = recursos.GetString("Plataforma")
+        cbPlataformaGamesPlanet.SelectedIndex = 0
+
         cbTipoHumbleBundles.Content = recursos.GetString("Bundles")
         cbTipoHumbleJuegos.Content = recursos.GetString("Juegos")
         cbTipoHumble.SelectedIndex = 0
@@ -65,6 +74,9 @@ Public NotInheritable Class MainPage
         cbOrdenarHumblePrecio.Content = recursos.GetString("Precio")
         cbOrdenarHumbleTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarHumble.SelectedIndex = 0
+
+        tbPlataformaHumble.Text = recursos.GetString("Plataforma")
+        cbPlataformaHumble.SelectedIndex = 0
 
         tbOrdenarGreenManGaming.Text = recursos.GetString("Ordenar")
         cbOrdenarGreenManGamingDescuento.Content = recursos.GetString("Descuento")
@@ -83,11 +95,17 @@ Public NotInheritable Class MainPage
         cbOrdenarBundleStarsTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarBundleStars.SelectedIndex = 0
 
+        tbPlataformaBundleStars.Text = recursos.GetString("Plataforma")
+        cbPlataformaBundleStars.SelectedIndex = 0
+
         tbOrdenarGOG.Text = recursos.GetString("Ordenar")
         cbOrdenarGOGDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGOGPrecio.Content = recursos.GetString("Precio")
         cbOrdenarGOGTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGOG.SelectedIndex = 0
+
+        tbPlataformaGOG.Text = recursos.GetString("Plataforma")
+        cbPlataformaGOG.SelectedIndex = 0
 
         tbOrdenarWinGameStore.Text = recursos.GetString("Ordenar")
         cbOrdenarWinGameStoreDescuento.Content = recursos.GetString("Descuento")
@@ -128,6 +146,19 @@ Public NotInheritable Class MainPage
             gridTiendaWinGameStore.Padding = New Thickness(0, 0, 0, 0)
             gridTiendaSilaGames.Padding = New Thickness(0, 0, 0, 0)
             gridTiendaDLGamer.Padding = New Thickness(0, 0, 0, 0)
+
+            tbPlataformaSteam.Visibility = Visibility.Collapsed
+            cbPlataformaSteam.Visibility = Visibility.Collapsed
+            tbPlataformaGamersGate.Visibility = Visibility.Collapsed
+            cbPlataformaGamersGate.Visibility = Visibility.Collapsed
+            tbPlataformaGamesPlanet.Visibility = Visibility.Collapsed
+            cbPlataformaGamesPlanet.Visibility = Visibility.Collapsed
+            tbPlataformaHumble.Visibility = Visibility.Collapsed
+            cbPlataformaHumble.Visibility = Visibility.Collapsed
+            tbPlataformaBundleStars.Visibility = Visibility.Collapsed
+            cbPlataformaBundleStars.Visibility = Visibility.Collapsed
+            tbPlataformaGOG.Visibility = Visibility.Collapsed
+            cbPlataformaGOG.Visibility = Visibility.Collapsed
         Else
             commadBarTop.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right
             botonHamburger.Visibility = Visibility.Collapsed
@@ -269,7 +300,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaSteam.Visibility = Visibility.Visible Then
             If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex)
+                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, cbPlataformaSteam.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaSteam_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaSteam.SelectionChanged
+
+        If gridTiendaSteam.Visibility = Visibility.Visible Then
+            If Not gridProgresoSteam.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, cbPlataformaSteam.SelectedIndex)
             End If
         End If
 
@@ -312,7 +353,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGamersGate.Visibility = Visibility.Visible Then
             If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex)
+                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, cbPlataformaGamersGate.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaGamersGate_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaGamersGate.SelectionChanged
+
+        If gridTiendaGamersGate.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, cbPlataformaGamersGate.SelectedIndex)
             End If
         End If
 
@@ -365,7 +416,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
             If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex)
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, cbPlataformaGamesPlanet.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaGamesPlanet.SelectionChanged
+
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, cbPlataformaGamesPlanet.SelectedIndex)
             End If
         End If
 
@@ -412,10 +473,14 @@ Public NotInheritable Class MainPage
             If cbTipoHumble.SelectedIndex = 0 Then
                 tbOrdenarHumble.Visibility = Visibility.Collapsed
                 cbOrdenarHumble.Visibility = Visibility.Collapsed
+                tbPlataformaHumble.Visibility = Visibility.Collapsed
+                cbPlataformaHumble.Visibility = Visibility.Collapsed
                 Humble.GenerarBundles()
             Else
                 tbOrdenarHumble.Visibility = Visibility.Visible
                 cbOrdenarHumble.Visibility = Visibility.Visible
+                tbPlataformaHumble.Visibility = Visibility.Visible
+                cbPlataformaHumble.Visibility = Visibility.Visible
                 Humble.GenerarOfertas()
             End If
         End If
@@ -426,7 +491,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaHumble.Visibility = Visibility.Visible Then
             If Not gridProgresoHumble.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex)
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, cbPlataformaHumble.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaHumble_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaHumble.SelectionChanged
+
+        If gridTiendaHumble.Visibility = Visibility.Visible Then
+            If Not gridProgresoHumble.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, cbPlataformaHumble.SelectedIndex)
             End If
         End If
 
@@ -460,7 +535,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
             If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex)
+                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, Nothing)
             End If
         End If
 
@@ -520,7 +595,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaBundleStars.Visibility = Visibility.Visible Then
             If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex)
+                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, cbPlataformaBundleStars.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaBundleStars_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaBundleStars.SelectionChanged
+
+        If gridTiendaBundleStars.Visibility = Visibility.Visible Then
+            If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, cbPlataformaBundleStars.SelectedIndex)
             End If
         End If
 
@@ -563,7 +648,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGOG.Visibility = Visibility.Visible Then
             If Not gridProgresoGOG.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex)
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, cbPlataformaGOG.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaGOG_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaGOG.SelectionChanged
+
+        If gridTiendaGOG.Visibility = Visibility.Visible Then
+            If Not gridProgresoGOG.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, cbPlataformaGOG.SelectedIndex)
             End If
         End If
 
@@ -606,7 +701,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
             If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex)
+                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, Nothing)
             End If
         End If
 
@@ -649,7 +744,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaSilaGames.Visibility = Visibility.Visible Then
             If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex)
+                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, Nothing)
             End If
         End If
 
@@ -692,7 +787,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaDLGamer.Visibility = Visibility.Visible Then
             If Not gridProgresoDLGamer.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex)
+                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, Nothing)
             End If
         End If
 

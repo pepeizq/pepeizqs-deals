@@ -136,7 +136,7 @@ Module SilaGames
                             drm = "uplay"
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "Sila Games")
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "Sila Games", True)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -181,7 +181,7 @@ Module SilaGames
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarSilaGames")
 
-        Ordenar.Ofertas("SilaGames", cb.SelectedIndex)
+        Ordenar.Ofertas("SilaGames", cb.SelectedIndex, Nothing)
 
     End Sub
 

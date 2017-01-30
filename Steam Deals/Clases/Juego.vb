@@ -11,6 +11,7 @@
     Public _sistemaMac As Boolean
     Public _sistemaLinux As Boolean
     Public _tienda As String
+    Public _visibilidad As Boolean
 
     Public Property Titulo As String
         Get
@@ -111,10 +112,19 @@
         End Set
     End Property
 
+    Public Property Visibilidad As Boolean
+        Get
+            Return _visibilidad
+        End Get
+        Set(ByVal value As Boolean)
+            _visibilidad = value
+        End Set
+    End Property
+
     Public Sub New(ByVal titulo As String, ByVal enlace As String, ByVal imagen As String,
                    ByVal precioRebajado As String, ByVal precioBase As String, ByVal descuento As String,
                    ByVal drm As String, ByVal sistemaWin As Boolean, ByVal sistemaMac As Boolean, ByVal sistemaLinux As Boolean,
-                   ByVal tienda As String)
+                   ByVal tienda As String, ByVal visibilidad As Boolean)
         _titulo = titulo
         _enlace = enlace
         _imagen = imagen
@@ -126,5 +136,6 @@
         _sistemaMac = sistemaMac
         _sistemaLinux = sistemaLinux
         _tienda = tienda
+        _visibilidad = visibilidad
     End Sub
 End Class

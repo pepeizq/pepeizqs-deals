@@ -2,7 +2,7 @@
 
 Module Ordenar
 
-    Public Async Sub Ofertas(tienda As String, tipo As Integer)
+    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, plataforma As Integer)
 
         Dim bundle As Boolean = False
 
@@ -17,6 +17,7 @@ Module Ordenar
         Dim lv As ListView = pagina.FindName("listado" + tienda)
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataforma" + tienda)
         Dim cbPais As ComboBox = pagina.FindName("cbPais" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
@@ -27,6 +28,10 @@ Module Ordenar
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = False
+            End If
+
+            If Not cbPlataforma Is Nothing Then
+                cbPlataforma.IsEnabled = False
             End If
 
             If Not cbPais Is Nothing Then
@@ -52,7 +57,7 @@ Module Ordenar
             If Not listaJuegos Is Nothing Then
                 lv.Items.Clear()
 
-                If tipo = 0 Then
+                If tipoOrdenar = 0 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                          If resultado = 0 Then
@@ -60,7 +65,7 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf tipo = 1 Then
+                ElseIf tipoOrdenar = 1 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim precioX As String = x.PrecioRebajado
                                          Dim precioY As String = y.PrecioRebajado
@@ -116,11 +121,35 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf tipo = 2 Then
+                ElseIf tipoOrdenar = 2 Then
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
                 End If
 
                 For Each juego In listaJuegos
+                    If plataforma = 0 Then
+                        If juego.SistemaWin = True Then
+                            juego.Visibilidad = True
+                        Else
+                            juego.Visibilidad = False
+                        End If
+                    End If
+
+                    If plataforma = 1 Then
+                        If juego.SistemaMac = True Then
+                            juego.Visibilidad = True
+                        Else
+                            juego.Visibilidad = False
+                        End If
+                    End If
+
+                    If plataforma = 2 Then
+                        If juego.SistemaLinux = True Then
+                            juego.Visibilidad = True
+                        Else
+                            juego.Visibilidad = False
+                        End If
+                    End If
+
                     Dim tituloGrid As Boolean = False
                     For Each item In lv.Items
                         Dim grid As Grid = item
@@ -131,7 +160,9 @@ Module Ordenar
                     Next
 
                     If tituloGrid = False Then
-                        lv.Items.Add(Listado.Generar(juego))
+                        If juego.Visibilidad = True Then
+                            lv.Items.Add(Listado.Generar(juego))
+                        End If
                     End If
                 Next
             End If
@@ -140,6 +171,10 @@ Module Ordenar
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = True
+            End If
+
+            If Not cbPlataforma Is Nothing Then
+                cbPlataforma.IsEnabled = True
             End If
 
             If Not cbPais Is Nothing Then

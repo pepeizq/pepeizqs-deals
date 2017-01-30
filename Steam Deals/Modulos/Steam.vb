@@ -24,6 +24,9 @@ Module Steam
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
         cbOrdenar.IsEnabled = False
 
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaSteam")
+        cbPlataforma.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoSteam")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -115,8 +118,9 @@ Module Steam
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarSteam")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaSteam")
 
-        Ordenar.Ofertas("Steam", cb.SelectedIndex)
+        Ordenar.Ofertas("Steam", cb.SelectedIndex, cbPlataforma.SelectedIndex)
 
     End Sub
 
@@ -319,7 +323,7 @@ Module Steam
                         linux = True
                     End If
 
-                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "Steam")
+                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "Steam", True)
 
                     bw.ReportProgress(numPaginas, juego)
                 End If

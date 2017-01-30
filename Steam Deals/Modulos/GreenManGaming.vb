@@ -133,7 +133,7 @@ Module GreenManGaming
 
                         Dim drm As String = temp14.Trim
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming")
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", True)
 
                         Dim tituloBool As Boolean = False
                         Dim j As Integer = 0
@@ -174,7 +174,7 @@ Module GreenManGaming
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
 
-        Ordenar.Ofertas("GreenManGaming", cb.SelectedIndex)
+        Ordenar.Ofertas("GreenManGaming", cb.SelectedIndex, Nothing)
 
     End Sub
 
