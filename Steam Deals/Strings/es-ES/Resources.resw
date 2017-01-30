@@ -180,4 +180,10 @@
   <data name="Plataforma" xml:space="preserve">
     <value>Plataformas:</value>
   </data>
+  <data name="DRM" xml:space="preserve">
+    <value>DRM:</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>Todos</value>
+  </data>
 </root>

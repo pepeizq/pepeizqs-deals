@@ -25,6 +25,9 @@ Module GamesPlanet
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamesPlanet")
         cbPlataforma.IsEnabled = False
 
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamesPlanet")
+        cbDRM.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamesPlanet")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -173,7 +176,7 @@ Module GamesPlanet
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamesPlanet", True)
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamesPlanet")
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -217,10 +220,12 @@ Module GamesPlanet
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamesPlanet")
 
-        Ordenar.Ofertas("GamesPlanet", cb.SelectedIndex, cbPlataforma.SelectedIndex)
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamesPlanet")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamesPlanet")
+
+        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
 
     End Sub
 

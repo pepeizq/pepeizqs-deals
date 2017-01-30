@@ -2,7 +2,7 @@
 
 Module Ordenar
 
-    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, plataforma As Integer)
+    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, plataforma As Integer, drm As Integer)
 
         Dim bundle As Boolean = False
 
@@ -18,6 +18,7 @@ Module Ordenar
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataforma" + tienda)
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRM" + tienda)
         Dim cbPais As ComboBox = pagina.FindName("cbPais" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
@@ -32,6 +33,10 @@ Module Ordenar
 
             If Not cbPlataforma Is Nothing Then
                 cbPlataforma.IsEnabled = False
+            End If
+
+            If Not cbDRM Is Nothing Then
+                cbDRM.IsEnabled = False
             End If
 
             If Not cbPais Is Nothing Then
@@ -126,28 +131,84 @@ Module Ordenar
                 End If
 
                 For Each juego In listaJuegos
+                    Dim visibilidadPlataforma As Boolean = False
+
                     If plataforma = 0 Then
                         If juego.SistemaWin = True Then
-                            juego.Visibilidad = True
+                            visibilidadPlataforma = True
                         Else
-                            juego.Visibilidad = False
+                            visibilidadPlataforma = False
                         End If
                     End If
 
                     If plataforma = 1 Then
                         If juego.SistemaMac = True Then
-                            juego.Visibilidad = True
+                            visibilidadPlataforma = True
                         Else
-                            juego.Visibilidad = False
+                            visibilidadPlataforma = False
                         End If
                     End If
 
                     If plataforma = 2 Then
                         If juego.SistemaLinux = True Then
-                            juego.Visibilidad = True
+                            visibilidadPlataforma = True
                         Else
-                            juego.Visibilidad = False
+                            visibilidadPlataforma = False
                         End If
+                    End If
+
+                    If plataforma = Nothing Then
+                        visibilidadPlataforma = True
+                    End If
+
+                    Dim visibilidadDRM As Boolean = False
+
+                    If drm = 0 Then
+                        visibilidadDRM = True
+                    End If
+
+                    If drm = 1 Then
+                        If Not juego.DRM = Nothing Then
+                            If juego.DRM.ToLower.Contains("steam") Then
+                                visibilidadDRM = True
+                            Else
+                                visibilidadDRM = False
+                            End If
+                        End If
+                    End If
+
+                    If drm = 2 Then
+                        If Not juego.DRM = Nothing Then
+                            If juego.DRM.ToLower.Contains("origin") Then
+                                visibilidadDRM = True
+                            Else
+                                visibilidadDRM = False
+                            End If
+                        End If
+                    End If
+
+                    If drm = 3 Then
+                        If Not juego.DRM = Nothing Then
+                            If juego.DRM.ToLower.Contains("uplay") Then
+                                visibilidadDRM = True
+                            Else
+                                visibilidadDRM = False
+                            End If
+                        End If
+                    End If
+
+                    If drm = 4 Then
+                        If Not juego.DRM = Nothing Then
+                            If juego.DRM.ToLower.Contains("gog") Then
+                                visibilidadDRM = True
+                            Else
+                                visibilidadDRM = False
+                            End If
+                        End If
+                    End If
+
+                    If drm = Nothing Then
+                        visibilidadDRM = True
                     End If
 
                     Dim tituloGrid As Boolean = False
@@ -160,8 +221,10 @@ Module Ordenar
                     Next
 
                     If tituloGrid = False Then
-                        If juego.Visibilidad = True Then
-                            lv.Items.Add(Listado.Generar(juego))
+                        If visibilidadPlataforma = True Then
+                            If visibilidadDRM = True Then
+                                lv.Items.Add(Listado.Generar(juego))
+                            End If
                         End If
                     End If
                 Next
@@ -175,6 +238,10 @@ Module Ordenar
 
             If Not cbPlataforma Is Nothing Then
                 cbPlataforma.IsEnabled = True
+            End If
+
+            If Not cbDRM Is Nothing Then
+                cbDRM.IsEnabled = True
             End If
 
             If Not cbPais Is Nothing Then

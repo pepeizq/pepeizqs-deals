@@ -17,6 +17,9 @@ Module GreenManGaming
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
         cbOrdenar.IsEnabled = False
 
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGreenManGaming")
+        cbDRM.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGreenManGaming")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -133,7 +136,7 @@ Module GreenManGaming
 
                         Dim drm As String = temp14.Trim
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", True)
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming")
 
                         Dim tituloBool As Boolean = False
                         Dim j As Integer = 0
@@ -172,9 +175,11 @@ Module GreenManGaming
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
 
-        Ordenar.Ofertas("GreenManGaming", cb.SelectedIndex, Nothing)
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGreenManGaming")
+
+        Ordenar.Ofertas("GreenManGaming", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex)
 
     End Sub
 

@@ -206,6 +206,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarGamersGate" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -220,6 +222,8 @@
                         <ComboBoxItem Content="Mac"/>
                         <ComboBoxItem Content="Linux"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMGamersGate" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMGamersGate" Grid.Column="5" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoGamersGate" Grid.Row="1" IsItemClickEnabled="True">
@@ -245,6 +249,8 @@
 
                 <Grid Grid.Row="0" Margin="0,0,0,10">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -277,6 +283,8 @@
                         <ComboBoxItem Content="Mac"/>
                         <ComboBoxItem Content="Linux"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMGamesPlanet" Grid.Column="6" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMGamesPlanet" Grid.Column="7" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoGamesPlanet" Grid.Row="1" IsItemClickEnabled="True">
@@ -307,6 +315,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <ComboBox x:Name="cbTipoHumble" Grid.Column="0" Width="120">
@@ -325,6 +335,8 @@
                         <ComboBoxItem Content="Mac"/>
                         <ComboBoxItem Content="Linux"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMHumble" Grid.Column="5" Margin="10,0,5,0" VerticalAlignment="Center" Visibility="Collapsed"/>
+                    <ComboBox x:Name="cbDRMHumble" Grid.Column="6" Width="140" Visibility="Collapsed"/>
                 </Grid>
 
                 <ListView x:Name="listadoHumble" Grid.Row="1" IsItemClickEnabled="True">
@@ -352,6 +364,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarGreenManGaming" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -360,6 +374,8 @@
                         <ComboBoxItem x:Name="cbOrdenarGreenManGamingPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarGreenManGamingTitulo"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMGreenManGaming" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMGreenManGaming" Grid.Column="3" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoGreenManGaming" Grid.Row="1" IsItemClickEnabled="True">
@@ -390,6 +406,8 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
@@ -409,6 +427,8 @@
                         <ComboBoxItem Content="Mac"/>
                         <ComboBoxItem Content="Linux"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMBundleStars" Grid.Column="5" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMBundleStars" Grid.Column="6" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoBundleStars" Grid.Row="1" IsItemClickEnabled="True">
@@ -479,6 +499,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarWinGameStore" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -487,6 +509,8 @@
                         <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMWinGameStore" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMWinGameStore" Grid.Column="3" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoWinGameStore" Grid.Row="1" IsItemClickEnabled="True">
@@ -514,6 +538,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarSilaGames" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -522,6 +548,8 @@
                         <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMSilaGames" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMSilaGames" Grid.Column="3" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoSilaGames" Grid.Row="1" IsItemClickEnabled="True">
@@ -549,6 +577,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock x:Name="tbOrdenarDLGamer" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
@@ -557,6 +587,8 @@
                         <ComboBoxItem x:Name="cbOrdenarDLGamerPrecio"/>
                         <ComboBoxItem x:Name="cbOrdenarDLGamerTitulo"/>
                     </ComboBox>
+                    <TextBlock x:Name="tbDRMDLGamer" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMDLGamer" Grid.Column="3" Width="140"/>
                 </Grid>
 
                 <ListView x:Name="listadoDLGamer" Grid.Row="1" IsItemClickEnabled="True">

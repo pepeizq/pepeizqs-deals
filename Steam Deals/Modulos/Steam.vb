@@ -120,7 +120,7 @@ Module Steam
         Dim cb As ComboBox = pagina.FindName("cbOrdenarSteam")
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaSteam")
 
-        Ordenar.Ofertas("Steam", cb.SelectedIndex, cbPlataforma.SelectedIndex)
+        Ordenar.Ofertas("Steam", cb.SelectedIndex, cbPlataforma.SelectedIndex, Nothing)
 
     End Sub
 
@@ -323,7 +323,7 @@ Module Steam
                         linux = True
                     End If
 
-                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "Steam", True)
+                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "Steam")
 
                     bw.ReportProgress(numPaginas, juego)
                 End If

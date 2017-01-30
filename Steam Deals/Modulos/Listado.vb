@@ -10,12 +10,6 @@ Module Listado
         grid.Tag = juego.Enlace
         grid.Padding = New Thickness(0, 0, 10, 0)
 
-        If juego.Visibilidad = True Then
-            grid.Visibility = Visibility.Visible
-        Else
-            grid.Visibility = Visibility.Collapsed
-        End If
-
         Dim col1 As New ColumnDefinition
         Dim col2 As New ColumnDefinition
         Dim col3 As New ColumnDefinition

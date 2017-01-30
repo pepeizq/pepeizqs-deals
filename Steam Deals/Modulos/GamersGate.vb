@@ -25,6 +25,9 @@ Module GamersGate
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
         cbPlataforma.IsEnabled = False
 
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
+        cbDRM.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamersGate")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -44,7 +47,7 @@ Module GamersGate
         Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=" + regionDigitos))
         Dim html As String = html_.Result
 
-        DecompilarHtml(html, bw, False, 0)
+        DecompilarHtml(html, bw, 0)
 
     End Sub
 
@@ -78,24 +81,20 @@ Module GamersGate
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarGamersGate")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
 
-        Ordenar.Ofertas("GamersGate", cb.SelectedIndex, cbPlataforma.SelectedIndex)
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
+
+        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
 
     End Sub
 
     '----------------------------------------------------
 
-    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, buscador As Boolean, numPaginas As Integer)
+    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, numPaginas As Integer)
 
-        Dim tope As Integer = 0
-
-        If buscador = True Then
-            tope = 50
-        Else
-            tope = 2000
-        End If
+        Dim tope As Integer = 2000
 
         Dim moneda As String = Nothing
 
@@ -153,7 +152,8 @@ Module GamersGate
                             int8 = temp7.IndexOf("</link>")
                             temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                            Dim enlace As String = "http://www.kqzyfj.com/click-6454277-10731427?url=" + temp8.Trim + "?aff=cj"
+                            Dim enlace As String = temp8.Trim + "?caff=6704538"
+                            'Dim enlace As String = "http://www.kqzyfj.com/click-6454277-10731427?url=" + temp8.Trim + "?aff=cj"
 
                             Dim temp9, temp10 As String
                             Dim int9, int10 As Integer
@@ -221,46 +221,36 @@ Module GamersGate
 
                                 Dim drm As String = temp16.Trim
 
-                                Dim boolDLC As Boolean = False
+                                Dim temp17, temp18 As String
+                                Dim int17, int18 As Integer
 
-                                If buscador = True Then
-                                    If temp2.Contains("<type>dlc</type>") Then
-                                        boolDLC = True
-                                    End If
+                                int17 = temp2.IndexOf("<platforms>")
+                                temp17 = temp2.Remove(0, int17 + 11)
+
+                                int18 = temp17.IndexOf("</platforms>")
+                                temp18 = temp17.Remove(int18, temp17.Length - int18)
+
+                                Dim windows As Boolean = False
+
+                                If temp18.Contains("pc") Then
+                                    windows = True
                                 End If
 
-                                If boolDLC = False Then
-                                    Dim temp17, temp18 As String
-                                    Dim int17, int18 As Integer
+                                Dim mac As Boolean = False
 
-                                    int17 = temp2.IndexOf("<platforms>")
-                                    temp17 = temp2.Remove(0, int17 + 11)
-
-                                    int18 = temp17.IndexOf("</platforms>")
-                                    temp18 = temp17.Remove(int18, temp17.Length - int18)
-
-                                    Dim windows As Boolean = False
-
-                                    If temp18.Contains("pc") Then
-                                        windows = True
-                                    End If
-
-                                    Dim mac As Boolean = False
-
-                                    If temp18.Contains("mac") Then
-                                        mac = True
-                                    End If
-
-                                    Dim linux As Boolean = False
-
-                                    If temp18.Contains("linux") Then
-                                        linux = True
-                                    End If
-
-                                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate", True)
-
-                                    bw.ReportProgress(0, juego)
+                                If temp18.Contains("mac") Then
+                                    mac = True
                                 End If
+
+                                Dim linux As Boolean = False
+
+                                If temp18.Contains("linux") Then
+                                    linux = True
+                                End If
+
+                                Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate")
+
+                                bw.ReportProgress(0, juego)
                             End If
                         End If
                     End If

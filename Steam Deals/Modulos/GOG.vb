@@ -142,7 +142,7 @@ Module GOG
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "GOG", True)
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "GOG")
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -192,7 +192,7 @@ Module GOG
         Dim cb As ComboBox = pagina.FindName("cbOrdenarGOG")
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGOG")
 
-        Ordenar.Ofertas("GOG", cb.SelectedIndex, cbPlataforma.SelectedIndex)
+        Ordenar.Ofertas("GOG", cb.SelectedIndex, cbPlataforma.SelectedIndex, Nothing)
 
     End Sub
 

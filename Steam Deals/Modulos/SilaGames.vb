@@ -17,6 +17,9 @@ Module SilaGames
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
         cbOrdenar.IsEnabled = False
 
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMSilaGames")
+        cbDRM.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoSilaGames")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -136,7 +139,7 @@ Module SilaGames
                             drm = "uplay"
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "Sila Games", True)
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "Sila Games")
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -179,9 +182,11 @@ Module SilaGames
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarSilaGames")
 
-        Ordenar.Ofertas("SilaGames", cb.SelectedIndex, Nothing)
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMSilaGames")
+
+        Ordenar.Ofertas("SilaGames", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex)
 
     End Sub
 

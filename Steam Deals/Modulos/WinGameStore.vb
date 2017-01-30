@@ -17,6 +17,9 @@ Module WinGameStore
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
         cbOrdenar.IsEnabled = False
 
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMWinGameStore")
+        cbDRM.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoWinGameStore")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -105,7 +108,7 @@ Module WinGameStore
 
                         Dim drm As String = Nothing
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "WinGameStore", True)
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "WinGameStore")
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -205,9 +208,11 @@ Module WinGameStore
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
 
-        Ordenar.Ofertas("WinGameStore", cb.SelectedIndex, Nothing)
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMWinGameStore")
+
+        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex)
 
     End Sub
 

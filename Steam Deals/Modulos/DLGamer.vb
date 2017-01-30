@@ -17,6 +17,9 @@ Module DLGamer
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarDLGamer")
         cbOrdenar.IsEnabled = False
 
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMDLGamer")
+        cbDRM.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoDLGamer")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -147,7 +150,7 @@ Module DLGamer
 
                             Dim drm As String = temp14.Trim
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "DLGamer", True)
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "DLGamer")
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -191,9 +194,11 @@ Module DLGamer
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarDLGamer")
 
-        Ordenar.Ofertas("DLGamer", cb.SelectedIndex, Nothing)
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarDLGamer")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMDLGamer")
+
+        Ordenar.Ofertas("DLGamer", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex)
 
     End Sub
 
