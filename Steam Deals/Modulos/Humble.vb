@@ -230,6 +230,7 @@ Module Humble
                             int4 = temp3.IndexOf(ChrW(34))
                             temp4 = temp3.Remove(int4, temp3.Length - int4)
 
+                            temp4 = temp4.Replace("\u007e", "ç")
                             temp4 = temp4.Replace("\u00fc", "ü")
                             temp4 = temp4.Replace("\u00ae", "®")
                             temp4 = temp4.Replace("\u2019", "'")
@@ -315,7 +316,34 @@ Module Humble
 
                             Dim drm As String = temp16.Trim
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "Humble Store")
+                            Dim temp17, temp18 As String
+                            Dim int17, int18 As Integer
+
+                            int17 = temp2.IndexOf(ChrW(34) + "available" + ChrW(34))
+                            temp17 = temp2.Remove(0, int17 + 5)
+
+                            int18 = temp17.IndexOf("]")
+                            temp18 = temp17.Remove(int18, temp17.Length - int18)
+
+                            Dim windows As Boolean = False
+
+                            If temp18.Contains(ChrW(34) + "windows" + ChrW(34)) Then
+                                windows = True
+                            End If
+
+                            Dim mac As Boolean = False
+
+                            If temp18.Contains(ChrW(34) + "mac" + ChrW(34)) Then
+                                mac = True
+                            End If
+
+                            Dim linux As Boolean = False
+
+                            If temp18.Contains(ChrW(34) + "linux" + ChrW(34)) Then
+                                linux = True
+                            End If
+
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Humble Store")
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

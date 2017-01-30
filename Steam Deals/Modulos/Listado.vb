@@ -15,18 +15,21 @@ Module Listado
         Dim col3 As New ColumnDefinition
         Dim col4 As New ColumnDefinition
         Dim col5 As New ColumnDefinition
+        Dim col6 As New ColumnDefinition
 
         col1.Width = New GridLength(1, GridUnitType.Auto)
         col2.Width = New GridLength(1, GridUnitType.Star)
         col3.Width = New GridLength(1, GridUnitType.Auto)
         col4.Width = New GridLength(1, GridUnitType.Auto)
         col5.Width = New GridLength(1, GridUnitType.Auto)
+        col6.Width = New GridLength(1, GridUnitType.Auto)
 
         grid.ColumnDefinitions.Add(col1)
         grid.ColumnDefinitions.Add(col2)
         grid.ColumnDefinitions.Add(col3)
         grid.ColumnDefinitions.Add(col4)
         grid.ColumnDefinitions.Add(col5)
+        grid.ColumnDefinitions.Add(col6)
 
         '-------------------------------
 
@@ -101,7 +104,98 @@ Module Listado
 
         '-------------------------------
 
+        Dim boolSistemas As Boolean = False
+
+        If Not AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
+            If Not juego.SistemaWin = Nothing Then
+                If juego.SistemaWin = True Then
+                    boolSistemas = True
+                End If
+            End If
+
+            If Not juego.SistemaMac = Nothing Then
+                If juego.SistemaMac = True Then
+                    boolSistemas = True
+                End If
+            End If
+
+            If Not juego.SistemaLinux = Nothing Then
+                If juego.SistemaLinux = True Then
+                    boolSistemas = True
+                End If
+            End If
+
+            If boolSistemas = True Then
+                Dim fondoSistemas As New Grid
+                fondoSistemas.Padding = New Thickness(6, 0, 6, 0)
+                fondoSistemas.Height = 34
+                fondoSistemas.Background = New SolidColorBrush(Colors.Silver)
+
+                Dim colSis1 As New ColumnDefinition
+                Dim colSis2 As New ColumnDefinition
+                Dim colSis3 As New ColumnDefinition
+
+                colSis1.Width = New GridLength(1, GridUnitType.Auto)
+                colSis2.Width = New GridLength(1, GridUnitType.Auto)
+                colSis3.Width = New GridLength(1, GridUnitType.Auto)
+
+                fondoSistemas.ColumnDefinitions.Add(colSis1)
+                fondoSistemas.ColumnDefinitions.Add(colSis2)
+                fondoSistemas.ColumnDefinitions.Add(colSis3)
+
+                If Not juego.SistemaWin = Nothing Then
+                    If juego.SistemaWin = True Then
+                        Dim imagenWin As New ImageEx
+                        imagenWin.Width = 16
+                        imagenWin.Height = 16
+                        imagenWin.Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png"))
+                        imagenWin.SetValue(Grid.ColumnProperty, 0)
+                        fondoSistemas.Children.Add(imagenWin)
+                    End If
+                End If
+
+                If Not juego.SistemaMac = Nothing Then
+                    If juego.SistemaMac = True Then
+                        Dim imagenMac As New ImageEx
+                        imagenMac.Width = 16
+                        imagenMac.Height = 16
+                        imagenMac.Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png"))
+                        imagenMac.SetValue(Grid.ColumnProperty, 1)
+                        fondoSistemas.Children.Add(imagenMac)
+                    End If
+                End If
+
+                If Not juego.SistemaLinux = Nothing Then
+                    If juego.SistemaLinux = True Then
+                        Dim imagenLinux As New ImageEx
+                        imagenLinux.Width = 16
+                        imagenLinux.Height = 16
+                        imagenLinux.Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png"))
+                        imagenLinux.SetValue(Grid.ColumnProperty, 2)
+                        fondoSistemas.Children.Add(imagenLinux)
+                    End If
+                End If
+
+                fondoSistemas.SetValue(Grid.ColumnProperty, 2)
+                grid.Children.Add(fondoSistemas)
+            End If
+        End If
+
+        '-------------------------------
+
         If Not juego.DRM = Nothing Then
+            Dim fondoDRM As New Grid
+            fondoDRM.Height = 34
+            fondoDRM.Background = New SolidColorBrush(Colors.Silver)
+
+            If boolSistemas = True Then
+                fondoDRM.Padding = New Thickness(0, 0, 6, 0)
+                fondoDRM.Margin = New Thickness(0, 0, 0, 0)
+            Else
+                fondoDRM.Padding = New Thickness(6, 0, 6, 0)
+                fondoDRM.Margin = New Thickness(10, 0, 0, 0)
+            End If
+
             Dim imagenDRM As New ImageEx
 
             If juego.DRM.ToLower.Contains("steam") Then
@@ -110,13 +204,15 @@ Module Listado
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_uplay.png"))
             ElseIf juego.DRM.ToLower.Contains("origin") Then
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_origin.png"))
+            ElseIf juego.DRM.ToLower.Contains("gog") Then
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_gog.ico"))
             End If
 
             imagenDRM.Width = 16
             imagenDRM.Height = 16
-            imagenDRM.Margin = New Thickness(10, 0, 0, 0)
-            imagenDRM.SetValue(Grid.ColumnProperty, 2)
-            grid.Children.Add(imagenDRM)
+            fondoDRM.Children.Add(imagenDRM)
+            fondoDRM.SetValue(Grid.ColumnProperty, 3)
+            grid.Children.Add(fondoDRM)
         End If
 
         '-------------------------------
@@ -136,7 +232,7 @@ Module Listado
             textoDescuento.Foreground = New SolidColorBrush(Colors.White)
 
             fondoDescuento.Children.Add(textoDescuento)
-            fondoDescuento.SetValue(Grid.ColumnProperty, 3)
+            fondoDescuento.SetValue(Grid.ColumnProperty, 4)
             grid.Children.Add(fondoDescuento)
         End If
 
@@ -147,7 +243,7 @@ Module Listado
             fondoPrecio.Background = New SolidColorBrush(Colors.Black)
             fondoPrecio.Padding = New Thickness(5, 0, 5, 0)
             fondoPrecio.Height = 34
-            fondoPrecio.Width = 60
+            fondoPrecio.MinWidth = 60
             fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
             fondoPrecio.HorizontalAlignment = HorizontalAlignment.Center
 
@@ -158,7 +254,7 @@ Module Listado
             textoPrecio.Foreground = New SolidColorBrush(Colors.White)
 
             fondoPrecio.Children.Add(textoPrecio)
-            fondoPrecio.SetValue(Grid.ColumnProperty, 4)
+            fondoPrecio.SetValue(Grid.ColumnProperty, 5)
             grid.Children.Add(fondoPrecio)
         End If
 

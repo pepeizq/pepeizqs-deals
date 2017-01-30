@@ -179,22 +179,53 @@ Module BundleStars
                             precio = temp12.Trim + " €"
                         End If
 
-                        Dim temp13, temp14 As String
-                        Dim int13, int14 As Integer
+                        Dim drm As String = Nothing
 
-                        int13 = temp2.IndexOf(ChrW(34) + "drm" + ChrW(34))
-                        temp13 = temp2.Remove(0, int3)
+                        If temp2.Contains(ChrW(34) + "drm" + ChrW(34)) Then
+                            Dim temp13, temp14 As String
+                            Dim int13, int14 As Integer
 
-                        int14 = temp13.IndexOf("}")
-                        temp14 = temp13.Remove(int14, temp13.Length - int14)
+                            int13 = temp2.IndexOf(ChrW(34) + "drm" + ChrW(34))
+                            temp13 = temp2.Remove(0, int13)
 
-                        If temp14.Contains("steam" + ChrW(34) + ":true") Then
-                            temp14 = "steam"
+                            int14 = temp13.IndexOf("}")
+                            temp14 = temp13.Remove(int14, temp13.Length - int14)
+
+                            If temp14.Contains("steam" + ChrW(34) + ":true") Then
+                                temp14 = "steam"
+                            End If
+
+                            drm = temp14.Trim
                         End If
 
-                        Dim drm As String = temp14.Trim
+                        Dim temp15, temp16 As String
+                        Dim int15, int16 As Integer
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "BundleStars")
+                        int15 = temp2.IndexOf(ChrW(34) + "platforms" + ChrW(34))
+                        temp15 = temp2.Remove(0, int15)
+
+                        int16 = temp15.IndexOf("}")
+                        temp16 = temp15.Remove(int16, temp15.Length - int16)
+
+                        Dim windows As Boolean = False
+
+                        If temp16.Contains(ChrW(34) + "windows" + ChrW(34) + ":true") Then
+                            windows = True
+                        End If
+
+                        Dim mac As Boolean = False
+
+                        If temp16.Contains(ChrW(34) + "mac" + ChrW(34) + ":true") Then
+                            mac = True
+                        End If
+
+                        Dim linux As Boolean = False
+
+                        If temp16.Contains(ChrW(34) + "linux" + ChrW(34) + ":true") Then
+                            linux = True
+                        End If
+
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "BundleStars")
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -216,8 +247,19 @@ Module BundleStars
                     j += 1
                 End While
             End If
+            bw.ReportProgress(i)
             i += 1
         End While
+
+    End Sub
+
+    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+        Dim tb As TextBlock = pagina.FindName("tbProgresoBundleStars")
+
+        tb.Text = e.ProgressPercentage.ToString
 
     End Sub
 

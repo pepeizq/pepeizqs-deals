@@ -69,7 +69,7 @@ Module Steam
                         Exit While
                     Else
                         Dim porcentaje As Integer = CInt((100 / numPaginas) * i)
-                        DecompilarHtml(html, bw, False, porcentaje)
+                        DecompilarHtml(html, bw, porcentaje)
                     End If
                 End If
                 i += 1
@@ -180,7 +180,7 @@ Module Steam
         Return numPaginas
     End Function
 
-    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, buscador As Boolean, numPaginas As Integer)
+    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, numPaginas As Integer)
 
         Dim int0 As Integer
 
@@ -301,50 +301,27 @@ Module Steam
                 End If
 
                 If boolPrecio = False Then
-                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, False, False, False, "Steam")
+                    Dim windows As Boolean = False
 
-                    If buscador = False Then
-                        bw.ReportProgress(numPaginas, juego)
-                    Else
-                        Dim tituloBool As Boolean = False
-                        If listaBuscador.Count > 0 Then
-                            Dim i As Integer = 0
-                            While i < listaBuscador.Count
-                                If listaBuscador(i).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                                i += 1
-                            End While
-                        End If
-
-                        If tituloBool = False Then
-                            Dim tempJuegoTitulo As String = juego.Titulo
-
-                            tempJuegoTitulo = tempJuegoTitulo.ToLower
-                            tempJuegoTitulo = tempJuegoTitulo.Replace(":", Nothing)
-                            tempJuegoTitulo = tempJuegoTitulo.Replace("-", Nothing)
-                            tempJuegoTitulo = tempJuegoTitulo.Replace("’", Nothing)
-                            tempJuegoTitulo = tempJuegoTitulo.Replace("'", Nothing)
-                            tempJuegoTitulo = tempJuegoTitulo.Replace("®", Nothing)
-                            tempJuegoTitulo = tempJuegoTitulo.Replace("™", Nothing)
-                            tempJuegoTitulo = tempJuegoTitulo.Trim
-
-                            Dim tempBuscadorTitulo As String = textoBuscar_
-
-                            tempBuscadorTitulo = tempBuscadorTitulo.ToLower
-                            tempBuscadorTitulo = tempBuscadorTitulo.Replace(":", Nothing)
-                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("-", Nothing)
-                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("’", Nothing)
-                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("'", Nothing)
-                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("®", Nothing)
-                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("™", Nothing)
-                            tempBuscadorTitulo = tempBuscadorTitulo.Trim
-
-                            If tempJuegoTitulo.Contains(tempBuscadorTitulo) Then
-                                listaBuscador.Add(juego)
-                            End If
-                        End If
+                    If temp2.Contains(ChrW(34) + "platform_img win" + ChrW(34)) Then
+                        windows = True
                     End If
+
+                    Dim mac As Boolean = False
+
+                    If temp2.Contains(ChrW(34) + "platform_img mac" + ChrW(34)) Then
+                        mac = True
+                    End If
+
+                    Dim linux As Boolean = False
+
+                    If temp2.Contains(ChrW(34) + "platform_img linux" + ChrW(34)) Then
+                        linux = True
+                    End If
+
+                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "Steam")
+
+                    bw.ReportProgress(numPaginas, juego)
                 End If
             End If
             j += 1
@@ -352,72 +329,5 @@ Module Steam
 
     End Sub
 
-    '----------------------------------------------------
-
-    Dim WithEvents bwBuscador As BackgroundWorker
-    Dim textoBuscar_ As String
-    Dim listaBuscador As List(Of Juego)
-
-    Public Async Sub BuscarOfertas(textoBuscar As String)
-
-        textoBuscar_ = textoBuscar
-
-        bwBuscador = New BackgroundWorker
-        bwBuscador.WorkerReportsProgress = True
-        bwBuscador.WorkerSupportsCancellation = True
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim lv As ListView = pagina.FindName("lvBuscadorResultadosSteam")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
-        Dim pr As ProgressRing = pagina.FindName("prBuscadorSteam")
-        pr.Visibility = Visibility.Visible
-
-        Dim tb As TextBlock = pagina.FindName("tbCeroResultadosSteam")
-        tb.Visibility = Visibility.Collapsed
-
-        listaBuscador = New List(Of Juego)
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaBuscadorSteam", listaBuscador)
-
-        If bwBuscador.IsBusy = False Then
-            bwBuscador.RunWorkerAsync()
-        End If
-
-    End Sub
-
-    Private Sub bwBuscador_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bwBuscador.DoWork
-
-        Dim numPaginas As Integer = GenerarNumPaginas(New Uri("http://store.steampowered.com/search/?term=" + textoBuscar_.Replace(" ", "+") + "&page=1&category1=998"))
-
-        Dim i As Integer = 1
-        While i < numPaginas
-            Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://store.steampowered.com/search/?term=" + textoBuscar_.Replace(" ", "+") + "&page=" + i.ToString + "&category1=998"))
-            Dim html As String = html_.Result
-
-            If Not html = Nothing Then
-                If Not html.Contains("<!-- List Items -->") Then
-                    Exit While
-                Else
-                    Dim porcentaje As Integer = CInt((100 / numPaginas) * i)
-                    DecompilarHtml(html, bwBuscador, True, porcentaje)
-                End If
-            End If
-            i += 1
-        End While
-
-    End Sub
-
-    Private Async Sub bwBuscador_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bwBuscador.RunWorkerCompleted
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaBuscadorSteam", listaBuscador)
-
-        Ordenar.Buscador("Steam")
-
-    End Sub
 
 End Module

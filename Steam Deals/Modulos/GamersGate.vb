@@ -226,50 +226,36 @@ Module GamersGate
                                 End If
 
                                 If boolDLC = False Then
-                                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "GamersGate")
+                                    Dim temp17, temp18 As String
+                                    Dim int17, int18 As Integer
 
-                                    If buscador = False Then
-                                        bw.ReportProgress(0, juego)
-                                    Else
-                                        Dim tituloBool As Boolean = False
-                                        If listaBuscador.Count > 0 Then
-                                            Dim j As Integer = 0
-                                            While j < listaBuscador.Count
-                                                If listaBuscador(j).Titulo = juego.Titulo Then
-                                                    tituloBool = True
-                                                End If
-                                                j += 1
-                                            End While
-                                        End If
+                                    int17 = temp2.IndexOf("<platforms>")
+                                    temp17 = temp2.Remove(0, int17 + 11)
 
-                                        If tituloBool = False Then
-                                            Dim tempJuegoTitulo As String = juego.Titulo
+                                    int18 = temp17.IndexOf("</platforms>")
+                                    temp18 = temp17.Remove(int18, temp17.Length - int18)
 
-                                            tempJuegoTitulo = tempJuegoTitulo.ToLower
-                                            tempJuegoTitulo = tempJuegoTitulo.Replace(":", Nothing)
-                                            tempJuegoTitulo = tempJuegoTitulo.Replace("-", Nothing)
-                                            tempJuegoTitulo = tempJuegoTitulo.Replace("’", Nothing)
-                                            tempJuegoTitulo = tempJuegoTitulo.Replace("'", Nothing)
-                                            tempJuegoTitulo = tempJuegoTitulo.Replace("®", Nothing)
-                                            tempJuegoTitulo = tempJuegoTitulo.Replace("™", Nothing)
-                                            tempJuegoTitulo = tempJuegoTitulo.Trim
+                                    Dim windows As Boolean = False
 
-                                            Dim tempBuscadorTitulo As String = textoBuscar_
-
-                                            tempBuscadorTitulo = tempBuscadorTitulo.ToLower
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Replace(":", Nothing)
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("-", Nothing)
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("’", Nothing)
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("'", Nothing)
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("®", Nothing)
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Replace("™", Nothing)
-                                            tempBuscadorTitulo = tempBuscadorTitulo.Trim
-
-                                            If tempJuegoTitulo.Contains(tempBuscadorTitulo) Then
-                                                listaBuscador.Add(juego)
-                                            End If
-                                        End If
+                                    If temp18.Contains("pc") Then
+                                        windows = True
                                     End If
+
+                                    Dim mac As Boolean = False
+
+                                    If temp18.Contains("mac") Then
+                                        mac = True
+                                    End If
+
+                                    Dim linux As Boolean = False
+
+                                    If temp18.Contains("linux") Then
+                                        linux = True
+                                    End If
+
+                                    Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate")
+
+                                    bw.ReportProgress(0, juego)
                                 End If
                             End If
                         End If
@@ -278,64 +264,6 @@ Module GamersGate
                 i += 1
             End While
         End If
-
-    End Sub
-
-    '----------------------------------------------------
-
-    Dim WithEvents bwBuscador As BackgroundWorker
-    Dim textoBuscar_ As String
-    Dim listaBuscador As List(Of Juego)
-
-    Public Async Sub BuscarOfertas(textoBuscar As String)
-
-        textoBuscar_ = textoBuscar
-
-        bwBuscador = New BackgroundWorker
-        bwBuscador.WorkerReportsProgress = True
-        bwBuscador.WorkerSupportsCancellation = True
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim lv As ListView = pagina.FindName("lvBuscadorResultadosGamersGate")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
-        Dim pr As ProgressRing = pagina.FindName("prBuscadorGamersGate")
-        pr.Visibility = Visibility.Visible
-
-        Dim tb As TextBlock = pagina.FindName("tbCeroResultadosGamersGate")
-        tb.Visibility = Visibility.Collapsed
-
-        listaBuscador = New List(Of Juego)
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaBuscadorGamersGate", listaBuscador)
-
-        If bwBuscador.IsBusy = False Then
-            bwBuscador.RunWorkerAsync()
-        End If
-
-    End Sub
-
-    Private Sub bwBuscador_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bwBuscador.DoWork
-
-        Dim region As GeographicRegion = New GeographicRegion
-        Dim regionDigitos As String = region.CodeThreeLetter
-
-        Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://www.gamersgate.com/feeds/products?q=" + textoBuscar_ + "&country=" + regionDigitos))
-        Dim html As String = html_.Result
-
-        DecompilarHtml(html, bwBuscador, True, 0)
-
-    End Sub
-
-    Private Async Sub bwBuscador_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bwBuscador.RunWorkerCompleted
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaBuscadorGamersGate", listaBuscador)
-
-        Ordenar.Buscador("GamersGate")
 
     End Sub
 

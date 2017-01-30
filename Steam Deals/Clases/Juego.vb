@@ -93,6 +93,15 @@
         End Set
     End Property
 
+    Public Property SistemaLinux As Boolean
+        Get
+            Return _sistemaLinux
+        End Get
+        Set(ByVal value As Boolean)
+            _sistemaLinux = value
+        End Set
+    End Property
+
     Public Property Tienda As String
         Get
             Return _tienda

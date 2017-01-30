@@ -109,14 +109,6 @@ Public NotInheritable Class MainPage
 
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
-        botonBuscadorTexto.Text = recursos.GetString("Buscar")
-
-        tbTiendasBuscador.Text = recursos.GetString("Tiendas")
-
-        tbCeroResultadosSteam.Text = recursos.GetString("Cero Resultados")
-        tbCeroResultadosGamersGate.Text = recursos.GetString("Cero Resultados")
-        tbCeroResultadosGreenManGaming.Text = recursos.GetString("Cero Resultados")
-
         '--------------------------------------------------------
 
         If AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
@@ -125,6 +117,17 @@ Public NotInheritable Class MainPage
 
             spTiendas.Visibility = Visibility.Collapsed
             botonPrincipal.Visibility = Visibility.Collapsed
+
+            gridTiendaSteam.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaGamersGate.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaGamesPlanet.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaHumble.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaGreenManGaming.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaBundleStars.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaGOG.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaWinGameStore.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaSilaGames.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaDLGamer.Padding = New Thickness(0, 0, 0, 0)
         Else
             commadBarTop.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right
             botonHamburger.Visibility = Visibility.Collapsed
@@ -135,7 +138,6 @@ Public NotInheritable Class MainPage
     Private Sub GridVisibilidad(grid As Grid)
 
         gridDeals.Visibility = Visibility.Collapsed
-        gridSearch.Visibility = Visibility.Collapsed
         gridWebContacto.Visibility = Visibility.Collapsed
         gridWeb.Visibility = Visibility.Collapsed
 
@@ -695,79 +697,5 @@ Public NotInheritable Class MainPage
         End If
 
     End Sub
-
-    'BUSCADOR-----------------------------------------------------------------------------
-
-    Private Sub botonBuscador_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscador.Click
-
-        If tbBuscador.Text.Trim.Length > 3 Then
-            Steam.BuscarOfertas(tbBuscador.Text.Trim)
-            GamersGate.BuscarOfertas(tbBuscador.Text.Trim)
-        End If
-
-    End Sub
-
-    Private Sub GridBuscadorVisibilidad(button As Button, grid As Grid)
-
-        botonBuscadorSteam.BorderThickness = New Thickness(0, 0, 0, 0)
-        botonBuscadorGamersGate.BorderThickness = New Thickness(0, 0, 0, 0)
-        botonBuscadorGreenManGaming.BorderThickness = New Thickness(0, 0, 0, 0)
-
-        button.BorderThickness = New Thickness(0, 0, 0, 2)
-        button.BorderBrush = New SolidColorBrush(Colors.Black)
-
-        gridBuscadorSteam.Visibility = Visibility.Collapsed
-        gridBuscadorGamersGate.Visibility = Visibility.Collapsed
-        gridBuscadorGreenManGaming.Visibility = Visibility.Collapsed
-
-        grid.Visibility = Visibility.Visible
-
-    End Sub
-
-    Private Async Sub lvBuscadorResultadosSteam_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvBuscadorResultadosSteam.ItemClick
-
-        Dim grid As Grid = e.ClickedItem
-        Dim enlace As String = grid.Tag
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
-
-    End Sub
-
-    Private Sub botonBuscadorSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscadorSteam.Click
-
-        GridBuscadorVisibilidad(botonBuscadorSteam, gridBuscadorSteam)
-
-    End Sub
-
-    Private Async Sub lvBuscadorResultadosGamersGate_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvBuscadorResultadosGamersGate.ItemClick
-
-        Dim grid As Grid = e.ClickedItem
-        Dim enlace As String = grid.Tag
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
-
-    End Sub
-
-    Private Sub botonBuscadorGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscadorGamersGate.Click
-
-        GridBuscadorVisibilidad(botonBuscadorGamersGate, gridBuscadorGamersGate)
-
-    End Sub
-
-    Private Async Sub lvBuscadorResultadosGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvBuscadorResultadosGreenManGaming.ItemClick
-
-        Dim grid As Grid = e.ClickedItem
-        Dim enlace As String = grid.Tag
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
-
-    End Sub
-
-    Private Sub botonBuscadorGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonBuscadorGreenManGaming.Click
-
-        GridBuscadorVisibilidad(botonBuscadorGreenManGaming, gridBuscadorGreenManGaming)
-
-    End Sub
-
 
 End Class

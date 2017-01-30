@@ -176,6 +176,7 @@
     <Content Include="Assets\Badge\Badge.scale-150.png" />
     <Content Include="Assets\Badge\Badge.scale-200.png" />
     <Content Include="Assets\Badge\Badge.scale-400.png" />
+    <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\icon_bundlestars.ico" />
     <Content Include="Assets\icon_dlgamer.ico" />
@@ -202,6 +203,9 @@
     <Content Include="Assets\pais_de.png" />
     <Content Include="Assets\pais_fr.png" />
     <Content Include="Assets\pais_uk.png" />
+    <Content Include="Assets\platform_linux.png" />
+    <Content Include="Assets\platform_mac.png" />
+    <Content Include="Assets\platform_win.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-100.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-125.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />

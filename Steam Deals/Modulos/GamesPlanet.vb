@@ -152,7 +152,25 @@ Module GamesPlanet
 
                             Dim drm As String = temp14.Trim
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "GamesPlanet")
+                            Dim windows As Boolean = False
+
+                            If temp2.Contains("<pc>true</pc>") Then
+                                windows = True
+                            End If
+
+                            Dim mac As Boolean = False
+
+                            If temp2.Contains("<mac>true</mac>") Then
+                                mac = True
+                            End If
+
+                            Dim linux As Boolean = False
+
+                            If temp2.Contains("<linux>true</linux>") Then
+                                linux = True
+                            End If
+
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamesPlanet")
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

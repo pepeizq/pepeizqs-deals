@@ -39,7 +39,7 @@ Module GreenManGaming
 
         If Not html = Nothing Then
             Dim i As Integer = 0
-            While i < 2500
+            While i < 5000
                 Dim temp, temp2 As String
                 Dim int, int2 As Integer
 

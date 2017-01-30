@@ -121,7 +121,25 @@ Module GOG
                         End If
 
                         If Not descuento = Nothing Then
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, False, False, False, "GOG")
+                            Dim windows As Boolean = False
+
+                            If temp2.Contains("<windows_compatible>1</windows_compatible>") Then
+                                windows = True
+                            End If
+
+                            Dim mac As Boolean = False
+
+                            If temp2.Contains("<mac_compatible>1</mac_compatible>") Then
+                                mac = True
+                            End If
+
+                            Dim linux As Boolean = False
+
+                            If temp2.Contains("<linux_compatible>1</linux_compatible>") Then
+                                linux = True
+                            End If
+
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "GOG")
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
