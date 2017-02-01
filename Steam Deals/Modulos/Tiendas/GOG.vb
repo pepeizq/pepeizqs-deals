@@ -70,6 +70,11 @@ Module GOG
                         temp4 = temp4.Replace("&#039;", "'")
                         temp4 = temp4.Replace("&amp;", "&")
 
+                        If temp4.Contains(", The") Then
+                            temp4 = temp4.Replace(", The", Nothing)
+                            temp4 = "The " + temp4
+                        End If
+
                         Dim titulo As String = temp4.Trim
 
                         Dim temp5, temp6 As String

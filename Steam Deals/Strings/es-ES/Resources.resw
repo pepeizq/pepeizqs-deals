@@ -186,4 +186,13 @@
   <data name="Todos" xml:space="preserve">
     <value>Todos</value>
   </data>
+  <data name="Config Cuenta Steam" xml:space="preserve">
+    <value>Añade tu cuenta de Steam Community (ejemplo http://steamcommunity.com/id/pepeizq/): </value>
+  </data>
+  <data name="Config Descartar" xml:space="preserve">
+    <value>No incluir mis juegos en las ofertas</value>
+  </data>
+  <data name="Config Descartar Aviso" xml:space="preserve">
+    <value>Esta opción no funciona en bundles y ediciones especiales</value>
+  </data>
 </root>

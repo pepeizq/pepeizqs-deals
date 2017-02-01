@@ -186,4 +186,13 @@
   <data name="Todos" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="Config Cuenta Steam" xml:space="preserve">
+    <value>Add your Steam Community account (example http://steamcommunity.com/id/pepeizq/):</value>
+  </data>
+  <data name="Config Descartar" xml:space="preserve">
+    <value>Not include my own games in the deals</value>
+  </data>
+  <data name="Config Descartar Aviso" xml:space="preserve">
+    <value>This option does not work in bundles and special editions</value>
+  </data>
 </root>

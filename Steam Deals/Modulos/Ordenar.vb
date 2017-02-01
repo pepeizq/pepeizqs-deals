@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Windows.Storage
 
 Module Ordenar
 
@@ -223,7 +224,58 @@ Module Ordenar
                     If tituloGrid = False Then
                         If visibilidadPlataforma = True Then
                             If visibilidadDRM = True Then
-                                lv.Items.Add(Listado.Generar(juego))
+                                If Not ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
+                                    lv.Items.Add(Listado.Generar(juego))
+                                Else
+                                    If Not Await helper.FileExistsAsync("listaJuegosUsuario") = True Then
+                                        lv.Items.Add(Listado.Generar(juego))
+                                    Else
+                                        Dim listaDescartar As List(Of String) = Await helper.ReadFileAsync(Of List(Of String))("listaJuegosUsuario")
+                                        Dim boolDescarte As Boolean = False
+
+                                        For Each descarte In listaDescartar
+                                            If Not descarte = Nothing Then
+                                                Dim tempDescarte As String = descarte
+                                                tempDescarte = tempDescarte.Replace(":", Nothing)
+                                                tempDescarte = tempDescarte.Replace(".", Nothing)
+                                                tempDescarte = tempDescarte.Replace("_", Nothing)
+                                                tempDescarte = tempDescarte.Replace("-", Nothing)
+                                                tempDescarte = tempDescarte.Replace(";", Nothing)
+                                                tempDescarte = tempDescarte.Replace(",", Nothing)
+                                                tempDescarte = tempDescarte.Replace("™", Nothing)
+                                                tempDescarte = tempDescarte.Replace("®", Nothing)
+                                                tempDescarte = tempDescarte.Replace("'", Nothing)
+                                                tempDescarte = tempDescarte.Replace("(", Nothing)
+                                                tempDescarte = tempDescarte.Replace(")", Nothing)
+                                                tempDescarte = tempDescarte.Replace("/", Nothing)
+                                                tempDescarte = tempDescarte.Replace("\", Nothing)
+
+                                                Dim tempJuego As String = juego.Titulo
+                                                tempJuego = tempJuego.Replace(":", Nothing)
+                                                tempJuego = tempJuego.Replace(".", Nothing)
+                                                tempJuego = tempJuego.Replace("_", Nothing)
+                                                tempJuego = tempJuego.Replace("-", Nothing)
+                                                tempJuego = tempJuego.Replace(";", Nothing)
+                                                tempJuego = tempJuego.Replace(",", Nothing)
+                                                tempJuego = tempJuego.Replace("™", Nothing)
+                                                tempJuego = tempJuego.Replace("®", Nothing)
+                                                tempJuego = tempJuego.Replace("'", Nothing)
+                                                tempJuego = tempJuego.Replace("(", Nothing)
+                                                tempJuego = tempJuego.Replace(")", Nothing)
+                                                tempJuego = tempJuego.Replace("/", Nothing)
+                                                tempJuego = tempJuego.Replace("\", Nothing)
+
+                                                If tempDescarte.ToLower.Trim = tempJuego.ToLower.Trim Then
+                                                    boolDescarte = True
+                                                End If
+                                            End If
+                                        Next
+
+                                        If boolDescarte = False Then
+                                            lv.Items.Add(Listado.Generar(juego))
+                                        End If
+                                    End If
+                                End If
                             End If
                         End If
                     End If

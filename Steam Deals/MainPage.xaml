@@ -48,6 +48,7 @@
 
             <CommandBar.PrimaryCommands>
                 <AppBarButton x:Name="botonPrincipal" Icon="Home" Foreground="White" FontSize="17"/>
+                <AppBarButton x:Name="botonConfig" Icon="Setting" Foreground="White" FontSize="17"/>
             </CommandBar.PrimaryCommands>
 
             <CommandBar.SecondaryCommands>
@@ -606,7 +607,52 @@
                 </Grid>
             </Grid>
         </Grid>
-       
+
+        <Grid x:Name="gridConfig" Visibility="Collapsed" Padding="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="tbConfig" Grid.Column="0" FontSize="23" Margin="5,0,0,15"/>
+            <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black" Margin="0,0,0,15"/>
+
+            <TextBlock x:Name="tbSteamConfigCuenta" Grid.Row="2" Margin="5" TextWrapping="Wrap" />
+            <Grid Grid.Row="3" Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
+                <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
+            </Grid>
+            <CheckBox x:Name="cbConfigDescartar" Grid.Row="4" Margin="5">
+                <CheckBox.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="tbConfigDescartar" Grid.Row="0"/>
+                        <Grid Grid.Row="1" Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <SymbolIcon Grid.Column="0" Symbol="Important" Margin="0,0,5,0"/>
+                            <TextBlock x:Name="tbConfigDescartarAviso" Grid.Column="1" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                </CheckBox.Content>
+            </CheckBox> 
+        </Grid> 
+
         <Grid x:Name="gridWebContacto" Grid.Row="0" Visibility="Collapsed">
             <WebView x:Name="webViewContacto" Source="https://pepeizqapps.com/contact/" />
         </Grid>

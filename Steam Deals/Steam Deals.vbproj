@@ -113,21 +113,22 @@
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modulos\BundleStars.vb" />
+    <Compile Include="Modulos\CuentaSteam.vb" />
+    <Compile Include="Modulos\Tiendas\BundleStars.vb" />
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />
-    <Compile Include="Modulos\DLGamer.vb" />
-    <Compile Include="Modulos\GamersGate.vb" />
-    <Compile Include="Modulos\GamesPlanet.vb" />
-    <Compile Include="Modulos\GOG.vb" />
-    <Compile Include="Modulos\GreenManGaming.vb" />
-    <Compile Include="Modulos\Humble.vb" />
+    <Compile Include="Modulos\Tiendas\DLGamer.vb" />
+    <Compile Include="Modulos\Tiendas\GamersGate.vb" />
+    <Compile Include="Modulos\Tiendas\GamesPlanet.vb" />
+    <Compile Include="Modulos\Tiendas\GOG.vb" />
+    <Compile Include="Modulos\Tiendas\GreenManGaming.vb" />
+    <Compile Include="Modulos\Tiendas\Humble.vb" />
     <Compile Include="Modulos\Listado.vb" />
     <Compile Include="Modulos\Notificaciones.vb" />
     <Compile Include="Modulos\Ordenar.vb" />
-    <Compile Include="Modulos\SilaGames.vb" />
-    <Compile Include="Modulos\Steam.vb" />
-    <Compile Include="Modulos\WinGameStore.vb" />
+    <Compile Include="Modulos\Tiendas\SilaGames.vb" />
+    <Compile Include="Modulos\Tiendas\Steam.vb" />
+    <Compile Include="Modulos\Tiendas\WinGameStore.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>

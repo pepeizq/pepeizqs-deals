@@ -1,4 +1,5 @@
 ﻿Imports Windows.ApplicationModel.DataTransfer
+Imports Windows.Storage
 Imports Windows.System
 Imports Windows.System.Profile
 Imports Windows.UI
@@ -31,12 +32,18 @@ Public NotInheritable Class MainPage
         '--------------------------------------------------------
 
         botonPrincipal.Label = recursos.GetString("Ofertas")
+        botonConfig.Label = recursos.GetString("Boton Config")
         botonVotar.Label = recursos.GetString("Boton Votar")
         botonCompartir.Label = recursos.GetString("Boton Compartir")
         botonContacto.Label = recursos.GetString("Boton Contactar")
         botonMasApps.Label = recursos.GetString("Boton Web")
 
         tbHamburgerTiendas.Text = recursos.GetString("Tiendas")
+
+        tbConfig.Text = recursos.GetString("Boton Config")
+        tbSteamConfigCuenta.Text = recursos.GetString("Config Cuenta Steam")
+        tbConfigDescartar.Text = recursos.GetString("Config Descartar")
+        tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
 
         cbTipoSteamJuegos.Content = recursos.GetString("Juegos")
         cbTipoSteamBundles.Content = recursos.GetString("Bundles")
@@ -174,7 +181,7 @@ Public NotInheritable Class MainPage
             Dim barraMobile As StatusBar = StatusBar.GetForCurrentView()
             Await barraMobile.HideAsync()
 
-            botonMasApps.Padding = New Thickness(0, 0, 0, 5)
+            botonMasApps.Padding = New Thickness(0, 0, 0, 15)
 
             spTiendas.Visibility = Visibility.Collapsed
             botonPrincipal.Visibility = Visibility.Collapsed
@@ -207,11 +214,24 @@ Public NotInheritable Class MainPage
             botonHamburger.Visibility = Visibility.Collapsed
         End If
 
+        '--------------------------------------------------------
+
+        If Not ApplicationData.Current.LocalSettings.Values("cuentasteam") = Nothing Then
+            tbSteamConfigCuentaID.Text = ApplicationData.Current.LocalSettings.Values("cuentasteam")
+        End If
+
+        If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
+            cbConfigDescartar.IsChecked = True
+        Else
+            cbConfigDescartar.IsChecked = False
+        End If
+
     End Sub
 
     Private Sub GridVisibilidad(grid As Grid)
 
         gridDeals.Visibility = Visibility.Collapsed
+        gridConfig.Visibility = Visibility.Collapsed
         gridWebContacto.Visibility = Visibility.Collapsed
         gridWeb.Visibility = Visibility.Collapsed
 
@@ -222,6 +242,12 @@ Public NotInheritable Class MainPage
     Private Sub botonPrincipal_Click(sender As Object, e As RoutedEventArgs) Handles botonPrincipal.Click
 
         GridVisibilidad(gridDeals)
+
+    End Sub
+
+    Private Sub botonConfig_Click(sender As Object, e As RoutedEventArgs) Handles botonConfig.Click
+
+        GridVisibilidad(gridConfig)
 
     End Sub
 
@@ -917,6 +943,26 @@ Public NotInheritable Class MainPage
                 Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, Nothing, cbDRMDLGamer.SelectedIndex)
             End If
         End If
+
+    End Sub
+
+    'CONFIG-----------------------------------------------------------------------------
+
+    Private Sub tbSteamConfigCuentaID_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbSteamConfigCuentaID.TextChanged
+
+        CuentaSteam.BuscarJuegos()
+
+    End Sub
+
+    Private Sub cbConfigDescartar_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartar.Checked
+
+        ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
+
+    End Sub
+
+    Private Sub cbConfigDescartar_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartar.Unchecked
+
+        ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
 
     End Sub
 
