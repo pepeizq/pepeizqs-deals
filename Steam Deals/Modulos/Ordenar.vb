@@ -249,6 +249,7 @@ Module Ordenar
                                                 tempDescarte = tempDescarte.Replace(")", Nothing)
                                                 tempDescarte = tempDescarte.Replace("/", Nothing)
                                                 tempDescarte = tempDescarte.Replace("\", Nothing)
+                                                tempDescarte = tempDescarte.Replace(ChrW(34), Nothing)
 
                                                 Dim tempJuego As String = juego.Titulo
                                                 tempJuego = tempJuego.Replace(":", Nothing)
@@ -264,6 +265,7 @@ Module Ordenar
                                                 tempJuego = tempJuego.Replace(")", Nothing)
                                                 tempJuego = tempJuego.Replace("/", Nothing)
                                                 tempJuego = tempJuego.Replace("\", Nothing)
+                                                tempJuego = tempJuego.Replace(ChrW(34), Nothing)
 
                                                 If tempDescarte.ToLower.Trim = tempJuego.ToLower.Trim Then
                                                     boolDescarte = True

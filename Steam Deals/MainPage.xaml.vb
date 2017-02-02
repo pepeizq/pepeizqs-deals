@@ -181,8 +181,6 @@ Public NotInheritable Class MainPage
             Dim barraMobile As StatusBar = StatusBar.GetForCurrentView()
             Await barraMobile.HideAsync()
 
-            botonMasApps.Padding = New Thickness(0, 0, 0, 15)
-
             spTiendas.Visibility = Visibility.Collapsed
             botonPrincipal.Visibility = Visibility.Collapsed
 

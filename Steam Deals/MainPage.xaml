@@ -630,7 +630,7 @@
                 <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
                 <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
             </Grid>
-            <CheckBox x:Name="cbConfigDescartar" Grid.Row="4" Margin="5">
+            <CheckBox x:Name="cbConfigDescartar" Grid.Row="4" Margin="5,15,5,5">
                 <CheckBox.Content>
                     <Grid>
                         <Grid.RowDefinitions>
