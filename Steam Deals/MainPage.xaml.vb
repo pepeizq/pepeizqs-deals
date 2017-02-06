@@ -89,10 +89,6 @@ Public NotInheritable Class MainPage
         cbDRMGamesPlanet.ItemsSource = listaDRMs
         cbDRMGamesPlanet.SelectedIndex = 0
 
-        cbTipoHumbleBundles.Content = recursos.GetString("Bundles")
-        cbTipoHumbleJuegos.Content = recursos.GetString("Juegos")
-        cbTipoHumble.SelectedIndex = 0
-
         tbOrdenarHumble.Text = recursos.GetString("Ordenar")
         cbOrdenarHumbleDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarHumblePrecio.Content = recursos.GetString("Precio")
@@ -526,7 +522,7 @@ Public NotInheritable Class MainPage
 
         If listadoHumble.Items.Count = 0 Then
             Humble.GenerarBundles()
-            cbTipoHumble.SelectedIndex = 0
+            Humble.GenerarOfertas()
             cbOrdenarHumble.SelectedIndex = 0
         End If
 
@@ -539,9 +535,18 @@ Public NotInheritable Class MainPage
 
         If listadoHumble.Items.Count = 0 Then
             Humble.GenerarBundles()
-            cbTipoHumble.SelectedIndex = 0
+            Humble.GenerarOfertas()
             cbOrdenarHumble.SelectedIndex = 0
         End If
+
+    End Sub
+
+    Private Async Sub listadoBundlesHumble_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoBundlesHumble.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
 
     End Sub
 
@@ -551,30 +556,6 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
-
-    End Sub
-
-    Private Sub cbTipoHumble_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbTipoHumble.SelectionChanged
-
-        If gridTiendaHumble.Visibility = Visibility.Visible Then
-            If cbTipoHumble.SelectedIndex = 0 Then
-                tbOrdenarHumble.Visibility = Visibility.Collapsed
-                cbOrdenarHumble.Visibility = Visibility.Collapsed
-                tbPlataformaHumble.Visibility = Visibility.Collapsed
-                cbPlataformaHumble.Visibility = Visibility.Collapsed
-                tbDRMHumble.Visibility = Visibility.Collapsed
-                cbDRMHumble.Visibility = Visibility.Collapsed
-                Humble.GenerarBundles()
-            Else
-                tbOrdenarHumble.Visibility = Visibility.Visible
-                cbOrdenarHumble.Visibility = Visibility.Visible
-                tbPlataformaHumble.Visibility = Visibility.Visible
-                cbPlataformaHumble.Visibility = Visibility.Visible
-                tbDRMHumble.Visibility = Visibility.Visible
-                cbDRMHumble.Visibility = Visibility.Visible
-                Humble.GenerarOfertas()
-            End If
-        End If
 
     End Sub
 

@@ -306,41 +306,11 @@
             <Grid x:Name="gridTiendaHumble" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <ComboBox x:Name="cbTipoHumble" Grid.Column="0" Width="120">
-                        <ComboBoxItem x:Name="cbTipoHumbleBundles"/>
-                        <ComboBoxItem x:Name="cbTipoHumbleJuegos"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbOrdenarHumble" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center" Visibility="Collapsed"/>
-                    <ComboBox x:Name="cbOrdenarHumble" Grid.Column="2" Width="120" Visibility="Collapsed">
-                        <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaHumble" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center" Visibility="Collapsed"/>
-                    <ComboBox x:Name="cbPlataformaHumble" Grid.Column="4" Width="120" Visibility="Collapsed">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMHumble" Grid.Column="5" Margin="10,0,5,0" VerticalAlignment="Center" Visibility="Collapsed"/>
-                    <ComboBox x:Name="cbDRMHumble" Grid.Column="6" Width="140" Visibility="Collapsed"/>
-                </Grid>
-
-                <ListView x:Name="listadoHumble" Grid.Row="1" IsItemClickEnabled="True">
+                <ListView x:Name="listadoBundlesHumble" Grid.Row="0" IsItemClickEnabled="True">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -349,7 +319,42 @@
                     </ListView.ItemContainerStyle>
                 </ListView>
 
-                <Grid x:Name="gridProgresoHumble" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid Grid.Row="1" Margin="0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="tbOrdenarHumble" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarHumble" Grid.Column="1" Width="120">
+                        <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
+                        <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
+                        <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaHumble" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaHumble" Grid.Column="3" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbDRMHumble" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMHumble" Grid.Column="5" Width="140"/>
+                </Grid>
+
+                <ListView x:Name="listadoHumble" Grid.Row="2" IsItemClickEnabled="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <Grid x:Name="gridProgresoHumble" Grid.Row="2" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ProgressRing x:Name="prHumble" IsActive="True" Height="54" Width="54" Foreground="Black"/>
                     <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>

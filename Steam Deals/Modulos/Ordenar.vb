@@ -16,6 +16,8 @@ Module Ordenar
         Dim pagina As Page = frame.Content
 
         Dim lv As ListView = pagina.FindName("listado" + tienda)
+        Dim lvBundles As ListView = pagina.FindName("listadoBundles" + tienda)
+
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataforma" + tienda)
@@ -27,6 +29,10 @@ Module Ordenar
 
         If Not lv Is Nothing Then
             lv.IsEnabled = False
+
+            If Not lvBundles Is Nothing Then
+                lvBundles.IsEnabled = False
+            End If
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = False
@@ -274,7 +280,11 @@ Module Ordenar
                                         Next
 
                                         If boolDescarte = False Then
-                                            lv.Items.Add(Listado.Generar(juego))
+                                            If bundle = False Then
+                                                lv.Items.Add(Listado.Generar(juego))
+                                            Else
+                                                lvBundles.Items.Add(Listado.Generar(juego))
+                                            End If
                                         End If
                                     End If
                                 End If
@@ -285,6 +295,10 @@ Module Ordenar
             End If
 
             lv.IsEnabled = True
+
+            If Not lvBundles Is Nothing Then
+                lvBundles.IsEnabled = True
+            End If
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = True

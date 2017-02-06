@@ -11,12 +11,9 @@ Module Humble
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listadoHumble")
+        Dim lv As ListView = pagina.FindName("listadoBundlesHumble")
         lv.IsEnabled = False
         lv.Items.Clear()
-
-        Dim cbTipo As ComboBox = pagina.FindName("cbTipoHumble")
-        cbTipo.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False
@@ -173,9 +170,6 @@ Module Humble
         Dim lv As ListView = pagina.FindName("listadoHumble")
         lv.IsEnabled = False
         lv.Items.Clear()
-
-        Dim cbTipo As ComboBox = pagina.FindName("cbTipoHumble")
-        cbTipo.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False
