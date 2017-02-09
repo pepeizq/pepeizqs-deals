@@ -195,4 +195,7 @@
   <data name="Config Descartar Aviso" xml:space="preserve">
     <value>This option does not work in bundles and special editions</value>
   </data>
+  <data name="Donar" xml:space="preserve">
+    <value>Donate</value>
+  </data>
 </root>

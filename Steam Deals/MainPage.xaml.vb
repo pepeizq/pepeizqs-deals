@@ -35,6 +35,7 @@ Public NotInheritable Class MainPage
         botonConfig.Label = recursos.GetString("Boton Config")
         botonVotar.Label = recursos.GetString("Boton Votar")
         botonCompartir.Label = recursos.GetString("Boton Compartir")
+        botonDonar.Label = recursos.GetString("Donar")
         botonContacto.Label = recursos.GetString("Boton Contactar")
         botonMasApps.Label = recursos.GetString("Boton Web")
 
@@ -265,6 +266,16 @@ Public NotInheritable Class MainPage
         request.Data.SetText("Download: https://www.microsoft.com/store/apps/9p7836m1tw15")
         request.Data.Properties.Title = "Steam Deals"
         request.Data.Properties.Description = "Find the best deals on Steam and other digital stores"
+
+    End Sub
+
+    Private Async Sub botonDonar_Click(sender As Object, e As RoutedEventArgs) Handles botonDonar.Click
+
+        Try
+            Await Launcher.LaunchUriAsync(New Uri("https://www.paypal.me/pepeizq/1"))
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 

@@ -59,6 +59,8 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarSeparator/>
+                <AppBarButton x:Name="botonDonar" Icon="Contact"/>
+                <AppBarSeparator/>
                 <AppBarButton x:Name="botonContacto" Icon="Contact"/>
                 <AppBarButton x:Name="botonMasApps" Icon="World"/>
             </CommandBar.SecondaryCommands>
@@ -310,7 +312,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <ListView x:Name="listadoBundlesHumble" Grid.Row="0" IsItemClickEnabled="True">
+                <ListView x:Name="listadoBundlesHumble" Grid.Row="0" IsItemClickEnabled="True" Margin="0,2,0,0">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
