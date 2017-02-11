@@ -40,6 +40,7 @@
                                 <MenuFlyoutItem x:Name="menuItemTiendaWinGameStore" Text="WinGameStore"/>
                                 <MenuFlyoutItem x:Name="menuItemTiendaSilaGames" Text="Sila Games"/>
                                 <MenuFlyoutItem x:Name="menuItemTiendaDLGamer" Text="DLGamer"/>
+                                <MenuFlyoutItem x:Name="menuItemTiendaNuuvem" Text="Nuuvem"/>
                             </MenuFlyout>
                         </Button.Flyout>
                     </Button>
@@ -139,6 +140,12 @@
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_dlgamer.ico" Width="16" Height="16"/>
                             <TextBlock x:Name="botonTiendaTextoDLGamer" Text="DLGamer" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="botonTiendaNuuvem" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_nuuvem.ico" Width="16" Height="16"/>
+                            <TextBlock x:Name="botonTiendaTextoNuuvem" Text="Nuuvem" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
 
@@ -611,6 +618,53 @@
                 <Grid x:Name="gridProgresoDLGamer" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ProgressRing x:Name="prDLGamer" IsActive="True" Height="54" Width="54" Foreground="Black"/>
                     <TextBlock x:Name="tbProgresoDLGamer" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="gridTiendaNuuvem" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock x:Name="tbOrdenarNuuvem" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbOrdenarNuuvem" Grid.Column="1" Width="120">
+                        <ComboBoxItem x:Name="cbOrdenarNuuvemDescuento"/>
+                        <ComboBoxItem x:Name="cbOrdenarNuuvemPrecio"/>
+                        <ComboBoxItem x:Name="cbOrdenarNuuvemTitulo"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbPlataformaNuuvem" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbPlataformaNuuvem" Grid.Column="3" Width="120">
+                        <ComboBoxItem Content="Windows"/>
+                        <ComboBoxItem Content="Mac"/>
+                        <ComboBoxItem Content="Linux"/>
+                    </ComboBox>
+                    <TextBlock x:Name="tbDRMNuuvem" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbDRMNuuvem" Grid.Column="5" Width="140"/>
+                </Grid>
+
+                <ListView x:Name="listadoNuuvem" Grid.Row="1" IsItemClickEnabled="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+
+                <Grid x:Name="gridProgresoNuuvem" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                    <TextBlock x:Name="tbProgresoNuuvem" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
             </Grid>
         </Grid>

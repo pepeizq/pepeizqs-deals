@@ -170,6 +170,19 @@ Public NotInheritable Class MainPage
         cbDRMDLGamer.ItemsSource = listaDRMs
         cbDRMDLGamer.SelectedIndex = 0
 
+        tbOrdenarNuuvem.Text = recursos.GetString("Ordenar")
+        cbOrdenarNuuvemDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarNuuvemPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarNuuvemTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarNuuvem.SelectedIndex = 0
+
+        tbPlataformaNuuvem.Text = recursos.GetString("Plataforma")
+        cbPlataformaNuuvem.SelectedIndex = 0
+
+        tbDRMNuuvem.Text = recursos.GetString("DRM")
+        cbDRMNuuvem.ItemsSource = listaDRMs
+        cbDRMNuuvem.SelectedIndex = 0
+
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
         '--------------------------------------------------------
@@ -191,6 +204,7 @@ Public NotInheritable Class MainPage
             gridTiendaWinGameStore.Padding = New Thickness(0, 0, 0, 0)
             gridTiendaSilaGames.Padding = New Thickness(0, 0, 0, 0)
             gridTiendaDLGamer.Padding = New Thickness(0, 0, 0, 0)
+            gridTiendaNuuvem.Padding = New Thickness(0, 0, 0, 0)
 
             tbPlataformaSteam.Visibility = Visibility.Collapsed
             cbPlataformaSteam.Visibility = Visibility.Collapsed
@@ -204,6 +218,8 @@ Public NotInheritable Class MainPage
             cbPlataformaBundleStars.Visibility = Visibility.Collapsed
             tbPlataformaGOG.Visibility = Visibility.Collapsed
             cbPlataformaGOG.Visibility = Visibility.Collapsed
+            tbPlataformaNuuvem.Visibility = Visibility.Collapsed
+            cbPlataformaNuuvem.Visibility = Visibility.Collapsed
         Else
             commadBarTop.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right
             botonHamburger.Visibility = Visibility.Collapsed
@@ -308,6 +324,7 @@ Public NotInheritable Class MainPage
             botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaDLGamer.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaNuuvem.Background = New SolidColorBrush(Colors.Transparent)
 
             button.Background = New SolidColorBrush(Microsoft.Toolkit.Uwp.ColorHelper.ToColor("#bfbfbf"))
         End If
@@ -322,6 +339,7 @@ Public NotInheritable Class MainPage
         gridTiendaWinGameStore.Visibility = Visibility.Collapsed
         gridTiendaSilaGames.Visibility = Visibility.Collapsed
         gridTiendaDLGamer.Visibility = Visibility.Collapsed
+        gridTiendaNuuvem.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -931,6 +949,69 @@ Public NotInheritable Class MainPage
         If gridTiendaDLGamer.Visibility = Visibility.Visible Then
             If Not gridProgresoDLGamer.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, Nothing, cbDRMDLGamer.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub botonTiendaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaNuuvem.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaNuuvem, botonTiendaNuuvem)
+
+        If listadoNuuvem.Items.Count = 0 Then
+            Nuuvem.GenerarOfertas()
+            cbOrdenarNuuvem.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Sub menuItemTiendaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles menuItemTiendaNuuvem.Click
+
+        tbMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaNuuvem, Nothing)
+
+        If listadoNuuvem.Items.Count = 0 Then
+            Nuuvem.GenerarOfertas()
+            cbOrdenarNuuvem.SelectedIndex = 0
+        End If
+
+    End Sub
+
+    Private Async Sub listadoNuuvem_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoNuuvem.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub cbOrdenarNuuvem_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarNuuvem.SelectionChanged
+
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, cbPlataformaNuuvem.SelectedIndex, cbDRMNuuvem.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbPlataformaNuuvem_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPlataformaNuuvem.SelectionChanged
+
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, cbPlataformaNuuvem.SelectedIndex, cbDRMNuuvem.SelectedIndex)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub cbDRMNuuvem_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbDRMNuuvem.SelectionChanged
+
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, cbPlataformaNuuvem.SelectedIndex, cbDRMNuuvem.SelectedIndex)
             End If
         End If
 

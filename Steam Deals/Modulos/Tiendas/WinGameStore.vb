@@ -180,6 +180,14 @@ Module WinGameStore
 
                 If juego.Enlace.Contains("3861/XCOM-Enemy-Within") Then
                     juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("6613/Criminal-Girls-Invite-Only") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("3817/Borderlands-The-Pre-Sequel") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("3837/Borderlands-2-Season-Pass") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
+                    juego.DRM = "steam"
                 End If
             End If
 
