@@ -105,6 +105,10 @@ Module SilaGames
 
                     temp10 = temp10.Insert(temp10.Length - 2, ",")
 
+                    If temp10.IndexOf(",") = 0 Then
+                        temp10 = "0" + temp10
+                    End If
+
                     Dim precio As String = temp10.Trim + " €"
 
                     Dim temp11, temp12 As String

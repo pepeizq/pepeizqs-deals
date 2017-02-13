@@ -669,7 +669,7 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="gridConfig" Visibility="Collapsed" Padding="5">
+        <Grid x:Name="gridConfig" Grid.Row="0" Visibility="Collapsed" Padding="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>

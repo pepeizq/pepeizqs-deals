@@ -72,6 +72,7 @@ Module Nuuvem
                             int4 = temp3.IndexOf(ChrW(34))
                             temp4 = temp3.Remove(int4, temp3.Length - int4)
 
+                            temp4 = temp4.Replace("&amp;", "&")
                             temp4 = temp4.Replace("&#39;", "'")
 
                             Dim titulo As String = temp4.Trim
