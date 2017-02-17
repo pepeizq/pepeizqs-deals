@@ -46,6 +46,8 @@ Public NotInheritable Class MainPage
         tbConfigDescartar.Text = recursos.GetString("Config Descartar")
         tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
 
+        tbTwitterConfig.Text = recursos.GetString("Twitter")
+
         cbTipoSteamJuegos.Content = recursos.GetString("Juegos")
         cbTipoSteamBundles.Content = recursos.GetString("Bundles")
         cbTipoSteamDLCs.Content = recursos.GetString("DLCs")
@@ -236,6 +238,8 @@ Public NotInheritable Class MainPage
         Else
             cbConfigDescartar.IsChecked = False
         End If
+
+        Twitter.Generar()
 
     End Sub
 
@@ -1034,6 +1038,39 @@ Public NotInheritable Class MainPage
     Private Sub cbConfigDescartar_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartar.Unchecked
 
         ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+
+    End Sub
+
+    '-----------------------------------------------------------------------------
+
+    Private Async Sub buttonTwitter_Click(sender As Object, e As RoutedEventArgs) Handles buttonTwitter.Click
+
+        Dim boton As Button = e.OriginalSource
+        Dim enlace As Uri = boton.Tag
+
+        Await Launcher.LaunchUriAsync(enlace)
+
+    End Sub
+
+    Private Sub buttonTwitterCancelar_Click(sender As Object, e As RoutedEventArgs) Handles buttonTwitterCancelar.Click
+
+        gridTwitter.Visibility = Visibility.Collapsed
+        ApplicationData.Current.LocalSettings.Values("twitter") = "off"
+        cbTwitter.IsChecked = False
+
+    End Sub
+
+    Private Sub cbTwitter_Checked(sender As Object, e As RoutedEventArgs) Handles cbTwitter.Checked
+
+        gridTwitter.Visibility = Visibility.Visible
+        ApplicationData.Current.LocalSettings.Values("twitter") = "on"
+
+    End Sub
+
+    Private Sub cbTwitter_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbTwitter.Unchecked
+
+        gridTwitter.Visibility = Visibility.Collapsed
+        ApplicationData.Current.LocalSettings.Values("twitter") = "off"
 
     End Sub
 

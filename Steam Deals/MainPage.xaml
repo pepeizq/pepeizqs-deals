@@ -71,6 +71,7 @@
     <Grid Background="#FFE4E4E4" Padding="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid x:Name="gridDeals" Grid.Row="0">
@@ -676,6 +677,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock x:Name="tbConfig" Grid.Column="0" FontSize="23" Margin="5,0,0,15"/>
@@ -691,7 +693,7 @@
                 <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
                 <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
             </Grid>
-            <CheckBox x:Name="cbConfigDescartar" Grid.Row="4" Margin="5,15,5,5">
+            <CheckBox x:Name="cbConfigDescartar" Grid.Row="4" Margin="10,15,5,5">
                 <CheckBox.Content>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -711,7 +713,16 @@
                         </Grid>
                     </Grid>
                 </CheckBox.Content>
-            </CheckBox> 
+            </CheckBox>
+            <Grid Grid.Row="5" Padding="10" Margin="0,10" HorizontalAlignment="Left">
+                <CheckBox x:Name="cbTwitter">
+                    <CheckBox.Content>
+                        <Grid>
+                            <TextBlock x:Name="tbTwitterConfig" TextWrapping="Wrap"/>
+                        </Grid>
+                    </CheckBox.Content>
+                </CheckBox>
+            </Grid>
         </Grid> 
 
         <Grid x:Name="gridWebContacto" Grid.Row="0" Visibility="Collapsed">
@@ -720,6 +731,35 @@
 
         <Grid x:Name="gridWeb" Grid.Row="0" Visibility="Collapsed">
             <WebView x:Name="webViewWeb" Source="https://pepeizqapps.com/" />
+        </Grid>
+
+        <Grid x:Name="gridTwitter" Grid.Row="1" Visibility="Collapsed" Background="PowderBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="buttonTwitter" Grid.Column="0" Background="Transparent" HorizontalAlignment="Stretch">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Grid.Column="0" Margin="0,0,10,0" Source="Assets/twitter_logo.png" Width="32" Height="32"/>
+                        <TextBlock x:Name="tbTwitter" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button x:Name="buttonTwitterCancelar" Grid.Column="1" Background="Transparent">
+                <Button.Content>
+                    <Grid>
+                        <SymbolIcon Symbol="Cancel" Height="32"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Page>

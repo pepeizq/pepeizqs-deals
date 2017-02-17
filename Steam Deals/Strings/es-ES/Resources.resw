@@ -198,4 +198,7 @@
   <data name="Donar" xml:space="preserve">
     <value>Donar</value>
   </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>Enseñar últimas noticias de @pepeizqapps</value>
+  </data>
 </root>
