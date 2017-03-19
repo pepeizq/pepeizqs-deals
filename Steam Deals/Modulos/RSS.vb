@@ -47,10 +47,21 @@ Module RSS
 
         If feeds.Items.Count > 0 Then
             For Each feed In feeds.Items
-                Dim feedUri As String = feed.CommentsUri.ToString
-                feedUri = feedUri.Replace("#respond", Nothing)
-
                 Dim tituloBool As Boolean = False
+
+                Dim feedUri As String = Nothing
+
+                Try
+                    feedUri = feed.Links.FirstOrDefault.Uri.AbsolutePath
+                    feedUri = feedUri.Replace("#respond", Nothing)
+
+                    If Not feedUri.Contains("https://pepeizqapps.com") Then
+                        feedUri = "https://pepeizqapps.com" + feedUri
+                    End If
+                Catch ex As Exception
+                    tituloBool = True
+                End Try
+
                 Dim k As Integer = 0
                 While k < listaFeeds.Count
                     If feed.Title.Text.Trim = Nothing Then

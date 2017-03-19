@@ -32,7 +32,7 @@ Module WinGameStore
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
         Dim html As String = html_.Result
@@ -188,6 +188,24 @@ Module WinGameStore
                     juego.DRM = "steam"
                 ElseIf juego.Enlace.Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
                     juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("3830/Borderlands-2") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("3852/Borderlands-Game-of-the-Year-Edition") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("3846/BioShock-Infinite-Season-Pass") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("4309/Grand-Theft-Auto-Collection") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("4799/L-A-Noire-The-Complete-Edition") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("5199/Max-Payne-3-Complete-Pack") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("4274/Grand-Theft-Auto-3") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("4273/Grand-Theft-Auto-San-Andreas") Then
+                    juego.DRM = "steam"
+                ElseIf juego.Enlace.Contains("4272/Grand-Theft-Auto-Vice-City") Then
+                    juego.DRM = "steam"
                 End If
             End If
 
@@ -200,7 +218,7 @@ Module WinGameStore
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -210,7 +228,7 @@ Module WinGameStore
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasWinGameStore", listaJuegos)
