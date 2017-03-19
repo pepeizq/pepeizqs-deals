@@ -19,7 +19,7 @@
     <PackageCertificateThumbprint>6016C69846B8B85D7E3865F854E34DF1F2D5AC74</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -109,12 +109,13 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clases\FeedRSS.vb" />
     <Compile Include="Clases\Juego.vb" />
-    <Compile Include="Clases\Tweet.vb" />
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modulos\CuentaSteam.vb" />
+    <Compile Include="Modulos\RSS.vb" />
     <Compile Include="Modulos\Tiendas\BundleStars.vb" />
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />
@@ -131,7 +132,6 @@
     <Compile Include="Modulos\Tiendas\SilaGames.vb" />
     <Compile Include="Modulos\Tiendas\Steam.vb" />
     <Compile Include="Modulos\Tiendas\WinGameStore.vb" />
-    <Compile Include="Modulos\Twitter.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +211,7 @@
     <Content Include="Assets\platform_linux.png" />
     <Content Include="Assets\platform_mac.png" />
     <Content Include="Assets\platform_win.png" />
+    <Content Include="Assets\rss_logo.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-100.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-125.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />
@@ -221,13 +222,13 @@
     <Content Include="Assets\SplashScreen\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-200.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-400.png" />
+    <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\steam_logo.svg" />
     <Content Include="Assets\Store\StoreLogo.scale-100.png" />
     <Content Include="Assets\Store\StoreLogo.scale-125.png" />
     <Content Include="Assets\Store\StoreLogo.scale-150.png" />
     <Content Include="Assets\Store\StoreLogo.scale-200.png" />
     <Content Include="Assets\Store\StoreLogo.scale-400.png" />
-    <Content Include="Assets\twitter_logo.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />

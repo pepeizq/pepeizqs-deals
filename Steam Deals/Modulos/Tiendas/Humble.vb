@@ -27,9 +27,10 @@ Module Humble
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
 
-        bwBundles = New BackgroundWorker
-        bwBundles.WorkerReportsProgress = True
-        bwBundles.WorkerSupportsCancellation = True
+        bwBundles = New BackgroundWorker With {
+            .WorkerReportsProgress = True,
+            .WorkerSupportsCancellation = True
+        }
 
         If bwBundles.IsBusy = False Then
             bwBundles.RunWorkerAsync()
@@ -37,7 +38,7 @@ Module Humble
 
     End Sub
 
-    Private Sub bwBundles_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bwBundles.DoWork
+    Private Sub BwBundles_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bwBundles.DoWork
 
         listaBundles = New List(Of Juego)
 
@@ -148,7 +149,7 @@ Module Humble
 
     End Sub
 
-    Private Async Sub bwBundles_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bwBundles.RunWorkerCompleted
+    Private Async Sub BwBundles_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bwBundles.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaBundlesHumble", listaBundles)
@@ -183,9 +184,10 @@ Module Humble
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
 
-        bw = New BackgroundWorker
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        bw = New BackgroundWorker With {
+            .WorkerReportsProgress = True,
+            .WorkerSupportsCancellation = True
+        }
 
         If bw.IsBusy = False Then
             bw.RunWorkerAsync()
@@ -193,7 +195,7 @@ Module Humble
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         listaJuegos = New List(Of Juego)
         Dim terminar As Boolean = False
@@ -239,6 +241,7 @@ Module Humble
                             temp4 = temp4.Replace("\u007e", "ç")
                             temp4 = temp4.Replace("\u00b2", "²")
                             temp4 = temp4.Replace("\u00fc", "ü")
+                            temp4 = temp4.Replace("\u00e9", "é")
                             temp4 = temp4.Replace("\u00ae", "®")
                             temp4 = temp4.Replace("\u2019", "'")
                             temp4 = temp4.Replace("\u2122", "™")
@@ -293,8 +296,9 @@ Module Humble
                             int12 = temp11.IndexOf(ChrW(34))
                             temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(temp12.Trim)
-                            formateador.Mode = CurrencyFormatterMode.UseSymbol
+                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(temp12.Trim) With {
+                                .Mode = CurrencyFormatterMode.UseSymbol
+                            }
 
                             Dim precio As String = formateador.Format(tempDecimal)
 
@@ -388,7 +392,7 @@ Module Humble
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -398,7 +402,7 @@ Module Humble
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasHumble", listaJuegos)

@@ -2,7 +2,6 @@
     x:Class="Steam_Deals.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Steam_Deals"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,674 +16,780 @@
                 </LinearGradientBrush>
             </CommandBar.Background>
 
-            <CommandBar.Content>
-                <Grid Height="48">
-                    <Button x:Name="botonHamburger" Background="Transparent" Foreground="White">
-                        <Button.Content>
-                            <Grid>
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#59136;"/>
-                                    <TextBlock x:Name="tbHamburgerTiendas" Margin="10,0,0,0"/>
-                                </StackPanel>
-                            </Grid>
-                        </Button.Content>
-                        <Button.Flyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem x:Name="menuItemTiendaSteam" Text="Steam"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaGamersGate" Text="GamersGate"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaGamesPlanet" Text="GamesPlanet"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaHumble" Text="Humble"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaGreenManGaming" Text="Green Man Gaming"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaBundleStars" Text="BundleStars"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaGOG" Text="GOG"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaWinGameStore" Text="WinGameStore"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaSilaGames" Text="Sila Games"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaDLGamer" Text="DLGamer"/>
-                                <MenuFlyoutItem x:Name="menuItemTiendaNuuvem" Text="Nuuvem"/>
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                </Grid>
-            </CommandBar.Content>
-
             <CommandBar.PrimaryCommands>
-                <AppBarButton x:Name="botonPrincipal" Icon="Home" Foreground="White" FontSize="17"/>
-                <AppBarButton x:Name="botonConfig" Icon="Setting" Foreground="White" FontSize="17"/>
-            </CommandBar.PrimaryCommands>
-
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="botonVotar" Icon="Like"/>
-                <AppBarButton x:Name="botonCompartir">
-                    <AppBarButton.Icon>
-                        <FontIcon Glyph="&#59181;"/>
-                    </AppBarButton.Icon>
+                <AppBarButton x:Name="botonInicio" Foreground="White">
+                    <AppBarButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Home" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonInicioTexto" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </AppBarButton.Content>
                 </AppBarButton>
-                <AppBarSeparator/>
-                <AppBarButton x:Name="botonDonar" Icon="Contact"/>
-                <AppBarSeparator/>
-                <AppBarButton x:Name="botonContacto" Icon="Contact"/>
-                <AppBarButton x:Name="botonMasApps" Icon="World"/>
-            </CommandBar.SecondaryCommands>
+                <AppBarSeparator Foreground="White" VerticalAlignment="Center"/>
+                <AppBarButton x:Name="botonOfertas" Foreground="White">
+                    <AppBarButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5,0,10,0" Text="%"/>
+                            <TextBlock x:Name="botonOfertasTexto" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </AppBarButton.Content>
+                </AppBarButton>
+                <AppBarSeparator Foreground="White" VerticalAlignment="Center"/>
+                <AppBarButton x:Name="botonConfig" Foreground="White">
+                    <AppBarButton.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Setting" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonConfigTexto" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </AppBarButton.Content>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.TopAppBar>
 
-    <Grid Background="#FFE4E4E4" Padding="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Page.Resources>
+        <DataTemplate x:Key="FeedRSS">
+            <Grid Tag="{Binding Enlace}" Margin="1">
+                <TextBlock Text="{Binding Titulo}" TextWrapping="Wrap" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
 
-        <Grid x:Name="gridDeals" Grid.Row="0">
+    <Grid Background="#FFE4E4E4">
+        <Grid x:Name="gridInicio">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Padding="80,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Vertical" Margin="0,50,0,0" HorizontalAlignment="Left">
+                    <Button x:Name="botonInicioVotar" Padding="10" Background="DarkOliveGreen" Foreground="White" Width="200" Margin="0,0,0,20" >
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Like" Margin="0,0,10,0"/>
+                                <TextBlock x:Name="botonInicioVotarTexto" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="botonInicioCompartir" Padding="10" Background="DarkOliveGreen" Foreground="White" Width="200" Margin="0,0,0,20" >
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon Glyph="&#59181;" Margin="0,0,10,0"/>
+                                <TextBlock x:Name="botonInicioCompartirTexto" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="botonInicioContacto" Padding="10" Background="DarkOliveGreen" Foreground="White" Width="200" Margin="0,0,0,20" >
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Contact" Margin="0,0,10,0"/>
+                                <TextBlock x:Name="botonInicioContactoTexto" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Vertical" Padding="0,0,0,50" HorizontalAlignment="Left">
+                    <Button x:Name="botonInicioMasApps" Padding="10" Background="DarkOliveGreen" Foreground="White" Width="200">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock x:Name="botonInicioMasAppsTexto" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <StackPanel x:Name="spMasApps" Orientation="Vertical" Width="200" Margin="0,5,0,0">
+                        <Button x:Name="botonAppSteamTiles" Padding="10" Background="dimGray" Foreground="White" Width="200" Margin="0,0,0,5" HorizontalContentAlignment="Left">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets\steam_logo.png" Margin="0,0,10,0" Width="20" Height="20"/>
+                                    <TextBlock Text="Steam Games Tiles" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button x:Name="botonAppSteamCategories" Padding="10" Background="darkBlue" Foreground="White" Width="200" Margin="0,0,0,5" HorizontalContentAlignment="Left">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets\steam_logo.png" Margin="0,0,10,0" Width="20" Height="20"/>
+                                    <TextBlock Text="Steam Categories" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button x:Name="botonAppSteamBridge" Padding="10" Background="darkMagenta" Foreground="White" Width="200" Margin="0,0,0,5" HorizontalContentAlignment="Left">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets\steam_logo.png" Margin="0,0,10,0" Width="20" Height="20"/>
+                                    <TextBlock Text="Steam Bridge" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button x:Name="botonAppSteamSkins" Padding="10" Background="darkCyan" Foreground="White" Width="200" Margin="0,0,0,5" HorizontalContentAlignment="Left">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets\steam_logo.png" Margin="0,0,10,0" Width="20" Height="20"/>
+                                    <TextBlock Text="Steam Skins" Foreground="White" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Padding="50,0">
+                <StackPanel Orientation="Horizontal" Padding="10" Background="DarkOliveGreen">
+                    <controls:ImageEx Source="Assets\rss_logo.png" Width="24" Height="24" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="tbRSS" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White"/>
+                </StackPanel>
+                <ListView x:Name="lvRSS" IsItemClickEnabled="True" ItemTemplate="{StaticResource FeedRSS}" BorderThickness="1,0,1,1" BorderBrush="SlateGray"/>
+            </StackPanel>
+
+            <Grid Grid.Column="2" Padding="80,50">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" VerticalAlignment="Top">
+                    <Grid HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--<SymbolIcon Grid.Column="0" Symbol="Important" Margin="0,0,10,0"/>-->
+                        <TextBlock x:Name="tbConsejoConfig" Grid.Column="1" TextWrapping="Wrap"/>
+                    </Grid>
+                </Grid>
+
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <Grid Padding="10" Background="DarkOliveGreen">
+                        <TextBlock x:Name="tbInicioGrid" Foreground="White" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                    </Grid>
+                    <ComboBox x:Name="cbArranque" HorizontalAlignment="Stretch">
+                        <ComboBoxItem x:Name="cbItemArranqueInicio"/>
+                        <ComboBoxItem x:Name="cbItemArranqueOfertas"/>
+                        <ComboBoxItem x:Name="cbItemArranqueConfig"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom">
+                    <TextBlock x:Name="tbVersionApp" HorizontalAlignment="Right" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="tbVersionWindows" HorizontalAlignment="Right" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="gridDeals" Visibility="Collapsed" Background="OliveDrab">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-                <StackPanel x:Name="spTiendas" VerticalAlignment="Top" BorderThickness="0,0,1,0" BorderBrush="Black" Padding="0,5,0,0">
+                <StackPanel x:Name="spTiendas" VerticalAlignment="Top" Padding="0,15,0,0">
 
-                    <Button x:Name="botonTiendaSteam" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaSteam" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGamersGate" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaGamersGate" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGamesPlanet" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaGamesPlanet" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_gamesplanet.png" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoGamesPlanet" Text="GamesPlanet" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_gamesplanet.png" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoGamesPlanet" Text="GamesPlanet" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaHumble" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaHumble" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGreenManGaming" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaGreenManGaming" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaBundleStars" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaBundleStars" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaGOG" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaGOG" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaWinGameStore" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaWinGameStore" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaSilaGames" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaSilaGames" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaDLGamer" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaDLGamer" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_dlgamer.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoDLGamer" Text="DLGamer" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_dlgamer.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoDLGamer" Text="DLGamer" Foreground="White"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="botonTiendaNuuvem" Margin="0,0,0,5" Padding="7" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="0" Width="170">
+                    <Button x:Name="botonTiendaNuuvem" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Source="Assets/icon_nuuvem.ico" Width="16" Height="16"/>
-                            <TextBlock x:Name="botonTiendaTextoNuuvem" Text="Nuuvem" Margin="5,0,0,0"/>
+                            <controls:ImageEx Source="Assets/icon_nuuvem.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoNuuvem" Text="Nuuvem" Foreground="White"/>
                         </StackPanel>
                     </Button>
 
                 </StackPanel>
-            </ScrollViewer> 
-            
-            <TextBlock x:Name="tbMensajeTienda" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
+            </ScrollViewer>
 
-            <Grid x:Name="gridTiendaSteam" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Grid Grid.Column="1" Background="#FFE4E4E4">
+                <TextBlock x:Name="tbMensajeTienda" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
 
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                <Grid x:Name="gridTiendaSteam" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <ComboBox x:Name="cbTipoSteam" Grid.Column="0" Width="120">
-                        <ComboBoxItem x:Name="cbTipoSteamJuegos"/>
-                        <ComboBoxItem x:Name="cbTipoSteamBundles"/>
-                        <ComboBoxItem x:Name="cbTipoSteamDLCs"/>
-                        <ComboBoxItem x:Name="cbTipoSteamSoftware"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbOrdenarSteam" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarSteam" Grid.Column="2" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarSteamDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarSteamPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarSteamTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaSteam" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaSteam" Grid.Column="4" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox x:Name="cbTipoSteam" Grid.Column="0" Width="120">
+                            <ComboBoxItem x:Name="cbTipoSteamJuegos"/>
+                            <ComboBoxItem x:Name="cbTipoSteamBundles"/>
+                            <ComboBoxItem x:Name="cbTipoSteamDLCs"/>
+                            <ComboBoxItem x:Name="cbTipoSteamSoftware"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbOrdenarSteam" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarSteam" Grid.Column="2" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarSteamDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarSteamPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarSteamTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaSteam" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaSteam" Grid.Column="4" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <ListView x:Name="listadoSteam" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Grid x:Name="gridProgresoSteam" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prSteam" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
 
-                <ListView x:Name="listadoSteam" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <Grid x:Name="gridTiendaGamersGate" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid x:Name="gridProgresoSteam" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prSteam" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Grid x:Name="gridTiendaGamersGate" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                        <TextBlock x:Name="tbOrdenarGamersGate" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarGamersGate" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarGamersGateDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarGamersGatePrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarGamersGateTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaGamersGate" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaGamersGate" Grid.Column="3" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMGamersGate" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMGamersGate" Grid.Column="5" Width="140"/>
+                    </Grid>
 
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                    <ListView x:Name="listadoGamersGate" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
 
-                    <TextBlock x:Name="tbOrdenarGamersGate" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarGamersGate" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarGamersGateDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarGamersGatePrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarGamersGateTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaGamersGate" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaGamersGate" Grid.Column="3" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMGamersGate" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMGamersGate" Grid.Column="5" Width="140"/>
-                </Grid>
-
-                <ListView x:Name="listadoGamersGate" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-
-                <Grid x:Name="gridProgresoGamersGate" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prGamersGate" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoGamersGate" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="gridTiendaGamesPlanet" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock x:Name="tbPaisGamesPlanet" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPaisGamesPlanet" Grid.Column="1" Height="32" Width="80" Padding="5">
-                        <ComboBoxItem Height="32" Width="48" Padding="5">
-                            <controls:ImageEx Source="Assets\pais_uk.png" Stretch="Fill"/>
-                        </ComboBoxItem>
-                        <ComboBoxItem Height="32" Width="48" Padding="5">
-                            <controls:ImageEx Source="Assets\pais_fr.png" Stretch="Fill"/>
-                        </ComboBoxItem>
-                        <ComboBoxItem Height="32" Width="48" Padding="5">
-                            <controls:ImageEx Source="Assets\pais_de.png" Stretch="Fill"/>
-                        </ComboBoxItem>
-                    </ComboBox>
-                    <TextBlock x:Name="tbOrdenarGamesPlanet" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarGamesPlanet" Grid.Column="3" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarGamesPlanetDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarGamesPlanetPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarGamesPlanetTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaGamesPlanet" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaGamesPlanet" Grid.Column="5" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMGamesPlanet" Grid.Column="6" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMGamesPlanet" Grid.Column="7" Width="140"/>
+                    <Grid x:Name="gridProgresoGamersGate" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prGamersGate" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoGamersGate" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
 
-                <ListView x:Name="listadoGamesPlanet" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <Grid x:Name="gridTiendaGamesPlanet" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid x:Name="gridProgresoGamesPlanet" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prGamesPlanet" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoGamesPlanet" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Grid x:Name="gridTiendaHumble" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                        <TextBlock x:Name="tbPaisGamesPlanet" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPaisGamesPlanet" Grid.Column="1" Height="32" Width="80" Padding="5">
+                            <ComboBoxItem Height="32" Width="48" Padding="5">
+                                <controls:ImageEx Source="Assets\pais_uk.png" Stretch="Fill"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem Height="32" Width="48" Padding="5">
+                                <controls:ImageEx Source="Assets\pais_fr.png" Stretch="Fill"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem Height="32" Width="48" Padding="5">
+                                <controls:ImageEx Source="Assets\pais_de.png" Stretch="Fill"/>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock x:Name="tbOrdenarGamesPlanet" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarGamesPlanet" Grid.Column="3" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarGamesPlanetDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarGamesPlanetPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarGamesPlanetTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaGamesPlanet" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaGamesPlanet" Grid.Column="5" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMGamesPlanet" Grid.Column="6" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMGamesPlanet" Grid.Column="7" Width="140"/>
+                    </Grid>
 
-                <ListView x:Name="listadoBundlesHumble" Grid.Row="0" IsItemClickEnabled="True" Margin="0,2,0,0">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                    <ListView x:Name="listadoGamesPlanet" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
 
-                <Grid Grid.Row="1" Margin="0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock x:Name="tbOrdenarHumble" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarHumble" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaHumble" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaHumble" Grid.Column="3" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMHumble" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMHumble" Grid.Column="5" Width="140"/>
-                </Grid>
-
-                <ListView x:Name="listadoHumble" Grid.Row="2" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-
-                <Grid x:Name="gridProgresoHumble" Grid.Row="2" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prHumble" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="gridTiendaGreenManGaming" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock x:Name="tbOrdenarGreenManGaming" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarGreenManGaming" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarGreenManGamingDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarGreenManGamingPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarGreenManGamingTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMGreenManGaming" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMGreenManGaming" Grid.Column="3" Width="140"/>
+                    <Grid x:Name="gridProgresoGamesPlanet" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prGamesPlanet" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoGamesPlanet" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
 
-                <ListView x:Name="listadoGreenManGaming" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <Grid x:Name="gridTiendaHumble" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid x:Name="gridProgresoGreenManGaming" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoGreenManGaming" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+                    <ListView x:Name="listadoBundlesHumble" Grid.Row="0" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
 
-            <Grid x:Name="gridTiendaBundleStars" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="tbOrdenarHumble" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarHumble" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaHumble" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaHumble" Grid.Column="3" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMHumble" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMHumble" Grid.Column="5" Width="140"/>
+                    </Grid>
 
-                    <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
-                        <ComboBoxItem x:Name="cbTipoBundleStarsBundles"/>
-                        <ComboBoxItem x:Name="cbTipoBundleStarsJuegos"/>
-                        <ComboBoxItem x:Name="cbTipoBundleStarsDLCs"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="2" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaBundleStars" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaBundleStars" Grid.Column="4" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMBundleStars" Grid.Column="5" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMBundleStars" Grid.Column="6" Width="140"/>
-                </Grid>
+                    <ListView x:Name="listadoHumble" Grid.Row="2" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
 
-                <ListView x:Name="listadoBundleStars" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-
-                <Grid x:Name="gridProgresoBundleStars" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoBundleStars" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="gridTiendaGOG" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock x:Name="tbOrdenarGOG" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarGOG" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarGOGDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarGOGPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarGOGTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaGOG" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaGOG" Grid.Column="3" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
+                    <Grid x:Name="gridProgresoHumble" Grid.Row="2" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prHumble" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
 
-                <ListView x:Name="listadoGOG" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <Grid x:Name="gridTiendaGreenManGaming" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid x:Name="gridProgresoGOG" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoGOG" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Grid x:Name="gridTiendaWinGameStore" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                        <TextBlock x:Name="tbOrdenarGreenManGaming" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarGreenManGaming" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarGreenManGamingDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarGreenManGamingPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarGreenManGamingTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMGreenManGaming" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMGreenManGaming" Grid.Column="3" Width="140"/>
+                    </Grid>
 
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                    <ListView x:Name="listadoGreenManGaming" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
 
-                    <TextBlock x:Name="tbOrdenarWinGameStore" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarWinGameStore" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarWinGameStoreDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMWinGameStore" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMWinGameStore" Grid.Column="3" Width="140"/>
-                </Grid>
-
-                <ListView x:Name="listadoWinGameStore" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-
-                <Grid x:Name="gridProgresoWinGameStore" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prWinGameStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="gridTiendaSilaGames" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock x:Name="tbOrdenarSilaGames" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarSilaGames" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarSilaGamesDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMSilaGames" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMSilaGames" Grid.Column="3" Width="140"/>
+                    <Grid x:Name="gridProgresoGreenManGaming" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoGreenManGaming" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
 
-                <ListView x:Name="listadoSilaGames" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <Grid x:Name="gridTiendaBundleStars" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid x:Name="gridProgresoSilaGames" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Grid x:Name="gridTiendaDLGamer" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                        <ComboBox x:Name="cbTipoBundleStars" Grid.Column="0" Width="120">
+                            <ComboBoxItem x:Name="cbTipoBundleStarsBundles"/>
+                            <ComboBoxItem x:Name="cbTipoBundleStarsJuegos"/>
+                            <ComboBoxItem x:Name="cbTipoBundleStarsDLCs"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbOrdenarBundleStars" Grid.Column="1" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarBundleStars" Grid.Column="2" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaBundleStars" Grid.Column="3" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaBundleStars" Grid.Column="4" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMBundleStars" Grid.Column="5" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMBundleStars" Grid.Column="6" Width="140"/>
+                    </Grid>
 
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                    <ListView x:Name="listadoBundleStars" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
 
-                    <TextBlock x:Name="tbOrdenarDLGamer" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarDLGamer" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarDLGamerDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarDLGamerPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarDLGamerTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMDLGamer" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMDLGamer" Grid.Column="3" Width="140"/>
-                </Grid>
-
-                <ListView x:Name="listadoDLGamer" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-
-                <Grid x:Name="gridProgresoDLGamer" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prDLGamer" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoDLGamer" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="gridTiendaNuuvem" Grid.Column="1" Padding="20,5,5,0" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" Margin="0,0,0,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock x:Name="tbOrdenarNuuvem" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbOrdenarNuuvem" Grid.Column="1" Width="120">
-                        <ComboBoxItem x:Name="cbOrdenarNuuvemDescuento"/>
-                        <ComboBoxItem x:Name="cbOrdenarNuuvemPrecio"/>
-                        <ComboBoxItem x:Name="cbOrdenarNuuvemTitulo"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbPlataformaNuuvem" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbPlataformaNuuvem" Grid.Column="3" Width="120">
-                        <ComboBoxItem Content="Windows"/>
-                        <ComboBoxItem Content="Mac"/>
-                        <ComboBoxItem Content="Linux"/>
-                    </ComboBox>
-                    <TextBlock x:Name="tbDRMNuuvem" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="cbDRMNuuvem" Grid.Column="5" Width="140"/>
+                    <Grid x:Name="gridProgresoBundleStars" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoBundleStars" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
 
-                <ListView x:Name="listadoNuuvem" Grid.Row="1" IsItemClickEnabled="True">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Padding" Value="0"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                <Grid x:Name="gridTiendaGOG" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Grid x:Name="gridProgresoNuuvem" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                    <TextBlock x:Name="tbProgresoNuuvem" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock x:Name="tbOrdenarGOG" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarGOG" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarGOGDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarGOGPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarGOGTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaGOG" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaGOG" Grid.Column="3" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                    </Grid>
+
+                    <ListView x:Name="listadoGOG" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Grid x:Name="gridProgresoGOG" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoGOG" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="gridTiendaWinGameStore" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock x:Name="tbOrdenarWinGameStore" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarWinGameStore" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarWinGameStoreDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMWinGameStore" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMWinGameStore" Grid.Column="3" Width="140"/>
+                    </Grid>
+
+                    <ListView x:Name="listadoWinGameStore" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Grid x:Name="gridProgresoWinGameStore" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prWinGameStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="gridTiendaSilaGames" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock x:Name="tbOrdenarSilaGames" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarSilaGames" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarSilaGamesDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMSilaGames" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMSilaGames" Grid.Column="3" Width="140"/>
+                    </Grid>
+
+                    <ListView x:Name="listadoSilaGames" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Grid x:Name="gridProgresoSilaGames" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="gridTiendaDLGamer" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock x:Name="tbOrdenarDLGamer" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarDLGamer" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarDLGamerDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarDLGamerPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarDLGamerTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMDLGamer" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMDLGamer" Grid.Column="3" Width="140"/>
+                    </Grid>
+
+                    <ListView x:Name="listadoDLGamer" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Grid x:Name="gridProgresoDLGamer" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prDLGamer" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoDLGamer" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="gridTiendaNuuvem" Padding="20,15,5,5" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock x:Name="tbOrdenarNuuvem" Grid.Column="0" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenarNuuvem" Grid.Column="1" Width="120">
+                            <ComboBoxItem x:Name="cbOrdenarNuuvemDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarNuuvemPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarNuuvemTitulo"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbPlataformaNuuvem" Grid.Column="2" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbPlataformaNuuvem" Grid.Column="3" Width="120">
+                            <ComboBoxItem Content="Windows"/>
+                            <ComboBoxItem Content="Mac"/>
+                            <ComboBoxItem Content="Linux"/>
+                        </ComboBox>
+                        <TextBlock x:Name="tbDRMNuuvem" Grid.Column="4" Margin="10,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbDRMNuuvem" Grid.Column="5" Width="140"/>
+                    </Grid>
+
+                    <ListView x:Name="listadoNuuvem" Grid.Row="1" IsItemClickEnabled="True">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                    <Grid x:Name="gridProgresoNuuvem" Grid.Row="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                        <TextBlock x:Name="tbProgresoNuuvem" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
 
-        <Grid x:Name="gridConfig" Grid.Row="0" Visibility="Collapsed" Padding="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <StackPanel x:Name="gridConfig" Visibility="Collapsed" Padding="20">
+            <TextBlock x:Name="tbConfig" FontSize="23" Margin="5,0,0,15"/>
+            <Border BorderThickness="0,1,0,0" BorderBrush="Black" Margin="0,0,0,25" Width="300" HorizontalAlignment="Left"/>
 
-            <TextBlock x:Name="tbConfig" Grid.Column="0" FontSize="23" Margin="5,0,0,15"/>
-            <Border Grid.Row="1" BorderThickness="0,1,0,0" BorderBrush="Black" Margin="0,0,0,15"/>
-
-            <TextBlock x:Name="tbSteamConfigCuenta" Grid.Row="2" Margin="5" TextWrapping="Wrap" />
-            <Grid Grid.Row="3" Margin="5">
+            <TextBlock x:Name="tbSteamConfigCuenta" Margin="5" TextWrapping="Wrap" />
+            <Grid Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -693,7 +798,7 @@
                 <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
                 <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
             </Grid>
-            <CheckBox x:Name="cbConfigDescartar" Grid.Row="4" Margin="10,15,5,5">
+            <CheckBox x:Name="cbConfigDescartar" Margin="10,15,5,5">
                 <CheckBox.Content>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -714,52 +819,10 @@
                     </Grid>
                 </CheckBox.Content>
             </CheckBox>
-            <Grid Grid.Row="5" Padding="10" Margin="0,10" HorizontalAlignment="Left">
-                <CheckBox x:Name="cbTwitter">
-                    <CheckBox.Content>
-                        <Grid>
-                            <TextBlock x:Name="tbTwitterConfig" TextWrapping="Wrap"/>
-                        </Grid>
-                    </CheckBox.Content>
-                </CheckBox>
-            </Grid>
-        </Grid> 
+        </StackPanel>
 
-        <Grid x:Name="gridWebContacto" Grid.Row="0" Visibility="Collapsed">
-            <WebView x:Name="webViewContacto" Source="https://pepeizqapps.com/contact/" />
-        </Grid>
-
-        <Grid x:Name="gridWeb" Grid.Row="0" Visibility="Collapsed">
-            <WebView x:Name="webViewWeb" Source="https://pepeizqapps.com/" />
-        </Grid>
-
-        <Grid x:Name="gridTwitter" Grid.Row="1" Visibility="Collapsed" Background="PowderBlue">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Button x:Name="buttonTwitter" Grid.Column="0" Background="Transparent" HorizontalAlignment="Stretch">
-                <Button.Content>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Image Grid.Column="0" Margin="0,0,10,0" Source="Assets/twitter_logo.png" Width="32" Height="32"/>
-                        <TextBlock x:Name="tbTwitter" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
-                    </Grid>
-                </Button.Content>
-            </Button>
-
-            <Button x:Name="buttonTwitterCancelar" Grid.Column="1" Background="Transparent">
-                <Button.Content>
-                    <Grid>
-                        <SymbolIcon Symbol="Cancel" Height="32"/>
-                    </Grid>
-                </Button.Content>
-            </Button>
+        <Grid x:Name="gridWeb" Visibility="Collapsed" Padding="5">
+            <WebView x:Name="webViewWeb" Source="https://pepeizqapps.com/contact/" />
         </Grid>
     </Grid>
 </Page>

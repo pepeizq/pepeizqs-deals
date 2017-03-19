@@ -198,7 +198,13 @@
   <data name="Donar" xml:space="preserve">
     <value>Donar</value>
   </data>
-  <data name="Twitter" xml:space="preserve">
-    <value>Enseñar últimas noticias de @pepeizqapps</value>
+  <data name="RSS" xml:space="preserve">
+    <value>Últimas Noticias</value>
+  </data>
+  <data name="Boton Inicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Grid Arranque" xml:space="preserve">
+    <value>Elige ventana donde arrancar</value>
   </data>
 </root>

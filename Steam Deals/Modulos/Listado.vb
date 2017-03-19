@@ -6,9 +6,10 @@ Module Listado
 
     Public Function Generar(juego As Juego)
 
-        Dim grid As New Grid
-        grid.Tag = juego.Enlace
-        grid.Padding = New Thickness(0, 0, 10, 0)
+        Dim grid As New Grid With {
+            .Tag = juego.Enlace,
+            .Padding = New Thickness(0, 0, 10, 0)
+        }
 
         Dim col1 As New ColumnDefinition
         Dim col2 As New ColumnDefinition
@@ -34,9 +35,10 @@ Module Listado
         '-------------------------------
 
         If Not juego.Imagen = Nothing Then
-            Dim imagen As New ImageEx
-            imagen.Source = New BitmapImage(New Uri(juego.Imagen))
-            imagen.Stretch = Stretch.UniformToFill
+            Dim imagen As New ImageEx With {
+                .Source = New BitmapImage(New Uri(juego.Imagen)),
+                .Stretch = Stretch.UniformToFill
+            }
 
             If juego.Tienda = "Steam" Then
                 imagen.Height = 45
@@ -129,10 +131,11 @@ Module Listado
             End If
 
             If boolSistemas = True Then
-                Dim fondoSistemas As New Grid
-                fondoSistemas.Padding = New Thickness(6, 0, 6, 0)
-                fondoSistemas.Height = 34
-                fondoSistemas.Background = New SolidColorBrush(Colors.Silver)
+                Dim fondoSistemas As New Grid With {
+                    .Padding = New Thickness(6, 0, 6, 0),
+                    .Height = 34,
+                    .Background = New SolidColorBrush(Colors.SlateGray)
+                }
 
                 Dim colSis1 As New ColumnDefinition
                 Dim colSis2 As New ColumnDefinition
@@ -148,10 +151,11 @@ Module Listado
 
                 If Not juego.SistemaWin = Nothing Then
                     If juego.SistemaWin = True Then
-                        Dim imagenWin As New ImageEx
-                        imagenWin.Width = 16
-                        imagenWin.Height = 16
-                        imagenWin.Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png"))
+                        Dim imagenWin As New ImageEx With {
+                            .Width = 16,
+                            .Height = 16,
+                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png"))
+                        }
                         imagenWin.SetValue(Grid.ColumnProperty, 0)
                         fondoSistemas.Children.Add(imagenWin)
                     End If
@@ -159,10 +163,11 @@ Module Listado
 
                 If Not juego.SistemaMac = Nothing Then
                     If juego.SistemaMac = True Then
-                        Dim imagenMac As New ImageEx
-                        imagenMac.Width = 16
-                        imagenMac.Height = 16
-                        imagenMac.Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png"))
+                        Dim imagenMac As New ImageEx With {
+                            .Width = 16,
+                            .Height = 16,
+                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png"))
+                        }
                         imagenMac.SetValue(Grid.ColumnProperty, 1)
                         fondoSistemas.Children.Add(imagenMac)
                     End If
@@ -170,10 +175,11 @@ Module Listado
 
                 If Not juego.SistemaLinux = Nothing Then
                     If juego.SistemaLinux = True Then
-                        Dim imagenLinux As New ImageEx
-                        imagenLinux.Width = 16
-                        imagenLinux.Height = 16
-                        imagenLinux.Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png"))
+                        Dim imagenLinux As New ImageEx With {
+                            .Width = 16,
+                            .Height = 16,
+                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png"))
+                        }
                         imagenLinux.SetValue(Grid.ColumnProperty, 2)
                         fondoSistemas.Children.Add(imagenLinux)
                     End If
@@ -203,9 +209,10 @@ Module Listado
                 imagenDRM.Width = 16
                 imagenDRM.Height = 16
 
-                Dim fondoDRM As New Grid
-                fondoDRM.Height = 34
-                fondoDRM.Background = New SolidColorBrush(Colors.Silver)
+                Dim fondoDRM As New Grid With {
+                    .Height = 34,
+                    .Background = New SolidColorBrush(Colors.SlateGray)
+                }
 
                 If boolSistemas = True Then
                     fondoDRM.Padding = New Thickness(0, 0, 6, 0)
@@ -224,18 +231,20 @@ Module Listado
         '-------------------------------
 
         If Not juego.Descuento = Nothing Then
-            Dim fondoDescuento As New Grid
-            fondoDescuento.Padding = New Thickness(6, 0, 6, 0)
-            fondoDescuento.Height = 34
-            fondoDescuento.Width = 40
-            fondoDescuento.Margin = New Thickness(10, 0, 0, 0)
-            fondoDescuento.HorizontalAlignment = HorizontalAlignment.Center
-            fondoDescuento.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            Dim fondoDescuento As New Grid With {
+                .Padding = New Thickness(6, 0, 6, 0),
+                .Height = 34,
+                .Width = 40,
+                .Margin = New Thickness(10, 0, 0, 0),
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            }
 
-            Dim textoDescuento As New TextBlock
-            textoDescuento.Text = juego.Descuento
-            textoDescuento.VerticalAlignment = VerticalAlignment.Center
-            textoDescuento.Foreground = New SolidColorBrush(Colors.White)
+            Dim textoDescuento As New TextBlock With {
+                .Text = juego.Descuento,
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White)
+            }
 
             fondoDescuento.Children.Add(textoDescuento)
             fondoDescuento.SetValue(Grid.ColumnProperty, 4)
@@ -245,12 +254,13 @@ Module Listado
         '-------------------------------
 
         If Not juego.PrecioRebajado = Nothing Then
-            Dim fondoPrecio As New Grid
-            fondoPrecio.Background = New SolidColorBrush(Colors.Black)
-            fondoPrecio.Padding = New Thickness(5, 0, 5, 0)
-            fondoPrecio.Height = 34
-            fondoPrecio.MinWidth = 60
-            fondoPrecio.HorizontalAlignment = HorizontalAlignment.Center
+            Dim fondoPrecio As New Grid With {
+                .Background = New SolidColorBrush(Colors.Black),
+                .Padding = New Thickness(5, 0, 5, 0),
+                .Height = 34,
+                .MinWidth = 60,
+                .HorizontalAlignment = HorizontalAlignment.Center
+            }
 
             If Not AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
                 fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
@@ -258,11 +268,12 @@ Module Listado
                 fondoPrecio.Margin = New Thickness(10, 0, 0, 0)
             End If
 
-            Dim textoPrecio As New TextBlock
-            textoPrecio.Text = juego.PrecioRebajado
-            textoPrecio.VerticalAlignment = VerticalAlignment.Center
-            textoPrecio.HorizontalAlignment = HorizontalAlignment.Center
-            textoPrecio.Foreground = New SolidColorBrush(Colors.White)
+            Dim textoPrecio As New TextBlock With {
+                .Text = juego.PrecioRebajado,
+                .VerticalAlignment = VerticalAlignment.Center,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White)
+            }
 
             fondoPrecio.Children.Add(textoPrecio)
             fondoPrecio.SetValue(Grid.ColumnProperty, 5)

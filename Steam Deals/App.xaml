@@ -5,4 +5,9 @@
     xmlns:local="using:Steam_Deals"
     RequestedTheme="Light">
 
+    <Application.Resources>
+        <Style x:Key="EllipsisButton" TargetType="Button">
+            <Setter Property="MaxWidth" Value="0"/>
+        </Style>
+    </Application.Resources>
 </Application>
