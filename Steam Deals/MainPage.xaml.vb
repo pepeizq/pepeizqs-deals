@@ -230,7 +230,11 @@ Public NotInheritable Class MainPage
 
         '--------------------------------------------------------
 
-        RSS.Generar()
+        Try
+            RSS.Generar()
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
