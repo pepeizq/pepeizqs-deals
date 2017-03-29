@@ -137,6 +137,17 @@ Module Ordenar
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
                 End If
 
+                Dim listaJuegosAntigua As List(Of Juego) = Nothing
+
+                If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+
+                    If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda) = True Then
+                        listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda)
+                    End If
+
+                    Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegos)
+                End If
+
                 For Each juego In listaJuegos
                     Dim visibilidadPlataforma As Boolean = False
 
@@ -230,11 +241,11 @@ Module Ordenar
                     If tituloGrid = False Then
                         If visibilidadPlataforma = True Then
                             If visibilidadDRM = True Then
-                                If Not ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
-                                    lv.Items.Add(Listado.Generar(juego))
-                                Else
+                                Dim listaGrids As New List(Of Grid)
+
+                                If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
                                     If Not Await helper.FileExistsAsync("listaJuegosUsuario") = True Then
-                                        lv.Items.Add(Listado.Generar(juego))
+                                        listaGrids.Add(Listado.Generar(juego))
                                     Else
                                         Dim listaDescartar As List(Of String) = Await helper.ReadFileAsync(Of List(Of String))("listaJuegosUsuario")
                                         Dim boolDescarte As Boolean = False
@@ -280,14 +291,55 @@ Module Ordenar
                                         Next
 
                                         If boolDescarte = False Then
-                                            If bundle = False Then
-                                                lv.Items.Add(Listado.Generar(juego))
-                                            Else
-                                                lvBundles.Items.Add(Listado.Generar(juego))
-                                            End If
+                                            listaGrids.Add(Listado.Generar(juego))
                                         End If
                                     End If
                                 End If
+
+                                If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                                    Dim boolAntiguo As Boolean = False
+
+                                    If Not listaJuegosAntigua Is Nothing Then
+                                        For Each juegoAntiguo In listaJuegosAntigua
+                                            If juegoAntiguo.Titulo = juego.Titulo Then
+                                                If Not juegoAntiguo.Descuento = Nothing Then
+                                                    If Not juego.Descuento = Nothing Then
+                                                        Dim tempJuegoAntiguoDescuento As Integer = juegoAntiguo.Descuento.Replace("%", Nothing)
+                                                        Dim tempJuegoDescuento As Integer = juego.Descuento.Replace("%", Nothing)
+
+                                                        If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
+                                                            boolAntiguo = False
+                                                        Else
+                                                            boolAntiguo = True
+                                                        End If
+                                                    Else
+                                                        boolAntiguo = True
+                                                    End If
+                                                Else
+                                                    boolAntiguo = True
+                                                End If
+                                            End If
+                                        Next
+                                    End If
+
+                                    If boolAntiguo = False Then
+                                        listaGrids.Add(Listado.Generar(juego))
+                                    End If
+                                End If
+
+                                If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off" Then
+                                    If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off" Then
+                                        listaGrids.Add(Listado.Generar(juego))
+                                    End If
+                                End If
+
+                                For Each grid In listaGrids
+                                    If bundle = False Then
+                                        lv.Items.Add(grid)
+                                    Else
+                                        lvBundles.Items.Add(grid)
+                                    End If
+                                Next
                             End If
                         End If
                     End If

@@ -207,4 +207,7 @@
   <data name="Grid Arranque" xml:space="preserve">
     <value>Select window where start</value>
   </data>
+  <data name="Config Descartar Ultima Visita" xml:space="preserve">
+    <value>Show only deals since the last visit</value>
+  </data>
 </root>

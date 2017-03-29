@@ -158,6 +158,10 @@ Module SilaGames
                             tituloBool = True
                         End If
 
+                        If juego.Descuento = "00%" Then
+                            tituloBool = True
+                        End If
+
                         If tituloBool = False Then
                             listaJuegos.Add(juego)
                         End If

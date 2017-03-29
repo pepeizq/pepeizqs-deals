@@ -29,7 +29,7 @@
                 <AppBarButton x:Name="botonOfertas" Foreground="White">
                     <AppBarButton.Content>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5,0,10,0" Text="%"/>
+                            <controls:ImageEx Margin="5,0,10,0" Source="Assets\steam_logo.png" Width="20" Height="20"/>
                             <TextBlock x:Name="botonOfertasTexto" VerticalAlignment="Center"/>
                         </StackPanel>
                     </AppBarButton.Content>
@@ -798,7 +798,7 @@
                 <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
                 <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
             </Grid>
-            <CheckBox x:Name="cbConfigDescartar" Margin="10,15,5,5">
+            <CheckBox x:Name="cbConfigDescartarDeseados" Margin="10,15,5,5">
                 <CheckBox.Content>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -819,6 +819,7 @@
                     </Grid>
                 </CheckBox.Content>
             </CheckBox>
+            <CheckBox x:Name="cbConfigDescartarUltimaVisita" Margin="10,15,5,5"/>
         </StackPanel>
 
         <Grid x:Name="gridWeb" Visibility="Collapsed" Padding="5">

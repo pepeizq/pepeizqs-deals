@@ -56,6 +56,7 @@ Public NotInheritable Class MainPage
         tbSteamConfigCuenta.Text = recursos.GetString("Config Cuenta Steam")
         tbConfigDescartar.Text = recursos.GetString("Config Descartar")
         tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
+        cbConfigDescartarUltimaVisita.Content = recursos.GetString("Config Descartar Ultima Visita")
 
         cbTipoSteamJuegos.Content = recursos.GetString("Juegos")
         cbTipoSteamBundles.Content = recursos.GetString("Bundles")
@@ -202,10 +203,26 @@ Public NotInheritable Class MainPage
             tbSteamConfigCuentaID.Text = ApplicationData.Current.LocalSettings.Values("cuentasteam")
         End If
 
-        If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
-            cbConfigDescartar.IsChecked = True
+        If Not ApplicationData.Current.LocalSettings.Values("descartarjuegos") = Nothing Then
+            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
+                cbConfigDescartarDeseados.IsChecked = True
+            Else
+                cbConfigDescartarDeseados.IsChecked = False
+            End If
         Else
-            cbConfigDescartar.IsChecked = False
+            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+            cbConfigDescartarDeseados.IsChecked = False
+        End If
+
+        If Not ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = Nothing Then
+            If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                cbConfigDescartarUltimaVisita.IsChecked = True
+            Else
+                cbConfigDescartarUltimaVisita.IsChecked = False
+            End If
+        Else
+            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
+            cbConfigDescartarUltimaVisita.IsChecked = True
         End If
 
         If ApplicationData.Current.LocalSettings.Values("cbarranque") = Nothing Then
@@ -955,15 +972,37 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub CbConfigDescartar_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartar.Checked
+    Private Sub CbConfigDescartarDeseados_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarDeseados.Checked
 
         ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
 
+        If cbConfigDescartarUltimaVisita.IsChecked = True Then
+            ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
+            cbConfigDescartarUltimaVisita.IsChecked = False
+        End If
+
     End Sub
 
-    Private Sub CbConfigDescartar_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartar.Unchecked
+    Private Sub CbConfigDescartarDeseados_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarDeseados.Unchecked
 
         ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+
+    End Sub
+
+    Private Sub CbConfigDescartarUltimaVisita_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarUltimaVisita.Checked
+
+        ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on"
+
+        If cbConfigDescartarDeseados.IsChecked = True Then
+            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+            cbConfigDescartarDeseados.IsChecked = False
+        End If
+
+    End Sub
+
+    Private Sub CbConfigDescartarUltimaVisita_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarUltimaVisita.Unchecked
+
+        ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
 
     End Sub
 
