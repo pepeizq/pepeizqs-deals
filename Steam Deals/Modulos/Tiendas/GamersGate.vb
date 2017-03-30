@@ -19,6 +19,9 @@ Module GamersGate
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarGamersGate")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
         cbOrdenar.IsEnabled = False
 

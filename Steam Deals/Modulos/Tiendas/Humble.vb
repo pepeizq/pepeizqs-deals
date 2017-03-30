@@ -15,6 +15,9 @@ Module Humble
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarHumble")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False
 
@@ -171,6 +174,9 @@ Module Humble
         Dim lv As ListView = pagina.FindName("listadoHumble")
         lv.IsEnabled = False
         lv.Items.Clear()
+
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarHumble")
+        botonActualizar.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False

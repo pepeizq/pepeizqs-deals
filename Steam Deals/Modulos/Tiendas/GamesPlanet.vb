@@ -15,6 +15,9 @@ Module GamesPlanet
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarGamesPlanet")
+        botonActualizar.IsEnabled = False
+
         Dim cbPais As ComboBox = pagina.FindName("cbPaisGamesPlanet")
         cbPais.IsEnabled = False
         pais = cbPais.SelectedIndex

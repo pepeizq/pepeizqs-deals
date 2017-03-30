@@ -14,6 +14,9 @@ Module GreenManGaming
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarGreenManGaming")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
         cbOrdenar.IsEnabled = False
 

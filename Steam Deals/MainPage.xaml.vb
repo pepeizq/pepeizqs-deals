@@ -58,12 +58,6 @@ Public NotInheritable Class MainPage
         tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
         cbConfigDescartarUltimaVisita.Content = recursos.GetString("Config Descartar Ultima Visita")
 
-        cbTipoSteamJuegos.Content = recursos.GetString("Juegos")
-        cbTipoSteamBundles.Content = recursos.GetString("Bundles")
-        cbTipoSteamDLCs.Content = recursos.GetString("DLCs")
-        cbTipoSteamSoftware.Content = recursos.GetString("Software")
-        cbTipoSteam.SelectedIndex = 0
-
         tbOrdenarSteam.Text = recursos.GetString("Ordenar")
         cbOrdenarSteamDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarSteamPrecio.Content = recursos.GetString("Precio")
@@ -124,11 +118,6 @@ Public NotInheritable Class MainPage
         tbDRMGreenManGaming.Text = recursos.GetString("DRM")
         cbDRMGreenManGaming.ItemsSource = listaDRMs
         cbDRMGreenManGaming.SelectedIndex = 0
-
-        cbTipoBundleStarsJuegos.Content = recursos.GetString("Juegos")
-        cbTipoBundleStarsBundles.Content = recursos.GetString("Bundles")
-        cbTipoBundleStarsDLCs.Content = recursos.GetString("DLCs")
-        cbTipoBundleStars.SelectedIndex = 0
 
         tbOrdenarBundleStars.Text = recursos.GetString("Ordenar")
         cbOrdenarBundleStarsDescuento.Content = recursos.GetString("Descuento")
@@ -428,12 +417,11 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSteam.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaSteam, botonTiendaSteam)
 
         If listadoSteam.Items.Count = 0 Then
-            Steam.GenerarOfertas(0)
-            cbTipoSteam.SelectedIndex = 0
+            Steam.GenerarOfertas()
             cbOrdenarSteam.SelectedIndex = 0
         End If
 
@@ -448,11 +436,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub CbTipoSteam_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbTipoSteam.SelectionChanged
+    Private Sub BotonActualizarSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSteam.Click
 
-        If gridTiendaSteam.Visibility = Visibility.Visible Then
-            Steam.GenerarOfertas(cbTipoSteam.SelectedIndex)
-        End If
+        Steam.GenerarOfertas()
 
     End Sub
 
@@ -478,7 +464,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamersGate.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGamersGate, botonTiendaGamersGate)
 
         If listadoGamersGate.Items.Count = 0 Then
@@ -494,6 +480,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamersGate.Click
+
+        GamersGate.GenerarOfertas()
 
     End Sub
 
@@ -529,22 +521,12 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamesPlanet.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGamesPlanet, botonTiendaGamesPlanet)
 
         If listadoGamesPlanet.Items.Count = 0 Then
             GamesPlanet.GenerarOfertas()
             cbOrdenarGamesPlanet.SelectedIndex = 0
-        End If
-
-    End Sub
-
-    Private Sub CbPaisGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPaisGamesPlanet.SelectionChanged
-
-        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
-            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-                GamesPlanet.GenerarOfertas()
-            End If
         End If
 
     End Sub
@@ -555,6 +537,22 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamesPlanet.Click
+
+        GamesPlanet.GenerarOfertas()
+
+    End Sub
+
+    Private Sub CbPaisGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPaisGamesPlanet.SelectionChanged
+
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
+                GamesPlanet.GenerarOfertas()
+            End If
+        End If
 
     End Sub
 
@@ -590,23 +588,13 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaHumble.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaHumble, botonTiendaHumble)
 
         If listadoHumble.Items.Count = 0 Then
-            'Humble.GenerarBundles()
             Humble.GenerarOfertas()
             cbOrdenarHumble.SelectedIndex = 0
         End If
-
-    End Sub
-
-    Private Async Sub ListadoBundlesHumble_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoBundlesHumble.ItemClick
-
-        Dim grid As Grid = e.ClickedItem
-        Dim enlace As String = grid.Tag
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
 
     End Sub
 
@@ -616,6 +604,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarHumble.Click
+
+        Humble.GenerarOfertas()
 
     End Sub
 
@@ -651,13 +645,28 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGreenManGaming.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGreenManGaming, botonTiendaGreenManGaming)
 
         If listadoGreenManGaming.Items.Count = 0 Then
             GreenManGaming.GenerarOfertas()
             cbOrdenarGreenManGaming.SelectedIndex = 0
         End If
+
+    End Sub
+
+    Private Async Sub ListadoGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGreenManGaming.ItemClick
+
+        Dim grid As Grid = e.ClickedItem
+        Dim enlace As String = grid.Tag
+
+        Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGreenManGaming.Click
+
+        GreenManGaming.GenerarOfertas()
 
     End Sub
 
@@ -681,18 +690,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGreenManGaming.ItemClick
-
-        Dim grid As Grid = e.ClickedItem
-        Dim enlace As String = grid.Tag
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
-
-    End Sub
-
     Private Sub BotonTiendaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaBundleStars.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaBundleStars, botonTiendaBundleStars)
 
         If listadoBundleStars.Items.Count = 0 Then
@@ -711,11 +711,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub CbTipoBundleStars_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbTipoBundleStars.SelectionChanged
+    Private Sub BotonActualizarBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarBundleStars.Click
 
-        If gridTiendaBundleStars.Visibility = Visibility.Visible Then
-            BundleStars.GenerarOfertas()
-        End If
+        BundleStars.GenerarOfertas()
 
     End Sub
 
@@ -751,7 +749,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGOG.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGOG, botonTiendaGOG)
 
         If listadoGOG.Items.Count = 0 Then
@@ -767,6 +765,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGOG.Click
+
+        GOG.GenerarOfertas()
 
     End Sub
 
@@ -792,7 +796,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaWinGameStore.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaWinGameStore, botonTiendaWinGameStore)
 
         If listadoWinGameStore.Items.Count = 0 Then
@@ -808,6 +812,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarWinGameStore.Click
+
+        WinGameStore.GenerarOfertas()
 
     End Sub
 
@@ -833,7 +843,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSilaGames.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaSilaGames, botonTiendaSilaGames)
 
         If listadoSilaGames.Items.Count = 0 Then
@@ -849,6 +859,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSilaGames.Click
+
+        SilaGames.GenerarOfertas()
 
     End Sub
 
@@ -874,7 +890,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaDLGamer.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaDLGamer, botonTiendaDLGamer)
 
         If listadoDLGamer.Items.Count = 0 Then
@@ -890,6 +906,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarDLGamer.Click
+
+        DLGamer.GenerarOfertas()
 
     End Sub
 
@@ -915,7 +937,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaNuuvem.Click
 
-        tbMensajeTienda.Visibility = Visibility.Collapsed
+        gridMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaNuuvem, botonTiendaNuuvem)
 
         If listadoNuuvem.Items.Count = 0 Then
@@ -931,6 +953,12 @@ Public NotInheritable Class MainPage
         Dim enlace As String = grid.Tag
 
         Await Launcher.LaunchUriAsync(New Uri(enlace))
+
+    End Sub
+
+    Private Sub BotonActualizarNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarNuuvem.Click
+
+        Nuuvem.GenerarOfertas()
 
     End Sub
 
@@ -1005,7 +1033,5 @@ Public NotInheritable Class MainPage
         ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
 
     End Sub
-
-
 
 End Class

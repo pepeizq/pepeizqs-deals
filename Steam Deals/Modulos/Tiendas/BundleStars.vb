@@ -4,7 +4,6 @@ Module BundleStars
 
     Dim WithEvents bw As BackgroundWorker
     Dim listaJuegos As List(Of Juego)
-    Dim tipo As Integer = 0
 
     Public Sub GenerarOfertas()
 
@@ -15,9 +14,8 @@ Module BundleStars
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim cbTipo As ComboBox = pagina.FindName("cbTipoBundleStars")
-        cbTipo.IsEnabled = False
-        tipo = cbTipo.SelectedIndex
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarBundleStars")
+        botonActualizar.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
         cbOrdenar.IsEnabled = False
@@ -31,9 +29,10 @@ Module BundleStars
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
         gridProgreso.Visibility = Visibility.Visible
 
-        bw = New BackgroundWorker
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        bw = New BackgroundWorker With {
+            .WorkerReportsProgress = True,
+            .WorkerSupportsCancellation = True
+        }
 
         If bw.IsBusy = False Then
             bw.RunWorkerAsync()
@@ -45,19 +44,9 @@ Module BundleStars
 
         listaJuegos = New List(Of Juego)
 
-        Dim categoria As String = Nothing
-
-        If tipo = 0 Then
-            categoria = "bundle"
-        ElseIf tipo = 1 Then
-            categoria = "game"
-        ElseIf tipo = 2 Then
-            categoria = "dlc"
-        End If
-
         Dim numPaginas As Integer = 10
 
-        Dim htmlPaginas_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://www.bundlestars.com/api/products?types=" + categoria + "&sort=name&pageSize=50&sale=true&page=1"))
+        Dim htmlPaginas_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://www.bundlestars.com/api/products?types=bundle,game,dlc&sort=name&pageSize=50&sale=true&page=1"))
         Dim htmlPaginas As String = htmlPaginas_.Result
 
         If Not htmlPaginas = Nothing Then
@@ -77,7 +66,7 @@ Module BundleStars
 
         Dim i As Integer = 1
         While i < numPaginas + 1
-            Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://www.bundlestars.com/api/products?types=" + categoria + "&sort=name&pageSize=50&sale=true&page=" + i.ToString))
+            Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://www.bundlestars.com/api/products?types=bundle,game,dlc&sort=name&pageSize=50&sale=true&page=" + i.ToString))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -92,8 +81,13 @@ Module BundleStars
 
                         html = temp
 
-                        int2 = temp.IndexOf("]},")
-                        temp2 = temp.Remove(int2, temp.Length - int2)
+                        int2 = temp.IndexOf(ChrW(34) + "]},")
+
+                        If int2 = -1 Then
+                            temp2 = temp
+                        Else
+                            temp2 = temp.Remove(int2, temp.Length - int2)
+                        End If
 
                         Dim temp3, temp4 As String
                         Dim int3, int4 As Integer
@@ -148,11 +142,11 @@ Module BundleStars
                             temp10 = temp10 + "0"
                         End If
 
-                        temp10 = temp10.Trim + "%"
-
-                        If temp10.Contains("ducts") Then
-                            temp10 = Nothing
+                        If temp10.Length > 1 Then
+                            temp10 = temp10.Remove(2, temp10.Length - 2)
                         End If
+
+                        temp10 = temp10.Trim + "%"
 
                         Dim descuento As String = temp10
 
@@ -201,7 +195,15 @@ Module BundleStars
                                 temp14 = "steam"
                             End If
 
-                            drm = temp14.Trim
+                            If temp14.Contains("steam" + ChrW(34) + ":false") Then
+                                temp14 = Nothing
+                            End If
+
+                            If temp14 = Nothing Then
+                                drm = Nothing
+                            Else
+                                drm = temp14.Trim
+                            End If
                         End If
 
                         Dim temp15, temp16 As String

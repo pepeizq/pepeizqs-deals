@@ -18,6 +18,7 @@ Module Ordenar
         Dim lv As ListView = pagina.FindName("listado" + tienda)
         Dim lvBundles As ListView = pagina.FindName("listadoBundles" + tienda)
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizar" + tienda)
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataforma" + tienda)
@@ -32,6 +33,10 @@ Module Ordenar
 
             If Not lvBundles Is Nothing Then
                 lvBundles.IsEnabled = False
+            End If
+
+            If Not botonActualizar Is Nothing Then
+                botonActualizar.IsEnabled = False
             End If
 
             If Not cbTipo Is Nothing Then
@@ -145,7 +150,6 @@ Module Ordenar
                         listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda)
                     End If
 
-                    Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegos)
                 End If
 
                 For Each juego In listaJuegos
@@ -324,6 +328,7 @@ Module Ordenar
 
                                     If boolAntiguo = False Then
                                         listaGrids.Add(Listado.Generar(juego))
+                                        listaJuegosAntigua.Add(juego)
                                     End If
                                 End If
 
@@ -344,12 +349,20 @@ Module Ordenar
                         End If
                     End If
                 Next
+
+                If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                    Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegosAntigua)
+                End If
             End If
 
             lv.IsEnabled = True
 
             If Not lvBundles Is Nothing Then
                 lvBundles.IsEnabled = True
+            End If
+
+            If Not botonActualizar Is Nothing Then
+                botonActualizar.IsEnabled = True
             End If
 
             If Not cbTipo Is Nothing Then

@@ -14,6 +14,9 @@ Module DLGamer
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarDLGamer")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarDLGamer")
         cbOrdenar.IsEnabled = False
 

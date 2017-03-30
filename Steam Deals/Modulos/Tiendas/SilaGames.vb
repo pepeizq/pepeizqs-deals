@@ -14,6 +14,9 @@ Module SilaGames
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarSilaGames")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
         cbOrdenar.IsEnabled = False
 

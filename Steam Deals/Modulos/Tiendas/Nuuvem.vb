@@ -17,6 +17,9 @@ Module Nuuvem
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarNuuvem")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
         cbOrdenar.IsEnabled = False
 

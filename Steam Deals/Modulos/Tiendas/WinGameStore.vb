@@ -14,6 +14,9 @@ Module WinGameStore
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarWinGameStore")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
         cbOrdenar.IsEnabled = False
 

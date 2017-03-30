@@ -14,6 +14,9 @@ Module GOG
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonActualizar As Button = pagina.FindName("botonActualizarGOG")
+        botonActualizar.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGOG")
         cbOrdenar.IsEnabled = False
 
