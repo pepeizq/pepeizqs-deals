@@ -7,7 +7,7 @@ Module Listado
     Public Function Generar(juego As Juego)
 
         Dim grid As New Grid With {
-            .Tag = juego.Enlace,
+            .Tag = juego,
             .Padding = New Thickness(0, 0, 10, 0)
         }
 
@@ -86,22 +86,8 @@ Module Listado
 
         '-------------------------------
 
-        Dim boolTitulo As Boolean = False
-
-        If AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
-            If juego.Tienda = "Humble Bundle" Then
-                boolTitulo = True
-            End If
-        End If
-
         Dim textoTitulo As New TextBlock
-
-        If boolTitulo = False Then
-            textoTitulo.Text = juego.Titulo
-        Else
-            textoTitulo.Text = String.Empty
-        End If
-
+        textoTitulo.Text = juego.Titulo
         textoTitulo.VerticalAlignment = VerticalAlignment.Center
         textoTitulo.TextWrapping = TextWrapping.Wrap
         textoTitulo.SetValue(Grid.ColumnProperty, 1)

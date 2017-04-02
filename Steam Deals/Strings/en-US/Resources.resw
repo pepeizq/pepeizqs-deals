@@ -210,4 +210,7 @@
   <data name="Config Descartar Ultima Visita" xml:space="preserve">
     <value>Show only deals since the last visit</value>
   </data>
+  <data name="Config Ordenar" xml:space="preserve">
+    <value>Default sort by:</value>
+  </data>
 </root>

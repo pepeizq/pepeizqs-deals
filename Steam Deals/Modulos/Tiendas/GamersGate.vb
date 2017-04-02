@@ -89,7 +89,7 @@ Module GamersGate
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
 
-        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
 
     End Sub
 
@@ -251,7 +251,7 @@ Module GamersGate
                                     linux = True
                                 End If
 
-                                Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate")
+                                Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today)
 
                                 bw.ReportProgress(0, juego)
                             End If

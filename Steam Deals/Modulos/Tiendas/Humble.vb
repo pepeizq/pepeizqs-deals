@@ -45,7 +45,7 @@ Module Humble
 
         listaBundles = New List(Of Juego)
 
-        Dim monthly As New Juego("Humble Monthly", "https://humble.com/monthly?refc=VyPXaW", "https://pepeizqapps.files.wordpress.com/2017/01/humblemontly.png", "$12.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle")
+        Dim monthly As New Juego("Humble Monthly", "https://humble.com/monthly?refc=VyPXaW", "https://pepeizqapps.files.wordpress.com/2017/01/humblemontly.png", "$12.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", DateTime.Today)
         listaBundles.Add(monthly)
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com"))
@@ -143,7 +143,7 @@ Module Humble
 
                     Dim enlace As String = temp13.Trim
 
-                    Dim bundle As New Juego(titulo, enlace, imagen, "$1.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle")
+                    Dim bundle As New Juego(titulo, enlace, imagen, "$1.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", DateTime.Today)
 
                     listaBundles.Add(bundle)
                 End If
@@ -157,7 +157,7 @@ Module Humble
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaBundlesHumble", listaBundles)
 
-        Ordenar.Ofertas("HumbleBundle", 2, Nothing, Nothing)
+        Ordenar.Ofertas("HumbleBundle", 2, Nothing, Nothing, False)
 
     End Sub
 
@@ -249,6 +249,7 @@ Module Humble
                             temp4 = temp4.Replace("\u00fc", "ü")
                             temp4 = temp4.Replace("\u00e9", "é")
                             temp4 = temp4.Replace("\u00ae", "®")
+                            temp4 = temp4.Replace("\u2013", "-")
                             temp4 = temp4.Replace("\u2019", "'")
                             temp4 = temp4.Replace("\u2122", "™")
 
@@ -360,7 +361,7 @@ Module Humble
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Humble Store")
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -420,7 +421,7 @@ Module Humble
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMHumble")
 
-        Ordenar.Ofertas("Humble", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("Humble", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
 
     End Sub
 

@@ -112,7 +112,7 @@ Module WinGameStore
 
                         Dim drm As String = Nothing
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "WinGameStore")
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -242,7 +242,7 @@ Module WinGameStore
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMWinGameStore")
 
-        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex, True)
 
     End Sub
 

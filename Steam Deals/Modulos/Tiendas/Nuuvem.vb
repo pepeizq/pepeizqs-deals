@@ -173,7 +173,7 @@ Module Nuuvem
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Nuuvem")
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -226,7 +226,7 @@ Module Nuuvem
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaNuuvem")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMNuuvem")
 
-        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
 
     End Sub
 

@@ -95,15 +95,16 @@ Module RSS
 
     End Sub
 
-    Private Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
 
         If listaFeeds.Count > 0 Then
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
             Dim listaView As ListView = pagina.FindName("lvRSS")
             listaView.ItemsSource = listaFeeds
         Else
+            Await Task.Delay(5000)
             bw.RunWorkerAsync()
         End If
 

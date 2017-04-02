@@ -153,7 +153,7 @@ Module DLGamer
 
                             Dim drm As String = temp14.Trim
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "DLGamer")
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "DLGamer", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -201,7 +201,7 @@ Module DLGamer
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarDLGamer")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMDLGamer")
 
-        Ordenar.Ofertas("DLGamer", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("DLGamer", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex, True)
 
     End Sub
 

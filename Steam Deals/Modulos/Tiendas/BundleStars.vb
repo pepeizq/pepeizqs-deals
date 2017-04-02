@@ -233,7 +233,7 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "BundleStars")
+                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -283,7 +283,7 @@ Module BundleStars
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaBundleStars")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMBundleStars")
 
-        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
 
     End Sub
 

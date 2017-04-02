@@ -11,11 +11,12 @@
     Public Property SistemaMac As Boolean
     Public Property SistemaLinux As Boolean
     Public Property Tienda As String
+    Public Property Fecha As DateTime
 
     Public Sub New(ByVal titulo As String, ByVal enlace As String, ByVal imagen As String,
                    ByVal precioRebajado As String, ByVal precioBase As String, ByVal descuento As String,
                    ByVal drm As String, ByVal sistemaWin As Boolean, ByVal sistemaMac As Boolean, ByVal sistemaLinux As Boolean,
-                   ByVal tienda As String)
+                   ByVal tienda As String, ByVal fecha As DateTime)
         Me.Titulo = titulo
         Me.Enlace = enlace
         Me.Imagen = imagen
@@ -27,5 +28,6 @@
         Me.SistemaMac = sistemaMac
         Me.SistemaLinux = sistemaLinux
         Me.Tienda = tienda
+        Me.Fecha = fecha
     End Sub
 End Class

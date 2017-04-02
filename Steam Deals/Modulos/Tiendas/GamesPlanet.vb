@@ -179,7 +179,7 @@ Module GamesPlanet
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamesPlanet")
+                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -228,7 +228,7 @@ Module GamesPlanet
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamesPlanet")
         Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamesPlanet")
 
-        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex)
+        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
 
     End Sub
 
