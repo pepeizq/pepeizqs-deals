@@ -34,6 +34,7 @@ Public NotInheritable Class MainPage
 
         botonInicioTexto.Text = recursos.GetString("Boton Inicio")
         botonOfertasTexto.Text = recursos.GetString("Ofertas")
+        botonEditorTexto.Text = recursos.GetString("Editor")
         botonConfigTexto.Text = recursos.GetString("Boton Config")
 
         commadBarTop.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right
@@ -43,7 +44,7 @@ Public NotInheritable Class MainPage
         botonInicioContactoTexto.Text = recursos.GetString("Boton Contactar")
         botonInicioMasAppsTexto.Text = recursos.GetString("Boton Web")
 
-        tbRSS.Text = recursos.GetString("RSS")
+        tbRSSUpdates.Text = recursos.GetString("RSS Updates")
 
         tbConsejoConfig.Text = recursos.GetString("Consejo Config")
         tbInicioGrid.Text = recursos.GetString("Grid Arranque")
@@ -70,6 +71,10 @@ Public NotInheritable Class MainPage
             cbConfigTipoOrdenar.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         End If
 
+        cbConfigEditor.Content = recursos.GetString("Editor")
+
+        '--------------------------------------------------------
+
         tbOrdenarSteam.Text = recursos.GetString("Ordenar")
         cbOrdenarSteamDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarSteamPrecio.Content = recursos.GetString("Precio")
@@ -91,9 +96,6 @@ Public NotInheritable Class MainPage
         tbDRMGamersGate.Text = recursos.GetString("DRM")
         cbDRMGamersGate.ItemsSource = listaDRMs
         cbDRMGamersGate.SelectedIndex = 0
-
-        tbPaisGamesPlanet.Text = recursos.GetString("Pais")
-        cbPaisGamesPlanet.SelectedIndex = 0
 
         tbOrdenarGamesPlanet.Text = recursos.GetString("Ordenar")
         cbOrdenarGamesPlanetDescuento.Content = recursos.GetString("Descuento")
@@ -196,6 +198,12 @@ Public NotInheritable Class MainPage
         cbDRMNuuvem.ItemsSource = listaDRMs
         cbDRMNuuvem.SelectedIndex = 0
 
+        tbOrdenarAmazonEs.Text = recursos.GetString("Ordenar")
+        cbOrdenarAmazonEsDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarAmazonEsPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarAmazonEsTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
         '--------------------------------------------------------
@@ -243,6 +251,14 @@ Public NotInheritable Class MainPage
             End If
         End If
 
+        If ApplicationData.Current.LocalSettings.Values("editor") = "on" Then
+            cbConfigEditor.IsChecked = True
+            EditorVisibilidad(True)
+        Else
+            cbConfigEditor.IsChecked = False
+            EditorVisibilidad(False)
+        End If
+
         tbVersionApp.Text = "App " + SystemInformation.ApplicationVersion.Major.ToString + "." + SystemInformation.ApplicationVersion.Minor.ToString + "." + SystemInformation.ApplicationVersion.Build.ToString + "." + SystemInformation.ApplicationVersion.Revision.ToString
         tbVersionWindows.Text = "Windows " + SystemInformation.OperatingSystemVersion.Major.ToString + "." + SystemInformation.OperatingSystemVersion.Minor.ToString + "." + SystemInformation.OperatingSystemVersion.Build.ToString + "." + SystemInformation.OperatingSystemVersion.Revision.ToString
 
@@ -254,12 +270,24 @@ Public NotInheritable Class MainPage
 
         End Try
 
+        '--------------------------------------------------------
+
+        If ApplicationData.Current.LocalSettings.Values("editorTipo") = Nothing Then
+            cbEditorTipo.SelectedIndex = 0
+            ApplicationData.Current.LocalSettings.Values("editorTipo") = 0
+        Else
+            cbEditorTipo.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorTipo")
+        End If
+
+        Editor.Inicio()
+
     End Sub
 
     Private Sub GridVisibilidad(grid As Grid, boton As AppBarButton, sp As StackPanel)
 
         gridInicio.Visibility = Visibility.Collapsed
         gridDeals.Visibility = Visibility.Collapsed
+        gridEditor.Visibility = Visibility.Collapsed
         gridConfig.Visibility = Visibility.Collapsed
         gridWeb.Visibility = Visibility.Collapsed
 
@@ -273,6 +301,8 @@ Public NotInheritable Class MainPage
         botonInicio.BorderThickness = New Thickness(0, 0, 0, 0)
         botonOfertas.BorderBrush = New SolidColorBrush(Colors.Transparent)
         botonOfertas.BorderThickness = New Thickness(0, 0, 0, 0)
+        botonEditor.BorderBrush = New SolidColorBrush(Colors.Transparent)
+        botonEditor.BorderThickness = New Thickness(0, 0, 0, 0)
         botonConfig.BorderBrush = New SolidColorBrush(Colors.Transparent)
         botonConfig.BorderThickness = New Thickness(0, 0, 0, 0)
 
@@ -292,6 +322,12 @@ Public NotInheritable Class MainPage
     Private Sub BotonOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertas.Click
 
         GridVisibilidad(gridDeals, botonOfertas, Nothing)
+
+    End Sub
+
+    Private Sub BotonEditor_Click(sender As Object, e As RoutedEventArgs) Handles botonEditor.Click
+
+        GridVisibilidad(gridEditor, botonEditor, Nothing)
 
     End Sub
 
@@ -364,7 +400,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub LvRSS_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvRSS.ItemClick
+    Private Async Sub LvRSSUpdates_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvRSSUpdates.ItemClick
 
         Dim feed As FeedRSS = e.ClickedItem
         Await Launcher.LaunchUriAsync(feed.Enlace)
@@ -374,6 +410,24 @@ Public NotInheritable Class MainPage
     Private Sub CbArranque_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbArranque.SelectionChanged
 
         ApplicationData.Current.LocalSettings.Values("cbarranque") = cbArranque.SelectedIndex
+
+    End Sub
+
+    Private Async Sub BotonSocialTwitter_Click(sender As Object, e As RoutedEventArgs) Handles botonSocialTwitter.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://twitter.com/pepeizqapps"))
+
+    End Sub
+
+    Private Async Sub BotonSocialGitHub_Click(sender As Object, e As RoutedEventArgs) Handles botonSocialGitHub.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://github.com/pepeizq"))
+
+    End Sub
+
+    Private Async Sub BotonSocialPaypal_Click(sender As Object, e As RoutedEventArgs) Handles botonSocialPaypal.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://paypal.me/pepeizq/1"))
 
     End Sub
 
@@ -406,6 +460,8 @@ Public NotInheritable Class MainPage
             botonTiendaDLGamer.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaNuuvem.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaNuuvem.BorderBrush = New SolidColorBrush(Colors.Transparent)
+            botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaAmazonEs.BorderBrush = New SolidColorBrush(Colors.Transparent)
 
             boton.Background = New SolidColorBrush(Colors.DarkOliveGreen)
             boton.BorderBrush = New SolidColorBrush(Colors.White)
@@ -422,8 +478,28 @@ Public NotInheritable Class MainPage
         gridTiendaSilaGames.Visibility = Visibility.Collapsed
         gridTiendaDLGamer.Visibility = Visibility.Collapsed
         gridTiendaNuuvem.Visibility = Visibility.Collapsed
+        gridTiendaAmazonEs.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
+
+    End Sub
+
+    Private Async Sub ListadoClick(grid As Grid)
+
+        If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
+            Dim juego As Juego = grid.Tag
+            Dim enlace As String = juego.Enlace1
+
+            Await Launcher.LaunchUriAsync(New Uri(enlace))
+        Else
+            Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
+
+            If cb.IsChecked = True Then
+                cb.IsChecked = False
+            Else
+                cb.IsChecked = True
+            End If
+        End If
 
     End Sub
 
@@ -438,13 +514,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoSteam_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSteam.ItemClick
+    Private Sub ListadoSteam_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSteam.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -485,13 +557,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoGamersGate_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamersGate.ItemClick
+    Private Sub ListadoGamersGate_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamersGate.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -542,29 +610,15 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoGamesPlanet_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamesPlanet.ItemClick
+    Private Sub ListadoGamesPlanet_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamesPlanet.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
     Private Sub BotonActualizarGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamesPlanet.Click
 
         GamesPlanet.GenerarOfertas()
-
-    End Sub
-
-    Private Sub CbPaisGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbPaisGamesPlanet.SelectionChanged
-
-        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
-            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-                GamesPlanet.GenerarOfertas()
-            End If
-        End If
 
     End Sub
 
@@ -609,13 +663,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoHumble_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoHumble.ItemClick
+    Private Sub ListadoHumble_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoHumble.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -666,13 +716,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGreenManGaming.ItemClick
+    Private Sub ListadoGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGreenManGaming.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -713,13 +759,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoBundleStars_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoBundleStars.ItemClick
+    Private Sub ListadoBundleStars_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoBundleStars.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -770,13 +812,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoGOG_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGOG.ItemClick
+    Private Sub ListadoGOG_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGOG.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -817,13 +855,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoWinGameStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoWinGameStore.ItemClick
+    Private Sub ListadoWinGameStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoWinGameStore.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -864,13 +898,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
+    Private Sub ListadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -911,13 +941,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoDLGamer_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoDLGamer.ItemClick
+    Private Sub ListadoDLGamer_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoDLGamer.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -958,13 +984,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub ListadoNuuvem_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoNuuvem.ItemClick
+    Private Sub ListadoNuuvem_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoNuuvem.ItemClick
 
-        Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
-        Dim enlace As String = juego.Enlace
-
-        Await Launcher.LaunchUriAsync(New Uri(enlace))
+        ListadoClick(e.ClickedItem)
 
     End Sub
 
@@ -999,6 +1021,39 @@ Public NotInheritable Class MainPage
         If gridTiendaNuuvem.Visibility = Visibility.Visible Then
             If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, cbPlataformaNuuvem.SelectedIndex, cbDRMNuuvem.SelectedIndex, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonTiendaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonEs.Click
+
+        gridMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaAmazonEs, botonTiendaAmazonEs)
+
+        If listadoAmazonEs.Items.Count = 0 Then
+            AmazonEs.GenerarOfertas()
+        End If
+
+    End Sub
+
+    Private Sub ListadoAmazonEs_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonEs.ItemClick
+
+        ListadoClick(e.ClickedItem)
+
+    End Sub
+
+    Private Sub BotonActualizarAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonEs.Click
+
+        AmazonEs.GenerarOfertas()
+
+    End Sub
+
+    Private Sub CbOrdenarAmazonEs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonEs.SelectionChanged
+
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, Nothing, Nothing, False)
             End If
         End If
 
@@ -1049,6 +1104,53 @@ Public NotInheritable Class MainPage
     Private Sub CbConfigTipoOrdenar_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbConfigTipoOrdenar.SelectionChanged
 
         ApplicationData.Current.LocalSettings.Values("ordenar") = cbConfigTipoOrdenar.SelectedIndex
+
+        cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGreenManGaming.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarBundleStars.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarDLGamer.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+
+    End Sub
+
+    Private Sub CbConfigEditor_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Checked
+
+        ApplicationData.Current.LocalSettings.Values("editor") = "on"
+        EditorVisibilidad(True)
+
+    End Sub
+
+    Private Sub CbConfigEditor_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Unchecked
+
+        ApplicationData.Current.LocalSettings.Values("editor") = "off"
+        EditorVisibilidad(False)
+
+    End Sub
+
+    Private Sub EditorVisibilidad(estado As Boolean)
+
+        If estado = True Then
+            botonEditor.Visibility = Visibility.Visible
+            botonTiendaAmazonEs.Visibility = Visibility.Visible
+        Else
+            botonEditor.Visibility = Visibility.Collapsed
+            botonTiendaAmazonEs.Visibility = Visibility.Collapsed
+        End If
+
+    End Sub
+
+    Private Sub CbEditorTipo_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorTipo.SelectionChanged
+
+        ApplicationData.Current.LocalSettings.Values("editorTipo") = cbEditorTipo.SelectedIndex
+        Editor.Generar()
+        Editor.GenerarOpciones()
 
     End Sub
 

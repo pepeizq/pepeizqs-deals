@@ -1,4 +1,6 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.Storage
 Imports Windows.System.Profile
 Imports Windows.UI
 
@@ -17,6 +19,9 @@ Module Listado
         Dim col4 As New ColumnDefinition
         Dim col5 As New ColumnDefinition
         Dim col6 As New ColumnDefinition
+        Dim col7 As New ColumnDefinition
+        Dim col8 As New ColumnDefinition
+        Dim col9 As New ColumnDefinition
 
         col1.Width = New GridLength(1, GridUnitType.Auto)
         col2.Width = New GridLength(1, GridUnitType.Star)
@@ -24,6 +29,9 @@ Module Listado
         col4.Width = New GridLength(1, GridUnitType.Auto)
         col5.Width = New GridLength(1, GridUnitType.Auto)
         col6.Width = New GridLength(1, GridUnitType.Auto)
+        col7.Width = New GridLength(1, GridUnitType.Auto)
+        col8.Width = New GridLength(1, GridUnitType.Auto)
+        col9.Width = New GridLength(1, GridUnitType.Auto)
 
         grid.ColumnDefinitions.Add(col1)
         grid.ColumnDefinitions.Add(col2)
@@ -31,14 +39,22 @@ Module Listado
         grid.ColumnDefinitions.Add(col4)
         grid.ColumnDefinitions.Add(col5)
         grid.ColumnDefinitions.Add(col6)
+        grid.ColumnDefinitions.Add(col7)
+        grid.ColumnDefinitions.Add(col8)
+        grid.ColumnDefinitions.Add(col9)
 
         '-------------------------------
 
         If Not juego.Imagen = Nothing Then
             Dim imagen As New ImageEx With {
-                .Source = New BitmapImage(New Uri(juego.Imagen)),
                 .Stretch = Stretch.UniformToFill
             }
+
+            Try
+                imagen.Source = New BitmapImage(New Uri(juego.Imagen))
+            Catch ex As Exception
+
+            End Try
 
             If juego.Tienda = "Steam" Then
                 imagen.Height = 45
@@ -77,6 +93,9 @@ Module Listado
             ElseIf juego.Tienda = "Nuuvem" Then
                 imagen.Height = 68
                 imagen.Width = 146
+            ElseIf juego.Tienda = "Amazon.es" Then
+                imagen.Height = 80
+                imagen.Width = 80
             End If
 
             imagen.Margin = New Thickness(0, 2, 10, 2)
@@ -86,10 +105,12 @@ Module Listado
 
         '-------------------------------
 
-        Dim textoTitulo As New TextBlock
-        textoTitulo.Text = juego.Titulo
-        textoTitulo.VerticalAlignment = VerticalAlignment.Center
-        textoTitulo.TextWrapping = TextWrapping.Wrap
+        Dim textoTitulo As New TextBlock With {
+            .Text = juego.Titulo,
+            .VerticalAlignment = VerticalAlignment.Center,
+            .TextWrapping = TextWrapping.Wrap
+        }
+
         textoTitulo.SetValue(Grid.ColumnProperty, 1)
         grid.Children.Add(textoTitulo)
 
@@ -239,23 +260,18 @@ Module Listado
 
         '-------------------------------
 
-        If Not juego.PrecioRebajado = Nothing Then
+        If Not juego.Precio1 = Nothing Then
             Dim fondoPrecio As New Grid With {
                 .Background = New SolidColorBrush(Colors.Black),
                 .Padding = New Thickness(5, 0, 5, 0),
                 .Height = 34,
                 .MinWidth = 60,
-                .HorizontalAlignment = HorizontalAlignment.Center
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Margin = New Thickness(10, 0, 10, 0)
             }
 
-            If Not AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
-                fondoPrecio.Margin = New Thickness(10, 0, 10, 0)
-            Else
-                fondoPrecio.Margin = New Thickness(10, 0, 0, 0)
-            End If
-
             Dim textoPrecio As New TextBlock With {
-                .Text = juego.PrecioRebajado,
+                .Text = juego.Precio1,
                 .VerticalAlignment = VerticalAlignment.Center,
                 .HorizontalAlignment = HorizontalAlignment.Center,
                 .Foreground = New SolidColorBrush(Colors.White)
@@ -266,8 +282,187 @@ Module Listado
             grid.Children.Add(fondoPrecio)
         End If
 
+        If Not juego.Precio2 = Nothing Then
+            Dim fondoPrecio As New Grid With {
+                .Background = New SolidColorBrush(Colors.Black),
+                .Padding = New Thickness(5, 0, 5, 0),
+                .Height = 34,
+                .MinWidth = 60,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Margin = New Thickness(0, 0, 10, 0)
+            }
+
+            Dim colPre1 As New ColumnDefinition
+            Dim colPre2 As New ColumnDefinition
+
+            colPre1.Width = New GridLength(1, GridUnitType.Auto)
+            colPre2.Width = New GridLength(1, GridUnitType.Auto)
+
+            fondoPrecio.ColumnDefinitions.Add(colPre1)
+            fondoPrecio.ColumnDefinitions.Add(colPre2)
+
+            Dim imagenPais As New ImageEx With {
+                .Width = 23,
+                .Height = 15
+            }
+
+            If juego.Tienda = "GamersGate" Then
+                imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk.png"))
+            ElseIf juego.Tienda = "GamesPlanet" Then
+                imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr.png"))
+            End If
+
+            If Not imagenPais.Source Is Nothing Then
+                imagenPais.SetValue(Grid.ColumnProperty, 0)
+                fondoPrecio.Children.Add(imagenPais)
+            End If
+
+            Dim textoPrecio As New TextBlock With {
+                .Text = juego.Precio2,
+                .VerticalAlignment = VerticalAlignment.Center,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White),
+                .Margin = New Thickness(5, 0, 0, 0)
+            }
+            textoPrecio.SetValue(Grid.ColumnProperty, 1)
+            fondoPrecio.Children.Add(textoPrecio)
+
+            fondoPrecio.SetValue(Grid.ColumnProperty, 6)
+            grid.Children.Add(fondoPrecio)
+        End If
+
+        If Not juego.Precio3 = Nothing Then
+            Dim fondoPrecio As New Grid With {
+                .Background = New SolidColorBrush(Colors.Black),
+                .Padding = New Thickness(5, 0, 5, 0),
+                .Height = 34,
+                .MinWidth = 60,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Margin = New Thickness(0, 0, 10, 0)
+            }
+
+            Dim colPre1 As New ColumnDefinition
+            Dim colPre2 As New ColumnDefinition
+
+            colPre1.Width = New GridLength(1, GridUnitType.Auto)
+            colPre2.Width = New GridLength(1, GridUnitType.Auto)
+
+            fondoPrecio.ColumnDefinitions.Add(colPre1)
+            fondoPrecio.ColumnDefinitions.Add(colPre2)
+
+            Dim imagenPais As New ImageEx With {
+                .Width = 23,
+                .Height = 15
+            }
+
+            If juego.Tienda = "GamesPlanet" Then
+                imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de.png"))
+            End If
+
+            If Not imagenPais.Source Is Nothing Then
+                imagenPais.SetValue(Grid.ColumnProperty, 0)
+                fondoPrecio.Children.Add(imagenPais)
+            End If
+
+            Dim textoPrecio As New TextBlock With {
+                .Text = juego.Precio3,
+                .VerticalAlignment = VerticalAlignment.Center,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White),
+                .Margin = New Thickness(5, 0, 0, 0)
+            }
+            textoPrecio.SetValue(Grid.ColumnProperty, 1)
+            fondoPrecio.Children.Add(textoPrecio)
+
+            fondoPrecio.SetValue(Grid.ColumnProperty, 7)
+            grid.Children.Add(fondoPrecio)
+        End If
+
+        If ApplicationData.Current.LocalSettings.Values("editor") = "on" Then
+            Dim cb As New CheckBox With {
+                .Margin = New Thickness(10, 0, 10, 0),
+                .Tag = juego,
+                .MinWidth = 20
+            }
+
+            AddHandler cb.Checked, AddressOf CbChecked
+            AddHandler cb.Unchecked, AddressOf CbUnChecked
+
+            cb.SetValue(Grid.ColumnProperty, 8)
+            grid.Children.Add(cb)
+        End If
+
         Return grid
 
     End Function
+
+    Private Async Sub CbChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Dim cb As CheckBox = e.OriginalSource
+        Dim juegoFinal As Juego = cb.Tag
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaFinal As List(Of Juego) = Nothing
+
+        If Await helper.FileExistsAsync("listaEditorFinal") = True Then
+            listaFinal = Await helper.ReadFileAsync(Of List(Of Juego))("listaEditorFinal")
+        Else
+            listaFinal = New List(Of Juego)
+        End If
+
+        If listaFinal.Count > 0 Then
+            Dim boolFinal As Boolean = False
+
+            Dim j As Integer = 0
+            While j < listaFinal.Count
+                If juegoFinal.Enlace1 = listaFinal(j).Enlace1 Then
+                    boolFinal = True
+                End If
+
+                If Not juegoFinal.Tienda = listaFinal(j).Tienda Then
+                    listaFinal = New List(Of Juego)
+                End If
+                j += 1
+            End While
+
+            If boolFinal = False Then
+                listaFinal.Add(juegoFinal)
+            End If
+        Else
+            listaFinal.Add(juegoFinal)
+        End If
+
+        Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
+
+        Editor.Generar()
+
+    End Sub
+
+    Private Async Sub CbUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Dim cb As CheckBox = e.OriginalSource
+        Dim juegoFinal As Juego = cb.Tag
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+
+        Dim listaFinal As List(Of Juego) = Nothing
+
+        If Await helper.FileExistsAsync("listaEditorFinal") = True Then
+            listaFinal = Await helper.ReadFileAsync(Of List(Of Juego))("listaEditorFinal")
+
+            For Each juego In listaFinal.ToList
+                If juegoFinal.Enlace1 = juego.Enlace1 Then
+                    listaFinal.Remove(juego)
+                End If
+            Next
+
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
+        End If
+
+        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+
+        Editor.Generar()
+
+    End Sub
 
 End Module

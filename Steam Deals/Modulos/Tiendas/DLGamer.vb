@@ -153,7 +153,7 @@ Module DLGamer
 
                             Dim drm As String = temp14.Trim
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "DLGamer", DateTime.Today)
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "DLGamer", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

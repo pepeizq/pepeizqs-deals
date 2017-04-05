@@ -115,7 +115,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modulos\CuentaSteam.vb" />
+    <Compile Include="Modulos\Editor.vb" />
     <Compile Include="Modulos\RSS.vb" />
+    <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
     <Compile Include="Modulos\Tiendas\BundleStars.vb" />
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />
@@ -182,6 +184,7 @@
     <Content Include="Assets\Badge\Badge.scale-400.png" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\icon_amazon.png" />
     <Content Include="Assets\icon_bundlestars.ico" />
     <Content Include="Assets\icon_dlgamer.ico" />
     <Content Include="Assets\icon_gamersgate.ico" />
@@ -217,6 +220,9 @@
     <Content Include="Assets\Small\Small71x71Logo.scale-150.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-200.png" />
     <Content Include="Assets\Small\Small71x71Logo.scale-400.png" />
+    <Content Include="Assets\social_github.png" />
+    <Content Include="Assets\social_paypal.png" />
+    <Content Include="Assets\social_twitter.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-150.png" />

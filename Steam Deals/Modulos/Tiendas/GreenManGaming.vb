@@ -140,7 +140,7 @@ Module GreenManGaming
 
                         Dim drm As String = temp14.Trim
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim j As Integer = 0

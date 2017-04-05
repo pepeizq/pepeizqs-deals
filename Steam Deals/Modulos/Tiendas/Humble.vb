@@ -45,7 +45,7 @@ Module Humble
 
         listaBundles = New List(Of Juego)
 
-        Dim monthly As New Juego("Humble Monthly", "https://humble.com/monthly?refc=VyPXaW", "https://pepeizqapps.files.wordpress.com/2017/01/humblemontly.png", "$12.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", DateTime.Today)
+        Dim monthly As New Juego("Humble Monthly", "https://humble.com/monthly?refc=VyPXaW", Nothing, Nothing, "https://pepeizqapps.files.wordpress.com/2017/01/humblemontly.png", "$12.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", DateTime.Today)
         listaBundles.Add(monthly)
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com"))
@@ -143,7 +143,7 @@ Module Humble
 
                     Dim enlace As String = temp13.Trim
 
-                    Dim bundle As New Juego(titulo, enlace, imagen, "$1.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", DateTime.Today)
+                    Dim bundle As New Juego(titulo, enlace, Nothing, Nothing, imagen, "$1.00", Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, "Humble Bundle", DateTime.Today)
 
                     listaBundles.Add(bundle)
                 End If
@@ -361,7 +361,7 @@ Module Humble
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today)
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

@@ -50,52 +50,13 @@ Module GamersGate
         Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=" + regionDigitos))
         Dim html As String = html_.Result
 
-        DecompilarHtml(html, bw, 0)
+        Dim htmlUK_ As Task(Of String) = Nothing
+        Dim htmlUK As String = Nothing
 
-    End Sub
-
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
-
-        Dim juego As Juego = e.UserState
-
-        Dim tituloBool As Boolean = False
-        Dim i As Integer = 0
-        While i < listaJuegos.Count
-            If listaJuegos(i).Titulo = juego.Titulo Then
-                tituloBool = True
-            End If
-            i += 1
-        End While
-
-        If juego.Descuento = Nothing Then
-            tituloBool = True
+        If Not regionDigitos.ToLower = "gbr" Then
+            htmlUK_ = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
+            htmlUK = htmlUK_.Result
         End If
-
-        If tituloBool = False Then
-            listaJuegos.Add(juego)
-        End If
-
-    End Sub
-
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGamersGate", listaJuegos)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
-
-        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
-
-    End Sub
-
-    '----------------------------------------------------
-
-    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, numPaginas As Integer)
 
         Dim tope As Integer = 2000
 
@@ -155,8 +116,10 @@ Module GamersGate
                             int8 = temp7.IndexOf("</link>")
                             temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                            Dim enlace As String = temp8.Trim + "?caff=6704538"
-                            'Dim enlace As String = "http://www.kqzyfj.com/click-6454277-10731427?url=" + temp8.Trim + "?aff=cj"
+                            Dim enlace As String = temp8.Trim
+
+                            Dim intEnlaceUK As Integer = enlace.IndexOf("gamersgate.com")
+                            Dim enlaceUK As String = "https://uk." + enlace.Remove(0, intEnlaceUK)
 
                             Dim temp9, temp10 As String
                             Dim int9, int10 As Integer
@@ -182,8 +145,9 @@ Module GamersGate
 
                             Dim precio As String = temp12.Trim
 
-                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda)
-                            formateador.Mode = CurrencyFormatterMode.UseSymbol
+                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
+                                .Mode = CurrencyFormatterMode.UseSymbol
+                            }
 
                             precio = precio.Replace(".", ",")
 
@@ -198,6 +162,29 @@ Module GamersGate
                             End If
 
                             If Not precio = "-" Then
+                                Dim precioUK As String
+                                If Not htmlUK = Nothing Then
+                                    Dim tempUK, tempUK2, tempUK3 As String
+                                    Dim intUK, intUK2, intUK3 As Integer
+
+                                    intUK = htmlUK.IndexOf(enlaceUK)
+                                    tempUK = htmlUK.Remove(0, intUK)
+
+                                    intUK2 = tempUK.IndexOf("<price>")
+                                    tempUK2 = tempUK.Remove(0, intUK2 + 7)
+
+                                    intUK3 = tempUK2.IndexOf("</price>")
+                                    tempUK3 = tempUK2.Remove(intUK3, tempUK2.Length - intUK3)
+
+                                    precioUK = "£" + tempUK3.Trim
+
+                                    If Not precioUK.Contains(".") Then
+                                        precioUK = precioUK + ".00"
+                                    End If
+                                Else
+                                    precioUK = Nothing
+                                End If
+
                                 Dim temp13, temp14 As String
                                 Dim int13, int14 As Integer
 
@@ -251,9 +238,26 @@ Module GamersGate
                                     linux = True
                                 End If
 
-                                Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today)
+                                Dim afiliado As String = "?caff=6704538"
 
-                                bw.ReportProgress(0, juego)
+                                Dim juego As New Juego(titulo, enlace + afiliado, enlaceUK + afiliado, Nothing, imagen, precio, precioUK, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today)
+
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
+                                    End If
+                                    k += 1
+                                End While
+
+                                If juego.Descuento = Nothing Then
+                                    tituloBool = True
+                                End If
+
+                                If tituloBool = False Then
+                                    listaJuegos.Add(juego)
+                                End If
                             End If
                         End If
                     End If
@@ -261,6 +265,30 @@ Module GamersGate
                 i += 1
             End While
         End If
+
+    End Sub
+
+    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGamersGate", listaJuegos)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
+        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
+        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
+
+        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
+
+    End Sub
+
+    '----------------------------------------------------
+
+    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, numPaginas As Integer)
+
+
 
     End Sub
 

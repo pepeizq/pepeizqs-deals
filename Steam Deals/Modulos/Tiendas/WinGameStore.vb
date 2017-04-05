@@ -67,6 +67,7 @@ Module WinGameStore
                     temp4 = temp4.Replace("\u00b2", "²")
                     temp4 = temp4.Replace("\u00ae", "®")
                     temp4 = temp4.Replace("\u2013", "–")
+                    temp4 = temp4.Replace("\u2019", "’")
                     temp4 = temp4.Replace("\u2122", "™")
 
                     Dim titulo As String = temp4.Trim
@@ -112,7 +113,7 @@ Module WinGameStore
 
                         Dim drm As String = Nothing
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -139,7 +140,7 @@ Module WinGameStore
         i = 0
         For Each juego In listaJuegos
 
-            Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
+            Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace1))
             Dim htmlJuego As String = htmlJuego_.Result
 
             If Not htmlJuego = Nothing Then
@@ -181,38 +182,38 @@ Module WinGameStore
                     juego.DRM = "steam"
                 End If
 
-                If juego.Enlace.Contains("3861/XCOM-Enemy-Within") Then
+                If juego.Enlace1.Contains("3861/XCOM-Enemy-Within") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("6613/Criminal-Girls-Invite-Only") Then
+                ElseIf juego.Enlace1.Contains("6613/Criminal-Girls-Invite-Only") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("3817/Borderlands-The-Pre-Sequel") Then
+                ElseIf juego.Enlace1.Contains("3817/Borderlands-The-Pre-Sequel") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("3837/Borderlands-2-Season-Pass") Then
+                ElseIf juego.Enlace1.Contains("3837/Borderlands-2-Season-Pass") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
+                ElseIf juego.Enlace1.Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("3830/Borderlands-2") Then
+                ElseIf juego.Enlace1.Contains("3830/Borderlands-2") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("3852/Borderlands-Game-of-the-Year-Edition") Then
+                ElseIf juego.Enlace1.Contains("3852/Borderlands-Game-of-the-Year-Edition") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("3846/BioShock-Infinite-Season-Pass") Then
+                ElseIf juego.Enlace1.Contains("3846/BioShock-Infinite-Season-Pass") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("4309/Grand-Theft-Auto-Collection") Then
+                ElseIf juego.Enlace1.Contains("4309/Grand-Theft-Auto-Collection") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("4799/L-A-Noire-The-Complete-Edition") Then
+                ElseIf juego.Enlace1.Contains("4799/L-A-Noire-The-Complete-Edition") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("5199/Max-Payne-3-Complete-Pack") Then
+                ElseIf juego.Enlace1.Contains("5199/Max-Payne-3-Complete-Pack") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("4274/Grand-Theft-Auto-3") Then
+                ElseIf juego.Enlace1.Contains("4274/Grand-Theft-Auto-3") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("4273/Grand-Theft-Auto-San-Andreas") Then
+                ElseIf juego.Enlace1.Contains("4273/Grand-Theft-Auto-San-Andreas") Then
                     juego.DRM = "steam"
-                ElseIf juego.Enlace.Contains("4272/Grand-Theft-Auto-Vice-City") Then
+                ElseIf juego.Enlace1.Contains("4272/Grand-Theft-Auto-Vice-City") Then
                     juego.DRM = "steam"
                 End If
             End If
 
-            juego.Enlace = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + juego.Enlace
+            juego.Enlace1 = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + juego.Enlace1
 
             Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
             bw.ReportProgress(porcentaje)

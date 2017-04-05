@@ -2,7 +2,10 @@
 
 Module RSS
 
-    Dim listaFeeds As List(Of FeedRSS)
+    Dim boolDeals As Boolean = False
+    Dim boolUpdates As Boolean = False
+
+    Dim listaFeedsDeals, listaFeedsUpdates As List(Of FeedRSS)
     Dim WithEvents bw As New BackgroundWorker
 
     Public Sub Generar()
@@ -10,11 +13,20 @@ Module RSS
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim listaView As ListView = pagina.FindName("lvRSS")
+        'Dim lvRSSDeals As ListView = pagina.FindName("lvRSSDeals")
+
+        'Try
+        '    lvRSSDeals.ItemsSource = Nothing
+        '    lvRSSDeals.Items.Clear()
+        'Catch ex As Exception
+
+        'End Try
+
+        Dim lvRSSUpdates As ListView = pagina.FindName("lvRSSUpdates")
 
         Try
-            listaView.ItemsSource = Nothing
-            listaView.Items.Clear()
+            lvRSSUpdates.ItemsSource = Nothing
+            lvRSSUpdates.Items.Clear()
         Catch ex As Exception
 
         End Try
@@ -28,12 +40,48 @@ Module RSS
 
     End Sub
 
-    Private Async Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        listaFeeds = New List(Of FeedRSS)
+        'If boolDeals = False Then
+        '    listaFeedsDeals = New List(Of FeedRSS)
+        '    listaFeedsDeals = CargarFeeds(listaFeedsDeals, "https://pepeizqapps.com/category/deals/feed/", 6).Result
+        'End If
+
+        If boolUpdates = False Then
+            listaFeedsUpdates = New List(Of FeedRSS)
+            listaFeedsUpdates = CargarFeeds(listaFeedsUpdates, "https://pepeizqapps.com/category/news/feed/", 6).Result
+        End If
+
+    End Sub
+
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        'If listaFeedsDeals.Count > 0 Then
+        '    Dim lvRSSDeals As ListView = pagina.FindName("lvRSSDeals")
+        '    lvRSSDeals.ItemsSource = listaFeedsDeals
+        '    boolDeals = True
+        'End If
+
+        If listaFeedsUpdates.Count > 0 Then
+            Dim lvRSSUpdates As ListView = pagina.FindName("lvRSSUpdates")
+            lvRSSUpdates.ItemsSource = listaFeedsUpdates
+            boolUpdates = True
+        End If
+
+        If boolDeals = False Or boolUpdates = False Then
+            Await Task.Delay(5000)
+            bw.RunWorkerAsync()
+        End If
+
+    End Sub
+
+    Private Async Function CargarFeeds(listaFeeds As List(Of FeedRSS), url As String, limite As Integer) As Task(Of List(Of FeedRSS))
 
         Dim cliente As SyndicationClient = New SyndicationClient
-        Dim enlace As Uri = New Uri("https://pepeizqapps.com/feed/")
+        Dim enlace As Uri = New Uri(url)
 
         cliente.SetRequestHeader("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)")
 
@@ -85,29 +133,18 @@ Module RSS
                 End While
 
                 If tituloBool = False Then
-                    If listaFeeds.Count < 6 Then
-                        Dim rss As New FeedRSS(feed.Title.Text.Trim, New Uri(feedUri))
-                        listaFeeds.Add(rss)
-                    End If
+                    Dim rss As New FeedRSS(feed.Title.Text.Trim, New Uri(feedUri))
+                    listaFeeds.Add(rss)
                 End If
             Next
         End If
 
-    End Sub
-
-    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        If listaFeeds.Count > 0 Then
-            Dim listaView As ListView = pagina.FindName("lvRSS")
-            listaView.ItemsSource = listaFeeds
-        Else
-            Await Task.Delay(5000)
-            bw.RunWorkerAsync()
+        If listaFeeds.Count > limite Then
+            listaFeeds.RemoveRange(limite, listaFeeds.Count - limite)
         End If
 
-    End Sub
+        Return listaFeeds
+
+    End Function
 
 End Module

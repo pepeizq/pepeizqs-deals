@@ -192,7 +192,7 @@ Module Steam
                                     linux = True
                                 End If
 
-                                Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today)
+                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

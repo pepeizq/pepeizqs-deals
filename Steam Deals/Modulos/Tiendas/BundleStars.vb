@@ -233,7 +233,7 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

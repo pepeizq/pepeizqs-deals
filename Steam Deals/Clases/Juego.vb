@@ -1,10 +1,13 @@
 ﻿Public Class Juego
 
     Public Property Titulo As String
-    Public Property Enlace As String
+    Public Property Enlace1 As String
+    Public Property Enlace2 As String
+    Public Property Enlace3 As String
     Public Property Imagen As String
-    Public Property PrecioRebajado As String
-    Public Property PrecioBase As String
+    Public Property Precio1 As String
+    Public Property Precio2 As String
+    Public Property Precio3 As String
     Public Property Descuento As String
     Public Property DRM As String
     Public Property SistemaWin As Boolean
@@ -12,16 +15,22 @@
     Public Property SistemaLinux As Boolean
     Public Property Tienda As String
     Public Property Fecha As DateTime
+    Public Property Editor As Boolean
 
-    Public Sub New(ByVal titulo As String, ByVal enlace As String, ByVal imagen As String,
-                   ByVal precioRebajado As String, ByVal precioBase As String, ByVal descuento As String,
-                   ByVal drm As String, ByVal sistemaWin As Boolean, ByVal sistemaMac As Boolean, ByVal sistemaLinux As Boolean,
+    Public Sub New(ByVal titulo As String, ByVal enlace1 As String, ByVal enlace2 As String, ByVal enlace3 As String,
+                   ByVal imagen As String,
+                   ByVal precio1 As String, ByVal precio2 As String, ByVal precio3 As String,
+                   ByVal descuento As String, ByVal drm As String,
+                   ByVal sistemaWin As Boolean, ByVal sistemaMac As Boolean, ByVal sistemaLinux As Boolean,
                    ByVal tienda As String, ByVal fecha As DateTime)
         Me.Titulo = titulo
-        Me.Enlace = enlace
+        Me.Enlace1 = enlace1
+        Me.Enlace2 = enlace2
+        Me.Enlace3 = enlace3
         Me.Imagen = imagen
-        Me.PrecioRebajado = precioRebajado
-        Me.PrecioBase = precioBase
+        Me.Precio1 = precio1
+        Me.Precio2 = precio2
+        Me.Precio3 = precio3
         Me.Descuento = descuento
         Me.DRM = drm
         Me.SistemaWin = sistemaWin

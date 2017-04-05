@@ -4,7 +4,6 @@ Module GamesPlanet
 
     Dim WithEvents bw As BackgroundWorker
     Dim listaJuegos As List(Of Juego)
-    Dim pais As Integer = 0
 
     Public Sub GenerarOfertas()
 
@@ -17,10 +16,6 @@ Module GamesPlanet
 
         Dim botonActualizar As Button = pagina.FindName("botonActualizarGamesPlanet")
         botonActualizar.IsEnabled = False
-
-        Dim cbPais As ComboBox = pagina.FindName("cbPaisGamesPlanet")
-        cbPais.IsEnabled = False
-        pais = cbPais.SelectedIndex
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
         cbOrdenar.IsEnabled = False
@@ -48,29 +43,26 @@ Module GamesPlanet
 
         listaJuegos = New List(Of Juego)
 
-        Dim html_ As Task(Of String) = Nothing
+        Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
+        Dim htmlUK As String = htmlUK_.Result
 
-        If pais = 0 Then
-            html_ = HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
-        ElseIf pais = 1 Then
-            html_ = HttpClient(New Uri("https://fr.gamesplanet.com/api/v1/products/feed.xml"))
-        ElseIf pais = 2 Then
-            html_ = HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
-        End If
+        Dim htmlFR_ As Task(Of String) = HttpClient(New Uri("https://fr.gamesplanet.com/api/v1/products/feed.xml"))
+        Dim htmlFR As String = htmlFR_.Result
 
-        Dim html As String = html_.Result
+        Dim htmlDE_ As Task(Of String) = HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
+        Dim htmlDE As String = htmlDE_.Result
 
         Dim i As Integer = 0
         While i < 5000
-            If Not html = Nothing Then
-                If html.Contains("<product>") Then
+            If Not htmlUK = Nothing Then
+                If htmlUK.Contains("<product>") Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = html.IndexOf("<product>")
-                    temp = html.Remove(0, int + 5)
+                    int = htmlUK.IndexOf("<product>")
+                    temp = htmlUK.Remove(0, int + 5)
 
-                    html = temp
+                    htmlUK = temp
 
                     int2 = temp.IndexOf("</product>")
                     temp2 = temp.Remove(int2, temp.Length - int2)
@@ -97,7 +89,10 @@ Module GamesPlanet
                     int6 = temp5.IndexOf("</link>")
                     temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                    Dim enlace As String = temp6.Trim + "?ref=pepeizq"
+                    Dim enlace As String = temp6.Trim
+
+                    Dim enlaceFR As String = enlace.Replace("uk.gamesplanet.com", "fr.gamesplanet.com")
+                    Dim enlaceDE As String = enlace.Replace("uk.gamesplanet.com", "de.gamesplanet.com")
 
                     Dim temp7, temp8 As String
                     Dim int7, int8 As Integer
@@ -118,13 +113,7 @@ Module GamesPlanet
 
                     int10 = temp9.IndexOf("</price>")
                     temp10 = temp9.Remove(int10, temp9.Length - int10)
-
-                    If pais = 0 Then
-                        temp10 = "£" + temp10.Trim
-                    Else
-                        temp10 = temp10.Replace(".", ",")
-                        temp10 = temp10.Trim + " €"
-                    End If
+                    temp10 = "£" + temp10.Trim
 
                     Dim precio As String = temp10
 
@@ -136,13 +125,7 @@ Module GamesPlanet
 
                     int12 = temp11.IndexOf("</price_base>")
                     temp12 = temp11.Remove(int12, temp11.Length - int12)
-
-                    If pais = 0 Then
-                        temp12 = "£" + temp12.Trim
-                    Else
-                        temp12 = temp12.Replace(".", ",")
-                        temp12 = temp12.Trim + " €"
-                    End If
+                    temp12 = "£" + temp12.Trim
 
                     If Not temp12 = precio Then
                         Dim descuento As String = Calculadora.GenerarDescuento(temp12, precio)
@@ -150,6 +133,56 @@ Module GamesPlanet
                         Dim tempDescuento As Integer = Integer.Parse(descuento.Replace("%", Nothing))
 
                         If tempDescuento > 20 Then
+                            Dim precioFR As String
+                            If Not htmlFR = Nothing Then
+                                Dim tempFR, tempFR2, tempFR3 As String
+                                Dim intFR, intFR2, intFR3 As Integer
+
+                                intFR = htmlFR.IndexOf(enlaceFR)
+
+                                If Not intFR = -1 Then
+                                    tempFR = htmlFR.Remove(intFR, htmlFR.Length - intFR)
+
+                                    intFR2 = tempFR.LastIndexOf("<price>")
+                                    tempFR2 = tempFR.Remove(0, intFR2 + 7)
+
+                                    intFR3 = tempFR2.IndexOf("</price>")
+                                    tempFR3 = tempFR2.Remove(intFR3, tempFR2.Length - intFR3)
+
+                                    tempFR3 = tempFR3.Replace(".", ",")
+                                    precioFR = tempFR3.Trim + " €"
+                                Else
+                                    precioFR = Nothing
+                                End If
+                            Else
+                                precioFR = Nothing
+                            End If
+
+                            Dim precioDE As String
+                            If Not htmlDE = Nothing Then
+                                Dim tempDE, tempDE2, tempDE3 As String
+                                Dim intDE, intDE2, intDE3 As Integer
+
+                                intDE = htmlDE.IndexOf(enlaceDE)
+
+                                If Not intDE = -1 Then
+                                    tempDE = htmlDE.Remove(intDE, htmlDE.Length - intDE)
+
+                                    intDE2 = tempDE.LastIndexOf("<price>")
+                                    tempDE2 = tempDE.Remove(0, intDE2 + 7)
+
+                                    intDE3 = tempDE2.IndexOf("</price>")
+                                    tempDE3 = tempDE2.Remove(intDE3, tempDE2.Length - intDE3)
+
+                                    tempDE3 = tempDE3.Replace(".", ",")
+                                    precioDE = tempDE3.Trim + " €"
+                                Else
+                                    precioDE = Nothing
+                                End If
+                            Else
+                                precioDE = Nothing
+                            End If
+
                             Dim temp13, temp14 As String
                             Dim int13, int14 As Integer
 
@@ -179,7 +212,9 @@ Module GamesPlanet
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, imagen, precio, Nothing, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today)
+                            Dim afiliado As String = "?ref=pepeizq"
+
+                            Dim juego As New Juego(titulo, enlace + afiliado, enlaceFR + afiliado, enlaceDE + afiliado, imagen, precio, precioFR, precioDE, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

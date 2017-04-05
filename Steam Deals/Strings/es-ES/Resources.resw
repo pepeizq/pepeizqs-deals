@@ -198,7 +198,7 @@
   <data name="Donar" xml:space="preserve">
     <value>Donar</value>
   </data>
-  <data name="RSS" xml:space="preserve">
+  <data name="RSS Updates" xml:space="preserve">
     <value>Últimas Noticias</value>
   </data>
   <data name="Boton Inicio" xml:space="preserve">
@@ -212,5 +212,11 @@
   </data>
   <data name="Config Ordenar" xml:space="preserve">
     <value>Por defecto ordenar según:</value>
+  </data>
+  <data name="Editor" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="RSS Deals" xml:space="preserve">
+    <value>Últimas Ofertas</value>
   </data>
 </root>
