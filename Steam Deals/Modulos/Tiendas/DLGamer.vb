@@ -14,6 +14,12 @@ Module DLGamer
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoDLGamer")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaDLGamer")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarDLGamer")
         botonActualizar.IsEnabled = False
 
@@ -153,7 +159,7 @@ Module DLGamer
 
                             Dim drm As String = temp14.Trim
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "DLGamer", DateTime.Today)
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "DLGamer", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

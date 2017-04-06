@@ -17,6 +17,12 @@ Module AmazonEs
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoAmazonEs")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaAmazonEs")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarAmazonEs")
         botonActualizar.IsEnabled = False
 
@@ -107,7 +113,8 @@ Module AmazonEs
 
                         temp6 = temp6.Replace("http:", "https:")
 
-                        Dim enlace As String = temp6.Trim + "/?tag=vayaa-21"
+                        Dim enlace As String = temp6.Trim
+                        Dim afiliado As String = enlace + "/?tag=vayaa-21"
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
@@ -145,11 +152,17 @@ Module AmazonEs
                                     If descuento = "00%" Then
                                         descuento = Nothing
                                     End If
+
+                                    If Not descuento = Nothing Then
+                                        If descuento.Contains("-") Then
+                                            descuento = Nothing
+                                        End If
+                                    End If
                                 End If
                             Next
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

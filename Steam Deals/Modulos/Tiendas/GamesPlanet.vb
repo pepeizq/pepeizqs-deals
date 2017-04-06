@@ -14,6 +14,12 @@ Module GamesPlanet
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGamesPlanet")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaGamesPlanet")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarGamesPlanet")
         botonActualizar.IsEnabled = False
 
@@ -214,7 +220,7 @@ Module GamesPlanet
 
                             Dim afiliado As String = "?ref=pepeizq"
 
-                            Dim juego As New Juego(titulo, enlace + afiliado, enlaceFR + afiliado, enlaceDE + afiliado, imagen, precio, precioFR, precioDE, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today)
+                            Dim juego As New Juego(titulo, enlace, enlaceFR, enlaceDE, enlace + afiliado, enlaceFR + afiliado, enlaceDE + afiliado, imagen, precio, precioFR, precioDE, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

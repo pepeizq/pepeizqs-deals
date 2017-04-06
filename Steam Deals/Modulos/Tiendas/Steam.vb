@@ -14,6 +14,12 @@ Module Steam
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoSteam")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaSteam")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarSteam")
         botonActualizar.IsEnabled = False
 
@@ -192,7 +198,7 @@ Module Steam
                                     linux = True
                                 End If
 
-                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today)
+                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

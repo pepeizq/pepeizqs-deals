@@ -14,6 +14,12 @@ Module WinGameStore
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoWinGameStore")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaWinGameStore")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarWinGameStore")
         botonActualizar.IsEnabled = False
 
@@ -84,6 +90,7 @@ Module WinGameStore
                     temp6 = temp6.Replace("\", Nothing)
 
                     Dim enlace As String = temp6.Trim
+                    Dim afiliado As String = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + enlace
 
                     Dim imagen As String = Nothing
 
@@ -113,7 +120,7 @@ Module WinGameStore
 
                         Dim drm As String = Nothing
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

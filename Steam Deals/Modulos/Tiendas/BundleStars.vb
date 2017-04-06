@@ -14,6 +14,12 @@ Module BundleStars
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoBundleStars")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaBundleStars")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarBundleStars")
         botonActualizar.IsEnabled = False
 
@@ -111,7 +117,8 @@ Module BundleStars
                         int6 = temp5.IndexOf(ChrW(34))
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                        Dim enlace As String = "http://www.shareasale.com/r.cfm?u=1349489&b=880704&m=66498&urllink=https://www.bundlestars.com/en/game/" + temp6.Trim
+                        Dim enlace As String = "https://www.bundlestars.com/en/game/" + temp6.Trim
+                        Dim afiliado As String = "http://www.shareasale.com/r.cfm?u=1349489&b=880704&m=66498&urllink=" + enlace
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
@@ -233,7 +240,7 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

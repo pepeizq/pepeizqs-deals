@@ -282,103 +282,104 @@ Module Listado
             grid.Children.Add(fondoPrecio)
         End If
 
-        If Not juego.Precio2 = Nothing Then
-            Dim fondoPrecio As New Grid With {
-                .Background = New SolidColorBrush(Colors.Black),
-                .Padding = New Thickness(5, 0, 5, 0),
-                .Height = 34,
-                .MinWidth = 60,
-                .HorizontalAlignment = HorizontalAlignment.Center,
-                .Margin = New Thickness(0, 0, 10, 0)
-            }
-
-            Dim colPre1 As New ColumnDefinition
-            Dim colPre2 As New ColumnDefinition
-
-            colPre1.Width = New GridLength(1, GridUnitType.Auto)
-            colPre2.Width = New GridLength(1, GridUnitType.Auto)
-
-            fondoPrecio.ColumnDefinitions.Add(colPre1)
-            fondoPrecio.ColumnDefinitions.Add(colPre2)
-
-            Dim imagenPais As New ImageEx With {
-                .Width = 23,
-                .Height = 15
-            }
-
-            If juego.Tienda = "GamersGate" Then
-                imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk.png"))
-            ElseIf juego.Tienda = "GamesPlanet" Then
-                imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr.png"))
-            End If
-
-            If Not imagenPais.Source Is Nothing Then
-                imagenPais.SetValue(Grid.ColumnProperty, 0)
-                fondoPrecio.Children.Add(imagenPais)
-            End If
-
-            Dim textoPrecio As New TextBlock With {
-                .Text = juego.Precio2,
-                .VerticalAlignment = VerticalAlignment.Center,
-                .HorizontalAlignment = HorizontalAlignment.Center,
-                .Foreground = New SolidColorBrush(Colors.White),
-                .Margin = New Thickness(5, 0, 0, 0)
-            }
-            textoPrecio.SetValue(Grid.ColumnProperty, 1)
-            fondoPrecio.Children.Add(textoPrecio)
-
-            fondoPrecio.SetValue(Grid.ColumnProperty, 6)
-            grid.Children.Add(fondoPrecio)
-        End If
-
-        If Not juego.Precio3 = Nothing Then
-            Dim fondoPrecio As New Grid With {
-                .Background = New SolidColorBrush(Colors.Black),
-                .Padding = New Thickness(5, 0, 5, 0),
-                .Height = 34,
-                .MinWidth = 60,
-                .HorizontalAlignment = HorizontalAlignment.Center,
-                .Margin = New Thickness(0, 0, 10, 0)
-            }
-
-            Dim colPre1 As New ColumnDefinition
-            Dim colPre2 As New ColumnDefinition
-
-            colPre1.Width = New GridLength(1, GridUnitType.Auto)
-            colPre2.Width = New GridLength(1, GridUnitType.Auto)
-
-            fondoPrecio.ColumnDefinitions.Add(colPre1)
-            fondoPrecio.ColumnDefinitions.Add(colPre2)
-
-            Dim imagenPais As New ImageEx With {
-                .Width = 23,
-                .Height = 15
-            }
-
-            If juego.Tienda = "GamesPlanet" Then
-                imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de.png"))
-            End If
-
-            If Not imagenPais.Source Is Nothing Then
-                imagenPais.SetValue(Grid.ColumnProperty, 0)
-                fondoPrecio.Children.Add(imagenPais)
-            End If
-
-            Dim textoPrecio As New TextBlock With {
-                .Text = juego.Precio3,
-                .VerticalAlignment = VerticalAlignment.Center,
-                .HorizontalAlignment = HorizontalAlignment.Center,
-                .Foreground = New SolidColorBrush(Colors.White),
-                .Margin = New Thickness(5, 0, 0, 0)
-            }
-            textoPrecio.SetValue(Grid.ColumnProperty, 1)
-            fondoPrecio.Children.Add(textoPrecio)
-
-            fondoPrecio.SetValue(Grid.ColumnProperty, 7)
-            grid.Children.Add(fondoPrecio)
-        End If
-
         If ApplicationData.Current.LocalSettings.Values("editor") = "on" Then
+            If Not juego.Precio2 = Nothing Then
+                Dim fondoPrecio As New Grid With {
+                    .Background = New SolidColorBrush(Colors.Black),
+                    .Padding = New Thickness(5, 0, 5, 0),
+                    .Height = 34,
+                    .MinWidth = 60,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Margin = New Thickness(0, 0, 10, 0)
+                }
+
+                Dim colPre1 As New ColumnDefinition
+                Dim colPre2 As New ColumnDefinition
+
+                colPre1.Width = New GridLength(1, GridUnitType.Auto)
+                colPre2.Width = New GridLength(1, GridUnitType.Auto)
+
+                fondoPrecio.ColumnDefinitions.Add(colPre1)
+                fondoPrecio.ColumnDefinitions.Add(colPre2)
+
+                Dim imagenPais As New ImageEx With {
+                    .Width = 23,
+                    .Height = 15
+                }
+
+                If juego.Tienda = "GamersGate" Then
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk.png"))
+                ElseIf juego.Tienda = "GamesPlanet" Then
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr.png"))
+                End If
+
+                If Not imagenPais.Source Is Nothing Then
+                    imagenPais.SetValue(Grid.ColumnProperty, 0)
+                    fondoPrecio.Children.Add(imagenPais)
+                End If
+
+                Dim textoPrecio As New TextBlock With {
+                    .Text = juego.Precio2,
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .Margin = New Thickness(5, 0, 0, 0)
+                }
+                textoPrecio.SetValue(Grid.ColumnProperty, 1)
+                fondoPrecio.Children.Add(textoPrecio)
+
+                fondoPrecio.SetValue(Grid.ColumnProperty, 6)
+                grid.Children.Add(fondoPrecio)
+            End If
+
+            If Not juego.Precio3 = Nothing Then
+                Dim fondoPrecio As New Grid With {
+                    .Background = New SolidColorBrush(Colors.Black),
+                    .Padding = New Thickness(5, 0, 5, 0),
+                    .Height = 34,
+                    .MinWidth = 60,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Margin = New Thickness(0, 0, 10, 0)
+                }
+
+                Dim colPre1 As New ColumnDefinition
+                Dim colPre2 As New ColumnDefinition
+
+                colPre1.Width = New GridLength(1, GridUnitType.Auto)
+                colPre2.Width = New GridLength(1, GridUnitType.Auto)
+
+                fondoPrecio.ColumnDefinitions.Add(colPre1)
+                fondoPrecio.ColumnDefinitions.Add(colPre2)
+
+                Dim imagenPais As New ImageEx With {
+                    .Width = 23,
+                    .Height = 15
+                }
+
+                If juego.Tienda = "GamesPlanet" Then
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de.png"))
+                End If
+
+                If Not imagenPais.Source Is Nothing Then
+                    imagenPais.SetValue(Grid.ColumnProperty, 0)
+                    fondoPrecio.Children.Add(imagenPais)
+                End If
+
+                Dim textoPrecio As New TextBlock With {
+                    .Text = juego.Precio3,
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .Margin = New Thickness(5, 0, 0, 0)
+                }
+                textoPrecio.SetValue(Grid.ColumnProperty, 1)
+                fondoPrecio.Children.Add(textoPrecio)
+
+                fondoPrecio.SetValue(Grid.ColumnProperty, 7)
+                grid.Children.Add(fondoPrecio)
+            End If
+
+
             Dim cb As New CheckBox With {
                 .Margin = New Thickness(10, 0, 10, 0),
                 .Tag = juego,
@@ -410,25 +411,30 @@ Module Listado
             listaFinal = New List(Of Juego)
         End If
 
-        If listaFinal.Count > 0 Then
-            Dim boolFinal As Boolean = False
+        If Not listaFinal Is Nothing Then
+            If listaFinal.Count > 0 Then
+                Dim boolFinal As Boolean = False
 
-            Dim j As Integer = 0
-            While j < listaFinal.Count
-                If juegoFinal.Enlace1 = listaFinal(j).Enlace1 Then
-                    boolFinal = True
+                Dim j As Integer = 0
+                While j < listaFinal.Count
+                    If juegoFinal.Enlace1 = listaFinal(j).Enlace1 Then
+                        boolFinal = True
+                    End If
+
+                    If Not juegoFinal.Tienda = listaFinal(j).Tienda Then
+                        listaFinal = New List(Of Juego)
+                    End If
+                    j += 1
+                End While
+
+                If boolFinal = False Then
+                    listaFinal.Add(juegoFinal)
                 End If
-
-                If Not juegoFinal.Tienda = listaFinal(j).Tienda Then
-                    listaFinal = New List(Of Juego)
-                End If
-                j += 1
-            End While
-
-            If boolFinal = False Then
+            Else
                 listaFinal.Add(juegoFinal)
             End If
         Else
+            listaFinal = New List(Of Juego)
             listaFinal.Add(juegoFinal)
         End If
 

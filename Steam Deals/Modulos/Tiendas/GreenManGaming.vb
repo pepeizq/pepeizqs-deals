@@ -14,6 +14,12 @@ Module GreenManGaming
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGreenManGaming")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaGreenManGaming")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarGreenManGaming")
         botonActualizar.IsEnabled = False
 
@@ -85,7 +91,8 @@ Module GreenManGaming
                         int6 = temp5.IndexOf("</deep_link>")
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                        Dim enlace As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + temp6.Trim
+                        Dim enlace As String = temp6.Trim
+                        Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
@@ -140,7 +147,7 @@ Module GreenManGaming
 
                         Dim drm As String = temp14.Trim
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today)
 
                         Dim tituloBool As Boolean = False
                         Dim j As Integer = 0

@@ -235,6 +235,8 @@
     <Content Include="Assets\Store\StoreLogo.scale-150.png" />
     <Content Include="Assets\Store\StoreLogo.scale-200.png" />
     <Content Include="Assets\Store\StoreLogo.scale-400.png" />
+    <Content Include="Assets\web_reddit.ico" />
+    <Content Include="Assets\web_vayaansias.ico" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide\Wide310x150Logo.scale-150.png" />

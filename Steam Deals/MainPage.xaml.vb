@@ -72,8 +72,13 @@ Public NotInheritable Class MainPage
         End If
 
         cbConfigEditor.Content = recursos.GetString("Editor")
+        tbEditorCortarEnlaces.Text = recursos.GetString("Cortar")
+        tbEditorBorrarTodo.Text = recursos.GetString("Borrar")
 
         '--------------------------------------------------------
+
+        tbEditorSeleccionarTodoSteam.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaSteam.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarSteam.Text = recursos.GetString("Ordenar")
         cbOrdenarSteamDescuento.Content = recursos.GetString("Descuento")
@@ -83,6 +88,9 @@ Public NotInheritable Class MainPage
 
         tbPlataformaSteam.Text = recursos.GetString("Plataforma")
         cbPlataformaSteam.SelectedIndex = 0
+
+        tbEditorSeleccionarTodoGamersGate.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGamersGate.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarGamersGate.Text = recursos.GetString("Ordenar")
         cbOrdenarGamersGateDescuento.Content = recursos.GetString("Descuento")
@@ -97,6 +105,9 @@ Public NotInheritable Class MainPage
         cbDRMGamersGate.ItemsSource = listaDRMs
         cbDRMGamersGate.SelectedIndex = 0
 
+        tbEditorSeleccionarTodoGamesPlanet.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGamesPlanet.Text = recursos.GetString("Seleccionar Nada")
+
         tbOrdenarGamesPlanet.Text = recursos.GetString("Ordenar")
         cbOrdenarGamesPlanetDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGamesPlanetPrecio.Content = recursos.GetString("Precio")
@@ -109,6 +120,9 @@ Public NotInheritable Class MainPage
         tbDRMGamesPlanet.Text = recursos.GetString("DRM")
         cbDRMGamesPlanet.ItemsSource = listaDRMs
         cbDRMGamesPlanet.SelectedIndex = 0
+
+        tbEditorSeleccionarTodoHumble.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaHumble.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarHumble.Text = recursos.GetString("Ordenar")
         cbOrdenarHumbleDescuento.Content = recursos.GetString("Descuento")
@@ -123,6 +137,9 @@ Public NotInheritable Class MainPage
         cbDRMHumble.ItemsSource = listaDRMs
         cbDRMHumble.SelectedIndex = 0
 
+        tbEditorSeleccionarTodoGreenManGaming.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGreenManGaming.Text = recursos.GetString("Seleccionar Nada")
+
         tbOrdenarGreenManGaming.Text = recursos.GetString("Ordenar")
         cbOrdenarGreenManGamingDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGreenManGamingPrecio.Content = recursos.GetString("Precio")
@@ -132,6 +149,9 @@ Public NotInheritable Class MainPage
         tbDRMGreenManGaming.Text = recursos.GetString("DRM")
         cbDRMGreenManGaming.ItemsSource = listaDRMs
         cbDRMGreenManGaming.SelectedIndex = 0
+
+        tbEditorSeleccionarTodoBundleStars.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaBundleStars.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarBundleStars.Text = recursos.GetString("Ordenar")
         cbOrdenarBundleStarsDescuento.Content = recursos.GetString("Descuento")
@@ -146,6 +166,9 @@ Public NotInheritable Class MainPage
         cbDRMBundleStars.ItemsSource = listaDRMs
         cbDRMBundleStars.SelectedIndex = 0
 
+        tbEditorSeleccionarTodoGOG.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGOG.Text = recursos.GetString("Seleccionar Nada")
+
         tbOrdenarGOG.Text = recursos.GetString("Ordenar")
         cbOrdenarGOGDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarGOGPrecio.Content = recursos.GetString("Precio")
@@ -154,6 +177,9 @@ Public NotInheritable Class MainPage
 
         tbPlataformaGOG.Text = recursos.GetString("Plataforma")
         cbPlataformaGOG.SelectedIndex = 0
+
+        tbEditorSeleccionarTodoWinGameStore.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaWinGameStore.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarWinGameStore.Text = recursos.GetString("Ordenar")
         cbOrdenarWinGameStoreDescuento.Content = recursos.GetString("Descuento")
@@ -165,6 +191,9 @@ Public NotInheritable Class MainPage
         cbDRMWinGameStore.ItemsSource = listaDRMs
         cbDRMWinGameStore.SelectedIndex = 0
 
+        tbEditorSeleccionarTodoSilaGames.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaSilaGames.Text = recursos.GetString("Seleccionar Nada")
+
         tbOrdenarSilaGames.Text = recursos.GetString("Ordenar")
         cbOrdenarSilaGamesDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarSilaGamesPrecio.Content = recursos.GetString("Precio")
@@ -175,6 +204,9 @@ Public NotInheritable Class MainPage
         cbDRMSilaGames.ItemsSource = listaDRMs
         cbDRMSilaGames.SelectedIndex = 0
 
+        tbEditorSeleccionarTodoDLGamer.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaDLGamer.Text = recursos.GetString("Seleccionar Nada")
+
         tbOrdenarDLGamer.Text = recursos.GetString("Ordenar")
         cbOrdenarDLGamerDescuento.Content = recursos.GetString("Descuento")
         cbOrdenarDLGamerPrecio.Content = recursos.GetString("Precio")
@@ -184,6 +216,9 @@ Public NotInheritable Class MainPage
         tbDRMDLGamer.Text = recursos.GetString("DRM")
         cbDRMDLGamer.ItemsSource = listaDRMs
         cbDRMDLGamer.SelectedIndex = 0
+
+        tbEditorSeleccionarTodoNuuvem.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaNuuvem.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarNuuvem.Text = recursos.GetString("Ordenar")
         cbOrdenarNuuvemDescuento.Content = recursos.GetString("Descuento")
@@ -197,6 +232,9 @@ Public NotInheritable Class MainPage
         tbDRMNuuvem.Text = recursos.GetString("DRM")
         cbDRMNuuvem.ItemsSource = listaDRMs
         cbDRMNuuvem.SelectedIndex = 0
+
+        tbEditorSeleccionarTodoAmazonEs.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaAmazonEs.Text = recursos.GetString("Seleccionar Nada")
 
         tbOrdenarAmazonEs.Text = recursos.GetString("Ordenar")
         cbOrdenarAmazonEsDescuento.Content = recursos.GetString("Descuento")
@@ -279,7 +317,7 @@ Public NotInheritable Class MainPage
             cbEditorTipo.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorTipo")
         End If
 
-        Editor.Inicio()
+        Editor.Borrar()
 
     End Sub
 
@@ -488,7 +526,13 @@ Public NotInheritable Class MainPage
 
         If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
             Dim juego As Juego = grid.Tag
-            Dim enlace As String = juego.Enlace1
+            Dim enlace As String = Nothing
+
+            If Not juego.Afiliado1 = Nothing Then
+                enlace = juego.Afiliado1
+            Else
+                enlace = juego.Enlace1
+            End If
 
             Await Launcher.LaunchUriAsync(New Uri(enlace))
         Else
@@ -1139,9 +1183,35 @@ Public NotInheritable Class MainPage
         If estado = True Then
             botonEditor.Visibility = Visibility.Visible
             botonTiendaAmazonEs.Visibility = Visibility.Visible
+
+            spEditorSteam.Visibility = Visibility.Visible
+            spEditorGamersGate.Visibility = Visibility.Visible
+            spEditorGamesPlanet.Visibility = Visibility.Visible
+            spEditorHumble.Visibility = Visibility.Visible
+            spEditorGreenManGaming.Visibility = Visibility.Visible
+            spEditorBundleStars.Visibility = Visibility.Visible
+            spEditorGOG.Visibility = Visibility.Visible
+            spEditorWinGameStore.Visibility = Visibility.Visible
+            spEditorSilaGames.Visibility = Visibility.Visible
+            spEditorDLGamer.Visibility = Visibility.Visible
+            spEditorNuuvem.Visibility = Visibility.Visible
+            spEditorAmazonEs.Visibility = Visibility.Visible
         Else
             botonEditor.Visibility = Visibility.Collapsed
             botonTiendaAmazonEs.Visibility = Visibility.Collapsed
+
+            spEditorSteam.Visibility = Visibility.Collapsed
+            spEditorGamersGate.Visibility = Visibility.Collapsed
+            spEditorGamesPlanet.Visibility = Visibility.Collapsed
+            spEditorHumble.Visibility = Visibility.Collapsed
+            spEditorGreenManGaming.Visibility = Visibility.Collapsed
+            spEditorBundleStars.Visibility = Visibility.Collapsed
+            spEditorGOG.Visibility = Visibility.Collapsed
+            spEditorWinGameStore.Visibility = Visibility.Collapsed
+            spEditorSilaGames.Visibility = Visibility.Collapsed
+            spEditorDLGamer.Visibility = Visibility.Collapsed
+            spEditorNuuvem.Visibility = Visibility.Collapsed
+            spEditorAmazonEs.Visibility = Visibility.Collapsed
         End If
 
     End Sub
@@ -1151,6 +1221,178 @@ Public NotInheritable Class MainPage
         ApplicationData.Current.LocalSettings.Values("editorTipo") = cbEditorTipo.SelectedIndex
         Editor.Generar()
         Editor.GenerarOpciones()
+
+    End Sub
+
+    Private Sub BotonEditorCortarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarEnlaces.Click
+
+        Dim datos As DataPackage = New DataPackage
+        datos.SetText(tbEditorEnlaces.Text)
+        Clipboard.SetContent(datos)
+        tbEditorEnlaces.Text = String.Empty
+
+    End Sub
+
+    Private Sub BotonEditorBorrarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorBorrarTodo.Click
+
+        Editor.Borrar()
+
+    End Sub
+
+    Private Async Sub SeleccionarEnlaces(listado As ListView, estado As Boolean)
+
+        Dim listaGrids As ItemCollection = listado.Items
+
+        For Each item In listaGrids
+            Dim grid As Grid = item
+            Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
+            Await Task.Delay(250)
+            cb.IsChecked = estado
+        Next
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSteam.Click
+
+        SeleccionarEnlaces(listadoSteam, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSteam.Click
+
+        SeleccionarEnlaces(listadoSteam, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGamersGate.Click
+
+        SeleccionarEnlaces(listadoGamersGate, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGamersGate.Click
+
+        SeleccionarEnlaces(listadoGamersGate, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGamesPlanet.Click
+
+        SeleccionarEnlaces(listadoGamesPlanet, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGamesPlanet.Click
+
+        SeleccionarEnlaces(listadoGamesPlanet, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoHumble.Click
+
+        SeleccionarEnlaces(listadoHumble, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaHumble.Click
+
+        SeleccionarEnlaces(listadoHumble, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGreenManGaming.Click
+
+        SeleccionarEnlaces(listadoGreenManGaming, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGreenManGaming.Click
+
+        SeleccionarEnlaces(listadoGreenManGaming, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoBundleStars.Click
+
+        SeleccionarEnlaces(listadoBundleStars, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaBundleStars.Click
+
+        SeleccionarEnlaces(listadoBundleStars, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGOG.Click
+
+        SeleccionarEnlaces(listadoGOG, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGOG.Click
+
+        SeleccionarEnlaces(listadoGOG, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoWinGameStore.Click
+
+        SeleccionarEnlaces(listadoWinGameStore, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaWinGameStore.Click
+
+        SeleccionarEnlaces(listadoWinGameStore, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSilaGames.Click
+
+        SeleccionarEnlaces(listadoSilaGames, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSilaGames.Click
+
+        SeleccionarEnlaces(listadoSilaGames, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoDLGamer.Click
+
+        SeleccionarEnlaces(listadoDLGamer, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaDLGamer.Click
+
+        SeleccionarEnlaces(listadoDLGamer, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoNuuvem.Click
+
+        SeleccionarEnlaces(listadoNuuvem, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaNuuvem.Click
+
+        SeleccionarEnlaces(listadoNuuvem, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonEs.Click
+
+        SeleccionarEnlaces(listadoAmazonEs, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonEs.Click
+
+        SeleccionarEnlaces(listadoAmazonEs, False)
 
     End Sub
 

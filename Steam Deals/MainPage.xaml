@@ -326,6 +326,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorSteam" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoSteam" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoSteam" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaSteam" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaSteam" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarSteam" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -367,6 +386,25 @@
                     </Grid> 
                         
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorGamersGate" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoGamersGate" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoGamersGate" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaGamersGate" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaGamersGate" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarGamersGate" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -410,6 +448,25 @@
                     </Grid> 
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorGamesPlanet" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoGamesPlanet" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoGamesPlanet" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaGamesPlanet" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaGamesPlanet" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarGamesPlanet" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -453,6 +510,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorHumble" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoHumble" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoHumble" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaHumble" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaHumble" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarHumble" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -496,6 +572,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorGreenManGaming" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoGreenManGaming" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoGreenManGaming" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaGreenManGaming" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaGreenManGaming" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarGreenManGaming" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -533,6 +628,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorBundleStars" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoBundleStars" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoBundleStars" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaBundleStars" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaBundleStars" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarBundleStars" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -576,6 +690,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorGOG" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoGOG" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoGOG" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaGOG" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaGOG" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarGOG" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -617,6 +750,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorWinGameStore" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoWinGameStore" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoWinGameStore" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaWinGameStore" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaWinGameStore" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarWinGameStore" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -654,6 +806,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorSilaGames" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoSilaGames" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoSilaGames" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaSilaGames" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaSilaGames" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarSilaGames" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -691,6 +862,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorDLGamer" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoDLGamer" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoDLGamer" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaDLGamer" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaDLGamer" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarDLGamer" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -728,6 +918,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorNuuvem" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoNuuvem" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoNuuvem" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaNuuvem" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaNuuvem" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarNuuvem" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -771,6 +980,25 @@
                     </Grid>
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorAmazonEs" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoAmazonEs" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoAmazonEs" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaAmazonEs" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaAmazonEs" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
                         <Button x:Name="botonActualizarAmazonEs" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
                             <SymbolIcon Symbol="Refresh" Foreground="White"/>
                         </Button>
@@ -786,30 +1014,71 @@
         </Grid>
 
         <Grid x:Name="gridEditor" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Padding="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                
-                <TextBox x:Name="tbEditorTitulo" Grid.Row="0" Padding="5" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                <TextBox x:Name="tbEditorEnlaces" Grid.Row="1" Padding="5" TextWrapping="Wrap" AcceptsReturn="True"/>
+                <Grid Grid.Column="0" Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="tbEditorTitulo" Grid.Row="0" Padding="5" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                    <TextBox x:Name="tbEditorEnlaces" Grid.Row="1" Padding="5" TextWrapping="Wrap" AcceptsReturn="True"/>
+                </Grid>
+
+                <StackPanel Grid.Column="1" Padding="10">
+                    <TextBlock x:Name="tbEditorEnlacesNum" Padding="5" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="tbEditorEnlacesTienda" Padding="5" HorizontalAlignment="Center" Margin="0,5"/>
+                    <ComboBox x:Name="cbEditorTipo" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
+                        <ComboBoxItem>
+                            <ComboBoxItem.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets/web_reddit.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                                    <TextBlock Text="Reddit"/>
+                                </StackPanel>
+                            </ComboBoxItem.Content>
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            <ComboBoxItem.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets/web_vayaansias.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                                    <TextBlock Text="VayaAnsias"/>
+                                </StackPanel>
+                            </ComboBoxItem.Content>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                    <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                </StackPanel>
             </Grid>
 
-            <StackPanel Grid.Column="1" Padding="10" MinWidth="250">
-                <TextBlock x:Name="tbEditorEnlacesNum" Padding="5" HorizontalAlignment="Center"/>
-                <TextBlock x:Name="tbEditorEnlacesTienda" Padding="5" HorizontalAlignment="Center" Margin="0,5"/>
-                <ComboBox x:Name="cbEditorTipo" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
-                    <ComboBoxItem Content="pepeizqapps"/>
-                    <ComboBoxItem Content="vayaansias"/>
-                </ComboBox>
-                <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
-                <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Background="OliveDrab">
+                <Button x:Name="botonEditorCortarEnlaces" Background="Transparent" Padding="15,10">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="tbEditorCortarEnlaces" Foreground="White"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <AppBarSeparator Foreground="White"/>
+                <Button x:Name="botonEditorBorrarTodo" Background="Transparent" Padding="15,10">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Delete" Foreground="White" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="tbEditorBorrarTodo" Foreground="White"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </Grid>
 

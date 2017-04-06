@@ -9,6 +9,9 @@ Module Ordenar
         Dim pagina As Page = frame.Content
 
         Dim lv As ListView = pagina.FindName("listado" + tienda)
+
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo" + tienda)
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNada" + tienda)
         Dim botonActualizar As Button = pagina.FindName("botonActualizar" + tienda)
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
@@ -16,10 +19,18 @@ Module Ordenar
         Dim cbDRM As ComboBox = pagina.FindName("cbDRM" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
-        tbProgreso.Text = ""
+        tbProgreso.Text = String.Empty
 
         If Not lv Is Nothing Then
             lv.IsEnabled = False
+
+            If Not botonSeleccionarTodo Is Nothing Then
+                botonSeleccionarTodo.IsEnabled = False
+            End If
+
+            If Not botonSeleccionarNada Is Nothing Then
+                botonSeleccionarNada.IsEnabled = False
+            End If
 
             If Not botonActualizar Is Nothing Then
                 botonActualizar.IsEnabled = False
@@ -294,10 +305,10 @@ Module Ordenar
 
                                         If Not listaJuegosAntigua Is Nothing Then
                                             For Each juegoAntiguo In listaJuegosAntigua
-                                                If juegoAntiguo.Titulo = juego.Titulo Then
-                                                    If juego.Tienda = "Amazon.es" Then
-                                                        boolAntiguo = False
-                                                    Else
+                                                If juego.Tienda = "Amazon.es" Then
+                                                    boolAntiguo = False
+                                                Else
+                                                    If juegoAntiguo.Enlace1 = juego.Enlace1 Then
                                                         If Not juegoAntiguo.Descuento = Nothing Then
                                                             If Not juego.Descuento = Nothing Then
                                                                 Dim tempJuegoAntiguoDescuento As Integer = juegoAntiguo.Descuento.Replace("%", Nothing)
@@ -364,6 +375,14 @@ Module Ordenar
             End If
 
             lv.IsEnabled = True
+
+            If Not botonSeleccionarTodo Is Nothing Then
+                botonSeleccionarTodo.IsEnabled = True
+            End If
+
+            If Not botonSeleccionarNada Is Nothing Then
+                botonSeleccionarNada.IsEnabled = True
+            End If
 
             If Not botonActualizar Is Nothing Then
                 botonActualizar.IsEnabled = True

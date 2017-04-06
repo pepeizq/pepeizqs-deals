@@ -17,6 +17,12 @@ Module Nuuvem
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoNuuvem")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaNuuvem")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarNuuvem")
         botonActualizar.IsEnabled = False
 
@@ -173,7 +179,7 @@ Module Nuuvem
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today)
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0

@@ -19,6 +19,12 @@ Module GamersGate
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGamersGate")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaGamersGate")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarGamersGate")
         botonActualizar.IsEnabled = False
 
@@ -168,18 +174,23 @@ Module GamersGate
                                     Dim intUK, intUK2, intUK3 As Integer
 
                                     intUK = htmlUK.IndexOf(enlaceUK)
-                                    tempUK = htmlUK.Remove(0, intUK)
 
-                                    intUK2 = tempUK.IndexOf("<price>")
-                                    tempUK2 = tempUK.Remove(0, intUK2 + 7)
+                                    If Not intUK = -1 Then
+                                        tempUK = htmlUK.Remove(0, intUK)
 
-                                    intUK3 = tempUK2.IndexOf("</price>")
-                                    tempUK3 = tempUK2.Remove(intUK3, tempUK2.Length - intUK3)
+                                        intUK2 = tempUK.IndexOf("<price>")
+                                        tempUK2 = tempUK.Remove(0, intUK2 + 7)
 
-                                    precioUK = "£" + tempUK3.Trim
+                                        intUK3 = tempUK2.IndexOf("</price>")
+                                        tempUK3 = tempUK2.Remove(intUK3, tempUK2.Length - intUK3)
 
-                                    If Not precioUK.Contains(".") Then
-                                        precioUK = precioUK + ".00"
+                                        precioUK = "£" + tempUK3.Trim
+
+                                        If Not precioUK.Contains(".") Then
+                                            precioUK = precioUK + ".00"
+                                        End If
+                                    Else
+                                        precioUK = Nothing
                                     End If
                                 Else
                                     precioUK = Nothing
@@ -240,7 +251,7 @@ Module GamersGate
 
                                 Dim afiliado As String = "?caff=6704538"
 
-                                Dim juego As New Juego(titulo, enlace + afiliado, enlaceUK + afiliado, Nothing, imagen, precio, precioUK, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today)
+                                Dim juego As New Juego(titulo, enlace, enlaceUK, Nothing, enlace + afiliado, enlaceUK + afiliado, Nothing, imagen, precio, precioUK, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

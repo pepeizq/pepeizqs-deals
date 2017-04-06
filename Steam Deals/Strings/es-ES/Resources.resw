@@ -219,4 +219,16 @@
   <data name="RSS Deals" xml:space="preserve">
     <value>Últimas Ofertas</value>
   </data>
+  <data name="Seleccionar Todo" xml:space="preserve">
+    <value>Seleccionar Todo</value>
+  </data>
+  <data name="Borrar" xml:space="preserve">
+    <value>Borrar Todo</value>
+  </data>
+  <data name="Cortar" xml:space="preserve">
+    <value>Cortar Ofertas</value>
+  </data>
+  <data name="Seleccionar Nada" xml:space="preserve">
+    <value>Limpiar Selección</value>
+  </data>
 </root>

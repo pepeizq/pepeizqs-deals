@@ -14,6 +14,12 @@ Module GOG
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGOG")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaGOG")
+        botonSeleccionarNada.IsEnabled = False
+
         Dim botonActualizar As Button = pagina.FindName("botonActualizarGOG")
         botonActualizar.IsEnabled = False
 
@@ -89,7 +95,8 @@ Module GOG
                         int6 = temp5.IndexOf("</link>")
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                        Dim enlace As String = temp6.Trim + "?pp=81110df80ca4086e306c4c52ab485a35cf761acc"
+                        Dim enlace As String = temp6.Trim
+                        Dim afiliado As String = enlace + "?pp=81110df80ca4086e306c4c52ab485a35cf761acc"
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
@@ -150,7 +157,7 @@ Module GOG
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today)
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
