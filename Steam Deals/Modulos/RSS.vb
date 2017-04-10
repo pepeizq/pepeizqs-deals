@@ -13,15 +13,6 @@ Module RSS
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        'Dim lvRSSDeals As ListView = pagina.FindName("lvRSSDeals")
-
-        'Try
-        '    lvRSSDeals.ItemsSource = Nothing
-        '    lvRSSDeals.Items.Clear()
-        'Catch ex As Exception
-
-        'End Try
-
         Dim lvRSSUpdates As ListView = pagina.FindName("lvRSSUpdates")
 
         Try
@@ -42,14 +33,9 @@ Module RSS
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        'If boolDeals = False Then
-        '    listaFeedsDeals = New List(Of FeedRSS)
-        '    listaFeedsDeals = CargarFeeds(listaFeedsDeals, "https://pepeizqapps.com/category/deals/feed/", 6).Result
-        'End If
-
         If boolUpdates = False Then
             listaFeedsUpdates = New List(Of FeedRSS)
-            listaFeedsUpdates = CargarFeeds(listaFeedsUpdates, "https://pepeizqapps.com/category/news/feed/", 6).Result
+            listaFeedsUpdates = CargarFeeds(listaFeedsUpdates, "https://pepeizqapps.com/category/news/feed/", 3).Result
         End If
 
     End Sub
@@ -59,19 +45,13 @@ Module RSS
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        'If listaFeedsDeals.Count > 0 Then
-        '    Dim lvRSSDeals As ListView = pagina.FindName("lvRSSDeals")
-        '    lvRSSDeals.ItemsSource = listaFeedsDeals
-        '    boolDeals = True
-        'End If
-
         If listaFeedsUpdates.Count > 0 Then
             Dim lvRSSUpdates As ListView = pagina.FindName("lvRSSUpdates")
             lvRSSUpdates.ItemsSource = listaFeedsUpdates
             boolUpdates = True
         End If
 
-        If boolDeals = False Or boolUpdates = False Then
+        If boolUpdates = False Then
             Await Task.Delay(5000)
             bw.RunWorkerAsync()
         End If

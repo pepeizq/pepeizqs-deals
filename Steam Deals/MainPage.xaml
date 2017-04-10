@@ -29,7 +29,7 @@
                 <AppBarButton x:Name="botonOfertas" Foreground="White">
                     <AppBarButton.Content>
                         <StackPanel Orientation="Horizontal">
-                            <controls:ImageEx Margin="5,0,10,0" Source="Assets\steam_logo.png" Width="20" Height="20"/>
+                            <Image Margin="5,0,10,0" Source="Assets\steam_logo.png" Width="20" Height="20"/>
                             <TextBlock x:Name="botonOfertasTexto" VerticalAlignment="Center"/>
                         </StackPanel>
                     </AppBarButton.Content>
@@ -1033,35 +1033,77 @@
 
                     <TextBox x:Name="tbEditorTitulo" Grid.Row="0" Padding="5" TextWrapping="Wrap" Margin="0,0,0,10"/>
                     <TextBox x:Name="tbEditorEnlaces" Grid.Row="1" Padding="5" TextWrapping="Wrap" AcceptsReturn="True"/>
+                    <TextBlock x:Name="tbEditorEnlacesLimite" Grid.Row="1" Padding="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Visibility="Collapsed"/>
                 </Grid>
 
-                <StackPanel Grid.Column="1" Padding="10">
-                    <TextBlock x:Name="tbEditorEnlacesNum" Padding="5" HorizontalAlignment="Center"/>
-                    <TextBlock x:Name="tbEditorEnlacesTienda" Padding="5" HorizontalAlignment="Center" Margin="0,5"/>
-                    <ComboBox x:Name="cbEditorTipo" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
-                        <ComboBoxItem>
-                            <ComboBoxItem.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/web_reddit.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock Text="Reddit"/>
-                                </StackPanel>
-                            </ComboBoxItem.Content>
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <ComboBoxItem.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/web_vayaansias.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock Text="VayaAnsias"/>
-                                </StackPanel>
-                            </ComboBoxItem.Content>
-                        </ComboBoxItem>
-                    </ComboBox>
-                    <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
-                    <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
-                </StackPanel>
+                <Grid Grid.Column="1" Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock x:Name="tbEditorEnlacesNum" Padding="5" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="tbEditorEnlacesTienda" Padding="5" HorizontalAlignment="Center" Margin="0,5"/>
+                        <ComboBox x:Name="cbEditorTipo" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
+                            <ComboBoxItem>
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:ImageEx Source="Assets/web_reddit.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                                        <TextBlock Text="Reddit"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:ImageEx Source="Assets/web_vayaansias.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                                        <TextBlock Text="VayaAnsias"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                        <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Padding="10">
+                        <controls:ImageEx Source="Assets/pais_ue2.png" Margin="0,0,5,0" Width="32" Height="24"/>
+                        <TextBlock VerticalAlignment="Center" Text="1 €"/>
+                        <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                        <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
+                        <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                        <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Background="OliveDrab">
+                <Button x:Name="botonEditorCopiarTitulo" Background="Transparent" Padding="15,10">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="tbEditorCopiarTitulo" Foreground="White"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="botonEditorCortarTitulo" Background="Transparent" Padding="15,10">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="tbEditorCortarTitulo" Foreground="White"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <AppBarSeparator Foreground="White"/>
+                <Button x:Name="botonEditorCopiarEnlaces" Background="Transparent" Padding="15,10">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="tbEditorCopiarEnlaces" Foreground="White"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
                 <Button x:Name="botonEditorCortarEnlaces" Background="Transparent" Padding="15,10">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">

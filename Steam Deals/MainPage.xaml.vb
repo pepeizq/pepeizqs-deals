@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 Imports Windows.System
@@ -72,7 +73,11 @@ Public NotInheritable Class MainPage
         End If
 
         cbConfigEditor.Content = recursos.GetString("Editor")
-        tbEditorCortarEnlaces.Text = recursos.GetString("Cortar")
+        tbEditorEnlacesLimite.Text = recursos.GetString("Editor Limite")
+        tbEditorCopiarTitulo.Text = recursos.GetString("Copiar Titulo")
+        tbEditorCortarTitulo.Text = recursos.GetString("Cortar Titulo")
+        tbEditorCopiarEnlaces.Text = recursos.GetString("Copiar Ofertas")
+        tbEditorCortarEnlaces.Text = recursos.GetString("Cortar Ofertas")
         tbEditorBorrarTodo.Text = recursos.GetString("Borrar")
 
         '--------------------------------------------------------
@@ -318,6 +323,7 @@ Public NotInheritable Class MainPage
         End If
 
         Editor.Borrar()
+        Divisas.Generar()
 
     End Sub
 
@@ -1164,6 +1170,8 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    'EDITOR-----------------------------------------
+
     Private Sub CbConfigEditor_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Checked
 
         ApplicationData.Current.LocalSettings.Values("editor") = "on"
@@ -1224,10 +1232,53 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorCortarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarEnlaces.Click
+    Private Sub BotonEditorCopiarTitulo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarTitulo.Click
 
         Dim datos As DataPackage = New DataPackage
-        datos.SetText(tbEditorEnlaces.Text)
+        datos.SetText(tbEditorTitulo.Text)
+        Clipboard.SetContent(datos)
+
+    End Sub
+
+    Private Sub BotonEditorCortarTitulo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarTitulo.Click
+
+        Dim datos As DataPackage = New DataPackage
+        datos.SetText(tbEditorTitulo.Text)
+        Clipboard.SetContent(datos)
+        tbEditorTitulo.Text = String.Empty
+
+    End Sub
+
+    Private Async Sub BotonEditorCopiarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarEnlaces.Click
+
+        Dim contenidoEnlaces As String = Nothing
+
+        If Not tbEditorEnlaces.Text = Nothing Then
+            contenidoEnlaces = tbEditorEnlaces.Text
+        Else
+            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+            contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
+        End If
+
+        Dim datos As DataPackage = New DataPackage
+        datos.SetText(contenidoEnlaces)
+        Clipboard.SetContent(datos)
+
+    End Sub
+
+    Private Async Sub BotonEditorCortarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarEnlaces.Click
+
+        Dim contenidoEnlaces As String = Nothing
+
+        If Not tbEditorEnlaces.Text = Nothing Then
+            contenidoEnlaces = tbEditorEnlaces.Text
+        Else
+            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+            contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
+        End If
+
+        Dim datos As DataPackage = New DataPackage
+        datos.SetText(contenidoEnlaces)
         Clipboard.SetContent(datos)
         tbEditorEnlaces.Text = String.Empty
 
@@ -1246,7 +1297,7 @@ Public NotInheritable Class MainPage
         For Each item In listaGrids
             Dim grid As Grid = item
             Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
-            Await Task.Delay(250)
+            Await Task.Delay(500)
             cb.IsChecked = estado
         Next
 

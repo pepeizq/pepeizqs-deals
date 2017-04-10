@@ -147,10 +147,16 @@ Module AmazonEs
                         If listaJuegosAntigua.Count > 0 Then
                             For Each juegoAntiguo In listaJuegosAntigua
                                 If juegoAntiguo.Enlace1 = enlace Then
-                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
-
-                                    If descuento = "00%" Then
+                                    Try
+                                        descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
+                                    Catch ex As Exception
                                         descuento = Nothing
+                                    End Try
+
+                                    If Not descuento = Nothing Then
+                                        If descuento = "00%" Then
+                                            descuento = Nothing
+                                        End If
                                     End If
 
                                     If Not descuento = Nothing Then
@@ -158,6 +164,14 @@ Module AmazonEs
                                             descuento = Nothing
                                         End If
                                     End If
+
+                                    If Not descuento = Nothing Then
+                                        If Not descuento.Contains("%") Then
+                                            descuento = Nothing
+                                        End If
+                                    End If
+
+                                    juegoAntiguo.Precio1 = precio
                                 End If
                             Next
                         End If
@@ -272,8 +286,10 @@ Module AmazonEs
         titulo = titulo.Replace("®", Nothing)
 
         titulo = titulo.Replace("&#39;", "'")
+        titulo = titulo.Replace("&#160;", " ")
         titulo = titulo.Replace("&#225;", "á")
         titulo = titulo.Replace("&#243;", "ó")
+        titulo = titulo.Replace("&#252;", "ü")
         titulo = titulo.Replace("&ntilde;", "ñ")
         titulo = titulo.Replace("&eacute;", "é")
         titulo = titulo.Replace("&Eacute;", "É")

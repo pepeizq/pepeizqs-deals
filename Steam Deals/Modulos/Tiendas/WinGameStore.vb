@@ -220,8 +220,6 @@ Module WinGameStore
                 End If
             End If
 
-            juego.Enlace1 = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + juego.Enlace1
-
             Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
             bw.ReportProgress(porcentaje)
             i += 1

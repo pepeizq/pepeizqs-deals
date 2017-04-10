@@ -225,10 +225,22 @@
   <data name="Borrar" xml:space="preserve">
     <value>Borrar Todo</value>
   </data>
-  <data name="Cortar" xml:space="preserve">
+  <data name="Cortar Ofertas" xml:space="preserve">
     <value>Cortar Ofertas</value>
   </data>
   <data name="Seleccionar Nada" xml:space="preserve">
     <value>Limpiar Selección</value>
+  </data>
+  <data name="Copiar Ofertas" xml:space="preserve">
+    <value>Copiar Ofertas</value>
+  </data>
+  <data name="Cortar Titulo" xml:space="preserve">
+    <value>Cortar Título</value>
+  </data>
+  <data name="Copiar Titulo" xml:space="preserve">
+    <value>Copiar Título</value>
+  </data>
+  <data name="Editor Limite" xml:space="preserve">
+    <value>Debido a la carga de texto usa los botones de abajo para copiar las ofertas</value>
   </data>
 </root>

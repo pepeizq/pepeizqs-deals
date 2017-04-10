@@ -152,8 +152,10 @@ Module GreenManGaming
                         Dim tituloBool As Boolean = False
                         Dim j As Integer = 0
                         While j < listaJuegos.Count
-                            If listaJuegos(j).Titulo = juego.Titulo Then
-                                tituloBool = True
+                            If Not listaJuegos(j) Is Nothing Then
+                                If listaJuegos(j).Titulo = juego.Titulo Then
+                                    tituloBool = True
+                                End If
                             End If
                             j += 1
                         End While

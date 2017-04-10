@@ -316,11 +316,13 @@ Module Ordenar
 
                                                                 If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
                                                                     boolAntiguo = False
+                                                                ElseIf tempJuegoDescuento = tempJuegoAntiguoDescuento Then
+                                                                    juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(3)
+                                                                    boolAntiguo = True
                                                                 Else
                                                                     boolAntiguo = True
                                                                 End If
                                                             Else
-                                                                juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(3)
                                                                 boolAntiguo = True
                                                             End If
                                                         Else
@@ -335,19 +337,6 @@ Module Ordenar
                                             listaGrids.Add(Listado.Generar(juego))
                                             listaJuegosAntigua.Add(juego)
                                         End If
-
-                                        For Each juegoAntiguo In listaJuegosAntigua.ToList
-                                            If juegoAntiguo.Fecha = Nothing Then
-                                                juegoAntiguo.Fecha = DateTime.Today
-                                            End If
-
-                                            Dim fechaComparar As DateTime = juegoAntiguo.Fecha
-                                            fechaComparar = fechaComparar.AddDays(10)
-
-                                            If fechaComparar < DateTime.Today Then
-                                                listaJuegosAntigua.Remove(juegoAntiguo)
-                                            End If
-                                        Next
                                     End If
 
                                     If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off" Then
@@ -369,6 +358,20 @@ Module Ordenar
 
                 If antiguo = True Then
                     If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+
+                        For Each juegoAntiguo In listaJuegosAntigua.ToList
+                            If juegoAntiguo.Fecha = Nothing Then
+                                juegoAntiguo.Fecha = DateTime.Today
+                            End If
+
+                            Dim fechaComparar As DateTime = juegoAntiguo.Fecha
+                            fechaComparar = fechaComparar.AddDays(10)
+
+                            If fechaComparar < DateTime.Today Then
+                                listaJuegosAntigua.Remove(juegoAntiguo)
+                            End If
+                        Next
+
                         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegosAntigua)
                     End If
                 End If

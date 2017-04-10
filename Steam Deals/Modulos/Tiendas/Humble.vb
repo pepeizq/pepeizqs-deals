@@ -60,27 +60,27 @@ Module Humble
             Dim j As Integer = 0
             While j < 20
                 If Not html = Nothing Then
-                    If html.Contains(ChrW(34) + "machine_name" + ChrW(34)) Then
-                        Dim temp, temp2 As String
-                        Dim int, int2 As Integer
+                    If html.Contains("sale_type") Then
+                        If html.Contains(ChrW(34) + "machine_name" + ChrW(34)) Then
+                            Dim temp, temp2 As String
+                            Dim int, int2 As Integer
 
-                        int = html.IndexOf(ChrW(34) + "machine_name" + ChrW(34))
-                        temp = html.Remove(0, int + 15)
+                            int = html.IndexOf(ChrW(34) + "machine_name" + ChrW(34))
+                            temp = html.Remove(0, int + 15)
 
-                        html = temp
+                            html = temp
 
-                        int = temp.IndexOf("full_price")
-                        temp2 = temp.Remove(int, temp.Length - int)
+                            int = temp.IndexOf("full_price")
+                            temp2 = temp.Remove(int, temp.Length - int)
 
-                        int2 = temp2.IndexOf("}")
+                            int2 = temp2.IndexOf("}")
 
-                        If temp.Length > int + int2 Then
-                            temp2 = temp.Remove(int + int2, temp.Length - (int + int2))
-                        Else
-                            temp2 = temp
-                        End If
+                            If temp.Length > int + int2 Then
+                                temp2 = temp.Remove(int + int2, temp.Length - (int + int2))
+                            Else
+                                temp2 = temp
+                            End If
 
-                        If temp2.Contains("sale_type") Then
                             Dim temp3, temp4 As String
                             Dim int3, int4 As Integer
 
@@ -150,8 +150,8 @@ Module Humble
                             temp12 = temp11.Remove(int12, temp11.Length - int12)
 
                             Dim formateador As CurrencyFormatter = New CurrencyFormatter(temp12.Trim) With {
-                                .Mode = CurrencyFormatterMode.UseSymbol
-                            }
+                                    .Mode = CurrencyFormatterMode.UseSymbol
+                                }
 
                             Dim precio As String = formateador.Format(tempDecimal)
 
@@ -220,15 +220,19 @@ Module Humble
 
                             If juego.Descuento = Nothing Then
                                 tituloBool = True
+                            Else
+                                If juego.Descuento = "00%" Then
+                                    tituloBool = True
+                                End If
                             End If
 
                             If tituloBool = False Then
                                 listaJuegos.Add(juego)
                             End If
-                        Else
-                            terminar = True
-                            Exit While
                         End If
+                    Else
+                        terminar = True
+                        Exit While
                     End If
                 End If
                 j += 1

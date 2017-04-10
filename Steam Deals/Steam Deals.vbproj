@@ -115,6 +115,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modulos\CuentaSteam.vb" />
+    <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor.vb" />
     <Compile Include="Modulos\RSS.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
@@ -209,8 +210,14 @@
     <Content Include="Assets\Medium\Medium150x150Logo.scale-200.png" />
     <Content Include="Assets\Medium\Medium150x150Logo.scale-400.png" />
     <Content Include="Assets\pais_de.png" />
+    <Content Include="Assets\pais_de2.png" />
+    <Content Include="Assets\pais_fe2.png" />
     <Content Include="Assets\pais_fr.png" />
+    <Content Include="Assets\pais_ue.png" />
+    <Content Include="Assets\pais_ue2.png" />
     <Content Include="Assets\pais_uk.png" />
+    <Content Include="Assets\pais_uk2.png" />
+    <Content Include="Assets\pais_us2.png" />
     <Content Include="Assets\platform_linux.png" />
     <Content Include="Assets\platform_mac.png" />
     <Content Include="Assets\platform_win.png" />
