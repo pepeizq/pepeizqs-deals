@@ -132,6 +132,7 @@
     <Compile Include="Modulos\Listado.vb" />
     <Compile Include="Modulos\Notificaciones.vb" />
     <Compile Include="Modulos\Ordenar.vb" />
+    <Compile Include="Modulos\Tiendas\MicrosoftStore.vb" />
     <Compile Include="Modulos\Tiendas\Nuuvem.vb" />
     <Compile Include="Modulos\Tiendas\SilaGames.vb" />
     <Compile Include="Modulos\Tiendas\Steam.vb" />
@@ -194,6 +195,7 @@
     <Content Include="Assets\icon_gmg.ico" />
     <Content Include="Assets\icon_gog.ico" />
     <Content Include="Assets\icon_humble.ico" />
+    <Content Include="Assets\icon_microsoft.ico" />
     <Content Include="Assets\icon_nuuvem.ico" />
     <Content Include="Assets\icon_silagames.ico" />
     <Content Include="Assets\icon_steam.ico" />

@@ -169,6 +169,8 @@ Module Editor
                             linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1
                         ElseIf listaFinal(0).Tienda = "GOG" Then
                             linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1
+                        ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1
                         ElseIf listaFinal(0).Tienda = "GamersGate" Then
                             linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio2 + " (" + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")](" + juego.Enlace2 + ")"
                         ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
@@ -388,6 +390,8 @@ Module Editor
             tienda = "@GamersGate"
         ElseIf tienda = "GamesPlanet" Then
             tienda = "@GamesPlanetUK"
+        ElseIf tienda = "GOG" Then
+            tienda = "@GOGcom"
         ElseIf tienda = "Green Man Gaming" Then
             tienda = "@GreenManGaming"
         ElseIf tienda = "Humble Store" Then

@@ -93,6 +93,9 @@ Module Listado
             ElseIf juego.Tienda = "Nuuvem" Then
                 imagen.Height = 68
                 imagen.Width = 146
+            ElseIf juego.Tienda = "Microsoft Store" Then
+                imagen.Height = 90
+                imagen.Width = 90
             ElseIf juego.Tienda = "Amazon.es" Then
                 imagen.Height = 80
                 imagen.Width = 80

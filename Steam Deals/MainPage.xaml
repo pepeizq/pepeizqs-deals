@@ -288,6 +288,12 @@
                             <TextBlock x:Name="botonTiendaTextoNuuvem" Text="Nuuvem" Foreground="White"/>
                         </StackPanel>
                     </Button>
+                    <Button x:Name="botonTiendaMicrosoftStore" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_microsoft.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoMicrosoftStore" Text="Microsoft Store" Foreground="White"/>
+                        </StackPanel>
+                    </Button>
                     <Button x:Name="botonTiendaAmazonEs" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
                             <controls:ImageEx Source="Assets/icon_amazon.png" Width="16" Height="16" Margin="5,0,10,0"/>
@@ -954,6 +960,60 @@
                         </ComboBox>
                         <TextBlock x:Name="tbDRMNuuvem" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
                         <ComboBox x:Name="cbDRMNuuvem" Width="140" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid x:Name="gridTiendaMicrosoftStore" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Background="#FFE4E4E4" Padding="10">
+                        <ListView x:Name="listadoMicrosoftStore" IsItemClickEnabled="True">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+
+                        <Grid x:Name="gridProgresoMicrosoftStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ProgressRing x:Name="prMicrosoftStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                            <TextBlock x:Name="tbProgresoMicrosoftStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorMicrosoftStore" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoMicrosoftStore" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoMicrosoftStore" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaMicrosoftStore" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaMicrosoftStore" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
+                        <Button x:Name="botonActualizarMicrosoftStore" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                            <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                        </Button>
+                        <TextBlock x:Name="tbOrdenarMicrosoftStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                        <ComboBox x:Name="cbOrdenarMicrosoftStore" Width="120" VerticalAlignment="Center">
+                            <ComboBoxItem x:Name="cbOrdenarMicrosoftStoreDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarMicrosoftStorePrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarMicrosoftStoreTitulo"/>
+                        </ComboBox>
                     </StackPanel>
                 </Grid>
 

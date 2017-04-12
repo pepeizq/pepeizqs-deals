@@ -238,6 +238,15 @@ Public NotInheritable Class MainPage
         cbDRMNuuvem.ItemsSource = listaDRMs
         cbDRMNuuvem.SelectedIndex = 0
 
+        tbEditorSeleccionarTodoMicrosoftStore.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaMicrosoftStore.Text = recursos.GetString("Seleccionar Nada")
+
+        tbOrdenarMicrosoftStore.Text = recursos.GetString("Ordenar")
+        cbOrdenarMicrosoftStoreDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarMicrosoftStorePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarMicrosoftStoreTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+
         tbEditorSeleccionarTodoAmazonEs.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaAmazonEs.Text = recursos.GetString("Seleccionar Nada")
 
@@ -504,6 +513,8 @@ Public NotInheritable Class MainPage
             botonTiendaDLGamer.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaNuuvem.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaNuuvem.BorderBrush = New SolidColorBrush(Colors.Transparent)
+            botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaMicrosoftStore.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonEs.BorderBrush = New SolidColorBrush(Colors.Transparent)
 
@@ -522,6 +533,7 @@ Public NotInheritable Class MainPage
         gridTiendaSilaGames.Visibility = Visibility.Collapsed
         gridTiendaDLGamer.Visibility = Visibility.Collapsed
         gridTiendaNuuvem.Visibility = Visibility.Collapsed
+        gridTiendaMicrosoftStore.Visibility = Visibility.Collapsed
         gridTiendaAmazonEs.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
@@ -530,26 +542,30 @@ Public NotInheritable Class MainPage
 
     Private Async Sub ListadoClick(grid As Grid)
 
-        If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
-            Dim juego As Juego = grid.Tag
-            Dim enlace As String = Nothing
+        Try
+            If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
+                Dim juego As Juego = grid.Tag
+                Dim enlace As String = Nothing
 
-            If Not juego.Afiliado1 = Nothing Then
-                enlace = juego.Afiliado1
+                If Not juego.Afiliado1 = Nothing Then
+                    enlace = juego.Afiliado1
+                Else
+                    enlace = juego.Enlace1
+                End If
+
+                Await Launcher.LaunchUriAsync(New Uri(enlace))
             Else
-                enlace = juego.Enlace1
-            End If
+                Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
 
-            Await Launcher.LaunchUriAsync(New Uri(enlace))
-        Else
-            Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
-
-            If cb.IsChecked = True Then
-                cb.IsChecked = False
-            Else
-                cb.IsChecked = True
+                If cb.IsChecked = True Then
+                    cb.IsChecked = False
+                Else
+                    cb.IsChecked = True
+                End If
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
@@ -1076,6 +1092,39 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonTiendaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaMicrosoftStore.Click
+
+        gridMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaMicrosoftStore, botonTiendaMicrosoftStore)
+
+        If listadoMicrosoftStore.Items.Count = 0 Then
+            MicrosoftStore.GenerarOfertas()
+        End If
+
+    End Sub
+
+    Private Sub ListadoMicrosoftStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoMicrosoftStore.ItemClick
+
+        ListadoClick(e.ClickedItem)
+
+    End Sub
+
+    Private Sub BotonActualizarMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarMicrosoftStore.Click
+
+        MicrosoftStore.GenerarOfertas()
+
+    End Sub
+
+    Private Sub CbOrdenarMicrosoftStore_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarMicrosoftStore.SelectionChanged
+
+        If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, Nothing, Nothing, False)
+            End If
+        End If
+
+    End Sub
+
     Private Sub BotonTiendaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonEs.Click
 
         gridMensajeTienda.Visibility = Visibility.Collapsed
@@ -1101,8 +1150,8 @@ Public NotInheritable Class MainPage
 
     Private Sub CbOrdenarAmazonEs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonEs.SelectionChanged
 
-        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
-            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+        If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, Nothing, Nothing, False)
             End If
         End If
@@ -1166,6 +1215,7 @@ Public NotInheritable Class MainPage
         cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarDLGamer.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
     End Sub
@@ -1203,6 +1253,7 @@ Public NotInheritable Class MainPage
             spEditorSilaGames.Visibility = Visibility.Visible
             spEditorDLGamer.Visibility = Visibility.Visible
             spEditorNuuvem.Visibility = Visibility.Visible
+            spEditorMicrosoftStore.Visibility = Visibility.Visible
             spEditorAmazonEs.Visibility = Visibility.Visible
         Else
             botonEditor.Visibility = Visibility.Collapsed
@@ -1219,6 +1270,7 @@ Public NotInheritable Class MainPage
             spEditorSilaGames.Visibility = Visibility.Collapsed
             spEditorDLGamer.Visibility = Visibility.Collapsed
             spEditorNuuvem.Visibility = Visibility.Collapsed
+            spEditorMicrosoftStore.Visibility = Visibility.Collapsed
             spEditorAmazonEs.Visibility = Visibility.Collapsed
         End If
 
@@ -1251,36 +1303,44 @@ Public NotInheritable Class MainPage
 
     Private Async Sub BotonEditorCopiarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarEnlaces.Click
 
-        Dim contenidoEnlaces As String = Nothing
+        Try
+            Dim contenidoEnlaces As String = Nothing
 
-        If Not tbEditorEnlaces.Text = Nothing Then
-            contenidoEnlaces = tbEditorEnlaces.Text
-        Else
-            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-            contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
-        End If
+            If Not tbEditorEnlaces.Text = Nothing Then
+                contenidoEnlaces = tbEditorEnlaces.Text
+            Else
+                Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+                contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
+            End If
 
-        Dim datos As DataPackage = New DataPackage
-        datos.SetText(contenidoEnlaces)
-        Clipboard.SetContent(datos)
+            Dim datos As DataPackage = New DataPackage
+            datos.SetText(contenidoEnlaces)
+            Clipboard.SetContent(datos)
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
     Private Async Sub BotonEditorCortarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarEnlaces.Click
 
-        Dim contenidoEnlaces As String = Nothing
+        Try
+            Dim contenidoEnlaces As String = Nothing
 
-        If Not tbEditorEnlaces.Text = Nothing Then
-            contenidoEnlaces = tbEditorEnlaces.Text
-        Else
-            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-            contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
-        End If
+            If Not tbEditorEnlaces.Text = Nothing Then
+                contenidoEnlaces = tbEditorEnlaces.Text
+            Else
+                Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+                contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
+            End If
 
-        Dim datos As DataPackage = New DataPackage
-        datos.SetText(contenidoEnlaces)
-        Clipboard.SetContent(datos)
-        tbEditorEnlaces.Text = String.Empty
+            Dim datos As DataPackage = New DataPackage
+            datos.SetText(contenidoEnlaces)
+            Clipboard.SetContent(datos)
+            tbEditorEnlaces.Text = String.Empty
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
@@ -1432,6 +1492,18 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorSeleccionarNadaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaNuuvem.Click
 
         SeleccionarEnlaces(listadoNuuvem, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoMicrosoftStore.Click
+
+        SeleccionarEnlaces(listadoMicrosoftStore, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaMicrosoftStore.Click
+
+        SeleccionarEnlaces(listadoMicrosoftStore, False)
 
     End Sub
 
