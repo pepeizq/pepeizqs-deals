@@ -1350,6 +1350,12 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonValoracionActualizar_Click(sender As Object, e As RoutedEventArgs) Handles botonValoracionActualizar.Click
+
+        Valoracion.Generar()
+
+    End Sub
+
     Private Async Sub SeleccionarEnlaces(listado As ListView, estado As Boolean)
 
         Dim listaGrids As ItemCollection = listado.Items

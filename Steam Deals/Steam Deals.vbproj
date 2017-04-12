@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Clases\FeedRSS.vb" />
     <Compile Include="Clases\Juego.vb" />
+    <Compile Include="Clases\JuegoValoracion.vb" />
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -137,6 +138,7 @@
     <Compile Include="Modulos\Tiendas\SilaGames.vb" />
     <Compile Include="Modulos\Tiendas\Steam.vb" />
     <Compile Include="Modulos\Tiendas\WinGameStore.vb" />
+    <Compile Include="Modulos\Valoracion.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>

@@ -216,15 +216,13 @@ Module Steam
                                 If tituloBool = False Then
                                     listaJuegos.Add(juego)
                                 End If
-
-                                Dim porcentaje As Integer = CInt((100 / numPaginas) * i)
-                                bw.ReportProgress(porcentaje, juego)
                             End If
                         End If
                         j += 1
                     End While
                 End If
             End If
+            bw.ReportProgress(CInt((100 / numPaginas) * i))
             i += 1
         End While
 
@@ -257,7 +255,7 @@ Module Steam
 
     '----------------------------------------------------
 
-    Private Function GenerarNumPaginas(url As Uri)
+    Public Function GenerarNumPaginas(url As Uri)
 
         Dim numPaginas As Integer = 0
         Dim htmlPaginas_ As Task(Of String) = HttpHelperResponse(url)
@@ -293,8 +291,10 @@ Module Steam
                             temp5 = temp4.Remove(int5, temp4.Length - int5)
 
                             If Not temp5.Contains("&gt;") Then
-                                If Integer.Parse(temp5.Trim) > numPaginas Then
-                                    numPaginas = temp5
+                                If Not temp5.Contains("&lt;") Then
+                                    If Integer.Parse(temp5.Trim) > numPaginas Then
+                                        numPaginas = temp5
+                                    End If
                                 End If
                             End If
                         End If

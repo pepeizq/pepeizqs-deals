@@ -1100,6 +1100,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0">
@@ -1128,6 +1129,14 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Padding="10">
+                        <TextBlock Text="Rating" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <Button x:Name="botonValoracionActualizar" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                            <SymbolIcon Symbol="Refresh"/>
+                        </Button>
+                        <TextBlock x:Name="tbValoracionAvance" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Padding="10">
                         <controls:ImageEx Source="Assets/pais_ue2.png" Margin="0,0,5,0" Width="32" Height="24"/>
                         <TextBlock VerticalAlignment="Center" Text="1 €"/>
                         <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
