@@ -31,12 +31,6 @@ Module GamersGate
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
-        cbPlataforma.IsEnabled = False
-
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamersGate")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -50,19 +44,14 @@ Module GamersGate
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
-        Dim region As GeographicRegion = New GeographicRegion
-        Dim regionDigitos As String = region.CodeThreeLetter
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
-        Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=" + regionDigitos))
+        Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
         Dim html As String = html_.Result
 
-        Dim htmlUK_ As Task(Of String) = Nothing
-        Dim htmlUK As String = Nothing
-
-        If Not regionDigitos.ToLower = "gbr" Then
-            htmlUK_ = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
-            htmlUK = htmlUK_.Result
-        End If
+        Dim htmlUK_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
+        Dim htmlUK As String = htmlUK_.Result
 
         Dim tope As Integer = 2000
 
@@ -251,7 +240,9 @@ Module GamersGate
 
                                 Dim afiliado As String = "?caff=6704538"
 
-                                Dim juego As New Juego(titulo, enlace, enlaceUK, Nothing, enlace + afiliado, enlaceUK + afiliado, Nothing, imagen, precio, precioUK, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today)
+                                Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                                Dim juego As New Juego(titulo, enlace, enlaceUK, Nothing, enlace + afiliado, enlaceUK + afiliado, Nothing, imagen, precio, precioUK, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today, val.Valoracion, val.Enlace)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
@@ -288,18 +279,8 @@ Module GamersGate
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamersGate")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamersGate")
 
-        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
-
-    End Sub
-
-    '----------------------------------------------------
-
-    Private Sub DecompilarHtml(html As String, bw As BackgroundWorker, numPaginas As Integer)
-
-
+        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

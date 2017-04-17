@@ -311,9 +311,9 @@ Module Listado
                 }
 
                 If juego.Tienda = "GamersGate" Then
-                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk.png"))
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
                 ElseIf juego.Tienda = "GamesPlanet" Then
-                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr.png"))
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr2.png"))
                 End If
 
                 If Not imagenPais.Source Is Nothing Then
@@ -360,7 +360,7 @@ Module Listado
                 }
 
                 If juego.Tienda = "GamesPlanet" Then
-                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de.png"))
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de2.png"))
                 End If
 
                 If Not imagenPais.Source Is Nothing Then
@@ -441,7 +441,11 @@ Module Listado
             listaFinal.Add(juegoFinal)
         End If
 
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
+        Try
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
+        Catch ex As Exception
+
+        End Try
 
         Editor.Generar()
 

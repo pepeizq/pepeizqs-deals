@@ -93,6 +93,10 @@ Module Valoracion
 
                                 temp6 = temp6.Remove(0, temp6.Length - 2)
 
+                                If temp6.Contains(";") Then
+                                    temp6 = temp6.Replace(";", "0")
+                                End If
+
                                 Dim valoracion As String = temp6.Trim
 
                                 Dim temp7, temp8 As String
@@ -104,8 +108,13 @@ Module Valoracion
                                 int8 = temp7.IndexOf("?")
                                 temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                Dim enlace As String = temp8.Trim + "reviews/?browsefilter=toprated"
-                                enlace = enlace.Replace("store.steampowered.com", "steamcommunity.com")
+                                Dim enlace As String = temp8.Trim + "#app_reviews_hash"
+
+                                If enlace.Contains("sub") Then
+                                    enlace = Nothing
+                                ElseIf enlace.Contains("bundle") Then
+                                    enlace = Nothing
+                                End If
 
                                 Dim juegoValoracion As New JuegoValoracion(titulo, valoracion, enlace)
 
@@ -163,21 +172,21 @@ Module Valoracion
 
     Public Function Buscar(titulo As String, lista As List(Of JuegoValoracion))
 
-        Dim resultado As String = Nothing
+        Dim valoracion As JuegoValoracion = Nothing
 
         titulo = LimpiarTitulo(titulo)
 
         For Each juego In lista
             If titulo = juego.Titulo Then
-                resultado = "[" + juego.Valoracion + "](" + juego.Enlace + ")"
+                valoracion = juego
             End If
         Next
 
-        If resultado = Nothing Then
-            resultado = "--"
+        If valoracion Is Nothing Then
+            valoracion = New JuegoValoracion(Nothing, Nothing, Nothing)
         End If
 
-        Return resultado
+        Return valoracion
     End Function
 
     Private Function LimpiarTitulo(titulo As String)
@@ -200,6 +209,7 @@ Module Valoracion
         titulo = titulo.Replace(")", Nothing)
         titulo = titulo.Replace("/", Nothing)
         titulo = titulo.Replace("\", Nothing)
+        titulo = titulo.Replace("&", Nothing)
         titulo = titulo.Replace(ChrW(34), Nothing)
 
         titulo = titulo.ToLower

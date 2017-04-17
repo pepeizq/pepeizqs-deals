@@ -26,9 +26,6 @@ Module Steam
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaSteam")
-        cbPlataforma.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoSteam")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -47,6 +44,9 @@ Module Steam
     End Sub
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         Dim numPaginas As Integer = 0
 
@@ -198,7 +198,9 @@ Module Steam
                                     linux = True
                                 End If
 
-                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today)
+                                Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today, val.Valoracion, val.Enlace)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
@@ -247,9 +249,8 @@ Module Steam
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaSteam")
 
-        Ordenar.Ofertas("Steam", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, Nothing, True)
+        Ordenar.Ofertas("Steam", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

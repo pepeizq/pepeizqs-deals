@@ -26,15 +26,13 @@ Module GreenManGaming
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
         cbOrdenar.IsEnabled = False
 
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGreenManGaming")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGreenManGaming")
         gridProgreso.Visibility = Visibility.Visible
 
-        bw = New BackgroundWorker
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        bw = New BackgroundWorker With {
+            .WorkerReportsProgress = True,
+            .WorkerSupportsCancellation = True
+        }
 
         If bw.IsBusy = False Then
             bw.RunWorkerAsync()
@@ -43,6 +41,9 @@ Module GreenManGaming
     End Sub
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         listaJuegos = New List(Of Juego)
 
@@ -147,7 +148,9 @@ Module GreenManGaming
 
                         Dim drm As String = temp14.Trim
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today)
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim j As Integer = 0
@@ -190,9 +193,8 @@ Module GreenManGaming
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGreenManGaming")
 
-        Ordenar.Ofertas("GreenManGaming", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("GreenManGaming", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

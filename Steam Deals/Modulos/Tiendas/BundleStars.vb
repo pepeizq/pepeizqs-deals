@@ -26,12 +26,6 @@ Module BundleStars
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaBundleStars")
-        cbPlataforma.IsEnabled = False
-
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMBundleStars")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -47,6 +41,9 @@ Module BundleStars
     End Sub
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         listaJuegos = New List(Of Juego)
 
@@ -258,7 +255,9 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioEU, precioUS, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today)
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioEU, precioUS, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -305,10 +304,8 @@ Module BundleStars
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaBundleStars")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMBundleStars")
 
-        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

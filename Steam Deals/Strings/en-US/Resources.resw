@@ -243,4 +243,8 @@
   <data name="Editor Limite" xml:space="preserve">
     <value>Due to the heavy text, use the buttons below to copy the deals</value>
   </data>
+  <data name="Aviso Reddit" xml:space="preserve">
+    <value>68/5000
+Reddit adds the rating of each game, keep this option updated</value>
+  </data>
 </root>

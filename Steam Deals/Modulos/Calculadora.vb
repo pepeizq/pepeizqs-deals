@@ -12,6 +12,10 @@
             precioBase = precioBase.Replace(".", ",")
             precioBase = precioBase.Replace("-", Nothing)
             precioBase = precioBase.Trim
+
+            If precioBase.IndexOf(",") = 0 Then
+                precioBase = "0" + precioBase
+            End If
         End If
 
         If Not precioRebajado = Nothing Then
@@ -21,6 +25,10 @@
             precioRebajado = precioRebajado.Replace(".", ",")
             precioRebajado = precioRebajado.Replace("-", Nothing)
             precioRebajado = precioRebajado.Trim
+
+            If precioRebajado.IndexOf(",") = 0 Then
+                precioRebajado = "0" + precioRebajado
+            End If
         End If
 
         If Not precioBase = Nothing Then

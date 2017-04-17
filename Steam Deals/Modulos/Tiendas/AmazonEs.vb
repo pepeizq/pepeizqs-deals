@@ -49,6 +49,8 @@ Module AmazonEs
             listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaAmazonEs").Result
         End If
 
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+
         listaJuegos = New List(Of Juego)
 
         Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s/ref=sr_pg_2?fst=as%3Aoff&rh=n%3A599382031%2Cn%3A%21599383031%2Cn%3A665498031%2Cp_6%3AA1AT7YVPFBWXBL%2Cn%3A665499031&page=2&bbn=665498031&ie=UTF8&qid=1491219810"))
@@ -176,7 +178,9 @@ Module AmazonEs
                             Next
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today)
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -224,7 +228,7 @@ Module AmazonEs
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonEs")
 
-        Ordenar.Ofertas("AmazonEs", cbOrdenar.SelectedIndex, Nothing, Nothing, True)
+        Ordenar.Ofertas("AmazonEs", cbOrdenar.SelectedIndex, True)
 
     End Sub
 
@@ -289,7 +293,9 @@ Module AmazonEs
         titulo = titulo.Replace("&#160;", " ")
         titulo = titulo.Replace("&#161;", "¡")
         titulo = titulo.Replace("&#191;", "¿")
+        titulo = titulo.Replace("&#201;", "É")
         titulo = titulo.Replace("&#225;", "á")
+        titulo = titulo.Replace("&#233;", "é")
         titulo = titulo.Replace("&#243;", "ó")
         titulo = titulo.Replace("&#252;", "ü")
         titulo = titulo.Replace("&ntilde;", "ñ")

@@ -88,6 +88,7 @@ Module Editor
         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
         Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
 
+        'Reddit-------------------------------------------
         If cbTipo.SelectedIndex = 0 Then
             tbTitulo.Text = String.Empty
             tbEnlaces.Text = String.Empty
@@ -176,11 +177,9 @@ Module Editor
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price US** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     Else
-                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price**" + Environment.NewLine
-                        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price** | **Rating**" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     End If
-
-                    Dim listaBuscar As List(Of JuegoValoracion) = Await helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones")
 
                     For Each juego In listaFinal
 
@@ -197,22 +196,34 @@ Module Editor
                             End If
                         End If
 
+                        Dim valoracion As String = Nothing
+
+                        If Not juego.Valoracion = Nothing Then
+                            If Not juego.EnlaceValoracion = Nothing Then
+                                valoracion = "[" + juego.Valoracion + "](" + juego.EnlaceValoracion + ")"
+                            Else
+                                valoracion = juego.Valoracion
+                            End If
+                        Else
+                            valoracion = "--"
+                        End If
+
                         Dim linea As String = Nothing
 
                         If listaFinal(0).Tienda = "Steam" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                         ElseIf listaFinal(0).Tienda = "GOG" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                         ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                         ElseIf listaFinal(0).Tienda = "GamersGate" Then
-                            linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio2 + " (" + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")](" + juego.Enlace2 + ")" + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio2 + " (" + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")](" + juego.Enlace2 + ")" + " | " + valoracion
                         ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
-                            linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
                         ElseIf listaFinal(0).Tienda = "BundleStars" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + juego.Precio2 + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + juego.Precio2 + " | " + valoracion
                         Else
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + Valoracion.Buscar(juego.Titulo, listaBuscar)
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                         End If
 
                         contenidoEnlaces = contenidoEnlaces + linea + Environment.NewLine
@@ -232,6 +243,7 @@ Module Editor
                 End If
             End If
 
+            'VayaAnsias-------------------------------------------
         ElseIf cbTipo.SelectedIndex = 1 Then
             tbTitulo.Text = String.Empty
             tbEnlaces.Text = String.Empty
@@ -373,6 +385,8 @@ Module Editor
 
                     If listaFinal(0).Tienda = "Amazon.es" Then
                         tbEtiquetas.Text = "Amazon, oferta, Formato Físico,"
+                    ElseIf listaFinal(0).Tienda = "Green Man Gaming" Then
+                        tbEtiquetas.Text = "GMG, GreenManGaming, oferta,"
                     Else
                         tbEtiquetas.Text = listaFinal(0).Tienda + ", oferta,"
                     End If
@@ -384,11 +398,14 @@ Module Editor
 
     Public Sub GenerarOpciones()
 
+        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
         Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetas")
         Dim tbNotas As TextBox = pagina.FindName("tbEditorNotas")
+        Dim tbAviso As TextBlock = pagina.FindName("tbEditorAviso")
         Dim cbTipo As ComboBox = pagina.FindName("cbEditorTipo")
 
         If cbTipo.SelectedIndex = 0 Then
@@ -397,6 +414,9 @@ Module Editor
             tbEtiquetas.Visibility = Visibility.Collapsed
             tbNotas.Text = String.Empty
             tbNotas.Visibility = Visibility.Collapsed
+
+            tbAviso.Text = recursos.GetString("Aviso Reddit")
+            tbAviso.Visibility = Visibility.Visible
 
         ElseIf cbTipo.SelectedIndex = 1 Then
 
@@ -412,6 +432,9 @@ Module Editor
 
             tbNotas.Text = notas
             tbNotas.Visibility = Visibility.Visible
+
+            tbAviso.Text = String.Empty
+            tbAviso.Visibility = Visibility.Collapsed
         End If
 
     End Sub

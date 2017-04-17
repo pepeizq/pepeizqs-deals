@@ -42,6 +42,9 @@ Module MicrosoftStore
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+
         listaJuegos = New List(Of Juego)
 
         Dim i As Integer = 0
@@ -151,7 +154,9 @@ Module MicrosoftStore
 
                                 Dim descuento As String = Calculadora.GenerarDescuento(temp12.Trim, precio)
 
-                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Microsoft Store", DateTime.Today)
+                                Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Microsoft Store", DateTime.Today, val.Valoracion, val.Enlace)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
@@ -204,7 +209,7 @@ Module MicrosoftStore
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarMicrosoftStore")
 
-        Ordenar.Ofertas("MicrosoftStore", cbOrdenar.SelectedIndex, Nothing, Nothing, True)
+        Ordenar.Ofertas("MicrosoftStore", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

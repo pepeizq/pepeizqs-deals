@@ -27,12 +27,6 @@ Module Humble
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
-        cbPlataforma.IsEnabled = False
-
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMHumble")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -48,6 +42,9 @@ Module Humble
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         listaJuegos = New List(Of Juego)
         Dim terminar As Boolean = False
@@ -207,7 +204,9 @@ Module Humble
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today)
+                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today, val.Valoracion, val.Enlace)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -222,6 +221,10 @@ Module Humble
                                 tituloBool = True
                             Else
                                 If juego.Descuento = "00%" Then
+                                    tituloBool = True
+                                End If
+
+                                If juego.Descuento.Contains("-") Then
                                     tituloBool = True
                                 End If
                             End If
@@ -269,9 +272,8 @@ Module Humble
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMHumble")
 
-        Ordenar.Ofertas("Humble", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("Humble", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

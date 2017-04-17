@@ -29,12 +29,6 @@ Module Nuuvem
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaNuuvem")
-        cbPlataforma.IsEnabled = False
-
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMNuuvem")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoNuuvem")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -47,6 +41,9 @@ Module Nuuvem
     End Sub
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         listaJuegos = New List(Of Juego)
 
@@ -179,7 +176,9 @@ Module Nuuvem
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today)
+                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today, val.Valoracion, val.Enlace)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -229,10 +228,8 @@ Module Nuuvem
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaNuuvem")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMNuuvem")
 
-        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

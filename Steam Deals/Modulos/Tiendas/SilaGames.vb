@@ -26,8 +26,6 @@ Module SilaGames
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
         cbOrdenar.IsEnabled = False
 
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMSilaGames")
-        cbDRM.IsEnabled = False
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoSilaGames")
         gridProgreso.Visibility = Visibility.Visible
@@ -42,6 +40,9 @@ Module SilaGames
     End Sub
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("http://52.28.153.212/cjAffiliateEU.xml"))
         Dim html As String = html_.Result
@@ -153,7 +154,9 @@ Module SilaGames
                             drm = "uplay"
                         End If
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "Sila Games", DateTime.Today)
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "Sila Games", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -202,9 +205,8 @@ Module SilaGames
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMSilaGames")
 
-        Ordenar.Ofertas("SilaGames", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("SilaGames", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

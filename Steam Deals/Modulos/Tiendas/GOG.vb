@@ -26,9 +26,6 @@ Module GOG
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGOG")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGOG")
-        cbPlataforma.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGOG")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -42,6 +39,9 @@ Module GOG
     End Sub
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         Dim i As Integer = 1
         While i < 100
@@ -157,7 +157,9 @@ Module GOG
                                 linux = True
                             End If
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today)
+                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today, val.Valoracion, val.Enlace)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -205,9 +207,8 @@ Module GOG
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarGOG")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGOG")
 
-        Ordenar.Ofertas("GOG", cb.SelectedIndex, cbPlataforma.SelectedIndex, Nothing, True)
+        Ordenar.Ofertas("GOG", cb.SelectedIndex, True)
 
     End Sub
 

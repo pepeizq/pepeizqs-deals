@@ -26,9 +26,6 @@ Module WinGameStore
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
         cbOrdenar.IsEnabled = False
 
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMWinGameStore")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoWinGameStore")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -42,6 +39,9 @@ Module WinGameStore
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
         Dim html As String = html_.Result
@@ -120,7 +120,9 @@ Module WinGameStore
 
                         Dim drm As String = Nothing
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today)
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -246,9 +248,8 @@ Module WinGameStore
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMWinGameStore")
 
-        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, Nothing, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

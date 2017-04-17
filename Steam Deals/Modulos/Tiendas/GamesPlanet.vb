@@ -26,12 +26,6 @@ Module GamesPlanet
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
         cbOrdenar.IsEnabled = False
 
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamesPlanet")
-        cbPlataforma.IsEnabled = False
-
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamesPlanet")
-        cbDRM.IsEnabled = False
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamesPlanet")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -47,6 +41,9 @@ Module GamesPlanet
 
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
+        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+
         listaJuegos = New List(Of Juego)
 
         Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
@@ -59,7 +56,7 @@ Module GamesPlanet
         Dim htmlDE As String = htmlDE_.Result
 
         Dim i As Integer = 0
-        While i < 5000
+        While i < 7000
             If Not htmlUK = Nothing Then
                 If htmlUK.Contains("<product>") Then
                     Dim temp, temp2 As String
@@ -220,7 +217,9 @@ Module GamesPlanet
 
                             Dim afiliado As String = "?ref=pepeizq"
 
-                            Dim juego As New Juego(titulo, enlace, enlaceFR, enlaceDE, enlace + afiliado, enlaceFR + afiliado, enlaceDE + afiliado, imagen, precio, precioFR, precioDE, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today)
+                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+
+                            Dim juego As New Juego(titulo, enlace, enlaceFR, enlaceDE, enlace + afiliado, enlaceFR + afiliado, enlaceDE + afiliado, imagen, precio, precioFR, precioDE, descuento, drm, windows, mac, linux, "GamesPlanet", DateTime.Today, val.Valoracion, val.Enlace)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -266,10 +265,8 @@ Module GamesPlanet
         Dim pagina As Page = frame.Content
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaGamesPlanet")
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRMGamesPlanet")
 
-        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, cbPlataforma.SelectedIndex, cbDRM.SelectedIndex, True)
+        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, True)
 
     End Sub
 

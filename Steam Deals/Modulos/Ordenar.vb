@@ -3,7 +3,7 @@ Imports Windows.Storage
 
 Module Ordenar
 
-    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, plataforma As Integer, drm As Integer, antiguo As Boolean)
+    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, antiguo As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -15,8 +15,6 @@ Module Ordenar
         Dim botonActualizar As Button = pagina.FindName("botonActualizar" + tienda)
         Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataforma" + tienda)
-        Dim cbDRM As ComboBox = pagina.FindName("cbDRM" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
         tbProgreso.Text = String.Empty
@@ -38,14 +36,6 @@ Module Ordenar
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = False
-            End If
-
-            If Not cbPlataforma Is Nothing Then
-                cbPlataforma.IsEnabled = False
-            End If
-
-            If Not cbDRM Is Nothing Then
-                cbDRM.IsEnabled = False
             End If
 
             cbOrdenar.IsEnabled = False
@@ -151,85 +141,6 @@ Module Ordenar
                 End If
 
                 For Each juego In listaJuegos
-                    Dim visibilidadPlataforma As Boolean = False
-
-                    If plataforma = 0 Then
-                        If juego.SistemaWin = True Then
-                            visibilidadPlataforma = True
-                        Else
-                            visibilidadPlataforma = False
-                        End If
-                    End If
-
-                    If plataforma = 1 Then
-                        If juego.SistemaMac = True Then
-                            visibilidadPlataforma = True
-                        Else
-                            visibilidadPlataforma = False
-                        End If
-                    End If
-
-                    If plataforma = 2 Then
-                        If juego.SistemaLinux = True Then
-                            visibilidadPlataforma = True
-                        Else
-                            visibilidadPlataforma = False
-                        End If
-                    End If
-
-                    If plataforma = Nothing Then
-                        visibilidadPlataforma = True
-                    End If
-
-                    Dim visibilidadDRM As Boolean = False
-
-                    If drm = 0 Then
-                        visibilidadDRM = True
-                    End If
-
-                    If drm = 1 Then
-                        If Not juego.DRM = Nothing Then
-                            If juego.DRM.ToLower.Contains("steam") Then
-                                visibilidadDRM = True
-                            Else
-                                visibilidadDRM = False
-                            End If
-                        End If
-                    End If
-
-                    If drm = 2 Then
-                        If Not juego.DRM = Nothing Then
-                            If juego.DRM.ToLower.Contains("origin") Then
-                                visibilidadDRM = True
-                            Else
-                                visibilidadDRM = False
-                            End If
-                        End If
-                    End If
-
-                    If drm = 3 Then
-                        If Not juego.DRM = Nothing Then
-                            If juego.DRM.ToLower.Contains("uplay") Then
-                                visibilidadDRM = True
-                            Else
-                                visibilidadDRM = False
-                            End If
-                        End If
-                    End If
-
-                    If drm = 4 Then
-                        If Not juego.DRM = Nothing Then
-                            If juego.DRM.ToLower.Contains("gog") Then
-                                visibilidadDRM = True
-                            Else
-                                visibilidadDRM = False
-                            End If
-                        End If
-                    End If
-
-                    If drm = Nothing Then
-                        visibilidadDRM = True
-                    End If
 
                     Dim tituloGrid As Boolean = False
                     For Each item In lv.Items
@@ -242,117 +153,113 @@ Module Ordenar
                     Next
 
                     If tituloGrid = False Then
-                        If visibilidadPlataforma = True Then
-                            If visibilidadDRM = True Then
-                                Dim listaGrids As New List(Of Grid)
+                        Dim listaGrids As New List(Of Grid)
 
-                                If antiguo = True Then
-                                    If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
-                                        If Not Await helper.FileExistsAsync("listaJuegosUsuario") = True Then
-                                            listaGrids.Add(Listado.Generar(juego))
-                                        Else
-                                            Dim listaDescartar As List(Of String) = Await helper.ReadFileAsync(Of List(Of String))("listaJuegosUsuario")
-                                            Dim boolDescarte As Boolean = False
+                        If antiguo = True Then
+                            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
+                                If Not Await helper.FileExistsAsync("listaJuegosUsuario") = True Then
+                                    listaGrids.Add(Listado.Generar(juego))
+                                Else
+                                    Dim listaDescartar As List(Of String) = Await helper.ReadFileAsync(Of List(Of String))("listaJuegosUsuario")
+                                    Dim boolDescarte As Boolean = False
 
-                                            For Each descarte In listaDescartar
-                                                If Not descarte = Nothing Then
-                                                    Dim tempDescarte As String = descarte
-                                                    tempDescarte = tempDescarte.Replace(":", Nothing)
-                                                    tempDescarte = tempDescarte.Replace(".", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("_", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("-", Nothing)
-                                                    tempDescarte = tempDescarte.Replace(";", Nothing)
-                                                    tempDescarte = tempDescarte.Replace(",", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("™", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("®", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("'", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("(", Nothing)
-                                                    tempDescarte = tempDescarte.Replace(")", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("/", Nothing)
-                                                    tempDescarte = tempDescarte.Replace("\", Nothing)
-                                                    tempDescarte = tempDescarte.Replace(ChrW(34), Nothing)
+                                    For Each descarte In listaDescartar
+                                        If Not descarte = Nothing Then
+                                            Dim tempDescarte As String = descarte
+                                            tempDescarte = tempDescarte.Replace(":", Nothing)
+                                            tempDescarte = tempDescarte.Replace(".", Nothing)
+                                            tempDescarte = tempDescarte.Replace("_", Nothing)
+                                            tempDescarte = tempDescarte.Replace("-", Nothing)
+                                            tempDescarte = tempDescarte.Replace(";", Nothing)
+                                            tempDescarte = tempDescarte.Replace(",", Nothing)
+                                            tempDescarte = tempDescarte.Replace("™", Nothing)
+                                            tempDescarte = tempDescarte.Replace("®", Nothing)
+                                            tempDescarte = tempDescarte.Replace("'", Nothing)
+                                            tempDescarte = tempDescarte.Replace("(", Nothing)
+                                            tempDescarte = tempDescarte.Replace(")", Nothing)
+                                            tempDescarte = tempDescarte.Replace("/", Nothing)
+                                            tempDescarte = tempDescarte.Replace("\", Nothing)
+                                            tempDescarte = tempDescarte.Replace(ChrW(34), Nothing)
 
-                                                    Dim tempJuego As String = juego.Titulo
-                                                    tempJuego = tempJuego.Replace(":", Nothing)
-                                                    tempJuego = tempJuego.Replace(".", Nothing)
-                                                    tempJuego = tempJuego.Replace("_", Nothing)
-                                                    tempJuego = tempJuego.Replace("-", Nothing)
-                                                    tempJuego = tempJuego.Replace(";", Nothing)
-                                                    tempJuego = tempJuego.Replace(",", Nothing)
-                                                    tempJuego = tempJuego.Replace("™", Nothing)
-                                                    tempJuego = tempJuego.Replace("®", Nothing)
-                                                    tempJuego = tempJuego.Replace("'", Nothing)
-                                                    tempJuego = tempJuego.Replace("(", Nothing)
-                                                    tempJuego = tempJuego.Replace(")", Nothing)
-                                                    tempJuego = tempJuego.Replace("/", Nothing)
-                                                    tempJuego = tempJuego.Replace("\", Nothing)
-                                                    tempJuego = tempJuego.Replace(ChrW(34), Nothing)
+                                            Dim tempJuego As String = juego.Titulo
+                                            tempJuego = tempJuego.Replace(":", Nothing)
+                                            tempJuego = tempJuego.Replace(".", Nothing)
+                                            tempJuego = tempJuego.Replace("_", Nothing)
+                                            tempJuego = tempJuego.Replace("-", Nothing)
+                                            tempJuego = tempJuego.Replace(";", Nothing)
+                                            tempJuego = tempJuego.Replace(",", Nothing)
+                                            tempJuego = tempJuego.Replace("™", Nothing)
+                                            tempJuego = tempJuego.Replace("®", Nothing)
+                                            tempJuego = tempJuego.Replace("'", Nothing)
+                                            tempJuego = tempJuego.Replace("(", Nothing)
+                                            tempJuego = tempJuego.Replace(")", Nothing)
+                                            tempJuego = tempJuego.Replace("/", Nothing)
+                                            tempJuego = tempJuego.Replace("\", Nothing)
+                                            tempJuego = tempJuego.Replace(ChrW(34), Nothing)
 
-                                                    If tempDescarte.ToLower.Trim = tempJuego.ToLower.Trim Then
-                                                        boolDescarte = True
-                                                    End If
-                                                End If
-                                            Next
-
-                                            If boolDescarte = False Then
-                                                listaGrids.Add(Listado.Generar(juego))
+                                            If tempDescarte.ToLower.Trim = tempJuego.ToLower.Trim Then
+                                                boolDescarte = True
                                             End If
                                         End If
+                                    Next
+
+                                    If boolDescarte = False Then
+                                        listaGrids.Add(Listado.Generar(juego))
                                     End If
+                                End If
+                            End If
 
-                                    If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
-                                        Dim boolAntiguo As Boolean = False
+                            If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                                Dim boolAntiguo As Boolean = False
 
-                                        If Not listaJuegosAntigua Is Nothing Then
-                                            For Each juegoAntiguo In listaJuegosAntigua
-                                                If juego.Tienda = "Amazon.es" Then
-                                                    boolAntiguo = False
-                                                Else
-                                                    If juegoAntiguo.Enlace1 = juego.Enlace1 Then
-                                                        If Not juegoAntiguo.Descuento = Nothing Then
-                                                            If Not juego.Descuento = Nothing Then
-                                                                Dim tempJuegoAntiguoDescuento As Integer = juegoAntiguo.Descuento.Replace("%", Nothing)
-                                                                Dim tempJuegoDescuento As Integer = juego.Descuento.Replace("%", Nothing)
+                                If Not listaJuegosAntigua Is Nothing Then
+                                    For Each juegoAntiguo In listaJuegosAntigua
+                                        If juego.Tienda = "Amazon.es" Then
+                                            boolAntiguo = False
+                                        Else
+                                            If juegoAntiguo.Enlace1 = juego.Enlace1 Then
+                                                If Not juegoAntiguo.Descuento = Nothing Then
+                                                    If Not juego.Descuento = Nothing Then
+                                                        Dim tempJuegoAntiguoDescuento As Integer = juegoAntiguo.Descuento.Replace("%", Nothing)
+                                                        Dim tempJuegoDescuento As Integer = juego.Descuento.Replace("%", Nothing)
 
-                                                                If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
-                                                                    boolAntiguo = False
-                                                                ElseIf tempJuegoDescuento = tempJuegoAntiguoDescuento Then
-                                                                    juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(3)
-                                                                    boolAntiguo = True
-                                                                Else
-                                                                    boolAntiguo = True
-                                                                End If
-                                                            Else
-                                                                boolAntiguo = True
-                                                            End If
+                                                        If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
+                                                            boolAntiguo = False
+                                                        ElseIf tempJuegoDescuento = tempJuegoAntiguoDescuento Then
+                                                            juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(3)
+                                                            boolAntiguo = True
                                                         Else
                                                             boolAntiguo = True
                                                         End If
+                                                    Else
+                                                        boolAntiguo = True
                                                     End If
+                                                Else
+                                                    boolAntiguo = True
                                                 End If
-                                            Next
+                                            End If
                                         End If
-
-                                        If boolAntiguo = False Then
-                                            listaGrids.Add(Listado.Generar(juego))
-                                            listaJuegosAntigua.Add(juego)
-                                        End If
-                                    End If
-
-                                    If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off" Then
-                                        If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off" Then
-                                            listaGrids.Add(Listado.Generar(juego))
-                                        End If
-                                    End If
-                                Else
-                                    listaGrids.Add(Listado.Generar(juego))
+                                    Next
                                 End If
 
-                                For Each grid In listaGrids
-                                    lv.Items.Add(grid)
-                                Next
+                                If boolAntiguo = False Then
+                                    listaGrids.Add(Listado.Generar(juego))
+                                    listaJuegosAntigua.Add(juego)
+                                End If
                             End If
+
+                            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off" Then
+                                If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off" Then
+                                    listaGrids.Add(Listado.Generar(juego))
+                                End If
+                            End If
+                        Else
+                            listaGrids.Add(Listado.Generar(juego))
                         End If
+
+                        For Each grid In listaGrids
+                            lv.Items.Add(grid)
+                        Next
                     End If
                 Next
 
@@ -393,14 +300,6 @@ Module Ordenar
 
             If Not cbTipo Is Nothing Then
                 cbTipo.IsEnabled = True
-            End If
-
-            If Not cbPlataforma Is Nothing Then
-                cbPlataforma.IsEnabled = True
-            End If
-
-            If Not cbDRM Is Nothing Then
-                cbDRM.IsEnabled = True
             End If
 
             cbOrdenar.IsEnabled = True

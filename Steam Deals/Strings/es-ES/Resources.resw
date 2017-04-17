@@ -243,4 +243,7 @@
   <data name="Editor Limite" xml:space="preserve">
     <value>Debido a la carga de texto usa los botones de abajo para copiar las ofertas</value>
   </data>
+  <data name="Aviso Reddit" xml:space="preserve">
+    <value>Reddit añade el Rating de cada juego, mantén actualizada esta opción</value>
+  </data>
 </root>

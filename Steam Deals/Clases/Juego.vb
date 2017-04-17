@@ -19,13 +19,15 @@
     Public Property Tienda As String
     Public Property Fecha As DateTime
     Public Property Editor As Boolean
+    Public Property Valoracion As String
+    Public Property EnlaceValoracion As String
 
     Public Sub New(ByVal titulo As String, ByVal enlace1 As String, ByVal enlace2 As String, ByVal enlace3 As String,
                    ByVal afiliado1 As String, ByVal afiliado2 As String, ByVal afiliado3 As String, ByVal imagen As String,
                    ByVal precio1 As String, ByVal precio2 As String, ByVal precio3 As String,
                    ByVal descuento As String, ByVal drm As String,
                    ByVal sistemaWin As Boolean, ByVal sistemaMac As Boolean, ByVal sistemaLinux As Boolean,
-                   ByVal tienda As String, ByVal fecha As DateTime)
+                   ByVal tienda As String, ByVal fecha As DateTime, ByVal valoracion As String, ByVal enlaceValoracion As String)
         Me.Titulo = titulo
         Me.Enlace1 = enlace1
         Me.Enlace2 = enlace2
@@ -44,5 +46,7 @@
         Me.SistemaLinux = sistemaLinux
         Me.Tienda = tienda
         Me.Fecha = fecha
+        Me.Valoracion = valoracion
+        Me.EnlaceValoracion = enlaceValoracion
     End Sub
 End Class

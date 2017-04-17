@@ -360,12 +360,6 @@
                             <ComboBoxItem x:Name="cbOrdenarSteamPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarSteamTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbPlataformaSteam" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaSteam" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
-                        </ComboBox>
                     </StackPanel>
                 </Grid>
 
@@ -420,14 +414,6 @@
                             <ComboBoxItem x:Name="cbOrdenarGamersGatePrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarGamersGateTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbPlataformaGamersGate" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaGamersGate" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
-                        </ComboBox>
-                        <TextBlock x:Name="tbDRMGamersGate" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMGamersGate" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -482,14 +468,6 @@
                             <ComboBoxItem x:Name="cbOrdenarGamesPlanetPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarGamesPlanetTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbPlataformaGamesPlanet" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaGamesPlanet" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
-                        </ComboBox>
-                        <TextBlock x:Name="tbDRMGamesPlanet" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMGamesPlanet" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -544,14 +522,6 @@
                             <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbPlataformaHumble" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaHumble" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
-                        </ComboBox>
-                        <TextBlock x:Name="tbDRMHumble" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMHumble" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -606,8 +576,6 @@
                             <ComboBoxItem x:Name="cbOrdenarGreenManGamingPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarGreenManGamingTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbDRMGreenManGaming" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMGreenManGaming" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -662,14 +630,6 @@
                             <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbPlataformaBundleStars" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaBundleStars" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
-                        </ComboBox>
-                        <TextBlock x:Name="tbDRMBundleStars" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMBundleStars" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -723,12 +683,6 @@
                             <ComboBoxItem x:Name="cbOrdenarGOGDescuento"/>
                             <ComboBoxItem x:Name="cbOrdenarGOGPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarGOGTitulo"/>
-                        </ComboBox>
-                        <TextBlock x:Name="tbPlataformaGOG" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaGOG" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -784,8 +738,6 @@
                             <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbDRMWinGameStore" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMWinGameStore" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -840,8 +792,6 @@
                             <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbDRMSilaGames" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMSilaGames" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
                
@@ -896,8 +846,6 @@
                             <ComboBoxItem x:Name="cbOrdenarDLGamerPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarDLGamerTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbDRMDLGamer" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMDLGamer" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -958,8 +906,6 @@
                             <ComboBoxItem Content="Mac"/>
                             <ComboBoxItem Content="Linux"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbDRMNuuvem" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbDRMNuuvem" Width="140" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
 
@@ -1126,6 +1072,7 @@
                         </ComboBox>
                         <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
                         <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                        <TextBlock x:Name="tbEditorAviso" Padding="5" TextWrapping="Wrap" Margin="0,5"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Padding="10">
