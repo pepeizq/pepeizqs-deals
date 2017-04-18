@@ -173,9 +173,6 @@ Public NotInheritable Class MainPage
         cbOrdenarNuuvemTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        tbPlataformaNuuvem.Text = recursos.GetString("Plataforma")
-        cbPlataformaNuuvem.SelectedIndex = 0
-
         tbEditorSeleccionarTodoMicrosoftStore.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaMicrosoftStore.Text = recursos.GetString("Seleccionar Nada")
 

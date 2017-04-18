@@ -900,12 +900,6 @@
                             <ComboBoxItem x:Name="cbOrdenarNuuvemPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarNuuvemTitulo"/>
                         </ComboBox>
-                        <TextBlock x:Name="tbPlataformaNuuvem" Margin="10,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbPlataformaNuuvem" Width="120" VerticalAlignment="Center">
-                            <ComboBoxItem Content="Windows"/>
-                            <ComboBoxItem Content="Mac"/>
-                            <ComboBoxItem Content="Linux"/>
-                        </ComboBox>
                     </StackPanel>
                 </Grid>
 

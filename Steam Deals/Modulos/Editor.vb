@@ -311,7 +311,15 @@ Module Editor
 
                     contenidoEnlaces = contenidoEnlaces + "<br/><ul>" + Environment.NewLine
 
+                    Dim i As Integer = 0
+
                     For Each juego In listaFinal
+                        i += 1
+
+                        If i = 21 Then
+                            contenidoEnlaces = contenidoEnlaces + "<!--more-->" + Environment.NewLine
+                        End If
+
                         Dim descuento As String = Nothing
 
                         If Not juego.Descuento = Nothing Then
