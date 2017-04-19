@@ -54,7 +54,7 @@ Module Steam
 
         Dim i As Integer = 1
         While i < numPaginas
-            Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=" + i.ToString))
+            Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then

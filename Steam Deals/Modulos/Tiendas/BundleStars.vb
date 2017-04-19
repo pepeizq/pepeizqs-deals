@@ -157,9 +157,10 @@ Module BundleStars
                         Dim calcularPrecio As Boolean = False
                         Dim precioEU As String = Nothing
                         Dim precioUS As String = Nothing
+                        Dim precioUK As String = Nothing
 
-                        Dim temp11, temp12, tempEU1, tempEU2, tempUS1, tempUS2 As String
-                        Dim int11, int12, intEU1, intEU2, intUS1, intUS2 As Integer
+                        Dim temp11, temp12, tempEU1, tempEU2, tempUS1, tempUS2, tempUK1, tempUK2 As String
+                        Dim int11, int12, intEU1, intEU2, intUS1, intUS2, intUK1, intUK2 As Integer
 
                         int11 = temp2.IndexOf(ChrW(34) + "price" + ChrW(34))
                         temp11 = temp2.Remove(0, int11 + 9)
@@ -183,6 +184,14 @@ Module BundleStars
 
                         tempUS2 = tempUS2.Insert(tempUS2.Length - 2, ",")
 
+                        intUK1 = temp12.IndexOf("GBP" + ChrW(34) + ":")
+                        tempUK1 = temp12.Remove(0, intUK1 + 5)
+
+                        intUK2 = tempUK1.IndexOf(",")
+                        tempUK2 = tempUK1.Remove(intUK2, tempUK1.Length - intUK2)
+
+                        tempUK2 = tempUK2.Insert(tempUK2.Length - 2, ",")
+
                         If temp2.Contains(ChrW(34) + "fullPrice" + ChrW(34) + ":{}") Then
                             calcularPrecio = True
                         ElseIf temp2.Contains(ChrW(34) + "fullPrice" + ChrW(34) + ":{" + ChrW(34) + "EUR" + ChrW(34) + ":0") Then
@@ -192,13 +201,21 @@ Module BundleStars
                         If calcularPrecio = True Then
                             precioEU = Calculadora.GenerarPrecioRebajado(tempEU2.Trim, descuento) + " €"
                             precioUS = "$" + Calculadora.GenerarPrecioRebajado(tempUS2.Trim, descuento)
+                            precioUK = "£" + Calculadora.GenerarPrecioRebajado(tempUK2.Trim, descuento)
                         Else
                             precioEU = tempEU2.Trim + " €"
                             precioUS = "$" + tempUS2.Trim
+                            precioUK = "£" + tempUK2.Trim
                         End If
 
                         If Not precioUS = Nothing Then
                             precioUS = precioUS.Replace(",", ".")
+                            precioUS = precioUS.Trim
+                        End If
+
+                        If Not precioUK = Nothing Then
+                            precioUK = precioUK.Replace(",", ".")
+                            precioUK = precioUK.Trim
                         End If
 
                         Dim drm As String = Nothing
@@ -257,7 +274,7 @@ Module BundleStars
 
                         Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioEU, precioUS, Nothing, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today, val.Valoracion, val.Enlace)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioEU, precioUS, precioUK, descuento, drm, windows, mac, linux, "BundleStars", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

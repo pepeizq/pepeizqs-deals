@@ -174,8 +174,8 @@ Module Editor
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price UK** | **Price FR** | **Price DE** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     ElseIf listaFinal(0).Tienda = "BundleStars" Then
-                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price US** | **Rating**" + Environment.NewLine
-                        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price US** | **Price EU** | **Price UK** | **Rating**" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     Else
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:" + Environment.NewLine
@@ -221,7 +221,7 @@ Module Editor
                         ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
                             linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
                         ElseIf listaFinal(0).Tienda = "BundleStars" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + juego.Precio2 + " | " + valoracion
+                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio2 + " | " + juego.Precio1 + " | " + juego.Precio3 + " | " + valoracion
                         Else
                             linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                         End If

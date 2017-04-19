@@ -91,7 +91,8 @@ Module Valoracion
                                 int6 = temp5.IndexOf("%")
                                 temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                temp6 = temp6.Remove(0, temp6.Length - 2)
+                                temp6 = temp6.Remove(0, temp6.Length - 3)
+                                temp6 = temp6.Trim
 
                                 If temp6.Contains(";") Then
                                     temp6 = temp6.Replace(";", "0")
