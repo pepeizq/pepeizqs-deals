@@ -300,6 +300,12 @@
                             <TextBlock x:Name="botonTiendaTextoAmazonEs" Text="Amazon.es" Foreground="White"/>
                         </StackPanel>
                     </Button>
+                    <Button x:Name="botonTiendaAmazonUk" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" BorderThickness="5,0,0,0" Width="200" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <controls:ImageEx Source="Assets/icon_amazon.png" Width="16" Height="16" Margin="5,0,10,0"/>
+                            <TextBlock x:Name="botonTiendaTextoAmazonUk" Text="Amazon.co.uk" Foreground="White"/>
+                        </StackPanel>
+                    </Button>
 
                 </StackPanel>
             </ScrollViewer>
@@ -1007,6 +1013,60 @@
                             <ComboBoxItem x:Name="cbOrdenarAmazonEsDescuento"/>
                             <ComboBoxItem x:Name="cbOrdenarAmazonEsPrecio"/>
                             <ComboBoxItem x:Name="cbOrdenarAmazonEsTitulo"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <Grid x:Name="gridTiendaAmazonUk" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Background="#FFE4E4E4" Padding="10">
+                        <ListView x:Name="listadoAmazonUk" IsItemClickEnabled="True">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Setter Property="Padding" Value="0"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+
+                        <Grid x:Name="gridProgresoAmazonUk" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ProgressRing x:Name="prAmazonUk" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                            <TextBlock x:Name="tbProgresoAmazonUk" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel x:Name="spEditorAmazonUk" Orientation="Horizontal">
+                            <Button x:Name="botonEditorSeleccionarTodoAmazonUk" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="SelectAll" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarTodoAmazonUk" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonEditorSeleccionarNadaAmazonUk" Background="Transparent" Padding="15,10">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <SymbolIcon Symbol="ClearSelection" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorSeleccionarNadaAmazonUk" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <AppBarSeparator Foreground="White"/>
+                        </StackPanel>
+                        <Button x:Name="botonActualizarAmazonUk" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                            <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                        </Button>
+                        <TextBlock x:Name="tbOrdenarAmazonUk" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                        <ComboBox x:Name="cbOrdenarAmazonUk" Width="120" VerticalAlignment="Center">
+                            <ComboBoxItem x:Name="cbOrdenarAmazonUkDescuento"/>
+                            <ComboBoxItem x:Name="cbOrdenarAmazonUkPrecio"/>
+                            <ComboBoxItem x:Name="cbOrdenarAmazonUkTitulo"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>

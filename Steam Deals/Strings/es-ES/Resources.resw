@@ -246,4 +246,7 @@
   <data name="Aviso Reddit" xml:space="preserve">
     <value>Reddit añade el Rating de cada juego, mantén actualizada esta opción</value>
   </data>
+  <data name="Editor Limite Caracteres" xml:space="preserve">
+    <value>Aviso: Limite de caracteres superado</value>
+  </data>
 </root>

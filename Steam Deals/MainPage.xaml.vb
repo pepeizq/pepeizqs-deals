@@ -191,6 +191,15 @@ Public NotInheritable Class MainPage
         cbOrdenarAmazonEsTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorSeleccionarTodoAmazonUk.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaAmazonUk.Text = recursos.GetString("Seleccionar Nada")
+
+        tbOrdenarAmazonUk.Text = recursos.GetString("Ordenar")
+        cbOrdenarAmazonUkDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarAmazonUkPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarAmazonUkTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+
         tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
         '--------------------------------------------------------
@@ -458,6 +467,8 @@ Public NotInheritable Class MainPage
             botonTiendaMicrosoftStore.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonEs.BorderBrush = New SolidColorBrush(Colors.Transparent)
+            botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.Transparent)
+            botonTiendaAmazonUk.BorderBrush = New SolidColorBrush(Colors.Transparent)
 
             boton.Background = New SolidColorBrush(Colors.DarkOliveGreen)
             boton.BorderBrush = New SolidColorBrush(Colors.White)
@@ -476,6 +487,7 @@ Public NotInheritable Class MainPage
         gridTiendaNuuvem.Visibility = Visibility.Collapsed
         gridTiendaMicrosoftStore.Visibility = Visibility.Collapsed
         gridTiendaAmazonEs.Visibility = Visibility.Collapsed
+        gridTiendaAmazonUk.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -939,6 +951,39 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonTiendaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonUk.Click
+
+        gridMensajeTienda.Visibility = Visibility.Collapsed
+        GridTiendasVisibilidad(gridTiendaAmazonUk, botonTiendaAmazonUk)
+
+        If listadoAmazonUk.Items.Count = 0 Then
+            AmazonUk.GenerarOfertas()
+        End If
+
+    End Sub
+
+    Private Sub ListadoAmazonUk_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonUk.ItemClick
+
+        ListadoClick(e.ClickedItem)
+
+    End Sub
+
+    Private Sub BotonActualizarAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonUk.Click
+
+        AmazonUk.GenerarOfertas()
+
+    End Sub
+
+    Private Sub CbOrdenarAmazonUk_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonUk.SelectionChanged
+
+        If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False)
+            End If
+        End If
+
+    End Sub
+
     'CONFIG-----------------------------------------------------------------------------
 
     Private Sub TbSteamConfigCuentaID_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbSteamConfigCuentaID.TextChanged
@@ -998,6 +1043,7 @@ Public NotInheritable Class MainPage
         cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
     End Sub
 
@@ -1022,6 +1068,7 @@ Public NotInheritable Class MainPage
         If estado = True Then
             botonEditor.Visibility = Visibility.Visible
             botonTiendaAmazonEs.Visibility = Visibility.Visible
+            botonTiendaAmazonUk.Visibility = Visibility.Visible
 
             spEditorSteam.Visibility = Visibility.Visible
             spEditorGamersGate.Visibility = Visibility.Visible
@@ -1036,9 +1083,11 @@ Public NotInheritable Class MainPage
             spEditorNuuvem.Visibility = Visibility.Visible
             spEditorMicrosoftStore.Visibility = Visibility.Visible
             spEditorAmazonEs.Visibility = Visibility.Visible
+            spEditorAmazonUk.Visibility = Visibility.Visible
         Else
             botonEditor.Visibility = Visibility.Collapsed
             botonTiendaAmazonEs.Visibility = Visibility.Collapsed
+            botonTiendaAmazonUk.Visibility = Visibility.Collapsed
 
             spEditorSteam.Visibility = Visibility.Collapsed
             spEditorGamersGate.Visibility = Visibility.Collapsed
@@ -1053,6 +1102,7 @@ Public NotInheritable Class MainPage
             spEditorNuuvem.Visibility = Visibility.Collapsed
             spEditorMicrosoftStore.Visibility = Visibility.Collapsed
             spEditorAmazonEs.Visibility = Visibility.Collapsed
+            spEditorAmazonUk.Visibility = Visibility.Collapsed
         End If
 
     End Sub
@@ -1303,6 +1353,18 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorSeleccionarNadaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonEs.Click
 
         SeleccionarEnlaces(listadoAmazonEs, False)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarTodoAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonUk.Click
+
+        SeleccionarEnlaces(listadoAmazonUk, True)
+
+    End Sub
+
+    Private Sub BotonEditorSeleccionarNadaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonUk.Click
+
+        SeleccionarEnlaces(listadoAmazonUk, False)
 
     End Sub
 

@@ -121,6 +121,7 @@
     <Compile Include="Modulos\Editor.vb" />
     <Compile Include="Modulos\RSS.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
+    <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
     <Compile Include="Modulos\Tiendas\BundleStars.vb" />
     <Compile Include="Modulos\Calculadora.vb" />
     <Compile Include="Modulos\Decompiladores.vb" />

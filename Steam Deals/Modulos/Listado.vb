@@ -99,6 +99,9 @@ Module Listado
             ElseIf juego.Tienda = "Amazon.es" Then
                 imagen.Height = 80
                 imagen.Width = 80
+            ElseIf juego.Tienda = "Amazon.co.uk" Then
+                imagen.Height = 80
+                imagen.Width = 80
             End If
 
             imagen.Margin = New Thickness(0, 2, 10, 2)

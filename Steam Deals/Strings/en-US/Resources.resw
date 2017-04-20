@@ -247,4 +247,7 @@
     <value>68/5000
 Reddit adds the rating of each game, keep this option updated</value>
   </data>
+  <data name="Editor Limite Caracteres" xml:space="preserve">
+    <value>Warning: Character Limit exceeded</value>
+  </data>
 </root>

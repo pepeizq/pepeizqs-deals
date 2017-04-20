@@ -28,6 +28,7 @@ Module Editor
         tbEnlaces.Visibility = Visibility.Visible
 
         Dim tbLimite As TextBlock = pagina.FindName("tbEditorEnlacesLimite")
+        tbLimite.Text = recursos.GetString("Editor Limite")
         tbLimite.Visibility = Visibility.Collapsed
 
         Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetas")
@@ -210,23 +211,33 @@ Module Editor
 
                         Dim linea As String = Nothing
 
-                        If listaFinal(0).Tienda = "Steam" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
-                        ElseIf listaFinal(0).Tienda = "GOG" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
-                        ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
-                        ElseIf listaFinal(0).Tienda = "GamersGate" Then
-                            linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio2 + " (" + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")](" + juego.Enlace2 + ")" + " | " + valoracion
-                        ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
-                            linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
-                        ElseIf listaFinal(0).Tienda = "BundleStars" Then
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio2 + " | " + juego.Precio1 + " | " + juego.Precio3 + " | " + valoracion
+                        If contenidoEnlaces.Length < 40000 Then
+                            If listaFinal(0).Tienda = "Steam" Then
+                                linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
+                            ElseIf listaFinal(0).Tienda = "GOG" Then
+                                linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
+                            ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
+                                linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
+                            ElseIf listaFinal(0).Tienda = "GamersGate" Then
+                                linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio2 + " (" + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")](" + juego.Enlace2 + ")" + " | " + valoracion
+                            ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
+                                linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
+                            ElseIf listaFinal(0).Tienda = "BundleStars" Then
+                                linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio2 + " | " + juego.Precio1 + " | " + juego.Precio3 + " | " + valoracion
+                            Else
+                                linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
+                            End If
+
+                            If listaFinal.Count > 50 Then
+                                tbLimite.Text = recursos.GetString("Editor Limite")
+                            End If
                         Else
-                            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
+                            tbLimite.Text = recursos.GetString("Editor Limite Caracteres")
                         End If
 
-                        contenidoEnlaces = contenidoEnlaces + linea + Environment.NewLine
+                        If Not linea = Nothing Then
+                            contenidoEnlaces = contenidoEnlaces + linea + Environment.NewLine
+                        End If
 
                         If listaFinal.Count < 51 Then
                             tbEnlaces.Text = contenidoEnlaces
