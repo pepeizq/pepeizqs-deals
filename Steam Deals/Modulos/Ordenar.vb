@@ -9,7 +9,7 @@ Module Ordenar
         Dim pagina As Page = frame.Content
 
         Dim lv As ListView = pagina.FindName("listado" + tienda)
-
+        Dim numOfertas As TextBlock = pagina.FindName("tbNumOfertas" + tienda)
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo" + tienda)
         Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNada" + tienda)
         Dim botonActualizar As Button = pagina.FindName("botonActualizar" + tienda)
@@ -17,6 +17,7 @@ Module Ordenar
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
+
         tbProgreso.Text = String.Empty
 
         If Not lv Is Nothing Then
@@ -165,39 +166,11 @@ Module Ordenar
 
                                     For Each descarte In listaDescartar
                                         If Not descarte = Nothing Then
-                                            Dim tempDescarte As String = descarte
-                                            tempDescarte = tempDescarte.Replace(":", Nothing)
-                                            tempDescarte = tempDescarte.Replace(".", Nothing)
-                                            tempDescarte = tempDescarte.Replace("_", Nothing)
-                                            tempDescarte = tempDescarte.Replace("-", Nothing)
-                                            tempDescarte = tempDescarte.Replace(";", Nothing)
-                                            tempDescarte = tempDescarte.Replace(",", Nothing)
-                                            tempDescarte = tempDescarte.Replace("™", Nothing)
-                                            tempDescarte = tempDescarte.Replace("®", Nothing)
-                                            tempDescarte = tempDescarte.Replace("'", Nothing)
-                                            tempDescarte = tempDescarte.Replace("(", Nothing)
-                                            tempDescarte = tempDescarte.Replace(")", Nothing)
-                                            tempDescarte = tempDescarte.Replace("/", Nothing)
-                                            tempDescarte = tempDescarte.Replace("\", Nothing)
-                                            tempDescarte = tempDescarte.Replace(ChrW(34), Nothing)
+                                            Dim tempDescarte As String = LimpiarTitulo(descarte)
 
-                                            Dim tempJuego As String = juego.Titulo
-                                            tempJuego = tempJuego.Replace(":", Nothing)
-                                            tempJuego = tempJuego.Replace(".", Nothing)
-                                            tempJuego = tempJuego.Replace("_", Nothing)
-                                            tempJuego = tempJuego.Replace("-", Nothing)
-                                            tempJuego = tempJuego.Replace(";", Nothing)
-                                            tempJuego = tempJuego.Replace(",", Nothing)
-                                            tempJuego = tempJuego.Replace("™", Nothing)
-                                            tempJuego = tempJuego.Replace("®", Nothing)
-                                            tempJuego = tempJuego.Replace("'", Nothing)
-                                            tempJuego = tempJuego.Replace("(", Nothing)
-                                            tempJuego = tempJuego.Replace(")", Nothing)
-                                            tempJuego = tempJuego.Replace("/", Nothing)
-                                            tempJuego = tempJuego.Replace("\", Nothing)
-                                            tempJuego = tempJuego.Replace(ChrW(34), Nothing)
+                                            Dim tempJuego As String = LimpiarTitulo(juego.Titulo)
 
-                                            If tempDescarte.ToLower.Trim = tempJuego.ToLower.Trim Then
+                                            If tempDescarte = tempJuego Then
                                                 boolDescarte = True
                                             End If
                                         End If
@@ -263,6 +236,10 @@ Module Ordenar
                     End If
                 Next
 
+                If Not numOfertas Is Nothing Then
+                    numOfertas.Text = listaJuegos.Count.ToString + " - " + lv.Items.Count.ToString
+                End If
+
                 If antiguo = True Then
                     If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
 
@@ -272,7 +249,7 @@ Module Ordenar
                             End If
 
                             Dim fechaComparar As DateTime = juegoAntiguo.Fecha
-                            fechaComparar = fechaComparar.AddDays(10)
+                            fechaComparar = fechaComparar.AddDays(5)
 
                             If fechaComparar < DateTime.Today Then
                                 listaJuegosAntigua.Remove(juegoAntiguo)

@@ -50,25 +50,17 @@ Module GamersGate
         Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
         Dim html As String = html_.Result
 
+        Dim htmlUS_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=usa"))
+        Dim htmlUS As String = htmlUS_.Result
+
         Dim htmlUK_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
         Dim htmlUK As String = htmlUK_.Result
 
-        Dim tope As Integer = 2000
+        Dim tope As Integer = 3000
 
         Dim moneda As String = Nothing
 
         If Not html = Nothing Then
-            Dim tempMoneda, tempMoneda2 As String
-            Dim intMoneda, intMoneda2 As Integer
-
-            intMoneda = html.IndexOf("<currency>")
-            tempMoneda = html.Remove(0, intMoneda + 10)
-
-            intMoneda2 = tempMoneda.IndexOf("</currency>")
-            tempMoneda2 = tempMoneda.Remove(intMoneda2, tempMoneda.Length - intMoneda2)
-
-            moneda = tempMoneda2.Trim
-
             Dim i As Integer = 0
             While i < tope
                 Dim temp, temp2 As String
@@ -113,8 +105,9 @@ Module GamersGate
 
                             Dim enlace As String = temp8.Trim
 
-                            Dim intEnlaceUK As Integer = enlace.IndexOf("gamersgate.com")
-                            Dim enlaceUK As String = "https://uk." + enlace.Remove(0, intEnlaceUK)
+                            Dim intEnlace As Integer = enlace.IndexOf("gamersgate.com")
+                            Dim enlaceUS As String = "https://www." + enlace.Remove(0, intEnlace)
+                            Dim enlaceUK As String = "https://uk." + enlace.Remove(0, intEnlace)
 
                             Dim temp9, temp10 As String
                             Dim int9, int10 As Integer
@@ -140,23 +133,45 @@ Module GamersGate
 
                             Dim precio As String = temp12.Trim
 
-                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
-                                .Mode = CurrencyFormatterMode.UseSymbol
-                            }
-
-                            precio = precio.Replace(".", ",")
-
-                            Try
-                                precio = formateador.Format(Double.Parse(precio))
-                            Catch ex As Exception
-
-                            End Try
-
-                            If precio.Contains("$") Then
-                                precio = precio.Replace(",", ".")
+                            If Not precio = Nothing Then
+                                precio = precio.Replace(".", ",")
                             End If
 
+                            If Not precio.Contains(",") Then
+                                precio = precio + ",00"
+                            End If
+
+                            precio = precio + " €"
+
                             If Not precio = "-" Then
+                                Dim precioUS As String
+                                If Not htmlUS = Nothing Then
+                                    Dim tempUS, tempUS2, tempUS3 As String
+                                    Dim intUS, intUS2, intUS3 As Integer
+
+                                    intUS = htmlUS.IndexOf(enlaceUS)
+
+                                    If Not intUS = -1 Then
+                                        tempUS = htmlUS.Remove(0, intUS)
+
+                                        intUS2 = tempUS.IndexOf("<price>")
+                                        tempUS2 = tempUS.Remove(0, intUS2 + 7)
+
+                                        intUS3 = tempUS2.IndexOf("</price>")
+                                        tempUS3 = tempUS2.Remove(intUS3, tempUS2.Length - intUS3)
+
+                                        precioUS = "$" + tempUS3.Trim
+
+                                        If Not precioUS.Contains(".") Then
+                                            precioUS = precioUS + ".00"
+                                        End If
+                                    Else
+                                        precioUS = Nothing
+                                    End If
+                                Else
+                                    precioUS = Nothing
+                                End If
+
                                 Dim precioUK As String
                                 If Not htmlUK = Nothing Then
                                     Dim tempUK, tempUK2, tempUK3 As String
@@ -242,7 +257,7 @@ Module GamersGate
 
                                 Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
 
-                                Dim juego As New Juego(titulo, enlace, enlaceUK, Nothing, enlace + afiliado, enlaceUK + afiliado, Nothing, imagen, precio, precioUK, Nothing, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today, val.Valoracion, val.Enlace)
+                                Dim juego As New Juego(titulo, enlace, enlaceUS, enlaceUK, enlace + afiliado, enlaceUS + afiliado, enlaceUK + afiliado, imagen, precio, precioUS, precioUK, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today, val.Valoracion, val.Enlace)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

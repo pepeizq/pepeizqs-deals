@@ -72,6 +72,7 @@ Module SilaGames
                     temp4 = temp3.Remove(int4, temp3.Length - int4)
 
                     temp4 = temp4.Replace("&apos;", "'")
+                    temp4 = temp4.Replace("&amp;", "&")
 
                     Dim titulo As String = temp4.Trim
 

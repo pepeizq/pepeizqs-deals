@@ -169,8 +169,8 @@ Module Editor
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
                     ElseIf listaFinal(0).Tienda = "GamersGate" Then
-                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price UK** | **Rating**" + Environment.NewLine
-                        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price US** | **Price EU** | **Price UK** | **Rating**" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price UK** | **Price FR** | **Price DE** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
@@ -219,7 +219,7 @@ Module Editor
                             ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
                                 linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                             ElseIf listaFinal(0).Tienda = "GamersGate" Then
-                                linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio2 + " (" + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")](" + juego.Enlace2 + ")" + " | " + valoracion
+                                linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
                             ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
                                 linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
                             ElseIf listaFinal(0).Tienda = "BundleStars" Then
@@ -357,7 +357,7 @@ Module Editor
 
                         If juego.Tienda = "GamersGate" Then
                             contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado2 + ChrW(34) + ">" +
-                               descuento + juego.Titulo + " {UK}</a> - " + juego.Precio2 + " (o " + Divisas.CambioMoneda(juego.Precio2, tbLibra.Text) + ")" + drm +
+                               descuento + juego.Titulo + " {UK}</a> - " + juego.Precio3 + " (o " + Divisas.CambioMoneda(juego.Precio3, tbLibra.Text) + ")" + drm +
                                "</li>" + Environment.NewLine
                             contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
                                descuento + juego.Titulo + "</a> - " + juego.Precio1 + drm +

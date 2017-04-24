@@ -124,83 +124,81 @@ Module Listado
 
         Dim boolSistemas As Boolean = False
 
-        If Not AnalyticsInfo.VersionInfo.DeviceFamily = "Windows.Mobile" Then
-            If Not juego.SistemaWin = Nothing Then
-                If juego.SistemaWin = True Then
-                    boolSistemas = True
-                End If
+        If Not juego.SistemaWin = Nothing Then
+            If juego.SistemaWin = True Then
+                boolSistemas = True
             End If
+        End If
 
-            If Not juego.SistemaMac = Nothing Then
-                If juego.SistemaMac = True Then
-                    boolSistemas = True
-                End If
+        If Not juego.SistemaMac = Nothing Then
+            If juego.SistemaMac = True Then
+                boolSistemas = True
             End If
+        End If
 
-            If Not juego.SistemaLinux = Nothing Then
-                If juego.SistemaLinux = True Then
-                    boolSistemas = True
-                End If
+        If Not juego.SistemaLinux = Nothing Then
+            If juego.SistemaLinux = True Then
+                boolSistemas = True
             End If
+        End If
 
-            If boolSistemas = True Then
-                Dim fondoSistemas As New Grid With {
+        If boolSistemas = True Then
+            Dim fondoSistemas As New Grid With {
                     .Padding = New Thickness(6, 0, 6, 0),
                     .Height = 34,
                     .Background = New SolidColorBrush(Colors.SlateGray)
                 }
 
-                Dim colSis1 As New ColumnDefinition
-                Dim colSis2 As New ColumnDefinition
-                Dim colSis3 As New ColumnDefinition
+            Dim colSis1 As New ColumnDefinition
+            Dim colSis2 As New ColumnDefinition
+            Dim colSis3 As New ColumnDefinition
 
-                colSis1.Width = New GridLength(1, GridUnitType.Auto)
-                colSis2.Width = New GridLength(1, GridUnitType.Auto)
-                colSis3.Width = New GridLength(1, GridUnitType.Auto)
+            colSis1.Width = New GridLength(1, GridUnitType.Auto)
+            colSis2.Width = New GridLength(1, GridUnitType.Auto)
+            colSis3.Width = New GridLength(1, GridUnitType.Auto)
 
-                fondoSistemas.ColumnDefinitions.Add(colSis1)
-                fondoSistemas.ColumnDefinitions.Add(colSis2)
-                fondoSistemas.ColumnDefinitions.Add(colSis3)
+            fondoSistemas.ColumnDefinitions.Add(colSis1)
+            fondoSistemas.ColumnDefinitions.Add(colSis2)
+            fondoSistemas.ColumnDefinitions.Add(colSis3)
 
-                If Not juego.SistemaWin = Nothing Then
-                    If juego.SistemaWin = True Then
-                        Dim imagenWin As New ImageEx With {
+            If Not juego.SistemaWin = Nothing Then
+                If juego.SistemaWin = True Then
+                    Dim imagenWin As New ImageEx With {
                             .Width = 16,
                             .Height = 16,
                             .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png"))
                         }
-                        imagenWin.SetValue(Grid.ColumnProperty, 0)
-                        fondoSistemas.Children.Add(imagenWin)
-                    End If
+                    imagenWin.SetValue(Grid.ColumnProperty, 0)
+                    fondoSistemas.Children.Add(imagenWin)
                 End If
+            End If
 
-                If Not juego.SistemaMac = Nothing Then
-                    If juego.SistemaMac = True Then
-                        Dim imagenMac As New ImageEx With {
+            If Not juego.SistemaMac = Nothing Then
+                If juego.SistemaMac = True Then
+                    Dim imagenMac As New ImageEx With {
                             .Width = 16,
                             .Height = 16,
                             .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png"))
                         }
-                        imagenMac.SetValue(Grid.ColumnProperty, 1)
-                        fondoSistemas.Children.Add(imagenMac)
-                    End If
+                    imagenMac.SetValue(Grid.ColumnProperty, 1)
+                    fondoSistemas.Children.Add(imagenMac)
                 End If
+            End If
 
-                If Not juego.SistemaLinux = Nothing Then
-                    If juego.SistemaLinux = True Then
-                        Dim imagenLinux As New ImageEx With {
+            If Not juego.SistemaLinux = Nothing Then
+                If juego.SistemaLinux = True Then
+                    Dim imagenLinux As New ImageEx With {
                             .Width = 16,
                             .Height = 16,
                             .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png"))
                         }
-                        imagenLinux.SetValue(Grid.ColumnProperty, 2)
-                        fondoSistemas.Children.Add(imagenLinux)
-                    End If
+                    imagenLinux.SetValue(Grid.ColumnProperty, 2)
+                    fondoSistemas.Children.Add(imagenLinux)
                 End If
-
-                fondoSistemas.SetValue(Grid.ColumnProperty, 2)
-                grid.Children.Add(fondoSistemas)
             End If
+
+            fondoSistemas.SetValue(Grid.ColumnProperty, 2)
+            grid.Children.Add(fondoSistemas)
         End If
 
         '-------------------------------
@@ -353,7 +351,7 @@ Module Listado
                 }
 
                 If juego.Tienda = "GamersGate" Then
-                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_us2.png"))
                 ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr2.png"))
                 ElseIf juego.Tienda = "BundleStars" Then
@@ -405,7 +403,9 @@ Module Listado
                     .Margin = New Thickness(5, 0, 0, 0)
                 }
 
-                If juego.Tienda = "GamesPlanet" Then
+                If juego.Tienda = "GamersGate" Then
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
+                ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de2.png"))
                 ElseIf juego.Tienda = "BundleStars" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))

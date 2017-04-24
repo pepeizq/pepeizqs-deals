@@ -339,6 +339,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorSteam" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasSteam" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoSteam" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -393,6 +395,8 @@
                         
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorGamersGate" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasGamersGate" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoGamersGate" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -447,6 +451,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorGamesPlanet" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasGamesPlanet" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoGamesPlanet" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -501,6 +507,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorHumble" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasHumble" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoHumble" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -555,6 +563,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorGreenManGaming" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasGreenManGaming" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoGreenManGaming" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -609,6 +619,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorBundleStars" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasBundleStars" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoBundleStars" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -663,6 +675,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorGOG" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasGOG" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoGOG" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -717,6 +731,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorWinGameStore" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasWinGameStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoWinGameStore" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -771,6 +787,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorSilaGames" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasSilaGames" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoSilaGames" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -825,6 +843,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorDLGamer" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasDLGamer" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoDLGamer" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -879,6 +899,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorNuuvem" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasNuuvem" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoNuuvem" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -933,6 +955,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorMicrosoftStore" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasMicrosoftStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoMicrosoftStore" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -987,6 +1011,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorAmazonEs" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasAmazonEs" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoAmazonEs" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -1041,6 +1067,8 @@
 
                     <StackPanel Grid.Row="1" Padding="10,0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel x:Name="spEditorAmazonUk" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasAmazonUk" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <AppBarSeparator Foreground="White"/>
                             <Button x:Name="botonEditorSeleccionarTodoAmazonUk" Background="Transparent" Padding="15,10">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">

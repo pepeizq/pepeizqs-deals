@@ -194,17 +194,31 @@ Module Valoracion
         Return valoracion
     End Function
 
-    Private Function LimpiarTitulo(titulo As String)
+    Public Function LimpiarTitulo(titulo As String)
+
+        titulo = titulo.Trim
+
+        If titulo.Contains("DLC") Then
+            Dim int As Integer = titulo.IndexOf("DLC")
+
+            If int = titulo.Length - 3 Then
+                titulo = titulo.Remove(3, titulo.Length - 3)
+            End If
+        End If
 
         titulo = titulo.Replace(" ", Nothing)
         titulo = titulo.Replace("&amp;", Nothing)
         titulo = titulo.Replace("&reg;", Nothing)
         titulo = titulo.Replace("&trade;", Nothing)
         titulo = titulo.Replace("&quot;", Nothing)
+        titulo = titulo.Replace("•", Nothing)
+        titulo = titulo.Replace("?", Nothing)
+        titulo = titulo.Replace("!", Nothing)
         titulo = titulo.Replace(":", Nothing)
         titulo = titulo.Replace(".", Nothing)
         titulo = titulo.Replace("_", Nothing)
         titulo = titulo.Replace("-", Nothing)
+        titulo = titulo.Replace("–", Nothing)
         titulo = titulo.Replace(";", Nothing)
         titulo = titulo.Replace(",", Nothing)
         titulo = titulo.Replace("™", Nothing)
