@@ -14,6 +14,9 @@ Module Steam
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasSteam")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoSteam")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -250,7 +253,7 @@ Module Steam
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
 
-        Ordenar.Ofertas("Steam", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("Steam", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

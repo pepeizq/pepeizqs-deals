@@ -484,8 +484,9 @@ Module Listado
                 listaFinal.Add(juegoFinal)
             End If
         Else
-            listaFinal = New List(Of Juego)
-            listaFinal.Add(juegoFinal)
+            listaFinal = New List(Of Juego) From {
+                juegoFinal
+            }
         End If
 
         Try

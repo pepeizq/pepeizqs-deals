@@ -14,6 +14,9 @@ Module DLGamer
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasDLGamer")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoDLGamer")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -208,7 +211,7 @@ Module DLGamer
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarDLGamer")
 
-        Ordenar.Ofertas("DLGamer", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("DLGamer", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

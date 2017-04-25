@@ -14,6 +14,9 @@ Module WinGameStore
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasWinGameStore")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoWinGameStore")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -249,7 +252,7 @@ Module WinGameStore
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
 
-        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

@@ -17,6 +17,9 @@ Module Nuuvem
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasNuuvem")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoNuuvem")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -229,7 +232,7 @@ Module Nuuvem
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
 
-        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

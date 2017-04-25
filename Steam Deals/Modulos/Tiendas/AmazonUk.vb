@@ -17,6 +17,9 @@ Module AmazonUk
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasAmazonUk")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoAmazonUk")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -226,7 +229,7 @@ Module AmazonUk
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonUk")
 
-        Ordenar.Ofertas("AmazonUk", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("AmazonUk", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

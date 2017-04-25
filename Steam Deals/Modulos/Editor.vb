@@ -34,6 +34,9 @@ Module Editor
         Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetas")
         tbEtiquetas.Text = String.Empty
 
+        Dim tbNumCaracteres As TextBlock = pagina.FindName("tbEditorNumCaracteres")
+        tbNumCaracteres.Text = 0
+
     End Sub
 
     Public Async Sub Generar()
@@ -84,6 +87,7 @@ Module Editor
         Dim tbEnlaces As TextBox = pagina.FindName("tbEditorEnlaces")
         Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetas")
         Dim tbLimite As TextBlock = pagina.FindName("tbEditorEnlacesLimite")
+        Dim tbNumCaracteres As TextBlock = pagina.FindName("tbEditorNumCaracteres")
         Dim cbTipo As ComboBox = pagina.FindName("cbEditorTipo")
 
         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
@@ -238,16 +242,17 @@ Module Editor
                         If Not linea = Nothing Then
                             contenidoEnlaces = contenidoEnlaces + linea + Environment.NewLine
                         End If
-
-                        If listaFinal.Count < 51 Then
-                            tbEnlaces.Text = contenidoEnlaces
-                            tbEnlaces.Visibility = Visibility.Visible
-                            tbLimite.Visibility = Visibility.Collapsed
-                        End If
                     Next
 
-                    If listaFinal.Count > 50 Then
-                        Await helper.SaveFileAsync(Of String)("contenidoEnlaces", contenidoEnlaces)
+                    Dim firma As String = Environment.NewLine + "Table generated with [Steam Deals](https://www.microsoft.com/store/apps/9p7836m1tw15)"
+
+                    If listaFinal.Count < 51 Then
+                        tbEnlaces.Text = contenidoEnlaces + firma
+                        tbEnlaces.Visibility = Visibility.Visible
+                        tbLimite.Visibility = Visibility.Collapsed
+                    Else
+                        tbNumCaracteres.Text = contenidoEnlaces.Length.ToString
+                        Await helper.SaveFileAsync(Of String)("contenidoEnlaces", contenidoEnlaces + firma)
                         tbEnlaces.Visibility = Visibility.Collapsed
                         tbLimite.Visibility = Visibility.Visible
                     End If
@@ -397,6 +402,7 @@ Module Editor
                         tbEnlaces.Visibility = Visibility.Visible
                         tbLimite.Visibility = Visibility.Collapsed
                     Else
+                        tbNumCaracteres.Text = contenidoEnlaces.Length.ToString
                         Await helper.SaveFileAsync(Of String)("contenidoEnlaces", contenidoEnlaces)
                         tbEnlaces.Visibility = Visibility.Collapsed
                         tbLimite.Visibility = Visibility.Visible
@@ -404,6 +410,8 @@ Module Editor
 
                     If listaFinal(0).Tienda = "Amazon.es" Then
                         tbEtiquetas.Text = "Amazon, oferta, Formato Físico,"
+                    ElseIf listaFinal(0).Tienda = "GOG" Then
+                        tbEtiquetas.Text = "GOG, oferta, DRM-Free, "
                     ElseIf listaFinal(0).Tienda = "Green Man Gaming" Then
                         tbEtiquetas.Text = "GMG, GreenManGaming, oferta,"
                     Else

@@ -65,9 +65,11 @@
 
         precioFinal = (temp2 * 100).ToString
 
-        If precioFinal.Contains(",") Then
-            Dim int As Integer = precioFinal.IndexOf(",")
-            precioFinal = precioFinal.Remove(int + 3, precioFinal.Length - (int + 3))
+        If precioFinal.Length > 4 Then
+            If precioFinal.Contains(",") Then
+                Dim int As Integer = precioFinal.IndexOf(",")
+                precioFinal = precioFinal.Remove(int + 3, precioFinal.Length - (int + 3))
+            End If
         End If
 
         Return precioFinal

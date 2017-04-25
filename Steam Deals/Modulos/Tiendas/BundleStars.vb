@@ -14,6 +14,9 @@ Module BundleStars
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasBundleStars")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoBundleStars")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -322,7 +325,7 @@ Module BundleStars
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
 
-        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

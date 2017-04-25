@@ -14,6 +14,9 @@ Module SilaGames
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasSilaGames")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoSilaGames")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -207,7 +210,7 @@ Module SilaGames
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
 
-        Ordenar.Ofertas("SilaGames", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("SilaGames", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

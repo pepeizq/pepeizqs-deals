@@ -3,13 +3,14 @@ Imports Windows.Storage
 
 Module Ordenar
 
-    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, antiguo As Boolean)
+    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, buscar As Boolean, ultimas As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
         Dim lv As ListView = pagina.FindName("listado" + tienda)
         Dim numOfertas As TextBlock = pagina.FindName("tbNumOfertas" + tienda)
+        Dim botonUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertas" + tienda)
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo" + tienda)
         Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNada" + tienda)
         Dim botonActualizar As Button = pagina.FindName("botonActualizar" + tienda)
@@ -22,6 +23,10 @@ Module Ordenar
 
         If Not lv Is Nothing Then
             lv.IsEnabled = False
+
+            If Not botonUltimasOfertas Is Nothing Then
+                botonUltimasOfertas.IsEnabled = False
+            End If
 
             If Not botonSeleccionarTodo Is Nothing Then
                 botonSeleccionarTodo.IsEnabled = False
@@ -44,18 +49,25 @@ Module Ordenar
 
             Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
             Dim listaJuegos As List(Of Juego) = Nothing
+            Dim listaUltimasOfertas As List(Of Juego) = New List(Of Juego)
 
-            If antiguo = True Then
+            If buscar = True Then
                 If Await helper.FileExistsAsync("listaOfertas" + tienda) = True Then
                     listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda)
                 End If
             Else
-                listaJuegos = New List(Of Juego)
+                If ultimas = True Then
+                    If Await helper.FileExistsAsync("listaUltimasOfertas" + tienda) = True Then
+                        listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda)
+                    End If
+                Else
+                    listaJuegos = New List(Of Juego)
 
-                For Each item In lv.Items
-                    Dim grid As Grid = item
-                    listaJuegos.Add(grid.Tag)
-                Next
+                    For Each item In lv.Items
+                        Dim grid As Grid = item
+                        listaJuegos.Add(grid.Tag)
+                    Next
+                End If
             End If
 
             If Not listaJuegos Is Nothing Then
@@ -131,7 +143,7 @@ Module Ordenar
 
                 Dim listaJuegosAntigua As New List(Of Juego)
 
-                If antiguo = True Then
+                If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
 
                         If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda) = True Then
@@ -156,7 +168,7 @@ Module Ordenar
                     If tituloGrid = False Then
                         Dim listaGrids As New List(Of Grid)
 
-                        If antiguo = True Then
+                        If buscar = True Then
                             If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
                                 If Not Await helper.FileExistsAsync("listaJuegosUsuario") = True Then
                                     listaGrids.Add(Listado.Generar(juego))
@@ -199,7 +211,7 @@ Module Ordenar
                                                         If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
                                                             boolAntiguo = False
                                                         ElseIf tempJuegoDescuento = tempJuegoAntiguoDescuento Then
-                                                            juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(3)
+                                                            juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(2)
                                                             boolAntiguo = True
                                                         Else
                                                             boolAntiguo = True
@@ -218,6 +230,7 @@ Module Ordenar
                                 If boolAntiguo = False Then
                                     listaGrids.Add(Listado.Generar(juego))
                                     listaJuegosAntigua.Add(juego)
+                                    listaUltimasOfertas.Add(juego)
                                 End If
                             End If
 
@@ -240,7 +253,7 @@ Module Ordenar
                     numOfertas.Text = listaJuegos.Count.ToString + " - " + lv.Items.Count.ToString
                 End If
 
-                If antiguo = True Then
+                If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
 
                         For Each juegoAntiguo In listaJuegosAntigua.ToList
@@ -249,7 +262,7 @@ Module Ordenar
                             End If
 
                             Dim fechaComparar As DateTime = juegoAntiguo.Fecha
-                            fechaComparar = fechaComparar.AddDays(5)
+                            fechaComparar = fechaComparar.AddDays(3)
 
                             If fechaComparar < DateTime.Today Then
                                 listaJuegosAntigua.Remove(juegoAntiguo)
@@ -257,11 +270,21 @@ Module Ordenar
                         Next
 
                         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegosAntigua)
+
+                        If ultimas = False Then
+                            If listaUltimasOfertas.Count > 0 Then
+                                Await helper.SaveFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda, listaUltimasOfertas)
+                            End If
+                        End If
                     End If
                 End If
             End If
 
             lv.IsEnabled = True
+
+            If Not botonUltimasOfertas Is Nothing Then
+                botonUltimasOfertas.IsEnabled = True
+            End If
 
             If Not botonSeleccionarTodo Is Nothing Then
                 botonSeleccionarTodo.IsEnabled = True

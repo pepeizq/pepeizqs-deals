@@ -14,6 +14,9 @@ Module GOG
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasGOG")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGOG")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -208,7 +211,7 @@ Module GOG
         Dim pagina As Page = frame.Content
         Dim cb As ComboBox = pagina.FindName("cbOrdenarGOG")
 
-        Ordenar.Ofertas("GOG", cb.SelectedIndex, True)
+        Ordenar.Ofertas("GOG", cb.SelectedIndex, True, False)
 
     End Sub
 

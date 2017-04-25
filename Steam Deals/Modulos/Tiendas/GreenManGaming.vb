@@ -14,6 +14,9 @@ Module GreenManGaming
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasGreenManGaming")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGreenManGaming")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -194,7 +197,7 @@ Module GreenManGaming
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
 
-        Ordenar.Ofertas("GreenManGaming", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("GreenManGaming", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

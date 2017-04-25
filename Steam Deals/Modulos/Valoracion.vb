@@ -202,7 +202,7 @@ Module Valoracion
             Dim int As Integer = titulo.IndexOf("DLC")
 
             If int = titulo.Length - 3 Then
-                titulo = titulo.Remove(3, titulo.Length - 3)
+                titulo = titulo.Remove(titulo.Length - 3, 3)
             End If
         End If
 

@@ -19,6 +19,9 @@ Module GamersGate
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasGamersGate")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGamersGate")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -295,7 +298,7 @@ Module GamersGate
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
 
-        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

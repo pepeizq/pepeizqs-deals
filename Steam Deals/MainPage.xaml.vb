@@ -74,6 +74,7 @@ Public NotInheritable Class MainPage
 
         '--------------------------------------------------------
 
+        tbEditorUltimasOfertasSteam.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoSteam.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaSteam.Text = recursos.GetString("Seleccionar Nada")
 
@@ -83,6 +84,7 @@ Public NotInheritable Class MainPage
         cbOrdenarSteamTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasGamersGate.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoGamersGate.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaGamersGate.Text = recursos.GetString("Seleccionar Nada")
 
@@ -92,6 +94,7 @@ Public NotInheritable Class MainPage
         cbOrdenarGamersGateTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasGamesPlanet.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoGamesPlanet.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaGamesPlanet.Text = recursos.GetString("Seleccionar Nada")
 
@@ -101,6 +104,7 @@ Public NotInheritable Class MainPage
         cbOrdenarGamesPlanetTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasHumble.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoHumble.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaHumble.Text = recursos.GetString("Seleccionar Nada")
 
@@ -110,6 +114,7 @@ Public NotInheritable Class MainPage
         cbOrdenarHumbleTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasGreenManGaming.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoGreenManGaming.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaGreenManGaming.Text = recursos.GetString("Seleccionar Nada")
 
@@ -119,6 +124,7 @@ Public NotInheritable Class MainPage
         cbOrdenarGreenManGamingTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGreenManGaming.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasBundleStars.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoBundleStars.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaBundleStars.Text = recursos.GetString("Seleccionar Nada")
 
@@ -128,6 +134,7 @@ Public NotInheritable Class MainPage
         cbOrdenarBundleStarsTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarBundleStars.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasGOG.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoGOG.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaGOG.Text = recursos.GetString("Seleccionar Nada")
 
@@ -137,6 +144,7 @@ Public NotInheritable Class MainPage
         cbOrdenarGOGTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasWinGameStore.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoWinGameStore.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaWinGameStore.Text = recursos.GetString("Seleccionar Nada")
 
@@ -146,6 +154,7 @@ Public NotInheritable Class MainPage
         cbOrdenarWinGameStoreTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasSilaGames.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoSilaGames.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaSilaGames.Text = recursos.GetString("Seleccionar Nada")
 
@@ -155,6 +164,7 @@ Public NotInheritable Class MainPage
         cbOrdenarSilaGamesTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasDLGamer.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoDLGamer.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaDLGamer.Text = recursos.GetString("Seleccionar Nada")
 
@@ -164,6 +174,7 @@ Public NotInheritable Class MainPage
         cbOrdenarDLGamerTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarDLGamer.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasNuuvem.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoNuuvem.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaNuuvem.Text = recursos.GetString("Seleccionar Nada")
 
@@ -173,6 +184,7 @@ Public NotInheritable Class MainPage
         cbOrdenarNuuvemTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasMicrosoftStore.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoMicrosoftStore.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaMicrosoftStore.Text = recursos.GetString("Seleccionar Nada")
 
@@ -182,6 +194,7 @@ Public NotInheritable Class MainPage
         cbOrdenarMicrosoftStoreTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasAmazonEs.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoAmazonEs.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaAmazonEs.Text = recursos.GetString("Seleccionar Nada")
 
@@ -191,6 +204,7 @@ Public NotInheritable Class MainPage
         cbOrdenarAmazonEsTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
+        tbEditorUltimasOfertasAmazonUk.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoAmazonUk.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaAmazonUk.Text = recursos.GetString("Seleccionar Nada")
 
@@ -549,7 +563,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaSteam.Visibility = Visibility.Visible Then
             If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False)
+                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSteam.Click
+
+        If gridTiendaSteam.Visibility = Visibility.Visible Then
+            If Not gridProgresoSteam.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, True)
             End If
         End If
 
@@ -582,7 +606,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGamersGate.Visibility = Visibility.Visible Then
             If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False)
+                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGamersGate.Click
+
+        If gridTiendaGamersGate.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, True)
             End If
         End If
 
@@ -615,7 +649,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
             If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False)
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGamesPlanet.Click
+
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, True)
             End If
         End If
 
@@ -648,7 +692,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaHumble.Visibility = Visibility.Visible Then
             If Not gridProgresoHumble.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False)
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasHumble.Click
+
+        If gridTiendaHumble.Visibility = Visibility.Visible Then
+            If Not gridProgresoHumble.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, True)
             End If
         End If
 
@@ -681,7 +735,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
             If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False)
+                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGreenManGaming.Click
+
+        If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
+            If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, True)
             End If
         End If
 
@@ -714,7 +778,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaBundleStars.Visibility = Visibility.Visible Then
             If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False)
+                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasBundleStars.Click
+
+        If gridTiendaBundleStars.Visibility = Visibility.Visible Then
+            If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, True)
             End If
         End If
 
@@ -747,7 +821,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGOG.Visibility = Visibility.Visible Then
             If Not gridProgresoGOG.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False)
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGOG.Click
+
+        If gridTiendaGOG.Visibility = Visibility.Visible Then
+            If Not gridProgresoGOG.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, True)
             End If
         End If
 
@@ -780,7 +864,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
             If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False)
+                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasWinGameStore.Click
+
+        If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, True)
             End If
         End If
 
@@ -813,7 +907,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaSilaGames.Visibility = Visibility.Visible Then
             If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False)
+                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSilaGames.Click
+
+        If gridTiendaSilaGames.Visibility = Visibility.Visible Then
+            If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, True)
             End If
         End If
 
@@ -846,7 +950,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaDLGamer.Visibility = Visibility.Visible Then
             If Not gridProgresoDLGamer.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, False)
+                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasDLGamer.Click
+
+        If gridTiendaDLGamer.Visibility = Visibility.Visible Then
+            If Not gridProgresoDLGamer.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, False, True)
             End If
         End If
 
@@ -879,7 +993,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaNuuvem.Visibility = Visibility.Visible Then
             If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False)
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasNuuvem.Click
+
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, True)
             End If
         End If
 
@@ -912,7 +1036,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
             If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False)
+                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasMicrosoftStore.Click
+
+        If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, True)
             End If
         End If
 
@@ -945,7 +1079,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
             If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False)
+                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonEs.Click
+
+        If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, True)
             End If
         End If
 
@@ -978,7 +1122,17 @@ Public NotInheritable Class MainPage
 
         If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
             If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False)
+                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, False)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonEditorUltimasOfertasAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonUk.Click
+
+        If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, True)
             End If
         End If
 
@@ -1103,6 +1257,14 @@ Public NotInheritable Class MainPage
             spEditorMicrosoftStore.Visibility = Visibility.Collapsed
             spEditorAmazonEs.Visibility = Visibility.Collapsed
             spEditorAmazonUk.Visibility = Visibility.Collapsed
+        End If
+
+    End Sub
+
+    Private Sub TbEditorEnlaces_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorEnlaces.TextChanged
+
+        If tbEditorEnlaces.Visibility = Visibility.Visible Then
+            tbEditorNumCaracteres.Text = tbEditorEnlaces.Text.Length.ToString
         End If
 
     End Sub

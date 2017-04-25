@@ -14,6 +14,9 @@ Module GamesPlanet
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasGamesPlanet")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGamesPlanet")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -266,7 +269,7 @@ Module GamesPlanet
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
 
-        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("GamesPlanet", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

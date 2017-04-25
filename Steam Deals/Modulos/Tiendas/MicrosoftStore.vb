@@ -14,6 +14,9 @@ Module MicrosoftStore
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasMicrosoftStore")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoMicrosoftStore")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -209,7 +212,7 @@ Module MicrosoftStore
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarMicrosoftStore")
 
-        Ordenar.Ofertas("MicrosoftStore", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("MicrosoftStore", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 

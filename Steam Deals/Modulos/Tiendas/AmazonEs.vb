@@ -17,6 +17,9 @@ Module AmazonEs
         lv.IsEnabled = False
         lv.Items.Clear()
 
+        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasAmazonEs")
+        botonEditorUltimasOfertas.IsEnabled = False
+
         Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoAmazonEs")
         botonSeleccionarTodo.IsEnabled = False
 
@@ -228,7 +231,7 @@ Module AmazonEs
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonEs")
 
-        Ordenar.Ofertas("AmazonEs", cbOrdenar.SelectedIndex, True)
+        Ordenar.Ofertas("AmazonEs", cbOrdenar.SelectedIndex, True, False)
 
     End Sub
 
