@@ -47,7 +47,11 @@ Module Humble
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+
+        If helper.FileExistsAsync("listaValoraciones").Result Then
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+        End If
 
         listaJuegos = New List(Of Juego)
         Dim terminar As Boolean = False

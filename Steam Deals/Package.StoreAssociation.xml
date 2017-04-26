@@ -358,7 +358,7 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>5078pepeizq.SteamDeals</MainPackageIdentityName>
+    <MainPackageIdentityName>pepeizq.SteamDeals</MainPackageIdentityName>
     <ReservedNames>
       <ReservedName>Steam Deals</ReservedName>
     </ReservedNames>

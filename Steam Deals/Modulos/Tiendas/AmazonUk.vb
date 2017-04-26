@@ -52,7 +52,11 @@ Module AmazonUk
             listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaAmazonUk").Result
         End If
 
-        Dim listaValoraciones As List(Of JuegoValoracion) = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+
+        If helper.FileExistsAsync("listaValoraciones").Result Then
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+        End If
 
         listaJuegos = New List(Of Juego)
 

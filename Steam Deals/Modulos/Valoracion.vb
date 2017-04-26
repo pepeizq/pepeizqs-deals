@@ -181,11 +181,15 @@ Module Valoracion
 
         titulo = LimpiarTitulo(titulo)
 
-        For Each juego In lista
-            If titulo = juego.Titulo Then
-                valoracion = juego
+        If Not lista Is Nothing Then
+            If lista.Count > 0 Then
+                For Each juego In lista
+                    If titulo = juego.Titulo Then
+                        valoracion = juego
+                    End If
+                Next
             End If
-        Next
+        End If
 
         If valoracion Is Nothing Then
             valoracion = New JuegoValoracion(Nothing, Nothing, Nothing)
