@@ -153,6 +153,8 @@ Module AmazonEs
 
                         Dim descuento As String = Nothing
 
+                        Dim encontrado As Boolean = False
+
                         If listaJuegosAntigua.Count > 0 Then
                             For Each juegoAntiguo In listaJuegosAntigua
                                 If juegoAntiguo.Enlace1 = enlace Then
@@ -181,12 +183,16 @@ Module AmazonEs
                                     End If
 
                                     juegoAntiguo.Precio1 = precio
+                                    encontrado = True
                                 End If
                             Next
                         End If
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        If encontrado = False Then
+                            descuento = "00%"
+                        End If
 
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
                         Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
@@ -304,6 +310,7 @@ Module AmazonEs
         titulo = titulo.Replace("&#225;", "á")
         titulo = titulo.Replace("&#233;", "é")
         titulo = titulo.Replace("&#243;", "ó")
+        titulo = titulo.Replace("&#246;", "ö")
         titulo = titulo.Replace("&#252;", "ü")
         titulo = titulo.Replace("&ntilde;", "ñ")
         titulo = titulo.Replace("&eacute;", "é")

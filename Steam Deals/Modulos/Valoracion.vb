@@ -156,6 +156,7 @@ Module Valoracion
         Dim tb As TextBlock = pagina.FindName("tbValoracionAvance")
 
         tb.Text = e.ProgressPercentage.ToString + "%"
+        tb.Margin = New Thickness(10, 0, 10, 0)
 
     End Sub
 

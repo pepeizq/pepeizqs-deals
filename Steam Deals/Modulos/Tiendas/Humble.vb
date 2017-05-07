@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Windows.Globalization
 Imports Windows.Globalization.NumberFormatting
 
 Module Humble
@@ -143,10 +144,14 @@ Module Humble
                             int10 = temp9.IndexOf(",")
                             temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                            temp10 = temp10.Replace(".", ",")
+                            If Language.CurrentInputMethodLanguageTag = "es-ES" Then
+                                temp10 = temp10.Replace(".", ",")
+                            Else
+                                temp10 = temp10.Replace(",", ".")
+                            End If
 
-                            Dim tempDecimal As Decimal = Decimal.Parse(temp10.Trim)
-                            tempDecimal = Math.Round(tempDecimal, 2)
+                            Dim tempDouble As Double = Convert.ToDouble(temp10.Trim)
+                            tempDouble = Math.Round(tempDouble, 2)
 
                             int11 = temp9.IndexOf(ChrW(34))
                             temp11 = temp9.Remove(0, int11 + 1)
@@ -158,7 +163,7 @@ Module Humble
                                         .Mode = CurrencyFormatterMode.UseSymbol
                                     }
 
-                            Dim precio As String = formateador.Format(tempDecimal)
+                            Dim precio As String = formateador.Format(tempDouble)
 
                             Dim temp13, temp14 As String
                             Dim int13, int14 As Integer

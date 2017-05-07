@@ -317,7 +317,12 @@ Module Editor
                     Dim imagen As String = Nothing
 
                     If listaFinal(0).Tienda = "Amazon.es" Then
-                        imagen = listaFinal(0).Imagen.Replace("_AC_US160_", "_SY445_") + ChrW(34) + " Width=" + ChrW(34) + "20%"
+                        imagen = listaFinal(0).Imagen
+
+                        imagen = imagen.Replace("_AC_US160_", "_SY445_")
+                        imagen = imagen.Replace("_AC_US218_", "_SY445_")
+
+                        imagen = imagen + ChrW(34) + " Width=" + ChrW(34) + "20%"
                     Else
                         imagen = listaFinal(0).Imagen
                     End If
@@ -361,7 +366,7 @@ Module Editor
                         End If
 
                         If juego.Tienda = "GamersGate" Then
-                            contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado2 + ChrW(34) + ">" +
+                            contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado3 + ChrW(34) + ">" +
                                descuento + juego.Titulo + " {UK}</a> - " + juego.Precio3 + " (o " + Divisas.CambioMoneda(juego.Precio3, tbLibra.Text) + ")" + drm +
                                "</li>" + Environment.NewLine
                             contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
@@ -381,6 +386,9 @@ Module Editor
                             contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
                                descuento + juego.Titulo + "</a> - " + juego.Precio1 + " (o " + Divisas.CambioMoneda(juego.Precio1, tbDolar.Text) + ")" + drm +
                                "</li>" + Environment.NewLine
+                        ElseIf juego.Tienda = "Amazon.es" Then
+                            contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
+                               juego.Titulo + "</a> - " + juego.Precio1 + drm + "</li>" + Environment.NewLine
                         Else
                             Dim enlace As String = Nothing
                             If Not juego.Afiliado1 = Nothing Then
@@ -432,7 +440,6 @@ Module Editor
 
         Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetas")
         Dim tbNotas As TextBox = pagina.FindName("tbEditorNotas")
-        Dim tbAviso As TextBlock = pagina.FindName("tbEditorAviso")
         Dim cbTipo As ComboBox = pagina.FindName("cbEditorTipo")
 
         If cbTipo.SelectedIndex = 0 Then
@@ -441,9 +448,6 @@ Module Editor
             tbEtiquetas.Visibility = Visibility.Collapsed
             tbNotas.Text = String.Empty
             tbNotas.Visibility = Visibility.Collapsed
-
-            tbAviso.Text = recursos.GetString("Aviso Reddit")
-            tbAviso.Visibility = Visibility.Visible
 
         ElseIf cbTipo.SelectedIndex = 1 Then
 
@@ -460,8 +464,6 @@ Module Editor
             tbNotas.Text = notas
             tbNotas.Visibility = Visibility.Visible
 
-            tbAviso.Text = String.Empty
-            tbAviso.Visibility = Visibility.Collapsed
         End If
 
     End Sub
@@ -482,6 +484,8 @@ Module Editor
             tienda = "@GreenManGaming"
         ElseIf tienda = "Humble Store" Then
             tienda = "@humblestore"
+        ElseIf tienda = "Microsoft Store" Then
+            tienda = "@MicrosoftStore"
         ElseIf tienda = "Steam" Then
             tienda = "@steam_games"
         ElseIf tienda = "WinGameStore" Then

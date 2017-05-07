@@ -197,11 +197,13 @@ Module Ordenar
                             If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
                                 Dim boolAntiguo As Boolean = False
 
-                                If Not listaJuegosAntigua Is Nothing Then
-                                    For Each juegoAntiguo In listaJuegosAntigua
-                                        If juego.Tienda = "Amazon.es" Then
-                                            boolAntiguo = False
-                                        Else
+                                If tienda = "AmazonEs" Then
+                                    boolAntiguo = False
+                                ElseIf tienda = "AmazonUk" Then
+                                    boolAntiguo = False
+                                Else
+                                    If Not listaJuegosAntigua Is Nothing Then
+                                        For Each juegoAntiguo In listaJuegosAntigua
                                             If juegoAntiguo.Enlace1 = juego.Enlace1 Then
                                                 If Not juegoAntiguo.Descuento = Nothing Then
                                                     If Not juego.Descuento = Nothing Then
@@ -223,8 +225,8 @@ Module Ordenar
                                                     boolAntiguo = True
                                                 End If
                                             End If
-                                        End If
-                                    Next
+                                        Next
+                                    End If
                                 End If
 
                                 If boolAntiguo = False Then
@@ -251,23 +253,33 @@ Module Ordenar
 
                 If Not numOfertas Is Nothing Then
                     numOfertas.Text = listaJuegos.Count.ToString + " - " + lv.Items.Count.ToString
+                    numOfertas.Margin = New Thickness(10, 0, 15, 0)
                 End If
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                        Dim boolBorrar As Boolean = False
 
-                        For Each juegoAntiguo In listaJuegosAntigua.ToList
-                            If juegoAntiguo.Fecha = Nothing Then
-                                juegoAntiguo.Fecha = DateTime.Today
-                            End If
+                        If tienda = "AmazonEs" Then
+                            boolBorrar = True
+                        ElseIf tienda = "AmazonUk" Then
+                            boolBorrar = True
+                        End If
 
-                            Dim fechaComparar As DateTime = juegoAntiguo.Fecha
-                            fechaComparar = fechaComparar.AddDays(3)
+                        If boolBorrar = False Then
+                            For Each juegoAntiguo In listaJuegosAntigua.ToList
+                                If juegoAntiguo.Fecha = Nothing Then
+                                    juegoAntiguo.Fecha = DateTime.Today
+                                End If
 
-                            If fechaComparar < DateTime.Today Then
-                                listaJuegosAntigua.Remove(juegoAntiguo)
-                            End If
-                        Next
+                                Dim fechaComparar As DateTime = juegoAntiguo.Fecha
+                                fechaComparar = fechaComparar.AddDays(3)
+
+                                If fechaComparar < DateTime.Today Then
+                                    listaJuegosAntigua.Remove(juegoAntiguo)
+                                End If
+                            Next
+                        End If
 
                         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegosAntigua)
 

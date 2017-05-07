@@ -95,6 +95,7 @@ Module MicrosoftStore
                                 temp4 = temp3.Remove(int4, temp3.Length - int4)
 
                                 temp4 = temp4.Replace("&#225;", "á")
+                                temp4 = temp4.Replace("&#237;", "í")
                                 temp4 = temp4.Replace("&#243;", "ó")
 
                                 Dim titulo As String = temp4.Trim

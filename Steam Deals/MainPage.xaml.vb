@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.ApplicationModel.Core
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 Imports Windows.System
@@ -11,42 +12,32 @@ Public NotInheritable Class MainPage
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
+        'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
+
+        Acrilico.Generar(gridTopAcrilico)
+        Acrilico.Generar(gridMenuAcrilico)
 
         Dim barra As ApplicationViewTitleBar = ApplicationView.GetForCurrentView().TitleBar
-
-        barra.BackgroundColor = Colors.DarkOliveGreen
-        barra.ForegroundColor = Colors.White
-        barra.InactiveForegroundColor = Colors.White
-        barra.ButtonBackgroundColor = Colors.DarkOliveGreen
+        barra.ButtonBackgroundColor = Colors.Transparent
         barra.ButtonForegroundColor = Colors.White
-        barra.ButtonInactiveForegroundColor = Colors.White
+        barra.ButtonPressedBackgroundColor = Colors.OliveDrab
+        barra.ButtonInactiveBackgroundColor = Colors.Transparent
+        Dim coreBarra As CoreApplicationViewTitleBar = CoreApplication.GetCurrentView.TitleBar
+        coreBarra.ExtendViewIntoTitleBar = True
 
         '--------------------------------------------------------
 
         Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
-        botonInicioTexto.Text = recursos.GetString("Boton Inicio")
         botonOfertasTexto.Text = recursos.GetString("Ofertas")
         botonEditorTexto.Text = recursos.GetString("Editor")
         botonConfigTexto.Text = recursos.GetString("Boton Config")
+        botonVotarTexto.Text = recursos.GetString("Boton Votar")
+        botonMasAppsTexto.Text = recursos.GetString("Boton Web")
 
-        commadBarTop.DefaultLabelPosition = CommandBarDefaultLabelPosition.Right
+        botonConfigOfertasTexto.Text = recursos.GetString("Ofertas")
+        botonConfigEditorTexto.Text = recursos.GetString("Editor")
 
-        botonInicioVotarTexto.Text = recursos.GetString("Boton Votar")
-        botonInicioCompartirTexto.Text = recursos.GetString("Boton Compartir")
-        botonInicioContactoTexto.Text = recursos.GetString("Boton Contactar")
-        botonInicioMasAppsTexto.Text = recursos.GetString("Boton Web")
-
-        tbRSSUpdates.Text = recursos.GetString("RSS Updates")
-
-        tbConsejoConfig.Text = recursos.GetString("Consejo Config")
-        tbInicioGrid.Text = recursos.GetString("Grid Arranque")
-
-        cbItemArranqueInicio.Content = recursos.GetString("Boton Inicio")
-        cbItemArranqueOfertas.Content = recursos.GetString("Ofertas")
-        cbItemArranqueConfig.Content = recursos.GetString("Boton Config")
-
-        tbConfig.Text = recursos.GetString("Boton Config")
         tbSteamConfigCuenta.Text = recursos.GetString("Config Cuenta Steam")
         tbConfigDescartar.Text = recursos.GetString("Config Descartar")
         tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
@@ -65,6 +56,9 @@ Public NotInheritable Class MainPage
         End If
 
         cbConfigEditor.Content = recursos.GetString("Editor")
+        tbConfigEditorAviso.Text = recursos.GetString("Aviso Editor")
+        tbConfigDivisas.Text = recursos.GetString("Divisas")
+
         tbEditorEnlacesLimite.Text = recursos.GetString("Editor Limite")
         tbEditorCopiarTitulo.Text = recursos.GetString("Copiar Titulo")
         tbEditorCortarTitulo.Text = recursos.GetString("Cortar Titulo")
@@ -244,23 +238,6 @@ Public NotInheritable Class MainPage
             cbConfigDescartarUltimaVisita.IsChecked = True
         End If
 
-        If ApplicationData.Current.LocalSettings.Values("cbarranque") = Nothing Then
-            cbArranque.SelectedIndex = 0
-            ApplicationData.Current.LocalSettings.Values("cbarranque") = "0"
-        Else
-            cbArranque.SelectedIndex = ApplicationData.Current.LocalSettings.Values("cbarranque")
-
-            If cbArranque.SelectedIndex = 0 Then
-                GridVisibilidad(gridInicio, botonInicio, Nothing)
-            ElseIf cbArranque.SelectedIndex = 1 Then
-                GridVisibilidad(gridDeals, botonOfertas, Nothing)
-            ElseIf cbArranque.SelectedIndex = 2 Then
-                GridVisibilidad(Nothing, botonConfig, gridConfig)
-            Else
-                GridVisibilidad(gridInicio, botonInicio, Nothing)
-            End If
-        End If
-
         If ApplicationData.Current.LocalSettings.Values("editor") = Nothing Then
             cbConfigEditor.IsChecked = False
             EditorVisibilidad(False)
@@ -275,16 +252,7 @@ Public NotInheritable Class MainPage
             End If
         End If
 
-        tbVersionApp.Text = "App " + SystemInformation.ApplicationVersion.Major.ToString + "." + SystemInformation.ApplicationVersion.Minor.ToString + "." + SystemInformation.ApplicationVersion.Build.ToString + "." + SystemInformation.ApplicationVersion.Revision.ToString
-        tbVersionWindows.Text = "Windows " + SystemInformation.OperatingSystemVersion.Major.ToString + "." + SystemInformation.OperatingSystemVersion.Minor.ToString + "." + SystemInformation.OperatingSystemVersion.Build.ToString + "." + SystemInformation.OperatingSystemVersion.Revision.ToString
-
-        '--------------------------------------------------------
-
-        Try
-            RSS.Generar()
-        Catch ex As Exception
-
-        End Try
+        GridVisibilidad(gridDeals, botonOfertas, recursos.GetString("Ofertas"))
 
         '--------------------------------------------------------
 
@@ -300,95 +268,62 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub GridVisibilidad(grid As Grid, boton As AppBarButton, sp As StackPanel)
+    Private Sub GridVisibilidad(grid As Grid, boton As Button, seccion As String)
 
-        gridInicio.Visibility = Visibility.Collapsed
+        tbTitulo.Text = "Steam Deals (" + SystemInformation.ApplicationVersion.Major.ToString + "." + SystemInformation.ApplicationVersion.Minor.ToString + "." + SystemInformation.ApplicationVersion.Build.ToString + "." + SystemInformation.ApplicationVersion.Revision.ToString + ") - " + seccion
+
         gridDeals.Visibility = Visibility.Collapsed
         gridEditor.Visibility = Visibility.Collapsed
         gridConfig.Visibility = Visibility.Collapsed
-        gridWeb.Visibility = Visibility.Collapsed
 
-        If Not sp Is Nothing Then
-            sp.Visibility = Visibility.Visible
-        Else
-            grid.Visibility = Visibility.Visible
-        End If
+        grid.Visibility = Visibility.Visible
 
-        botonInicio.BorderBrush = New SolidColorBrush(Colors.Transparent)
-        botonInicio.BorderThickness = New Thickness(0, 0, 0, 0)
-        botonOfertas.BorderBrush = New SolidColorBrush(Colors.Transparent)
-        botonOfertas.BorderThickness = New Thickness(0, 0, 0, 0)
-        botonEditor.BorderBrush = New SolidColorBrush(Colors.Transparent)
-        botonEditor.BorderThickness = New Thickness(0, 0, 0, 0)
-        botonConfig.BorderBrush = New SolidColorBrush(Colors.Transparent)
-        botonConfig.BorderThickness = New Thickness(0, 0, 0, 0)
+        botonOfertas.Background = New SolidColorBrush(Colors.Transparent)
+        botonEditor.Background = New SolidColorBrush(Colors.Transparent)
+        botonConfig.Background = New SolidColorBrush(Colors.Transparent)
 
         If Not boton Is Nothing Then
-            boton.BorderBrush = New SolidColorBrush(Colors.White)
-            boton.BorderThickness = New Thickness(0, 2, 0, 0)
+            boton.Background = New SolidColorBrush(Colors.OliveDrab)
         End If
-
-    End Sub
-
-    Private Sub BotonInicio_Click(sender As Object, e As RoutedEventArgs) Handles botonInicio.Click
-
-        GridVisibilidad(gridInicio, botonInicio, Nothing)
 
     End Sub
 
     Private Sub BotonOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertas.Click
 
-        GridVisibilidad(gridDeals, botonOfertas, Nothing)
+        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+        GridVisibilidad(gridDeals, botonOfertas, recursos.GetString("Ofertas"))
 
     End Sub
 
     Private Sub BotonEditor_Click(sender As Object, e As RoutedEventArgs) Handles botonEditor.Click
 
-        GridVisibilidad(gridEditor, botonEditor, Nothing)
+        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+        GridVisibilidad(gridEditor, botonEditor, recursos.GetString("Editor"))
 
     End Sub
 
     Private Sub BotonConfig_Click(sender As Object, e As RoutedEventArgs) Handles botonConfig.Click
 
-        GridVisibilidad(Nothing, botonConfig, gridConfig)
+        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+        GridVisibilidad(gridConfig, botonConfig, recursos.GetString("Boton Config"))
+        GridVisibilidadConfig(gridConfigOfertas, botonConfigOfertas)
 
     End Sub
 
-    Private Async Sub BotonInicioVotar_Click(sender As Object, e As RoutedEventArgs) Handles botonInicioVotar.Click
+    Private Async Sub BotonVotar_Click(sender As Object, e As RoutedEventArgs) Handles botonVotar.Click
 
         Await Launcher.LaunchUriAsync(New Uri("ms-windows-store:REVIEW?PFN=" + Package.Current.Id.FamilyName))
 
     End Sub
 
-    Private Sub BotonInicioCompartir_Click(sender As Object, e As RoutedEventArgs) Handles botonInicioCompartir.Click
+    Private Sub BotonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
 
-        Dim datos As DataTransferManager = DataTransferManager.GetForCurrentView()
-        AddHandler datos.DataRequested, AddressOf MainPage_DataRequested
-        DataTransferManager.ShowShareUI()
-
-    End Sub
-
-    Private Sub MainPage_DataRequested(sender As DataTransferManager, e As DataRequestedEventArgs)
-
-        Dim request As DataRequest = e.Request
-        request.Data.SetText("Download: https://www.microsoft.com/store/apps/9p7836m1tw15")
-        request.Data.Properties.Title = "Steam Deals"
-        request.Data.Properties.Description = "Find the best deals on Steam and other digital stores"
-
-    End Sub
-
-    Private Sub BotonInicioContacto_Click(sender As Object, e As RoutedEventArgs) Handles botonInicioContacto.Click
-
-        GridVisibilidad(gridWeb, Nothing, Nothing)
-
-    End Sub
-
-    Private Sub BotonInicioMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonInicioMasApps.Click
-
-        If spMasApps.Visibility = Visibility.Visible Then
-            spMasApps.Visibility = Visibility.Collapsed
+        If popupMasApps.IsOpen = True Then
+            botonMasApps.Background = New SolidColorBrush(Colors.Transparent)
+            popupMasApps.IsOpen = False
         Else
-            spMasApps.Visibility = Visibility.Visible
+            botonMasApps.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            popupMasApps.IsOpen = True
         End If
 
     End Sub
@@ -417,75 +352,30 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub LvRSSUpdates_ItemClick(sender As Object, e As ItemClickEventArgs) Handles lvRSSUpdates.ItemClick
-
-        Dim feed As FeedRSS = e.ClickedItem
-        Await Launcher.LaunchUriAsync(feed.Enlace)
-
-    End Sub
-
-    Private Sub CbArranque_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbArranque.SelectionChanged
-
-        ApplicationData.Current.LocalSettings.Values("cbarranque") = cbArranque.SelectedIndex
-
-    End Sub
-
-    Private Async Sub BotonSocialTwitter_Click(sender As Object, e As RoutedEventArgs) Handles botonSocialTwitter.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://twitter.com/pepeizqapps"))
-
-    End Sub
-
-    Private Async Sub BotonSocialGitHub_Click(sender As Object, e As RoutedEventArgs) Handles botonSocialGitHub.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://github.com/pepeizq"))
-
-    End Sub
-
-    Private Async Sub BotonSocialPaypal_Click(sender As Object, e As RoutedEventArgs) Handles botonSocialPaypal.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://paypal.me/pepeizq/1"))
-
-    End Sub
-
     'OFERTAS-----------------------------------------------------------------------------
 
     Private Sub GridTiendasVisibilidad(grid As Grid, boton As Button)
 
-        GridVisibilidad(gridDeals, botonOfertas, Nothing)
+        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+        GridVisibilidad(gridDeals, botonOfertas, recursos.GetString("Ofertas"))
 
         If Not boton Is Nothing Then
             botonTiendaSteam.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaSteam.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaGamersGate.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaGamersGate.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaGamesPlanet.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaHumble.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaHumble.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaGreenManGaming.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaBundleStars.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaGOG.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaWinGameStore.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaSilaGames.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaDLGamer.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaDLGamer.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaNuuvem.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaNuuvem.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaMicrosoftStore.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaAmazonEs.BorderBrush = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaAmazonUk.BorderBrush = New SolidColorBrush(Colors.Transparent)
 
             boton.Background = New SolidColorBrush(Colors.DarkOliveGreen)
-            boton.BorderBrush = New SolidColorBrush(Colors.White)
         End If
 
         gridTiendaSteam.Visibility = Visibility.Collapsed
@@ -1140,6 +1030,32 @@ Public NotInheritable Class MainPage
 
     'CONFIG-----------------------------------------------------------------------------
 
+    Private Sub BotonConfigOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonConfigOfertas.Click
+
+        GridVisibilidadConfig(gridConfigOfertas, botonConfigOfertas)
+
+    End Sub
+
+    Private Sub BotonConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles botonConfigEditor.Click
+
+        GridVisibilidadConfig(gridConfigEditor, botonConfigEditor)
+
+    End Sub
+
+    Private Sub GridVisibilidadConfig(grid As Grid, boton As Button)
+
+        gridConfigOfertas.Visibility = Visibility.Collapsed
+        gridConfigEditor.Visibility = Visibility.Collapsed
+
+        grid.Visibility = Visibility.Visible
+
+        botonConfigOfertas.Background = New SolidColorBrush(Colors.Transparent)
+        botonConfigEditor.Background = New SolidColorBrush(Colors.Transparent)
+
+        boton.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+    End Sub
+
     Private Sub TbSteamConfigCuentaID_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbSteamConfigCuentaID.TextChanged
 
         CuentaSteam.BuscarJuegos()
@@ -1529,5 +1445,6 @@ Public NotInheritable Class MainPage
         SeleccionarEnlaces(listadoAmazonUk, False)
 
     End Sub
+
 
 End Class

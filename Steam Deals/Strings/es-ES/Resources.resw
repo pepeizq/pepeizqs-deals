@@ -249,4 +249,10 @@
   <data name="Editor Limite Caracteres" xml:space="preserve">
     <value>Aviso: Limite de caracteres superado</value>
   </data>
+  <data name="Aviso Editor" xml:space="preserve">
+    <value>Activar esta opción cambiará como funciona la aplicación, si la activas cada oferta que selecciones generara un codigo en la seccion Editor</value>
+  </data>
+  <data name="Divisas" xml:space="preserve">
+    <value>Divisas</value>
+  </data>
 </root>

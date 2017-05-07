@@ -151,6 +151,8 @@ Module AmazonUk
 
                         Dim descuento As String = Nothing
 
+                        Dim encontrado As Boolean = False
+
                         If listaJuegosAntigua.Count > 0 Then
                             For Each juegoAntiguo In listaJuegosAntigua
                                 If juegoAntiguo.Enlace1 = enlace Then
@@ -179,8 +181,13 @@ Module AmazonUk
                                     End If
 
                                     juegoAntiguo.Precio1 = precio
+                                    encontrado = True
                                 End If
                             Next
+                        End If
+
+                        If encontrado = False Then
+                            descuento = "00%"
                         End If
 
                         Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)

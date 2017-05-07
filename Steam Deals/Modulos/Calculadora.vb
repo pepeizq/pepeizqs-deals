@@ -1,43 +1,66 @@
-﻿Public Module Calculadora
+﻿Imports Windows.Globalization
+
+Public Module Calculadora
 
     Public Function GenerarDescuento(precioBase As String, precioRebajado As String)
 
         Dim descuentoFinal As String = "0%"
-        Dim temp, temp2 As Double
+        Dim douBase, douRebajado As Double
 
         If Not precioBase = Nothing Then
             precioBase = precioBase.Replace("€", Nothing)
             precioBase = precioBase.Replace("$", Nothing)
             precioBase = precioBase.Replace("£", Nothing)
-            precioBase = precioBase.Replace(".", ",")
             precioBase = precioBase.Replace("-", Nothing)
             precioBase = precioBase.Trim
+
+            If Language.CurrentInputMethodLanguageTag = "es-ES" Then
+                precioBase = precioBase.Replace(".", ",")
+            Else
+                precioBase = precioBase.Replace(",", ".")
+            End If
 
             If precioBase.IndexOf(",") = 0 Then
                 precioBase = "0" + precioBase
             End If
+
+            If precioBase.IndexOf(".") = 0 Then
+                precioBase = "0" + precioBase
+            End If
+
+            douBase = Convert.ToDouble(precioBase)
         End If
 
         If Not precioRebajado = Nothing Then
             precioRebajado = precioRebajado.Replace("€", Nothing)
             precioRebajado = precioRebajado.Replace("$", Nothing)
             precioRebajado = precioRebajado.Replace("£", Nothing)
-            precioRebajado = precioRebajado.Replace(".", ",")
             precioRebajado = precioRebajado.Replace("-", Nothing)
             precioRebajado = precioRebajado.Trim
+
+            If Language.CurrentInputMethodLanguageTag = "es-ES" Then
+                precioRebajado = precioRebajado.Replace(".", ",")
+            Else
+                precioRebajado = precioRebajado.Replace(",", ".")
+            End If
 
             If precioRebajado.IndexOf(",") = 0 Then
                 precioRebajado = "0" + precioRebajado
             End If
+
+            If precioRebajado.IndexOf(".") = 0 Then
+                precioRebajado = "0" + precioRebajado
+            End If
+
+            douRebajado = Convert.ToDouble(precioRebajado)
         End If
 
-        If Not precioBase = Nothing Then
-            If Not precioRebajado = Nothing Then
-                temp = precioRebajado * 100
-                temp2 = 100 - (temp / precioBase)
+        If Not douBase = Nothing Then
+            If Not douRebajado = Nothing Then
+                Dim douResultado As Double = Math.Abs(100 - ((douRebajado / douBase) * 100))
 
-                descuentoFinal = Math.Round(temp2, 0).ToString
-                descuentoFinal = descuentoFinal.Replace(".", ",") + "%"
+                descuentoFinal = Math.Round(douResultado, 0).ToString
+                descuentoFinal = descuentoFinal + "%"
 
                 If descuentoFinal.Length = 2 Then
                     descuentoFinal = "0" + descuentoFinal

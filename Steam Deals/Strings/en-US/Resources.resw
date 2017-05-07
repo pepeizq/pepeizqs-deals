@@ -250,4 +250,10 @@ Reddit adds the rating of each game, keep this option updated</value>
   <data name="Editor Limite Caracteres" xml:space="preserve">
     <value>Warning: Character Limit exceeded</value>
   </data>
+  <data name="Aviso Editor" xml:space="preserve">
+    <value>Activate this option will change how the application works, if you activate it every deal you select will generate a code in the section Editor</value>
+  </data>
+  <data name="Divisas" xml:space="preserve">
+    <value>Currencies</value>
+  </data>
 </root>
