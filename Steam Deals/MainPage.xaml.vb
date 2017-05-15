@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp
+﻿Imports Microsoft.Services.Store.Engagement
+Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.ApplicationModel.Core
 Imports Windows.ApplicationModel.DataTransfer
@@ -35,7 +36,7 @@ Public NotInheritable Class MainPage
         botonVotarTexto.Text = recursos.GetString("Boton Votar")
         botonMasCosasTexto.Text = recursos.GetString("Boton Cosas")
 
-        botonContactarTexto.Text = recursos.GetString("Boton Contactar")
+        botonReportarTexto.Text = recursos.GetString("Boton Reportar")
         botonMasAppsTexto.Text = recursos.GetString("Boton Web")
         botonCodigoFuenteTexto.Text = recursos.GetString("Boton Codigo Fuente")
 
@@ -338,9 +339,14 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub BotonContactar_Click(sender As Object, e As RoutedEventArgs) Handles botonContactar.Click
+    Private Async Sub BotonReportar_Click(sender As Object, e As RoutedEventArgs) Handles botonReportar.Click
 
-        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/contact/"))
+        If StoreServicesFeedbackLauncher.IsSupported = True Then
+            Dim ejecutador As StoreServicesFeedbackLauncher = StoreServicesFeedbackLauncher.GetDefault()
+            Await ejecutador.LaunchAsync()
+        Else
+            Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/contact/"))
+        End If
 
     End Sub
 
