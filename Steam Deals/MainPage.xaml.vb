@@ -33,7 +33,11 @@ Public NotInheritable Class MainPage
         botonEditorTexto.Text = recursos.GetString("Editor")
         botonConfigTexto.Text = recursos.GetString("Boton Config")
         botonVotarTexto.Text = recursos.GetString("Boton Votar")
+        botonMasCosasTexto.Text = recursos.GetString("Boton Cosas")
+
+        botonContactarTexto.Text = recursos.GetString("Boton Contactar")
         botonMasAppsTexto.Text = recursos.GetString("Boton Web")
+        botonCodigoFuenteTexto.Text = recursos.GetString("Boton Codigo Fuente")
 
         botonConfigOfertasTexto.Text = recursos.GetString("Ofertas")
         botonConfigEditorTexto.Text = recursos.GetString("Editor")
@@ -316,39 +320,33 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
+    Private Sub BotonMasCosas_Click(sender As Object, e As RoutedEventArgs) Handles botonMasCosas.Click
 
-        If popupMasApps.IsOpen = True Then
-            botonMasApps.Background = New SolidColorBrush(Colors.Transparent)
-            popupMasApps.IsOpen = False
+        If popupMasCosas.IsOpen = True Then
+            botonMasCosas.Background = New SolidColorBrush(Colors.Transparent)
+            popupMasCosas.IsOpen = False
         Else
-            botonMasApps.Background = New SolidColorBrush(Colors.DarkOliveGreen)
-            popupMasApps.IsOpen = True
+            botonMasCosas.Background = New SolidColorBrush(Colors.OliveDrab)
+            popupMasCosas.IsOpen = True
         End If
 
     End Sub
 
-    Private Async Sub BotonAppSteamTiles_Click(sender As Object, e As RoutedEventArgs) Handles botonAppSteamTiles.Click
+    Private Async Sub BotonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
 
-        Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh51sb3"))
-
-    End Sub
-
-    Private Async Sub BotonAppSteamCategories_Click(sender As Object, e As RoutedEventArgs) Handles botonAppSteamCategories.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9p54scg1n6bm"))
+        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/"))
 
     End Sub
 
-    Private Async Sub BotonAppSteamBridge_Click(sender As Object, e As RoutedEventArgs) Handles botonAppSteamBridge.Click
+    Private Async Sub BotonContactar_Click(sender As Object, e As RoutedEventArgs) Handles botonContactar.Click
 
-        Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh441c9"))
+        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/contact/"))
 
     End Sub
 
-    Private Async Sub BotonAppSteamSkins_Click(sender As Object, e As RoutedEventArgs) Handles botonAppSteamSkins.Click
+    Private Async Sub BotonCodigoFuente_Click(sender As Object, e As RoutedEventArgs) Handles botonCodigoFuente.Click
 
-        Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh55b7f"))
+        Await Launcher.LaunchUriAsync(New Uri("https://github.com/pepeizq/Steam-Deals"))
 
     End Sub
 
@@ -1445,6 +1443,5 @@ Public NotInheritable Class MainPage
         SeleccionarEnlaces(listadoAmazonUk, False)
 
     End Sub
-
 
 End Class

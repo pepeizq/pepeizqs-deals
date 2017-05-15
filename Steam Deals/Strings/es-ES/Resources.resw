@@ -255,4 +255,10 @@
   <data name="Divisas" xml:space="preserve">
     <value>Divisas</value>
   </data>
+  <data name="Boton Codigo Fuente" xml:space="preserve">
+    <value>Código Fuente</value>
+  </data>
+  <data name="Boton Cosas" xml:space="preserve">
+    <value>Más Cosas</value>
+  </data>
 </root>
