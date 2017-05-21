@@ -205,10 +205,12 @@ Module Ordenar
                                     If Not listaJuegosAntigua Is Nothing Then
                                         For Each juegoAntiguo In listaJuegosAntigua
                                             If juegoAntiguo.Enlace1 = juego.Enlace1 Then
-                                                If Not juegoAntiguo.Descuento = Nothing Then
-                                                    If Not juego.Descuento = Nothing Then
-                                                        Dim tempJuegoAntiguoDescuento As Integer = juegoAntiguo.Descuento.Replace("%", Nothing)
-                                                        Dim tempJuegoDescuento As Integer = juego.Descuento.Replace("%", Nothing)
+                                                Dim juegoAntiguoDescuentoString As String = juegoAntiguo.Descuento.Replace("%", Nothing)
+                                                If Not juegoAntiguoDescuentoString = Nothing Then
+                                                    Dim juegoDescuentoString As String = juego.Descuento.Replace("%", Nothing)
+                                                    If Not juegoDescuentoString = Nothing Then
+                                                        Dim tempJuegoAntiguoDescuento As Integer = juegoAntiguoDescuentoString
+                                                        Dim tempJuegoDescuento As Integer = juegoDescuentoString
 
                                                         If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
                                                             boolAntiguo = False

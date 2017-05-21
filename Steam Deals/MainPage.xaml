@@ -203,10 +203,13 @@
                 </controls:DropShadowPanel>
 
                 <Grid Grid.Column="1">
-                    <Grid x:Name="gridMensajeTienda">
-                        <TextBlock x:Name="tbMensajeTienda" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
-                    </Grid>
-
+                    <controls:DropShadowPanel x:Name="panelMensajeTienda" Grid.Row="1" Margin="10" Color="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                        <Grid Padding="10" Background="IndianRed">
+                            <TextBlock x:Name="tbMensajeTienda" TextWrapping="Wrap" Foreground="White"/>
+                        </Grid>
+                    </controls:DropShadowPanel>
+                   
                     <Grid x:Name="gridTiendaSteam" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -1501,14 +1504,32 @@
                 </Grid> 
             </Grid>
 
-            <Popup x:Name="popupMasCosas" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="132">
+            <Popup x:Name="popupMasCosas" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                 <Popup.ChildTransitions>
                     <TransitionCollection>
                         <PaneThemeTransition Edge="Left"/>
                     </TransitionCollection>
                 </Popup.ChildTransitions>
 
-                <StackPanel Orientation="Vertical" Width="200" Background="OliveDrab">
+                <StackPanel x:Name="spMasCosas" Orientation="Vertical" Width="200" Background="OliveDrab">
+                    <StackPanel x:Name="spRSS" Orientation="Vertical" Visibility="Collapsed">
+                        <StackPanel.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EdgeUIThemeTransition Edge="Bottom"/>
+                            </TransitionCollection>
+                        </StackPanel.ChildrenTransitions>
+
+                        <Button x:Name="botonRSS" Padding="10" Foreground="White" Width="200" HorizontalContentAlignment="Left">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <controls:ImageEx Source="Assets\rss_logo.png" Margin="0,0,10,0" Width="20" Height="20"/>
+                                    <TextBlock x:Name="botonRSSTexto" Foreground="White" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Line X1="200" Y1="0" StrokeThickness="1" Stroke="White" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
                     <Button x:Name="botonMasApps" Padding="10" Foreground="White" Width="200" HorizontalContentAlignment="Left">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">

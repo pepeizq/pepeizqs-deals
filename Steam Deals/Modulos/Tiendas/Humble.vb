@@ -57,6 +57,7 @@ Module Humble
         listaJuegos = New List(Of Juego)
         Dim terminar As Boolean = False
 
+        Dim salir As Integer = 0
         Dim i As Integer = 1
         While i < 5000
             Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api?request=1&page_size=20&sort=discount&page=" + i.ToString))
@@ -65,7 +66,10 @@ Module Humble
             Dim j As Integer = 0
             While j < 20
                 If Not html = Nothing Then
-                    If html.Contains(ChrW(34) + "machine_name" + ChrW(34)) Then
+                    If Not html.Contains(ChrW(34) + "machine_name" + ChrW(34)) Then
+                        terminar = True
+                        Exit While
+                    Else
                         Dim temp, temp2 As String
                         Dim int, int2 As Integer
 
@@ -100,6 +104,7 @@ Module Humble
                             temp4 = temp4.Replace("\u00b2", "²")
                             temp4 = temp4.Replace("\u00fc", "ü")
                             temp4 = temp4.Replace("\u00e9", "é")
+                            temp4 = temp4.Replace("\u00e0", "à")
                             temp4 = temp4.Replace("\u00ae", "®")
                             temp4 = temp4.Replace("\u2013", "-")
                             temp4 = temp4.Replace("\u2019", "'")
@@ -244,9 +249,6 @@ Module Humble
 
                             If tituloBool = False Then
                                 listaJuegos.Add(juego)
-                            Else
-                                terminar = True
-                                Exit While
                             End If
                         End If
                     End If

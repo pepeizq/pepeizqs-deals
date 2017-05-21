@@ -329,7 +329,25 @@ Public NotInheritable Class MainPage
         Else
             botonMasCosas.Background = New SolidColorBrush(Colors.OliveDrab)
             popupMasCosas.IsOpen = True
+
+            Try
+                RSS.Generar()
+            Catch ex As Exception
+
+            End Try
         End If
+
+    End Sub
+
+    Private Sub PopupMasCosas_LayoutUpdated(sender As Object, e As Object) Handles popupMasCosas.LayoutUpdated
+
+        popupMasCosas.Height = spMasCosas.ActualHeight
+
+    End Sub
+
+    Private Async Sub BotonRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonRSS.Click
+
+        Await Launcher.LaunchUriAsync(New Uri(botonRSS.Tag.ToString))
 
     End Sub
 
@@ -432,7 +450,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSteam.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaSteam, botonTiendaSteam)
 
         If listadoSteam.Items.Count = 0 Then
@@ -475,7 +493,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamersGate.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGamersGate, botonTiendaGamersGate)
 
         If listadoGamersGate.Items.Count = 0 Then
@@ -518,7 +536,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamesPlanet.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGamesPlanet, botonTiendaGamesPlanet)
 
         If listadoGamesPlanet.Items.Count = 0 Then
@@ -561,7 +579,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaHumble.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaHumble, botonTiendaHumble)
 
         If listadoHumble.Items.Count = 0 Then
@@ -604,7 +622,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGreenManGaming.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGreenManGaming, botonTiendaGreenManGaming)
 
         If listadoGreenManGaming.Items.Count = 0 Then
@@ -647,7 +665,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaBundleStars.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaBundleStars, botonTiendaBundleStars)
 
         If listadoBundleStars.Items.Count = 0 Then
@@ -690,7 +708,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGOG.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaGOG, botonTiendaGOG)
 
         If listadoGOG.Items.Count = 0 Then
@@ -733,7 +751,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaWinGameStore.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaWinGameStore, botonTiendaWinGameStore)
 
         If listadoWinGameStore.Items.Count = 0 Then
@@ -776,7 +794,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSilaGames.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaSilaGames, botonTiendaSilaGames)
 
         If listadoSilaGames.Items.Count = 0 Then
@@ -819,7 +837,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaDLGamer.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaDLGamer, botonTiendaDLGamer)
 
         If listadoDLGamer.Items.Count = 0 Then
@@ -862,7 +880,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaNuuvem.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaNuuvem, botonTiendaNuuvem)
 
         If listadoNuuvem.Items.Count = 0 Then
@@ -905,7 +923,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaMicrosoftStore.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaMicrosoftStore, botonTiendaMicrosoftStore)
 
         If listadoMicrosoftStore.Items.Count = 0 Then
@@ -948,7 +966,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonEs.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaAmazonEs, botonTiendaAmazonEs)
 
         If listadoAmazonEs.Items.Count = 0 Then
@@ -991,7 +1009,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonTiendaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonUk.Click
 
-        gridMensajeTienda.Visibility = Visibility.Collapsed
+        panelMensajeTienda.Visibility = Visibility.Collapsed
         GridTiendasVisibilidad(gridTiendaAmazonUk, botonTiendaAmazonUk)
 
         If listadoAmazonUk.Items.Count = 0 Then
