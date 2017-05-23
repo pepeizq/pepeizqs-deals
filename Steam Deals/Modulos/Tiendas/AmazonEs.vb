@@ -308,6 +308,7 @@ Module AmazonEs
         titulo = titulo.Replace("&#191;", "¿")
         titulo = titulo.Replace("&#201;", "É")
         titulo = titulo.Replace("&#225;", "á")
+        titulo = titulo.Replace("&#231;", "ç")
         titulo = titulo.Replace("&#233;", "é")
         titulo = titulo.Replace("&#243;", "ó")
         titulo = titulo.Replace("&#246;", "ö")

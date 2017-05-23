@@ -261,4 +261,7 @@
   <data name="Boton Cosas" xml:space="preserve">
     <value>Más Cosas</value>
   </data>
+  <data name="Boton Contacto" xml:space="preserve">
+    <value>Contactar</value>
+  </data>
 </root>

@@ -36,8 +36,9 @@ Public NotInheritable Class MainPage
         botonVotarTexto.Text = recursos.GetString("Boton Votar")
         botonMasCosasTexto.Text = recursos.GetString("Boton Cosas")
 
-        botonReportarTexto.Text = recursos.GetString("Boton Reportar")
         botonMasAppsTexto.Text = recursos.GetString("Boton Web")
+        botonContactoTexto.Text = recursos.GetString("Boton Contacto")
+        botonReportarTexto.Text = recursos.GetString("Boton Reportar")
         botonCodigoFuenteTexto.Text = recursos.GetString("Boton Codigo Fuente")
 
         botonConfigOfertasTexto.Text = recursos.GetString("Ofertas")
@@ -329,12 +330,6 @@ Public NotInheritable Class MainPage
         Else
             botonMasCosas.Background = New SolidColorBrush(Colors.OliveDrab)
             popupMasCosas.IsOpen = True
-
-            Try
-                RSS.Generar()
-            Catch ex As Exception
-
-            End Try
         End If
 
     End Sub
@@ -345,15 +340,15 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub BotonRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonRSS.Click
-
-        Await Launcher.LaunchUriAsync(New Uri(botonRSS.Tag.ToString))
-
-    End Sub
-
     Private Async Sub BotonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
 
         Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/"))
+
+    End Sub
+
+    Private Async Sub BotonContacto_Click(sender As Object, e As RoutedEventArgs) Handles botonContacto.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/contact/"))
 
     End Sub
 
@@ -454,7 +449,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaSteam, botonTiendaSteam)
 
         If listadoSteam.Items.Count = 0 Then
-            Steam.GenerarOfertas()
+            If gridProgresoSteam.Visibility = Visibility.Collapsed Then
+                Steam.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -497,7 +494,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaGamersGate, botonTiendaGamersGate)
 
         If listadoGamersGate.Items.Count = 0 Then
-            GamersGate.GenerarOfertas()
+            If gridProgresoGamersGate.Visibility = Visibility.Collapsed Then
+                GamersGate.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -540,7 +539,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaGamesPlanet, botonTiendaGamesPlanet)
 
         If listadoGamesPlanet.Items.Count = 0 Then
-            GamesPlanet.GenerarOfertas()
+            If gridProgresoGamesPlanet.Visibility = Visibility.Collapsed Then
+                GamesPlanet.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -583,7 +584,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaHumble, botonTiendaHumble)
 
         If listadoHumble.Items.Count = 0 Then
-            Humble.GenerarOfertas()
+            If gridProgresoHumble.Visibility = Visibility.Collapsed Then
+                Humble.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -626,7 +629,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaGreenManGaming, botonTiendaGreenManGaming)
 
         If listadoGreenManGaming.Items.Count = 0 Then
-            GreenManGaming.GenerarOfertas()
+            If gridProgresoGreenManGaming.Visibility = Visibility.Collapsed Then
+                GreenManGaming.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -669,7 +674,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaBundleStars, botonTiendaBundleStars)
 
         If listadoBundleStars.Items.Count = 0 Then
-            BundleStars.GenerarOfertas()
+            If gridProgresoBundleStars.Visibility = Visibility.Collapsed Then
+                BundleStars.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -712,7 +719,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaGOG, botonTiendaGOG)
 
         If listadoGOG.Items.Count = 0 Then
-            GOG.GenerarOfertas()
+            If gridProgresoGOG.Visibility = Visibility.Collapsed Then
+                GOG.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -755,7 +764,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaWinGameStore, botonTiendaWinGameStore)
 
         If listadoWinGameStore.Items.Count = 0 Then
-            WinGameStore.GenerarOfertas()
+            If gridProgresoWinGameStore.Visibility = Visibility.Collapsed Then
+                WinGameStore.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -798,7 +809,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaSilaGames, botonTiendaSilaGames)
 
         If listadoSilaGames.Items.Count = 0 Then
-            SilaGames.GenerarOfertas()
+            If gridProgresoSilaGames.Visibility = Visibility.Collapsed Then
+                SilaGames.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -841,7 +854,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaDLGamer, botonTiendaDLGamer)
 
         If listadoDLGamer.Items.Count = 0 Then
-            DLGamer.GenerarOfertas()
+            If gridProgresoDLGamer.Visibility = Visibility.Collapsed Then
+                DLGamer.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -884,7 +899,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaNuuvem, botonTiendaNuuvem)
 
         If listadoNuuvem.Items.Count = 0 Then
-            Nuuvem.GenerarOfertas()
+            If gridProgresoNuuvem.Visibility = Visibility.Collapsed Then
+                Nuuvem.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -927,7 +944,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaMicrosoftStore, botonTiendaMicrosoftStore)
 
         If listadoMicrosoftStore.Items.Count = 0 Then
-            MicrosoftStore.GenerarOfertas()
+            If gridProgresoMicrosoftStore.Visibility = Visibility.Collapsed Then
+                MicrosoftStore.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -970,7 +989,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaAmazonEs, botonTiendaAmazonEs)
 
         If listadoAmazonEs.Items.Count = 0 Then
-            AmazonEs.GenerarOfertas()
+            If gridProgresoAmazonEs.Visibility = Visibility.Collapsed Then
+                AmazonEs.GenerarOfertas()
+            End If
         End If
 
     End Sub
@@ -1013,7 +1034,9 @@ Public NotInheritable Class MainPage
         GridTiendasVisibilidad(gridTiendaAmazonUk, botonTiendaAmazonUk)
 
         If listadoAmazonUk.Items.Count = 0 Then
-            AmazonUk.GenerarOfertas()
+            If gridProgresoAmazonUk.Visibility = Visibility.Collapsed Then
+                AmazonUk.GenerarOfertas()
+            End If
         End If
 
     End Sub
