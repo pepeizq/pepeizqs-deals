@@ -158,8 +158,18 @@ Module AmazonEs
                         If listaJuegosAntigua.Count > 0 Then
                             For Each juegoAntiguo In listaJuegosAntigua
                                 If juegoAntiguo.Enlace1 = enlace Then
+                                    Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
+                                    tempAntiguoPrecio = tempAntiguoPrecio.Trim
+
+                                    Dim tempPrecio As String = precio.Replace("€", Nothing)
+                                    tempPrecio = tempPrecio.Trim
+
                                     Try
-                                        descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
+                                        If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
+                                            descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
+                                        Else
+                                            descuento = Nothing
+                                        End If
                                     Catch ex As Exception
                                         descuento = Nothing
                                     End Try
@@ -307,6 +317,7 @@ Module AmazonEs
         titulo = titulo.Replace("&#161;", "¡")
         titulo = titulo.Replace("&#191;", "¿")
         titulo = titulo.Replace("&#201;", "É")
+        titulo = titulo.Replace("&#223;", "ß")
         titulo = titulo.Replace("&#225;", "á")
         titulo = titulo.Replace("&#231;", "ç")
         titulo = titulo.Replace("&#233;", "é")

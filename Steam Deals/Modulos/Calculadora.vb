@@ -28,6 +28,10 @@ Public Module Calculadora
                 precioBase = "0" + precioBase
             End If
 
+            If precioBase.IndexOf("0") = 0 Then
+                precioBase = precioBase.Remove(0, 1)
+            End If
+
             douBase = Convert.ToDouble(precioBase)
         End If
 
@@ -50,6 +54,10 @@ Public Module Calculadora
 
             If precioRebajado.IndexOf(".") = 0 Then
                 precioRebajado = "0" + precioRebajado
+            End If
+
+            If precioRebajado.IndexOf("0") = 0 Then
+                precioRebajado = precioRebajado.Remove(0, 1)
             End If
 
             douRebajado = Convert.ToDouble(precioRebajado)

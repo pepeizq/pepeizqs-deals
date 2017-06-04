@@ -94,6 +94,7 @@ Module MicrosoftStore
                                 int4 = temp3.IndexOf("</h3>")
                                 temp4 = temp3.Remove(int4, temp3.Length - int4)
 
+                                temp4 = temp4.Replace("&#39;", "'")
                                 temp4 = temp4.Replace("&#225;", "á")
                                 temp4 = temp4.Replace("&#237;", "í")
                                 temp4 = temp4.Replace("&#243;", "ó")

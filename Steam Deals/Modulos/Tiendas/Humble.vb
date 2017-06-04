@@ -58,7 +58,7 @@ Module Humble
         Dim terminar As Boolean = False
 
         Dim salir As Integer = 0
-        Dim i As Integer = 1
+        Dim i As Integer = 0
         While i < 5000
             Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api?request=1&page_size=20&sort=discount&page=" + i.ToString))
             Dim html As String = html_.Result
