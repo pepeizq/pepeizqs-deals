@@ -146,6 +146,10 @@ Module GOG
                         End If
 
                         If Not descuento = Nothing Then
+                            If descuento.Length = 2 Then
+                                descuento = "0" + descuento
+                            End If
+
                             Dim windows As Boolean = False
 
                             If temp2.Contains("<windows_compatible>1</windows_compatible>") Then
