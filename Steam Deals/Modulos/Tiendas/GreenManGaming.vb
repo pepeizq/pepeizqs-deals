@@ -118,6 +118,12 @@ Module GreenManGaming
 
                         Dim imagen As String = temp8.Trim
 
+                        If Not imagen = Nothing Then
+                            If Not imagen.Contains("https://www.greenmangaming.com") Then
+                                imagen = "https://www.greenmangaming.com" + imagen
+                            End If
+                        End If
+
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
 

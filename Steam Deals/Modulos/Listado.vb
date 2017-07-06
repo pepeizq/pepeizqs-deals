@@ -104,6 +104,7 @@ Module Listado
                 imagen.Width = 80
             End If
 
+            imagen.IsCacheEnabled = True
             imagen.Margin = New Thickness(0, 2, 10, 2)
             imagen.SetValue(Grid.ColumnProperty, 0)
             grid.Children.Add(imagen)
@@ -166,7 +167,8 @@ Module Listado
                     Dim imagenWin As New ImageEx With {
                             .Width = 16,
                             .Height = 16,
-                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png"))
+                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png")),
+                            .IsCacheEnabled = True
                         }
                     imagenWin.SetValue(Grid.ColumnProperty, 0)
                     fondoSistemas.Children.Add(imagenWin)
@@ -178,7 +180,8 @@ Module Listado
                     Dim imagenMac As New ImageEx With {
                             .Width = 16,
                             .Height = 16,
-                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png"))
+                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png")),
+                            .IsCacheEnabled = True
                         }
                     imagenMac.SetValue(Grid.ColumnProperty, 1)
                     fondoSistemas.Children.Add(imagenMac)
@@ -190,7 +193,8 @@ Module Listado
                     Dim imagenLinux As New ImageEx With {
                             .Width = 16,
                             .Height = 16,
-                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png"))
+                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png")),
+                            .IsCacheEnabled = True
                         }
                     imagenLinux.SetValue(Grid.ColumnProperty, 2)
                     fondoSistemas.Children.Add(imagenLinux)
@@ -219,6 +223,7 @@ Module Listado
             If Not imagenDRM.Source Is Nothing Then
                 imagenDRM.Width = 16
                 imagenDRM.Height = 16
+                imagenDRM.IsCacheEnabled = True
 
                 Dim fondoDRM As New Grid With {
                     .Height = 34,
@@ -288,7 +293,8 @@ Module Listado
                     .Width = 23,
                     .Height = 15,
                     .HorizontalAlignment = HorizontalAlignment.Left,
-                    .Margin = New Thickness(5, 0, 0, 0)
+                    .Margin = New Thickness(5, 0, 0, 0),
+                    .IsCacheEnabled = True
                 }
 
                 If juego.Tienda = "GamersGate" Then
@@ -347,7 +353,8 @@ Module Listado
                     .Width = 23,
                     .Height = 15,
                     .HorizontalAlignment = HorizontalAlignment.Left,
-                    .Margin = New Thickness(5, 0, 0, 0)
+                    .Margin = New Thickness(5, 0, 0, 0),
+                    .IsCacheEnabled = True
                 }
 
                 If juego.Tienda = "GamersGate" Then
@@ -400,7 +407,8 @@ Module Listado
                     .Width = 23,
                     .Height = 15,
                     .HorizontalAlignment = HorizontalAlignment.Left,
-                    .Margin = New Thickness(5, 0, 0, 0)
+                    .Margin = New Thickness(5, 0, 0, 0),
+                    .IsCacheEnabled = True
                 }
 
                 If juego.Tienda = "GamersGate" Then

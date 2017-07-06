@@ -80,6 +80,7 @@ Module WinGameStore
                     temp4 = temp4.Replace("\u00b2", "²")
                     temp4 = temp4.Replace("\u00ae", "®")
                     temp4 = temp4.Replace("\u2013", "–")
+                    temp4 = temp4.Replace("\u2014", "–")
                     temp4 = temp4.Replace("\u2019", "’")
                     temp4 = temp4.Replace("\u2122", "™")
 
