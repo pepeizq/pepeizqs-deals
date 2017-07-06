@@ -1,1 +1,1 @@
-D:\Proyectos\Steam Deals\Steam Deals\bin\x64\Release\Upload\Steam Deals_1.0.30.0\Steam Deals_1.0.30.0_x86_x64.appxbundle
+D:\Proyectos\Steam Deals\Steam Deals\bin\ARM\Release\Upload\Steam Deals_1.0.30.0\Steam Deals_1.0.30.0_x86_x64_arm.appxbundle
