@@ -232,6 +232,10 @@ Module Ordenar
                                 End If
 
                                 If boolAntiguo = False Then
+                                    If listaJuegosAntigua Is Nothing Then
+                                        listaJuegosAntigua = New List(Of Juego)
+                                    End If
+
                                     listaGrids.Add(Listado.Generar(juego))
                                     listaJuegosAntigua.Add(juego)
                                     listaUltimasOfertas.Add(juego)

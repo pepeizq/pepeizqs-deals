@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module AmazonUk
 
@@ -235,8 +236,10 @@ Module AmazonUk
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim tb As TextBlock = pagina.FindName("tbProgresoAmazonUk")
+        Dim pr As RadialProgressBar = pagina.FindName("prAmazonUk")
 
         tb.Text = e.ProgressPercentage.ToString + "%"
+        pr.Value = e.ProgressPercentage
 
     End Sub
 

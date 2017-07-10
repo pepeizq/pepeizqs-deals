@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module WinGameStore
 
@@ -242,8 +243,10 @@ Module WinGameStore
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim tb As TextBlock = pagina.FindName("tbProgresoWinGameStore")
+        Dim pr As RadialProgressBar = pagina.FindName("prWinGameStore")
 
         tb.Text = e.ProgressPercentage.ToString + "%"
+        pr.Value = e.ProgressPercentage
 
     End Sub
 

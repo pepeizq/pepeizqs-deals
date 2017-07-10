@@ -7,14 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <DataTemplate x:Key="FeedRSS">
-            <Grid Tag="{Binding Enlace}" Margin="1">
-                <TextBlock Text="{Binding Titulo}" TextWrapping="Wrap" />
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -203,7 +195,7 @@
                 </controls:DropShadowPanel>
 
                 <Grid Grid.Column="1">
-                    <controls:DropShadowPanel x:Name="panelMensajeTienda" Grid.Row="1" Margin="10" Color="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    <controls:DropShadowPanel x:Name="panelMensajeTienda" Margin="10" Color="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                   BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
                         <Grid Padding="10" Background="IndianRed">
                             <TextBlock x:Name="tbMensajeTienda" TextWrapping="Wrap" Foreground="White"/>
@@ -227,7 +219,7 @@
                             </ListView>
 
                             <Grid x:Name="gridProgresoSteam" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prSteam" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                <controls:RadialProgressBar x:Name="prSteam" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
                                 <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                         </Grid>
@@ -752,7 +744,7 @@
                             </ListView>
 
                             <Grid x:Name="gridProgresoWinGameStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prWinGameStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                <controls:RadialProgressBar x:Name="prWinGameStore" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
                                 <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                         </Grid>
@@ -1127,7 +1119,7 @@
                             </ListView>
 
                             <Grid x:Name="gridProgresoAmazonEs" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prAmazonEs" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                <controls:RadialProgressBar x:Name="prAmazonEs" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
                                 <TextBlock x:Name="tbProgresoAmazonEs" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                         </Grid>
@@ -1202,7 +1194,7 @@
                             </ListView>
 
                             <Grid x:Name="gridProgresoAmazonUk" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prAmazonUk" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                <controls:RadialProgressBar x:Name="prAmazonUk" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
                                 <TextBlock x:Name="tbProgresoAmazonUk" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Grid>
                         </Grid>

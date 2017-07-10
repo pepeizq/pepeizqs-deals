@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module Steam
 
@@ -242,8 +243,10 @@ Module Steam
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim tb As TextBlock = pagina.FindName("tbProgresoSteam")
+        Dim pr As RadialProgressBar = pagina.FindName("prSteam")
 
         tb.Text = e.ProgressPercentage.ToString + "%"
+        pr.Value = e.ProgressPercentage
 
     End Sub
 
