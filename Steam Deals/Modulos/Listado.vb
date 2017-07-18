@@ -47,7 +47,8 @@ Module Listado
 
         If Not juego.Imagen = Nothing Then
             Dim imagen As New ImageEx With {
-                .Stretch = Stretch.UniformToFill
+                .Stretch = Stretch.UniformToFill,
+                .IsCacheEnabled = True
             }
 
             Try
@@ -104,7 +105,6 @@ Module Listado
                 imagen.Width = 80
             End If
 
-            imagen.IsCacheEnabled = True
             imagen.Margin = New Thickness(0, 2, 10, 2)
             imagen.SetValue(Grid.ColumnProperty, 0)
             grid.Children.Add(imagen)
