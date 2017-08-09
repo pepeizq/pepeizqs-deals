@@ -1,8 +1,8 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.4",
     "Microsoft.Services.Store.SDK": "10.1705.16001",
-    "Microsoft.Toolkit.Uwp.UI.Controls": "1.5.0"
+    "Microsoft.Toolkit.Uwp.UI.Controls": "1.5.1"
   },
   "frameworks": {
     "uap10.0": {}

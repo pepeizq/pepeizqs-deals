@@ -1,7 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
-Imports Windows.System.Profile
 Imports Windows.UI
 
 Module Listado
