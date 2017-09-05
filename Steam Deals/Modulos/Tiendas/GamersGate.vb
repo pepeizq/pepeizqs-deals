@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.Globalization
 Imports Windows.Globalization.NumberFormatting
 

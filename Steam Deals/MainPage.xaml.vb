@@ -164,16 +164,6 @@ Public NotInheritable Class MainPage
         cbOrdenarSilaGamesTitulo.Content = recursos.GetString("Titulo")
         cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        tbEditorUltimasOfertasDLGamer.Text = recursos.GetString("Ultimas Ofertas")
-        tbEditorSeleccionarTodoDLGamer.Text = recursos.GetString("Seleccionar Todo")
-        tbEditorSeleccionarNadaDLGamer.Text = recursos.GetString("Seleccionar Nada")
-
-        tbOrdenarDLGamer.Text = recursos.GetString("Ordenar")
-        cbOrdenarDLGamerDescuento.Content = recursos.GetString("Descuento")
-        cbOrdenarDLGamerPrecio.Content = recursos.GetString("Precio")
-        cbOrdenarDLGamerTitulo.Content = recursos.GetString("Titulo")
-        cbOrdenarDLGamer.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-
         tbEditorUltimasOfertasNuuvem.Text = recursos.GetString("Ultimas Ofertas")
         tbEditorSeleccionarTodoNuuvem.Text = recursos.GetString("Seleccionar Todo")
         tbEditorSeleccionarNadaNuuvem.Text = recursos.GetString("Seleccionar Nada")
@@ -386,7 +376,6 @@ Public NotInheritable Class MainPage
             botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
-            botonTiendaDLGamer.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaNuuvem.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.Transparent)
             botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.Transparent)
@@ -404,7 +393,6 @@ Public NotInheritable Class MainPage
         gridTiendaGOG.Visibility = Visibility.Collapsed
         gridTiendaWinGameStore.Visibility = Visibility.Collapsed
         gridTiendaSilaGames.Visibility = Visibility.Collapsed
-        gridTiendaDLGamer.Visibility = Visibility.Collapsed
         gridTiendaNuuvem.Visibility = Visibility.Collapsed
         gridTiendaMicrosoftStore.Visibility = Visibility.Collapsed
         gridTiendaAmazonEs.Visibility = Visibility.Collapsed
@@ -848,51 +836,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonTiendaDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaDLGamer.Click
-
-        panelMensajeTienda.Visibility = Visibility.Collapsed
-        GridTiendasVisibilidad(gridTiendaDLGamer, botonTiendaDLGamer)
-
-        If listadoDLGamer.Items.Count = 0 Then
-            If gridProgresoDLGamer.Visibility = Visibility.Collapsed Then
-                DLGamer.GenerarOfertas()
-            End If
-        End If
-
-    End Sub
-
-    Private Sub ListadoDLGamer_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoDLGamer.ItemClick
-
-        ListadoClick(e.ClickedItem)
-
-    End Sub
-
-    Private Sub BotonActualizarDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarDLGamer.Click
-
-        DLGamer.GenerarOfertas()
-
-    End Sub
-
-    Private Sub CbOrdenarDLGamer_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarDLGamer.SelectionChanged
-
-        If gridTiendaDLGamer.Visibility = Visibility.Visible Then
-            If Not gridProgresoDLGamer.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, False, False)
-            End If
-        End If
-
-    End Sub
-
-    Private Sub BotonEditorUltimasOfertasDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasDLGamer.Click
-
-        If gridTiendaDLGamer.Visibility = Visibility.Visible Then
-            If Not gridProgresoDLGamer.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("DLGamer", cbOrdenarDLGamer.SelectedIndex, False, True)
-            End If
-        End If
-
-    End Sub
-
     Private Sub BotonTiendaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaNuuvem.Click
 
         panelMensajeTienda.Visibility = Visibility.Collapsed
@@ -1154,7 +1097,6 @@ Public NotInheritable Class MainPage
         cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-        cbOrdenarDLGamer.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
@@ -1194,7 +1136,6 @@ Public NotInheritable Class MainPage
             spEditorGOG.Visibility = Visibility.Visible
             spEditorWinGameStore.Visibility = Visibility.Visible
             spEditorSilaGames.Visibility = Visibility.Visible
-            spEditorDLGamer.Visibility = Visibility.Visible
             spEditorNuuvem.Visibility = Visibility.Visible
             spEditorMicrosoftStore.Visibility = Visibility.Visible
             spEditorAmazonEs.Visibility = Visibility.Visible
@@ -1213,7 +1154,6 @@ Public NotInheritable Class MainPage
             spEditorGOG.Visibility = Visibility.Collapsed
             spEditorWinGameStore.Visibility = Visibility.Collapsed
             spEditorSilaGames.Visibility = Visibility.Collapsed
-            spEditorDLGamer.Visibility = Visibility.Collapsed
             spEditorNuuvem.Visibility = Visibility.Collapsed
             spEditorMicrosoftStore.Visibility = Visibility.Collapsed
             spEditorAmazonEs.Visibility = Visibility.Collapsed
@@ -1428,18 +1368,6 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorSeleccionarNadaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSilaGames.Click
 
         SeleccionarEnlaces(listadoSilaGames, False)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarTodoDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoDLGamer.Click
-
-        SeleccionarEnlaces(listadoDLGamer, True)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarNadaDLGamer_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaDLGamer.Click
-
-        SeleccionarEnlaces(listadoDLGamer, False)
 
     End Sub
 

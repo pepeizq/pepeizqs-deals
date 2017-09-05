@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.Globalization
 Imports Windows.Globalization.NumberFormatting
 
@@ -179,7 +180,7 @@ Module Humble
 
                         int14 = temp13.IndexOf(",")
                         temp14 = temp13.Remove(int14, temp13.Length - int14)
-
+                        Toast(temp14, temp101)
                         If temp14 = temp101 Then
                             terminar = True
                             Exit While

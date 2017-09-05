@@ -139,7 +139,7 @@
                             <Button x:Name="botonTiendaBundleStars" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
                                 <StackPanel Orientation="Horizontal">
                                     <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoBundleStars" Text="BundleStars" Foreground="White"/>
+                                    <TextBlock x:Name="botonTiendaTextoBundleStars" Text="Bundle Stars" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="botonTiendaGOG" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
@@ -158,12 +158,6 @@
                                 <StackPanel Orientation="Horizontal">
                                     <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16" Margin="5,0,10,0"/>
                                     <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaDLGamer" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_dlgamer.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoDLGamer" Text="DLGamer" Foreground="White"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="botonTiendaNuuvem" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
@@ -872,81 +866,6 @@
                                     <ComboBoxItem x:Name="cbOrdenarSilaGamesDescuento"/>
                                     <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
                                     <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaDLGamer" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoDLGamer" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoDLGamer" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prDLGamer" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoDLGamer" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorDLGamer" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasDLGamer" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasDLGamer" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasDLGamer" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoDLGamer" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoDLGamer" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaDLGamer" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaDLGamer" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarDLGamer" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarDLGamer" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarDLGamer" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarDLGamerDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarDLGamerPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarDLGamerTitulo"/>
                                 </ComboBox>
                             </StackPanel>
                         </controls:DropShadowPanel>
