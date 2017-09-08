@@ -121,7 +121,7 @@ Module Editor
                         '    End If
                         'End If
 
-                        tbTitulo.Text = "[" + listaFinal(0).Tienda + "] " + listaFinal(0).Titulo + " (" + listaFinal(0).Precio1 + "/" + listaFinal(0).Descuento + ")" + drm
+                        tbTitulo.Text = "[" + listaFinal(0).Tienda + "] " + listaFinal(0).Titulo + " (" + listaFinal(0).Precio1 + "/" + listaFinal(0).Descuento + " off)" + drm
                     Else
                         Dim listaDescuento As List(Of Juego) = listaFinal
 
