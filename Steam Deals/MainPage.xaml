@@ -5,9 +5,57 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="gridTitulo" Grid.Row="0">
+            <TextBlock x:Name="tbTitulo" VerticalAlignment="Center" FontSize="13"/>
+        </Grid>
+
+        <NavigationView x:Name="nvPrincipal" Grid.Row="1" Loaded="Nv_Loaded" ItemInvoked="Nv_ItemInvoked"
+                        OpenPaneLength="200" AlwaysShowHeader="False">
+            
+            <Grid>
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
+
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <Grid x:Name="gridDeals" Visibility="Collapsed">
+                    <TextBlock Text="test1"/>
+                </Grid>
+
+                <Grid x:Name="gridEditor" Visibility="Collapsed">
+                    <TextBlock Text="test2"/>
+                </Grid>
+
+                <Grid x:Name="gridConfig" Visibility="Collapsed">
+                    <TextBlock Text="test3"/>
+                </Grid>
+
+                <Grid x:Name="gridMasCosas" Visibility="Collapsed">
+                    <TextBlock Text="test4"/>
+                </Grid>
+            </Grid>
+
+        </NavigationView>
+    </Grid>
+    
+    
+    <!--<Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -1458,5 +1506,5 @@
                 </StackPanel>
             </Popup>
         </Grid>
-    </Grid>
+    </Grid>-->
 </Page>

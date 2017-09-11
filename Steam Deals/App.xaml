@@ -2,12 +2,15 @@
     x:Class="Steam_Deals.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Steam_Deals"
     RequestedTheme="Light">
 
     <Application.Resources>
         <Style x:Key="EllipsisButton" TargetType="Button">
             <Setter Property="MaxWidth" Value="0"/>
         </Style>
+
+        <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground" BackgroundSource="HostBackdrop" TintColor="darkOliveGreen" TintOpacity=".7"/>
+        <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" BackgroundSource="HostBackdrop" TintColor="darkOliveGreen" TintOpacity=".7"/>
     </Application.Resources>
+ 
 </Application>
