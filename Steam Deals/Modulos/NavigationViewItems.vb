@@ -1,16 +1,19 @@
 ﻿Imports Windows.UI
 
-Module NavigateViewItems
+Module NavigationViewItems
 
-    Public Function Generar(titulo As String, simbolo As SymbolIcon)
+    Public Function Generar(titulo As String, simbolo As SymbolIcon, tag As String)
 
         Dim tb As New TextBlock With {
-            .Text = titulo
+            .Text = titulo,
+            .Foreground = New SolidColorBrush(Colors.White)
         }
 
         Dim item As New NavigationViewItem With {
             .Content = tb,
-            .Icon = simbolo
+            .Icon = simbolo,
+            .Foreground = New SolidColorBrush(Colors.White),
+            .Tag = tag
         }
 
         Dim tbToolTip As TextBlock = New TextBlock With {

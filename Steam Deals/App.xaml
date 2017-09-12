@@ -9,8 +9,17 @@
             <Setter Property="MaxWidth" Value="0"/>
         </Style>
 
-        <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground" BackgroundSource="HostBackdrop" TintColor="darkOliveGreen" TintOpacity=".7"/>
-        <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" BackgroundSource="HostBackdrop" TintColor="darkOliveGreen" TintOpacity=".7"/>
+        <Style x:Key="nvEstilo" TargetType="Button" BasedOn="{StaticResource PaneToggleButtonStyle}">
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Color x:Key="ColorMaestro">darkOliveGreen</Color>
+
+        <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="{StaticResource ColorMaestro}"/>
+
+        <AcrylicBrush x:Key="GridTituloBackground" BackgroundSource="HostBackdrop" TintColor="{StaticResource ColorMaestro}" TintOpacity=".7"/>
+        <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground" BackgroundSource="HostBackdrop" TintColor="{StaticResource ColorMaestro}" TintOpacity=".7"/>
+        <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" BackgroundSource="HostBackdrop" TintColor="{StaticResource ColorMaestro}" TintOpacity=".7"/>
     </Application.Resources>
  
 </Application>

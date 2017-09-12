@@ -145,10 +145,10 @@ Module Listado
 
         If boolSistemas = True Then
             Dim fondoSistemas As New Grid With {
-                    .Padding = New Thickness(6, 0, 6, 0),
-                    .Height = 34,
-                    .Background = New SolidColorBrush(Colors.SlateGray)
-                }
+                .Padding = New Thickness(6, 0, 6, 0),
+                .Height = 34,
+                .Background = New SolidColorBrush(Colors.SlateGray)
+            }
 
             Dim colSis1 As New ColumnDefinition
             Dim colSis2 As New ColumnDefinition
@@ -165,11 +165,11 @@ Module Listado
             If Not juego.SistemaWin = Nothing Then
                 If juego.SistemaWin = True Then
                     Dim imagenWin As New ImageEx With {
-                            .Width = 16,
-                            .Height = 16,
-                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png")),
-                            .IsCacheEnabled = True
-                        }
+                        .Width = 16,
+                        .Height = 16,
+                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_win.png")),
+                        .IsCacheEnabled = True
+                    }
                     imagenWin.SetValue(Grid.ColumnProperty, 0)
                     fondoSistemas.Children.Add(imagenWin)
                 End If
@@ -178,11 +178,11 @@ Module Listado
             If Not juego.SistemaMac = Nothing Then
                 If juego.SistemaMac = True Then
                     Dim imagenMac As New ImageEx With {
-                            .Width = 16,
-                            .Height = 16,
-                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png")),
-                            .IsCacheEnabled = True
-                        }
+                        .Width = 16,
+                        .Height = 16,
+                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_mac.png")),
+                        .IsCacheEnabled = True
+                    }
                     imagenMac.SetValue(Grid.ColumnProperty, 1)
                     fondoSistemas.Children.Add(imagenMac)
                 End If
@@ -191,11 +191,11 @@ Module Listado
             If Not juego.SistemaLinux = Nothing Then
                 If juego.SistemaLinux = True Then
                     Dim imagenLinux As New ImageEx With {
-                            .Width = 16,
-                            .Height = 16,
-                            .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png")),
-                            .IsCacheEnabled = True
-                        }
+                        .Width = 16,
+                        .Height = 16,
+                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/platform_linux.png")),
+                        .IsCacheEnabled = True
+                    }
                     imagenLinux.SetValue(Grid.ColumnProperty, 2)
                     fondoSistemas.Children.Add(imagenLinux)
                 End If

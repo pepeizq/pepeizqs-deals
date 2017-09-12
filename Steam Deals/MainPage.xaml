@@ -13,14 +13,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="gridTitulo" Grid.Row="0">
-            <TextBlock x:Name="tbTitulo" VerticalAlignment="Center" FontSize="13"/>
+        <Grid x:Name="gridTitulo" Grid.Row="0" Background="{StaticResource GridTituloBackground}">
+            <TextBlock x:Name="tbTitulo" Margin="50,0,0,0" FontSize="13" Foreground="White" VerticalAlignment="Center"/>
         </Grid>
 
         <NavigationView x:Name="nvPrincipal" Grid.Row="1" Loaded="Nv_Loaded" ItemInvoked="Nv_ItemInvoked"
-                        OpenPaneLength="200" AlwaysShowHeader="False">
-            
-            <Grid>
+                        OpenPaneLength="200" AlwaysShowHeader="False" IsSettingsVisible="False" 
+                        PaneToggleButtonStyle="{StaticResource nvEstilo}">
+           
+            <Grid Padding="10">
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
                         <NavigationThemeTransition/>
@@ -35,15 +36,1295 @@
                 </Grid.Background>
 
                 <Grid x:Name="gridDeals" Visibility="Collapsed">
-                    <TextBlock Text="test1"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Top" Color="DarkOliveGreen"
+                                              BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                        <ListView x:Name="lvTiendas" IsItemClickEnabled="True" ItemClick="LvOfertasItemClick">
+                            <ListViewItem x:Name="botonTiendaSteam" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="0">
+                                    <controls:ImageEx Source="Assets/Tiendas/steam.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Steam" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaGamersGate" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="1">
+                                    <controls:ImageEx Source="Assets/Tiendas/gamersgate.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="GamersGate" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaGamesPlanet" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="2">
+                                    <controls:ImageEx Source="Assets/Tiendas/gamesplanet.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="GamesPlanet" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaHumble" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="3">
+                                    <controls:ImageEx Source="Assets/Tiendas/humble.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Humble Store" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaGreenManGaming" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="4">
+                                    <controls:ImageEx Source="Assets/Tiendas/gmg.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Green Man Gaming" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaBundleStars" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="5">
+                                    <controls:ImageEx Source="Assets/Tiendas/bundlestars.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Bundle Stars" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaGOG" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="6">
+                                    <controls:ImageEx Source="Assets/Tiendas/gog.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="GOG" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaWinGameStore" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="7">
+                                    <controls:ImageEx Source="Assets/Tiendas/wingamestore.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="WinGameStore" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaSilaGames" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="8">
+                                    <controls:ImageEx Source="Assets/Tiendas/silagames.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Sila Games" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaNuuvem" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="9">
+                                    <controls:ImageEx Source="Assets/Tiendas/nuuvem.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Nuuvem" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaMicrosoftStore" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="10">
+                                    <controls:ImageEx Source="Assets/Tiendas/microsoft.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Microsoft Store" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaAmazonEs" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="11">
+                                    <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Amazon.es" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                            <ListViewItem x:Name="botonTiendaAmazonUk" Background="OliveDrab" Padding="15">
+                                <StackPanel Orientation="Horizontal" Tag="12">
+                                    <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                    <TextBlock Text="Amazon.co.uk" Foreground="White"/>
+                                </StackPanel>
+                            </ListViewItem>
+                        </ListView>
+                    </controls:DropShadowPanel>
+
+                    <Grid Grid.Column="1">
+                        <controls:DropShadowPanel x:Name="panelMensajeTienda" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5">
+                            <Grid Padding="10" Background="IndianRed">
+                                <TextBlock x:Name="tbMensajeTienda" TextWrapping="Wrap" Foreground="White"/>
+                            </Grid>
+                        </controls:DropShadowPanel>
+
+                        <Grid x:Name="gridTiendaSteam" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoSteam" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoSteam" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <controls:RadialProgressBar x:Name="prSteam" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorSteam" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasSteam" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasSteam" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasSteam" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoSteam" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoSteam" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaSteam" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaSteam" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarSteam" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarSteam" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarSteam" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarSteamDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarSteamPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarSteamTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaGamersGate" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoGamersGate" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoGamersGate" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prGamersGate" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoGamersGate" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorGamersGate" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasGamersGate" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasGamersGate" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasGamersGate" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoGamersGate" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoGamersGate" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaGamersGate" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaGamersGate" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarGamersGate" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarGamersGate" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarGamersGate" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarGamersGateDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGamersGatePrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGamersGateTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaGamesPlanet" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoGamesPlanet" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoGamesPlanet" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prGamesPlanet" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoGamesPlanet" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorGamesPlanet" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasGamesPlanet" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasGamesPlanet" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasGamesPlanet" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoGamesPlanet" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoGamesPlanet" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaGamesPlanet" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaGamesPlanet" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarGamesPlanet" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarGamesPlanet" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarGamesPlanet" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarGamesPlanetDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGamesPlanetPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGamesPlanetTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaHumble" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoHumble" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoHumble" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prHumble" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorHumble" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasHumble" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasHumble" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasHumble" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoHumble" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoHumble" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaHumble" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaHumble" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarHumble" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarHumble" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarHumble" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaGreenManGaming" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoGreenManGaming" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoGreenManGaming" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoGreenManGaming" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorGreenManGaming" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasGreenManGaming" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasGreenManGaming" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasGreenManGaming" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoGreenManGaming" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoGreenManGaming" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaGreenManGaming" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaGreenManGaming" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarGreenManGaming" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarGreenManGaming" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarGreenManGaming" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarGreenManGamingDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGreenManGamingPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGreenManGamingTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaBundleStars" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoBundleStars" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoBundleStars" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoBundleStars" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorBundleStars" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasBundleStars" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasBundleStars" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasBundleStars" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoBundleStars" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoBundleStars" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaBundleStars" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaBundleStars" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarBundleStars" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarBundleStars" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarBundleStars" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaGOG" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoGOG" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoGOG" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoGOG" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorGOG" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasGOG" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasGOG" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasGOG" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoGOG" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoGOG" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaGOG" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaGOG" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarGOG" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarGOG" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarGOG" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarGOGDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGOGPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarGOGTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaWinGameStore" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoWinGameStore" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoWinGameStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <controls:RadialProgressBar x:Name="prWinGameStore" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorWinGameStore" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasWinGameStore" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasWinGameStore" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasWinGameStore" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoWinGameStore" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoWinGameStore" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaWinGameStore" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaWinGameStore" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarWinGameStore" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarWinGameStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarWinGameStore" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarWinGameStoreDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaSilaGames" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoSilaGames" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoSilaGames" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorSilaGames" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasSilaGames" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasSilaGames" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasSilaGames" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoSilaGames" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoSilaGames" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaSilaGames" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaSilaGames" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarSilaGames" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarSilaGames" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarSilaGames" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarSilaGamesDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaNuuvem" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoNuuvem" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoNuuvem" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoNuuvem" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorNuuvem" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasNuuvem" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasNuuvem" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasNuuvem" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoNuuvem" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoNuuvem" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaNuuvem" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaNuuvem" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarNuuvem" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarNuuvem" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarNuuvem" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarNuuvemDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarNuuvemPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarNuuvemTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaMicrosoftStore" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoMicrosoftStore" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoMicrosoftStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ProgressRing x:Name="prMicrosoftStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <TextBlock x:Name="tbProgresoMicrosoftStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorMicrosoftStore" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasMicrosoftStore" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasMicrosoftStore" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasMicrosoftStore" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoMicrosoftStore" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoMicrosoftStore" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaMicrosoftStore" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaMicrosoftStore" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarMicrosoftStore" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarMicrosoftStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarMicrosoftStore" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarMicrosoftStoreDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarMicrosoftStorePrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarMicrosoftStoreTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaAmazonEs" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoAmazonEs" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoAmazonEs" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <controls:RadialProgressBar x:Name="prAmazonEs" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <TextBlock x:Name="tbProgresoAmazonEs" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorAmazonEs" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasAmazonEs" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasAmazonEs" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasAmazonEs" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoAmazonEs" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoAmazonEs" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaAmazonEs" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaAmazonEs" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarAmazonEs" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarAmazonEs" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarAmazonEs" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarAmazonEsDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarAmazonEsPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarAmazonEsTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+
+                        <Grid x:Name="gridTiendaAmazonUk" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Padding="10,0,0,10">
+                                <ListView x:Name="listadoAmazonUk" IsItemClickEnabled="True">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="ListViewItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="0"/>
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+
+                                <Grid x:Name="gridProgresoAmazonUk" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <controls:RadialProgressBar x:Name="prAmazonUk" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <TextBlock x:Name="tbProgresoAmazonUk" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                            </Grid>
+
+                            <controls:DropShadowPanel Grid.Row="1" HorizontalAlignment="Right" Color="DarkOliveGreen"
+                                                      BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                <controls:DropShadowPanel.Transitions>
+                                    <TransitionCollection>
+                                        <EdgeUIThemeTransition Edge="Right"/>
+                                    </TransitionCollection>
+                                </controls:DropShadowPanel.Transitions>
+
+                                <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                    <StackPanel x:Name="spEditorAmazonUk" Orientation="Horizontal">
+                                        <TextBlock x:Name="tbNumOfertasAmazonUk" VerticalAlignment="Center" Foreground="White"/>
+                                        <Button x:Name="botonEditorUltimasOfertasAmazonUk" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorUltimasOfertasAmazonUk" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <SymbolIcon Symbol="Bullets" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarTodoAmazonUk" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarTodoAmazonUk" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <Button x:Name="botonEditorSeleccionarNadaAmazonUk" Background="Transparent" Padding="15,10">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock x:Name="tbEditorSeleccionarNadaAmazonUk" FontSize="16"/>
+                                            </ToolTipService.ToolTip>
+
+                                            <Button.Content>
+                                                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                        <AppBarSeparator Foreground="White"/>
+                                    </StackPanel>
+                                    <Button x:Name="botonActualizarAmazonUk" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                    <TextBlock x:Name="tbOrdenarAmazonUk" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <ComboBox x:Name="cbOrdenarAmazonUk" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
+                                        <ComboBoxItem x:Name="cbOrdenarAmazonUkDescuento"/>
+                                        <ComboBoxItem x:Name="cbOrdenarAmazonUkPrecio"/>
+                                        <ComboBoxItem x:Name="cbOrdenarAmazonUkTitulo"/>
+                                    </ComboBox>
+                                </StackPanel>
+                            </controls:DropShadowPanel>
+                        </Grid>
+                    </Grid> 
                 </Grid>
 
                 <Grid x:Name="gridEditor" Visibility="Collapsed">
-                    <TextBlock Text="test2"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox x:Name="tbEditorTitulo" Grid.Row="0" Padding="5" TextWrapping="Wrap" Margin="0,0,0,10"/>
+                        <TextBox x:Name="tbEditorEnlaces" Grid.Row="1" Padding="5" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        <TextBlock x:Name="tbEditorEnlacesLimite" Grid.Row="1" Padding="5" Margin="5" HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" TextWrapping="Wrap" Visibility="Collapsed"/>
+                        <controls:DropShadowPanel Grid.Row="2" Margin="0,10,0,0" Color="Black"
+                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
+                                <Button x:Name="botonEditorCopiarTitulo" Background="Transparent" Padding="15,10">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
+                                            <TextBlock x:Name="tbEditorCopiarTitulo" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="botonEditorCortarTitulo" Background="Transparent" Padding="15,10">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
+                                            <TextBlock x:Name="tbEditorCortarTitulo" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <AppBarSeparator Foreground="White"/>
+                                <Button x:Name="botonEditorCopiarEnlaces" Background="Transparent" Padding="15,10">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
+                                            <TextBlock x:Name="tbEditorCopiarEnlaces" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Button x:Name="botonEditorCortarEnlaces" Background="Transparent" Padding="15,10">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
+                                            <TextBlock x:Name="tbEditorCortarEnlaces" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <AppBarSeparator Foreground="White"/>
+                                <Button x:Name="botonEditorBorrarTodo" Background="Transparent" Padding="15,10">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <SymbolIcon Symbol="Delete" Foreground="White" Margin="0,0,10,0"/>
+                                            <TextBlock x:Name="tbEditorBorrarTodo" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </controls:DropShadowPanel>
+                    </Grid>
+
+                    <StackPanel Grid.Column="1" Padding="10,0,0,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock x:Name="tbEditorEnlacesNum" VerticalAlignment="Center"/>
+                            <AppBarSeparator />
+                            <TextBlock x:Name="tbEditorEnlacesTienda" VerticalAlignment="Center"/>
+                            <AppBarSeparator />
+                            <TextBlock x:Name="tbEditorNumCaracteres" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ComboBox x:Name="cbEditorTipo" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
+                            <ComboBoxItem>
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:ImageEx Source="Assets/web_reddit.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                                        <TextBlock Text="Reddit"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <ComboBoxItem.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:ImageEx Source="Assets/web_vayaansias.ico" Width="16" Height="16" Margin="5,0,10,0"/>
+                                        <TextBlock Text="VayaAnsias"/>
+                                    </StackPanel>
+                                </ComboBoxItem.Content>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                        <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+                    </StackPanel>
                 </Grid>
 
                 <Grid x:Name="gridConfig" Visibility="Collapsed">
-                    <TextBlock Text="test3"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                        <TextBlock x:Name="tbConfigOfertas" Margin="10,5" FontSize="16"/>
+                        <Rectangle HorizontalAlignment="Left" Fill="Black" Height="1" Margin="5" Width="400"/>
+
+                        <Grid Margin="10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="tbConfigTipoOrdenar" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbConfigTipoOrdenar" Grid.Column="1" Width="120">
+                                <ComboBoxItem x:Name="cbConfigTipoDescuento"/>
+                                <ComboBoxItem x:Name="cbConfigTipoPrecio"/>
+                                <ComboBoxItem x:Name="cbConfigTipoTitulo"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <CheckBox x:Name="cbConfigDescartarUltimaVisita" Margin="10,5"/>
+
+                        <CheckBox x:Name="cbConfigDescartarDeseados" Margin="10,5">
+                            <CheckBox.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock x:Name="tbConfigDescartar" Grid.Row="0"/>
+
+                                    <Grid Grid.Row="1" Margin="0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <SymbolIcon Grid.Column="0" Symbol="Important" Margin="0,0,5,0"/>
+                                        <TextBlock x:Name="tbConfigDescartarAviso" Grid.Column="1" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <StackPanel x:Name="spSteamConfigCuenta" Grid.Row="2" Orientation="Vertical">
+                                        <TextBlock x:Name="tbSteamConfigCuenta" Margin="5" TextWrapping="Wrap"/>
+                                        <Grid Margin="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
+                                            <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+                            </CheckBox.Content>
+                        </CheckBox>
+
+                        <TextBlock x:Name="tbConfigEditor" Margin="10,50,10,5" FontSize="16"/>
+                        <Rectangle HorizontalAlignment="Left" Fill="Black" Height="1" Margin="5" Width="400"/>
+
+                        <CheckBox x:Name="cbConfigEditor" Margin="10,5">
+                            <CheckBox.Content>
+                                <TextBlock x:Name="tbConfigEditorAviso" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                            </CheckBox.Content>
+                        </CheckBox>
+
+                        <Grid Margin="10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="tbConfigDivisas" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" 
+                                       HorizontalAlignment="Right"/>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <controls:DropShadowPanel Color="Black" BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                    <Button x:Name="botonDivisasActualizar" Background="OliveDrab" Padding="10">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                </controls:DropShadowPanel>
+
+                                <controls:ImageEx Source="Assets/pais_ue2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                                <TextBlock VerticalAlignment="Center" Text="1 €"/>
+                                <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                                <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
+                                <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                                <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Rating" Margin="0,0,10,0" VerticalAlignment="Center" 
+                                       HorizontalAlignment="Right"/>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <controls:DropShadowPanel Color="Black" BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
+                                    <Button x:Name="botonValoracionActualizar" Background="OliveDrab" Padding="10">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
+                                </controls:DropShadowPanel>
+
+                                <TextBlock x:Name="tbValoracionAvance" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
                 </Grid>
 
                 <Grid x:Name="gridMasCosas" Visibility="Collapsed">
@@ -137,1089 +1418,6 @@
                 </StackPanel> 
             </Grid>
 
-            <Grid x:Name="gridDeals" Grid.Column="1">
-                <Grid.Background>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
-                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Grid.Background>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <controls:DropShadowPanel Grid.Column="0" Margin="10" VerticalAlignment="Top" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="spTiendas" Background="OliveDrab">
-                            <Button x:Name="botonTiendaSteam" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_steam.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoSteam" Text="Steam" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaGamersGate" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_gamersgate.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoGamersGate" Text="GamersGate" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaGamesPlanet" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_gamesplanet.png" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoGamesPlanet" Text="GamesPlanet" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaHumble" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_humble.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoHumble" Text="Humble" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaGreenManGaming" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_gmg.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoGreenManGaming" Text="Green Man Gaming" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaBundleStars" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_bundlestars.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoBundleStars" Text="Bundle Stars" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaGOG" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_gog.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoGOG" Text="GOG" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaWinGameStore" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_wingamestore.png" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoWinGameStore" Text="WinGameStore" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaSilaGames" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_silagames.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoSilaGames" Text="Sila Games" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaNuuvem" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_nuuvem.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoNuuvem" Text="Nuuvem" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaMicrosoftStore" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_microsoft.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoMicrosoftStore" Text="Microsoft Store" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaAmazonEs" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200" Visibility="Collapsed">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_amazon.png" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoAmazonEs" Text="Amazon.es" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="botonTiendaAmazonUk" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200" Visibility="Collapsed">
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/icon_amazon.png" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock x:Name="botonTiendaTextoAmazonUk" Text="Amazon.co.uk" Foreground="White"/>
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                    </ScrollViewer>
-                </controls:DropShadowPanel>
-
-                <Grid Grid.Column="1">
-                    <controls:DropShadowPanel x:Name="panelMensajeTienda" Margin="10" Color="Black" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                        <Grid Padding="10" Background="IndianRed">
-                            <TextBlock x:Name="tbMensajeTienda" TextWrapping="Wrap" Foreground="White"/>
-                        </Grid>
-                    </controls:DropShadowPanel>
-                   
-                    <Grid x:Name="gridTiendaSteam" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoSteam" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoSteam" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <controls:RadialProgressBar x:Name="prSteam" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
-                                <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorSteam" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasSteam" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasSteam" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasSteam" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoSteam" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoSteam" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaSteam" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaSteam" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarSteam" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarSteam" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarSteam" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarSteamDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarSteamPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarSteamTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaGamersGate" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoGamersGate" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoGamersGate" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prGamersGate" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoGamersGate" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorGamersGate" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasGamersGate" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasGamersGate" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasGamersGate" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoGamersGate" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoGamersGate" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaGamersGate" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaGamersGate" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarGamersGate" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarGamersGate" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarGamersGate" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarGamersGateDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGamersGatePrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGamersGateTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaGamesPlanet" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoGamesPlanet" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoGamesPlanet" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prGamesPlanet" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoGamesPlanet" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorGamesPlanet" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasGamesPlanet" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasGamesPlanet" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasGamesPlanet" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoGamesPlanet" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoGamesPlanet" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaGamesPlanet" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaGamesPlanet" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarGamesPlanet" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarGamesPlanet" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarGamesPlanet" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarGamesPlanetDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGamesPlanetPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGamesPlanetTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaHumble" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoHumble" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoHumble" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prHumble" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorHumble" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasHumble" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasHumble" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasHumble" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoHumble" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoHumble" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaHumble" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaHumble" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarHumble" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarHumble" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarHumble" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarHumbleDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarHumblePrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarHumbleTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaGreenManGaming" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoGreenManGaming" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoGreenManGaming" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoGreenManGaming" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorGreenManGaming" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasGreenManGaming" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasGreenManGaming" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasGreenManGaming" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoGreenManGaming" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoGreenManGaming" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaGreenManGaming" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaGreenManGaming" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarGreenManGaming" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarGreenManGaming" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarGreenManGaming" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarGreenManGamingDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGreenManGamingPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGreenManGamingTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaBundleStars" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoBundleStars" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoBundleStars" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoBundleStars" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorBundleStars" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasBundleStars" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasBundleStars" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasBundleStars" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoBundleStars" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoBundleStars" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaBundleStars" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaBundleStars" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarBundleStars" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarBundleStars" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarBundleStars" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarBundleStarsDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarBundleStarsPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarBundleStarsTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaGOG" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoGOG" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoGOG" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoGOG" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorGOG" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasGOG" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasGOG" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasGOG" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoGOG" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoGOG" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaGOG" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaGOG" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarGOG" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarGOG" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarGOG" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarGOGDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGOGPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarGOGTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaWinGameStore" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoWinGameStore" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoWinGameStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <controls:RadialProgressBar x:Name="prWinGameStore" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
-                                <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorWinGameStore" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasWinGameStore" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasWinGameStore" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasWinGameStore" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoWinGameStore" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoWinGameStore" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaWinGameStore" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaWinGameStore" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarWinGameStore" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarWinGameStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarWinGameStore" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarWinGameStoreDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarWinGameStorePrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarWinGameStoreTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaSilaGames" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoSilaGames" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoSilaGames" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorSilaGames" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasSilaGames" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasSilaGames" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasSilaGames" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoSilaGames" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoSilaGames" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaSilaGames" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaSilaGames" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarSilaGames" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarSilaGames" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarSilaGames" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarSilaGamesDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarSilaGamesPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarSilaGamesTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaNuuvem" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoNuuvem" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoNuuvem" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoNuuvem" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorNuuvem" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasNuuvem" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasNuuvem" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasNuuvem" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoNuuvem" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoNuuvem" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaNuuvem" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaNuuvem" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarNuuvem" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarNuuvem" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarNuuvem" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarNuuvemDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarNuuvemPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarNuuvemTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaMicrosoftStore" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoMicrosoftStore" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoMicrosoftStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing x:Name="prMicrosoftStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
-                                <TextBlock x:Name="tbProgresoMicrosoftStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorMicrosoftStore" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasMicrosoftStore" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasMicrosoftStore" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasMicrosoftStore" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoMicrosoftStore" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoMicrosoftStore" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaMicrosoftStore" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaMicrosoftStore" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarMicrosoftStore" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarMicrosoftStore" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarMicrosoftStore" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarMicrosoftStoreDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarMicrosoftStorePrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarMicrosoftStoreTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaAmazonEs" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoAmazonEs" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoAmazonEs" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <controls:RadialProgressBar x:Name="prAmazonEs" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
-                                <TextBlock x:Name="tbProgresoAmazonEs" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorAmazonEs" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasAmazonEs" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasAmazonEs" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasAmazonEs" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoAmazonEs" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoAmazonEs" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaAmazonEs" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaAmazonEs" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarAmazonEs" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarAmazonEs" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarAmazonEs" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarAmazonEsDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarAmazonEsPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarAmazonEsTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-
-                    <Grid x:Name="gridTiendaAmazonUk" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Padding="10">
-                            <ListView x:Name="listadoAmazonUk" IsItemClickEnabled="True">
-                                <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                        <Setter Property="Padding" Value="0"/>
-                                    </Style>
-                                </ListView.ItemContainerStyle>
-                            </ListView>
-
-                            <Grid x:Name="gridProgresoAmazonUk" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <controls:RadialProgressBar x:Name="prAmazonUk" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
-                                <TextBlock x:Name="tbProgresoAmazonUk" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Grid>
-                        </Grid>
-
-                        <controls:DropShadowPanel Grid.Row="1" Margin="10" HorizontalAlignment="Right" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                            <controls:DropShadowPanel.Transitions>
-                                <TransitionCollection>
-                                    <EdgeUIThemeTransition Edge="Right"/>
-                                </TransitionCollection>
-                            </controls:DropShadowPanel.Transitions>
-                            
-                            <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                                <StackPanel x:Name="spEditorAmazonUk" Orientation="Horizontal">
-                                    <TextBlock x:Name="tbNumOfertasAmazonUk" VerticalAlignment="Center" Foreground="White"/>
-                                    <Button x:Name="botonEditorUltimasOfertasAmazonUk" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorUltimasOfertasAmazonUk" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <SymbolIcon Symbol="Bullets" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarTodoAmazonUk" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarTodoAmazonUk" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonEditorSeleccionarNadaAmazonUk" Background="Transparent" Padding="15,10">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbEditorSeleccionarNadaAmazonUk" FontSize="16"/>
-                                        </ToolTipService.ToolTip>
-
-                                        <Button.Content>
-                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="22" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <AppBarSeparator Foreground="White"/>
-                                </StackPanel>
-                                <Button x:Name="botonActualizarAmazonUk" Background="Transparent" Padding="15,10" Margin="0,0,10,0">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                                <TextBlock x:Name="tbOrdenarAmazonUk" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                                <ComboBox x:Name="cbOrdenarAmazonUk" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                    <ComboBoxItem x:Name="cbOrdenarAmazonUkDescuento"/>
-                                    <ComboBoxItem x:Name="cbOrdenarAmazonUkPrecio"/>
-                                    <ComboBoxItem x:Name="cbOrdenarAmazonUkTitulo"/>
-                                </ComboBox>
-                            </StackPanel>
-                        </controls:DropShadowPanel>
-                    </Grid>
-                </Grid>
-            </Grid>
 
             <Grid x:Name="gridEditor" Grid.Column="1" Visibility="Collapsed">
                 <Grid.Background>
@@ -1229,239 +1427,9 @@
                     </LinearGradientBrush>
                 </Grid.Background>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="0" Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBox x:Name="tbEditorTitulo" Grid.Row="0" Padding="5" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                    <TextBox x:Name="tbEditorEnlaces" Grid.Row="1" Padding="5" TextWrapping="Wrap" AcceptsReturn="True"/>
-                    <TextBlock x:Name="tbEditorEnlacesLimite" Grid.Row="1" Padding="5" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Visibility="Collapsed"/>
-                    <controls:DropShadowPanel Grid.Row="2" Margin="0,10,0,0" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" Background="OliveDrab">
-                            <Button x:Name="botonEditorCopiarTitulo" Background="Transparent" Padding="15,10">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorCopiarTitulo" Foreground="White"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button x:Name="botonEditorCortarTitulo" Background="Transparent" Padding="15,10">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorCortarTitulo" Foreground="White"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <AppBarSeparator Foreground="White"/>
-                            <Button x:Name="botonEditorCopiarEnlaces" Background="Transparent" Padding="15,10">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorCopiarEnlaces" Foreground="White"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button x:Name="botonEditorCortarEnlaces" Background="Transparent" Padding="15,10">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorCortarEnlaces" Foreground="White"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <AppBarSeparator Foreground="White"/>
-                            <Button x:Name="botonEditorBorrarTodo" Background="Transparent" Padding="15,10">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <SymbolIcon Symbol="Delete" Foreground="White" Margin="0,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorBorrarTodo" Foreground="White"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </controls:DropShadowPanel>
-                </Grid>
-
-                <StackPanel Grid.Column="1" Padding="10">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock x:Name="tbEditorEnlacesNum" VerticalAlignment="Center"/>
-                        <AppBarSeparator />
-                        <TextBlock x:Name="tbEditorEnlacesTienda" VerticalAlignment="Center"/>
-                        <AppBarSeparator />
-                        <TextBlock x:Name="tbEditorNumCaracteres" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <ComboBox x:Name="cbEditorTipo" Padding="5" Margin="0,5" HorizontalAlignment="Stretch">
-                        <ComboBoxItem>
-                            <ComboBoxItem.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/web_reddit.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock Text="Reddit"/>
-                                </StackPanel>
-                            </ComboBoxItem.Content>
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            <ComboBoxItem.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets/web_vayaansias.ico" Width="16" Height="16" Margin="5,0,10,0"/>
-                                    <TextBlock Text="VayaAnsias"/>
-                                </StackPanel>
-                            </ComboBoxItem.Content>
-                        </ComboBoxItem>
-                    </ComboBox>
-                    <TextBox x:Name="tbEditorEtiquetas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
-                    <TextBox x:Name="tbEditorNotas" Padding="5" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
-                </StackPanel>
+                
             </Grid>
 
-            <Grid x:Name="gridConfig" Grid.Column="1" Visibility="Collapsed">
-                <Grid.Background>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
-                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Grid.Background>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <controls:DropShadowPanel Grid.Column="0" Margin="10" VerticalAlignment="Top" Color="Black"
-                                                  BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                    <StackPanel Background="OliveDrab">
-                        <Button x:Name="botonConfigOfertas" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                            <TextBlock x:Name="botonConfigOfertasTexto" Foreground="White"/>
-                        </Button>
-                        <Button x:Name="botonConfigEditor" Padding="10,15" Background="Transparent" HorizontalContentAlignment="Left" Width="200">
-                            <TextBlock x:Name="botonConfigEditorTexto" Foreground="White"/>
-                        </Button>
-                    </StackPanel>
-                </controls:DropShadowPanel>
-
-                <Grid x:Name="gridConfigOfertas" Grid.Column="1" Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock x:Name="tbSteamConfigCuenta" Grid.Row="0" Margin="5" TextWrapping="Wrap" />
-                    <Grid Grid.Row="1" Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
-                        <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
-                    </Grid>
-                    <CheckBox x:Name="cbConfigDescartarDeseados" Grid.Row="2" Margin="10,15,5,5">
-                        <CheckBox.Content>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-
-                                <TextBlock x:Name="tbConfigDescartar" Grid.Row="0"/>
-                                <Grid Grid.Row="1" Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <SymbolIcon Grid.Column="0" Symbol="Important" Margin="0,0,5,0"/>
-                                    <TextBlock x:Name="tbConfigDescartarAviso" Grid.Column="1" VerticalAlignment="Center"/>
-                                </Grid>
-                            </Grid>
-                        </CheckBox.Content>
-                    </CheckBox>
-                    <CheckBox x:Name="cbConfigDescartarUltimaVisita" Grid.Row="3" Margin="10,15,5,5"/>
-                    <Grid Grid.Row="4" Margin="10,15,5,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock x:Name="tbConfigTipoOrdenar" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="cbConfigTipoOrdenar" Grid.Column="1" Width="120">
-                            <ComboBoxItem x:Name="cbConfigTipoDescuento"/>
-                            <ComboBoxItem x:Name="cbConfigTipoPrecio"/>
-                            <ComboBoxItem x:Name="cbConfigTipoTitulo"/>
-                        </ComboBox>
-                    </Grid>
-                </Grid>
-
-                <Grid x:Name="gridConfigEditor" Grid.Column="1" Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="0" Margin="5" HorizontalAlignment="Left">
-                        <CheckBox x:Name="cbConfigEditor"/>
-                        <TextBlock x:Name="tbConfigEditorAviso" TextWrapping="Wrap"/>
-                    </StackPanel>
-
-                    <Grid Grid.Row="1" Margin="5,15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock x:Name="tbConfigDivisas" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <controls:DropShadowPanel Color="Black" BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                                <Button x:Name="botonDivisasActualizar" Background="OliveDrab" Padding="15,10">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                            </controls:DropShadowPanel>
-
-                            <controls:ImageEx Source="Assets/pais_ue2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                            <TextBlock VerticalAlignment="Center" Text="1 €"/>
-                            <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                            <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
-                            <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                            <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="2" Margin="5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Rating" Margin="0,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-
-                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <controls:DropShadowPanel Color="Black" BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                                <Button x:Name="botonValoracionActualizar" Background="OliveDrab" Padding="15,10">
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button>
-                            </controls:DropShadowPanel>
-
-                            <TextBlock x:Name="tbValoracionAvance" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Grid>
-                </Grid> 
-            </Grid>
 
             <Popup x:Name="popupMasCosas" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                 <Popup.ChildTransitions>

@@ -14,10 +14,11 @@ Public NotInheritable Class MainPage
 
         Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
-        nvPrincipal.MenuItems.Add(NavigateViewItems.Generar(recursos.GetString("Ofertas"), New SymbolIcon(Symbol.Home)))
-        nvPrincipal.MenuItems.Add(NavigateViewItems.Generar(recursos.GetString("Editor"), New SymbolIcon(Symbol.Edit)))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("Ofertas"), New SymbolIcon(Symbol.Home), 0))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("Editor"), New SymbolIcon(Symbol.Edit), 1))
         nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
-        nvPrincipal.MenuItems.Add(NavigateViewItems.Generar(recursos.GetString("Boton Cosas"), New SymbolIcon(Symbol.More)))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("Boton Config"), New SymbolIcon(Symbol.Setting), 2))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("Boton Cosas"), New SymbolIcon(Symbol.More), 3))
 
     End Sub
 
@@ -25,16 +26,16 @@ Public NotInheritable Class MainPage
 
         Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
-        If args.IsSettingsInvoked = True Then
-            GridVisibilidad(gridConfig, args.InvokedItem.Content.ToString)
-        Else
-            Dim item As TextBlock = args.InvokedItem
+        Dim item As TextBlock = args.InvokedItem
 
-            If item.Text = recursos.GetString("Ofertas") Then
-                GridVisibilidad(gridDeals, item.Text)
-            ElseIf item.Text = recursos.GetString("Editor") Then
-                GridVisibilidad(gridEditor, item.Text)
-            End If
+        If item.Text = recursos.GetString("Ofertas") Then
+            GridVisibilidad(gridDeals, item.Text)
+        ElseIf item.Text = recursos.GetString("Editor") Then
+            GridVisibilidad(gridEditor, item.Text)
+        ElseIf item.Text = recursos.GetString("Boton Config") Then
+            GridVisibilidad(gridConfig, item.Text)
+        ElseIf item.Text = recursos.GetString("Boton Cosas") Then
+            GridVisibilidad(gridMasCosas, item.Text)
         End If
 
     End Sub
@@ -44,22 +45,12 @@ Public NotInheritable Class MainPage
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
-        'Acrilico.Generar(gridTopAcrilico)
-        'Acrilico.Generar(gridMenuAcrilico)
-
-        Dim acrilico As AcrylicBrush = New AcrylicBrush With {
-            .BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
-            .TintColor = Colors.DarkOliveGreen,
-            .TintOpacity = 0.7
-        }
-
-        gridTitulo.Background = acrilico
-
         Dim coreBarra As CoreApplicationViewTitleBar = CoreApplication.GetCurrentView.TitleBar
         coreBarra.ExtendViewIntoTitleBar = True
 
         Dim barra As ApplicationViewTitleBar = ApplicationView.GetForCurrentView().TitleBar
         barra.ButtonBackgroundColor = Colors.Transparent
+        barra.ButtonForegroundColor = Colors.White
         barra.ButtonInactiveBackgroundColor = Colors.Transparent
 
         '--------------------------------------------------------
@@ -68,6 +59,8 @@ Public NotInheritable Class MainPage
 
         GridVisibilidad(gridDeals, recursos.GetString("Ofertas"))
         nvPrincipal.IsPaneOpen = False
+
+        tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
 
 
         'botonOfertasTexto.Text = recursos.GetString("Ofertas")
@@ -81,226 +74,223 @@ Public NotInheritable Class MainPage
         'botonReportarTexto.Text = recursos.GetString("Boton Reportar")
         'botonCodigoFuenteTexto.Text = recursos.GetString("Boton Codigo Fuente")
 
-        'botonConfigOfertasTexto.Text = recursos.GetString("Ofertas")
-        'botonConfigEditorTexto.Text = recursos.GetString("Editor")
+        tbConfigOfertas.text = recursos.GetString("Ofertas")
+        tbSteamConfigCuenta.Text = recursos.GetString("Config Cuenta Steam")
+        tbConfigDescartar.Text = recursos.GetString("Config Descartar")
+        tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
+        cbConfigDescartarUltimaVisita.Content = recursos.GetString("Config Descartar Ultima Visita")
 
-        'tbSteamConfigCuenta.Text = recursos.GetString("Config Cuenta Steam")
-        'tbConfigDescartar.Text = recursos.GetString("Config Descartar")
-        'tbConfigDescartarAviso.Text = recursos.GetString("Config Descartar Aviso")
-        'cbConfigDescartarUltimaVisita.Content = recursos.GetString("Config Descartar Ultima Visita")
+        tbConfigTipoOrdenar.Text = recursos.GetString("Config Ordenar")
+        cbConfigTipoDescuento.Content = recursos.GetString("Descuento")
+        cbConfigTipoPrecio.Content = recursos.GetString("Precio")
+        cbConfigTipoTitulo.Content = recursos.GetString("Titulo")
 
-        'tbConfigTipoOrdenar.Text = recursos.GetString("Config Ordenar")
-        'cbConfigTipoDescuento.Content = recursos.GetString("Descuento")
-        'cbConfigTipoPrecio.Content = recursos.GetString("Precio")
-        'cbConfigTipoTitulo.Content = recursos.GetString("Titulo")
+        If ApplicationData.Current.LocalSettings.Values("ordenar") = Nothing Then
+            cbConfigTipoOrdenar.SelectedIndex = 0
+            ApplicationData.Current.LocalSettings.Values("ordenar") = 0
+        Else
+            cbConfigTipoOrdenar.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        End If
 
-        'If ApplicationData.Current.LocalSettings.Values("ordenar") = Nothing Then
-        '    cbConfigTipoOrdenar.SelectedIndex = 0
-        '    ApplicationData.Current.LocalSettings.Values("ordenar") = 0
-        'Else
-        '    cbConfigTipoOrdenar.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-        'End If
+        tbConfigEditor.text = recursos.GetString("Editor")
+        tbConfigEditorAviso.Text = recursos.GetString("Aviso Editor")
+        tbConfigDivisas.Text = recursos.GetString("Divisas")
 
-        'cbConfigEditor.Content = recursos.GetString("Editor")
-        'tbConfigEditorAviso.Text = recursos.GetString("Aviso Editor")
-        'tbConfigDivisas.Text = recursos.GetString("Divisas")
-
-        'tbEditorEnlacesLimite.Text = recursos.GetString("Editor Limite")
-        'tbEditorCopiarTitulo.Text = recursos.GetString("Copiar Titulo")
-        'tbEditorCortarTitulo.Text = recursos.GetString("Cortar Titulo")
-        'tbEditorCopiarEnlaces.Text = recursos.GetString("Copiar Ofertas")
-        'tbEditorCortarEnlaces.Text = recursos.GetString("Cortar Ofertas")
-        'tbEditorBorrarTodo.Text = recursos.GetString("Borrar")
+        tbEditorEnlacesLimite.Text = recursos.GetString("Editor Limite")
+        tbEditorCopiarTitulo.Text = recursos.GetString("Copiar Titulo")
+        tbEditorCortarTitulo.Text = recursos.GetString("Cortar Titulo")
+        tbEditorCopiarEnlaces.Text = recursos.GetString("Copiar Ofertas")
+        tbEditorCortarEnlaces.Text = recursos.GetString("Cortar Ofertas")
+        tbEditorBorrarTodo.Text = recursos.GetString("Borrar")
 
         ''--------------------------------------------------------
 
-        'tbEditorUltimasOfertasSteam.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoSteam.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaSteam.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasSteam.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoSteam.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaSteam.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarSteam.Text = recursos.GetString("Ordenar")
-        'cbOrdenarSteamDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarSteamPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarSteamTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarSteam.Text = recursos.GetString("Ordenar")
+        cbOrdenarSteamDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarSteamPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarSteamTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasGamersGate.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoGamersGate.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaGamersGate.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasGamersGate.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoGamersGate.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGamersGate.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarGamersGate.Text = recursos.GetString("Ordenar")
-        'cbOrdenarGamersGateDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarGamersGatePrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarGamersGateTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarGamersGate.Text = recursos.GetString("Ordenar")
+        cbOrdenarGamersGateDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarGamersGatePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarGamersGateTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasGamesPlanet.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoGamesPlanet.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaGamesPlanet.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasGamesPlanet.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoGamesPlanet.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGamesPlanet.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarGamesPlanet.Text = recursos.GetString("Ordenar")
-        'cbOrdenarGamesPlanetDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarGamesPlanetPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarGamesPlanetTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarGamesPlanet.Text = recursos.GetString("Ordenar")
+        cbOrdenarGamesPlanetDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarGamesPlanetPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarGamesPlanetTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasHumble.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoHumble.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaHumble.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasHumble.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoHumble.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaHumble.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarHumble.Text = recursos.GetString("Ordenar")
-        'cbOrdenarHumbleDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarHumblePrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarHumbleTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarHumble.Text = recursos.GetString("Ordenar")
+        cbOrdenarHumbleDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarHumblePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarHumbleTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasGreenManGaming.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoGreenManGaming.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaGreenManGaming.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasGreenManGaming.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoGreenManGaming.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGreenManGaming.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarGreenManGaming.Text = recursos.GetString("Ordenar")
-        'cbOrdenarGreenManGamingDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarGreenManGamingPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarGreenManGamingTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarGreenManGaming.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarGreenManGaming.Text = recursos.GetString("Ordenar")
+        cbOrdenarGreenManGamingDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarGreenManGamingPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarGreenManGamingTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarGreenManGaming.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasBundleStars.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoBundleStars.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaBundleStars.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasBundleStars.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoBundleStars.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaBundleStars.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarBundleStars.Text = recursos.GetString("Ordenar")
-        'cbOrdenarBundleStarsDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarBundleStarsPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarBundleStarsTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarBundleStars.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarBundleStars.Text = recursos.GetString("Ordenar")
+        cbOrdenarBundleStarsDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarBundleStarsPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarBundleStarsTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarBundleStars.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasGOG.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoGOG.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaGOG.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasGOG.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoGOG.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaGOG.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarGOG.Text = recursos.GetString("Ordenar")
-        'cbOrdenarGOGDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarGOGPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarGOGTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarGOG.Text = recursos.GetString("Ordenar")
+        cbOrdenarGOGDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarGOGPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarGOGTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasWinGameStore.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoWinGameStore.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaWinGameStore.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasWinGameStore.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoWinGameStore.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaWinGameStore.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarWinGameStore.Text = recursos.GetString("Ordenar")
-        'cbOrdenarWinGameStoreDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarWinGameStorePrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarWinGameStoreTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarWinGameStore.Text = recursos.GetString("Ordenar")
+        cbOrdenarWinGameStoreDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarWinGameStorePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarWinGameStoreTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasSilaGames.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoSilaGames.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaSilaGames.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasSilaGames.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoSilaGames.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaSilaGames.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarSilaGames.Text = recursos.GetString("Ordenar")
-        'cbOrdenarSilaGamesDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarSilaGamesPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarSilaGamesTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarSilaGames.Text = recursos.GetString("Ordenar")
+        cbOrdenarSilaGamesDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarSilaGamesPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarSilaGamesTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasNuuvem.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoNuuvem.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaNuuvem.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasNuuvem.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoNuuvem.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaNuuvem.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarNuuvem.Text = recursos.GetString("Ordenar")
-        'cbOrdenarNuuvemDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarNuuvemPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarNuuvemTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarNuuvem.Text = recursos.GetString("Ordenar")
+        cbOrdenarNuuvemDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarNuuvemPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarNuuvemTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasMicrosoftStore.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoMicrosoftStore.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaMicrosoftStore.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasMicrosoftStore.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoMicrosoftStore.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaMicrosoftStore.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarMicrosoftStore.Text = recursos.GetString("Ordenar")
-        'cbOrdenarMicrosoftStoreDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarMicrosoftStorePrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarMicrosoftStoreTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarMicrosoftStore.Text = recursos.GetString("Ordenar")
+        cbOrdenarMicrosoftStoreDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarMicrosoftStorePrecio.Content = recursos.GetString("Precio")
+        cbOrdenarMicrosoftStoreTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasAmazonEs.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoAmazonEs.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaAmazonEs.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasAmazonEs.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoAmazonEs.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaAmazonEs.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarAmazonEs.Text = recursos.GetString("Ordenar")
-        'cbOrdenarAmazonEsDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarAmazonEsPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarAmazonEsTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        tbOrdenarAmazonEs.Text = recursos.GetString("Ordenar")
+        cbOrdenarAmazonEsDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarAmazonEsPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarAmazonEsTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        'tbEditorUltimasOfertasAmazonUk.Text = recursos.GetString("Ultimas Ofertas")
-        'tbEditorSeleccionarTodoAmazonUk.Text = recursos.GetString("Seleccionar Todo")
-        'tbEditorSeleccionarNadaAmazonUk.Text = recursos.GetString("Seleccionar Nada")
+        tbEditorUltimasOfertasAmazonUk.Text = recursos.GetString("Ultimas Ofertas")
+        tbEditorSeleccionarTodoAmazonUk.Text = recursos.GetString("Seleccionar Todo")
+        tbEditorSeleccionarNadaAmazonUk.Text = recursos.GetString("Seleccionar Nada")
 
-        'tbOrdenarAmazonUk.Text = recursos.GetString("Ordenar")
-        'cbOrdenarAmazonUkDescuento.Content = recursos.GetString("Descuento")
-        'cbOrdenarAmazonUkPrecio.Content = recursos.GetString("Precio")
-        'cbOrdenarAmazonUkTitulo.Content = recursos.GetString("Titulo")
-        'cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-
-        'tbMensajeTienda.Text = recursos.GetString("Seleccionar Tienda")
+        tbOrdenarAmazonUk.Text = recursos.GetString("Ordenar")
+        cbOrdenarAmazonUkDescuento.Content = recursos.GetString("Descuento")
+        cbOrdenarAmazonUkPrecio.Content = recursos.GetString("Precio")
+        cbOrdenarAmazonUkTitulo.Content = recursos.GetString("Titulo")
+        cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
         ''--------------------------------------------------------
 
-        'If Not ApplicationData.Current.LocalSettings.Values("cuentasteam") = Nothing Then
-        '    tbSteamConfigCuentaID.Text = ApplicationData.Current.LocalSettings.Values("cuentasteam")
-        'End If
+        If Not ApplicationData.Current.LocalSettings.Values("cuentasteam") = Nothing Then
+            tbSteamConfigCuentaID.Text = ApplicationData.Current.LocalSettings.Values("cuentasteam")
+        End If
 
-        'If Not ApplicationData.Current.LocalSettings.Values("descartarjuegos") = Nothing Then
-        '    If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
-        '        cbConfigDescartarDeseados.IsChecked = True
-        '    Else
-        '        cbConfigDescartarDeseados.IsChecked = False
-        '    End If
-        'Else
-        '    ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
-        '    cbConfigDescartarDeseados.IsChecked = False
-        'End If
+        If Not ApplicationData.Current.LocalSettings.Values("descartarjuegos") = Nothing Then
+            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
+                cbConfigDescartarDeseados.IsChecked = True
+                spSteamConfigCuenta.Visibility = Visibility.Visible
+            Else
+                cbConfigDescartarDeseados.IsChecked = False
+                spSteamConfigCuenta.Visibility = Visibility.Collapsed
+            End If
+        Else
+            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+            cbConfigDescartarDeseados.IsChecked = False
+            spSteamConfigCuenta.Visibility = Visibility.Collapsed
+        End If
 
-        'If Not ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = Nothing Then
-        '    If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
-        '        cbConfigDescartarUltimaVisita.IsChecked = True
-        '    Else
-        '        cbConfigDescartarUltimaVisita.IsChecked = False
-        '    End If
-        'Else
-        '    ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
-        '    cbConfigDescartarUltimaVisita.IsChecked = True
-        'End If
+        If Not ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = Nothing Then
+            If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                cbConfigDescartarUltimaVisita.IsChecked = True
+            Else
+                cbConfigDescartarUltimaVisita.IsChecked = False
+            End If
+        Else
+            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
+            cbConfigDescartarUltimaVisita.IsChecked = True
+        End If
 
-        'If ApplicationData.Current.LocalSettings.Values("editor") = Nothing Then
-        '    cbConfigEditor.IsChecked = False
-        '    EditorVisibilidad(False)
-        '    ApplicationData.Current.LocalSettings.Values("editor") = "off"
-        'Else
-        '    If ApplicationData.Current.LocalSettings.Values("editor") = "on" Then
-        '        cbConfigEditor.IsChecked = True
-        '        EditorVisibilidad(True)
-        '    Else
-        '        cbConfigEditor.IsChecked = False
-        '        EditorVisibilidad(False)
-        '    End If
-        'End If
+        If ApplicationData.Current.LocalSettings.Values("editor") = Nothing Then
+            cbConfigEditor.IsChecked = False
+            EditorVisibilidad(False)
+            ApplicationData.Current.LocalSettings.Values("editor") = "off"
+        Else
+            If ApplicationData.Current.LocalSettings.Values("editor") = "on" Then
+                cbConfigEditor.IsChecked = True
+                EditorVisibilidad(True)
+            Else
+                cbConfigEditor.IsChecked = False
+                EditorVisibilidad(False)
+            End If
+        End If
 
-        'GridVisibilidad(gridDeals, botonOfertas, recursos.GetString("Ofertas"))
+        '--------------------------------------------------------
 
-        ''--------------------------------------------------------
+        If ApplicationData.Current.LocalSettings.Values("editorTipo") = Nothing Then
+            cbEditorTipo.SelectedIndex = 0
+            ApplicationData.Current.LocalSettings.Values("editorTipo") = 0
+        Else
+            cbEditorTipo.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorTipo")
+        End If
 
-        'If ApplicationData.Current.LocalSettings.Values("editorTipo") = Nothing Then
-        '    cbEditorTipo.SelectedIndex = 0
-        '    ApplicationData.Current.LocalSettings.Values("editorTipo") = 0
-        'Else
-        '    cbEditorTipo.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorTipo")
-        'End If
-
-        'Editor.Borrar()
-        'Divisas.Generar()
+        Editor.Borrar()
+        Divisas.Generar()
 
     End Sub
 
@@ -315,37 +305,190 @@ Public NotInheritable Class MainPage
 
         grid.Visibility = Visibility.Visible
 
-        '    botonOfertas.Background = New SolidColorBrush(Colors.Transparent)
-        '    botonEditor.Background = New SolidColorBrush(Colors.Transparent)
-        '    botonConfig.Background = New SolidColorBrush(Colors.Transparent)
-
-        '    If Not boton Is Nothing Then
-        '        boton.Background = New SolidColorBrush(Colors.OliveDrab)
-        '    End If
-
     End Sub
 
-    'Private Sub BotonOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertas.Click
+    Private Sub LvOfertasItemClick(sender As Object, args As ItemClickEventArgs)
 
-    '    Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
-    '    GridVisibilidad(gridDeals, botonOfertas, recursos.GetString("Ofertas"))
+        If panelMensajeTienda.Visibility = Visibility.Visible Then
+            panelMensajeTienda.Visibility = Visibility.Collapsed
+        End If
 
-    'End Sub
+        botonTiendaSteam.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaGamersGate.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaHumble.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaBundleStars.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaGOG.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaSilaGames.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaNuuvem.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.OliveDrab)
 
-    'Private Sub BotonEditor_Click(sender As Object, e As RoutedEventArgs) Handles botonEditor.Click
+        gridTiendaSteam.Visibility = Visibility.Collapsed
+        gridTiendaGamersGate.Visibility = Visibility.Collapsed
+        gridTiendaGamesPlanet.Visibility = Visibility.Collapsed
+        gridTiendaHumble.Visibility = Visibility.Collapsed
+        gridTiendaGreenManGaming.Visibility = Visibility.Collapsed
+        gridTiendaBundleStars.Visibility = Visibility.Collapsed
+        gridTiendaGOG.Visibility = Visibility.Collapsed
+        gridTiendaWinGameStore.Visibility = Visibility.Collapsed
+        gridTiendaSilaGames.Visibility = Visibility.Collapsed
+        gridTiendaNuuvem.Visibility = Visibility.Collapsed
+        gridTiendaMicrosoftStore.Visibility = Visibility.Collapsed
+        gridTiendaAmazonEs.Visibility = Visibility.Collapsed
+        gridTiendaAmazonUk.Visibility = Visibility.Collapsed
 
-    '    Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
-    '    GridVisibilidad(gridEditor, botonEditor, recursos.GetString("Editor"))
+        Dim sp As StackPanel = args.ClickedItem
 
-    'End Sub
+        If sp.Tag.ToString = 0 Then
 
-    'Private Sub BotonConfig_Click(sender As Object, e As RoutedEventArgs) Handles botonConfig.Click
+            gridTiendaSteam.Visibility = Visibility.Visible
+            botonTiendaSteam.Background = New SolidColorBrush(Colors.DarkOliveGreen)
 
-    '    Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
-    '    GridVisibilidad(gridConfig, botonConfig, recursos.GetString("Boton Config"))
-    '    GridVisibilidadConfig(gridConfigOfertas, botonConfigOfertas)
+            If listadoSteam.Items.Count = 0 Then
+                If gridProgresoSteam.Visibility = Visibility.Collapsed Then
+                    Steam.GenerarOfertas()
+                End If
+            End If
 
-    'End Sub
+        ElseIf sp.Tag.ToString = 1 Then
+
+            gridTiendaGamersGate.Visibility = Visibility.Visible
+            botonTiendaGamersGate.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoGamersGate.Items.Count = 0 Then
+                If gridProgresoGamersGate.Visibility = Visibility.Collapsed Then
+                    GamersGate.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            gridTiendaGamesPlanet.Visibility = Visibility.Visible
+            botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoGamesPlanet.Items.Count = 0 Then
+                If gridProgresoGamesPlanet.Visibility = Visibility.Collapsed Then
+                    GamesPlanet.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 3 Then
+
+            gridTiendaHumble.Visibility = Visibility.Visible
+            botonTiendaHumble.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoHumble.Items.Count = 0 Then
+                If gridProgresoHumble.Visibility = Visibility.Collapsed Then
+                    Humble.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 4 Then
+
+            gridTiendaGreenManGaming.Visibility = Visibility.Visible
+            botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoGreenManGaming.Items.Count = 0 Then
+                If gridProgresoGreenManGaming.Visibility = Visibility.Collapsed Then
+                    GreenManGaming.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 5 Then
+
+            gridTiendaBundleStars.Visibility = Visibility.Visible
+            botonTiendaBundleStars.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoBundleStars.Items.Count = 0 Then
+                If gridProgresoBundleStars.Visibility = Visibility.Collapsed Then
+                    BundleStars.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 6 Then
+
+            gridTiendaGOG.Visibility = Visibility.Visible
+            botonTiendaGOG.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoGOG.Items.Count = 0 Then
+                If gridProgresoGOG.Visibility = Visibility.Collapsed Then
+                    GOG.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 7 Then
+
+            gridTiendaWinGameStore.Visibility = Visibility.Visible
+            botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoWinGameStore.Items.Count = 0 Then
+                If gridProgresoWinGameStore.Visibility = Visibility.Collapsed Then
+                    WinGameStore.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 8 Then
+
+            gridTiendaSilaGames.Visibility = Visibility.Visible
+            botonTiendaSilaGames.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoSilaGames.Items.Count = 0 Then
+                If gridProgresoSilaGames.Visibility = Visibility.Collapsed Then
+                    SilaGames.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 9 Then
+
+            gridTiendaNuuvem.Visibility = Visibility.Visible
+            botonTiendaNuuvem.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoNuuvem.Items.Count = 0 Then
+                If gridProgresoNuuvem.Visibility = Visibility.Collapsed Then
+                    Nuuvem.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 10 Then
+
+            gridTiendaMicrosoftStore.Visibility = Visibility.Visible
+            botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoMicrosoftStore.Items.Count = 0 Then
+                If gridProgresoMicrosoftStore.Visibility = Visibility.Collapsed Then
+                    MicrosoftStore.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 11 Then
+
+            gridTiendaAmazonEs.Visibility = Visibility.Visible
+            botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoAmazonEs.Items.Count = 0 Then
+                If gridProgresoAmazonEs.Visibility = Visibility.Collapsed Then
+                    AmazonEs.GenerarOfertas()
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 12 Then
+
+            gridTiendaAmazonUk.Visibility = Visibility.Visible
+            botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+
+            If listadoAmazonUk.Items.Count = 0 Then
+                If gridProgresoAmazonUk.Visibility = Visibility.Collapsed Then
+                    AmazonUk.GenerarOfertas()
+                End If
+            End If
+
+        End If
+
+    End Sub
 
     'Private Async Sub BotonVotar_Click(sender As Object, e As RoutedEventArgs) Handles botonVotar.Click
 
@@ -400,1064 +543,860 @@ Public NotInheritable Class MainPage
 
     'End Sub
 
-    ''OFERTAS-----------------------------------------------------------------------------
+    'OFERTAS-----------------------------------------------------------------------------
 
-    'Private Sub GridTiendasVisibilidad(grid As Grid, boton As Button)
+    Private Async Sub ListadoClick(grid As Grid)
 
-    '    Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
-    '    GridVisibilidad(gridDeals, botonOfertas, recursos.GetString("Ofertas"))
+        Try
+            If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
+                Dim juego As Juego = grid.Tag
+                Dim enlace As String = Nothing
 
-    '    If Not boton Is Nothing Then
-    '        botonTiendaSteam.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaGamersGate.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaHumble.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaBundleStars.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaGOG.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaSilaGames.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaNuuvem.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.Transparent)
-    '        botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.Transparent)
+                If Not juego.Afiliado1 = Nothing Then
+                    enlace = juego.Afiliado1
+                Else
+                    enlace = juego.Enlace1
+                End If
 
-    '        boton.Background = New SolidColorBrush(Colors.DarkOliveGreen)
-    '    End If
+                Await Launcher.LaunchUriAsync(New Uri(enlace))
+            Else
+                Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
 
-    '    gridTiendaSteam.Visibility = Visibility.Collapsed
-    '    gridTiendaGamersGate.Visibility = Visibility.Collapsed
-    '    gridTiendaGamesPlanet.Visibility = Visibility.Collapsed
-    '    gridTiendaHumble.Visibility = Visibility.Collapsed
-    '    gridTiendaGreenManGaming.Visibility = Visibility.Collapsed
-    '    gridTiendaBundleStars.Visibility = Visibility.Collapsed
-    '    gridTiendaGOG.Visibility = Visibility.Collapsed
-    '    gridTiendaWinGameStore.Visibility = Visibility.Collapsed
-    '    gridTiendaSilaGames.Visibility = Visibility.Collapsed
-    '    gridTiendaNuuvem.Visibility = Visibility.Collapsed
-    '    gridTiendaMicrosoftStore.Visibility = Visibility.Collapsed
-    '    gridTiendaAmazonEs.Visibility = Visibility.Collapsed
-    '    gridTiendaAmazonUk.Visibility = Visibility.Collapsed
+                If cb.IsChecked = True Then
+                    cb.IsChecked = False
+                Else
+                    cb.IsChecked = True
+                End If
+            End If
+        Catch ex As Exception
 
-    '    grid.Visibility = Visibility.Visible
+        End Try
 
-    'End Sub
+    End Sub
 
-    'Private Async Sub ListadoClick(grid As Grid)
+    Private Sub ListadoSteam_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSteam.ItemClick
 
-    '    Try
-    '        If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
-    '            Dim juego As Juego = grid.Tag
-    '            Dim enlace As String = Nothing
+        ListadoClick(e.ClickedItem)
 
-    '            If Not juego.Afiliado1 = Nothing Then
-    '                enlace = juego.Afiliado1
-    '            Else
-    '                enlace = juego.Enlace1
-    '            End If
+    End Sub
 
-    '            Await Launcher.LaunchUriAsync(New Uri(enlace))
-    '        Else
-    '            Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
+    Private Sub BotonActualizarSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSteam.Click
 
-    '            If cb.IsChecked = True Then
-    '                cb.IsChecked = False
-    '            Else
-    '                cb.IsChecked = True
-    '            End If
-    '        End If
-    '    Catch ex As Exception
+        Steam.GenerarOfertas()
 
-    '    End Try
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarSteam_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarSteam.SelectionChanged
 
-    'Private Sub BotonTiendaSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSteam.Click
+        If gridTiendaSteam.Visibility = Visibility.Visible Then
+            If Not gridProgresoSteam.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaSteam, botonTiendaSteam)
+    End Sub
 
-    '    If listadoSteam.Items.Count = 0 Then
-    '        If gridProgresoSteam.Visibility = Visibility.Collapsed Then
-    '            Steam.GenerarOfertas()
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSteam.Click
 
-    'End Sub
+        If gridTiendaSteam.Visibility = Visibility.Visible Then
+            If Not gridProgresoSteam.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub ListadoSteam_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSteam.ItemClick
+    End Sub
 
-    '    ListadoClick(e.ClickedItem)
+    Private Sub ListadoGamersGate_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamersGate.ItemClick
 
-    'End Sub
+        ListadoClick(e.ClickedItem)
 
-    'Private Sub BotonActualizarSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSteam.Click
+    End Sub
 
-    '    Steam.GenerarOfertas()
+    Private Sub BotonActualizarGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamersGate.Click
 
-    'End Sub
+        GamersGate.GenerarOfertas()
 
-    'Private Sub CbOrdenarSteam_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarSteam.SelectionChanged
+    End Sub
 
-    '    If gridTiendaSteam.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    Private Sub CbOrdenarGamersGate_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGamersGate.SelectionChanged
 
-    'End Sub
+        If gridTiendaGamersGate.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, False)
+            End If
+        End If
 
-    'Private Sub BotonEditorUltimasOfertasSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSteam.Click
+    End Sub
 
-    '    If gridTiendaSteam.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGamersGate.Click
 
-    'End Sub
+        If gridTiendaGamersGate.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub BotonTiendaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamersGate.Click
+    End Sub
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaGamersGate, botonTiendaGamersGate)
+    Private Sub ListadoGamesPlanet_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamesPlanet.ItemClick
 
-    '    If listadoGamersGate.Items.Count = 0 Then
-    '        If gridProgresoGamersGate.Visibility = Visibility.Collapsed Then
-    '            GamersGate.GenerarOfertas()
-    '        End If
-    '    End If
+        ListadoClick(e.ClickedItem)
 
-    'End Sub
+    End Sub
 
-    'Private Sub ListadoGamersGate_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamersGate.ItemClick
+    Private Sub BotonActualizarGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamesPlanet.Click
 
-    '    ListadoClick(e.ClickedItem)
+        GamesPlanet.GenerarOfertas()
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonActualizarGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamersGate.Click
+    Private Sub CbOrdenarGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGamesPlanet.SelectionChanged
 
-    '    GamersGate.GenerarOfertas()
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, False)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub CbOrdenarGamersGate_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGamersGate.SelectionChanged
+    Private Sub BotonEditorUltimasOfertasGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGamesPlanet.Click
 
-    '    If gridTiendaGamersGate.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, False)
-    '        End If
-    '    End If
+        If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
+            If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, True)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorUltimasOfertasGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGamersGate.Click
+    Private Sub ListadoHumble_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoHumble.ItemClick
 
-    '    If gridTiendaGamersGate.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, True)
-    '        End If
-    '    End If
+        ListadoClick(e.ClickedItem)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonTiendaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGamesPlanet.Click
+    Private Sub BotonActualizarHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarHumble.Click
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaGamesPlanet, botonTiendaGamesPlanet)
+        Humble.GenerarOfertas()
 
-    '    If listadoGamesPlanet.Items.Count = 0 Then
-    '        If gridProgresoGamesPlanet.Visibility = Visibility.Collapsed Then
-    '            GamesPlanet.GenerarOfertas()
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarHumble_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarHumble.SelectionChanged
 
-    'Private Sub ListadoGamesPlanet_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGamesPlanet.ItemClick
+        If gridTiendaHumble.Visibility = Visibility.Visible Then
+            If Not gridProgresoHumble.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    ListadoClick(e.ClickedItem)
+    End Sub
 
-    'End Sub
+    Private Sub BotonEditorUltimasOfertasHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasHumble.Click
 
-    'Private Sub BotonActualizarGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGamesPlanet.Click
+        If gridTiendaHumble.Visibility = Visibility.Visible Then
+            If Not gridProgresoHumble.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, True)
+            End If
+        End If
 
-    '    GamesPlanet.GenerarOfertas()
+    End Sub
 
-    'End Sub
+    Private Sub ListadoGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGreenManGaming.ItemClick
 
-    'Private Sub CbOrdenarGamesPlanet_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGamesPlanet.SelectionChanged
+        ListadoClick(e.ClickedItem)
 
-    '    If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub BotonActualizarGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGreenManGaming.Click
 
-    'Private Sub BotonEditorUltimasOfertasGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGamesPlanet.Click
+        GreenManGaming.GenerarOfertas()
 
-    '    If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarGreenManGaming_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGreenManGaming.SelectionChanged
 
-    'Private Sub BotonTiendaHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaHumble.Click
+        If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
+            If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaHumble, botonTiendaHumble)
+    End Sub
 
-    '    If listadoHumble.Items.Count = 0 Then
-    '        If gridProgresoHumble.Visibility = Visibility.Collapsed Then
-    '            Humble.GenerarOfertas()
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGreenManGaming.Click
 
-    'End Sub
+        If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
+            If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub ListadoHumble_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoHumble.ItemClick
+    End Sub
 
-    '    ListadoClick(e.ClickedItem)
+    Private Sub ListadoBundleStars_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoBundleStars.ItemClick
 
-    'End Sub
+        ListadoClick(e.ClickedItem)
 
-    'Private Sub BotonActualizarHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarHumble.Click
+    End Sub
 
-    '    Humble.GenerarOfertas()
+    Private Sub BotonActualizarBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarBundleStars.Click
 
-    'End Sub
+        BundleStars.GenerarOfertas()
 
-    'Private Sub CbOrdenarHumble_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarHumble.SelectionChanged
+    End Sub
 
-    '    If gridTiendaHumble.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoHumble.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    Private Sub CbOrdenarBundleStars_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarBundleStars.SelectionChanged
 
-    'End Sub
+        If gridTiendaBundleStars.Visibility = Visibility.Visible Then
+            If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, False)
+            End If
+        End If
 
-    'Private Sub BotonEditorUltimasOfertasHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasHumble.Click
+    End Sub
 
-    '    If gridTiendaHumble.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoHumble.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasBundleStars.Click
 
-    'End Sub
+        If gridTiendaBundleStars.Visibility = Visibility.Visible Then
+            If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub BotonTiendaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGreenManGaming.Click
+    End Sub
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaGreenManGaming, botonTiendaGreenManGaming)
+    Private Sub ListadoGOG_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGOG.ItemClick
 
-    '    If listadoGreenManGaming.Items.Count = 0 Then
-    '        If gridProgresoGreenManGaming.Visibility = Visibility.Collapsed Then
-    '            GreenManGaming.GenerarOfertas()
-    '        End If
-    '    End If
+        ListadoClick(e.ClickedItem)
 
-    'End Sub
+    End Sub
 
-    'Private Sub ListadoGreenManGaming_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGreenManGaming.ItemClick
+    Private Sub BotonActualizarGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGOG.Click
 
-    '    ListadoClick(e.ClickedItem)
+        GOG.GenerarOfertas()
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonActualizarGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGreenManGaming.Click
+    Private Sub CbOrdenarGOG_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGOG.SelectionChanged
 
-    '    GreenManGaming.GenerarOfertas()
+        If gridTiendaGOG.Visibility = Visibility.Visible Then
+            If Not gridProgresoGOG.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, False)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub CbOrdenarGreenManGaming_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGreenManGaming.SelectionChanged
+    Private Sub BotonEditorUltimasOfertasGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGOG.Click
 
-    '    If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, False)
-    '        End If
-    '    End If
+        If gridTiendaGOG.Visibility = Visibility.Visible Then
+            If Not gridProgresoGOG.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, True)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorUltimasOfertasGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGreenManGaming.Click
+    Private Sub ListadoWinGameStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoWinGameStore.ItemClick
 
-    '    If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, True)
-    '        End If
-    '    End If
+        ListadoClick(e.ClickedItem)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonTiendaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaBundleStars.Click
+    Private Sub BotonActualizarWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarWinGameStore.Click
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaBundleStars, botonTiendaBundleStars)
+        WinGameStore.GenerarOfertas()
 
-    '    If listadoBundleStars.Items.Count = 0 Then
-    '        If gridProgresoBundleStars.Visibility = Visibility.Collapsed Then
-    '            BundleStars.GenerarOfertas()
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarWinGameStore_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarWinGameStore.SelectionChanged
 
-    'Private Sub ListadoBundleStars_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoBundleStars.ItemClick
+        If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    ListadoClick(e.ClickedItem)
+    End Sub
 
-    'End Sub
+    Private Sub BotonEditorUltimasOfertasWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasWinGameStore.Click
 
-    'Private Sub BotonActualizarBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarBundleStars.Click
+        If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, True)
+            End If
+        End If
 
-    '    BundleStars.GenerarOfertas()
+    End Sub
 
-    'End Sub
+    Private Sub ListadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
 
-    'Private Sub CbOrdenarBundleStars_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarBundleStars.SelectionChanged
+        ListadoClick(e.ClickedItem)
 
-    '    If gridTiendaBundleStars.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub BotonActualizarSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSilaGames.Click
 
-    'Private Sub BotonEditorUltimasOfertasBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasBundleStars.Click
+        SilaGames.GenerarOfertas()
 
-    '    If gridTiendaBundleStars.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarSilaGames_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarSilaGames.SelectionChanged
 
-    'Private Sub BotonTiendaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaGOG.Click
+        If gridTiendaSilaGames.Visibility = Visibility.Visible Then
+            If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaGOG, botonTiendaGOG)
+    End Sub
 
-    '    If listadoGOG.Items.Count = 0 Then
-    '        If gridProgresoGOG.Visibility = Visibility.Collapsed Then
-    '            GOG.GenerarOfertas()
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSilaGames.Click
 
-    'End Sub
+        If gridTiendaSilaGames.Visibility = Visibility.Visible Then
+            If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub ListadoGOG_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoGOG.ItemClick
+    End Sub
 
-    '    ListadoClick(e.ClickedItem)
+    Private Sub ListadoNuuvem_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoNuuvem.ItemClick
 
-    'End Sub
+        ListadoClick(e.ClickedItem)
 
-    'Private Sub BotonActualizarGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarGOG.Click
+    End Sub
 
-    '    GOG.GenerarOfertas()
+    Private Sub BotonActualizarNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarNuuvem.Click
 
-    'End Sub
+        Nuuvem.GenerarOfertas()
 
-    'Private Sub CbOrdenarGOG_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarGOG.SelectionChanged
+    End Sub
 
-    '    If gridTiendaGOG.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGOG.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    Private Sub CbOrdenarNuuvem_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarNuuvem.SelectionChanged
 
-    'End Sub
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, False)
+            End If
+        End If
 
-    'Private Sub BotonEditorUltimasOfertasGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasGOG.Click
+    End Sub
 
-    '    If gridTiendaGOG.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoGOG.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasNuuvem.Click
 
-    'End Sub
+        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub BotonTiendaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaWinGameStore.Click
+    End Sub
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaWinGameStore, botonTiendaWinGameStore)
+    Private Sub ListadoMicrosoftStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoMicrosoftStore.ItemClick
 
-    '    If listadoWinGameStore.Items.Count = 0 Then
-    '        If gridProgresoWinGameStore.Visibility = Visibility.Collapsed Then
-    '            WinGameStore.GenerarOfertas()
-    '        End If
-    '    End If
+        ListadoClick(e.ClickedItem)
 
-    'End Sub
+    End Sub
 
-    'Private Sub ListadoWinGameStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoWinGameStore.ItemClick
+    Private Sub BotonActualizarMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarMicrosoftStore.Click
 
-    '    ListadoClick(e.ClickedItem)
+        MicrosoftStore.GenerarOfertas()
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonActualizarWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarWinGameStore.Click
+    Private Sub CbOrdenarMicrosoftStore_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarMicrosoftStore.SelectionChanged
 
-    '    WinGameStore.GenerarOfertas()
+        If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, False)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub CbOrdenarWinGameStore_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarWinGameStore.SelectionChanged
+    Private Sub BotonEditorUltimasOfertasMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasMicrosoftStore.Click
 
-    '    If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, False)
-    '        End If
-    '    End If
+        If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
+            If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, True)
+            End If
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorUltimasOfertasWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasWinGameStore.Click
+    Private Sub ListadoAmazonEs_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonEs.ItemClick
 
-    '    If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, True)
-    '        End If
-    '    End If
+        ListadoClick(e.ClickedItem)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonTiendaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSilaGames.Click
+    Private Sub BotonActualizarAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonEs.Click
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaSilaGames, botonTiendaSilaGames)
+        AmazonEs.GenerarOfertas()
 
-    '    If listadoSilaGames.Items.Count = 0 Then
-    '        If gridProgresoSilaGames.Visibility = Visibility.Collapsed Then
-    '            SilaGames.GenerarOfertas()
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarAmazonEs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonEs.SelectionChanged
 
-    'Private Sub ListadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
+        If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    ListadoClick(e.ClickedItem)
+    End Sub
 
-    'End Sub
+    Private Sub BotonEditorUltimasOfertasAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonEs.Click
 
-    'Private Sub BotonActualizarSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSilaGames.Click
+        If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, True)
+            End If
+        End If
 
-    '    SilaGames.GenerarOfertas()
+    End Sub
 
-    'End Sub
+    Private Sub ListadoAmazonUk_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonUk.ItemClick
 
-    'Private Sub CbOrdenarSilaGames_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarSilaGames.SelectionChanged
+        ListadoClick(e.ClickedItem)
 
-    '    If gridTiendaSilaGames.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub BotonActualizarAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonUk.Click
 
-    'Private Sub BotonEditorUltimasOfertasSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSilaGames.Click
+        AmazonUk.GenerarOfertas()
 
-    '    If gridTiendaSilaGames.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbOrdenarAmazonUk_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonUk.SelectionChanged
 
-    'Private Sub BotonTiendaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaNuuvem.Click
+        If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, False)
+            End If
+        End If
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaNuuvem, botonTiendaNuuvem)
+    End Sub
 
-    '    If listadoNuuvem.Items.Count = 0 Then
-    '        If gridProgresoNuuvem.Visibility = Visibility.Collapsed Then
-    '            Nuuvem.GenerarOfertas()
-    '        End If
-    '    End If
+    Private Sub BotonEditorUltimasOfertasAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonUk.Click
 
-    'End Sub
+        If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
+            If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
+                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, True)
+            End If
+        End If
 
-    'Private Sub ListadoNuuvem_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoNuuvem.ItemClick
+    End Sub
 
-    '    ListadoClick(e.ClickedItem)
+    'CONFIG-----------------------------------------------------------------------------
 
-    'End Sub
+    Private Sub TbSteamConfigCuentaID_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbSteamConfigCuentaID.TextChanged
 
-    'Private Sub BotonActualizarNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarNuuvem.Click
+        CuentaSteam.BuscarJuegos()
 
-    '    Nuuvem.GenerarOfertas()
+    End Sub
 
-    'End Sub
+    Private Sub CbConfigDescartarDeseados_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarDeseados.Checked
 
-    'Private Sub CbOrdenarNuuvem_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarNuuvem.SelectionChanged
+        ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
+        spSteamConfigCuenta.Visibility = Visibility.Visible
 
-    '    If gridTiendaNuuvem.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, False)
-    '        End If
-    '    End If
+        If cbConfigDescartarUltimaVisita.IsChecked = True Then
+            ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
+            cbConfigDescartarUltimaVisita.IsChecked = False
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorUltimasOfertasNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasNuuvem.Click
+    Private Sub CbConfigDescartarDeseados_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarDeseados.Unchecked
 
-    '    If gridTiendaNuuvem.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, True)
-    '        End If
-    '    End If
+        ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+        spSteamConfigCuenta.Visibility = Visibility.Collapsed
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonTiendaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaMicrosoftStore.Click
+    Private Sub CbConfigDescartarUltimaVisita_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarUltimaVisita.Checked
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaMicrosoftStore, botonTiendaMicrosoftStore)
+        ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on"
 
-    '    If listadoMicrosoftStore.Items.Count = 0 Then
-    '        If gridProgresoMicrosoftStore.Visibility = Visibility.Collapsed Then
-    '            MicrosoftStore.GenerarOfertas()
-    '        End If
-    '    End If
+        If cbConfigDescartarDeseados.IsChecked = True Then
+            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+            cbConfigDescartarDeseados.IsChecked = False
+        End If
 
-    'End Sub
+    End Sub
 
-    'Private Sub ListadoMicrosoftStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoMicrosoftStore.ItemClick
+    Private Sub CbConfigDescartarUltimaVisita_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarUltimaVisita.Unchecked
 
-    '    ListadoClick(e.ClickedItem)
+        ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonActualizarMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarMicrosoftStore.Click
+    Private Sub CbConfigTipoOrdenar_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbConfigTipoOrdenar.SelectionChanged
 
-    '    MicrosoftStore.GenerarOfertas()
+        ApplicationData.Current.LocalSettings.Values("ordenar") = cbConfigTipoOrdenar.SelectedIndex
 
-    'End Sub
+        cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGreenManGaming.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarBundleStars.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-    'Private Sub CbOrdenarMicrosoftStore_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarMicrosoftStore.SelectionChanged
+    End Sub
 
-    '    If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    'EDITOR-----------------------------------------
 
-    'End Sub
+    Private Sub CbConfigEditor_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Checked
 
-    'Private Sub BotonEditorUltimasOfertasMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasMicrosoftStore.Click
+        ApplicationData.Current.LocalSettings.Values("editor") = "on"
+        EditorVisibilidad(True)
 
-    '    If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub CbConfigEditor_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Unchecked
 
-    'Private Sub BotonTiendaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonEs.Click
+        ApplicationData.Current.LocalSettings.Values("editor") = "off"
+        EditorVisibilidad(False)
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaAmazonEs, botonTiendaAmazonEs)
+    End Sub
 
-    '    If listadoAmazonEs.Items.Count = 0 Then
-    '        If gridProgresoAmazonEs.Visibility = Visibility.Collapsed Then
-    '            AmazonEs.GenerarOfertas()
-    '        End If
-    '    End If
+    Private Sub EditorVisibilidad(estado As Boolean)
 
-    'End Sub
+        If estado = True Then
+            For Each item In nvPrincipal.MenuItems
+                Dim menuItem As NavigationViewItem = Nothing
 
-    'Private Sub ListadoAmazonEs_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonEs.ItemClick
+                Try
+                    menuItem = item
+                Catch ex As Exception
 
-    '    ListadoClick(e.ClickedItem)
+                End Try
 
-    'End Sub
+                If Not menuItem Is Nothing Then
+                    If menuItem.Tag = 1 Then
+                        menuItem.Visibility = Visibility.Visible
+                    End If
+                End If
+            Next
 
-    'Private Sub BotonActualizarAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonEs.Click
+            botonTiendaAmazonEs.Visibility = Visibility.Visible
+            botonTiendaAmazonUk.Visibility = Visibility.Visible
 
-    '    AmazonEs.GenerarOfertas()
+            spEditorSteam.Visibility = Visibility.Visible
+            spEditorGamersGate.Visibility = Visibility.Visible
+            spEditorGamesPlanet.Visibility = Visibility.Visible
+            spEditorHumble.Visibility = Visibility.Visible
+            spEditorGreenManGaming.Visibility = Visibility.Visible
+            spEditorBundleStars.Visibility = Visibility.Visible
+            spEditorGOG.Visibility = Visibility.Visible
+            spEditorWinGameStore.Visibility = Visibility.Visible
+            spEditorSilaGames.Visibility = Visibility.Visible
+            spEditorNuuvem.Visibility = Visibility.Visible
+            spEditorMicrosoftStore.Visibility = Visibility.Visible
+            spEditorAmazonEs.Visibility = Visibility.Visible
+            spEditorAmazonUk.Visibility = Visibility.Visible
+        Else
+            For Each item In nvPrincipal.MenuItems
+                Dim menuItem As NavigationViewItem = Nothing
 
-    'End Sub
+                Try
+                    menuItem = item
+                Catch ex As Exception
 
-    'Private Sub CbOrdenarAmazonEs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonEs.SelectionChanged
+                End Try
 
-    '    If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, False)
-    '        End If
-    '    End If
+                If Not menuItem Is Nothing Then
+                    If menuItem.Tag = 1 Then
+                        menuItem.Visibility = Visibility.Collapsed
+                    End If
+                End If
+            Next
 
-    'End Sub
+            botonTiendaAmazonEs.Visibility = Visibility.Collapsed
+            botonTiendaAmazonUk.Visibility = Visibility.Collapsed
 
-    'Private Sub BotonEditorUltimasOfertasAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonEs.Click
+            spEditorSteam.Visibility = Visibility.Collapsed
+            spEditorGamersGate.Visibility = Visibility.Collapsed
+            spEditorGamesPlanet.Visibility = Visibility.Collapsed
+            spEditorHumble.Visibility = Visibility.Collapsed
+            spEditorGreenManGaming.Visibility = Visibility.Collapsed
+            spEditorBundleStars.Visibility = Visibility.Collapsed
+            spEditorGOG.Visibility = Visibility.Collapsed
+            spEditorWinGameStore.Visibility = Visibility.Collapsed
+            spEditorSilaGames.Visibility = Visibility.Collapsed
+            spEditorNuuvem.Visibility = Visibility.Collapsed
+            spEditorMicrosoftStore.Visibility = Visibility.Collapsed
+            spEditorAmazonEs.Visibility = Visibility.Collapsed
+            spEditorAmazonUk.Visibility = Visibility.Collapsed
+        End If
 
-    '    If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, True)
-    '        End If
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub TbEditorEnlaces_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorEnlaces.TextChanged
 
-    'Private Sub BotonTiendaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaAmazonUk.Click
+        If tbEditorEnlaces.Visibility = Visibility.Visible Then
+            tbEditorNumCaracteres.Text = tbEditorEnlaces.Text.Length.ToString
+        End If
 
-    '    panelMensajeTienda.Visibility = Visibility.Collapsed
-    '    GridTiendasVisibilidad(gridTiendaAmazonUk, botonTiendaAmazonUk)
+    End Sub
 
-    '    If listadoAmazonUk.Items.Count = 0 Then
-    '        If gridProgresoAmazonUk.Visibility = Visibility.Collapsed Then
-    '            AmazonUk.GenerarOfertas()
-    '        End If
-    '    End If
+    Private Sub CbEditorTipo_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorTipo.SelectionChanged
 
-    'End Sub
+        ApplicationData.Current.LocalSettings.Values("editorTipo") = cbEditorTipo.SelectedIndex
+        Editor.Generar()
+        Editor.GenerarOpciones()
 
-    'Private Sub ListadoAmazonUk_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonUk.ItemClick
+    End Sub
 
-    '    ListadoClick(e.ClickedItem)
+    Private Sub BotonEditorCopiarTitulo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarTitulo.Click
 
-    'End Sub
+        Dim datos As DataPackage = New DataPackage
+        datos.SetText(tbEditorTitulo.Text)
+        Clipboard.SetContent(datos)
 
-    'Private Sub BotonActualizarAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonUk.Click
+    End Sub
 
-    '    AmazonUk.GenerarOfertas()
+    Private Sub BotonEditorCortarTitulo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarTitulo.Click
 
-    'End Sub
+        Dim datos As DataPackage = New DataPackage
+        datos.SetText(tbEditorTitulo.Text)
+        Clipboard.SetContent(datos)
+        tbEditorTitulo.Text = String.Empty
 
-    'Private Sub CbOrdenarAmazonUk_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarAmazonUk.SelectionChanged
+    End Sub
 
-    '    If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, False)
-    '        End If
-    '    End If
+    Private Async Sub BotonEditorCopiarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarEnlaces.Click
 
-    'End Sub
+        Try
+            Dim contenidoEnlaces As String = Nothing
 
-    'Private Sub BotonEditorUltimasOfertasAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonUk.Click
+            If Not tbEditorEnlaces.Text = Nothing Then
+                contenidoEnlaces = tbEditorEnlaces.Text
+            Else
+                Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+                contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
+            End If
 
-    '    If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
-    '        If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
-    '            Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, True)
-    '        End If
-    '    End If
+            Dim datos As DataPackage = New DataPackage
+            datos.SetText(contenidoEnlaces)
+            Clipboard.SetContent(datos)
+        Catch ex As Exception
 
-    'End Sub
+        End Try
 
-    ''CONFIG-----------------------------------------------------------------------------
+    End Sub
 
-    'Private Sub BotonConfigOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonConfigOfertas.Click
+    Private Async Sub BotonEditorCortarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarEnlaces.Click
 
-    '    GridVisibilidadConfig(gridConfigOfertas, botonConfigOfertas)
+        Try
+            Dim contenidoEnlaces As String = Nothing
 
-    'End Sub
+            If Not tbEditorEnlaces.Text = Nothing Then
+                contenidoEnlaces = tbEditorEnlaces.Text
+            Else
+                Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+                contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
+            End If
 
-    'Private Sub BotonConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles botonConfigEditor.Click
+            Dim datos As DataPackage = New DataPackage
+            datos.SetText(contenidoEnlaces)
+            Clipboard.SetContent(datos)
+            tbEditorEnlaces.Text = String.Empty
+        Catch ex As Exception
 
-    '    GridVisibilidadConfig(gridConfigEditor, botonConfigEditor)
+        End Try
 
-    'End Sub
+    End Sub
 
-    'Private Sub GridVisibilidadConfig(grid As Grid, boton As Button)
+    Private Sub BotonEditorBorrarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorBorrarTodo.Click
 
-    '    gridConfigOfertas.Visibility = Visibility.Collapsed
-    '    gridConfigEditor.Visibility = Visibility.Collapsed
+        Editor.Borrar()
 
-    '    grid.Visibility = Visibility.Visible
+    End Sub
 
-    '    botonConfigOfertas.Background = New SolidColorBrush(Colors.Transparent)
-    '    botonConfigEditor.Background = New SolidColorBrush(Colors.Transparent)
+    Private Sub BotonValoracionActualizar_Click(sender As Object, e As RoutedEventArgs) Handles botonValoracionActualizar.Click
 
-    '    boton.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+        Valoracion.Generar()
 
-    'End Sub
+    End Sub
 
-    'Private Sub TbSteamConfigCuentaID_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbSteamConfigCuentaID.TextChanged
+    Private Async Sub SeleccionarEnlaces(listado As ListView, estado As Boolean)
 
-    '    CuentaSteam.BuscarJuegos()
+        Dim listaGrids As ItemCollection = listado.Items
 
-    'End Sub
+        For Each item In listaGrids
+            Dim grid As Grid = item
+            Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
+            Await Task.Delay(700)
+            cb.IsChecked = estado
+        Next
 
-    'Private Sub CbConfigDescartarDeseados_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarDeseados.Checked
+    End Sub
 
-    '    ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
+    Private Sub BotonEditorSeleccionarTodoSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSteam.Click
 
-    '    If cbConfigDescartarUltimaVisita.IsChecked = True Then
-    '        ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
-    '        cbConfigDescartarUltimaVisita.IsChecked = False
-    '    End If
+        SeleccionarEnlaces(listadoSteam, True)
 
-    'End Sub
+    End Sub
 
-    'Private Sub CbConfigDescartarDeseados_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarDeseados.Unchecked
+    Private Sub BotonEditorSeleccionarNadaSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSteam.Click
 
-    '    ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
+        SeleccionarEnlaces(listadoSteam, False)
 
-    'End Sub
+    End Sub
 
-    'Private Sub CbConfigDescartarUltimaVisita_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarUltimaVisita.Checked
+    Private Sub BotonEditorSeleccionarTodoGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGamersGate.Click
 
-    '    ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on"
+        SeleccionarEnlaces(listadoGamersGate, True)
 
-    '    If cbConfigDescartarDeseados.IsChecked = True Then
-    '        ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
-    '        cbConfigDescartarDeseados.IsChecked = False
-    '    End If
+    End Sub
 
-    'End Sub
+    Private Sub BotonEditorSeleccionarNadaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGamersGate.Click
 
-    'Private Sub CbConfigDescartarUltimaVisita_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigDescartarUltimaVisita.Unchecked
+        SeleccionarEnlaces(listadoGamersGate, False)
 
-    '    ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off"
+    End Sub
 
-    'End Sub
+    Private Sub BotonEditorSeleccionarTodoGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGamesPlanet.Click
 
-    'Private Sub CbConfigTipoOrdenar_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbConfigTipoOrdenar.SelectionChanged
+        SeleccionarEnlaces(listadoGamesPlanet, True)
 
-    '    ApplicationData.Current.LocalSettings.Values("ordenar") = cbConfigTipoOrdenar.SelectedIndex
+    End Sub
 
-    '    cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarGreenManGaming.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarBundleStars.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarGOG.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarWinGameStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarSilaGames.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarNuuvem.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarMicrosoftStore.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
-    '    cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+    Private Sub BotonEditorSeleccionarNadaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGamesPlanet.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoGamesPlanet, False)
 
-    ''EDITOR-----------------------------------------
+    End Sub
 
-    'Private Sub CbConfigEditor_Checked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Checked
+    Private Sub BotonEditorSeleccionarTodoHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoHumble.Click
 
-    '    ApplicationData.Current.LocalSettings.Values("editor") = "on"
-    '    EditorVisibilidad(True)
+        SeleccionarEnlaces(listadoHumble, True)
 
-    'End Sub
+    End Sub
 
-    'Private Sub CbConfigEditor_Unchecked(sender As Object, e As RoutedEventArgs) Handles cbConfigEditor.Unchecked
+    Private Sub BotonEditorSeleccionarNadaHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaHumble.Click
 
-    '    ApplicationData.Current.LocalSettings.Values("editor") = "off"
-    '    EditorVisibilidad(False)
+        SeleccionarEnlaces(listadoHumble, False)
 
-    'End Sub
+    End Sub
 
-    'Private Sub EditorVisibilidad(estado As Boolean)
+    Private Sub BotonEditorSeleccionarTodoGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGreenManGaming.Click
 
-    '    If estado = True Then
-    '        botonEditor.Visibility = Visibility.Visible
-    '        botonTiendaAmazonEs.Visibility = Visibility.Visible
-    '        botonTiendaAmazonUk.Visibility = Visibility.Visible
+        SeleccionarEnlaces(listadoGreenManGaming, True)
 
-    '        spEditorSteam.Visibility = Visibility.Visible
-    '        spEditorGamersGate.Visibility = Visibility.Visible
-    '        spEditorGamesPlanet.Visibility = Visibility.Visible
-    '        spEditorHumble.Visibility = Visibility.Visible
-    '        spEditorGreenManGaming.Visibility = Visibility.Visible
-    '        spEditorBundleStars.Visibility = Visibility.Visible
-    '        spEditorGOG.Visibility = Visibility.Visible
-    '        spEditorWinGameStore.Visibility = Visibility.Visible
-    '        spEditorSilaGames.Visibility = Visibility.Visible
-    '        spEditorNuuvem.Visibility = Visibility.Visible
-    '        spEditorMicrosoftStore.Visibility = Visibility.Visible
-    '        spEditorAmazonEs.Visibility = Visibility.Visible
-    '        spEditorAmazonUk.Visibility = Visibility.Visible
-    '    Else
-    '        botonEditor.Visibility = Visibility.Collapsed
-    '        botonTiendaAmazonEs.Visibility = Visibility.Collapsed
-    '        botonTiendaAmazonUk.Visibility = Visibility.Collapsed
+    End Sub
 
-    '        spEditorSteam.Visibility = Visibility.Collapsed
-    '        spEditorGamersGate.Visibility = Visibility.Collapsed
-    '        spEditorGamesPlanet.Visibility = Visibility.Collapsed
-    '        spEditorHumble.Visibility = Visibility.Collapsed
-    '        spEditorGreenManGaming.Visibility = Visibility.Collapsed
-    '        spEditorBundleStars.Visibility = Visibility.Collapsed
-    '        spEditorGOG.Visibility = Visibility.Collapsed
-    '        spEditorWinGameStore.Visibility = Visibility.Collapsed
-    '        spEditorSilaGames.Visibility = Visibility.Collapsed
-    '        spEditorNuuvem.Visibility = Visibility.Collapsed
-    '        spEditorMicrosoftStore.Visibility = Visibility.Collapsed
-    '        spEditorAmazonEs.Visibility = Visibility.Collapsed
-    '        spEditorAmazonUk.Visibility = Visibility.Collapsed
-    '    End If
+    Private Sub BotonEditorSeleccionarNadaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGreenManGaming.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoGreenManGaming, False)
 
-    'Private Sub TbEditorEnlaces_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorEnlaces.TextChanged
+    End Sub
 
-    '    If tbEditorEnlaces.Visibility = Visibility.Visible Then
-    '        tbEditorNumCaracteres.Text = tbEditorEnlaces.Text.Length.ToString
-    '    End If
+    Private Sub BotonEditorSeleccionarTodoBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoBundleStars.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoBundleStars, True)
 
-    'Private Sub CbEditorTipo_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorTipo.SelectionChanged
+    End Sub
 
-    '    ApplicationData.Current.LocalSettings.Values("editorTipo") = cbEditorTipo.SelectedIndex
-    '    Editor.Generar()
-    '    Editor.GenerarOpciones()
+    Private Sub BotonEditorSeleccionarNadaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaBundleStars.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoBundleStars, False)
 
-    'Private Sub BotonEditorCopiarTitulo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarTitulo.Click
+    End Sub
 
-    '    Dim datos As DataPackage = New DataPackage
-    '    datos.SetText(tbEditorTitulo.Text)
-    '    Clipboard.SetContent(datos)
+    Private Sub BotonEditorSeleccionarTodoGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGOG.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoGOG, True)
 
-    'Private Sub BotonEditorCortarTitulo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarTitulo.Click
+    End Sub
 
-    '    Dim datos As DataPackage = New DataPackage
-    '    datos.SetText(tbEditorTitulo.Text)
-    '    Clipboard.SetContent(datos)
-    '    tbEditorTitulo.Text = String.Empty
+    Private Sub BotonEditorSeleccionarNadaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGOG.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoGOG, False)
 
-    'Private Async Sub BotonEditorCopiarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCopiarEnlaces.Click
+    End Sub
 
-    '    Try
-    '        Dim contenidoEnlaces As String = Nothing
+    Private Sub BotonEditorSeleccionarTodoWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoWinGameStore.Click
 
-    '        If Not tbEditorEnlaces.Text = Nothing Then
-    '            contenidoEnlaces = tbEditorEnlaces.Text
-    '        Else
-    '            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-    '            contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
-    '        End If
+        SeleccionarEnlaces(listadoWinGameStore, True)
 
-    '        Dim datos As DataPackage = New DataPackage
-    '        datos.SetText(contenidoEnlaces)
-    '        Clipboard.SetContent(datos)
-    '    Catch ex As Exception
+    End Sub
 
-    '    End Try
+    Private Sub BotonEditorSeleccionarNadaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaWinGameStore.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoWinGameStore, False)
 
-    'Private Async Sub BotonEditorCortarEnlaces_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorCortarEnlaces.Click
+    End Sub
 
-    '    Try
-    '        Dim contenidoEnlaces As String = Nothing
+    Private Sub BotonEditorSeleccionarTodoSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSilaGames.Click
 
-    '        If Not tbEditorEnlaces.Text = Nothing Then
-    '            contenidoEnlaces = tbEditorEnlaces.Text
-    '        Else
-    '            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-    '            contenidoEnlaces = Await helper.ReadFileAsync(Of String)("contenidoEnlaces")
-    '        End If
+        SeleccionarEnlaces(listadoSilaGames, True)
 
-    '        Dim datos As DataPackage = New DataPackage
-    '        datos.SetText(contenidoEnlaces)
-    '        Clipboard.SetContent(datos)
-    '        tbEditorEnlaces.Text = String.Empty
-    '    Catch ex As Exception
+    End Sub
 
-    '    End Try
+    Private Sub BotonEditorSeleccionarNadaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSilaGames.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoSilaGames, False)
 
-    'Private Sub BotonEditorBorrarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorBorrarTodo.Click
+    End Sub
 
-    '    Editor.Borrar()
+    Private Sub BotonEditorSeleccionarTodoNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoNuuvem.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoNuuvem, True)
 
-    'Private Sub BotonValoracionActualizar_Click(sender As Object, e As RoutedEventArgs) Handles botonValoracionActualizar.Click
+    End Sub
 
-    '    Valoracion.Generar()
+    Private Sub BotonEditorSeleccionarNadaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaNuuvem.Click
 
-    'End Sub
+        SeleccionarEnlaces(listadoNuuvem, False)
 
-    'Private Async Sub SeleccionarEnlaces(listado As ListView, estado As Boolean)
+    End Sub
 
-    '    Dim listaGrids As ItemCollection = listado.Items
+    Private Sub BotonEditorSeleccionarTodoMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoMicrosoftStore.Click
 
-    '    For Each item In listaGrids
-    '        Dim grid As Grid = item
-    '        Dim cb As CheckBox = grid.Children.Item(grid.Children.Count - 1)
-    '        Await Task.Delay(700)
-    '        cb.IsChecked = estado
-    '    Next
+        SeleccionarEnlaces(listadoMicrosoftStore, True)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorSeleccionarTodoSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSteam.Click
+    Private Sub BotonEditorSeleccionarNadaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaMicrosoftStore.Click
 
-    '    SeleccionarEnlaces(listadoSteam, True)
+        SeleccionarEnlaces(listadoMicrosoftStore, False)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorSeleccionarNadaSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSteam.Click
+    Private Sub BotonEditorSeleccionarTodoAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonEs.Click
 
-    '    SeleccionarEnlaces(listadoSteam, False)
+        SeleccionarEnlaces(listadoAmazonEs, True)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorSeleccionarTodoGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGamersGate.Click
+    Private Sub BotonEditorSeleccionarNadaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonEs.Click
 
-    '    SeleccionarEnlaces(listadoGamersGate, True)
+        SeleccionarEnlaces(listadoAmazonEs, False)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorSeleccionarNadaGamersGate_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGamersGate.Click
+    Private Sub BotonEditorSeleccionarTodoAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonUk.Click
 
-    '    SeleccionarEnlaces(listadoGamersGate, False)
+        SeleccionarEnlaces(listadoAmazonUk, True)
 
-    'End Sub
+    End Sub
 
-    'Private Sub BotonEditorSeleccionarTodoGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGamesPlanet.Click
+    Private Sub BotonEditorSeleccionarNadaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonUk.Click
 
-    '    SeleccionarEnlaces(listadoGamesPlanet, True)
+        SeleccionarEnlaces(listadoAmazonUk, False)
 
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaGamesPlanet_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGamesPlanet.Click
-
-    '    SeleccionarEnlaces(listadoGamesPlanet, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoHumble.Click
-
-    '    SeleccionarEnlaces(listadoHumble, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaHumble_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaHumble.Click
-
-    '    SeleccionarEnlaces(listadoHumble, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGreenManGaming.Click
-
-    '    SeleccionarEnlaces(listadoGreenManGaming, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaGreenManGaming_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGreenManGaming.Click
-
-    '    SeleccionarEnlaces(listadoGreenManGaming, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoBundleStars.Click
-
-    '    SeleccionarEnlaces(listadoBundleStars, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaBundleStars_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaBundleStars.Click
-
-    '    SeleccionarEnlaces(listadoBundleStars, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoGOG.Click
-
-    '    SeleccionarEnlaces(listadoGOG, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaGOG_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaGOG.Click
-
-    '    SeleccionarEnlaces(listadoGOG, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoWinGameStore.Click
-
-    '    SeleccionarEnlaces(listadoWinGameStore, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaWinGameStore.Click
-
-    '    SeleccionarEnlaces(listadoWinGameStore, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSilaGames.Click
-
-    '    SeleccionarEnlaces(listadoSilaGames, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSilaGames.Click
-
-    '    SeleccionarEnlaces(listadoSilaGames, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoNuuvem.Click
-
-    '    SeleccionarEnlaces(listadoNuuvem, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaNuuvem.Click
-
-    '    SeleccionarEnlaces(listadoNuuvem, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoMicrosoftStore.Click
-
-    '    SeleccionarEnlaces(listadoMicrosoftStore, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaMicrosoftStore.Click
-
-    '    SeleccionarEnlaces(listadoMicrosoftStore, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonEs.Click
-
-    '    SeleccionarEnlaces(listadoAmazonEs, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonEs.Click
-
-    '    SeleccionarEnlaces(listadoAmazonEs, False)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarTodoAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonUk.Click
-
-    '    SeleccionarEnlaces(listadoAmazonUk, True)
-
-    'End Sub
-
-    'Private Sub BotonEditorSeleccionarNadaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonUk.Click
-
-    '    SeleccionarEnlaces(listadoAmazonUk, False)
-
-    'End Sub
+    End Sub
 
 End Class
