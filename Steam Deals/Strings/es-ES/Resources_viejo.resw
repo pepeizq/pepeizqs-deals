@@ -117,94 +117,151 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Config" xml:space="preserve">
-    <value>Configuration</value>
+  <data name="Boton Compartir" xml:space="preserve">
+    <value>Compartir</value>
   </data>
-  <data name="ConfigDiscardLastVisit.Content" xml:space="preserve">
-    <value>Show only deals since my last visit</value>
+  <data name="Boton Config" xml:space="preserve">
+    <value>Configuración</value>
   </data>
-  <data name="ConfigDiscardMyGames.Text" xml:space="preserve">
-    <value>Not include my own games in the deals</value>
+  <data name="Boton Reportar" xml:space="preserve">
+    <value>Informa de un Fallo</value>
   </data>
-  <data name="ConfigDiscardMyGamesAccount.Text" xml:space="preserve">
-    <value>Add your Steam Community account (example http://steamcommunity.com/id/pepeizq/):</value>
+  <data name="Boton Votar" xml:space="preserve">
+    <value>Vota la App</value>
   </data>
-  <data name="ConfigDiscardMyGamesWarning.Text" xml:space="preserve">
-    <value>This option does not work in bundles and special editions</value>
+  <data name="Boton Web" xml:space="preserve">
+    <value>Más Apps</value>
   </data>
-  <data name="ConfigEditorWarning.Text" xml:space="preserve">
-    <value>Activate this option will change how the application works, if you activate it every deal you select will generate a code in the section Editor</value>
+  <data name="Bundles" xml:space="preserve">
+    <value>Bundles</value>
   </data>
-  <data name="ConfigOrder.Text" xml:space="preserve">
-    <value>Default sort by:</value>
+  <data name="Descuento" xml:space="preserve">
+    <value>Descuento</value>
   </data>
-  <data name="Currencies.Text" xml:space="preserve">
-    <value>Currencies</value>
+  <data name="DLCs" xml:space="preserve">
+    <value>DLCs</value>
   </data>
-  <data name="Deals" xml:space="preserve">
-    <value>Deals</value>
+  <data name="Juegos" xml:space="preserve">
+    <value>Juegos</value>
   </data>
-  <data name="Deals2.Text" xml:space="preserve">
-    <value>Deals</value>
+  <data name="Ordenar" xml:space="preserve">
+    <value>Ordenar por:</value>
   </data>
-  <data name="Discount.Content" xml:space="preserve">
-    <value>Discount</value>
+  <data name="Precio" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="Software" xml:space="preserve">
+    <value>Software</value>
+  </data>
+  <data name="Titulo" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="Ofertas" xml:space="preserve">
+    <value>Ofertas</value>
+  </data>
+  <data name="Buscador" xml:space="preserve">
+    <value>Buscador</value>
+  </data>
+  <data name="Seleccionar Tienda" xml:space="preserve">
+    <value>Selecciona una tienda para cargar las ofertas</value>
+  </data>
+  <data name="Tiendas" xml:space="preserve">
+    <value>Tiendas</value>
+  </data>
+  <data name="Cero Resultados" xml:space="preserve">
+    <value>No hay resultados</value>
+  </data>
+  <data name="Buscar" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Pais" xml:space="preserve">
+    <value>País:</value>
+  </data>
+  <data name="Plataforma" xml:space="preserve">
+    <value>Plataformas:</value>
+  </data>
+  <data name="DRM" xml:space="preserve">
+    <value>DRM:</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Config Cuenta Steam" xml:space="preserve">
+    <value>Añade tu cuenta de Steam Community (ejemplo http://steamcommunity.com/id/pepeizq/): </value>
+  </data>
+  <data name="Config Descartar" xml:space="preserve">
+    <value>No incluir mis juegos en las ofertas</value>
+  </data>
+  <data name="Config Descartar Aviso" xml:space="preserve">
+    <value>Esta opción no funciona en bundles y ediciones especiales</value>
+  </data>
+  <data name="Donar" xml:space="preserve">
+    <value>Donar</value>
+  </data>
+  <data name="RSS Updates" xml:space="preserve">
+    <value>Últimas Noticias</value>
+  </data>
+  <data name="Boton Inicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Grid Arranque" xml:space="preserve">
+    <value>Elige ventana donde arrancar</value>
+  </data>
+  <data name="Config Descartar Ultima Visita" xml:space="preserve">
+    <value>Enseñar solo las ofertas desde la última visita</value>
+  </data>
+  <data name="Config Ordenar" xml:space="preserve">
+    <value>Por defecto ordenar según:</value>
   </data>
   <data name="Editor" xml:space="preserve">
     <value>Editor</value>
   </data>
-  <data name="Editor2.Text" xml:space="preserve">
-    <value>Editor</value>
+  <data name="Ultimas Ofertas" xml:space="preserve">
+    <value>Últimas Ofertas</value>
   </data>
-  <data name="EditorCleanAll.Text" xml:space="preserve">
-    <value>Clean All</value>
+  <data name="Seleccionar Todo" xml:space="preserve">
+    <value>Seleccionar Todo</value>
   </data>
-  <data name="EditorCopyDeals.Text" xml:space="preserve">
-    <value>Copy Deals</value>
+  <data name="Borrar" xml:space="preserve">
+    <value>Borrar Todo</value>
   </data>
-  <data name="EditorCopyTitle.Text" xml:space="preserve">
-    <value>Copy Title</value>
+  <data name="Cortar Ofertas" xml:space="preserve">
+    <value>Cortar Ofertas</value>
   </data>
-  <data name="EditorCutDeals.Text" xml:space="preserve">
-    <value>Cut Deals</value>
+  <data name="Seleccionar Nada" xml:space="preserve">
+    <value>Limpiar Selección</value>
   </data>
-  <data name="EditorCutTitle.Text" xml:space="preserve">
-    <value>Cut Title</value>
+  <data name="Copiar Ofertas" xml:space="preserve">
+    <value>Copiar Ofertas</value>
   </data>
-  <data name="EditorLimit.Text" xml:space="preserve">
-    <value>Due to the heavy text, use the buttons below to copy the deals</value>
+  <data name="Cortar Titulo" xml:space="preserve">
+    <value>Cortar Título</value>
   </data>
-  <data name="LastDeals.Text" xml:space="preserve">
-    <value>Latest Deals</value>
+  <data name="Copiar Titulo" xml:space="preserve">
+    <value>Copiar Título</value>
   </data>
-  <data name="MessageStore.Text" xml:space="preserve">
-    <value>Select a store to load deals</value>
+  <data name="Editor Limite" xml:space="preserve">
+    <value>Debido a la carga de texto usa los botones de abajo para copiar las ofertas</value>
   </data>
-  <data name="MoreThings" xml:space="preserve">
-    <value>More Things</value>
+  <data name="Aviso Reddit" xml:space="preserve">
+    <value>Reddit añade el Rating de cada juego, mantén actualizada esta opción</value>
   </data>
-  <data name="OrderDeals.Text" xml:space="preserve">
-    <value>Order by:</value>
+  <data name="Editor Limite Caracteres" xml:space="preserve">
+    <value>Aviso: Limite de caracteres superado</value>
   </data>
-  <data name="Price.Content" xml:space="preserve">
-    <value>Price</value>
+  <data name="Aviso Editor" xml:space="preserve">
+    <value>Activar esta opción cambiará como funciona la aplicación, si la activas cada oferta que selecciones generara un codigo en la seccion Editor</value>
   </data>
-  <data name="Rating.Text" xml:space="preserve">
-    <value>Rating</value>
+  <data name="Divisas" xml:space="preserve">
+    <value>Divisas</value>
   </data>
-  <data name="Refresh.Text" xml:space="preserve">
-    <value>Refresh</value>
+  <data name="Boton Codigo Fuente" xml:space="preserve">
+    <value>Código Fuente</value>
   </data>
-  <data name="ScreenCapture.Text" xml:space="preserve">
-    <value>Screen Capture Deals</value>
+  <data name="Boton Cosas" xml:space="preserve">
+    <value>Más Cosas</value>
   </data>
-  <data name="SelectAll.Text" xml:space="preserve">
-    <value>Select All</value>
-  </data>
-  <data name="SelectClear.Text" xml:space="preserve">
-    <value>Clear Selection</value>
-  </data>
-  <data name="Title.Content" xml:space="preserve">
-    <value>Title</value>
+  <data name="Boton Contacto" xml:space="preserve">
+    <value>Contactar</value>
   </data>
 </root>

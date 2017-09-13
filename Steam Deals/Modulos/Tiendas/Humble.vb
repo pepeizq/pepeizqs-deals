@@ -4,7 +4,7 @@ Imports Windows.Globalization.NumberFormatting
 
 Module Humble
 
-    Dim WithEvents bw As BackgroundWorker
+    Dim WithEvents Bw As BackgroundWorker
     Dim listaJuegos As List(Of Juego)
 
     Public Sub GenerarOfertas()
@@ -16,17 +16,11 @@ Module Humble
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasHumble")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorHumble")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoHumble")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaHumble")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarHumble")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesHumble")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
         cbOrdenar.IsEnabled = False

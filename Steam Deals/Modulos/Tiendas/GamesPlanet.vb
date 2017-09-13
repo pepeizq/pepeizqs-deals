@@ -1,9 +1,8 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module GamesPlanet
 
-    Dim WithEvents bw As BackgroundWorker
+    Dim WithEvents Bw As BackgroundWorker
     Dim listaJuegos As List(Of Juego)
 
     Public Sub GenerarOfertas()
@@ -15,17 +14,11 @@ Module GamesPlanet
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasGamesPlanet")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorGamesPlanet")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGamesPlanet")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaGamesPlanet")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarGamesPlanet")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesGamesPlanet")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamesPlanet")
         cbOrdenar.IsEnabled = False
@@ -33,9 +26,10 @@ Module GamesPlanet
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamesPlanet")
         gridProgreso.Visibility = Visibility.Visible
 
-        bw = New BackgroundWorker
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        Bw = New BackgroundWorker With {
+            .WorkerReportsProgress = True,
+            .WorkerSupportsCancellation = True
+        }
 
         If bw.IsBusy = False Then
             bw.RunWorkerAsync()
@@ -43,7 +37,7 @@ Module GamesPlanet
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
@@ -254,7 +248,7 @@ Module GamesPlanet
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -264,7 +258,7 @@ Module GamesPlanet
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGamesPlanet", listaJuegos)

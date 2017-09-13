@@ -1,17 +1,14 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.Globalization
-Imports Windows.Globalization.NumberFormatting
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module GamersGate
 
-    Dim WithEvents bw As New BackgroundWorker
+    Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
 
     Public Sub GenerarOfertas()
 
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -20,17 +17,11 @@ Module GamersGate
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasGamersGate")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorGamersGate")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoGamersGate")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaGamersGate")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarGamersGate")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesGamersGate")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
         cbOrdenar.IsEnabled = False
@@ -40,13 +31,13 @@ Module GamersGate
 
         listaJuegos.Clear()
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
@@ -55,13 +46,13 @@ Module GamersGate
             listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
         End If
 
-        Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
+        Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
         Dim html As String = html_.Result
 
-        Dim htmlUS_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=usa"))
+        Dim htmlUS_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=usa"))
         Dim htmlUS As String = htmlUS_.Result
 
-        Dim htmlUK_ As Task(Of String) = HttpHelperResponse(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
+        Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
         Dim htmlUK As String = htmlUK_.Result
 
         Dim tope As Integer = 3000
@@ -293,7 +284,7 @@ Module GamersGate
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGamersGate", listaJuegos)

@@ -105,7 +105,7 @@ Module Listado
                 imagen.Width = 80
             End If
 
-            imagen.Margin = New Thickness(0, 2, 10, 2)
+            imagen.Margin = New Thickness(2, 2, 10, 2)
             imagen.SetValue(Grid.ColumnProperty, 0)
             grid.Children.Add(imagen)
         End If

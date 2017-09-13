@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.Storage
 
 Module Ordenar
@@ -11,11 +10,8 @@ Module Ordenar
 
         Dim lv As ListView = pagina.FindName("listado" + tienda)
         Dim numOfertas As TextBlock = pagina.FindName("tbNumOfertas" + tienda)
-        Dim botonUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertas" + tienda)
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo" + tienda)
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNada" + tienda)
-        Dim botonActualizar As Button = pagina.FindName("botonActualizar" + tienda)
-        Dim cbTipo As ComboBox = pagina.FindName("cbTipo" + tienda)
+        Dim lvEditor As ListView = pagina.FindName("lvEditor" + tienda)
+        Dim lvOpciones As ListView = pagina.FindName("lvOpciones" + tienda)
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
@@ -25,24 +21,12 @@ Module Ordenar
         If Not lv Is Nothing Then
             lv.IsEnabled = False
 
-            If Not botonUltimasOfertas Is Nothing Then
-                botonUltimasOfertas.IsEnabled = False
+            If Not lvEditor Is Nothing Then
+                lvEditor.IsEnabled = False
             End If
 
-            If Not botonSeleccionarTodo Is Nothing Then
-                botonSeleccionarTodo.IsEnabled = False
-            End If
-
-            If Not botonSeleccionarNada Is Nothing Then
-                botonSeleccionarNada.IsEnabled = False
-            End If
-
-            If Not botonActualizar Is Nothing Then
-                botonActualizar.IsEnabled = False
-            End If
-
-            If Not cbTipo Is Nothing Then
-                cbTipo.IsEnabled = False
+            If Not lvOpciones Is Nothing Then
+                lvOpciones.IsEnabled = False
             End If
 
             cbOrdenar.IsEnabled = False
@@ -301,24 +285,12 @@ Module Ordenar
 
             lv.IsEnabled = True
 
-            If Not botonUltimasOfertas Is Nothing Then
-                botonUltimasOfertas.IsEnabled = True
+            If Not lvEditor Is Nothing Then
+                lvEditor.IsEnabled = True
             End If
 
-            If Not botonSeleccionarTodo Is Nothing Then
-                botonSeleccionarTodo.IsEnabled = True
-            End If
-
-            If Not botonSeleccionarNada Is Nothing Then
-                botonSeleccionarNada.IsEnabled = True
-            End If
-
-            If Not botonActualizar Is Nothing Then
-                botonActualizar.IsEnabled = True
-            End If
-
-            If Not cbTipo Is Nothing Then
-                cbTipo.IsEnabled = True
+            If Not lvOpciones Is Nothing Then
+                lvOpciones.IsEnabled = True
             End If
 
             cbOrdenar.IsEnabled = True

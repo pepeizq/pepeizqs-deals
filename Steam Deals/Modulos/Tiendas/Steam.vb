@@ -1,10 +1,9 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module Steam
 
-    Dim WithEvents bw As New BackgroundWorker
+    Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
 
     Public Sub GenerarOfertas()
@@ -16,17 +15,11 @@ Module Steam
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasSteam")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorSteam")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoSteam")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaSteam")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarSteam")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesSteam")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
         cbOrdenar.IsEnabled = False
@@ -36,6 +29,9 @@ Module Steam
 
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoSteam")
         tbProgreso.Text = "0%"
+
+        Dim pr As RadialProgressBar = pagina.FindName("prSteam")
+        pr.Value = 0
 
         listaJuegos.Clear()
 
@@ -48,7 +44,7 @@ Module Steam
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
@@ -63,7 +59,7 @@ Module Steam
 
         Dim i As Integer = 1
         While i < numPaginas
-            Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("http://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -239,7 +235,7 @@ Module Steam
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -251,7 +247,7 @@ Module Steam
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasSteam", listaJuegos)
@@ -270,7 +266,7 @@ Module Steam
     Public Function GenerarNumPaginas(url As Uri)
 
         Dim numPaginas As Integer = 0
-        Dim htmlPaginas_ As Task(Of String) = HttpHelperResponse(url)
+        Dim htmlPaginas_ As Task(Of String) = HttpClient(url)
         Dim htmlPaginas As String = htmlPaginas_.Result
 
         If Not htmlPaginas = Nothing Then

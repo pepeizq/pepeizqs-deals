@@ -1,9 +1,8 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module Valoracion
 
-    Dim WithEvents bw As BackgroundWorker
+    Dim WithEvents Bw As BackgroundWorker
     Dim listaJuegos As List(Of JuegoValoracion)
 
     Public Async Sub Generar()
@@ -33,13 +32,13 @@ Module Valoracion
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim numPaginas As Integer = Steam.GenerarNumPaginas(New Uri("http://store.steampowered.com/search/?page=2"))
 
         Dim i As Integer = 1
         While i < numPaginas
-            Dim html_ As Task(Of String) = HttpHelperResponse(New Uri("http://store.steampowered.com/search/?page=" + i.ToString))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("http://store.steampowered.com/search/?page=" + i.ToString))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -150,7 +149,7 @@ Module Valoracion
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -161,7 +160,7 @@ Module Valoracion
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of JuegoValoracion))("listaValoraciones", listaJuegos)

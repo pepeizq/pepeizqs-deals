@@ -64,12 +64,12 @@ Module Editor
 
         If Not listaFinal Is Nothing Then
             If listaFinal.Count > 0 Then
-                tbNumEnlaces.Text = listaFinal.Count.ToString + " " + recursos.GetString("Ofertas")
+                tbNumEnlaces.Text = listaFinal.Count.ToString + " " + recursos.GetString("Deals")
             Else
-                tbNumEnlaces.Text = "0 " + recursos.GetString("Ofertas")
+                tbNumEnlaces.Text = "0 " + recursos.GetString("Deals")
             End If
         Else
-            tbNumEnlaces.Text = "0 " + recursos.GetString("Ofertas")
+            tbNumEnlaces.Text = "0 " + recursos.GetString("Deals")
         End If
 
         Dim tbTienda As TextBlock = pagina.FindName("tbEditorEnlacesTienda")
@@ -232,12 +232,6 @@ Module Editor
                             Else
                                 linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion
                             End If
-
-                            If listaFinal.Count > 50 Then
-                                tbLimite.Text = recursos.GetString("Editor Limite")
-                            End If
-                        Else
-                            tbLimite.Text = recursos.GetString("Editor Limite Caracteres")
                         End If
 
                         If Not linea = Nothing Then
@@ -433,8 +427,6 @@ Module Editor
     End Sub
 
     Public Sub GenerarOpciones()
-
-        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
