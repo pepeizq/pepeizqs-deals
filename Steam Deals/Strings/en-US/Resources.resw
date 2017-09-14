@@ -138,6 +138,9 @@
   <data name="ConfigOrder.Text" xml:space="preserve">
     <value>Default sort by:</value>
   </data>
+  <data name="Contact.Text" xml:space="preserve">
+    <value>Contact</value>
+  </data>
   <data name="Currencies.Text" xml:space="preserve">
     <value>Currencies</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="OrderDeals.Text" xml:space="preserve">
     <value>Order by:</value>
   </data>
+  <data name="OtherApps.Text" xml:space="preserve">
+    <value>Other Apps</value>
+  </data>
   <data name="Price.Content" xml:space="preserve">
     <value>Price</value>
   </data>
@@ -194,6 +200,9 @@
   </data>
   <data name="Refresh.Text" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="ReportBug.Text" xml:space="preserve">
+    <value>Report a Bug</value>
   </data>
   <data name="ScreenCapture.Text" xml:space="preserve">
     <value>Screen Capture Deals</value>
@@ -204,7 +213,13 @@
   <data name="SelectClear.Text" xml:space="preserve">
     <value>Clear Selection</value>
   </data>
+  <data name="SourceCode.Text" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="VoteApp.Text" xml:space="preserve">
+    <value>Vote the App</value>
   </data>
 </root>

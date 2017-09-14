@@ -19,17 +19,11 @@ Module AmazonUk
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasAmazonUk")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorAmazonUk")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoAmazonUk")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaAmazonUk")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarAmazonUk")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesAmazonUk")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonUk")
         cbOrdenar.IsEnabled = False

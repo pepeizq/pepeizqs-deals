@@ -29,7 +29,6 @@ Module Editor
         tbEnlaces.Visibility = Visibility.Visible
 
         Dim tbLimite As TextBlock = pagina.FindName("tbEditorEnlacesLimite")
-        tbLimite.Text = recursos.GetString("Editor Limite")
         tbLimite.Visibility = Visibility.Collapsed
 
         Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetas")

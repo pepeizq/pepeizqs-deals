@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Services.Store.Engagement
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.ApplicationModel.Core
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
@@ -57,12 +58,6 @@ Public NotInheritable Class MainPage
 
         GridVisibilidad(gridDeals, recursos.GetString("Deals"))
         nvPrincipal.IsPaneOpen = False
-
-        'botonOfertasTexto.Text = recursos.GetString("Ofertas")
-        'botonEditorTexto.Text = recursos.GetString("Editor")
-        'botonConfigTexto.Text = recursos.GetString("Boton Config")
-        'botonVotarTexto.Text = recursos.GetString("Boton Votar")
-        'botonMasCosasTexto.Text = recursos.GetString("Boton Cosas")
 
         'botonMasAppsTexto.Text = recursos.GetString("Boton Web")
         'botonContactoTexto.Text = recursos.GetString("Boton Contacto")
@@ -346,59 +341,6 @@ Public NotInheritable Class MainPage
         End If
 
     End Sub
-
-    'Private Async Sub BotonVotar_Click(sender As Object, e As RoutedEventArgs) Handles botonVotar.Click
-
-    '    Await Launcher.LaunchUriAsync(New Uri("ms-windows-store:REVIEW?PFN=" + Package.Current.Id.FamilyName))
-
-    'End Sub
-
-    'Private Sub BotonMasCosas_Click(sender As Object, e As RoutedEventArgs) Handles botonMasCosas.Click
-
-    '    If popupMasCosas.IsOpen = True Then
-    '        botonMasCosas.Background = New SolidColorBrush(Colors.Transparent)
-    '        popupMasCosas.IsOpen = False
-    '    Else
-    '        botonMasCosas.Background = New SolidColorBrush(Colors.OliveDrab)
-    '        popupMasCosas.IsOpen = True
-    '    End If
-
-    'End Sub
-
-    'Private Sub PopupMasCosas_LayoutUpdated(sender As Object, e As Object) Handles popupMasCosas.LayoutUpdated
-
-    '    popupMasCosas.Height = spMasCosas.ActualHeight
-
-    'End Sub
-
-    'Private Async Sub BotonMasApps_Click(sender As Object, e As RoutedEventArgs) Handles botonMasApps.Click
-
-    '    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/"))
-
-    'End Sub
-
-    'Private Async Sub BotonContacto_Click(sender As Object, e As RoutedEventArgs) Handles botonContacto.Click
-
-    '    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/contact/"))
-
-    'End Sub
-
-    'Private Async Sub BotonReportar_Click(sender As Object, e As RoutedEventArgs) Handles botonReportar.Click
-
-    '    If StoreServicesFeedbackLauncher.IsSupported = True Then
-    '        Dim ejecutador As StoreServicesFeedbackLauncher = StoreServicesFeedbackLauncher.GetDefault()
-    '        Await ejecutador.LaunchAsync()
-    '    Else
-    '        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqapps.com/contact/"))
-    '    End If
-
-    'End Sub
-
-    'Private Async Sub BotonCodigoFuente_Click(sender As Object, e As RoutedEventArgs) Handles botonCodigoFuente.Click
-
-    '    Await Launcher.LaunchUriAsync(New Uri("https://github.com/pepeizq/Steam-Deals"))
-
-    'End Sub
 
     'OFERTAS-----------------------------------------------------------------------------
 
@@ -845,9 +787,43 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarWinGameStore.Click
+    Private Sub LvOpcionesWinGameStoreItemClick(sender As Object, args As ItemClickEventArgs)
 
-        WinGameStore.GenerarOfertas()
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            Captura.Generar(listadoWinGameStore, "WinGameStore")
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            WinGameStore.GenerarOfertas()
+
+        End If
+
+    End Sub
+
+    Private Sub LvEditorWinGameStoreItemClick(sender As Object, args As ItemClickEventArgs)
+
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
+                If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
+                    Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, True)
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SeleccionarEnlaces(listadoWinGameStore, True)
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            SeleccionarEnlaces(listadoWinGameStore, False)
+
+        End If
 
     End Sub
 
@@ -861,15 +837,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorUltimasOfertasWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasWinGameStore.Click
-
-        If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
-            If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, True)
-            End If
-        End If
-
-    End Sub
+    'OFERTAS-SILAGAMES----------------------------------------------------------------------------
 
     Private Sub ListadoSilaGames_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoSilaGames.ItemClick
 
@@ -877,9 +845,43 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarSilaGames.Click
+    Private Sub LvOpcionesSilaGamesItemClick(sender As Object, args As ItemClickEventArgs)
 
-        SilaGames.GenerarOfertas()
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            Captura.Generar(listadoSilaGames, "SilaGames")
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SilaGames.GenerarOfertas()
+
+        End If
+
+    End Sub
+
+    Private Sub LvEditorSilaGamesItemClick(sender As Object, args As ItemClickEventArgs)
+
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            If gridTiendaSilaGames.Visibility = Visibility.Visible Then
+                If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
+                    Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, True)
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SeleccionarEnlaces(listadoSilaGames, True)
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            SeleccionarEnlaces(listadoSilaGames, False)
+
+        End If
 
     End Sub
 
@@ -893,15 +895,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorUltimasOfertasSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasSilaGames.Click
-
-        If gridTiendaSilaGames.Visibility = Visibility.Visible Then
-            If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, True)
-            End If
-        End If
-
-    End Sub
+    'OFERTAS-NUUVEM----------------------------------------------------------------------------
 
     Private Sub ListadoNuuvem_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoNuuvem.ItemClick
 
@@ -909,9 +903,43 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarNuuvem.Click
+    Private Sub LvOpcionesNuuvemItemClick(sender As Object, args As ItemClickEventArgs)
 
-        Nuuvem.GenerarOfertas()
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            Captura.Generar(listadoNuuvem, "Nuuvem")
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            Nuuvem.GenerarOfertas()
+
+        End If
+
+    End Sub
+
+    Private Sub LvEditorNuuvemItemClick(sender As Object, args As ItemClickEventArgs)
+
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            If gridTiendaNuuvem.Visibility = Visibility.Visible Then
+                If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
+                    Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, True)
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SeleccionarEnlaces(listadoNuuvem, True)
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            SeleccionarEnlaces(listadoNuuvem, False)
+
+        End If
 
     End Sub
 
@@ -925,15 +953,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorUltimasOfertasNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasNuuvem.Click
-
-        If gridTiendaNuuvem.Visibility = Visibility.Visible Then
-            If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, True)
-            End If
-        End If
-
-    End Sub
+    'OFERTAS-MICROSOFTSTORE----------------------------------------------------------------------------
 
     Private Sub ListadoMicrosoftStore_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoMicrosoftStore.ItemClick
 
@@ -941,9 +961,43 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarMicrosoftStore.Click
+    Private Sub LvOpcionesMicrosoftStoreItemClick(sender As Object, args As ItemClickEventArgs)
 
-        MicrosoftStore.GenerarOfertas()
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            Captura.Generar(listadoMicrosoftStore, "MicrosoftStore")
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            MicrosoftStore.GenerarOfertas()
+
+        End If
+
+    End Sub
+
+    Private Sub LvEditorMicrosoftStoreItemClick(sender As Object, args As ItemClickEventArgs)
+
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
+                If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
+                    Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, True)
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SeleccionarEnlaces(listadoMicrosoftStore, True)
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            SeleccionarEnlaces(listadoMicrosoftStore, False)
+
+        End If
 
     End Sub
 
@@ -957,15 +1011,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorUltimasOfertasMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasMicrosoftStore.Click
-
-        If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
-            If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, True)
-            End If
-        End If
-
-    End Sub
+    'OFERTAS-AMAZONES----------------------------------------------------------------------------
 
     Private Sub ListadoAmazonEs_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonEs.ItemClick
 
@@ -973,9 +1019,43 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonEs.Click
+    Private Sub LvOpcionesAmazonEsItemClick(sender As Object, args As ItemClickEventArgs)
 
-        AmazonEs.GenerarOfertas()
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            Captura.Generar(listadoAmazonEs, "AmazonEs")
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            AmazonEs.GenerarOfertas()
+
+        End If
+
+    End Sub
+
+    Private Sub LvEditorAmazonEsItemClick(sender As Object, args As ItemClickEventArgs)
+
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
+                If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
+                    Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, True)
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SeleccionarEnlaces(listadoAmazonEs, True)
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            SeleccionarEnlaces(listadoAmazonEs, False)
+
+        End If
 
     End Sub
 
@@ -989,15 +1069,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorUltimasOfertasAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonEs.Click
-
-        If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
-            If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, True)
-            End If
-        End If
-
-    End Sub
+    'OFERTAS-AMAZONUK----------------------------------------------------------------------------
 
     Private Sub ListadoAmazonUk_ItemClick(sender As Object, e As ItemClickEventArgs) Handles listadoAmazonUk.ItemClick
 
@@ -1005,9 +1077,43 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAmazonUk.Click
+    Private Sub LvOpcionesAmazonUkItemClick(sender As Object, args As ItemClickEventArgs)
 
-        AmazonUk.GenerarOfertas()
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            Captura.Generar(listadoAmazonUk, "AmazonUk")
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            AmazonUk.GenerarOfertas()
+
+        End If
+
+    End Sub
+
+    Private Sub LvEditorAmazonUkItemClick(sender As Object, args As ItemClickEventArgs)
+
+        Dim sp As StackPanel = args.ClickedItem
+
+        If sp.Tag.ToString = 0 Then
+
+            If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
+                If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
+                    Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, True)
+                End If
+            End If
+
+        ElseIf sp.Tag.ToString = 1 Then
+
+            SeleccionarEnlaces(listadoAmazonUk, True)
+
+        ElseIf sp.Tag.ToString = 2 Then
+
+            SeleccionarEnlaces(listadoAmazonUk, False)
+
+        End If
 
     End Sub
 
@@ -1016,16 +1122,6 @@ Public NotInheritable Class MainPage
         If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
             If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
                 Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, False)
-            End If
-        End If
-
-    End Sub
-
-    Private Sub BotonEditorUltimasOfertasAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorUltimasOfertasAmazonUk.Click
-
-        If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
-            If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, True)
             End If
         End If
 
@@ -1282,76 +1378,50 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    'MASCOSAS-----------------------------------------
 
-    Private Sub BotonEditorSeleccionarTodoWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoWinGameStore.Click
+    Private Async Sub LvMasCosasItemClick(sender As Object, args As ItemClickEventArgs)
 
-        SeleccionarEnlaces(listadoWinGameStore, True)
+        Dim sp As StackPanel = args.ClickedItem
 
-    End Sub
+        If sp.Tag.ToString = 0 Then
 
-    Private Sub BotonEditorSeleccionarNadaWinGameStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaWinGameStore.Click
+            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store:REVIEW?PFN=" + Package.Current.Id.FamilyName))
 
-        SeleccionarEnlaces(listadoWinGameStore, False)
+        ElseIf sp.Tag.ToString = 1 Then
 
-    End Sub
+            wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/contact/"))
 
-    Private Sub BotonEditorSeleccionarTodoSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoSilaGames.Click
+        ElseIf sp.Tag.ToString = 2 Then
 
-        SeleccionarEnlaces(listadoSilaGames, True)
+            If StoreServicesFeedbackLauncher.IsSupported = True Then
+                Dim ejecutador As StoreServicesFeedbackLauncher = StoreServicesFeedbackLauncher.GetDefault()
+                Await ejecutador.LaunchAsync()
+            Else
+                wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/contact/"))
+            End If
 
-    End Sub
+        ElseIf sp.Tag.ToString = 3 Then
 
-    Private Sub BotonEditorSeleccionarNadaSilaGames_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaSilaGames.Click
+            Await Launcher.LaunchUriAsync(New Uri("https://github.com/pepeizq/Steam-Deals"))
 
-        SeleccionarEnlaces(listadoSilaGames, False)
+        ElseIf sp.Tag.ToString = 4 Then
 
-    End Sub
+            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nlkv74dds0m"))
 
-    Private Sub BotonEditorSeleccionarTodoNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoNuuvem.Click
+        ElseIf sp.Tag.ToString = 5 Then
 
-        SeleccionarEnlaces(listadoNuuvem, True)
+            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh52swd"))
 
-    End Sub
+        ElseIf sp.Tag.ToString = 6 Then
 
-    Private Sub BotonEditorSeleccionarNadaNuuvem_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaNuuvem.Click
+            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9p6ttblthp0l"))
 
-        SeleccionarEnlaces(listadoNuuvem, False)
+        ElseIf sp.Tag.ToString = 7 Then
 
-    End Sub
+            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh441c9"))
 
-    Private Sub BotonEditorSeleccionarTodoMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoMicrosoftStore.Click
-
-        SeleccionarEnlaces(listadoMicrosoftStore, True)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarNadaMicrosoftStore_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaMicrosoftStore.Click
-
-        SeleccionarEnlaces(listadoMicrosoftStore, False)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarTodoAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonEs.Click
-
-        SeleccionarEnlaces(listadoAmazonEs, True)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarNadaAmazonEs_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonEs.Click
-
-        SeleccionarEnlaces(listadoAmazonEs, False)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarTodoAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodoAmazonUk.Click
-
-        SeleccionarEnlaces(listadoAmazonUk, True)
-
-    End Sub
-
-    Private Sub BotonEditorSeleccionarNadaAmazonUk_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarNadaAmazonUk.Click
-
-        SeleccionarEnlaces(listadoAmazonUk, False)
+        End If
 
     End Sub
 

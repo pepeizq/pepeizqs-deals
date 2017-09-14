@@ -19,17 +19,11 @@ Module AmazonEs
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasAmazonEs")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorAmazonEs")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoAmazonEs")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaAmazonEs")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarAmazonEs")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesAmazonEs")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonEs")
         cbOrdenar.IsEnabled = False

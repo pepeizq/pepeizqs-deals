@@ -18,17 +18,11 @@ Module Nuuvem
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasNuuvem")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorNuuvem")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoNuuvem")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaNuuvem")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarNuuvem")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesNuuvem")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
         cbOrdenar.IsEnabled = False

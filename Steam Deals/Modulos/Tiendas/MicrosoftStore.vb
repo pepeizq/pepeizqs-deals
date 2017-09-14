@@ -1,9 +1,8 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module MicrosoftStore
 
-    Dim WithEvents bw As BackgroundWorker
+    Dim WithEvents Bw As BackgroundWorker
     Dim listaJuegos As List(Of Juego)
 
     Public Sub GenerarOfertas()
@@ -15,17 +14,11 @@ Module MicrosoftStore
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim botonEditorUltimasOfertas As Button = pagina.FindName("botonEditorUltimasOfertasMicrosoftStore")
-        botonEditorUltimasOfertas.IsEnabled = False
+        Dim lvEditor As ListView = pagina.FindName("lvEditorMicrosoftStore")
+        lvEditor.IsEnabled = False
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodoMicrosoftStore")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonSeleccionarNada As Button = pagina.FindName("botonEditorSeleccionarNadaMicrosoftStore")
-        botonSeleccionarNada.IsEnabled = False
-
-        Dim botonActualizar As Button = pagina.FindName("botonActualizarMicrosoftStore")
-        botonActualizar.IsEnabled = False
+        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesMicrosoftStore")
+        lvOpciones.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarMicrosoftStore")
         cbOrdenar.IsEnabled = False
@@ -67,14 +60,18 @@ Module MicrosoftStore
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
-                If html.Contains("<section itemscope=") Then
+                If html.Contains("No se encontraron resultados.</p>") Then
+                    Exit While
+                End If
+
+                If html.Contains("<section") Then
                     Dim j As Integer = 0
                     While j < 90
-                        If html.Contains("<section itemscope=") Then
+                        If html.Contains("<section") Then
                             Dim temp, temp2 As String
                             Dim int, int2 As Integer
 
-                            int = html.IndexOf("<section itemscope=")
+                            int = html.IndexOf("<section")
                             temp = html.Remove(0, int + 5)
 
                             html = temp
@@ -188,8 +185,6 @@ Module MicrosoftStore
                         End If
                         j += 1
                     End While
-                Else
-                    Exit While
                 End If
             End If
 

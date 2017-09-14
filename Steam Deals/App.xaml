@@ -21,6 +21,8 @@
         <AcrylicBrush x:Key="GridTituloBackground" BackgroundSource="HostBackdrop" TintColor="{StaticResource ColorMaestro}" TintOpacity=".7"/>
         <AcrylicBrush x:Key="NavigationViewDefaultPaneBackground" BackgroundSource="HostBackdrop" TintColor="{StaticResource ColorMaestro}" TintOpacity=".7"/>
         <AcrylicBrush x:Key="NavigationViewExpandedPaneBackground" BackgroundSource="HostBackdrop" TintColor="{StaticResource ColorMaestro}" TintOpacity=".7"/>
+
+        <SolidColorBrush x:Key="ColorSecundario" Color="OliveDrab"/>
     </Application.Resources>
  
 </Application>
