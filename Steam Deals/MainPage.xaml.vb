@@ -59,11 +59,6 @@ Public NotInheritable Class MainPage
         GridVisibilidad(gridDeals, recursos.GetString("Deals"))
         nvPrincipal.IsPaneOpen = False
 
-        'botonMasAppsTexto.Text = recursos.GetString("Boton Web")
-        'botonContactoTexto.Text = recursos.GetString("Boton Contacto")
-        'botonReportarTexto.Text = recursos.GetString("Boton Reportar")
-        'botonCodigoFuenteTexto.Text = recursos.GetString("Boton Codigo Fuente")
-
         If ApplicationData.Current.LocalSettings.Values("ordenar") = Nothing Then
             cbConfigTipoOrdenar.SelectedIndex = 0
             ApplicationData.Current.LocalSettings.Values("ordenar") = 0
@@ -1390,9 +1385,13 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 1 Then
 
-            wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/contact/"))
+            wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/"))
 
         ElseIf sp.Tag.ToString = 2 Then
+
+            wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/contact/"))
+
+        ElseIf sp.Tag.ToString = 3 Then
 
             If StoreServicesFeedbackLauncher.IsSupported = True Then
                 Dim ejecutador As StoreServicesFeedbackLauncher = StoreServicesFeedbackLauncher.GetDefault()
@@ -1401,25 +1400,13 @@ Public NotInheritable Class MainPage
                 wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/contact/"))
             End If
 
-        ElseIf sp.Tag.ToString = 3 Then
-
-            Await Launcher.LaunchUriAsync(New Uri("https://github.com/pepeizq/Steam-Deals"))
-
         ElseIf sp.Tag.ToString = 4 Then
 
-            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nlkv74dds0m"))
+            wvMasCosas.Navigate(New Uri("https://poeditor.com/join/project/YaZAR0uIW4"))
 
         ElseIf sp.Tag.ToString = 5 Then
 
-            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh52swd"))
-
-        ElseIf sp.Tag.ToString = 6 Then
-
-            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9p6ttblthp0l"))
-
-        ElseIf sp.Tag.ToString = 7 Then
-
-            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store://pdp/?productid=9nblggh441c9"))
+            wvMasCosas.Navigate(New Uri("https://github.com/pepeizq/Steam-Deals"))
 
         End If
 

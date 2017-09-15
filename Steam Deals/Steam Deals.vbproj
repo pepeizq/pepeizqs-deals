@@ -102,11 +102,6 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <PRIResource Include="Strings\es-ES\Resources_viejo.resw" />
-    <PRIResource Include="Strings\en-US\Resources_viejo.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -153,10 +148,8 @@
   <ItemGroup>
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
-    <Content Include="Assets\MasCosas\logo_origin.png" />
-    <Content Include="Assets\MasCosas\logo_gog.png" />
-    <Content Include="Assets\MasCosas\logo_blizzard.png" />
-    <Content Include="Assets\MasCosas\logo_steam.png" />
+    <Content Include="Assets\MasCosas\poeditor.png" />
+    <Content Include="Assets\MasCosas\pepeizq.png" />
     <Content Include="Assets\Tiendas\amazon.png" />
     <Content Include="Assets\Tiendas\bundlestars.ico" />
     <Content Include="Assets\Tiendas\gamersgate.ico" />
@@ -235,7 +228,6 @@
     <Content Include="Assets\platform_linux.png" />
     <Content Include="Assets\platform_mac.png" />
     <Content Include="Assets\platform_win.png" />
-    <Content Include="Assets\rss_logo.png" />
     <Content Include="Assets\MasCosas\github.png" />
     <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\web_reddit.ico" />

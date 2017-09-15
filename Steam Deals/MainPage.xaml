@@ -1963,55 +1963,40 @@
                             </Grid.ColumnDefinitions>
 
                             <ListView Grid.Column="0" IsItemClickEnabled="True" ItemClick="LvMasCosasItemClick">
-                                <ListViewItem Background="{StaticResource ColorSecundario}" Margin="0,0,0,20">
+                                <ListViewItem Background="{StaticResource ColorSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="0">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8E1;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="VoteApp" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                <ListViewItem Background="{StaticResource ColorSecundario}" Margin="0,0,0,20">
                                     <StackPanel Orientation="Horizontal" Tag="1">
-                                        <controls:ImageEx Source="Assets\MasCosas\contacto.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="Contact" Foreground="White" VerticalAlignment="Center"/>
+                                        <controls:ImageEx Source="Assets\MasCosas\pepeizq.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                        <TextBlock x:Uid="OtherApps" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
                                 <ListViewItem Background="{StaticResource ColorSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="2">
+                                        <controls:ImageEx Source="Assets\MasCosas\contacto.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                        <TextBlock x:Uid="Contact" Foreground="White" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem Background="{StaticResource ColorSecundario}" Margin="0,0,0,20">
+                                    <StackPanel Orientation="Horizontal" Tag="3">
                                         <controls:ImageEx Source="Assets\MasCosas\feedback.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="ReportBug" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
                                 <ListViewItem Background="{StaticResource ColorSecundario}">
-                                    <StackPanel Orientation="Horizontal" Tag="3">
+                                    <StackPanel Orientation="Horizontal" Tag="4">
+                                        <controls:ImageEx Source="Assets\MasCosas\poeditor.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                        <TextBlock x:Uid="HelpTranslate" Foreground="White" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                    <StackPanel Orientation="Horizontal" Tag="5">
                                         <controls:ImageEx Source="Assets\MasCosas\github.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="SourceCode" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem IsHitTestVisible="False" Margin="0,20,0,0">
-                                    <TextBlock x:Uid="OtherApps"/>
-                                </ListViewItem>
-                                <ListViewItem Background="MidnightBlue">
-                                    <StackPanel Orientation="Horizontal" Tag="4">
-                                        <controls:ImageEx Source="Assets\MasCosas\logo_blizzard.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Blizzard Tiles" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem Background="DarkOrchid">
-                                    <StackPanel Orientation="Horizontal" Tag="5">
-                                        <controls:ImageEx Source="Assets\MasCosas\logo_gog.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock Text="GOG Tiles" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem Background="DarkOrange">
-                                    <StackPanel Orientation="Horizontal" Tag="6">
-                                        <controls:ImageEx Source="Assets\MasCosas\logo_origin.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Origin Tiles" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem Background="DarkMagenta">
-                                    <StackPanel Orientation="Horizontal" Tag="7">
-                                        <controls:ImageEx Source="Assets\MasCosas\logo_steam.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock Text="Steam Bridge" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>

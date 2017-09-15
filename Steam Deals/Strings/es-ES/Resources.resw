@@ -150,6 +150,9 @@
   <data name="Deals2.Text" xml:space="preserve">
     <value>Ofertas</value>
   </data>
+  <data name="DescriptionStore" xml:space="preserve">
+    <value>Busca las mejores ofertas en Steam y otras tiendas digitales usando esta aplicación.</value>
+  </data>
   <data name="Discount.Content" xml:space="preserve">
     <value>Descuento</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="EditorLimit.Text" xml:space="preserve">
     <value>Debido a la carga de texto usa los botones de abajo para copiar las ofertas</value>
+  </data>
+  <data name="HelpTranslate.Text" xml:space="preserve">
+    <value>Ayuda a Traducir</value>
   </data>
   <data name="LastDeals.Text" xml:space="preserve">
     <value>Últimas Ofertas</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="SourceCode.Text" xml:space="preserve">
     <value>Código Fuente</value>
+  </data>
+  <data name="ThanksTo.Text" xml:space="preserve">
+    <value>Agradecimientos</value>
   </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Título</value>

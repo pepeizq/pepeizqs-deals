@@ -150,6 +150,9 @@
   <data name="Deals2.Text" xml:space="preserve">
     <value>Deals</value>
   </data>
+  <data name="DescriptionStore" xml:space="preserve">
+    <value>Find the best deals on Steam and other digital stores using this application.</value>
+  </data>
   <data name="Discount.Content" xml:space="preserve">
     <value>Discount</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="EditorLimit.Text" xml:space="preserve">
     <value>Due to the heavy text, use the buttons below to copy the deals</value>
+  </data>
+  <data name="HelpTranslate.Text" xml:space="preserve">
+    <value>Help to Translate</value>
   </data>
   <data name="LastDeals.Text" xml:space="preserve">
     <value>Latest Deals</value>
@@ -215,6 +221,9 @@
   </data>
   <data name="SourceCode.Text" xml:space="preserve">
     <value>Source Code</value>
+  </data>
+  <data name="ThanksTo.Text" xml:space="preserve">
+    <value>Thanks to</value>
   </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Title</value>

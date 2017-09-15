@@ -86,6 +86,11 @@ Module WinGameStore
                     Dim int5, int6 As Integer
 
                     int5 = temp2.IndexOf("http:\/\/www.wingamestore")
+
+                    If int5 = -1 Then
+                        int5 = temp2.IndexOf("https:\/\/www.wingamestore")
+                    End If
+
                     temp5 = temp2.Remove(0, int5)
 
                     int6 = temp5.IndexOf(ChrW(34))
