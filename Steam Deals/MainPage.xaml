@@ -22,11 +22,11 @@
                         PaneToggleButtonStyle="{StaticResource NvEstilo}">
 
             <Grid Padding="10">
-                <Grid.ChildrenTransitions>
+                <Grid.Transitions>
                     <TransitionCollection>
-                        <NavigationThemeTransition/>
+                        <EdgeUIThemeTransition Edge="Bottom"/>
                     </TransitionCollection>
-                </Grid.ChildrenTransitions>
+                </Grid.Transitions>
 
                 <Grid.Background>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">

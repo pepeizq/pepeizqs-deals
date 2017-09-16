@@ -74,6 +74,7 @@ Module WinGameStore
                     temp4 = temp3.Remove(int4, temp3.Length - int4)
 
                     temp4 = temp4.Replace("\u00b2", "²")
+                    temp4 = temp4.Replace("\u00b4", "´")
                     temp4 = temp4.Replace("\u00ae", "®")
                     temp4 = temp4.Replace("\u2013", "–")
                     temp4 = temp4.Replace("\u2014", "–")
