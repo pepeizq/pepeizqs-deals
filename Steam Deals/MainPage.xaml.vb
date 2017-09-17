@@ -1408,6 +1408,10 @@ Public NotInheritable Class MainPage
 
             wvMasCosas.Navigate(New Uri("https://github.com/pepeizq/Steam-Deals"))
 
+        ElseIf sp.Tag.ToString = 6 Then
+
+            wvMasCosas.Navigate(New Uri("https://pepeizqapps.com/thanks/"))
+
         End If
 
     End Sub

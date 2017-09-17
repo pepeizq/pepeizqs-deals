@@ -9,12 +9,12 @@
             <Setter Property="MaxWidth" Value="0"/>
         </Style>
 
-        <Style x:Key="NvEstilo" TargetType="Button" BasedOn="{StaticResource PaneToggleButtonStyle}">
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
+        <SolidColorBrush x:Key="NavigationViewItemForeground" Color="White"/>
+        <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="White"/>
 
         <Color x:Key="ColorMaestro">DarkOliveGreen</Color>
 
+        <SolidColorBrush x:Key="ColorGridPrincipal" Color="{StaticResource ColorMaestro}"/>
         <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="{StaticResource ColorMaestro}"/>
         <SolidColorBrush x:Key="SystemControlForegroundAccentBrush" Color="{StaticResource ColorMaestro}" />
 

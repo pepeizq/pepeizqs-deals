@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
 
-    <Grid>
+    <Grid Background="{StaticResource ColorGridPrincipal}">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="*"/>
@@ -18,8 +18,7 @@
         </Grid>
 
         <NavigationView x:Name="nvPrincipal" Grid.Row="1" Loaded="Nv_Loaded" ItemInvoked="Nv_ItemInvoked"
-                        OpenPaneLength="200" AlwaysShowHeader="False" IsSettingsVisible="False" 
-                        PaneToggleButtonStyle="{StaticResource NvEstilo}">
+                        OpenPaneLength="200" AlwaysShowHeader="False" IsSettingsVisible="False">
 
             <Grid Padding="10">
                 <Grid.Transitions>
@@ -41,89 +40,86 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Top" Color="DarkOliveGreen"
-                                              BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                        <ListView x:Name="lvTiendas" IsItemClickEnabled="True" ItemClick="LvTiendasItemClick">
-                            <ListViewItem x:Name="botonTiendaSteam" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="0">
-                                    <controls:ImageEx Source="Assets/Tiendas/steam.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Steam" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaGamersGate" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="1">
-                                    <controls:ImageEx Source="Assets/Tiendas/gamersgate.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="GamersGate" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaGamesPlanet" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="2">
-                                    <controls:ImageEx Source="Assets/Tiendas/gamesplanet.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="GamesPlanet" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaHumble" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="3">
-                                    <controls:ImageEx Source="Assets/Tiendas/humble.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Humble Store" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaGreenManGaming" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="4">
-                                    <controls:ImageEx Source="Assets/Tiendas/gmg.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Green Man Gaming" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaBundleStars" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="5">
-                                    <controls:ImageEx Source="Assets/Tiendas/bundlestars.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Bundle Stars" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaGOG" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="6">
-                                    <controls:ImageEx Source="Assets/Tiendas/gog.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="GOG" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaWinGameStore" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="7">
-                                    <controls:ImageEx Source="Assets/Tiendas/wingamestore.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="WinGameStore" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaSilaGames" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="8">
-                                    <controls:ImageEx Source="Assets/Tiendas/silagames.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Sila Games" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaNuuvem" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="9">
-                                    <controls:ImageEx Source="Assets/Tiendas/nuuvem.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Nuuvem" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaMicrosoftStore" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="10">
-                                    <controls:ImageEx Source="Assets/Tiendas/microsoft.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Microsoft Store" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaAmazonEs" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="11">
-                                    <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Amazon.es" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                            <ListViewItem x:Name="botonTiendaAmazonUk" Background="OliveDrab" Padding="15">
-                                <StackPanel Orientation="Horizontal" Tag="12">
-                                    <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                    <TextBlock Text="Amazon.co.uk" Foreground="White"/>
-                                </StackPanel>
-                            </ListViewItem>
-                        </ListView>
-                    </controls:DropShadowPanel>
+                    <ListView x:Name="lvTiendas" Grid.Column="0" IsItemClickEnabled="True" ItemClick="LvTiendasItemClick">
+                        <ListViewItem x:Name="botonTiendaSteam" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="0">
+                                <controls:ImageEx Source="Assets/Tiendas/steam.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Steam" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaGamersGate" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="1">
+                                <controls:ImageEx Source="Assets/Tiendas/gamersgate.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="GamersGate" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaGamesPlanet" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="2">
+                                <controls:ImageEx Source="Assets/Tiendas/gamesplanet.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="GamesPlanet" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaHumble" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="3">
+                                <controls:ImageEx Source="Assets/Tiendas/humble.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Humble Store" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaGreenManGaming" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="4">
+                                <controls:ImageEx Source="Assets/Tiendas/gmg.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Green Man Gaming" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaBundleStars" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="5">
+                                <controls:ImageEx Source="Assets/Tiendas/bundlestars.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Bundle Stars" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaGOG" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="6">
+                                <controls:ImageEx Source="Assets/Tiendas/gog.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="GOG" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaWinGameStore" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="7">
+                                <controls:ImageEx Source="Assets/Tiendas/wingamestore.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="WinGameStore" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaSilaGames" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="8">
+                                <controls:ImageEx Source="Assets/Tiendas/silagames.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Sila Games" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaNuuvem" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="9">
+                                <controls:ImageEx Source="Assets/Tiendas/nuuvem.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Nuuvem" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaMicrosoftStore" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="10">
+                                <controls:ImageEx Source="Assets/Tiendas/microsoft.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Microsoft Store" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaAmazonEs" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="11">
+                                <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Amazon.es" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem x:Name="botonTiendaAmazonUk" Background="OliveDrab" Padding="15">
+                            <StackPanel Orientation="Horizontal" Tag="12">
+                                <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Amazon.co.uk" Foreground="White"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
 
                     <Grid Grid.Column="1">
                         <controls:DropShadowPanel x:Name="panelMensajeTienda" Color="IndianRed" 
@@ -1997,6 +1993,12 @@
                                     <StackPanel Orientation="Horizontal" Tag="5">
                                         <controls:ImageEx Source="Assets\MasCosas\github.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="SourceCode" Foreground="White" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </ListViewItem>
+                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                    <StackPanel Orientation="Horizontal" Tag="6">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE76E;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                        <TextBlock x:Uid="ThanksTo" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
                             </ListView>
