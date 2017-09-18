@@ -246,7 +246,13 @@ Module Editor
                         tbLimite.Visibility = Visibility.Collapsed
                     Else
                         tbNumCaracteres.Text = contenidoEnlaces.Length.ToString
-                        Await helper.SaveFileAsync(Of String)("contenidoEnlaces", contenidoEnlaces + firma)
+
+                        Try
+                            Await helper.SaveFileAsync(Of String)("contenidoEnlaces", contenidoEnlaces + firma)
+                        Catch ex As Exception
+
+                        End Try
+
                         tbEnlaces.Visibility = Visibility.Collapsed
                         tbLimite.Visibility = Visibility.Visible
                     End If
