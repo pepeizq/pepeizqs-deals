@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Globalization
 Imports Windows.Globalization.NumberFormatting
 
@@ -28,18 +29,24 @@ Module Humble
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
 
-        bw = New BackgroundWorker With {
+        Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoHumble")
+        tbProgreso.Text = "0%"
+
+        Dim pr As RadialProgressBar = pagina.FindName("prHumble")
+        pr.Value = 0
+
+        Bw = New BackgroundWorker With {
             .WorkerReportsProgress = True,
             .WorkerSupportsCancellation = True
         }
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
@@ -281,23 +288,25 @@ Module Humble
                 j += 1
             End While
 
-            bw.ReportProgress(i.ToString)
+            Bw.ReportProgress(CInt((100 / numPaginas) * i))
             i += 1
         End While
 
     End Sub
 
-    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
         Dim tb As TextBlock = pagina.FindName("tbProgresoHumble")
+        Dim pr As RadialProgressBar = pagina.FindName("prHumble")
 
-        tb.Text = e.ProgressPercentage.ToString
+        tb.Text = e.ProgressPercentage.ToString + "%"
+        pr.Value = e.ProgressPercentage
 
     End Sub
 
-    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasHumble", listaJuegos)

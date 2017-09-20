@@ -519,7 +519,7 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoHumble" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prHumble" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <controls:RadialProgressBar x:Name="prHumble" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>

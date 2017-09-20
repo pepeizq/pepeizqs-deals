@@ -46,8 +46,10 @@ Module Listado
 
         If Not juego.Imagen = Nothing Then
             Dim imagen As New ImageEx With {
-                .Stretch = Stretch.UniformToFill,
-                .IsCacheEnabled = True
+                .Stretch = Stretch.Uniform,
+                .IsCacheEnabled = True,
+                .MaxHeight = 120,
+                .MaxWidth = 150
             }
 
             Try
@@ -56,53 +58,49 @@ Module Listado
 
             End Try
 
-            If juego.Tienda = "Steam" Then
-                imagen.Height = 45
-                imagen.Width = 120
-            ElseIf juego.Tienda = "GamersGate" Then
-                imagen.Height = 90
-                imagen.Width = 63
-            ElseIf juego.Tienda = "GamesPlanet" Then
-                imagen.Height = 85
-                imagen.Width = 150
-            ElseIf juego.Tienda = "Humble Bundle" Then
-                imagen.Height = 50
-                imagen.Width = 400
-                imagen.Stretch = Stretch.Uniform
-            ElseIf juego.Tienda = "Humble Store" Then
-                imagen.Height = 63
-                imagen.Width = 101
-            ElseIf juego.Tienda = "Green Man Gaming" Then
-                imagen.Height = 79
-                imagen.Width = 59
-            ElseIf juego.Tienda = "BundleStars" Then
-                imagen.Height = 63
-                imagen.Width = 112
-            ElseIf juego.Tienda = "GOG" Then
-                imagen.Height = 66
-                imagen.Width = 117
-            ElseIf juego.Tienda = "Sila Games" Then
-                imagen.Height = 70
-                imagen.Width = 110
-            ElseIf juego.Tienda = "DLGamer" Then
-                imagen.Height = 97
-                imagen.Width = 70
-            ElseIf juego.Tienda = "WinGameStore" Then
-                imagen.Height = 70
-                imagen.Width = 110
-            ElseIf juego.Tienda = "Nuuvem" Then
-                imagen.Height = 68
-                imagen.Width = 146
-            ElseIf juego.Tienda = "Microsoft Store" Then
-                imagen.Height = 90
-                imagen.Width = 90
-            ElseIf juego.Tienda = "Amazon.es" Then
-                imagen.Height = 80
-                imagen.Width = 80
-            ElseIf juego.Tienda = "Amazon.co.uk" Then
-                imagen.Height = 80
-                imagen.Width = 80
-            End If
+            'If juego.Tienda = "Steam" Then
+            '    imagen.Height = 45
+            '    imagen.Width = 120
+            'ElseIf juego.Tienda = "GamersGate" Then
+            '    imagen.Height = 90
+            '    imagen.Width = 63
+            'ElseIf juego.Tienda = "GamesPlanet" Then
+            '    imagen.Height = 85
+            '    imagen.Width = 150
+            'ElseIf juego.Tienda = "Humble Store" Then
+            '    imagen.Height = 63
+            '    imagen.Width = 101
+            'ElseIf juego.Tienda = "Green Man Gaming" Then
+            '    imagen.Height = 79
+            '    imagen.Width = 59
+            'ElseIf juego.Tienda = "BundleStars" Then
+            '    imagen.Height = 63
+            '    imagen.Width = 112
+            'ElseIf juego.Tienda = "GOG" Then
+            '    imagen.Height = 66
+            '    imagen.Width = 117
+            'ElseIf juego.Tienda = "Sila Games" Then
+            '    imagen.Height = 70
+            '    imagen.Width = 110
+            'ElseIf juego.Tienda = "DLGamer" Then
+            '    imagen.Height = 97
+            '    imagen.Width = 70
+            'ElseIf juego.Tienda = "WinGameStore" Then
+            '    imagen.Height = 70
+            '    imagen.Width = 110
+            'ElseIf juego.Tienda = "Nuuvem" Then
+            '    imagen.Height = 68
+            '    imagen.Width = 146
+            'ElseIf juego.Tienda = "Microsoft Store" Then
+            '    imagen.Height = 90
+            '    imagen.Width = 90
+            'ElseIf juego.Tienda = "Amazon.es" Then
+            '    imagen.Height = 80
+            '    imagen.Width = 80
+            'ElseIf juego.Tienda = "Amazon.co.uk" Then
+            '    imagen.Height = 80
+            '    imagen.Width = 80
+            'End If
 
             imagen.Margin = New Thickness(2, 2, 10, 2)
             imagen.SetValue(Grid.ColumnProperty, 0)
@@ -249,10 +247,10 @@ Module Listado
             Dim fondoDescuento As New Grid With {
                 .Padding = New Thickness(6, 0, 6, 0),
                 .Height = 34,
-                .Width = 40,
+                .MinWidth = 40,
                 .Margin = New Thickness(10, 0, 0, 0),
                 .HorizontalAlignment = HorizontalAlignment.Center,
-                .Background = New SolidColorBrush(Colors.DarkOliveGreen)
+                .Background = New SolidColorBrush(Colors.ForestGreen)
             }
 
             Dim textoDescuento As New TextBlock With {
@@ -448,6 +446,33 @@ Module Listado
 
             cb.SetValue(Grid.ColumnProperty, 8)
             grid.Children.Add(cb)
+        End If
+
+        If Not juego.Valoracion Is Nothing Then
+            If Not juego.Valoracion = "--" Then
+                Dim gridToolTip As New Grid With {
+                    .Padding = New Thickness(10, 10, 10, 10)
+                }
+
+                If juego.Valoracion > 74 Then
+                    gridToolTip.Background = New SolidColorBrush(Colors.Green)
+                ElseIf juego.Valoracion > 49 And juego.Valoracion < 75 Then
+                    gridToolTip.Background = New SolidColorBrush(Colors.Goldenrod)
+                ElseIf juego.Valoracion < 50 Then
+                    gridToolTip.Background = New SolidColorBrush(Colors.DarkRed)
+                End If
+
+                Dim tbToolTip As TextBlock = New TextBlock With {
+                     .Text = juego.Valoracion + "%",
+                     .Foreground = New SolidColorBrush(Colors.White),
+                     .FontSize = 16
+                }
+
+                gridToolTip.Children.Add(tbToolTip)
+
+                ToolTipService.SetToolTip(grid, gridToolTip)
+                ToolTipService.SetPlacement(grid, PlacementMode.Mouse)
+            End If
         End If
 
         Return grid
