@@ -58,50 +58,6 @@ Module Listado
 
             End Try
 
-            'If juego.Tienda = "Steam" Then
-            '    imagen.Height = 45
-            '    imagen.Width = 120
-            'ElseIf juego.Tienda = "GamersGate" Then
-            '    imagen.Height = 90
-            '    imagen.Width = 63
-            'ElseIf juego.Tienda = "GamesPlanet" Then
-            '    imagen.Height = 85
-            '    imagen.Width = 150
-            'ElseIf juego.Tienda = "Humble Store" Then
-            '    imagen.Height = 63
-            '    imagen.Width = 101
-            'ElseIf juego.Tienda = "Green Man Gaming" Then
-            '    imagen.Height = 79
-            '    imagen.Width = 59
-            'ElseIf juego.Tienda = "BundleStars" Then
-            '    imagen.Height = 63
-            '    imagen.Width = 112
-            'ElseIf juego.Tienda = "GOG" Then
-            '    imagen.Height = 66
-            '    imagen.Width = 117
-            'ElseIf juego.Tienda = "Sila Games" Then
-            '    imagen.Height = 70
-            '    imagen.Width = 110
-            'ElseIf juego.Tienda = "DLGamer" Then
-            '    imagen.Height = 97
-            '    imagen.Width = 70
-            'ElseIf juego.Tienda = "WinGameStore" Then
-            '    imagen.Height = 70
-            '    imagen.Width = 110
-            'ElseIf juego.Tienda = "Nuuvem" Then
-            '    imagen.Height = 68
-            '    imagen.Width = 146
-            'ElseIf juego.Tienda = "Microsoft Store" Then
-            '    imagen.Height = 90
-            '    imagen.Width = 90
-            'ElseIf juego.Tienda = "Amazon.es" Then
-            '    imagen.Height = 80
-            '    imagen.Width = 80
-            'ElseIf juego.Tienda = "Amazon.co.uk" Then
-            '    imagen.Height = 80
-            '    imagen.Width = 80
-            'End If
-
             imagen.Margin = New Thickness(2, 2, 10, 2)
             imagen.SetValue(Grid.ColumnProperty, 0)
             grid.Children.Add(imagen)
@@ -298,7 +254,7 @@ Module Listado
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_ue2.png"))
                 ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
-                ElseIf juego.Tienda = "BundleStars" Then
+                ElseIf juego.Tienda = "Bundle Stars" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_ue2.png"))
                 End If
 
@@ -358,7 +314,7 @@ Module Listado
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_us2.png"))
                 ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr2.png"))
-                ElseIf juego.Tienda = "BundleStars" Then
+                ElseIf juego.Tienda = "Bundle Stars" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_us2.png"))
                 End If
 
@@ -412,7 +368,7 @@ Module Listado
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
                 ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_de2.png"))
-                ElseIf juego.Tienda = "BundleStars" Then
+                ElseIf juego.Tienda = "Bundle Stars" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
                 End If
 
