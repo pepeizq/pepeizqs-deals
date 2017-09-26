@@ -41,79 +41,79 @@
                     </Grid.ColumnDefinitions>
 
                     <ListView x:Name="lvTiendas" Grid.Column="0" IsItemClickEnabled="True" ItemClick="LvTiendasItemClick">
-                        <ListViewItem x:Name="botonTiendaSteam" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaSteam" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="0">
                                 <controls:ImageEx Source="Assets/Tiendas/steam.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Steam" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaGamersGate" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaGamersGate" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="1">
                                 <controls:ImageEx Source="Assets/Tiendas/gamersgate.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="GamersGate" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaGamesPlanet" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaGamesPlanet" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="2">
                                 <controls:ImageEx Source="Assets/Tiendas/gamesplanet.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="GamesPlanet" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaHumble" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaHumble" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="3">
                                 <controls:ImageEx Source="Assets/Tiendas/humble.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Humble Store" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaGreenManGaming" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaGreenManGaming" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="4">
                                 <controls:ImageEx Source="Assets/Tiendas/gmg.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Green Man Gaming" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaBundleStars" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaBundleStars" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="5">
                                 <controls:ImageEx Source="Assets/Tiendas/bundlestars.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Bundle Stars" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaGOG" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaGOG" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="6">
                                 <controls:ImageEx Source="Assets/Tiendas/gog.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="GOG" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaWinGameStore" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaWinGameStore" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="7">
                                 <controls:ImageEx Source="Assets/Tiendas/wingamestore.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="WinGameStore" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaSilaGames" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaSilaGames" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="8">
                                 <controls:ImageEx Source="Assets/Tiendas/silagames.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Sila Games" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaNuuvem" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaNuuvem" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="9">
                                 <controls:ImageEx Source="Assets/Tiendas/nuuvem.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Nuuvem" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaMicrosoftStore" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaMicrosoftStore" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="10">
                                 <controls:ImageEx Source="Assets/Tiendas/microsoft.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Microsoft Store" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaAmazonEs" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaAmazonEs" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="11">
                                 <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Amazon.es" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
-                        <ListViewItem x:Name="botonTiendaAmazonUk" Background="OliveDrab" Padding="15">
+                        <ListViewItem x:Name="botonTiendaAmazonUk" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="12">
                                 <controls:ImageEx Source="Assets/Tiendas/amazon.png" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
                                 <TextBlock Text="Amazon.co.uk" Foreground="White"/>
@@ -147,7 +147,7 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoSteam" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <controls:RadialProgressBar x:Name="prSteam" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <controls:RadialProgressBar x:Name="prSteam" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>
@@ -168,7 +168,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorSteam" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorSteam" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorSteamItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -216,7 +216,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesSteam" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesSteam" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesSteamItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -292,7 +292,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorGamersGate" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorGamersGate" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorGamersGateItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -340,7 +340,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesGamersGate" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesGamersGate" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesGamersGateItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -416,7 +416,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorGamesPlanet" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorGamesPlanet" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorGamesPlanetItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -464,7 +464,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesGamesPlanet" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesGamesPlanet" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesGamesPlanetItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -519,7 +519,7 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoHumble" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <controls:RadialProgressBar x:Name="prHumble" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <controls:RadialProgressBar x:Name="prHumble" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>
@@ -540,7 +540,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorHumble" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorHumble" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorHumbleItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -588,7 +588,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesHumble" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesHumble" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesHumbleItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -664,7 +664,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorGreenManGaming" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorGreenManGaming" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorGreenManGamingItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -712,7 +712,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesGreenManGaming" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesGreenManGaming" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesGreenManGamingItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -788,7 +788,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorBundleStars" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorBundleStars" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorBundleStarsItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -836,7 +836,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesBundleStars" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesBundleStars" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesBundleStarsItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -912,7 +912,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorGOG" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorGOG" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorGOGItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -960,7 +960,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesGOG" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesGOG" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesGOGItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1015,7 +1015,7 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoWinGameStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <controls:RadialProgressBar x:Name="prWinGameStore" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <controls:RadialProgressBar x:Name="prWinGameStore" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>
@@ -1036,7 +1036,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorWinGameStore" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorWinGameStore" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorWinGameStoreItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1084,7 +1084,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesWinGameStore" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesWinGameStore" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesWinGameStoreItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1160,7 +1160,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorSilaGames" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorSilaGames" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorSilaGamesItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1208,7 +1208,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesSilaGames" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesSilaGames" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesSilaGamesItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1284,7 +1284,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorNuuvem" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorNuuvem" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorNuuvemItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1332,7 +1332,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesNuuvem" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesNuuvem" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesNuuvemItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1408,7 +1408,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorMicrosoftStore" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorMicrosoftStore" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorMicrosoftStoreItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1456,7 +1456,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesMicrosoftStore" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesMicrosoftStore" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesMicrosoftStoreItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1511,7 +1511,7 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoAmazonEs" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <controls:RadialProgressBar x:Name="prAmazonEs" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <controls:RadialProgressBar x:Name="prAmazonEs" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoAmazonEs" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>
@@ -1532,7 +1532,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorAmazonEs" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorAmazonEs" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorAmazonEsItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1580,7 +1580,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesAmazonEs" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesAmazonEs" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesAmazonEsItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1635,7 +1635,7 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoAmazonUk" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <controls:RadialProgressBar x:Name="prAmazonUk" Height="54" Width="54" Foreground="OliveDrab" Maximum="100"/>
+                                    <controls:RadialProgressBar x:Name="prAmazonUk" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoAmazonUk" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                             </Grid>
@@ -1656,7 +1656,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvEditorAmazonUk" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvEditorAmazonUk" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvEditorAmazonUkItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1704,7 +1704,7 @@
                                             </TransitionCollection>
                                         </controls:DropShadowPanel.Transitions>
 
-                                        <ListView x:Name="lvOpcionesAmazonUk" IsItemClickEnabled="True" Background="OliveDrab" 
+                                        <ListView x:Name="lvOpcionesAmazonUk" IsItemClickEnabled="True" Background="{StaticResource BrushSecundario}" 
                                                   ItemClick="LvOpcionesAmazonUkItemClick">
                                             <ListView.ItemsPanel>
                                                 <ItemsPanelTemplate>
@@ -1769,31 +1769,31 @@
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
 
-                            <ListViewItem Background="OliveDrab">
+                            <ListViewItem Background="{StaticResource BrushSecundario}">
                                 <StackPanel Orientation="Horizontal" Tag="0">
                                     <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCopyTitle" Foreground="White"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem Background="OliveDrab" Margin="0,0,20,0">
+                            <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,20,0">
                                 <StackPanel Orientation="Horizontal" Tag="1">
                                     <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCutTitle" Foreground="White"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem Background="OliveDrab">
+                            <ListViewItem Background="{StaticResource BrushSecundario}">
                                 <StackPanel Orientation="Horizontal" Tag="2">
                                     <SymbolIcon Symbol="Copy" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCopyDeals" Foreground="White"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem Background="OliveDrab" Margin="0,0,20,0">
+                            <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,20,0">
                                 <StackPanel Orientation="Horizontal" Tag="3">
                                     <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCutDeals" Foreground="White"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem Background="OliveDrab">
+                            <ListViewItem Background="{StaticResource BrushSecundario}">
                                 <StackPanel Orientation="Horizontal" Tag="4">
                                     <SymbolIcon Symbol="Delete" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCleanAll" Foreground="White"/>
@@ -1912,11 +1912,9 @@
                                        HorizontalAlignment="Right"/>
 
                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <controls:DropShadowPanel Color="Black" BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                                        <Button x:Name="botonDivisasActualizar" Background="OliveDrab" Padding="10">
-                                            <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                        </Button>
-                                    </controls:DropShadowPanel>
+                                    <Button x:Name="botonDivisasActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
 
                                     <controls:ImageEx Source="Assets/pais_ue2.png" Margin="15,0,5,0" Width="32" Height="24"/>
                                     <TextBlock VerticalAlignment="Center" Text="1 €"/>
@@ -1937,11 +1935,9 @@
                                        HorizontalAlignment="Right"/>
 
                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <controls:DropShadowPanel Color="Black" BlurRadius="4" ShadowOpacity="0.5" OffsetZ="5">
-                                        <Button x:Name="botonValoracionActualizar" Background="OliveDrab" Padding="10">
-                                            <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                        </Button>
-                                    </controls:DropShadowPanel>
+                                    <Button x:Name="botonValoracionActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
+                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                    </Button>
 
                                     <TextBlock x:Name="tbValoracionAvance" VerticalAlignment="Center"/>
                                 </StackPanel>
@@ -1959,43 +1955,43 @@
                             </Grid.ColumnDefinitions>
 
                             <ListView Grid.Column="0" IsItemClickEnabled="True" ItemClick="LvMasCosasItemClick">
-                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                <ListViewItem Background="{StaticResource BrushSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="0">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8E1;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="VoteApp" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}" Margin="0,0,0,20">
+                                <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,0,20">
                                     <StackPanel Orientation="Horizontal" Tag="1">
                                         <controls:ImageEx Source="Assets\MasCosas\pepeizq.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="OtherApps" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                <ListViewItem Background="{StaticResource BrushSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="2">
                                         <controls:ImageEx Source="Assets\MasCosas\contacto.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="Contact" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}" Margin="0,0,0,20">
+                                <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,0,20">
                                     <StackPanel Orientation="Horizontal" Tag="3">
                                         <controls:ImageEx Source="Assets\MasCosas\feedback.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="ReportBug" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                <ListViewItem Background="{StaticResource BrushSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="4">
                                         <controls:ImageEx Source="Assets\MasCosas\poeditor.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="HelpTranslate" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                <ListViewItem Background="{StaticResource BrushSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="5">
                                         <controls:ImageEx Source="Assets\MasCosas\github.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="SourceCode" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Background="{StaticResource ColorSecundario}">
+                                <ListViewItem Background="{StaticResource BrushSecundario}">
                                     <StackPanel Orientation="Horizontal" Tag="6">
                                         <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE76E;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="ThanksTo" Foreground="White" VerticalAlignment="Center"/>
