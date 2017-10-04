@@ -27,6 +27,9 @@ Module Steam
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoSteam")
         gridProgreso.Visibility = Visibility.Visible
 
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasSteam")
+        panelNoOfertas.Visibility = Visibility.Collapsed
+
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoSteam")
         tbProgreso.Text = "0%"
 

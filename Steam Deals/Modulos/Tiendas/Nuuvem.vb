@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module Nuuvem
 
@@ -29,6 +30,9 @@ Module Nuuvem
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoNuuvem")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasNuuvem")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         listaJuegos.Clear()
 

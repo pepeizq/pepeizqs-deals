@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module WinGameStore
@@ -27,6 +26,9 @@ Module WinGameStore
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoWinGameStore")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasWinGameStore")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         bw.WorkerReportsProgress = True
         bw.WorkerSupportsCancellation = True

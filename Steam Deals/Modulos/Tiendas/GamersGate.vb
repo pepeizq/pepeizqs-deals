@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module GamersGate
 
@@ -28,6 +29,9 @@ Module GamersGate
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamersGate")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasGamersGate")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         listaJuegos.Clear()
 

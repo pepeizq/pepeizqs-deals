@@ -1,5 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module SilaGames
 
@@ -24,9 +24,11 @@ Module SilaGames
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
         cbOrdenar.IsEnabled = False
 
-
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoSilaGames")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasSilaGames")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         bw.WorkerReportsProgress = True
         bw.WorkerSupportsCancellation = True

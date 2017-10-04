@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module GOG
 
@@ -26,11 +27,14 @@ Module GOG
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGOG")
         gridProgreso.Visibility = Visibility.Visible
 
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasGOG")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
+
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub

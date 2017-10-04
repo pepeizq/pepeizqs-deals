@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module GreenManGaming
 
@@ -26,6 +27,9 @@ Module GreenManGaming
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGreenManGaming")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasGreenManGaming")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         bw = New BackgroundWorker With {
             .WorkerReportsProgress = True,

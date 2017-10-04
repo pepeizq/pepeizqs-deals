@@ -150,6 +150,14 @@
                                     <controls:RadialProgressBar x:Name="prSteam" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoSteam" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasSteam" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -271,9 +279,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoGamersGate" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prGamersGate" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prGamersGate" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoGamersGate" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasGamersGate" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -395,9 +411,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoGamesPlanet" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prGamesPlanet" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prGamesPlanet" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoGamesPlanet" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasGamesPlanet" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -522,6 +546,14 @@
                                     <controls:RadialProgressBar x:Name="prHumble" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoHumble" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasHumble" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -643,9 +675,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoGreenManGaming" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prGreenManGaming" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoGreenManGaming" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasGreenManGaming" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -767,9 +807,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoBundleStars" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prBundleStars" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoBundleStars" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasBundleStars" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -891,9 +939,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoGOG" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prGOG" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoGOG" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasGOG" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -1018,6 +1074,14 @@
                                     <controls:RadialProgressBar x:Name="prWinGameStore" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoWinGameStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasWinGameStore" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -1139,9 +1203,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoSilaGames" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prSilaGames" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoSilaGames" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasSilaGames" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -1263,9 +1335,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoNuuvem" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prNuuvem" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoNuuvem" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasNuuvem" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -1387,9 +1467,17 @@
                                 </ListView>
 
                                 <Grid x:Name="gridProgresoMicrosoftStore" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <ProgressRing x:Name="prMicrosoftStore" IsActive="True" Height="54" Width="54" Foreground="Black"/>
+                                    <ProgressRing x:Name="prMicrosoftStore" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
                                     <TextBlock x:Name="tbProgresoMicrosoftStore" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasMicrosoftStore" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -1514,6 +1602,14 @@
                                     <controls:RadialProgressBar x:Name="prAmazonEs" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoAmazonEs" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasAmazonEs" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">
@@ -1638,6 +1734,14 @@
                                     <controls:RadialProgressBar x:Name="prAmazonUk" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" Maximum="100"/>
                                     <TextBlock x:Name="tbProgresoAmazonUk" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
+
+                                <controls:DropShadowPanel x:Name="panelNoOfertasAmazonUk" Color="IndianRed" 
+                                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                                    <Grid Padding="10" Background="IndianRed">
+                                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                                    </Grid>
+                                </controls:DropShadowPanel>
                             </Grid>
 
                             <Grid Grid.Row="1" HorizontalAlignment="Right">

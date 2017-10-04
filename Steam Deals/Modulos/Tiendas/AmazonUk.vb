@@ -31,6 +31,9 @@ Module AmazonUk
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoAmazonUk")
         gridProgreso.Visibility = Visibility.Visible
 
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasAmazonUk")
+        panelNoOfertas.Visibility = Visibility.Collapsed
+
         listaJuegos.Clear()
 
         If bw.IsBusy = False Then

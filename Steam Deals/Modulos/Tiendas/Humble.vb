@@ -29,6 +29,9 @@ Module Humble
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
         gridProgreso.Visibility = Visibility.Visible
 
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasHumble")
+        panelNoOfertas.Visibility = Visibility.Collapsed
+
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoHumble")
         tbProgreso.Text = "0%"
 

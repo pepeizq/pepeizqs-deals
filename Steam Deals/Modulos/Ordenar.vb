@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
 
 Module Ordenar
@@ -15,8 +16,10 @@ Module Ordenar
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
         Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas" + tienda)
 
         tbProgreso.Text = String.Empty
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         If Not lv Is Nothing Then
             lv.IsEnabled = False
@@ -281,6 +284,12 @@ Module Ordenar
                         End If
                     End If
                 End If
+            End If
+
+            If lv.Items.Count = 0 Then
+                panelNoOfertas.Visibility = Visibility.Visible
+            Else
+                panelNoOfertas.Visibility = Visibility.Collapsed
             End If
 
             lv.IsEnabled = True

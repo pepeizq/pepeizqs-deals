@@ -143,7 +143,7 @@ Public NotInheritable Class MainPage
 
     Private Sub GridVisibilidad(grid As Grid, tag As String)
 
-        tbTitulo.Text = "Steam Deals (" + SystemInformation.ApplicationVersion.Major.ToString + "." + SystemInformation.ApplicationVersion.Minor.ToString + "." + SystemInformation.ApplicationVersion.Build.ToString + "." + SystemInformation.ApplicationVersion.Revision.ToString + ") - " + tag
+        tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - " + tag
 
         gridDeals.Visibility = Visibility.Collapsed
         gridEditor.Visibility = Visibility.Collapsed
@@ -160,19 +160,19 @@ Public NotInheritable Class MainPage
             panelMensajeTienda.Visibility = Visibility.Collapsed
         End If
 
-        botonTiendaSteam.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaGamersGate.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaHumble.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaBundleStars.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaGOG.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaSilaGames.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaNuuvem.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.OliveDrab)
-        botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.OliveDrab)
+        botonTiendaSteam.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaGamersGate.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaGamesPlanet.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaHumble.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaGreenManGaming.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaBundleStars.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaGOG.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaWinGameStore.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaSilaGames.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaNuuvem.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaMicrosoftStore.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaAmazonEs.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        botonTiendaAmazonUk.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
 
         gridTiendaSteam.Visibility = Visibility.Collapsed
         gridTiendaGamersGate.Visibility = Visibility.Collapsed
@@ -192,8 +192,9 @@ Public NotInheritable Class MainPage
 
         If sp.Tag.ToString = 0 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Steam"
             gridTiendaSteam.Visibility = Visibility.Visible
-            botonTiendaSteam.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaSteam.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoSteam.Items.Count = 0 Then
                 If gridProgresoSteam.Visibility = Visibility.Collapsed Then
@@ -203,8 +204,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 1 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - GamersGate"
             gridTiendaGamersGate.Visibility = Visibility.Visible
-            botonTiendaGamersGate.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaGamersGate.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoGamersGate.Items.Count = 0 Then
                 If gridProgresoGamersGate.Visibility = Visibility.Collapsed Then
@@ -214,8 +216,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 2 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - GamesPlanet"
             gridTiendaGamesPlanet.Visibility = Visibility.Visible
-            botonTiendaGamesPlanet.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaGamesPlanet.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoGamesPlanet.Items.Count = 0 Then
                 If gridProgresoGamesPlanet.Visibility = Visibility.Collapsed Then
@@ -225,8 +228,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 3 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Humble Store"
             gridTiendaHumble.Visibility = Visibility.Visible
-            botonTiendaHumble.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaHumble.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoHumble.Items.Count = 0 Then
                 If gridProgresoHumble.Visibility = Visibility.Collapsed Then
@@ -236,8 +240,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 4 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Green Man Gaming"
             gridTiendaGreenManGaming.Visibility = Visibility.Visible
-            botonTiendaGreenManGaming.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaGreenManGaming.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoGreenManGaming.Items.Count = 0 Then
                 If gridProgresoGreenManGaming.Visibility = Visibility.Collapsed Then
@@ -247,8 +252,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 5 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Bundle Stars"
             gridTiendaBundleStars.Visibility = Visibility.Visible
-            botonTiendaBundleStars.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaBundleStars.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoBundleStars.Items.Count = 0 Then
                 If gridProgresoBundleStars.Visibility = Visibility.Collapsed Then
@@ -258,8 +264,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 6 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - GOG"
             gridTiendaGOG.Visibility = Visibility.Visible
-            botonTiendaGOG.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaGOG.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoGOG.Items.Count = 0 Then
                 If gridProgresoGOG.Visibility = Visibility.Collapsed Then
@@ -269,8 +276,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 7 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - WinGameStore"
             gridTiendaWinGameStore.Visibility = Visibility.Visible
-            botonTiendaWinGameStore.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaWinGameStore.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoWinGameStore.Items.Count = 0 Then
                 If gridProgresoWinGameStore.Visibility = Visibility.Collapsed Then
@@ -280,8 +288,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 8 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Sila Games"
             gridTiendaSilaGames.Visibility = Visibility.Visible
-            botonTiendaSilaGames.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaSilaGames.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoSilaGames.Items.Count = 0 Then
                 If gridProgresoSilaGames.Visibility = Visibility.Collapsed Then
@@ -291,8 +300,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 9 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Nuuvem"
             gridTiendaNuuvem.Visibility = Visibility.Visible
-            botonTiendaNuuvem.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaNuuvem.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoNuuvem.Items.Count = 0 Then
                 If gridProgresoNuuvem.Visibility = Visibility.Collapsed Then
@@ -302,8 +312,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 10 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Microsoft Store"
             gridTiendaMicrosoftStore.Visibility = Visibility.Visible
-            botonTiendaMicrosoftStore.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaMicrosoftStore.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoMicrosoftStore.Items.Count = 0 Then
                 If gridProgresoMicrosoftStore.Visibility = Visibility.Collapsed Then
@@ -313,8 +324,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 11 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Amazon.es"
             gridTiendaAmazonEs.Visibility = Visibility.Visible
-            botonTiendaAmazonEs.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaAmazonEs.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoAmazonEs.Items.Count = 0 Then
                 If gridProgresoAmazonEs.Visibility = Visibility.Collapsed Then
@@ -324,8 +336,9 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 12 Then
 
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Amazon.co.uk"
             gridTiendaAmazonUk.Visibility = Visibility.Visible
-            botonTiendaAmazonUk.Background = New SolidColorBrush(Colors.DarkOliveGreen)
+            botonTiendaAmazonUk.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
             If listadoAmazonUk.Items.Count = 0 Then
                 If gridProgresoAmazonUk.Visibility = Visibility.Collapsed Then

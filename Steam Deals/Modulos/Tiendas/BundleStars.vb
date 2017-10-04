@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module BundleStars
 
@@ -26,6 +27,9 @@ Module BundleStars
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasBundleStars")
+        panelNoOfertas.Visibility = Visibility.Collapsed
 
         bw = New BackgroundWorker With {
             .WorkerReportsProgress = True,

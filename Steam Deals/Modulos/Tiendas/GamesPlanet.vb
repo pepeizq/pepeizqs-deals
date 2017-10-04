@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module GamesPlanet
 
@@ -26,13 +27,16 @@ Module GamesPlanet
         Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamesPlanet")
         gridProgreso.Visibility = Visibility.Visible
 
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasGamesPlanet")
+        panelNoOfertas.Visibility = Visibility.Collapsed
+
         Bw = New BackgroundWorker With {
             .WorkerReportsProgress = True,
             .WorkerSupportsCancellation = True
         }
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
