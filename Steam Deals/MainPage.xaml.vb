@@ -82,7 +82,7 @@ Public NotInheritable Class MainPage
         cbOrdenarAmazonEs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarAmazonUk.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        ''--------------------------------------------------------
+        '--------------------------------------------------------
 
         If Not ApplicationData.Current.LocalSettings.Values("cuentasteam") = Nothing Then
             tbSteamConfigCuentaID.Text = ApplicationData.Current.LocalSettings.Values("cuentasteam")
