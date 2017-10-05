@@ -1,7 +1,8 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports System.Globalization
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Windows.Globalization
 Imports Windows.Globalization.NumberFormatting
+Imports Windows.System.UserProfile
 
 Module Humble
 
@@ -170,8 +171,8 @@ Module Humble
 
                             Dim imagen As String = temp8
 
-                            Dim temp9, temp10, temp11, temp12 As String
-                            Dim int9, int10, int11, int12 As Integer
+                            Dim temp9, temp10 As String
+                            Dim int9, int10 As Integer
 
                             int9 = temp2.IndexOf(ChrW(34) + "current_price" + ChrW(34))
                             temp9 = temp2.Remove(0, int9 + 14)
@@ -184,22 +185,11 @@ Module Humble
 
                             Dim temp101 As String = temp10
 
-                            If Language.CurrentInputMethodLanguageTag = "es-ES" Then
-                                temp10 = temp10.Replace(".", ",")
-                            Else
-                                temp10 = temp10.Replace(",", ".")
-                            End If
+                            Dim tempDouble As Double = Double.Parse(temp10.Trim, CultureInfo.InvariantCulture).ToString
 
-                            Dim tempDouble As Double = Convert.ToDouble(temp10.Trim)
-                            tempDouble = Math.Round(tempDouble, 2)
+                            Dim moneda As String = GlobalizationPreferences.Currencies(0)
 
-                            int11 = temp9.IndexOf(ChrW(34))
-                            temp11 = temp9.Remove(0, int11 + 1)
-
-                            int12 = temp11.IndexOf(ChrW(34))
-                            temp12 = temp11.Remove(int12, temp11.Length - int12)
-
-                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(temp12.Trim) With {
+                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
                                         .Mode = CurrencyFormatterMode.UseSymbol
                                     }
 
@@ -216,6 +206,8 @@ Module Humble
 
                             int14 = temp13.IndexOf(",")
                             temp14 = temp13.Remove(int14, temp13.Length - int14)
+
+                            temp14 = Double.Parse(temp14.Trim, CultureInfo.InvariantCulture).ToString
 
                             Dim descuento As String = Calculadora.GenerarDescuento(temp14, precio)
 

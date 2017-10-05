@@ -1,4 +1,5 @@
-﻿Imports Windows.Globalization
+﻿Imports System.Globalization
+Imports Windows.Globalization
 
 Public Module Calculadora
 
@@ -24,7 +25,7 @@ Public Module Calculadora
                 precioBase = "0" + precioBase
             End If
 
-            If precioBase.IndexOf(".") = 0 Then
+            If precioBase.IndexOf(".") = 1 Then
                 precioBase = "0" + precioBase
             End If
 
@@ -32,7 +33,7 @@ Public Module Calculadora
                 precioBase = precioBase.Remove(0, 1)
             End If
 
-            douBase = Convert.ToDouble(precioBase)
+            douBase = Double.Parse(precioBase, CultureInfo.InvariantCulture).ToString
         End If
 
         If Not precioRebajado = Nothing Then
@@ -52,7 +53,7 @@ Public Module Calculadora
                 precioRebajado = "0" + precioRebajado
             End If
 
-            If precioRebajado.IndexOf(".") = 0 Then
+            If precioRebajado.IndexOf(".") = 1 Then
                 precioRebajado = "0" + precioRebajado
             End If
 
@@ -60,7 +61,7 @@ Public Module Calculadora
                 precioRebajado = precioRebajado.Remove(0, 1)
             End If
 
-            douRebajado = Convert.ToDouble(precioRebajado)
+            douRebajado = Double.Parse(precioRebajado, CultureInfo.InvariantCulture).ToString
         End If
 
         If Not douBase = Nothing Then
@@ -88,6 +89,14 @@ Public Module Calculadora
         precioBase = precioBase.Replace("$", Nothing)
         precioBase = precioBase.Replace("£", Nothing)
         precioBase = precioBase.Trim
+
+        If precioBase.IndexOf(",") = 0 Then
+            precioBase = "0" + precioBase
+        End If
+
+        If precioBase.IndexOf(".") = 1 Then
+            precioBase = "0" + precioBase
+        End If
 
         descuento = descuento.Replace("%", Nothing)
 
