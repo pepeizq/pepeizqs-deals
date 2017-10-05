@@ -188,7 +188,7 @@ Module BundleStars
                         intUS2 = tempUS1.IndexOf(",")
                         tempUS2 = tempUS1.Remove(intUS2, tempUS1.Length - intUS2)
 
-                        tempUS2 = tempUS2.Insert(tempUS2.Length - 2, ",")
+                        tempUS2 = tempUS2.Insert(tempUS2.Length - 2, ".")
 
                         intUK1 = temp12.IndexOf("GBP" + ChrW(34) + ":")
                         tempUK1 = temp12.Remove(0, intUK1 + 5)
@@ -280,7 +280,7 @@ Module BundleStars
 
                         Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioEU, precioUS, precioUK, descuento, drm, windows, mac, linux, "Bundle Stars", DateTime.Today, val.Valoracion, val.Enlace)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioUS, precioEU, precioUK, descuento, drm, windows, mac, linux, "Bundle Stars", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

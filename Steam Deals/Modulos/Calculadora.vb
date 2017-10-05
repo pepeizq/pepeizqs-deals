@@ -100,17 +100,13 @@ Public Module Calculadora
 
         descuento = descuento.Replace("%", Nothing)
 
-        temp = (CDbl(precioBase) / 100) * (CDbl(descuento) / 100)
-        temp2 = (CDbl(precioBase) / 100) - temp
+        temp = (Double.Parse(precioBase) / 100) * (Double.Parse(descuento) / 100)
+        temp2 = (Double.Parse(precioBase) / 100) - temp
 
-        precioFinal = (temp2 * 100).ToString
+        temp2 = temp2 * 100
+        temp2 = Math.Round(temp2, 2)
 
-        If precioFinal.Length > 4 Then
-            If precioFinal.Contains(",") Then
-                Dim int As Integer = precioFinal.IndexOf(",")
-                precioFinal = precioFinal.Remove(int + 3, precioFinal.Length - (int + 3))
-            End If
-        End If
+        precioFinal = temp2.ToString.Trim
 
         Return precioFinal
     End Function

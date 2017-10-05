@@ -255,7 +255,7 @@ Module Listado
                 ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_uk2.png"))
                 ElseIf juego.Tienda = "Bundle Stars" Then
-                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_ue2.png"))
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_us2.png"))
                 End If
 
                 If Not imagenPais.Source Is Nothing Then
@@ -315,7 +315,7 @@ Module Listado
                 ElseIf juego.Tienda = "GamesPlanet" Then
                     imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_fr2.png"))
                 ElseIf juego.Tienda = "Bundle Stars" Then
-                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_us2.png"))
+                    imagenPais.Source = New BitmapImage(New Uri("ms-appx:///Assets/pais_ue2.png"))
                 End If
 
                 If Not imagenPais.Source Is Nothing Then
