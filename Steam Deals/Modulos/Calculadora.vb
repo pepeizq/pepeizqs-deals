@@ -1,5 +1,4 @@
 ﻿Imports System.Globalization
-Imports Windows.Globalization
 
 Public Module Calculadora
 
@@ -15,13 +14,9 @@ Public Module Calculadora
             precioBase = precioBase.Replace("-", Nothing)
             precioBase = precioBase.Trim
 
-            If Language.CurrentInputMethodLanguageTag = "es-ES" Then
-                precioBase = precioBase.Replace(".", ",")
-            Else
-                precioBase = precioBase.Replace(",", ".")
-            End If
+            precioBase = precioBase.Replace(",", ".")
 
-            If precioBase.IndexOf(",") = 0 Then
+            If precioBase.IndexOf(",") = 1 Then
                 precioBase = "0" + precioBase
             End If
 
@@ -33,7 +28,7 @@ Public Module Calculadora
                 precioBase = precioBase.Remove(0, 1)
             End If
 
-            douBase = Double.Parse(precioBase, CultureInfo.InvariantCulture).ToString
+            douBase = Double.Parse(precioBase, CultureInfo.InvariantCulture)
         End If
 
         If Not precioRebajado = Nothing Then
@@ -43,13 +38,9 @@ Public Module Calculadora
             precioRebajado = precioRebajado.Replace("-", Nothing)
             precioRebajado = precioRebajado.Trim
 
-            If Language.CurrentInputMethodLanguageTag = "es-ES" Then
-                precioRebajado = precioRebajado.Replace(".", ",")
-            Else
-                precioRebajado = precioRebajado.Replace(",", ".")
-            End If
+            precioRebajado = precioRebajado.Replace(",", ".")
 
-            If precioRebajado.IndexOf(",") = 0 Then
+            If precioRebajado.IndexOf(",") = 1 Then
                 precioRebajado = "0" + precioRebajado
             End If
 
@@ -61,14 +52,15 @@ Public Module Calculadora
                 precioRebajado = precioRebajado.Remove(0, 1)
             End If
 
-            douRebajado = Double.Parse(precioRebajado, CultureInfo.InvariantCulture).ToString
+            douRebajado = Double.Parse(precioRebajado, CultureInfo.InvariantCulture)
         End If
 
         If Not douBase = Nothing Then
             If Not douRebajado = Nothing Then
-                Dim douResultado As Double = Math.Abs(100 - ((douRebajado / douBase) * 100))
+                Dim dou As Double = (douRebajado / douBase) * 100
+                dou = Math.Abs(100 - dou)
 
-                descuentoFinal = Math.Round(douResultado, 0).ToString
+                descuentoFinal = Math.Round(dou, 0).ToString
                 descuentoFinal = descuentoFinal + "%"
 
                 If descuentoFinal.Length = 2 Then
