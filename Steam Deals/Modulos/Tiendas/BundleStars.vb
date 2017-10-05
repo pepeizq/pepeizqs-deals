@@ -180,7 +180,7 @@ Module BundleStars
                         intEU2 = tempEU1.IndexOf(",")
                         tempEU2 = tempEU1.Remove(intEU2, tempEU1.Length - intEU2)
 
-                        tempEU2 = tempEU2.Insert(tempEU2.Length - 2, ",")
+                        tempEU2 = tempEU2.Insert(tempEU2.Length - 2, ".")
 
                         intUS1 = temp12.IndexOf("USD" + ChrW(34) + ":")
                         tempUS1 = temp12.Remove(0, intUS1 + 5)
@@ -196,7 +196,7 @@ Module BundleStars
                         intUK2 = tempUK1.IndexOf(",")
                         tempUK2 = tempUK1.Remove(intUK2, tempUK1.Length - intUK2)
 
-                        tempUK2 = tempUK2.Insert(tempUK2.Length - 2, ",")
+                        tempUK2 = tempUK2.Insert(tempUK2.Length - 2, ".")
 
                         If temp2.Contains(ChrW(34) + "fullPrice" + ChrW(34) + ":{}") Then
                             calcularPrecio = True
