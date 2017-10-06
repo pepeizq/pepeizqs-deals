@@ -136,6 +136,13 @@ Module Humble
                             temp4 = temp4.Replace("\u2013", "-")
                             temp4 = temp4.Replace("\u2019", "'")
                             temp4 = temp4.Replace("\u2122", "™")
+                            temp4 = temp4.Replace("\u5c0e", "導")
+                            temp4 = temp4.Replace("\u526a", "剪")
+                            temp4 = temp4.Replace("\u6f14", "演")
+                            temp4 = temp4.Replace("\u7248", "版")
+                            temp4 = temp4.Replace("\u8f2f", "輯")
+                            temp4 = temp4.Replace("\u96f7", "雷")
+                            temp4 = temp4.Replace("\u96fb", "電")
 
                             Dim titulo As String = temp4.Trim
 
