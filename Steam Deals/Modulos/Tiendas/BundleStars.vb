@@ -215,12 +215,12 @@ Module BundleStars
                         End If
 
                         If Not precioUS = Nothing Then
-                            precioUS = precioUS.Replace(",", ".")
+                            'precioUS = precioUS.Replace(",", ".")
                             precioUS = precioUS.Trim
                         End If
 
                         If Not precioUK = Nothing Then
-                            precioUK = precioUK.Replace(",", ".")
+                            'precioUK = precioUK.Replace(",", ".")
                             precioUK = precioUK.Trim
                         End If
 

@@ -82,7 +82,9 @@ Public Module Calculadora
         precioBase = precioBase.Replace("£", Nothing)
         precioBase = precioBase.Trim
 
-        If precioBase.IndexOf(",") = 0 Then
+        precioBase = precioBase.Replace(".", ",")
+
+        If precioBase.IndexOf(".") = 0 Then
             precioBase = "0" + precioBase
         End If
 
@@ -92,13 +94,16 @@ Public Module Calculadora
 
         descuento = descuento.Replace("%", Nothing)
 
-        temp = (Double.Parse(precioBase) / 100) * (Double.Parse(descuento) / 100)
-        temp2 = (Double.Parse(precioBase) / 100) - temp
-
-        temp2 = temp2 * 100
-        temp2 = Math.Round(temp2, 2)
+        temp = Double.Parse(precioBase) * Double.Parse(descuento)
+        temp2 = temp / 100
+        temp2 = Double.Parse(precioBase) - temp2
 
         precioFinal = temp2.ToString.Trim
+        precioFinal = precioFinal.Replace(",", ".")
+
+        If precioFinal.Contains(".") Then
+            precioFinal = precioFinal.Remove(precioFinal.IndexOf(".") + 3, precioFinal.Length - (precioFinal.IndexOf(".") + 3))
+        End If
 
         Return precioFinal
     End Function
