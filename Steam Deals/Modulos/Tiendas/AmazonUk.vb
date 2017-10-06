@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module AmazonUk
@@ -108,6 +107,8 @@ Module AmazonUk
                         int4 = temp3.IndexOf(ChrW(34))
                         temp4 = temp3.Remove(int4, temp3.Length - int4)
 
+                        temp4 = temp4.Replace("&#39;", "'")
+
                         Dim titulo As String = temp4.Trim
 
                         Dim temp5, temp6 As String
@@ -213,6 +214,10 @@ Module AmazonUk
                         End While
 
                         If juego.Descuento = Nothing Then
+                            tituloBool = True
+                        End If
+
+                        If Not juego.Titulo.Contains("[") Then
                             tituloBool = True
                         End If
 
