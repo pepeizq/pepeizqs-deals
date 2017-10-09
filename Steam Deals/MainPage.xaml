@@ -1879,7 +1879,7 @@
                                     <TextBlock x:Uid="EditorCopyTitle" Foreground="White"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,20,0">
+                            <ListViewItem Background="{StaticResource BrushSecundario}" Margin="5,0,25,0">
                                 <StackPanel Orientation="Horizontal" Tag="1">
                                     <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCutTitle" Foreground="White"/>
@@ -1891,7 +1891,7 @@
                                     <TextBlock x:Uid="EditorCopyDeals" Foreground="White"/>
                                 </StackPanel>
                             </ListViewItem>
-                            <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,20,0">
+                            <ListViewItem Background="{StaticResource BrushSecundario}" Margin="5,0,25,0">
                                 <StackPanel Orientation="Horizontal" Tag="3">
                                     <SymbolIcon Symbol="Cut" Foreground="White" Margin="0,0,10,0"/>
                                     <TextBlock x:Uid="EditorCutDeals" Foreground="White"/>
