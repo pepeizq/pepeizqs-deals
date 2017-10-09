@@ -179,7 +179,7 @@ Module Editor
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price UK** | **Price FR** | **Price DE** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     ElseIf listaFinal(0).Tienda = "Bundle Stars" Then
-                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price US** | **Price EU** | **Price UK** | **Rating**" + Environment.NewLine
+                        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price US** | **Price UK** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     Else
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price** | **Rating**" + Environment.NewLine
