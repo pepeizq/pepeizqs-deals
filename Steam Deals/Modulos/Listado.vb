@@ -21,6 +21,7 @@ Module Listado
         Dim col7 As New ColumnDefinition
         Dim col8 As New ColumnDefinition
         Dim col9 As New ColumnDefinition
+        Dim col10 As New ColumnDefinition
 
         col1.Width = New GridLength(1, GridUnitType.Auto)
         col2.Width = New GridLength(1, GridUnitType.Star)
@@ -31,6 +32,7 @@ Module Listado
         col7.Width = New GridLength(1, GridUnitType.Auto)
         col8.Width = New GridLength(1, GridUnitType.Auto)
         col9.Width = New GridLength(1, GridUnitType.Auto)
+        col10.Width = New GridLength(1, GridUnitType.Auto)
 
         grid.ColumnDefinitions.Add(col1)
         grid.ColumnDefinitions.Add(col2)
@@ -41,10 +43,17 @@ Module Listado
         grid.ColumnDefinitions.Add(col7)
         grid.ColumnDefinitions.Add(col8)
         grid.ColumnDefinitions.Add(col9)
+        grid.ColumnDefinitions.Add(col10)
 
         '-------------------------------
 
         If Not juego.Imagen = Nothing Then
+            Dim borde As New Border With {
+                .BorderBrush = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
+                .BorderThickness = New Thickness(1, 1, 1, 1),
+                .Margin = New Thickness(2, 2, 10, 2)
+            }
+
             Dim imagen As New ImageEx With {
                 .Stretch = Stretch.Uniform,
                 .IsCacheEnabled = True,
@@ -58,9 +67,9 @@ Module Listado
 
             End Try
 
-            imagen.Margin = New Thickness(2, 2, 10, 2)
-            imagen.SetValue(Grid.ColumnProperty, 0)
-            grid.Children.Add(imagen)
+            borde.Child = imagen
+            borde.SetValue(Grid.ColumnProperty, 0)
+            grid.Children.Add(borde)
         End If
 
         '-------------------------------
@@ -73,6 +82,62 @@ Module Listado
 
         textoTitulo.SetValue(Grid.ColumnProperty, 1)
         grid.Children.Add(textoTitulo)
+
+        '-------------------------------
+
+        Dim fondoValoracion As Grid = Nothing
+
+        If Not juego.Valoracion Is Nothing Then
+            If Not juego.Valoracion = "--" Then
+                fondoValoracion = New Grid With {
+                    .Padding = New Thickness(6, 0, 6, 0),
+                    .Height = 34,
+                    .Background = New SolidColorBrush(Colors.SlateGray)
+                }
+
+                Dim imagenValoracion As New ImageEx With {
+                    .Width = 16,
+                    .Height = 16,
+                    .IsCacheEnabled = True
+                }
+
+                If juego.Valoracion > 74 Then
+                    imagenValoracion.Source = New BitmapImage(New Uri("ms-appx:///Assets/Valoraciones/positive.png"))
+                ElseIf juego.Valoracion > 49 And juego.Valoracion < 75 Then
+                    imagenValoracion.Source = New BitmapImage(New Uri("ms-appx:///Assets/Valoraciones/mixed.png"))
+                ElseIf juego.Valoracion < 50 Then
+                    imagenValoracion.Source = New BitmapImage(New Uri("ms-appx:///Assets/Valoraciones/negative.png"))
+                End If
+
+                fondoValoracion.Children.Add(imagenValoracion)
+
+                Dim gridToolTip As New Grid With {
+                    .Padding = New Thickness(10, 10, 10, 10)
+                }
+
+                If juego.Valoracion > 74 Then
+                    gridToolTip.Background = New SolidColorBrush(Colors.Green)
+                ElseIf juego.Valoracion > 49 And juego.Valoracion < 75 Then
+                    gridToolTip.Background = New SolidColorBrush(Colors.Goldenrod)
+                ElseIf juego.Valoracion < 50 Then
+                    gridToolTip.Background = New SolidColorBrush(Colors.DarkRed)
+                End If
+
+                Dim tbToolTip As TextBlock = New TextBlock With {
+                     .Text = juego.Valoracion + "%",
+                     .Foreground = New SolidColorBrush(Colors.White),
+                     .FontSize = 16
+                }
+
+                gridToolTip.Children.Add(tbToolTip)
+
+                ToolTipService.SetToolTip(fondoValoracion, gridToolTip)
+                ToolTipService.SetPlacement(fondoValoracion, PlacementMode.Mouse)
+
+                fondoValoracion.SetValue(Grid.ColumnProperty, 2)
+                grid.Children.Add(fondoValoracion)
+            End If
+        End If
 
         '-------------------------------
 
@@ -97,6 +162,10 @@ Module Listado
         End If
 
         If boolSistemas = True Then
+            If Not fondoValoracion Is Nothing Then
+                fondoValoracion.Padding = New Thickness(6, 0, 0, 0)
+            End If
+
             Dim fondoSistemas As New Grid With {
                 .Padding = New Thickness(6, 0, 6, 0),
                 .Height = 34,
@@ -154,7 +223,7 @@ Module Listado
                 End If
             End If
 
-            fondoSistemas.SetValue(Grid.ColumnProperty, 2)
+            fondoSistemas.SetValue(Grid.ColumnProperty, 3)
             grid.Children.Add(fondoSistemas)
         End If
 
@@ -187,12 +256,18 @@ Module Listado
                     fondoDRM.Padding = New Thickness(0, 0, 6, 0)
                     fondoDRM.Margin = New Thickness(0, 0, 0, 0)
                 Else
-                    fondoDRM.Padding = New Thickness(6, 0, 6, 0)
-                    fondoDRM.Margin = New Thickness(10, 0, 0, 0)
+                    If Not fondoValoracion Is Nothing Then
+                        fondoValoracion.Padding = New Thickness(6, 0, 6, 0)
+                        fondoDRM.Padding = New Thickness(0, 0, 6, 0)
+                        fondoDRM.Margin = New Thickness(0, 0, 0, 0)
+                    Else
+                        fondoDRM.Padding = New Thickness(6, 0, 6, 0)
+                        fondoDRM.Margin = New Thickness(10, 0, 0, 0)
+                    End If
                 End If
 
                 fondoDRM.Children.Add(imagenDRM)
-                fondoDRM.SetValue(Grid.ColumnProperty, 3)
+                fondoDRM.SetValue(Grid.ColumnProperty, 4)
                 grid.Children.Add(fondoDRM)
             End If
         End If
@@ -216,7 +291,7 @@ Module Listado
             }
 
             fondoDescuento.Children.Add(textoDescuento)
-            fondoDescuento.SetValue(Grid.ColumnProperty, 4)
+            fondoDescuento.SetValue(Grid.ColumnProperty, 5)
             grid.Children.Add(fondoDescuento)
         End If
 
@@ -277,7 +352,7 @@ Module Listado
             End If
 
             fondoPrecio.Children.Add(textoPrecio)
-            fondoPrecio.SetValue(Grid.ColumnProperty, 5)
+            fondoPrecio.SetValue(Grid.ColumnProperty, 6)
             grid.Children.Add(fondoPrecio)
         End If
 
@@ -332,7 +407,7 @@ Module Listado
                 textoPrecio.SetValue(Grid.ColumnProperty, 1)
                 fondoPrecio.Children.Add(textoPrecio)
 
-                fondoPrecio.SetValue(Grid.ColumnProperty, 6)
+                fondoPrecio.SetValue(Grid.ColumnProperty, 7)
                 grid.Children.Add(fondoPrecio)
             End If
 
@@ -386,7 +461,7 @@ Module Listado
                 textoPrecio.SetValue(Grid.ColumnProperty, 1)
                 fondoPrecio.Children.Add(textoPrecio)
 
-                fondoPrecio.SetValue(Grid.ColumnProperty, 7)
+                fondoPrecio.SetValue(Grid.ColumnProperty, 8)
                 grid.Children.Add(fondoPrecio)
             End If
 
@@ -402,33 +477,6 @@ Module Listado
 
             cb.SetValue(Grid.ColumnProperty, 8)
             grid.Children.Add(cb)
-        End If
-
-        If Not juego.Valoracion Is Nothing Then
-            If Not juego.Valoracion = "--" Then
-                Dim gridToolTip As New Grid With {
-                    .Padding = New Thickness(10, 10, 10, 10)
-                }
-
-                If juego.Valoracion > 74 Then
-                    gridToolTip.Background = New SolidColorBrush(Colors.Green)
-                ElseIf juego.Valoracion > 49 And juego.Valoracion < 75 Then
-                    gridToolTip.Background = New SolidColorBrush(Colors.Goldenrod)
-                ElseIf juego.Valoracion < 50 Then
-                    gridToolTip.Background = New SolidColorBrush(Colors.DarkRed)
-                End If
-
-                Dim tbToolTip As TextBlock = New TextBlock With {
-                     .Text = juego.Valoracion + "%",
-                     .Foreground = New SolidColorBrush(Colors.White),
-                     .FontSize = 16
-                }
-
-                gridToolTip.Children.Add(tbToolTip)
-
-                ToolTipService.SetToolTip(grid, gridToolTip)
-                ToolTipService.SetPlacement(grid, PlacementMode.Mouse)
-            End If
         End If
 
         Return grid

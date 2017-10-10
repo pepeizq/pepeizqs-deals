@@ -149,6 +149,11 @@ Module AmazonUk
 
                         Dim precio As String = "£" + temp10.Trim
 
+                        If precio.Contains(ChrW(34)) Then
+                            int10 = precio.IndexOf(ChrW(34))
+                            precio = precio.Remove(int10, precio.Length - int10)
+                        End If
+
                         Dim descuento As String = Nothing
 
                         Dim encontrado As Boolean = False

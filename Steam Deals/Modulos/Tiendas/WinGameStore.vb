@@ -30,6 +30,12 @@ Module WinGameStore
         Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasWinGameStore")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
+        Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoWinGameStore")
+        tbProgreso.Text = "0%"
+
+        Dim pr As RadialProgressBar = pagina.FindName("prWinGameStore")
+        pr.Value = 0
+
         bw.WorkerReportsProgress = True
         bw.WorkerSupportsCancellation = True
 
