@@ -475,7 +475,7 @@ Module Listado
             AddHandler cb.Checked, AddressOf CbChecked
             AddHandler cb.Unchecked, AddressOf CbUnChecked
 
-            cb.SetValue(Grid.ColumnProperty, 8)
+            cb.SetValue(Grid.ColumnProperty, 9)
             grid.Children.Add(cb)
         End If
 
