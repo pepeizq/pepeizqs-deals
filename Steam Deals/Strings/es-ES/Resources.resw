@@ -189,6 +189,9 @@
   <data name="MessageStore.Text" xml:space="preserve">
     <value>Selecciona una tienda para cargar las ofertas</value>
   </data>
+  <data name="MoreApps.Text" xml:space="preserve">
+    <value>Más Apps</value>
+  </data>
   <data name="MoreThings" xml:space="preserve">
     <value>Más Cosas</value>
   </data>
@@ -197,9 +200,6 @@
   </data>
   <data name="OrderDeals.Text" xml:space="preserve">
     <value>Ordenar por:</value>
-  </data>
-  <data name="OtherApps.Text" xml:space="preserve">
-    <value>Otras Apps</value>
   </data>
   <data name="Price.Content" xml:space="preserve">
     <value>Precio</value>
@@ -230,6 +230,9 @@
   </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Título</value>
+  </data>
+  <data name="Updates.Text" xml:space="preserve">
+    <value>Actualizaciones</value>
   </data>
   <data name="VoteApp.Text" xml:space="preserve">
     <value>Vota la App</value>
