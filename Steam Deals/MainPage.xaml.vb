@@ -140,6 +140,16 @@ Public NotInheritable Class MainPage
         Editor.Borrar()
         Divisas.Generar()
 
+        '--------------------------------------------------------
+
+        Dim transpariencia As New UISettings
+        Dim boolTranspariencia As Boolean = transpariencia.AdvancedEffectsEnabled
+
+        If boolTranspariencia = False Then
+            gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+            gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+        End If
+
     End Sub
 
     Private Sub GridVisibilidad(grid As Grid, tag As String)
