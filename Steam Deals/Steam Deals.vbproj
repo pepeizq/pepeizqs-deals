@@ -142,6 +142,7 @@
     </AppxManifest>
     <None Include="Steam Deals_StoreKey.pfx" />
     <None Include="Steam Deals_TemporaryKey.pfx" />
+    <PRIResource Include="Strings\de\Resources.resw" />
     <PRIResource Include="Strings\es-ES\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
