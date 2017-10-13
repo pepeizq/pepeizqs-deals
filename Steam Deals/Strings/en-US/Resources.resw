@@ -189,7 +189,7 @@
   <data name="MessageStore.Text" xml:space="preserve">
     <value>Select a store to load deals</value>
   </data>
-  <data name="MorerApps.Text" xml:space="preserve">
+  <data name="MoreApps.Text" xml:space="preserve">
     <value>More Apps</value>
   </data>
   <data name="MoreThings" xml:space="preserve">
