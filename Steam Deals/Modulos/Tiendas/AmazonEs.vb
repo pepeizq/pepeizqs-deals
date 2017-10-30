@@ -138,8 +138,8 @@ Module AmazonEs
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
 
-                        int9 = temp2.IndexOf(">EUR ")
-                        temp9 = temp2.Remove(0, int9 + 5)
+                        int9 = temp2.IndexOf(">€")
+                        temp9 = temp2.Remove(0, int9 + 2)
 
                         int10 = temp9.IndexOf("</")
                         temp10 = temp9.Remove(int10, temp9.Length - int10)
