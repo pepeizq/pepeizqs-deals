@@ -73,8 +73,8 @@
                         </ListViewItem>
                         <ListViewItem x:Name="botonTiendaBundleStars" Background="{StaticResource BrushSecundario}" Padding="15">
                             <StackPanel Orientation="Horizontal" Tag="5">
-                                <controls:ImageEx Source="Assets/Tiendas/bundlestars.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
-                                <TextBlock Text="Bundle Stars" Foreground="White"/>
+                                <controls:ImageEx Source="Assets/Tiendas/fanatical.ico" Width="16" Height="16" Margin="0,0,10,0" IsCacheEnabled="True"/>
+                                <TextBlock Text="Fanatical" Foreground="White"/>
                             </StackPanel>
                         </ListViewItem>
                         <ListViewItem x:Name="botonTiendaGOG" Background="{StaticResource BrushSecundario}" Padding="15">

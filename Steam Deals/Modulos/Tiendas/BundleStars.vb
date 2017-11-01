@@ -280,7 +280,7 @@ Module BundleStars
 
                         Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioUS, precioEU, precioUK, descuento, drm, windows, mac, linux, "Bundle Stars", DateTime.Today, val.Valoracion, val.Enlace)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioUS, precioEU, precioUK, descuento, drm, windows, mac, linux, "Fanatical", DateTime.Today, val.Valoracion, val.Enlace)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

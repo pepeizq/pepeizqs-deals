@@ -178,7 +178,7 @@ Module Editor
                     ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price UK** | **Price FR** | **Price DE** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
-                    ElseIf listaFinal(0).Tienda = "Bundle Stars" Then
+                    ElseIf listaFinal(0).Tienda = "Fanatical" Then
                         contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price US** | **Price UK** | **Rating**" + Environment.NewLine
                         contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
                     Else
@@ -226,7 +226,7 @@ Module Editor
                                 linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio1 + "](" + juego.Enlace1 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
                             ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
                                 linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Precio1 + " (" + Divisas.CambioMoneda(juego.Precio1, tbLibra.Text) + ")](" + juego.Enlace1 + ") | [" + juego.Precio2 + "](" + juego.Enlace2 + ") | [" + juego.Precio3 + "](" + juego.Enlace3 + ")" + " | " + valoracion
-                            ElseIf listaFinal(0).Tienda = "Bundle Stars" Then
+                            ElseIf listaFinal(0).Tienda = "Fanatical" Then
                                 linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio2 + " | " + juego.Precio1 + " | " + juego.Precio3 + " | " + valoracion
                             Else
                                 linea = linea + "[" + juego.Titulo + "](" + juego.Enlace1 + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio1 + " | " + valoracion

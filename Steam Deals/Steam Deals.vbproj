@@ -151,11 +151,11 @@
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\MasCosas\poeditor.png" />
     <Content Include="Assets\MasCosas\pepeizq.png" />
+    <Content Include="Assets\Tiendas\fanatical.ico" />
     <Content Include="Assets\Valoraciones\mixed.png" />
     <Content Include="Assets\Valoraciones\negative.png" />
     <Content Include="Assets\Valoraciones\positive.png" />
     <Content Include="Assets\Tiendas\amazon.png" />
-    <Content Include="Assets\Tiendas\bundlestars.ico" />
     <Content Include="Assets\Tiendas\gamersgate.ico" />
     <Content Include="Assets\Tiendas\gamesplanet.png" />
     <Content Include="Assets\Tiendas\gmg.ico" />

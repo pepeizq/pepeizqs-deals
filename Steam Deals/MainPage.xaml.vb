@@ -263,7 +263,7 @@ Public NotInheritable Class MainPage
 
         ElseIf sp.Tag.ToString = 5 Then
 
-            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Bundle Stars"
+            tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - Fanatical"
             gridTiendaBundleStars.Visibility = Visibility.Visible
             botonTiendaBundleStars.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
 
