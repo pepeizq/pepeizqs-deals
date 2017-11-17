@@ -160,7 +160,7 @@ Module Humble
                             Dim temp7, temp8 As String
                             Dim int7, int8 As Integer
 
-                            int7 = temp2.IndexOf(ChrW(34) + "storefront_featured_image_small" + ChrW(34))
+                            int7 = temp2.IndexOf(ChrW(34) + "featured_image_small" + ChrW(34))
 
                             If Not int7 = -1 Then
                                 temp7 = temp2.Remove(0, int7)
@@ -218,16 +218,20 @@ Module Humble
 
                             Dim descuento As String = Calculadora.GenerarDescuento(temp14, precio)
 
-                            Dim temp15, temp16 As String
-                            Dim int15, int16 As Integer
+                            Dim drm As String = String.Empty
 
-                            int15 = temp2.IndexOf("delivery_methods")
-                            temp15 = temp2.Remove(0, int15)
+                            If temp2.Contains("delivery_methods") Then
+                                Dim temp15, temp16 As String
+                                Dim int15, int16 As Integer
 
-                            int16 = temp15.IndexOf("]")
-                            temp16 = temp15.Remove(int16, temp15.Length - int16)
+                                int15 = temp2.IndexOf("delivery_methods")
+                                temp15 = temp2.Remove(0, int15)
 
-                            Dim drm As String = temp16.Trim
+                                int16 = temp15.IndexOf("]")
+                                temp16 = temp15.Remove(int16, temp15.Length - int16)
+
+                                drm = temp16.Trim
+                            End If
 
                             Dim temp17, temp18 As String
                             Dim int17, int18 As Integer

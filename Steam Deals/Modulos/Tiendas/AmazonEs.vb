@@ -138,17 +138,32 @@ Module AmazonEs
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
 
-                        int9 = temp2.IndexOf(">EUR")
-                        temp9 = temp2.Remove(0, int9 + 5)
+                        If temp2.Contains(">EUR") Then
+                            int9 = temp2.IndexOf(">EUR")
+                            temp9 = temp2.Remove(0, int9 + 5)
 
-                        int10 = temp9.IndexOf("</")
-                        temp10 = temp9.Remove(int10, temp9.Length - int10)
+                            int10 = temp9.IndexOf("</")
+                            temp10 = temp9.Remove(int10, temp9.Length - int10)
+                        ElseIf temp2.Contains("€<") Then
+                            int9 = temp2.IndexOf("€<")
+                            temp9 = temp2.Remove(int9, temp2.Length - int9)
 
-                        If temp10.Trim.Length = 4 Then
-                            temp10 = "0" + temp10
+                            int10 = temp9.LastIndexOf(">")
+                            temp10 = temp9.Remove(0, int10 + 1)
+                        Else
+                            temp9 = String.Empty
+                            temp10 = String.Empty
                         End If
 
-                        Dim precio As String = temp10.Trim + " €"
+                        Dim precio As String = String.Empty
+
+                        If Not temp9 = String.Empty Then
+                            If temp10.Trim.Length = 4 Then
+                                temp10 = "0" + temp10
+                            End If
+
+                            precio = temp10.Trim + " €"
+                        End If
 
                         Dim descuento As String = Nothing
 
