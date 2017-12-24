@@ -203,7 +203,7 @@ Module Ordenar
                                                         If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
                                                             boolAntiguo = False
                                                         ElseIf tempJuegoDescuento = tempJuegoAntiguoDescuento Then
-                                                            juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(2)
+                                                            juegoAntiguo.Fecha = juegoAntiguo.Fecha.AddDays(1)
                                                             boolAntiguo = True
                                                         Else
                                                             boolAntiguo = True
@@ -267,7 +267,7 @@ Module Ordenar
                                 End If
 
                                 Dim fechaComparar As DateTime = juegoAntiguo.Fecha
-                                fechaComparar = fechaComparar.AddDays(3)
+                                fechaComparar = fechaComparar.AddDays(1)
 
                                 If fechaComparar < DateTime.Today Then
                                     listaJuegosAntigua.Remove(juegoAntiguo)

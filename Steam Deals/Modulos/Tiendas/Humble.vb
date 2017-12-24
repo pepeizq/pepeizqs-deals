@@ -98,196 +98,185 @@ Module Humble
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = html.IndexOf(ChrW(34) + "machine_name" + ChrW(34))
+                    int = html.IndexOf("{" + ChrW(34) + "featured_image_small")
 
                     If Not int = -1 Then
-                        temp = html.Remove(0, int + 15)
+                        temp = html.Remove(0, int + 1)
 
                         html = temp
 
-                        int = temp.IndexOf("full_price")
+                        int2 = temp.IndexOf(ChrW(34) + "sale_type" + ChrW(34))
+                        temp2 = temp.Remove(int2, temp.Length - int2)
 
-                        If Not int = -1 Then
-                            temp2 = temp.Remove(int, temp.Length - int)
+                        Dim temp3, temp4 As String
+                        Dim int3, int4 As Integer
 
-                            int2 = temp2.IndexOf("}")
+                        int3 = temp2.IndexOf(ChrW(34) + "human_name" + ChrW(34))
+                        temp3 = temp2.Remove(0, int3 + 14)
 
-                            If temp.Length > int + int2 Then
-                                temp2 = temp.Remove(int + int2, temp.Length - (int + int2))
-                            Else
-                                temp2 = temp
-                            End If
+                        int4 = temp3.IndexOf(ChrW(34))
+                        temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                            Dim temp3, temp4 As String
-                            Dim int3, int4 As Integer
+                        temp4 = temp4.Replace("\u007e", "ç")
+                        temp4 = temp4.Replace("\u00b2", "²")
+                        temp4 = temp4.Replace("\u00fc", "ü")
+                        temp4 = temp4.Replace("\u00e9", "é")
+                        temp4 = temp4.Replace("\u00e0", "à")
+                        temp4 = temp4.Replace("\u00ae", "®")
+                        temp4 = temp4.Replace("\u2013", "-")
+                        temp4 = temp4.Replace("\u2019", "'")
+                        temp4 = temp4.Replace("\u2122", "™")
+                        temp4 = temp4.Replace("\u5c0e", "導")
+                        temp4 = temp4.Replace("\u526a", "剪")
+                        temp4 = temp4.Replace("\u6f14", "演")
+                        temp4 = temp4.Replace("\u7248", "版")
+                        temp4 = temp4.Replace("\u8f2f", "輯")
+                        temp4 = temp4.Replace("\u96f7", "雷")
+                        temp4 = temp4.Replace("\u96fb", "電")
 
-                            int3 = temp2.IndexOf(ChrW(34) + "human_name" + ChrW(34))
-                            temp3 = temp2.Remove(0, int3 + 14)
+                        Dim titulo As String = temp4.Trim
 
-                            int4 = temp3.IndexOf(ChrW(34))
-                            temp4 = temp3.Remove(int4, temp3.Length - int4)
+                        Dim temp5, temp6 As String
+                        Dim int5, int6 As Integer
 
-                            temp4 = temp4.Replace("\u007e", "ç")
-                            temp4 = temp4.Replace("\u00b2", "²")
-                            temp4 = temp4.Replace("\u00fc", "ü")
-                            temp4 = temp4.Replace("\u00e9", "é")
-                            temp4 = temp4.Replace("\u00e0", "à")
-                            temp4 = temp4.Replace("\u00ae", "®")
-                            temp4 = temp4.Replace("\u2013", "-")
-                            temp4 = temp4.Replace("\u2019", "'")
-                            temp4 = temp4.Replace("\u2122", "™")
-                            temp4 = temp4.Replace("\u5c0e", "導")
-                            temp4 = temp4.Replace("\u526a", "剪")
-                            temp4 = temp4.Replace("\u6f14", "演")
-                            temp4 = temp4.Replace("\u7248", "版")
-                            temp4 = temp4.Replace("\u8f2f", "輯")
-                            temp4 = temp4.Replace("\u96f7", "雷")
-                            temp4 = temp4.Replace("\u96fb", "電")
+                        int5 = temp2.IndexOf(ChrW(34) + "human_url" + ChrW(34))
+                        temp5 = temp2.Remove(0, int5 + 13)
 
-                            Dim titulo As String = temp4.Trim
+                        int6 = temp5.IndexOf(ChrW(34))
+                        temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                            Dim temp5, temp6 As String
-                            Dim int5, int6 As Integer
+                        Dim enlace As String = "https://www.humblebundle.com/store/" + temp6.Trim
 
-                            int5 = temp2.IndexOf(ChrW(34) + "human_url" + ChrW(34))
-                            temp5 = temp2.Remove(0, int5 + 13)
+                        Dim referido As String = enlace + "?partner=pepeizqdeals"
 
-                            int6 = temp5.IndexOf(ChrW(34))
-                            temp6 = temp5.Remove(int6, temp5.Length - int6)
+                        Dim temp7, temp8 As String
+                        Dim int7, int8 As Integer
 
-                            Dim enlace As String = "https://www.humblebundle.com/store/" + temp6.Trim
+                        int7 = temp2.IndexOf(ChrW(34) + "featured_image_small" + ChrW(34))
 
-                            Dim temp7, temp8 As String
-                            Dim int7, int8 As Integer
+                        If Not int7 = -1 Then
+                            temp7 = temp2.Remove(0, int7)
 
-                            int7 = temp2.IndexOf(ChrW(34) + "featured_image_small" + ChrW(34))
+                            int7 = temp7.IndexOf("http")
+                            temp7 = temp7.Remove(0, int7)
 
-                            If Not int7 = -1 Then
-                                temp7 = temp2.Remove(0, int7)
+                            int8 = temp7.IndexOf(ChrW(34))
+                            temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                int7 = temp7.IndexOf("http")
-                                temp7 = temp7.Remove(0, int7)
+                            temp8 = temp8.Trim
+                        Else
+                            temp8 = Nothing
+                        End If
 
-                                int8 = temp7.IndexOf(ChrW(34))
-                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+                        Dim imagen As String = temp8
 
-                                temp8 = temp8.Trim
-                            Else
-                                temp8 = Nothing
-                            End If
+                        Dim temp9, temp10 As String
+                        Dim int9, int10 As Integer
 
-                            Dim imagen As String = temp8
+                        int9 = temp2.IndexOf(ChrW(34) + "current_price" + ChrW(34))
+                        temp9 = temp2.Remove(0, int9 + 14)
 
-                            Dim temp9, temp10 As String
-                            Dim int9, int10 As Integer
+                        int9 = temp9.IndexOf("[")
+                        temp9 = temp9.Remove(0, int9 + 1)
 
-                            int9 = temp2.IndexOf(ChrW(34) + "current_price" + ChrW(34))
-                            temp9 = temp2.Remove(0, int9 + 14)
+                        int10 = temp9.IndexOf(",")
+                        temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                            int9 = temp9.IndexOf("[")
-                            temp9 = temp9.Remove(0, int9 + 1)
+                        Dim tempDouble As Double = Double.Parse(temp10.Trim, CultureInfo.InvariantCulture).ToString
 
-                            int10 = temp9.IndexOf(",")
-                            temp10 = temp9.Remove(int10, temp9.Length - int10)
+                        Dim moneda As String = GlobalizationPreferences.Currencies(0)
 
-                            Dim temp101 As String = temp10
-
-                            Dim tempDouble As Double = Double.Parse(temp10.Trim, CultureInfo.InvariantCulture).ToString
-
-                            Dim moneda As String = GlobalizationPreferences.Currencies(0)
-
-                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
+                        Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
                                         .Mode = CurrencyFormatterMode.UseSymbol
                                     }
 
-                            Dim precio As String = formateador.Format(tempDouble)
+                        Dim precio As String = formateador.Format(tempDouble)
 
-                            Dim temp13, temp14 As String
-                            Dim int13, int14 As Integer
+                        Dim temp13, temp14 As String
+                        Dim int13, int14 As Integer
 
-                            int13 = temp2.IndexOf(ChrW(34) + "full_price" + ChrW(34))
-                            temp13 = temp2.Remove(0, int13)
+                        int13 = temp2.IndexOf(ChrW(34) + "full_price" + ChrW(34))
+                        temp13 = temp2.Remove(0, int13)
 
-                            int13 = temp13.IndexOf("[")
-                            temp13 = temp13.Remove(0, int13 + 1)
+                        int13 = temp13.IndexOf("[")
+                        temp13 = temp13.Remove(0, int13 + 1)
 
-                            int14 = temp13.IndexOf(",")
-                            temp14 = temp13.Remove(int14, temp13.Length - int14)
+                        int14 = temp13.IndexOf(",")
+                        temp14 = temp13.Remove(int14, temp13.Length - int14)
 
-                            temp14 = Double.Parse(temp14.Trim, CultureInfo.InvariantCulture).ToString
+                        temp14 = Double.Parse(temp14.Trim, CultureInfo.InvariantCulture).ToString
 
-                            Dim descuento As String = Calculadora.GenerarDescuento(temp14, precio)
+                        Dim descuento As String = Calculadora.GenerarDescuento(temp14, precio)
 
-                            Dim drm As String = String.Empty
+                        Dim drm As String = String.Empty
 
-                            If temp2.Contains("delivery_methods") Then
-                                Dim temp15, temp16 As String
-                                Dim int15, int16 As Integer
+                        If temp2.Contains("delivery_methods") Then
+                            Dim temp15, temp16 As String
+                            Dim int15, int16 As Integer
 
-                                int15 = temp2.IndexOf("delivery_methods")
-                                temp15 = temp2.Remove(0, int15)
+                            int15 = temp2.IndexOf("delivery_methods")
+                            temp15 = temp2.Remove(0, int15)
 
-                                int16 = temp15.IndexOf("]")
-                                temp16 = temp15.Remove(int16, temp15.Length - int16)
+                            int16 = temp15.IndexOf("]")
+                            temp16 = temp15.Remove(int16, temp15.Length - int16)
 
-                                drm = temp16.Trim
-                            End If
+                            drm = temp16.Trim
+                        End If
 
-                            Dim temp17, temp18 As String
-                            Dim int17, int18 As Integer
+                        Dim temp17, temp18 As String
+                        Dim int17, int18 As Integer
 
-                            int17 = temp2.IndexOf(ChrW(34) + "available" + ChrW(34))
-                            temp17 = temp2.Remove(0, int17 + 5)
+                        int17 = temp2.IndexOf(ChrW(34) + "available" + ChrW(34))
+                        temp17 = temp2.Remove(0, int17 + 5)
 
-                            int18 = temp17.IndexOf("]")
-                            temp18 = temp17.Remove(int18, temp17.Length - int18)
+                        int18 = temp17.IndexOf("]")
+                        temp18 = temp17.Remove(int18, temp17.Length - int18)
 
-                            Dim windows As Boolean = False
+                        Dim windows As Boolean = False
 
-                            If temp18.Contains(ChrW(34) + "windows" + ChrW(34)) Then
-                                windows = True
-                            End If
+                        If temp18.Contains(ChrW(34) + "windows" + ChrW(34)) Then
+                            windows = True
+                        End If
 
-                            Dim mac As Boolean = False
+                        Dim mac As Boolean = False
 
-                            If temp18.Contains(ChrW(34) + "mac" + ChrW(34)) Then
-                                mac = True
-                            End If
+                        If temp18.Contains(ChrW(34) + "mac" + ChrW(34)) Then
+                            mac = True
+                        End If
 
-                            Dim linux As Boolean = False
+                        Dim linux As Boolean = False
 
-                            If temp18.Contains(ChrW(34) + "linux" + ChrW(34)) Then
-                                linux = True
-                            End If
+                        If temp18.Contains(ChrW(34) + "linux" + ChrW(34)) Then
+                            linux = True
+                        End If
 
-                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today, val.Valoracion, val.Enlace)
+                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, referido, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today, val.Valoracion, val.Enlace)
 
-                            Dim tituloBool As Boolean = False
-                            Dim k As Integer = 0
-                            While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                                k += 1
-                            End While
-
-                            If juego.Descuento = Nothing Then
+                        Dim tituloBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Titulo = juego.Titulo Then
                                 tituloBool = True
-                            Else
-                                If juego.Descuento = "00%" Then
-                                    tituloBool = True
-                                End If
+                            End If
+                            k += 1
+                        End While
 
-                                If juego.Descuento.Contains("-") Then
-                                    tituloBool = True
-                                End If
+                        If juego.Descuento = Nothing Then
+                            tituloBool = True
+                        Else
+                            If juego.Descuento = "00%" Then
+                                tituloBool = True
                             End If
 
-                            If tituloBool = False Then
-                                listaJuegos.Add(juego)
+                            If juego.Descuento.Contains("-") Then
+                                tituloBool = True
                             End If
+                        End If
+
+                        If tituloBool = False Then
+                            listaJuegos.Add(juego)
                         End If
                     End If
                 End If

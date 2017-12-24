@@ -2073,12 +2073,6 @@
                                         <TextBlock x:Uid="MoreApps" Foreground="White" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem x:Name="lvMasCosasActualizaciones" Background="{StaticResource BrushSecundario}" Margin="0,0,0,30">
-                                    <StackPanel Orientation="Horizontal" Tag="2">
-                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE72C;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="Updates" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
                                 <ListViewItem x:Name="lvMasCosasContacto" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
                                     <StackPanel Orientation="Horizontal" Tag="3">
                                         <controls:ImageEx Source="Assets\MasCosas\contacto.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>

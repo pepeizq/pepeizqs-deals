@@ -1411,10 +1411,6 @@ Public NotInheritable Class MainPage
 
             NavegarMasCosas(lvMasCosasMasApps, "https://pepeizqapps.com/")
 
-        ElseIf sp.Tag.ToString = 2 Then
-
-            NavegarMasCosas(lvMasCosasActualizaciones, "https://pepeizqapps.com/updates/")
-
         ElseIf sp.Tag.ToString = 3 Then
 
             NavegarMasCosas(lvMasCosasContacto, "https://pepeizqapps.com/contact/")
@@ -1443,7 +1439,6 @@ Public NotInheritable Class MainPage
     Private Sub NavegarMasCosas(lvItem As ListViewItem, url As String)
 
         lvMasCosasMasApps.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
-        lvMasCosasActualizaciones.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
         lvMasCosasContacto.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
         lvMasCosasReportarFallo.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
         lvMasCosasTraduccion.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
