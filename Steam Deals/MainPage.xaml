@@ -20,7 +20,7 @@
         <NavigationView x:Name="nvPrincipal" Grid.Row="1" Loaded="Nv_Loaded" ItemInvoked="Nv_ItemInvoked"
                         OpenPaneLength="200" AlwaysShowHeader="False" IsSettingsVisible="False">
 
-            <Grid Padding="10">
+            <Grid>
                 <Grid.Transitions>
                     <TransitionCollection>
                         <EdgeUIThemeTransition Edge="Bottom"/>
@@ -34,7 +34,7 @@
                     </LinearGradientBrush>
                 </Grid.Background>
 
-                <Grid x:Name="gridDeals" Visibility="Collapsed">
+                <Grid x:Name="gridDeals" Visibility="Collapsed" Padding="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -1848,7 +1848,7 @@
                     </Grid>
                 </Grid>
 
-                <Grid x:Name="gridEditor" Visibility="Collapsed">
+                <Grid x:Name="gridEditor" Visibility="Collapsed" Background="{StaticResource GridAcrilico}" Padding="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="400"/>
@@ -1938,121 +1938,143 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid x:Name="gridConfig" Visibility="Collapsed">
+                <Grid x:Name="gridConfig" Visibility="Collapsed" Background="{StaticResource GridAcrilico}">
                     <ScrollViewer>
-                        <StackPanel Orientation="Vertical">
-                            <Grid x:Name="gridConfigDeals" Width="500" HorizontalAlignment="Left" Margin="5,5,10,10" Padding="10" Background="{StaticResource GridTituloBackground}">
-                                <TextBlock x:Uid="Deals2" FontSize="16" Foreground="White"/>
-                            </Grid>
+                        <StackPanel Orientation="Vertical" Width="700" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Vertical" Margin="40,20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="1">
+                                <StackPanel.Background>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </StackPanel.Background>
 
-                            <Grid Margin="10,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                <Grid x:Name="gridConfigDeals" HorizontalAlignment="Stretch" Padding="10" Background="{StaticResource GridTituloBackground}">
+                                    <TextBlock x:Uid="Deals2" FontSize="16" Foreground="White" Margin="5,0,0,0"/>
+                                </Grid>
 
-                                <TextBlock x:Uid="ConfigOrder" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <ComboBox x:Name="cbConfigTipoOrdenar" Grid.Column="1" Width="120">
-                                    <ComboBoxItem x:Uid="Discount"/>
-                                    <ComboBoxItem x:Uid="Price"/>
-                                    <ComboBoxItem x:Uid="Title"/>
-                                </ComboBox>
-                            </Grid>
-
-                            <CheckBox x:Name="cbConfigDescartarUltimaVisita" x:Uid="ConfigDiscardLastVisit" Margin="10,5"/>
-
-                            <CheckBox x:Name="cbConfigDescartarMisJuegos" Margin="10,5">
-                                <CheckBox.Content>
+                                <StackPanel Orientation="Vertical" Padding="15">
                                     <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                                        <TextBlock x:Uid="ConfigDiscardMyGames" Grid.Row="0"/>
+                                        <TextBlock x:Uid="ConfigOrder" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                        <ComboBox x:Name="cbConfigTipoOrdenar" Grid.Column="1" Width="120">
+                                            <ComboBoxItem x:Uid="Discount"/>
+                                            <ComboBoxItem x:Uid="Price"/>
+                                            <ComboBoxItem x:Uid="Title"/>
+                                        </ComboBox>
+                                    </Grid>
 
-                                        <Grid Grid.Row="1" Margin="0,10">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
+                                    <CheckBox x:Name="cbConfigDescartarUltimaVisita" x:Uid="ConfigDiscardLastVisit" Margin="0,15"/>
 
-                                            <SymbolIcon Grid.Column="0" Symbol="Important" Margin="0,0,5,0"/>
-                                            <TextBlock x:Uid="ConfigDiscardMyGamesWarning" Grid.Column="1" VerticalAlignment="Center"/>
-                                        </Grid>
+                                    <CheckBox x:Name="cbConfigDescartarMisJuegos" Margin="0,0,0,5">
+                                        <CheckBox.Content>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                                        <StackPanel x:Name="spSteamConfigCuenta" Grid.Row="2" Orientation="Vertical">
-                                            <TextBlock x:Uid="ConfigDiscardMyGamesAccount" Margin="5" TextWrapping="Wrap"/>
-                                            <Grid Margin="5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
+                                                <TextBlock x:Uid="ConfigDiscardMyGames" Grid.Row="0"/>
 
-                                                <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
-                                                <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
+                                                <Grid Grid.Row="1" Margin="0,10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <SymbolIcon Grid.Column="0" Symbol="Important" Margin="0,0,5,0"/>
+                                                    <TextBlock x:Uid="ConfigDiscardMyGamesWarning" Grid.Column="1" VerticalAlignment="Center"/>
+                                                </Grid>
+
+                                                <StackPanel x:Name="spSteamConfigCuenta" Grid.Row="2" Orientation="Vertical">
+                                                    <TextBlock x:Uid="ConfigDiscardMyGamesAccount" Margin="5" TextWrapping="Wrap"/>
+                                                    <Grid Margin="5">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <ProgressRing x:Name="prSteamConfigCuenta" IsActive="True" Grid.Column="0" Visibility="Collapsed" Margin="0,0,15,0" />
+                                                        <TextBox x:Name="tbSteamConfigCuentaID" Grid.Column="1"/>
+                                                    </Grid>
+                                                </StackPanel>
                                             </Grid>
+                                        </CheckBox.Content>
+                                    </CheckBox>
+                                </StackPanel> 
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Margin="40,20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="1">
+                                <StackPanel.Background>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </StackPanel.Background>
+
+                                <Grid x:Name="gridConfigEditor" HorizontalAlignment="Stretch" Padding="10" Background="{StaticResource GridTituloBackground}">
+                                    <TextBlock x:Uid="Editor2" FontSize="16" Foreground="White" Margin="5,0,0,0"/>
+                                </Grid>
+
+                                <StackPanel Orientation="Vertical" Padding="15">
+                                    <CheckBox x:Name="cbConfigEditor">
+                                        <CheckBox.Content>
+                                            <TextBlock x:Uid="ConfigEditorWarning" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                        </CheckBox.Content>
+                                    </CheckBox>
+
+                                    <Grid Margin="0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock x:Uid="Currencies" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" 
+                                            HorizontalAlignment="Right"/>
+
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <Button x:Name="botonDivisasActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
+                                                <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                            </Button>
+
+                                            <controls:ImageEx Source="Assets/pais_ue2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                                            <TextBlock VerticalAlignment="Center" Text="1 €"/>
+                                            <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                                            <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
+                                            <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24"/>
+                                            <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Grid>
-                                </CheckBox.Content>
-                            </CheckBox>
 
-                            <Grid x:Name="gridConfigEditor" Width="500" HorizontalAlignment="Left" Margin="5,40,10,10" Padding="10" Background="{StaticResource GridTituloBackground}">
-                                <TextBlock x:Uid="Editor2" FontSize="16" Foreground="White"/>
-                            </Grid>
+                                    <Grid Margin="0,0,0,5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                            <CheckBox x:Name="cbConfigEditor" Margin="10,5">
-                                <CheckBox.Content>
-                                    <TextBlock x:Uid="ConfigEditorWarning" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                </CheckBox.Content>
-                            </CheckBox>
-
-                            <Grid Margin="10,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock x:Uid="Currencies" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" 
+                                        <TextBlock x:Uid="Rating" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" 
                                        HorizontalAlignment="Right"/>
 
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <Button x:Name="botonDivisasActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
-                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                    </Button>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <Button x:Name="botonValoracionActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
+                                                <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                            </Button>
 
-                                    <controls:ImageEx Source="Assets/pais_ue2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                                    <TextBlock VerticalAlignment="Center" Text="1 €"/>
-                                    <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                                    <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
-                                    <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                                    <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
+                                            <TextBlock x:Name="tbValoracionAvance" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </StackPanel>
-                            </Grid>
-
-                            <Grid Margin="10,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <TextBlock x:Uid="Rating" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" 
-                                       HorizontalAlignment="Right"/>
-
-                                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                    <Button x:Name="botonValoracionActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
-                                        <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                    </Button>
-
-                                    <TextBlock x:Name="tbValoracionAvance" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Grid>
+                            </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
 
-                <Grid x:Name="gridMasCosas" Visibility="Collapsed">
+                <Grid x:Name="gridMasCosas" Visibility="Collapsed" Background="{StaticResource GridAcrilico}">
                     <ScrollViewer>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -2060,46 +2082,55 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView Grid.Column="0" IsItemClickEnabled="True" ItemClick="LvMasCosasItemClick">
-                                <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,0,30">
-                                    <StackPanel Orientation="Horizontal" Tag="0">
-                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8E1;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="VoteApp" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem x:Name="lvMasCosasMasApps" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
-                                    <StackPanel Orientation="Horizontal" Tag="1">
-                                        <controls:ImageEx Source="Assets\MasCosas\pepeizq.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="MoreApps" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem x:Name="lvMasCosasContacto" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
-                                    <StackPanel Orientation="Horizontal" Tag="3">
-                                        <controls:ImageEx Source="Assets\MasCosas\contacto.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="Contact" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem x:Name="lvMasCosasReportarFallo" Background="{StaticResource BrushSecundario}" Margin="0,0,0,30">
-                                    <StackPanel Orientation="Horizontal" Tag="4">
-                                        <controls:ImageEx Source="Assets\MasCosas\feedback.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="ReportBug" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem x:Name="lvMasCosasTraduccion" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
-                                    <StackPanel Orientation="Horizontal" Tag="5">
-                                        <controls:ImageEx Source="Assets\MasCosas\poeditor.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="HelpTranslate" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                                <ListViewItem x:Name="lvMasCosasCodigoFuente" Background="{StaticResource BrushSecundario}">
-                                    <StackPanel Orientation="Horizontal" Tag="6">
-                                        <controls:ImageEx Source="Assets\MasCosas\github.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                        <TextBlock x:Uid="SourceCode" Foreground="White" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </ListViewItem>
-                            </ListView>
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="1" Padding="15" VerticalAlignment="Top">
+                                <StackPanel.Background>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </StackPanel.Background>
 
-                            <Grid Grid.Column="1" Margin="10,0,0,0">
+                                <ListView IsItemClickEnabled="True" ItemClick="LvMasCosasItemClick">
+                                    <ListViewItem Background="{StaticResource BrushSecundario}" Margin="0,0,0,30">
+                                        <StackPanel Orientation="Horizontal" Tag="0">
+                                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8E1;" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                            <TextBlock x:Uid="VoteApp" Foreground="White" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <ListViewItem x:Name="lvMasCosasMasApps" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
+                                        <StackPanel Orientation="Horizontal" Tag="1">
+                                            <controls:ImageEx Source="Assets\MasCosas\pepeizq.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                            <TextBlock x:Uid="MoreApps" Foreground="White" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <ListViewItem x:Name="lvMasCosasContacto" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
+                                        <StackPanel Orientation="Horizontal" Tag="3">
+                                            <controls:ImageEx Source="Assets\MasCosas\contacto.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                            <TextBlock x:Uid="Contact" Foreground="White" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <ListViewItem x:Name="lvMasCosasReportarFallo" Background="{StaticResource BrushSecundario}" Margin="0,0,0,30">
+                                        <StackPanel Orientation="Horizontal" Tag="4">
+                                            <controls:ImageEx Source="Assets\MasCosas\feedback.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                            <TextBlock x:Uid="ReportBug" Foreground="White" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <ListViewItem x:Name="lvMasCosasTraduccion" Background="{StaticResource BrushSecundario}" Margin="0,0,0,5">
+                                        <StackPanel Orientation="Horizontal" Tag="5">
+                                            <controls:ImageEx Source="Assets\MasCosas\poeditor.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                            <TextBlock x:Uid="HelpTranslate" Foreground="White" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                    <ListViewItem x:Name="lvMasCosasCodigoFuente" Background="{StaticResource BrushSecundario}">
+                                        <StackPanel Orientation="Horizontal" Tag="6">
+                                            <controls:ImageEx Source="Assets\MasCosas\github.png" Margin="0,0,10,0" Width="15" Height="15" IsCacheEnabled="True" VerticalAlignment="Center"/>
+                                            <TextBlock x:Uid="SourceCode" Foreground="White" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </ListViewItem>
+                                </ListView>
+                            </StackPanel>
+
+                            <Grid Grid.Column="1" Margin="20">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
