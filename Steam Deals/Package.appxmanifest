@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="f2d98bb1-6940-4e7f-9363-96949f261dfb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Steam Deals</DisplayName>
-    <PublisherDisplayName>pepeizq</PublisherDisplayName>
+    <PublisherDisplayName>pepeizq's apps</PublisherDisplayName>
     <Logo>assets\Logos\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
