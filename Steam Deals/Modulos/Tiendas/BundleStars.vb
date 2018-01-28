@@ -53,44 +53,28 @@ Module BundleStars
 
         listaJuegos = New List(Of Juego)
 
-        Dim numPaginas As Integer = 10
-
-        Dim htmlPaginas_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://www.bundlestars.com/api/products?types=bundle,game,dlc&sort=name&pageSize=50&sale=true&page=1"))
-        Dim htmlPaginas As String = htmlPaginas_.Result
-
-        If Not htmlPaginas = Nothing Then
-            If htmlPaginas.Contains(ChrW(34) + "totalPages" + ChrW(34) + ":") Then
-                Dim temp, temp2 As String
-                Dim int, int2 As Integer
-
-                int = htmlPaginas.IndexOf(ChrW(34) + "totalPages" + ChrW(34) + ":")
-                temp = htmlPaginas.Remove(0, int + 13)
-
-                int2 = temp.IndexOf(",")
-                temp2 = temp.Remove(int2, temp.Length - int2)
-
-                numPaginas = temp2.Trim
-            End If
-        End If
-
         Dim i As Integer = 1
-        While i < numPaginas + 1
-            Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://www.bundlestars.com/api/products?types=bundle,game,dlc&sort=name&pageSize=50&sale=true&page=" + i.ToString))
+        While i < 5000
+            Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://api.fanatical.com/api/feed?auth=vayaansias&cc=FR&page=" + i.ToString))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
+                If html.Contains(ChrW(34) + "data" + ChrW(34) + ":[]") Then
+                    Exit While
+                End If
+
                 Dim j As Integer = 0
-                While j < 50
-                    If html.Contains("{" + ChrW(34) + "_index" + ChrW(34) + ":") Then
+                While j < 500
+                    If html.Contains("{" + ChrW(34) + "title" + ChrW(34) + ":") Then
                         Dim temp, temp2 As String
                         Dim int, int2 As Integer
 
-                        int = html.IndexOf("{" + ChrW(34) + "_index" + ChrW(34) + ":")
-                        temp = html.Remove(0, int + 4)
+                        int = html.IndexOf("{" + ChrW(34) + "title" + ChrW(34) + ":")
+                        temp = html.Remove(0, int + 1)
 
                         html = temp
 
-                        int2 = temp.IndexOf(ChrW(34) + "]},")
+                        int2 = temp.IndexOf(ChrW(34) + "}")
 
                         If int2 = -1 Then
                             temp2 = temp
@@ -101,8 +85,8 @@ Module BundleStars
                         Dim temp3, temp4 As String
                         Dim int3, int4 As Integer
 
-                        int3 = temp2.LastIndexOf(ChrW(34) + "name" + ChrW(34))
-                        temp3 = temp2.Remove(0, int3 + 8)
+                        int3 = temp2.LastIndexOf(ChrW(34) + "title" + ChrW(34))
+                        temp3 = temp2.Remove(0, int3 + 9)
 
                         int4 = temp3.IndexOf(ChrW(34))
                         temp4 = temp3.Remove(int4, temp3.Length - int4)
@@ -114,31 +98,31 @@ Module BundleStars
                         Dim temp5, temp6 As String
                         Dim int5, int6 As Integer
 
-                        int5 = temp2.LastIndexOf(ChrW(34) + "slug" + ChrW(34))
-                        temp5 = temp2.Remove(0, int5 + 8)
+                        int5 = temp2.IndexOf(ChrW(34) + "url" + ChrW(34))
+                        temp5 = temp2.Remove(0, int5 + 7)
 
                         int6 = temp5.IndexOf(ChrW(34))
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                        Dim enlace As String = "https://www.bundlestars.com/en/game/" + temp6.Trim
+                        Dim enlace As String = temp6.Trim
                         Dim afiliado As String = "http://www.shareasale.com/r.cfm?u=1349489&b=880704&m=66498&urllink=" + enlace
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
 
-                        int7 = temp2.IndexOf(ChrW(34) + "cover" + ChrW(34))
+                        int7 = temp2.IndexOf(ChrW(34) + "image" + ChrW(34))
                         temp7 = temp2.Remove(0, int7 + 9)
 
                         int8 = temp7.IndexOf(ChrW(34))
                         temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                        Dim imagen As String = "https://cdn.bundlestars.com/production/product/224x126/" + temp8.Trim
+                        Dim imagen As String = "https://cdn.fanatical.com/production/product/400x225/" + temp8.Trim
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
 
-                        int9 = temp2.IndexOf(ChrW(34) + "percent" + ChrW(34))
-                        temp9 = temp2.Remove(0, int9 + 11)
+                        int9 = temp2.IndexOf(ChrW(34) + "discount_percent" + ChrW(34))
+                        temp9 = temp2.Remove(0, int9 + 19)
 
                         int10 = temp9.IndexOf(",")
                         temp10 = temp9.Remove(int10, temp9.Length - int10)
@@ -160,7 +144,6 @@ Module BundleStars
 
                         Dim descuento As String = temp10
 
-                        Dim calcularPrecio As Boolean = False
                         Dim precioEU As String = Nothing
                         Dim precioUS As String = Nothing
                         Dim precioUK As String = Nothing
@@ -168,7 +151,7 @@ Module BundleStars
                         Dim temp11, temp12, tempEU1, tempEU2, tempUS1, tempUS2, tempUK1, tempUK2 As String
                         Dim int11, int12, intEU1, intEU2, intUS1, intUS2, intUK1, intUK2 As Integer
 
-                        int11 = temp2.IndexOf(ChrW(34) + "price" + ChrW(34))
+                        int11 = temp2.IndexOf(ChrW(34) + "current_price" + ChrW(34))
                         temp11 = temp2.Remove(0, int11 + 9)
 
                         int12 = temp11.IndexOf("}")
@@ -180,7 +163,7 @@ Module BundleStars
                         intEU2 = tempEU1.IndexOf(",")
                         tempEU2 = tempEU1.Remove(intEU2, tempEU1.Length - intEU2)
 
-                        tempEU2 = tempEU2.Insert(tempEU2.Length - 2, ".")
+                        'tempEU2 = tempEU2.Insert(tempEU2.Length - 2, ".")
 
                         intUS1 = temp12.IndexOf("USD" + ChrW(34) + ":")
                         tempUS1 = temp12.Remove(0, intUS1 + 5)
@@ -188,7 +171,7 @@ Module BundleStars
                         intUS2 = tempUS1.IndexOf(",")
                         tempUS2 = tempUS1.Remove(intUS2, tempUS1.Length - intUS2)
 
-                        tempUS2 = tempUS2.Insert(tempUS2.Length - 2, ".")
+                        'tempUS2 = tempUS2.Insert(tempUS2.Length - 2, ".")
 
                         intUK1 = temp12.IndexOf("GBP" + ChrW(34) + ":")
                         tempUK1 = temp12.Remove(0, intUK1 + 5)
@@ -196,23 +179,11 @@ Module BundleStars
                         intUK2 = tempUK1.IndexOf(",")
                         tempUK2 = tempUK1.Remove(intUK2, tempUK1.Length - intUK2)
 
-                        tempUK2 = tempUK2.Insert(tempUK2.Length - 2, ".")
+                        'tempUK2 = tempUK2.Insert(tempUK2.Length - 2, ".")
 
-                        If temp2.Contains(ChrW(34) + "fullPrice" + ChrW(34) + ":{}") Then
-                            calcularPrecio = True
-                        ElseIf temp2.Contains(ChrW(34) + "fullPrice" + ChrW(34) + ":{" + ChrW(34) + "EUR" + ChrW(34) + ":0") Then
-                            calcularPrecio = True
-                        End If
-
-                        If calcularPrecio = True Then
-                            precioEU = Calculadora.GenerarPrecioRebajado(tempEU2.Trim, descuento) + " €"
-                            precioUS = "$" + Calculadora.GenerarPrecioRebajado(tempUS2.Trim, descuento)
-                            precioUK = "£" + Calculadora.GenerarPrecioRebajado(tempUK2.Trim, descuento)
-                        Else
-                            precioEU = tempEU2.Trim + " €"
-                            precioUS = "$" + tempUS2.Trim
-                            precioUK = "£" + tempUK2.Trim
-                        End If
+                        precioEU = tempEU2.Trim + " €"
+                        precioUS = "$" + tempUS2.Trim
+                        precioUK = "£" + tempUK2.Trim
 
                         If Not precioUS = Nothing Then
                             'precioUS = precioUS.Replace(",", ".")
@@ -233,15 +204,11 @@ Module BundleStars
                             int13 = temp2.IndexOf(ChrW(34) + "drm" + ChrW(34))
                             temp13 = temp2.Remove(0, int13)
 
-                            int14 = temp13.IndexOf("}")
+                            int14 = temp13.IndexOf("]")
                             temp14 = temp13.Remove(int14, temp13.Length - int14)
 
-                            If temp14.Contains("steam" + ChrW(34) + ":true") Then
+                            If temp14.Contains(ChrW(34) + "steam" + ChrW(34)) Then
                                 temp14 = "steam"
-                            End If
-
-                            If temp14.Contains("steam" + ChrW(34) + ":false") Then
-                                temp14 = Nothing
                             End If
 
                             If temp14 = Nothing Then
@@ -254,27 +221,27 @@ Module BundleStars
                         Dim temp15, temp16 As String
                         Dim int15, int16 As Integer
 
-                        int15 = temp2.IndexOf(ChrW(34) + "platforms" + ChrW(34))
+                        int15 = temp2.IndexOf(ChrW(34) + "operating_systems" + ChrW(34))
                         temp15 = temp2.Remove(0, int15)
 
-                        int16 = temp15.IndexOf("}")
+                        int16 = temp15.IndexOf("]")
                         temp16 = temp15.Remove(int16, temp15.Length - int16)
 
                         Dim windows As Boolean = False
 
-                        If temp16.Contains(ChrW(34) + "windows" + ChrW(34) + ":true") Then
+                        If temp16.Contains(ChrW(34) + "windows" + ChrW(34)) Then
                             windows = True
                         End If
 
                         Dim mac As Boolean = False
 
-                        If temp16.Contains(ChrW(34) + "mac" + ChrW(34) + ":true") Then
+                        If temp16.Contains(ChrW(34) + "mac" + ChrW(34)) Then
                             mac = True
                         End If
 
                         Dim linux As Boolean = False
 
-                        If temp16.Contains(ChrW(34) + "linux" + ChrW(34) + ":true") Then
+                        If temp16.Contains(ChrW(34) + "linux" + ChrW(34)) Then
                             linux = True
                         End If
 
@@ -293,6 +260,10 @@ Module BundleStars
 
                         If juego.Descuento = Nothing Then
                             tituloBool = True
+                        Else
+                            If juego.Descuento = "00%" Then
+                                tituloBool = True
+                            End If
                         End If
 
                         If tituloBool = False Then

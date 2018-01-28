@@ -386,6 +386,10 @@ Module Editor
                             contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
                                descuento + juego.Titulo + "</a> - " + juego.Precio1 + " (o " + Divisas.CambioMoneda(juego.Precio1, tbDolar.Text) + ")" + drm +
                                "</li>" + Environment.NewLine
+                        ElseIf juego.Tienda = "Fanatical" Then
+                            contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
+                               descuento + juego.Titulo + "</a> - " + juego.Precio2 + drm +
+                               "</li>" + Environment.NewLine
                         ElseIf juego.Tienda = "Amazon.es" Then
                             contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Afiliado1 + ChrW(34) + ">" +
                                juego.Titulo + "</a> - " + juego.Precio1 + drm + "</li>" + Environment.NewLine
