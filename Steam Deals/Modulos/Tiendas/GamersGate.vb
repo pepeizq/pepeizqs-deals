@@ -256,7 +256,7 @@ Module GamersGate
                                     linux = True
                                 End If
 
-                                Dim afiliado As String = "?caff=6704538"
+                                Dim afiliado As String = "?caff=2385601"
 
                                 Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
 

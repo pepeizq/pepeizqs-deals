@@ -153,6 +153,26 @@ Public NotInheritable Class MainPage
             gridMasCosas.Background = New SolidColorBrush(Colors.LightGray)
         End If
 
+        AddHandler transpariencia.AdvancedEffectsEnabledChanged, AddressOf TransparienciaEfectosCambia
+
+    End Sub
+
+    Private Sub TransparienciaEfectosCambia(sender As UISettings, e As Object)
+
+        If sender.AdvancedEffectsEnabled = True Then
+            gridEditor.Background = New SolidColorBrush(App.Current.Resources("GridAcrilico"))
+            gridConfig.Background = New SolidColorBrush(App.Current.Resources("GridAcrilico"))
+            gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("GridTituloBackground"))
+            gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("GridTituloBackground"))
+            gridMasCosas.Background = New SolidColorBrush(App.Current.Resources("GridAcrilico"))
+        Else
+            gridEditor.Background = New SolidColorBrush(Colors.LightGray)
+            gridConfig.Background = New SolidColorBrush(Colors.LightGray)
+            gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+            gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+            gridMasCosas.Background = New SolidColorBrush(Colors.LightGray)
+        End If
+
     End Sub
 
     Private Sub GridVisibilidad(grid As Grid, tag As String)
