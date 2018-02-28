@@ -231,4 +231,7 @@
   <data name="SelectClear.Text" xml:space="preserve">
     <value>Clear Selection</value>
   </data>
+  <data name="Title.Content" xml:space="preserve">
+    <value>Title</value>
+  </data>
 </root>
