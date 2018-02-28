@@ -138,7 +138,7 @@
   <data name="ConfigOrder.Text" xml:space="preserve">
     <value>Standardsortierung für:</value>
   </data>
-  <data name="Contact.Text" xml:space="preserve">
+  <data name="MoreThings_Contact" xml:space="preserve">
     <value>Kontakt</value>
   </data>
   <data name="Currencies.Text" xml:space="preserve">
@@ -175,7 +175,7 @@
     <value>Name ausschneiden</value>
   </data>
   <data name="EditorLimit.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="LastDeals.Text" xml:space="preserve">
     <value>Letzte Käufe</value>
@@ -198,11 +198,11 @@
   <data name="Refresh.Text" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
-  <data name="ReportBug.Text" xml:space="preserve">
+  <data name="MoreThings_ReportBug" xml:space="preserve">
     <value>Fehler melden</value>
   </data>
   <data name="ScreenCapture.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="SelectAll.Text" xml:space="preserve">
     <value>Alles auswählen</value>
@@ -210,32 +210,34 @@
   <data name="SelectClear.Text" xml:space="preserve">
     <value>Auswahl löschen</value>
   </data>
-  <data name="SourceCode.Text" xml:space="preserve">
+  <data name="MoreThings_SourceCode" xml:space="preserve">
     <value>Quelltext</value>
   </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="VoteApp.Text" xml:space="preserve">
+  <data name="MoreThings_VoteApp" xml:space="preserve">
     <value>Bewerten Sie die App</value>
   </data>
   <data name="DescriptionStore" xml:space="preserve">
     <value>Mache die besten Käufe auf Steam und in anderen digitalen Stores mit dieser Anwendung</value>
   </data>
-  <data name="HelpTranslate.Text" xml:space="preserve">
+  <data name="MoreThings_HelpTranslate" xml:space="preserve">
     <value>Bei der Übersetzung helfen</value>
   </data>
   <data name="ThanksTo.Text" xml:space="preserve">
     <value>Danke an</value>
   </data>
   <data name="NoDeals.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="Updates.Text" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
-  <data name="MoreApps.Text" xml:space="preserve">
-    <value></value>
+  <data name="MoreThings_MoreApps" xml:space="preserve">
+    <value />
   </data>
-
+  <data name="MoreThings_Back" xml:space="preserve">
+    <value />
+  </data>
 </root>

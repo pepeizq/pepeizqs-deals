@@ -1,10 +1,10 @@
-﻿Imports Microsoft.Services.Store.Engagement
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.ApplicationModel.Core
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 Imports Windows.System
 Imports Windows.UI
+Imports Windows.UI.Core
 
 Public NotInheritable Class MainPage
     Inherits Page
@@ -35,7 +35,13 @@ Public NotInheritable Class MainPage
             GridVisibilidad(gridConfig, item.Text)
         ElseIf item.Text = recursos.GetString("MoreThings") Then
             GridVisibilidad(gridMasCosas, item.Text)
-            NavegarMasCosas(lvMasCosasMasApps, "https://pepeizqapps.com/")
+
+            Dim sv As ScrollViewer = gridMasCosas.Children(0)
+            Dim gridRelleno As Grid = sv.Content
+            Dim sp As StackPanel = gridRelleno.Children(0)
+            Dim lv As ListView = sp.Children(0)
+
+            MasCosas.Navegar(lv, "2", "https://pepeizqapps.com/")
         End If
 
     End Sub
@@ -139,39 +145,39 @@ Public NotInheritable Class MainPage
 
         Editor.Borrar()
         Divisas.Generar()
+        MasCosas.Generar()
 
         '--------------------------------------------------------
 
         Dim transpariencia As New UISettings
-        Dim boolTranspariencia As Boolean = transpariencia.AdvancedEffectsEnabled
-
-        If boolTranspariencia = False Then
-            gridEditor.Background = New SolidColorBrush(Colors.LightGray)
-            gridConfig.Background = New SolidColorBrush(Colors.LightGray)
-            gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-            gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-            gridMasCosas.Background = New SolidColorBrush(Colors.LightGray)
-        End If
-
+        TransparienciaEfectosFinal(transpariencia.AdvancedEffectsEnabled)
         AddHandler transpariencia.AdvancedEffectsEnabledChanged, AddressOf TransparienciaEfectosCambia
 
     End Sub
 
     Private Sub TransparienciaEfectosCambia(sender As UISettings, e As Object)
 
-        If sender.AdvancedEffectsEnabled = True Then
-            gridEditor.Background = New SolidColorBrush(App.Current.Resources("GridAcrilico"))
-            gridConfig.Background = New SolidColorBrush(App.Current.Resources("GridAcrilico"))
-            gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("GridTituloBackground"))
-            gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("GridTituloBackground"))
-            gridMasCosas.Background = New SolidColorBrush(App.Current.Resources("GridAcrilico"))
-        Else
-            gridEditor.Background = New SolidColorBrush(Colors.LightGray)
-            gridConfig.Background = New SolidColorBrush(Colors.LightGray)
-            gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-            gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-            gridMasCosas.Background = New SolidColorBrush(Colors.LightGray)
-        End If
+        TransparienciaEfectosFinal(sender.AdvancedEffectsEnabled)
+
+    End Sub
+
+    Private Async Sub TransparienciaEfectosFinal(estado As Boolean)
+
+        Await Dispatcher.RunAsync(CoreDispatcherPriority.High, Sub()
+                                                                   If estado = True Then
+                                                                       gridEditor.Background = App.Current.Resources("GridAcrilico")
+                                                                       gridConfig.Background = App.Current.Resources("GridAcrilico")
+                                                                       gridConfigDeals.Background = App.Current.Resources("GridTituloBackground")
+                                                                       gridConfigEditor.Background = App.Current.Resources("GridTituloBackground")
+                                                                       gridMasCosas.Background = App.Current.Resources("GridAcrilico")
+                                                                   Else
+                                                                       gridEditor.Background = New SolidColorBrush(Colors.LightGray)
+                                                                       gridConfig.Background = New SolidColorBrush(Colors.LightGray)
+                                                                       gridConfigDeals.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+                                                                       gridConfigEditor.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+                                                                       gridMasCosas.Background = New SolidColorBrush(Colors.LightGray)
+                                                                   End If
+                                                               End Sub)
 
     End Sub
 
@@ -1416,67 +1422,6 @@ Public NotInheritable Class MainPage
             Await Task.Delay(700)
             cb.IsChecked = estado
         Next
-
-    End Sub
-
-    'MASCOSAS-----------------------------------------
-
-    Private Async Sub LvMasCosasItemClick(sender As Object, args As ItemClickEventArgs)
-
-        Dim sp As StackPanel = args.ClickedItem
-
-        If sp.Tag.ToString = 0 Then
-
-            Await Launcher.LaunchUriAsync(New Uri("ms-windows-store:REVIEW?PFN=" + Package.Current.Id.FamilyName))
-
-        ElseIf sp.Tag.ToString = 1 Then
-
-            NavegarMasCosas(lvMasCosasMasApps, "https://pepeizqapps.com/")
-
-        ElseIf sp.Tag.ToString = 3 Then
-
-            NavegarMasCosas(lvMasCosasContacto, "https://pepeizqapps.com/contact/")
-
-        ElseIf sp.Tag.ToString = 4 Then
-
-            If StoreServicesFeedbackLauncher.IsSupported = True Then
-                Dim ejecutador As StoreServicesFeedbackLauncher = StoreServicesFeedbackLauncher.GetDefault()
-                Await ejecutador.LaunchAsync()
-            Else
-                NavegarMasCosas(lvMasCosasReportarFallo, "https://pepeizqapps.com/contact/")
-            End If
-
-        ElseIf sp.Tag.ToString = 5 Then
-
-            NavegarMasCosas(lvMasCosasTraduccion, "https://poeditor.com/join/project/YaZAR0uIW4")
-
-        ElseIf sp.Tag.ToString = 6 Then
-
-            NavegarMasCosas(lvMasCosasCodigoFuente, "https://github.com/pepeizq/Steam-Deals")
-
-        End If
-
-    End Sub
-
-    Private Sub NavegarMasCosas(lvItem As ListViewItem, url As String)
-
-        lvMasCosasMasApps.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
-        lvMasCosasContacto.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
-        lvMasCosasReportarFallo.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
-        lvMasCosasTraduccion.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
-        lvMasCosasCodigoFuente.Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
-
-        lvItem.Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-
-        pbMasCosas.Visibility = Visibility.Visible
-
-        wvMasCosas.Navigate(New Uri(url))
-
-    End Sub
-
-    Private Sub WvMasCosas_NavigationCompleted(sender As WebView, args As WebViewNavigationCompletedEventArgs) Handles wvMasCosas.NavigationCompleted
-
-        pbMasCosas.Visibility = Visibility.Collapsed
 
     End Sub
 

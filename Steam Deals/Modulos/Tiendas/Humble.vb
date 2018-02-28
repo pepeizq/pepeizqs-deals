@@ -158,12 +158,17 @@ Module Humble
                             temp7 = temp2.Remove(0, int7)
 
                             int7 = temp7.IndexOf("http")
-                            temp7 = temp7.Remove(0, int7)
 
-                            int8 = temp7.IndexOf(ChrW(34))
-                            temp8 = temp7.Remove(int8, temp7.Length - int8)
+                            If Not int7 = -1 Then
+                                temp7 = temp7.Remove(0, int7)
 
-                            temp8 = temp8.Trim
+                                int8 = temp7.IndexOf(ChrW(34))
+                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+
+                                temp8 = temp8.Trim
+                            Else
+                                temp8 = Nothing
+                            End If
                         Else
                             temp8 = Nothing
                         End If
