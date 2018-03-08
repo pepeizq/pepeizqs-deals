@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.ApplicationModel.Core
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 Imports Windows.System
@@ -17,13 +16,12 @@ Public NotInheritable Class MainPage
         nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("Editor"), New SymbolIcon(Symbol.Edit), 1))
         nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
         nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("Config"), New SymbolIcon(Symbol.Setting), 2))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.Generar(recursos.GetString("MoreThings"), New SymbolIcon(Symbol.More), 3))
 
     End Sub
 
     Private Sub Nv_ItemInvoked(sender As NavigationView, args As NavigationViewItemInvokedEventArgs)
 
-        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+        Dim recursos As New Resources.ResourceLoader()
 
         Dim item As TextBlock = args.InvokedItem
 
@@ -33,15 +31,6 @@ Public NotInheritable Class MainPage
             GridVisibilidad(gridEditor, item.Text)
         ElseIf item.Text = recursos.GetString("Config") Then
             GridVisibilidad(gridConfig, item.Text)
-        ElseIf item.Text = recursos.GetString("MoreThings") Then
-            GridVisibilidad(gridMasCosas, item.Text)
-
-            Dim sv As ScrollViewer = gridMasCosas.Children(0)
-            Dim gridRelleno As Grid = sv.Content
-            Dim sp As StackPanel = gridRelleno.Children(0)
-            Dim lv As ListView = sp.Children(0)
-
-            MasCosas.Navegar(lv, "2", "https://pepeizqapps.com/")
         End If
 
     End Sub
@@ -51,17 +40,9 @@ Public NotInheritable Class MainPage
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
-        Dim coreBarra As CoreApplicationViewTitleBar = CoreApplication.GetCurrentView.TitleBar
-        coreBarra.ExtendViewIntoTitleBar = True
+        MasCosas.Generar()
 
-        Dim barra As ApplicationViewTitleBar = ApplicationView.GetForCurrentView().TitleBar
-        barra.ButtonBackgroundColor = Colors.Transparent
-        barra.ButtonForegroundColor = Colors.White
-        barra.ButtonInactiveBackgroundColor = Colors.Transparent
-
-        '--------------------------------------------------------
-
-        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
+        Dim recursos As New Resources.ResourceLoader()
 
         GridVisibilidad(gridDeals, recursos.GetString("Deals"))
         nvPrincipal.IsPaneOpen = False
@@ -145,7 +126,6 @@ Public NotInheritable Class MainPage
 
         Editor.Borrar()
         Divisas.Generar()
-        MasCosas.Generar()
 
         '--------------------------------------------------------
 
@@ -190,6 +170,18 @@ Public NotInheritable Class MainPage
         gridMasCosas.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
+
+    End Sub
+
+    Private Sub UsuarioEntraBoton(sender As Object, e As PointerRoutedEventArgs)
+
+        Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Hand, 1)
+
+    End Sub
+
+    Private Sub UsuarioSaleBoton(sender As Object, e As PointerRoutedEventArgs)
+
+        Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
 
     End Sub
 
