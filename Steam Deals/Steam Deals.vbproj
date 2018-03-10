@@ -107,20 +107,22 @@
     </Compile>
     <Compile Include="Clases\Juego.vb" />
     <Compile Include="Clases\JuegoValoracion.vb" />
+    <Compile Include="Clases\Tienda.vb" />
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modulos\Captura.vb" />
+    <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\CuentaSteam.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor.vb" />
+    <Compile Include="Modulos\Interfaz.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
     <Compile Include="Modulos\Tiendas\BundleStars.vb" />
-    <Compile Include="Modulos\Calculadora.vb" />
-    <Compile Include="Modulos\Decompiladores.vb" />
+    <Compile Include="Modulos\Herramientas\Calculadora.vb" />
+    <Compile Include="Modulos\Herramientas\Decompiladores.vb" />
     <Compile Include="Modulos\Tiendas\GamersGate.vb" />
     <Compile Include="Modulos\Tiendas\GamesPlanet.vb" />
     <Compile Include="Modulos\Tiendas\GOG.vb" />
@@ -283,9 +285,6 @@
     <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
       <Name>Microsoft Engagement Framework</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FontAwesome.UWP">
@@ -305,6 +304,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
+      <Version>1.0.0.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

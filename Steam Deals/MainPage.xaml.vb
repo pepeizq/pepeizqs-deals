@@ -41,10 +41,11 @@ Public NotInheritable Class MainPage
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         MasCosas.Generar()
+        Interfaz.Generar()
 
         Dim recursos As New Resources.ResourceLoader()
 
-        GridVisibilidad(gridDeals, recursos.GetString("Deals"))
+        'GridVisibilidad(gridDeals, recursos.GetString("Deals"))
         nvPrincipal.IsPaneOpen = False
 
         If ApplicationData.Current.LocalSettings.Values("ordenar") = Nothing Then

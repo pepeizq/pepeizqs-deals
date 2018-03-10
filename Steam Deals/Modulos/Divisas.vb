@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module Divisas
 
@@ -11,7 +10,7 @@ Module Divisas
         Dim tempDolar As String = Nothing
         Dim tempLibra As String = Nothing
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
 
         If Await helper.FileExistsAsync("divisaDolar") Then
             tempDolar = "$" + Await helper.ReadFileAsync(Of String)("divisaDolar")

@@ -488,7 +488,7 @@ Module Listado
         Dim cb As CheckBox = e.OriginalSource
         Dim juegoFinal As Juego = cb.Tag
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Dim listaFinal As List(Of Juego) = Nothing
 
         If Await helper.FileExistsAsync("listaEditorFinal") = True Then
@@ -540,7 +540,7 @@ Module Listado
         Dim cb As CheckBox = e.OriginalSource
         Dim juegoFinal As Juego = cb.Tag
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
 
         Dim listaFinal As List(Of Juego) = Nothing
 
@@ -555,8 +555,6 @@ Module Listado
 
             Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
         End If
-
-        Dim recursos As Resources.ResourceLoader = New Resources.ResourceLoader()
 
         Editor.Generar()
 
