@@ -4,21 +4,24 @@ Imports Windows.Storage
 
 Module Ordenar
 
-    Public Async Sub Ofertas(tienda As String, tipoOrdenar As Integer, buscar As Boolean, ultimas As Boolean)
+    Public Async Sub Ofertas(tienda As String, buscar As Boolean, ultimas As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listado" + tienda)
+        Dim lv As ListView = pagina.FindName("listaTienda" + tienda)
+
         Dim numOfertas As TextBlock = pagina.FindName("tbNumOfertas" + tienda)
         Dim lvEditor As ListView = pagina.FindName("lvEditor" + tienda)
         Dim lvOpciones As ListView = pagina.FindName("lvOpciones" + tienda)
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar" + tienda)
-        Dim gridProgreso As Grid = pagina.FindName("gridProgreso" + tienda)
-        Dim tbProgreso As TextBlock = pagina.FindName("tbProgreso" + tienda)
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas" + tienda)
 
+        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
+
+        Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
+        Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
         tbProgreso.Text = String.Empty
+
+        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
         If Not lv Is Nothing Then
@@ -37,7 +40,7 @@ Module Ordenar
 
             Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
             Dim listaJuegos As List(Of Juego) = Nothing
-            Dim listaUltimasOfertas As List(Of Juego) = New List(Of Juego)
+            Dim listaUltimasOfertas As New List(Of Juego)
 
             If buscar = True Then
                 If Await helper.FileExistsAsync("listaOfertas" + tienda) = True Then
@@ -61,7 +64,7 @@ Module Ordenar
             If Not listaJuegos Is Nothing Then
                 lv.Items.Clear()
 
-                If tipoOrdenar = 0 Then
+                If cbOrdenar.SelectedIndex = 0 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                          If resultado = 0 Then
@@ -69,10 +72,10 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf tipoOrdenar = 1 Then
+                ElseIf cbOrdenar.SelectedIndex = 1 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
-                                         Dim precioX As String = x.Precio1
-                                         Dim precioY As String = y.Precio1
+                                         Dim precioX As String = x.Enlaces.Precios(0)
+                                         Dim precioY As String = y.Enlaces.Precios(0)
 
                                          precioX = precioX.Replace("$", Nothing)
                                          precioY = precioY.Replace("$", Nothing)
@@ -125,7 +128,7 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf tipoOrdenar = 2 Then
+                ElseIf cbOrdenar.SelectedIndex = 2 Then
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
                 End If
 
@@ -133,11 +136,9 @@ Module Ordenar
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
-
                         If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda) = True Then
                             listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda)
                         End If
-
                     End If
                 End If
 
@@ -148,7 +149,7 @@ Module Ordenar
                         Dim grid As Grid = item
                         Dim juegoComparar As Juego = grid.Tag
 
-                        If juegoComparar.Enlace1 = juego.Enlace1 Then
+                        If juegoComparar.Enlaces.Enlaces(0) = juego.Enlaces.Enlaces(0) Then
                             tituloGrid = True
                         End If
                     Next
@@ -157,32 +158,7 @@ Module Ordenar
                         Dim listaGrids As New List(Of Grid)
 
                         If buscar = True Then
-                            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
-                                If Not Await helper.FileExistsAsync("listaJuegosUsuario") = True Then
-                                    listaGrids.Add(Listado.Generar(juego))
-                                Else
-                                    Dim listaDescartar As List(Of String) = Await helper.ReadFileAsync(Of List(Of String))("listaJuegosUsuario")
-                                    Dim boolDescarte As Boolean = False
-
-                                    For Each descarte In listaDescartar
-                                        If Not descarte = Nothing Then
-                                            Dim tempDescarte As String = LimpiarTitulo(descarte)
-
-                                            Dim tempJuego As String = LimpiarTitulo(juego.Titulo)
-
-                                            If tempDescarte = tempJuego Then
-                                                boolDescarte = True
-                                            End If
-                                        End If
-                                    Next
-
-                                    If boolDescarte = False Then
-                                        listaGrids.Add(Listado.Generar(juego))
-                                    End If
-                                End If
-                            End If
-
-                            If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                            If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
                                 Dim boolAntiguo As Boolean = False
 
                                 If tienda = "AmazonEs" Then
@@ -192,7 +168,7 @@ Module Ordenar
                                 Else
                                     If Not listaJuegosAntigua Is Nothing Then
                                         For Each juegoAntiguo In listaJuegosAntigua
-                                            If juegoAntiguo.Enlace1 = juego.Enlace1 Then
+                                            If juegoAntiguo.Enlaces.Enlaces(0) = juego.Enlaces.Enlaces(0) Then
                                                 Dim juegoAntiguoDescuentoString As String = juegoAntiguo.Descuento.Replace("%", Nothing)
                                                 If Not juegoAntiguoDescuentoString = Nothing Then
                                                     Dim juegoDescuentoString As String = juego.Descuento.Replace("%", Nothing)
@@ -224,19 +200,17 @@ Module Ordenar
                                         listaJuegosAntigua = New List(Of Juego)
                                     End If
 
-                                    listaGrids.Add(Listado.Generar(juego))
+                                    listaGrids.Add(Interfaz.AñadirOfertaListado(juego))
                                     listaJuegosAntigua.Add(juego)
                                     listaUltimasOfertas.Add(juego)
                                 End If
                             End If
 
-                            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off" Then
-                                If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "off" Then
-                                    listaGrids.Add(Listado.Generar(juego))
-                                End If
+                            If ApplicationData.Current.LocalSettings.Values("ultimavisita") = False Then
+                                listaGrids.Add(Interfaz.AñadirOfertaListado(juego))
                             End If
                         Else
-                            listaGrids.Add(Listado.Generar(juego))
+                            listaGrids.Add(Interfaz.AñadirOfertaListado(juego))
                         End If
 
                         For Each grid In listaGrids
@@ -251,7 +225,7 @@ Module Ordenar
                 End If
 
                 If buscar = True Then
-                    If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                    If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
                         Dim boolBorrar As Boolean = False
 
                         If tienda = "AmazonEs" Then

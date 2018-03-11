@@ -48,10 +48,10 @@ Module WinGameStore
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
@@ -138,26 +138,26 @@ Module WinGameStore
 
                         Dim drm As String = Nothing
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today, val.Valoracion, val.Enlace)
+                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "WinGameStore", DateTime.Today, val.Cantidad, val.Enlace)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            k += 1
-                        End While
+                        'Dim tituloBool As Boolean = False
+                        'Dim k As Integer = 0
+                        'While k < listaJuegos.Count
+                        '    If listaJuegos(k).Titulo = juego.Titulo Then
+                        '        tituloBool = True
+                        '    End If
+                        '    k += 1
+                        'End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        End If
+                        'If juego.Descuento = Nothing Then
+                        '    tituloBool = True
+                        'End If
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                        'If tituloBool = False Then
+                        '    listaJuegos.Add(juego)
+                        'End If
                     End If
                 End If
             End If
@@ -165,85 +165,85 @@ Module WinGameStore
         End While
 
         i = 0
-        For Each juego In listaJuegos
+        'For Each juego In listaJuegos
 
-            Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace1))
-            Dim htmlJuego As String = htmlJuego_.Result
+        '    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace1))
+        '    Dim htmlJuego As String = htmlJuego_.Result
 
-            If Not htmlJuego = Nothing Then
-                If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
-                    Dim temp, temp2, temp3 As String
-                    Dim int, int2, int3 As Integer
+        '    If Not htmlJuego = Nothing Then
+        '        If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
+        '            Dim temp, temp2, temp3 As String
+        '            Dim int, int2, int3 As Integer
 
-                    int = htmlJuego.IndexOf("<meta property=" + ChrW(34) + "og:image")
-                    temp = htmlJuego.Remove(0, int + 5)
+        '            int = htmlJuego.IndexOf("<meta property=" + ChrW(34) + "og:image")
+        '            temp = htmlJuego.Remove(0, int + 5)
 
-                    int2 = temp.IndexOf("content=")
-                    temp2 = temp.Remove(0, int2 + 9)
+        '            int2 = temp.IndexOf("content=")
+        '            temp2 = temp.Remove(0, int2 + 9)
 
-                    int3 = temp2.IndexOf(ChrW(34))
-                    temp3 = temp2.Remove(int3, temp2.Length - int3)
+        '            int3 = temp2.IndexOf(ChrW(34))
+        '            temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                    juego.Imagen = temp3.Trim
-                End If
+        '            juego.Imagen = temp3.Trim
+        '        End If
 
-                If htmlJuego.Contains("<div class=" + ChrW(34) + "image-wrap220") Then
-                    Dim temp, temp2, temp3 As String
-                    Dim int, int2, int3 As Integer
+        '        If htmlJuego.Contains("<div class=" + ChrW(34) + "image-wrap220") Then
+        '            Dim temp, temp2, temp3 As String
+        '            Dim int, int2, int3 As Integer
 
-                    int = htmlJuego.IndexOf("<div class=" + ChrW(34) + "image-wrap220")
-                    temp = htmlJuego.Remove(0, int + 5)
+        '            int = htmlJuego.IndexOf("<div class=" + ChrW(34) + "image-wrap220")
+        '            temp = htmlJuego.Remove(0, int + 5)
 
-                    int2 = temp.IndexOf("<img src=")
-                    temp2 = temp.Remove(0, int2 + 10)
+        '            int2 = temp.IndexOf("<img src=")
+        '            temp2 = temp.Remove(0, int2 + 10)
 
-                    int3 = temp2.IndexOf(ChrW(34))
-                    temp3 = temp2.Remove(int3, temp2.Length - int3)
+        '            int3 = temp2.IndexOf(ChrW(34))
+        '            temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                    juego.Imagen = "http://www.wingamestore.com" + temp3.Trim
-                End If
+        '            juego.Imagen = "http://www.wingamestore.com" + temp3.Trim
+        '        End If
 
-                If htmlJuego.Contains("<label>DRM</label><b>Steam</b>") Then
-                    juego.DRM = "steam"
-                ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam & DRM Free</b>") Then
-                    juego.DRM = "steam"
-                End If
+        '        If htmlJuego.Contains("<label>DRM</label><b>Steam</b>") Then
+        '            juego.DRM = "steam"
+        '        ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam & DRM Free</b>") Then
+        '            juego.DRM = "steam"
+        '        End If
 
-                If juego.Enlace1.Contains("3861/XCOM-Enemy-Within") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("6613/Criminal-Girls-Invite-Only") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("3817/Borderlands-The-Pre-Sequel") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("3837/Borderlands-2-Season-Pass") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("3830/Borderlands-2") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("3852/Borderlands-Game-of-the-Year-Edition") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("3846/BioShock-Infinite-Season-Pass") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("4309/Grand-Theft-Auto-Collection") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("4799/L-A-Noire-The-Complete-Edition") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("5199/Max-Payne-3-Complete-Pack") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("4274/Grand-Theft-Auto-3") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("4273/Grand-Theft-Auto-San-Andreas") Then
-                    juego.DRM = "steam"
-                ElseIf juego.Enlace1.Contains("4272/Grand-Theft-Auto-Vice-City") Then
-                    juego.DRM = "steam"
-                End If
-            End If
+        '        If juego.Enlace1.Contains("3861/XCOM-Enemy-Within") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("6613/Criminal-Girls-Invite-Only") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("3817/Borderlands-The-Pre-Sequel") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("3837/Borderlands-2-Season-Pass") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("3830/Borderlands-2") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("3852/Borderlands-Game-of-the-Year-Edition") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("3846/BioShock-Infinite-Season-Pass") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("4309/Grand-Theft-Auto-Collection") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("4799/L-A-Noire-The-Complete-Edition") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("5199/Max-Payne-3-Complete-Pack") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("4274/Grand-Theft-Auto-3") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("4273/Grand-Theft-Auto-San-Andreas") Then
+        '            juego.DRM = "steam"
+        '        ElseIf juego.Enlace1.Contains("4272/Grand-Theft-Auto-Vice-City") Then
+        '            juego.DRM = "steam"
+        '        End If
+        '    End If
 
-            Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
-            bw.ReportProgress(porcentaje)
-            i += 1
-        Next
+        '    Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
+        '    bw.ReportProgress(porcentaje)
+        '    i += 1
+        'Next
 
     End Sub
 
@@ -264,12 +264,7 @@ Module WinGameStore
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasWinGameStore", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarWinGameStore")
-
-        Ordenar.Ofertas("WinGameStore", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("WinGameStore", True, False)
 
     End Sub
 

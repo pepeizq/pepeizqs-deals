@@ -45,10 +45,10 @@ Module Nuuvem
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         listaJuegos = New List(Of Juego)
@@ -182,26 +182,26 @@ Module Nuuvem
                                 linux = True
                             End If
 
-                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                            Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today, val.Valoracion, val.Enlace)
+                            'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today, val.Cantidad, val.Enlace)
 
-                            Dim tituloBool As Boolean = False
-                            Dim k As Integer = 0
-                            While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                                k += 1
-                            End While
+                            'Dim tituloBool As Boolean = False
+                            'Dim k As Integer = 0
+                            'While k < listaJuegos.Count
+                            '    If listaJuegos(k).Titulo = juego.Titulo Then
+                            '        tituloBool = True
+                            '    End If
+                            '    k += 1
+                            'End While
 
-                            If juego.Descuento = Nothing Then
-                                tituloBool = True
-                            End If
+                            'If juego.Descuento = Nothing Then
+                            '    tituloBool = True
+                            'End If
 
-                            If tituloBool = False Then
-                                listaJuegos.Add(juego)
-                            End If
+                            'If tituloBool = False Then
+                            '    listaJuegos.Add(juego)
+                            'End If
                         End If
                         j += 1
                     End While
@@ -230,12 +230,7 @@ Module Nuuvem
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasNuuvem", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
-
-        Ordenar.Ofertas("Nuuvem", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("Nuuvem", True, False)
 
     End Sub
 

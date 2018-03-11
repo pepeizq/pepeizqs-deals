@@ -106,11 +106,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Clases\Juego.vb" />
-    <Compile Include="Clases\JuegoValoracion.vb" />
+    <Compile Include="Clases\JuegoAnalisis.vb" />
+    <Compile Include="Clases\JuegoEnlaces.vb" />
+    <Compile Include="Clases\JuegoSistemas.vb" />
     <Compile Include="Clases\Tienda.vb" />
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modulos\Configuracion.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\CuentaSteam.vb" />
     <Compile Include="Modulos\Divisas.vb" />
@@ -136,7 +139,7 @@
     <Compile Include="Modulos\Tiendas\SilaGames.vb" />
     <Compile Include="Modulos\Tiendas\Steam.vb" />
     <Compile Include="Modulos\Tiendas\WinGameStore.vb" />
-    <Compile Include="Modulos\Valoracion.vb" />
+    <Compile Include="Modulos\Analisis.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -153,9 +156,9 @@
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\Tiendas\fanatical.ico" />
-    <Content Include="Assets\Valoraciones\mixed.png" />
-    <Content Include="Assets\Valoraciones\negative.png" />
-    <Content Include="Assets\Valoraciones\positive.png" />
+    <Content Include="Assets\Analisis\mixed.png" />
+    <Content Include="Assets\Analisis\negative.png" />
+    <Content Include="Assets\Analisis\positive.png" />
     <Content Include="Assets\Tiendas\amazon.png" />
     <Content Include="Assets\Tiendas\gamersgate.ico" />
     <Content Include="Assets\Tiendas\gamesplanet.png" />
@@ -228,9 +231,9 @@
     <Content Include="Assets\pais_uk.png" />
     <Content Include="Assets\pais_uk2.png" />
     <Content Include="Assets\pais_us2.png" />
-    <Content Include="Assets\platform_linux.png" />
-    <Content Include="Assets\platform_mac.png" />
-    <Content Include="Assets\platform_win.png" />
+    <Content Include="Assets\Sistemas\linux.png" />
+    <Content Include="Assets\Sistemas\mac.png" />
+    <Content Include="Assets\Sistemas\win.png" />
     <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\web_reddit.ico" />
     <Content Include="Assets\web_vayaansias.ico" />
@@ -304,9 +307,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>2.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
-      <Version>1.0.0.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports System.Net
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module Steam
@@ -11,58 +12,53 @@ Module Steam
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listadoSteam")
+        Dim lv As ListView = pagina.FindName("listaTiendaSteam")
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorSteam")
-        lvEditor.IsEnabled = False
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+        tb.Text = "0%"
 
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesSteam")
-        lvOpciones.IsEnabled = False
+        'Dim lvEditor As ListView = pagina.FindName("lvEditorSteam")
+        'lvEditor.IsEnabled = False
 
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
-        cbOrdenar.IsEnabled = False
+        'Dim lvOpciones As ListView = pagina.FindName("lvOpcionesSteam")
+        'lvOpciones.IsEnabled = False
 
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoSteam")
-        gridProgreso.Visibility = Visibility.Visible
+        'Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
+        'cbOrdenar.IsEnabled = False
 
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasSteam")
-        panelNoOfertas.Visibility = Visibility.Collapsed
 
-        Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoSteam")
-        tbProgreso.Text = "0%"
-
-        Dim pr As RadialProgressBar = pagina.FindName("prSteam")
-        pr.Value = 0
+        'Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasSteam")
+        'panelNoOfertas.Visibility = Visibility.Collapsed
 
         listaJuegos.Clear()
 
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim helper As New LocalObjectStorageHelper
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         Dim numPaginas As Integer = 0
 
-        numPaginas = GenerarNumPaginas(New Uri("http://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=1"))
+        numPaginas = GenerarNumPaginas(New Uri("http://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=1&l=english"))
 
         Dim i As Integer = 1
         While i < numPaginas
-            Dim html_ As Task(Of String) = HttpClient(New Uri("http://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("http://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString + "&l=english"))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -103,12 +99,10 @@ Module Steam
                             int4 = temp4.IndexOf(">")
                             temp4 = temp4.Remove(0, int4 + 1)
 
-                            temp4 = temp4.Replace("&amp;", "&")
-                            temp4 = temp4.Replace("&reg;", "®")
-                            temp4 = temp4.Replace("&trade;", "™")
-                            temp4 = temp4.Replace("&quot;", ChrW(34))
+                            temp4 = temp4.Trim
+                            temp4 = WebUtility.HtmlDecode(temp4)
 
-                            Dim titulo As String = temp4.Trim
+                            Dim titulo As String = temp4
 
                             Dim temp5, temp6 As String
                             Dim int5, int6 As Integer
@@ -188,6 +182,16 @@ Module Steam
                             End If
 
                             If boolPrecio = False Then
+                                Dim listaEnlaces As New List(Of String) From {
+                                    enlace
+                                }
+
+                                Dim listaPrecios As New List(Of String) From {
+                                    precio
+                                }
+
+                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+
                                 Dim windows As Boolean = False
 
                                 If temp2.Contains(ChrW(34) + "platform_img win" + ChrW(34)) Then
@@ -206,9 +210,15 @@ Module Steam
                                     linux = True
                                 End If
 
-                                Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                                Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                                Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "Steam", DateTime.Today, val.Valoracion, val.Enlace)
+                                Dim analisis As JuegoAnalisis = Nothing
+
+                                If temp2.Contains("data-store-tooltip=") Then
+                                    analisis = AñadirAnalisis(temp2)
+                                End If
+
+                                Dim juego As New Juego(titulo, imagen, enlaces, descuento, Nothing, "Steam", DateTime.Today, analisis, sistemas)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
@@ -232,35 +242,28 @@ Module Steam
                     End While
                 End If
             End If
-            bw.ReportProgress(CInt((100 / numPaginas) * i))
+            Bw.ReportProgress(CInt((100 / numPaginas) * i))
             i += 1
         End While
 
     End Sub
 
-    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoSteam")
-        Dim pr As RadialProgressBar = pagina.FindName("prSteam")
 
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = e.ProgressPercentage.ToString + "%"
-        pr.Value = e.ProgressPercentage
 
     End Sub
 
-    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasSteam", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
-
-        Ordenar.Ofertas("Steam", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("Steam", True, False)
 
     End Sub
 

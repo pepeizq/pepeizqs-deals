@@ -45,10 +45,10 @@ Module BundleStars
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         listaJuegos = New List(Of Juego)
@@ -245,30 +245,30 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioUS, precioEU, precioUK, descuento, drm, windows, mac, linux, "Fanatical", DateTime.Today, val.Valoracion, val.Enlace)
+                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioUS, precioEU, precioUK, descuento, drm, windows, mac, linux, "Fanatical", DateTime.Today, val.Cantidad, val.Enlace)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            k += 1
-                        End While
+                        'Dim tituloBool As Boolean = False
+                        'Dim k As Integer = 0
+                        'While k < listaJuegos.Count
+                        '    If listaJuegos(k).Titulo = juego.Titulo Then
+                        '        tituloBool = True
+                        '    End If
+                        '    k += 1
+                        'End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        Else
-                            If juego.Descuento = "00%" Then
-                                tituloBool = True
-                            End If
-                        End If
+                        'If juego.Descuento = Nothing Then
+                        '    tituloBool = True
+                        'Else
+                        '    If juego.Descuento = "00%" Then
+                        '        tituloBool = True
+                        '    End If
+                        'End If
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                        'If tituloBool = False Then
+                        '    listaJuegos.Add(juego)
+                        'End If
                     End If
                     j += 1
                 End While
@@ -294,12 +294,7 @@ Module BundleStars
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasBundleStars", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
-
-        Ordenar.Ofertas("BundleStars", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("BundleStars", True, False)
 
     End Sub
 

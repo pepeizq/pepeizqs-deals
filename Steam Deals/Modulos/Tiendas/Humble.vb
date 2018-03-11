@@ -53,10 +53,10 @@ Module Humble
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         listaJuegos = New List(Of Juego)
@@ -255,34 +255,34 @@ Module Humble
                             linux = True
                         End If
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, referido, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today, val.Valoracion, val.Enlace)
+                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, referido, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today, val.Cantidad, val.Enlace)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            k += 1
-                        End While
+                        'Dim tituloBool As Boolean = False
+                        'Dim k As Integer = 0
+                        'While k < listaJuegos.Count
+                        '    If listaJuegos(k).Titulo = juego.Titulo Then
+                        '        tituloBool = True
+                        '    End If
+                        '    k += 1
+                        'End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        Else
-                            If juego.Descuento = "00%" Then
-                                tituloBool = True
-                            End If
+                        'If juego.Descuento = Nothing Then
+                        '    tituloBool = True
+                        'Else
+                        '    If juego.Descuento = "00%" Then
+                        '        tituloBool = True
+                        '    End If
 
-                            If juego.Descuento.Contains("-") Then
-                                tituloBool = True
-                            End If
-                        End If
+                        '    If juego.Descuento.Contains("-") Then
+                        '        tituloBool = True
+                        '    End If
+                        'End If
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                        'If tituloBool = False Then
+                        '    listaJuegos.Add(juego)
+                        'End If
                     End If
                 End If
                 j += 1
@@ -311,13 +311,7 @@ Module Humble
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasHumble", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
-        Dim cbPlataforma As ComboBox = pagina.FindName("cbPlataformaHumble")
-
-        Ordenar.Ofertas("Humble", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("Humble", True, False)
 
     End Sub
 

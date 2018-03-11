@@ -40,7 +40,9 @@ Public NotInheritable Class MainPage
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
+        Configuracion.Iniciar()
         MasCosas.Generar()
+        Analisis.LeerLista()
         Interfaz.Generar()
 
         Dim recursos As New Resources.ResourceLoader()
@@ -57,7 +59,7 @@ Public NotInheritable Class MainPage
 
         '--------------------------------------------------------
 
-        cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        'cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
@@ -77,44 +79,7 @@ Public NotInheritable Class MainPage
             tbSteamConfigCuentaID.Text = ApplicationData.Current.LocalSettings.Values("cuentasteam")
         End If
 
-        If Not ApplicationData.Current.LocalSettings.Values("descartarjuegos") = Nothing Then
-            If ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on" Then
-                cbConfigDescartarMisJuegos.IsChecked = True
-                spSteamConfigCuenta.Visibility = Visibility.Visible
-            Else
-                cbConfigDescartarMisJuegos.IsChecked = False
-                spSteamConfigCuenta.Visibility = Visibility.Collapsed
-            End If
-        Else
-            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "off"
-            cbConfigDescartarMisJuegos.IsChecked = False
-            spSteamConfigCuenta.Visibility = Visibility.Collapsed
-        End If
 
-        If Not ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = Nothing Then
-            If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
-                cbConfigDescartarUltimaVisita.IsChecked = True
-            Else
-                cbConfigDescartarUltimaVisita.IsChecked = False
-            End If
-        Else
-            ApplicationData.Current.LocalSettings.Values("descartarjuegos") = "on"
-            cbConfigDescartarUltimaVisita.IsChecked = True
-        End If
-
-        If ApplicationData.Current.LocalSettings.Values("editor") = Nothing Then
-            cbConfigEditor.IsChecked = False
-            EditorVisibilidad(False)
-            ApplicationData.Current.LocalSettings.Values("editor") = "off"
-        Else
-            If ApplicationData.Current.LocalSettings.Values("editor") = "on" Then
-                cbConfigEditor.IsChecked = True
-                EditorVisibilidad(True)
-            Else
-                cbConfigEditor.IsChecked = False
-                EditorVisibilidad(False)
-            End If
-        End If
 
         '--------------------------------------------------------
 
@@ -387,14 +352,14 @@ Public NotInheritable Class MainPage
     Private Async Sub ListadoClick(grid As Grid)
 
         Try
-            If ApplicationData.Current.LocalSettings.Values("editor") = "off" Then
+            If ApplicationData.Current.LocalSettings.Values("editor2") = False Then
                 Dim juego As Juego = grid.Tag
                 Dim enlace As String = Nothing
 
-                If Not juego.Afiliado1 = Nothing Then
-                    enlace = juego.Afiliado1
+                If Not juego.Enlaces.Afiliados Is Nothing Then
+                    enlace = juego.Enlaces.Afiliados(0)
                 Else
-                    enlace = juego.Enlace1
+                    enlace = juego.Enlaces.Enlaces(0)
                 End If
 
                 Await Launcher.LaunchUriAsync(New Uri(enlace))
@@ -445,7 +410,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaSteam.Visibility = Visibility.Visible Then
                 If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, True)
+                    Ordenar.Ofertas("Steam", False, True)
                 End If
             End If
 
@@ -461,13 +426,13 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub CbOrdenarSteam_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenarSteam.SelectionChanged
+    Private Sub CbOrdenar_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenar.SelectionChanged
 
-        If gridTiendaSteam.Visibility = Visibility.Visible Then
-            If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Steam", cbOrdenarSteam.SelectedIndex, False, False)
-            End If
-        End If
+        'If gridTiendaSteam.Visibility = Visibility.Visible Then
+        '    If Not gridProgresoSteam.Visibility = Visibility.Visible Then
+        '        Ordenar.Ofertas("Steam", False, False)
+        '    End If
+        'End If
 
     End Sub
 
@@ -503,7 +468,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaGamersGate.Visibility = Visibility.Visible Then
                 If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, True)
+                    Ordenar.Ofertas("GamersGate", False, True)
                 End If
             End If
 
@@ -523,7 +488,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGamersGate.Visibility = Visibility.Visible Then
             If Not gridProgresoGamersGate.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GamersGate", cbOrdenarGamersGate.SelectedIndex, False, False)
+                Ordenar.Ofertas("GamersGate", False, False)
             End If
         End If
 
@@ -561,7 +526,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
                 If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, True)
+                    Ordenar.Ofertas("GamesPlanet", False, True)
                 End If
             End If
 
@@ -581,7 +546,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGamesPlanet.Visibility = Visibility.Visible Then
             If Not gridProgresoGamesPlanet.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GamesPlanet", cbOrdenarGamesPlanet.SelectedIndex, False, False)
+                Ordenar.Ofertas("GamesPlanet", False, False)
             End If
         End If
 
@@ -619,7 +584,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaHumble.Visibility = Visibility.Visible Then
                 If Not gridProgresoHumble.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, True)
+                    Ordenar.Ofertas("Humble", False, True)
                 End If
             End If
 
@@ -639,7 +604,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaHumble.Visibility = Visibility.Visible Then
             If Not gridProgresoHumble.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Humble", cbOrdenarHumble.SelectedIndex, False, False)
+                Ordenar.Ofertas("Humble", False, False)
             End If
         End If
 
@@ -677,7 +642,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
                 If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, True)
+                    Ordenar.Ofertas("GreenManGaming", False, True)
                 End If
             End If
 
@@ -697,7 +662,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGreenManGaming.Visibility = Visibility.Visible Then
             If Not gridProgresoGreenManGaming.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GreenManGaming", cbOrdenarGreenManGaming.SelectedIndex, False, False)
+                Ordenar.Ofertas("GreenManGaming", False, False)
             End If
         End If
 
@@ -735,7 +700,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaBundleStars.Visibility = Visibility.Visible Then
                 If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, True)
+                    Ordenar.Ofertas("BundleStars", False, True)
                 End If
             End If
 
@@ -755,7 +720,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaBundleStars.Visibility = Visibility.Visible Then
             If Not gridProgresoBundleStars.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("BundleStars", cbOrdenarBundleStars.SelectedIndex, False, False)
+                Ordenar.Ofertas("BundleStars", False, False)
             End If
         End If
 
@@ -793,7 +758,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaGOG.Visibility = Visibility.Visible Then
                 If Not gridProgresoGOG.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, True)
+                    Ordenar.Ofertas("GOG", False, True)
                 End If
             End If
 
@@ -813,7 +778,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaGOG.Visibility = Visibility.Visible Then
             If Not gridProgresoGOG.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("GOG", cbOrdenarGOG.SelectedIndex, False, False)
+                Ordenar.Ofertas("GOG", False, False)
             End If
         End If
 
@@ -851,7 +816,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
                 If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, True)
+                    Ordenar.Ofertas("WinGameStore", False, True)
                 End If
             End If
 
@@ -871,7 +836,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaWinGameStore.Visibility = Visibility.Visible Then
             If Not gridProgresoWinGameStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("WinGameStore", cbOrdenarWinGameStore.SelectedIndex, False, False)
+                Ordenar.Ofertas("WinGameStore", False, False)
             End If
         End If
 
@@ -909,7 +874,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaSilaGames.Visibility = Visibility.Visible Then
                 If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, True)
+                    Ordenar.Ofertas("SilaGames", False, True)
                 End If
             End If
 
@@ -929,7 +894,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaSilaGames.Visibility = Visibility.Visible Then
             If Not gridProgresoSilaGames.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("SilaGames", cbOrdenarSilaGames.SelectedIndex, False, False)
+                Ordenar.Ofertas("SilaGames", False, False)
             End If
         End If
 
@@ -967,7 +932,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaNuuvem.Visibility = Visibility.Visible Then
                 If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, True)
+                    Ordenar.Ofertas("Nuuvem", False, True)
                 End If
             End If
 
@@ -987,7 +952,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaNuuvem.Visibility = Visibility.Visible Then
             If Not gridProgresoNuuvem.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("Nuuvem", cbOrdenarNuuvem.SelectedIndex, False, False)
+                Ordenar.Ofertas("Nuuvem", False, False)
             End If
         End If
 
@@ -1025,7 +990,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
                 If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, True)
+                    Ordenar.Ofertas("MicrosoftStore", False, True)
                 End If
             End If
 
@@ -1045,7 +1010,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaMicrosoftStore.Visibility = Visibility.Visible Then
             If Not gridProgresoMicrosoftStore.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("MicrosoftStore", cbOrdenarMicrosoftStore.SelectedIndex, False, False)
+                Ordenar.Ofertas("MicrosoftStore", False, False)
             End If
         End If
 
@@ -1083,7 +1048,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
                 If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, True)
+                    Ordenar.Ofertas("AmazonEs", False, True)
                 End If
             End If
 
@@ -1103,7 +1068,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaAmazonEs.Visibility = Visibility.Visible Then
             If Not gridProgresoAmazonEs.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("AmazonEs", cbOrdenarAmazonEs.SelectedIndex, False, False)
+                Ordenar.Ofertas("AmazonEs", False, False)
             End If
         End If
 
@@ -1141,7 +1106,7 @@ Public NotInheritable Class MainPage
 
             If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
                 If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
-                    Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, True)
+                    Ordenar.Ofertas("AmazonUk", False, True)
                 End If
             End If
 
@@ -1161,7 +1126,7 @@ Public NotInheritable Class MainPage
 
         If gridTiendaAmazonUk.Visibility = Visibility.Visible Then
             If Not gridProgresoAmazonUk.Visibility = Visibility.Visible Then
-                Ordenar.Ofertas("AmazonUk", cbOrdenarAmazonUk.SelectedIndex, False, False)
+                Ordenar.Ofertas("AmazonUk", False, False)
             End If
         End If
 
@@ -1215,7 +1180,7 @@ Public NotInheritable Class MainPage
 
         ApplicationData.Current.LocalSettings.Values("ordenar") = cbConfigTipoOrdenar.SelectedIndex
 
-        cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
+        'cbOrdenarSteam.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarGamersGate.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarGamesPlanet.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
         cbOrdenarHumble.SelectedIndex = ApplicationData.Current.LocalSettings.Values("ordenar")
@@ -1401,7 +1366,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonValoracionActualizar_Click(sender As Object, e As RoutedEventArgs) Handles botonValoracionActualizar.Click
 
-        Valoracion.Generar()
+        Analisis.Generar()
 
     End Sub
 
@@ -1415,6 +1380,23 @@ Public NotInheritable Class MainPage
             Await Task.Delay(700)
             cb.IsChecked = estado
         Next
+
+    End Sub
+
+
+
+
+
+
+    Private Sub ToggleConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigEditor.Click
+
+        Configuracion.Editor(toggleConfigEditor.IsChecked)
+
+    End Sub
+
+    Private Sub ToggleConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigUltimaVisita.Click
+
+        Configuracion.UltimaVisita(toggleConfigUltimaVisita.IsChecked)
 
     End Sub
 

@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Config" xml:space="preserve">
+  <data name="Config.Text" xml:space="preserve">
     <value>Konfiguration</value>
   </data>
-  <data name="ConfigDiscardLastVisit.Content" xml:space="preserve">
+  <data name="ConfigLastVisitTooltip.Text" xml:space="preserve">
     <value>Nur Käufe seit meinem letzten Besuch anzeigen</value>
   </data>
-  <data name="ConfigDiscardMyGames.Text" xml:space="preserve">
-    <value>Nicht meine eigenen Spiele zu Käufen hinzufügen</value>
-  </data>
-  <data name="ConfigDiscardMyGamesAccount.Text" xml:space="preserve">
-    <value>Füge dein Steam-Community Konto hinzu (Beispiel: http://steamcommunity.com/id/pepeizq/)</value>
-  </data>
-  <data name="ConfigDiscardMyGamesWarning.Text" xml:space="preserve">
-    <value>Diese Einstellung funktioniert nicht mit Packeten und speziellen Ausführungen</value>
-  </data>
-  <data name="ConfigEditorWarning.Text" xml:space="preserve">
+  <data name="ConfigEditorTooltip.Text" xml:space="preserve">
     <value>Wenn Sie diese Option aktivieren würd es sich auf die Arbeit der Anwendung auswirken. Wenn Sie diese Option aktivieren würd jeder Kauf den Sie tätigen einen Code in der Bereichsverwaltung generieren</value>
   </data>
   <data name="ConfigOrder.Text" xml:space="preserve">
@@ -238,6 +229,9 @@
     <value />
   </data>
   <data name="MoreThings_Back" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfigLastVisit.Text" xml:space="preserve">
     <value />
   </data>
 </root>

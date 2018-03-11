@@ -51,10 +51,10 @@ Module AmazonEs
             listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaAmazonEs").Result
         End If
 
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         listaJuegos = New List(Of Juego)
@@ -169,72 +169,72 @@ Module AmazonEs
 
                         Dim encontrado As Boolean = False
 
-                        If listaJuegosAntigua.Count > 0 Then
-                            For Each juegoAntiguo In listaJuegosAntigua
-                                If juegoAntiguo.Enlace1 = enlace Then
-                                    Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
-                                    tempAntiguoPrecio = tempAntiguoPrecio.Trim
+                        'If listaJuegosAntigua.Count > 0 Then
+                        '    For Each juegoAntiguo In listaJuegosAntigua
+                        '        If juegoAntiguo.Enlace1 = enlace Then
+                        '            Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
+                        '            tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
-                                    Dim tempPrecio As String = precio.Replace("€", Nothing)
-                                    tempPrecio = tempPrecio.Trim
+                        '            Dim tempPrecio As String = precio.Replace("€", Nothing)
+                        '            tempPrecio = tempPrecio.Trim
 
-                                    Try
-                                        If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
-                                            descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
-                                        Else
-                                            descuento = Nothing
-                                        End If
-                                    Catch ex As Exception
-                                        descuento = Nothing
-                                    End Try
+                        '            Try
+                        '                If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
+                        '                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
+                        '                Else
+                        '                    descuento = Nothing
+                        '                End If
+                        '            Catch ex As Exception
+                        '                descuento = Nothing
+                        '            End Try
 
-                                    If Not descuento = Nothing Then
-                                        If descuento = "00%" Then
-                                            descuento = Nothing
-                                        End If
-                                    End If
+                        '            If Not descuento = Nothing Then
+                        '                If descuento = "00%" Then
+                        '                    descuento = Nothing
+                        '                End If
+                        '            End If
 
-                                    If Not descuento = Nothing Then
-                                        If descuento.Contains("-") Then
-                                            descuento = Nothing
-                                        End If
-                                    End If
+                        '            If Not descuento = Nothing Then
+                        '                If descuento.Contains("-") Then
+                        '                    descuento = Nothing
+                        '                End If
+                        '            End If
 
-                                    If Not descuento = Nothing Then
-                                        If Not descuento.Contains("%") Then
-                                            descuento = Nothing
-                                        End If
-                                    End If
+                        '            If Not descuento = Nothing Then
+                        '                If Not descuento.Contains("%") Then
+                        '                    descuento = Nothing
+                        '                End If
+                        '            End If
 
-                                    juegoAntiguo.Precio1 = precio
-                                    encontrado = True
-                                End If
-                            Next
-                        End If
+                        '            juegoAntiguo.Precio1 = precio
+                        '            encontrado = True
+                        '        End If
+                        '    Next
+                        'End If
 
-                        If encontrado = False Then
-                            descuento = "00%"
-                        End If
+                        'If encontrado = False Then
+                        '    descuento = "00%"
+                        'End If
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today, val.Valoracion, val.Enlace)
+                        'Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today, val.Cantidad, val.Enlace)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            k += 1
-                        End While
+                        'Dim tituloBool As Boolean = False
+                        'Dim k As Integer = 0
+                        'While k < listaJuegos.Count
+                        '    If listaJuegos(k).Titulo = juego.Titulo Then
+                        '        tituloBool = True
+                        '    End If
+                        '    k += 1
+                        'End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        End If
+                        'If juego.Descuento = Nothing Then
+                        '    tituloBool = True
+                        'End If
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                        'If tituloBool = False Then
+                        '    listaJuegos.Add(juego)
+                        'End If
                     End If
                     j += 1
                 End While
@@ -262,12 +262,7 @@ Module AmazonEs
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAmazonEs", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonEs")
-
-        Ordenar.Ofertas("AmazonEs", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("AmazonEs", True, False)
 
     End Sub
 

@@ -42,10 +42,10 @@ Module SilaGames
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("http://52.28.153.212/cjAffiliateEU.xml"))
@@ -159,30 +159,30 @@ Module SilaGames
                             drm = "uplay"
                         End If
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "Sila Games", DateTime.Today, val.Valoracion, val.Enlace)
+                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "Sila Games", DateTime.Today, val.Cantidad, val.Enlace)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            k += 1
-                        End While
+                        'Dim tituloBool As Boolean = False
+                        'Dim k As Integer = 0
+                        'While k < listaJuegos.Count
+                        '    If listaJuegos(k).Titulo = juego.Titulo Then
+                        '        tituloBool = True
+                        '    End If
+                        '    k += 1
+                        'End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        End If
+                        'If juego.Descuento = Nothing Then
+                        '    tituloBool = True
+                        'End If
 
-                        If juego.Descuento = "00%" Then
-                            tituloBool = True
-                        End If
+                        'If juego.Descuento = "00%" Then
+                        '    tituloBool = True
+                        'End If
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                        'If tituloBool = False Then
+                        '    listaJuegos.Add(juego)
+                        'End If
                     End If
                 End If
             End If
@@ -206,12 +206,7 @@ Module SilaGames
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasSilaGames", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
-
-        Ordenar.Ofertas("SilaGames", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("SilaGames", True, False)
 
     End Sub
 

@@ -43,11 +43,89 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Background="{StaticResource GridTituloBackground}">
-                    <ComboBox x:Name="cbTiendas" Margin="10,5"/>
-                </Grid> 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <ComboBox x:Name="cbTiendas" Grid.Column="0" Margin="20,10" MinWidth="200"/>
+
+                    <Button x:Name="botonConfiguracion" Grid.Column="2" Margin="5" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Margin="10,5">
+                                <FontIcon Glyph="&#59155;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="15" Margin="0,0,10,0"/>
+                                <TextBlock x:Uid="Config" Foreground="White"/>
+                            </StackPanel>
+                        </Button.Content>
+
+                        <Button.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <ToggleMenuFlyoutItem x:Name="toggleConfigEditor" x:Uid="Editor2" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <ToolTipService.ToolTip>
+                                        <TextBlock x:Uid="ConfigEditorTooltip" FontSize="15" TextWrapping="Wrap"/>
+                                    </ToolTipService.ToolTip>
+                                </ToggleMenuFlyoutItem>
+
+                                <ToggleMenuFlyoutItem x:Name="toggleConfigUltimaVisita" x:Uid="ConfigLastVisit" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <ToolTipService.ToolTip>
+                                        <TextBlock x:Uid="ConfigLastVisitTooltip" FontSize="15" TextWrapping="Wrap"/>
+                                    </ToolTipService.ToolTip>    
+                                </ToggleMenuFlyoutItem> 
+                            </MenuFlyout> 
+                        </Button.Flyout>
+                    </Button>
+                </Grid>
+              
+                <Grid x:Name="gridOfertasTiendas" Grid.Row="1">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                            <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+
+                <Grid x:Name="gridProgreso" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                    <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
+                    <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+
+                <controls:DropShadowPanel x:Name="panelNoOfertas" Grid.Row="1" Color="IndianRed" 
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
+                    <Grid Padding="10" Background="IndianRed">
+                        <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
+                    </Grid>
+                </controls:DropShadowPanel>
+
+                <Grid Grid.Row="2" Padding="10">
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                            <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <TextBlock x:Uid="OrderDeals" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="cbOrdenar" Width="120" VerticalAlignment="Center" SelectedIndex="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <ComboBoxItem x:Uid="Discount"/>
+                            <ComboBoxItem x:Uid="Price"/>
+                            <ComboBoxItem x:Uid="Title"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <Grid x:Name="gridMasCosas" Visibility="Collapsed"/>
@@ -288,12 +366,7 @@
                                             </ListViewItem>
                                         </ListView>
                                     </controls:DropShadowPanel>
-                                    <TextBlock x:Uid="OrderDeals" Margin="20,0,5,0" VerticalAlignment="Center"/>
-                                    <ComboBox x:Name="cbOrdenarSteam" Width="120" VerticalAlignment="Center" Margin="0,0,10,0">
-                                        <ComboBoxItem x:Uid="Discount"/>
-                                        <ComboBoxItem x:Uid="Price"/>
-                                        <ComboBoxItem x:Uid="Title"/>
-                                    </ComboBox>
+                                    
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -2004,7 +2077,7 @@
                                         </ComboBox>
                                     </Grid>
 
-                                    <CheckBox x:Name="cbConfigDescartarUltimaVisita" x:Uid="ConfigDiscardLastVisit" Margin="0,15"/>
+                                    <CheckBox x:Name="cbConfigDescartarUltimaVisita" Margin="0,15"/>
 
                                     <CheckBox x:Name="cbConfigDescartarMisJuegos" Margin="0,0,0,5">
                                         <CheckBox.Content>

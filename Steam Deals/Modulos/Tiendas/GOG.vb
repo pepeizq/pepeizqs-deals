@@ -42,10 +42,10 @@ Module GOG
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         Dim i As Integer = 1
@@ -166,26 +166,26 @@ Module GOG
                                 linux = True
                             End If
 
-                            Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                            Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                            Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today, val.Valoracion, val.Enlace)
+                            'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today, val.Cantidad, val.Enlace)
 
-                            Dim tituloBool As Boolean = False
-                            Dim k As Integer = 0
-                            While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                                k += 1
-                            End While
+                            'Dim tituloBool As Boolean = False
+                            'Dim k As Integer = 0
+                            'While k < listaJuegos.Count
+                            '    If listaJuegos(k).Titulo = juego.Titulo Then
+                            '        tituloBool = True
+                            '    End If
+                            '    k += 1
+                            'End While
 
-                            If juego.Descuento = Nothing Then
-                                tituloBool = True
-                            End If
+                            'If juego.Descuento = Nothing Then
+                            '    tituloBool = True
+                            'End If
 
-                            If tituloBool = False Then
-                                listaJuegos.Add(juego)
-                            End If
+                            'If tituloBool = False Then
+                            '    listaJuegos.Add(juego)
+                            'End If
                         End If
 
                         Bw.ReportProgress(i)
@@ -213,11 +213,7 @@ Module GOG
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGOG", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-        Dim cb As ComboBox = pagina.FindName("cbOrdenarGOG")
-
-        Ordenar.Ofertas("GOG", cb.SelectedIndex, True, False)
+        Ordenar.Ofertas("GOG", True, False)
 
     End Sub
 

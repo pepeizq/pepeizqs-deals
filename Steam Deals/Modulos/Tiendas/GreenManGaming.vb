@@ -45,10 +45,10 @@ Module GreenManGaming
     Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         listaJuegos = New List(Of Juego)
@@ -160,34 +160,34 @@ Module GreenManGaming
 
                         Dim drm As String = temp14.Trim
 
-                        Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                        Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today, val.Valoracion, val.Enlace)
+                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, Nothing, Nothing, Nothing, "Green Man Gaming", DateTime.Today, val.Cantidad, val.Enlace)
 
-                        Dim tituloBool As Boolean = False
-                        Dim j As Integer = 0
-                        While j < listaJuegos.Count
-                            If Not listaJuegos(j) Is Nothing Then
-                                If listaJuegos(j).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                            End If
-                            j += 1
-                        End While
+                        'Dim tituloBool As Boolean = False
+                        'Dim j As Integer = 0
+                        'While j < listaJuegos.Count
+                        '    If Not listaJuegos(j) Is Nothing Then
+                        '        If listaJuegos(j).Titulo = juego.Titulo Then
+                        '            tituloBool = True
+                        '        End If
+                        '    End If
+                        '    j += 1
+                        'End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        Else
-                            Dim intDescuento As Integer = Integer.Parse(juego.Descuento.Replace("%", Nothing))
+                        'If juego.Descuento = Nothing Then
+                        '    tituloBool = True
+                        'Else
+                        '    Dim intDescuento As Integer = Integer.Parse(juego.Descuento.Replace("%", Nothing))
 
-                            If intDescuento < 21 Then
-                                tituloBool = True
-                            End If
-                        End If
+                        '    If intDescuento < 21 Then
+                        '        tituloBool = True
+                        '    End If
+                        'End If
 
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                        'If tituloBool = False Then
+                        '    listaJuegos.Add(juego)
+                        'End If
                     End If
                 End If
                 i += 1
@@ -201,12 +201,7 @@ Module GreenManGaming
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGreenManGaming", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGreenManGaming")
-
-        Ordenar.Ofertas("GreenManGaming", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("GreenManGaming", True, False)
 
     End Sub
 

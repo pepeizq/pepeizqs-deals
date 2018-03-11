@@ -44,10 +44,10 @@ Module GamersGate
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoValoracion) = Nothing
+        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
 
         If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoValoracion))("listaValoraciones").Result
+            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
         End If
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
@@ -258,26 +258,26 @@ Module GamersGate
 
                                 Dim afiliado As String = "?caff=2385601"
 
-                                Dim val As JuegoValoracion = Valoracion.Buscar(titulo, listaValoraciones)
+                                Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
 
-                                Dim juego As New Juego(titulo, enlace, enlaceUS, enlaceUK, enlace + afiliado, enlaceUS + afiliado, enlaceUK + afiliado, imagen, precio, precioUS, precioUK, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today, val.Valoracion, val.Enlace)
+                                'Dim juego As New Juego(titulo, enlace, enlaceUS, enlaceUK, enlace + afiliado, enlaceUS + afiliado, enlaceUK + afiliado, imagen, precio, precioUS, precioUK, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today, val.Cantidad, val.Enlace)
 
-                                Dim tituloBool As Boolean = False
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
-                                        tituloBool = True
-                                    End If
-                                    k += 1
-                                End While
+                                'Dim tituloBool As Boolean = False
+                                'Dim k As Integer = 0
+                                'While k < listaJuegos.Count
+                                '    If listaJuegos(k).Titulo = juego.Titulo Then
+                                '        tituloBool = True
+                                '    End If
+                                '    k += 1
+                                'End While
 
-                                If juego.Descuento = Nothing Then
-                                    tituloBool = True
-                                End If
+                                'If juego.Descuento = Nothing Then
+                                '    tituloBool = True
+                                'End If
 
-                                If tituloBool = False Then
-                                    listaJuegos.Add(juego)
-                                End If
+                                'If tituloBool = False Then
+                                '    listaJuegos.Add(juego)
+                                'End If
                             End If
                         End If
                     End If
@@ -293,12 +293,7 @@ Module GamersGate
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasGamersGate", listaJuegos)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
-
-        Ordenar.Ofertas("GamersGate", cbOrdenar.SelectedIndex, True, False)
+        Ordenar.Ofertas("GamersGate", True, False)
 
     End Sub
 

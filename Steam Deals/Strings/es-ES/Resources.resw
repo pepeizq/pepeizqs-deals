@@ -117,23 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Config" xml:space="preserve">
+  <data name="Config.Text" xml:space="preserve">
     <value>Configuración</value>
   </data>
-  <data name="ConfigDiscardLastVisit.Content" xml:space="preserve">
-    <value>Enseñar solo las ofertas desde mi última visita</value>
-  </data>
-  <data name="ConfigDiscardMyGames.Text" xml:space="preserve">
-    <value>No incluir mis juegos en las ofertas</value>
-  </data>
-  <data name="ConfigDiscardMyGamesAccount.Text" xml:space="preserve">
-    <value>Añade tu cuenta de Steam Community (ejemplo http://steamcommunity.com/id/pepeizq/):</value>
-  </data>
-  <data name="ConfigDiscardMyGamesWarning.Text" xml:space="preserve">
-    <value>Esta opción no funciona en bundles y ediciones especiales</value>
-  </data>
-  <data name="ConfigEditorWarning.Text" xml:space="preserve">
+  <data name="ConfigEditorTooltip.Text" xml:space="preserve">
     <value>Activar esta opción cambiará como funciona la aplicación, si la activas cada oferta que selecciones generara un codigo en la seccion Editor</value>
+  </data>
+  <data name="ConfigLastVisit.Text" xml:space="preserve">
+    <value>Última Visita</value>
+  </data>
+  <data name="ConfigLastVisitTooltip.Text" xml:space="preserve">
+    <value>Enseñar solo las ofertas desde mi última visita</value>
   </data>
   <data name="ConfigOrder.Text" xml:space="preserve">
     <value>Por defecto ordenar según:</value>
