@@ -122,6 +122,8 @@ Module Interfaz
 
     Public Function AñadirOfertaListado(juego As Juego)
 
+        Dim recursos As New Resources.ResourceLoader()
+
         Dim grid As New Grid With {
             .Tag = juego,
             .Padding = New Thickness(0, 3, 10, 3)
@@ -243,13 +245,22 @@ Module Interfaz
             fondoAnalisis.Children.Add(imagenAnalisis)
 
             Dim tbAnalisisPorcentaje As New TextBlock With {
-                .Text = juego.Analisis.Porcentaje + "% " + juego.Analisis.Cantidad,
+                .Text = juego.Analisis.Porcentaje + "%",
                 .Margin = New Thickness(0, 0, 0, 0),
                 .VerticalAlignment = VerticalAlignment.Center,
                 .Foreground = New SolidColorBrush(Colors.White)
             }
 
             fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
+
+            Dim tbAnalisisCantidad As New TextBlock With {
+                .Text = juego.Analisis.Cantidad + " " + recursos.GetString("Reviews"),
+                .Margin = New Thickness(5, 0, 0, 0),
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White)
+            }
+
+            fondoAnalisis.Children.Add(tbAnalisisCantidad)
 
             sp3.Children.Add(fondoAnalisis)
         End If

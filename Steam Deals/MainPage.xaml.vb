@@ -35,14 +35,15 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         Configuracion.Iniciar()
-        MasCosas.Generar()
         Analisis.LeerLista()
+        MasCosas.Generar()
+        Await Task.Delay(1000)
         Interfaz.Generar()
 
         Dim recursos As New Resources.ResourceLoader()

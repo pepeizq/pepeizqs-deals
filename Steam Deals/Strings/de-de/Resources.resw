@@ -216,13 +216,7 @@
   <data name="MoreThings_HelpTranslate" xml:space="preserve">
     <value>Bei der Übersetzung helfen</value>
   </data>
-  <data name="ThanksTo.Text" xml:space="preserve">
-    <value>Danke an</value>
-  </data>
   <data name="NoDeals.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Updates.Text" xml:space="preserve">
     <value />
   </data>
   <data name="MoreThings_MoreApps" xml:space="preserve">
@@ -232,6 +226,9 @@
     <value />
   </data>
   <data name="ConfigLastVisit.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Reviews" xml:space="preserve">
     <value />
   </data>
 </root>

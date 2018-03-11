@@ -216,6 +216,9 @@
   <data name="Refresh.Text" xml:space="preserve">
     <value>Actualizar</value>
   </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Análisis</value>
+  </data>
   <data name="ScreenCapture.Text" xml:space="preserve">
     <value>Captura de Pantalla Ofertas</value>
   </data>

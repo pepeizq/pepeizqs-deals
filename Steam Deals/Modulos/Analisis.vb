@@ -100,8 +100,9 @@ Module Analisis
 
         Dim helper As New LocalObjectStorageHelper
 
-        If helper.FileExistsAsync("listaAnalisis").Result Then
+        If Await helper.FileExistsAsync("listaAnalisis") Then
             listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            Toast("yolo", Nothing)
         Else
             listaAnalisis = New List(Of JuegoAnalisis)
         End If

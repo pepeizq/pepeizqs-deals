@@ -216,6 +216,9 @@
   <data name="Refresh.Text" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
   <data name="ScreenCapture.Text" xml:space="preserve">
     <value>Screen Capture Deals</value>
   </data>
