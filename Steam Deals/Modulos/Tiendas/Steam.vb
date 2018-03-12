@@ -1,13 +1,19 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module Steam
 
     Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
+
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -44,13 +50,6 @@ Module Steam
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-        Dim helper As New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
 
         Dim numPaginas As Integer = 0
 
@@ -215,7 +214,7 @@ Module Steam
                                 Dim analisis As JuegoAnalisis = Nothing
 
                                 If temp2.Contains("data-store-tooltip=") Then
-                                    analisis = AñadirAnalisis(temp2)
+                                    analisis = AñadirAnalisis(temp2, listaAnalisis)
                                 End If
 
                                 Dim juego As New Juego(titulo, imagen, enlaces, descuento, Nothing, "Steam", DateTime.Today, analisis, sistemas)

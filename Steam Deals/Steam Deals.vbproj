@@ -131,7 +131,6 @@
     <Compile Include="Modulos\Tiendas\GOG.vb" />
     <Compile Include="Modulos\Tiendas\GreenManGaming.vb" />
     <Compile Include="Modulos\Tiendas\Humble.vb" />
-    <Compile Include="Modulos\Listado.vb" />
     <Compile Include="Modulos\Notificaciones.vb" />
     <Compile Include="Modulos\Ordenar.vb" />
     <Compile Include="Modulos\Tiendas\MicrosoftStore.vb" />

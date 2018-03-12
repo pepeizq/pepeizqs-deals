@@ -35,15 +35,13 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         Configuracion.Iniciar()
-        Analisis.LeerLista()
         MasCosas.Generar()
-        Await Task.Delay(1000)
         Interfaz.Generar()
 
         Dim recursos As New Resources.ResourceLoader()
@@ -92,7 +90,7 @@ Public NotInheritable Class MainPage
         End If
 
         Editor.Borrar()
-        Divisas.Generar()
+
 
         '--------------------------------------------------------
 
@@ -427,13 +425,27 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonActualizarTienda_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarTienda.Click
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim tienda As Tienda = grid.Tag
+
+                Interfaz.IniciarTienda(tienda.NombreUsar)
+            End If
+        Next
+
+    End Sub
+
     Private Sub CbOrdenar_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenar.SelectionChanged
 
-        'If gridTiendaSteam.Visibility = Visibility.Visible Then
-        '    If Not gridProgresoSteam.Visibility = Visibility.Visible Then
-        '        Ordenar.Ofertas("Steam", False, False)
-        '    End If
-        'End If
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim tienda As Tienda = grid.Tag
+
+                Ordenar.Ofertas(tienda.NombreUsar, False, False)
+            End If
+        Next
 
     End Sub
 
@@ -1387,17 +1399,33 @@ Public NotInheritable Class MainPage
 
 
 
+    Private Sub MenuItemConfigActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles menuItemConfigActualizarAnalisis.Click
 
+        Analisis.Generar()
+
+    End Sub
 
     Private Sub ToggleConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigEditor.Click
 
-        Configuracion.Editor(toggleConfigEditor.IsChecked)
+        Configuracion.EditorActivar(toggleConfigEditor.IsChecked)
 
     End Sub
 
     Private Sub ToggleConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigUltimaVisita.Click
 
-        Configuracion.UltimaVisita(toggleConfigUltimaVisita.IsChecked)
+        Configuracion.UltimaVisitaFiltrar(toggleConfigUltimaVisita.IsChecked)
+
+    End Sub
+
+    Private Sub ToggleConfigAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigAnalisis.Click
+
+        Configuracion.AnalisisBuscar(toggleConfigAnalisis.IsChecked)
+
+    End Sub
+
+    Private Sub ToggleConfigDivisas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigDivisas.Click
+
+        Configuracion.DivisaActualizar(toggleConfigDivisas.IsChecked)
 
     End Sub
 

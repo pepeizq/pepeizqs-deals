@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
+Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
 
@@ -33,6 +34,16 @@ Module Interfaz
 
 
         cbTiendas.SelectedIndex = 0
+
+    End Sub
+
+    Private Sub UsuarioSeleccionaTienda(sender As Object, e As SelectionChangedEventArgs)
+
+        Dim cbTiendas As ComboBox = sender
+        Dim cbItem As ComboBoxItem = cbTiendas.SelectedItem
+        Dim tienda As String = cbItem.Tag
+
+        IniciarTienda(tienda)
 
     End Sub
 
@@ -74,12 +85,18 @@ Module Interfaz
 
         Dim gridTienda As New Grid With {
             .Name = "gridTienda" + tienda.NombreUsar,
-            .Visibility = Visibility.Collapsed
+            .Visibility = Visibility.Collapsed,
+            .Tag = tienda
         }
 
         Dim listaOfertas As New ListView With {
-            .Name = "listaTienda" + tienda.NombreMostrar
+            .Name = "listaTienda" + tienda.NombreMostrar,
+            .ItemContainerStyle = App.Current.Resources("ListViewEstilo1"),
+            .IsItemClickEnabled = True,
+            .Tag = tienda
         }
+
+        AddHandler listaOfertas.ItemClick, AddressOf ListaOfertas_ItemClick
 
         gridTienda.Children.Add(listaOfertas)
 
@@ -87,11 +104,35 @@ Module Interfaz
 
     End Function
 
-    Private Sub UsuarioSeleccionaTienda(sender As Object, e As SelectionChangedEventArgs)
+    Private Async Sub ListaOfertas_ItemClick(sender As Object, e As ItemClickEventArgs)
 
-        Dim cbTiendas As ComboBox = sender
-        Dim cbItem As ComboBoxItem = cbTiendas.SelectedItem
-        Dim tienda As String = cbItem.Tag
+        Dim grid As Grid = e.ClickedItem
+        Dim juego As Juego = grid.Tag
+
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            Dim sp As StackPanel = grid.Children(0)
+            Dim cb As CheckBox = sp.Children(0)
+
+            If cb.IsChecked = True Then
+                cb.IsChecked = False
+            Else
+                cb.IsChecked = True
+            End If
+        Else
+            Dim enlace As String = Nothing
+
+            If Not juego.Enlaces.Afiliados Is Nothing Then
+                enlace = juego.Enlaces.Afiliados(0)
+            Else
+                enlace = juego.Enlaces.Enlaces(0)
+            End If
+
+            Await Launcher.LaunchUriAsync(New Uri(enlace))
+        End If
+
+    End Sub
+
+    Public Sub IniciarTienda(tienda As String)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -107,6 +148,9 @@ Module Interfaz
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
+
+        Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
+        botonActualizarTienda.IsEnabled = False
 
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
         cbOrdenar.IsEnabled = False
@@ -126,18 +170,56 @@ Module Interfaz
 
         Dim grid As New Grid With {
             .Tag = juego,
-            .Padding = New Thickness(0, 3, 10, 3)
+            .Padding = New Thickness(10, 3, 10, 3)
         }
+
+        Dim color1 As New GradientStop With {
+            .Color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor("#e0e0e0"),
+            .Offset = 0.5
+        }
+
+        Dim color2 As New GradientStop With {
+            .Color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor("#d6d6d6"),
+            .Offset = 1.0
+        }
+
+        Dim coleccion As New GradientStopCollection From {
+            color1,
+            color2
+        }
+
+        Dim brush As New LinearGradientBrush With {
+            .StartPoint = New Point(0.5, 0),
+            .EndPoint = New Point(0.5, 1),
+            .GradientStops = coleccion
+        }
+
+        grid.Background = brush
+
+        Dim col1 As New ColumnDefinition
+        Dim col2 As New ColumnDefinition
+        Dim col3 As New ColumnDefinition
+
+        col1.Width = New GridLength(1, GridUnitType.Auto)
+        col2.Width = New GridLength(1, GridUnitType.Star)
+        col3.Width = New GridLength(1, GridUnitType.Auto)
+
+        grid.ColumnDefinitions.Add(col1)
+        grid.ColumnDefinitions.Add(col2)
+        grid.ColumnDefinitions.Add(col3)
 
         Dim sp1 As New StackPanel With {
             .Orientation = Orientation.Horizontal
         }
 
+        sp1.SetValue(Grid.ColumnProperty, 0)
+
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             Dim cb As New CheckBox With {
                 .Margin = New Thickness(10, 0, 10, 0),
                 .Tag = juego,
-                .MinWidth = 20
+                .MinWidth = 20,
+                .IsHitTestVisible = False
             }
 
             AddHandler cb.Checked, AddressOf CbChecked
@@ -181,7 +263,8 @@ Module Interfaz
             .Text = juego.Titulo,
             .VerticalAlignment = VerticalAlignment.Center,
             .TextWrapping = TextWrapping.Wrap,
-            .Margin = New Thickness(0, 5, 0, 5)
+            .Margin = New Thickness(0, 5, 0, 5),
+            .Foreground = New SolidColorBrush(Colors.Black)
         }
 
         sp2.Children.Add(tbTitulo)
@@ -246,18 +329,20 @@ Module Interfaz
 
             Dim tbAnalisisPorcentaje As New TextBlock With {
                 .Text = juego.Analisis.Porcentaje + "%",
-                .Margin = New Thickness(0, 0, 0, 0),
+                .Margin = New Thickness(5, 0, 0, 0),
                 .VerticalAlignment = VerticalAlignment.Center,
-                .Foreground = New SolidColorBrush(Colors.White)
+                .Foreground = New SolidColorBrush(Colors.White),
+                .FontSize = 12
             }
 
             fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
 
             Dim tbAnalisisCantidad As New TextBlock With {
                 .Text = juego.Analisis.Cantidad + " " + recursos.GetString("Reviews"),
-                .Margin = New Thickness(5, 0, 0, 0),
+                .Margin = New Thickness(10, 0, 0, 0),
                 .VerticalAlignment = VerticalAlignment.Center,
-                .Foreground = New SolidColorBrush(Colors.White)
+                .Foreground = New SolidColorBrush(Colors.White),
+                .FontSize = 12
             }
 
             fondoAnalisis.Children.Add(tbAnalisisCantidad)
@@ -267,10 +352,7 @@ Module Interfaz
 
         If Not juego.Sistemas Is Nothing Then
             Dim fondoSistemas As New StackPanel With {
-                .Orientation = Orientation.Horizontal,
-                .Padding = New Thickness(4, 0, 4, 0),
-                .Height = 26,
-                .Background = New SolidColorBrush(Colors.SlateGray)
+                .Orientation = Orientation.Horizontal
             }
 
             If juego.Sistemas.Windows = True Then
@@ -309,6 +391,12 @@ Module Interfaz
                 fondoSistemas.Children.Add(imagenLinux)
             End If
 
+            If fondoSistemas.Children.Count > 0 Then
+                fondoSistemas.Padding = New Thickness(4, 0, 4, 0)
+                fondoSistemas.Height = 26
+                fondoSistemas.Background = New SolidColorBrush(Colors.SlateGray)
+            End If
+
             sp3.Children.Add(fondoSistemas)
         End If
 
@@ -317,6 +405,62 @@ Module Interfaz
         sp1.Children.Add(sp2)
 
         grid.Children.Add(sp1)
+
+        Dim sp4 As New StackPanel With {
+            .Orientation = Orientation.Horizontal
+        }
+
+        sp4.SetValue(Grid.ColumnProperty, 2)
+
+        If Not juego.Descuento = Nothing Then
+            Dim fondoDescuento As New Grid With {
+                .Padding = New Thickness(6, 0, 6, 0),
+                .Height = 34,
+                .MinWidth = 40,
+                .Margin = New Thickness(10, 0, 0, 0),
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Background = New SolidColorBrush(Colors.ForestGreen)
+            }
+
+            Dim textoDescuento As New TextBlock With {
+                .Text = juego.Descuento,
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White)
+            }
+
+            fondoDescuento.Children.Add(textoDescuento)
+            sp4.Children.Add(fondoDescuento)
+        End If
+
+        If juego.Enlaces.Precios.Count = 1 Then
+
+            Dim fondoPrecio As New Grid With {
+                .Background = New SolidColorBrush(Colors.Black),
+                .Padding = New Thickness(5, 0, 5, 0),
+                .Height = 34,
+                .MinWidth = 60,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Margin = New Thickness(10, 0, 20, 0)
+            }
+
+            Dim textoPrecio As New TextBlock With {
+                .Text = juego.Enlaces.Precios(0),
+                .VerticalAlignment = VerticalAlignment.Center,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White)
+            }
+
+            fondoPrecio.Children.Add(textoPrecio)
+            sp4.Children.Add(fondoPrecio)
+
+        ElseIf juego.Enlaces.Precios.Count > 1 Then
+
+        End If
+
+        grid.Children.Add(sp4)
+
+        AddHandler grid.PointerEntered, AddressOf UsuarioEntraBoton
+        AddHandler grid.PointerExited, AddressOf UsuarioSaleBoton
 
         Return grid
 

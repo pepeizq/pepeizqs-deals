@@ -4,15 +4,24 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Module Analisis
 
     Dim WithEvents Bw As BackgroundWorker
-    Dim listaAnalisis As List(Of JuegoAnalisis)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub Generar()
+    Public Async Sub Generar()
+
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim boton As Button = pagina.FindName("botonValoracionActualizar")
-        boton.IsEnabled = False
+        Dim sp As StackPanel = pagina.FindName("spAnalisis")
+        sp.Visibility = Visibility.Visible
+
+        Dim menuItem As MenuFlyoutItem = pagina.FindName("menuItemConfigActualizarAnalisis")
+        menuItem.IsEnabled = False
 
         Bw = New BackgroundWorker With {
            .WorkerReportsProgress = True,
@@ -61,7 +70,7 @@ Module Analisis
                             temp2 = temp.Remove(int2, temp.Length - int2)
 
                             If temp2.Contains("data-store-tooltip=") Then
-                                AñadirAnalisis(temp2)
+                                AñadirAnalisis(temp2, listaAnalisis)
                             End If
                         End If
                         j += 1
@@ -79,10 +88,11 @@ Module Analisis
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tb As TextBlock = pagina.FindName("tbValoracionAvance")
-
+        Dim tb As TextBlock = pagina.FindName("tbAnalisisPorcentaje")
         tb.Text = e.ProgressPercentage.ToString + "%"
-        tb.Margin = New Thickness(10, 0, 10, 0)
+
+        Dim pb As ProgressBar = pagina.FindName("pbAnalisis")
+        pb.Value = e.ProgressPercentage
 
     End Sub
 
@@ -91,32 +101,18 @@ Module Analisis
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim boton As Button = pagina.FindName("botonValoracionActualizar")
-        boton.IsEnabled = True
+        Dim sp As StackPanel = pagina.FindName("spAnalisis")
+        sp.Visibility = Visibility.Collapsed
+
+        Dim menuItem As MenuFlyoutItem = pagina.FindName("menuItemConfigActualizarAnalisis")
+        menuItem.IsEnabled = True
+
+        Dim tbCargados As TextBlock = pagina.FindName("tbAnalisisCargados")
+        tbCargados.Text = listaAnalisis.Count
 
     End Sub
 
-    Public Async Sub LeerLista()
-
-        Dim helper As New LocalObjectStorageHelper
-
-        If Await helper.FileExistsAsync("listaAnalisis") Then
-            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
-            Toast("yolo", Nothing)
-        Else
-            listaAnalisis = New List(Of JuegoAnalisis)
-        End If
-
-    End Sub
-
-    Public Sub SalvarLista(listaAnalisis As List(Of JuegoAnalisis))
-
-        Dim helper As New LocalObjectStorageHelper
-        helper.SaveFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis", listaAnalisis)
-
-    End Sub
-
-    Public Function AñadirAnalisis(html As String)
+    Public Function AñadirAnalisis(html As String, lista As List(Of JuegoAnalisis))
 
         Dim analisis As JuegoAnalisis = Nothing
 
@@ -193,23 +189,29 @@ Module Analisis
 
                 Dim tituloBool As Boolean = False
                 Dim k As Integer = 0
-                While k < listaAnalisis.Count
-                    If listaAnalisis(k).Titulo = titulo Then
-                        listaAnalisis(k).Porcentaje = porcentaje
-                        listaAnalisis(k).Cantidad = cantidad
-                        listaAnalisis(k).Enlace = enlace
+                While k < lista.Count
+                    If lista(k).Titulo = titulo Then
+                        lista(k).Porcentaje = porcentaje
+                        lista(k).Cantidad = cantidad
+                        lista(k).Enlace = enlace
                         tituloBool = True
                     End If
                     k += 1
                 End While
 
+                If cantidad.Length < 3 Then
+                    tituloBool = True
+                End If
+
                 If tituloBool = False Then
-                    listaAnalisis.Add(analisis)
+                    lista.Add(analisis)
+
+                    Dim helper As New LocalObjectStorageHelper
+                    helper.SaveFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis", lista)
                 End If
             End If
         End If
 
-        SalvarLista(listaAnalisis)
         Return analisis
 
     End Function

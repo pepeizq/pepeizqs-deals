@@ -120,6 +120,12 @@
   <data name="Config.Text" xml:space="preserve">
     <value>Configuration</value>
   </data>
+  <data name="ConfigCurrency.Text" xml:space="preserve">
+    <value>Currencies</value>
+  </data>
+  <data name="ConfigCurrencyTooltip.Text" xml:space="preserve">
+    <value>Automatically update currencies</value>
+  </data>
   <data name="ConfigEditorTooltip.Text" xml:space="preserve">
     <value>Activate this option will change how the application works, if you activate it every deal you select will generate a code in the section Editor</value>
   </data>
@@ -132,8 +138,14 @@
   <data name="ConfigOrder.Text" xml:space="preserve">
     <value>Default sort by:</value>
   </data>
-  <data name="Currencies.Text" xml:space="preserve">
-    <value>Currencies</value>
+  <data name="ConfigReviews.Text" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="ConfigReviewsTooltip.Text" xml:space="preserve">
+    <value>Automatically search for reviews</value>
+  </data>
+  <data name="ConfigUpdateReviews.Text" xml:space="preserve">
+    <value>Reviews</value>
   </data>
   <data name="Deals" xml:space="preserve">
     <value>Deals</value>
@@ -215,6 +227,9 @@
   </data>
   <data name="Refresh.Text" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="Review.Content" xml:space="preserve">
+    <value>Reviews</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Reviews</value>

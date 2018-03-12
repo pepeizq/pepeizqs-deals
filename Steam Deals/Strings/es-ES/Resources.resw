@@ -120,6 +120,12 @@
   <data name="Config.Text" xml:space="preserve">
     <value>Configuración</value>
   </data>
+  <data name="ConfigCurrency.Text" xml:space="preserve">
+    <value>Divisas</value>
+  </data>
+  <data name="ConfigCurrencyTooltip.Text" xml:space="preserve">
+    <value>Automáticamente actualizar las divisas</value>
+  </data>
   <data name="ConfigEditorTooltip.Text" xml:space="preserve">
     <value>Activar esta opción cambiará como funciona la aplicación, si la activas cada oferta que selecciones generara un codigo en la seccion Editor</value>
   </data>
@@ -132,8 +138,14 @@
   <data name="ConfigOrder.Text" xml:space="preserve">
     <value>Por defecto ordenar según:</value>
   </data>
-  <data name="Currencies.Text" xml:space="preserve">
-    <value>Divisas</value>
+  <data name="ConfigReviews.Text" xml:space="preserve">
+    <value>Análisis</value>
+  </data>
+  <data name="ConfigReviewsTooltip.Text" xml:space="preserve">
+    <value>Automáticamente buscar análisis</value>
+  </data>
+  <data name="ConfigUpdateReviews.Text" xml:space="preserve">
+    <value>Análisis</value>
   </data>
   <data name="Deals" xml:space="preserve">
     <value>Ofertas</value>
@@ -215,6 +227,9 @@
   </data>
   <data name="Refresh.Text" xml:space="preserve">
     <value>Actualizar</value>
+  </data>
+  <data name="Review.Content" xml:space="preserve">
+    <value>Análisis</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Análisis</value>

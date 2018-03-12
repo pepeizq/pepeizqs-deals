@@ -15,9 +15,15 @@ Module Ordenar
         Dim lvEditor As ListView = pagina.FindName("lvEditor" + tienda)
         Dim lvOpciones As ListView = pagina.FindName("lvOpciones" + tienda)
 
+        Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
+        botonActualizarTienda.IsEnabled = False
+
         Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
+        cbOrdenar.IsEnabled = False
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
+        gridProgreso.Visibility = Visibility.Visible
+
         Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
         tbProgreso.Text = String.Empty
 
@@ -35,10 +41,7 @@ Module Ordenar
                 lvOpciones.IsEnabled = False
             End If
 
-            cbOrdenar.IsEnabled = False
-            gridProgreso.Visibility = Visibility.Visible
-
-            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+            Dim helper As New LocalObjectStorageHelper
             Dim listaJuegos As List(Of Juego) = Nothing
             Dim listaUltimasOfertas As New List(Of Juego)
 
@@ -130,12 +133,32 @@ Module Ordenar
                                      End Function)
                 ElseIf cbOrdenar.SelectedIndex = 2 Then
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
+                ElseIf cbOrdenar.SelectedIndex = 3 Then
+                    listaJuegos.Sort(Function(x As Juego, y As Juego)
+                                         Dim analisisX As Integer = 0
+
+                                         If Not x.Analisis Is Nothing Then
+                                             analisisX = x.Analisis.Porcentaje
+                                         End If
+
+                                         Dim analisisY As Integer = 0
+
+                                         If Not y.Analisis Is Nothing Then
+                                             analisisY = y.Analisis.Porcentaje
+                                         End If
+
+                                         Dim resultado As Integer = analisisY.CompareTo(analisisX)
+                                         If resultado = 0 Then
+                                             resultado = x.Titulo.CompareTo(y.Titulo)
+                                         End If
+                                         Return resultado
+                                     End Function)
                 End If
 
                 Dim listaJuegosAntigua As New List(Of Juego)
 
                 If buscar = True Then
-                    If ApplicationData.Current.LocalSettings.Values("descartarjuegosultimavisita") = "on" Then
+                    If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
                         If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda) = True Then
                             listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda)
                         End If
@@ -275,10 +298,11 @@ Module Ordenar
             If Not lvOpciones Is Nothing Then
                 lvOpciones.IsEnabled = True
             End If
-
-            cbOrdenar.IsEnabled = True
-            gridProgreso.Visibility = Visibility.Collapsed
         End If
+
+        botonActualizarTienda.IsEnabled = True
+        cbOrdenar.IsEnabled = True
+        gridProgreso.Visibility = Visibility.Collapsed
 
     End Sub
 

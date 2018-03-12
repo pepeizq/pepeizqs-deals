@@ -52,33 +52,88 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <ComboBox x:Name="cbTiendas" Grid.Column="0" Margin="20,10" MinWidth="200"/>
 
-                    <Button x:Name="botonConfiguracion" Grid.Column="2" Margin="5" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" Margin="10,5">
-                                <FontIcon Glyph="&#59155;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="15" Margin="0,0,10,0"/>
-                                <TextBlock x:Uid="Config" Foreground="White"/>
-                            </StackPanel>
-                        </Button.Content>
+                    <ComboBox x:Name="cbTiendas" Grid.Column="0" Margin="20,10" MinWidth="200" VerticalAlignment="Center"/>
 
-                        <Button.Flyout>
-                            <MenuFlyout Placement="Bottom">
-                                <ToggleMenuFlyoutItem x:Name="toggleConfigEditor" x:Uid="Editor2" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock x:Uid="ConfigEditorTooltip" FontSize="15" TextWrapping="Wrap"/>
-                                    </ToolTipService.ToolTip>
-                                </ToggleMenuFlyoutItem>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="5">
+                        <StackPanel x:Name="spAnalisis" Orientation="Horizontal" Padding="10" Margin="0,0,20,0" Visibility="Collapsed">
+                            <TextBlock x:Name="tbAnalisisPorcentaje" Margin="0,0,10,0" Foreground="White" VerticalAlignment="Center"/>
+                            <ProgressBar x:Name="pbAnalisis" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
 
-                                <ToggleMenuFlyoutItem x:Name="toggleConfigUltimaVisita" x:Uid="ConfigLastVisit" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock x:Uid="ConfigLastVisitTooltip" FontSize="15" TextWrapping="Wrap"/>
-                                    </ToolTipService.ToolTip>    
-                                </ToggleMenuFlyoutItem> 
-                            </MenuFlyout> 
-                        </Button.Flyout>
-                    </Button>
+                        <Button x:Name="botonActualizar" Margin="5" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="10,5">
+                                    <FontIcon Glyph="&#59541;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="15" Margin="0,0,10,0"/>
+                                    <TextBlock x:Uid="Refresh" Foreground="White"/>
+                                </StackPanel>
+                            </Button.Content>
+
+                            <Button.Flyout>
+                                <MenuFlyout Placement="Bottom">
+                                    <MenuFlyoutItem x:Name="menuItemConfigActualizarAnalisis" x:Uid="ConfigUpdateReviews" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock x:Name="tbAnalisisCargados" FontSize="15" TextWrapping="Wrap"/>
+                                        </ToolTipService.ToolTip>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem x:Name="menuItemConfigActualizarDivisas" x:Uid="ConfigCurrency" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <StackPanel Orientation="Horizontal">
+                                                <controls:ImageEx Source="Assets/pais_ue2.png" Margin="5,0" Width="32" Height="24" IsCacheEnabled="true"/>
+                                                <TextBlock VerticalAlignment="Center" Text="1 €" FontSize="15"/>
+                                                <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24" IsCacheEnabled="true"/>
+                                                <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center" FontSize="15"/>
+                                                <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24" IsCacheEnabled="true"/>
+                                                <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center" FontSize="15"/>
+                                            </StackPanel>
+                                        </ToolTipService.ToolTip>
+                                    </MenuFlyoutItem>
+
+
+                                    
+                                </MenuFlyout> 
+                            </Button.Flyout> 
+                        </Button>
+
+                        <Button x:Name="botonConfiguracion" Margin="5" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="10,5">
+                                    <FontIcon Glyph="&#59155;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="15" Margin="0,0,10,0"/>
+                                    <TextBlock x:Uid="Config" Foreground="White"/>
+                                </StackPanel>
+                            </Button.Content>
+
+                            <Button.Flyout>
+                                <MenuFlyout Placement="Bottom">
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigEditor" x:Uid="Editor2" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock x:Uid="ConfigEditorTooltip" FontSize="15" TextWrapping="Wrap"/>
+                                        </ToolTipService.ToolTip>
+                                    </ToggleMenuFlyoutItem>
+
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigUltimaVisita" x:Uid="ConfigLastVisit" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock x:Uid="ConfigLastVisitTooltip" FontSize="15" TextWrapping="Wrap"/>
+                                        </ToolTipService.ToolTip>
+                                    </ToggleMenuFlyoutItem>
+
+                                    <MenuFlyoutSeparator/>
+
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigAnalisis" x:Uid="ConfigReviews" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock x:Uid="ConfigReviewsTooltip" FontSize="15" TextWrapping="Wrap"/>
+                                        </ToolTipService.ToolTip>
+                                    </ToggleMenuFlyoutItem>
+
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigDivisas" x:Uid="ConfigCurrency" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock x:Uid="ConfigCurrencyTooltip" FontSize="15" TextWrapping="Wrap"/>
+                                        </ToolTipService.ToolTip>
+                                    </ToggleMenuFlyoutItem>
+                                </MenuFlyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
                 </Grid>
               
                 <Grid x:Name="gridOfertasTiendas" Grid.Row="1">
@@ -103,14 +158,7 @@
                     </Grid>
                 </controls:DropShadowPanel>
 
-                <Grid Grid.Row="2" Padding="10">
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#FFE4E4E4" Offset="0.5" />
-                            <GradientStop Color="#FFBFBFBF" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Grid.Background>
-
+                <Grid Grid.Row="2" Padding="10" Background="{StaticResource GridTituloBackground}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -118,11 +166,18 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <TextBlock x:Uid="OrderDeals" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                        <Button x:Name="botonActualizarTienda" Margin="35,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button.Content>
+                                <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                            </Button.Content>
+                        </Button>
+                        
+                        <TextBlock x:Uid="OrderDeals" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
                         <ComboBox x:Name="cbOrdenar" Width="120" VerticalAlignment="Center" SelectedIndex="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <ComboBoxItem x:Uid="Discount"/>
                             <ComboBoxItem x:Uid="Price"/>
                             <ComboBoxItem x:Uid="Title"/>
+                            <ComboBoxItem x:Uid="Review"/>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
@@ -2146,18 +2201,7 @@
                                         <TextBlock x:Uid="Currencies" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center" 
                                             HorizontalAlignment="Right"/>
 
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <Button x:Name="botonDivisasActualizar" Background="{StaticResource BrushSecundario}" Padding="10">
-                                                <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                            </Button>
-
-                                            <controls:ImageEx Source="Assets/pais_ue2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                                            <TextBlock VerticalAlignment="Center" Text="1 €"/>
-                                            <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                                            <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
-                                            <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24"/>
-                                            <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
-                                        </StackPanel>
+                                        
                                     </Grid>
 
                                     <Grid Margin="0,0,0,5">
