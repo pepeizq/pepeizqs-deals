@@ -15,6 +15,9 @@ Module Interfaz
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
+        Dim tbTitulo As TextBlock = pagina.FindName("tbTitulo")
+        tbTitulo.Text = tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ")"
+
         Dim gridOfertas As Grid = pagina.FindName("gridOfertas")
         gridOfertas.Visibility = Visibility.Visible
 
@@ -157,6 +160,12 @@ Module Interfaz
 
         Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
+
+        Dim spEditor As StackPanel = pagina.FindName("spEditor")
+        spEditor.IsHitTestVisible = False
+
+        Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
+        tbSeleccionadas.Text = 0
 
         If tienda = steamT.NombreUsar Then
             Steam.GenerarOfertas()
@@ -466,80 +475,94 @@ Module Interfaz
 
     End Function
 
-    Private Async Sub CbChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    Private Sub CbChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
-        Dim cb As CheckBox = e.OriginalSource
-        Dim juegoFinal As Juego = cb.Tag
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
 
-        Dim helper As New LocalObjectStorageHelper
-        Dim listaFinal As List(Of Juego) = Nothing
+        Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
+        Dim seleccionadas As Integer = tbSeleccionadas.Text
+        tbSeleccionadas.Text = seleccionadas + 1
 
-        If Await helper.FileExistsAsync("listaEditorFinal") = True Then
-            listaFinal = Await helper.ReadFileAsync(Of List(Of Juego))("listaEditorFinal")
-        Else
-            listaFinal = New List(Of Juego)
-        End If
+        'Dim cb As CheckBox = e.OriginalSource
+        'Dim juegoFinal As Juego = cb.Tag
 
-        If Not listaFinal Is Nothing Then
-            If listaFinal.Count > 0 Then
-                Dim boolFinal As Boolean = False
+        'Dim helper As New LocalObjectStorageHelper
+        'Dim listaFinal As List(Of Juego) = Nothing
 
-                Dim j As Integer = 0
-                While j < listaFinal.Count
-                    If juegoFinal.Enlaces.Enlaces(0) = listaFinal(j).Enlaces.Enlaces(0) Then
-                        boolFinal = True
-                    End If
+        'If Await helper.FileExistsAsync("listaEditorFinal") = True Then
+        '    listaFinal = Await helper.ReadFileAsync(Of List(Of Juego))("listaEditorFinal")
+        'Else
+        '    listaFinal = New List(Of Juego)
+        'End If
 
-                    If Not juegoFinal.Tienda = listaFinal(j).Tienda Then
-                        listaFinal = New List(Of Juego)
-                    End If
-                    j += 1
-                End While
+        'If Not listaFinal Is Nothing Then
+        '    If listaFinal.Count > 0 Then
+        '        Dim boolFinal As Boolean = False
 
-                If boolFinal = False Then
-                    listaFinal.Add(juegoFinal)
-                End If
-            Else
-                listaFinal.Add(juegoFinal)
-            End If
-        Else
-            listaFinal = New List(Of Juego) From {
-                juegoFinal
-            }
-        End If
+        '        Dim j As Integer = 0
+        '        While j < listaFinal.Count
+        '            If juegoFinal.Enlaces.Enlaces(0) = listaFinal(j).Enlaces.Enlaces(0) Then
+        '                boolFinal = True
+        '            End If
 
-        Try
-            Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
-        Catch ex As Exception
+        '            If Not juegoFinal.Tienda = listaFinal(j).Tienda Then
+        '                listaFinal = New List(Of Juego)
+        '            End If
+        '            j += 1
+        '        End While
 
-        End Try
+        '        If boolFinal = False Then
+        '            listaFinal.Add(juegoFinal)
+        '        End If
+        '    Else
+        '        listaFinal.Add(juegoFinal)
+        '    End If
+        'Else
+        '    listaFinal = New List(Of Juego) From {
+        '        juegoFinal
+        '    }
+        'End If
 
-        Editor.Generar()
+        'Try
+        '    Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
+        'Catch ex As Exception
+
+        'End Try
+
+        'Editor.Generar()
 
     End Sub
 
-    Private Async Sub CbUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    Private Sub CbUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
-        Dim cb As CheckBox = e.OriginalSource
-        Dim juegoFinal As Juego = cb.Tag
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
 
-        Dim helper As New LocalObjectStorageHelper
+        Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
+        Dim seleccionadas As Integer = tbSeleccionadas.Text
+        tbSeleccionadas.Text = seleccionadas - 1
 
-        Dim listaFinal As List(Of Juego) = Nothing
+        'Dim cb As CheckBox = e.OriginalSource
+        'Dim juegoFinal As Juego = cb.Tag
 
-        If Await helper.FileExistsAsync("listaEditorFinal") = True Then
-            listaFinal = Await helper.ReadFileAsync(Of List(Of Juego))("listaEditorFinal")
+        'Dim helper As New LocalObjectStorageHelper
 
-            For Each juego In listaFinal.ToList
-                If juegoFinal.Enlaces.Enlaces(0) = juego.Enlaces.Enlaces(0) Then
-                    listaFinal.Remove(juego)
-                End If
-            Next
+        'Dim listaFinal As List(Of Juego) = Nothing
 
-            Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
-        End If
+        'If Await helper.FileExistsAsync("listaEditorFinal") = True Then
+        '    listaFinal = Await helper.ReadFileAsync(Of List(Of Juego))("listaEditorFinal")
 
-        Editor.Generar()
+        '    For Each juego In listaFinal.ToList
+        '        If juegoFinal.Enlaces.Enlaces(0) = juego.Enlaces.Enlaces(0) Then
+        '            listaFinal.Remove(juego)
+        '        End If
+        '    Next
+
+        '    Await helper.SaveFileAsync(Of List(Of Juego))("listaEditorFinal", listaFinal)
+        'End If
+
+        'Editor.Generar()
 
     End Sub
 

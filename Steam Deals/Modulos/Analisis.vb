@@ -201,6 +201,7 @@ Module Analisis
 
                 If cantidad.Length < 3 Then
                     tituloBool = True
+                    analisis = Nothing
                 End If
 
                 If tituloBool = False Then

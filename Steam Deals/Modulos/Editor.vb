@@ -1,7 +1,79 @@
 ﻿Imports Microsoft.Toolkit.Uwp
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Syncfusion.XlsIO
+Imports Windows.Storage
+Imports Windows.Storage.Pickers
 
 Module Editor
+
+    Public Sub Generar2(listaJuegos As List(Of Juego), tienda As Tienda)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
+        botonExportarExcel.Tag = listaJuegos
+
+
+        Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
+        imagenTienda.Source = tienda.Icono
+
+        Dim tbTienda As TextBlock = pagina.FindName("tbEditorTienda")
+        tbTienda.Text = tienda.NombreMostrar + " (" + listaJuegos.Count.ToString + ")"
+
+    End Sub
+
+    Public Async Sub ExportarExcel()
+
+        Dim listaJuegos As List(Of Juego) = Nothing
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
+        listaJuegos = botonExportarExcel.Tag
+
+        Using motor As New ExcelEngine
+            motor.Excel.DefaultVersion = ExcelVersion.Excel2016
+
+            Dim workbook As IWorkbook = motor.Excel.Workbooks.Create(1)
+            Dim worksheet As IWorksheet = workbook.Worksheets(0)
+
+            worksheet.Range("B1").Text = "Title"
+
+            Dim i As Integer = 0
+            While i < listaJuegos.Count
+                worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagen + ChrW(34) + "></a>"
+                worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " >" + listaJuegos(i).Titulo + "</a>"
+                i += 1
+            End While
+
+            Dim ficherosExcel As New List(Of String) From {
+                ".xlsx"
+            }
+
+            Dim fichero As StorageFile = Nothing
+
+            Dim guardarPicker As New FileSavePicker With {
+                .SuggestedStartLocation = PickerLocationId.Desktop,
+                .SuggestedFileName = "yolo2"
+            }
+
+            guardarPicker.FileTypeChoices.Add("Excel Files", ficherosExcel)
+
+            fichero = Await guardarPicker.PickSaveFileAsync
+
+            If Not fichero Is Nothing Then
+                Dim stream As Stream = Await fichero.OpenStreamForWriteAsync
+                workbook.SaveAs(stream)
+                workbook.Close()
+            End If
+        End Using
+
+
+
+    End Sub
 
     Public Async Sub Borrar()
 

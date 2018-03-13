@@ -11,10 +11,6 @@ Module Ordenar
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda)
 
-        Dim numOfertas As TextBlock = pagina.FindName("tbNumOfertas" + tienda)
-        Dim lvEditor As ListView = pagina.FindName("lvEditor" + tienda)
-        Dim lvOpciones As ListView = pagina.FindName("lvOpciones" + tienda)
-
         Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
         botonActualizarTienda.IsEnabled = False
 
@@ -30,16 +26,17 @@ Module Ordenar
         Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
+        Dim numOfertasMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
+        numOfertasMostradas.Text = String.Empty
+
+        Dim numOfertasCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
+        numOfertasCargadas.Text = String.Empty
+
+        Dim spEditor As StackPanel = pagina.FindName("spEditor")
+        spEditor.IsHitTestVisible = False
+
         If Not lv Is Nothing Then
             lv.IsEnabled = False
-
-            If Not lvEditor Is Nothing Then
-                lvEditor.IsEnabled = False
-            End If
-
-            If Not lvOpciones Is Nothing Then
-                lvOpciones.IsEnabled = False
-            End If
 
             Dim helper As New LocalObjectStorageHelper
             Dim listaJuegos As List(Of Juego) = Nothing
@@ -242,9 +239,12 @@ Module Ordenar
                     End If
                 Next
 
-                If Not numOfertas Is Nothing Then
-                    numOfertas.Text = listaJuegos.Count.ToString + " - " + lv.Items.Count.ToString
-                    numOfertas.Margin = New Thickness(10, 0, 15, 0)
+                If lv.Items.Count > 0 Then
+                    numOfertasMostradas.Text = lv.Items.Count.ToString
+                End If
+
+                If listaJuegos.Count > 0 Then
+                    numOfertasCargadas.Text = listaJuegos.Count.ToString
                 End If
 
                 If buscar = True Then
@@ -290,19 +290,12 @@ Module Ordenar
             End If
 
             lv.IsEnabled = True
-
-            If Not lvEditor Is Nothing Then
-                lvEditor.IsEnabled = True
-            End If
-
-            If Not lvOpciones Is Nothing Then
-                lvOpciones.IsEnabled = True
-            End If
         End If
 
         botonActualizarTienda.IsEnabled = True
         cbOrdenar.IsEnabled = True
         gridProgreso.Visibility = Visibility.Collapsed
+        spEditor.IsHitTestVisible = True
 
     End Sub
 

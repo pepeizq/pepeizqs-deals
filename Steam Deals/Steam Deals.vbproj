@@ -307,6 +307,9 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>2.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO">
+      <Version>16.1.0.26</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

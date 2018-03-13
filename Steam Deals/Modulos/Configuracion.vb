@@ -41,6 +41,14 @@ Module Configuracion
         Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigEditor")
         toggle.IsChecked = estado
 
+        Dim sp As StackPanel = pagina.FindName("spEditor")
+
+        If estado = True Then
+            sp.Visibility = Visibility.Visible
+        Else
+            sp.Visibility = Visibility.Collapsed
+        End If
+
     End Sub
 
     Public Sub UltimaVisitaFiltrar(estado As Boolean)
