@@ -205,7 +205,7 @@
                         </Button>
 
                         <StackPanel Orientation="Vertical">
-                            <TextBlock x:Name="tbNumOfertasSeleccionadas" VerticalAlignment="Center" Foreground="White" Text="0"/>
+                            <TextBlock x:Name="tbNumOfertasSeleccionadas" VerticalAlignment="Center" Foreground="White"/>
                             <TextBlock x:Name="tbNumOfertasCargadas" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
 
@@ -283,7 +283,8 @@
                         <GradientStop Color="#FFBFBFBF" Offset="1.0" />
                     </LinearGradientBrush>
                 </Grid.Background>
-                
+
+                <WebView x:Name="wvEditor"/>
             </Grid>
 
             <Grid Grid.Row="2" Padding="10" Background="{StaticResource GridTituloBackground}">

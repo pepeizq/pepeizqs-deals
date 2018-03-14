@@ -181,6 +181,8 @@ Module Steam
                             End If
 
                             If boolPrecio = False Then
+                                precio = precio.Replace(",", ".")
+
                                 Dim listaEnlaces As New List(Of String) From {
                                     enlace
                                 }

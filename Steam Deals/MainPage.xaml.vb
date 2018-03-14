@@ -1517,4 +1517,10 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub WvEditor_NavigationCompleted(sender As WebView, args As WebViewNavigationCompletedEventArgs) Handles wvEditor.NavigationCompleted
+
+        Editor.CargaWeb(wvEditor)
+
+    End Sub
+
 End Class

@@ -12,24 +12,37 @@ Module Editor
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
-        botonExportarExcel.Tag = listaJuegos
-
-
         Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
         imagenTienda.Source = tienda.Icono
+        imagenTienda.Tag = tienda
 
         Dim tbTienda As TextBlock = pagina.FindName("tbEditorTienda")
         tbTienda.Text = tienda.NombreMostrar + " (" + listaJuegos.Count.ToString + ")"
+
+        Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
+        Dim webSeleccionada As Integer = cbWebs.SelectedIndex
+
+        Dim wv As WebView = pagina.FindName("wvEditor")
+
+        If webSeleccionada = 0 Then
+            wv.Navigate(New Uri("https://pepeizqapps.com/wp-admin/admin.php?page=wpdatatables-constructor&source"))
+        End If
+
+        Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
+        botonExportarExcel.Tag = listaJuegos
 
     End Sub
 
     Public Async Sub ExportarExcel()
 
         Dim listaJuegos As List(Of Juego) = Nothing
+        Dim tienda As Tienda = Nothing
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
+
+        Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
+        tienda = imagenTienda.Tag
 
         Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
         listaJuegos = botonExportarExcel.Tag
@@ -40,12 +53,78 @@ Module Editor
             Dim workbook As IWorkbook = motor.Excel.Workbooks.Create(1)
             Dim worksheet As IWorksheet = workbook.Worksheets(0)
 
+            worksheet.Range("C1").ColumnWidth = 50
+            worksheet.Range("D1").ColumnWidth = 50
+
             worksheet.Range("B1").Text = "Title"
+            worksheet.Range("C1").Text = "Discount"
+            worksheet.Range("D1").Text = "Price"
+            worksheet.Range("E1").Text = "Reviews"
 
             Dim i As Integer = 0
             While i < listaJuegos.Count
                 worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagen + ChrW(34) + "></a>"
                 worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " >" + listaJuegos(i).Titulo + "</a>"
+                worksheet.Range("C" + (i + 2).ToString).Text = "<span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span>"
+
+                Dim precioFinalOrdenar As String = listaJuegos(i).Enlaces.Precios(0)
+                Dim posicionPunto As Integer = listaJuegos(i).Enlaces.Precios(0).IndexOf(".")
+
+                precioFinalOrdenar = precioFinalOrdenar.Replace("€", Nothing)
+                precioFinalOrdenar = precioFinalOrdenar.Trim
+
+                If posicionPunto = 0 Then
+                    precioFinalOrdenar = "000" + precioFinalOrdenar
+                ElseIf posicionPunto = 1 Then
+                    precioFinalOrdenar = "00" + precioFinalOrdenar
+                ElseIf posicionPunto = 2 Then
+                    precioFinalOrdenar = "0" + precioFinalOrdenar
+                End If
+
+                worksheet.Range("D" + (i + 2).ToString).Text = "<span title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " style=" + ChrW(34) + "background-color:black;color:white;padding:5px;" + ChrW(34) + ">" + listaJuegos(i).Enlaces.Precios(0) + "</span>"
+
+                If Not listaJuegos(i).Analisis Is Nothing Then
+                    Dim imagenUrl As String = Nothing
+                    Dim colorFondo As String = Nothing
+                    Dim colorLetra As String = Nothing
+
+                    If listaJuegos(i).Analisis.Porcentaje > 74 Then
+                        imagenUrl = "http://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
+                        colorFondo = "#ABCADB"
+                        colorLetra = "#294B5F"
+                    ElseIf listaJuegos(i).Analisis.Porcentaje > 49 And listaJuegos(i).Analisis.Porcentaje < 75 Then
+                        imagenUrl = "http://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png"
+                        colorFondo = "#AC9779"
+                        colorLetra = "#544834"
+                    ElseIf listaJuegos(i).Analisis.Porcentaje < 50 Then
+                        imagenUrl = "http://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
+                        colorFondo = "#865145"
+                        colorLetra = "#BB897D"
+                    End If
+
+                    Dim cantidadAnalisisOrdenar As String = listaJuegos(i).Analisis.Cantidad
+                    cantidadAnalisisOrdenar = cantidadAnalisisOrdenar.Replace(",", Nothing)
+                    cantidadAnalisisOrdenar = cantidadAnalisisOrdenar.Replace(".", Nothing)
+
+                    If cantidadAnalisisOrdenar.Length = 3 Then
+                        cantidadAnalisisOrdenar = "0000000" + cantidadAnalisisOrdenar
+                    ElseIf cantidadAnalisisOrdenar.Length = 4 Then
+                        cantidadAnalisisOrdenar = "000000" + cantidadAnalisisOrdenar
+                    ElseIf cantidadAnalisisOrdenar.Length = 5 Then
+                        cantidadAnalisisOrdenar = "00000" + cantidadAnalisisOrdenar
+                    ElseIf cantidadAnalisisOrdenar.Length = 6 Then
+                        cantidadAnalisisOrdenar = "0000" + cantidadAnalisisOrdenar
+                    ElseIf cantidadAnalisisOrdenar.Length = 7 Then
+                        cantidadAnalisisOrdenar = "000" + cantidadAnalisisOrdenar
+                    ElseIf cantidadAnalisisOrdenar.Length = 8 Then
+                        cantidadAnalisisOrdenar = "00" + cantidadAnalisisOrdenar
+                    ElseIf cantidadAnalisisOrdenar.Length = 9 Then
+                        cantidadAnalisisOrdenar = "0" + cantidadAnalisisOrdenar
+                    End If
+
+                    worksheet.Range("E" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Analisis.Enlace + ChrW(34) + " style=" + ChrW(34) + "padding:5px;color:" + colorLetra + ";background-color:" + colorFondo + ";" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:10px;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "% - Reviews: " + listaJuegos(i).Analisis.Cantidad + "</a>"
+                End If
+
                 i += 1
             End While
 
@@ -57,7 +136,7 @@ Module Editor
 
             Dim guardarPicker As New FileSavePicker With {
                 .SuggestedStartLocation = PickerLocationId.Desktop,
-                .SuggestedFileName = "yolo2"
+                .SuggestedFileName = tienda.NombreUsar.ToLower + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + DateTime.Now.Hour.ToString + DateTime.Now.Minute.ToString + DateTime.Now.Second.ToString
             }
 
             guardarPicker.FileTypeChoices.Add("Excel Files", ficherosExcel)
@@ -71,9 +150,32 @@ Module Editor
             End If
         End Using
 
+    End Sub
 
+    Public Async Sub CargaWeb(wv As WebView)
+
+        If wv.Source = New Uri("https://pepeizqapps.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
+            Dim lista As New List(Of String) From {
+                "document.getElementsByClassName('btn dropdown-toggle bs-placeholder btn-default')[0].click();",
+                "​document.getElementById('wdt-table-type').options[2].value = 'xls';​​​​​​​​​​"
+            }
+
+            Dim argumentos As IEnumerable(Of String) = lista
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos)
+            Catch ex As Exception
+
+            End Try
+        End If
 
     End Sub
+
+
+
+
+
+
 
     Public Async Sub Borrar()
 
