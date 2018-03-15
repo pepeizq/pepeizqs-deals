@@ -156,8 +156,7 @@ Module Editor
 
         If wv.Source = New Uri("https://pepeizqapps.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
             Dim lista As New List(Of String) From {
-                "document.getElementsByClassName('btn dropdown-toggle bs-placeholder btn-default')[0].click();",
-                "​document.getElementById('wdt-table-type').options[2].value = 'xls';​​​​​​​​​​"
+                "document.getElementsByClassName('btn dropdown-toggle bs-placeholder btn-default')[0].click();"
             }
 
             Dim argumentos As IEnumerable(Of String) = lista
@@ -167,6 +166,7 @@ Module Editor
             Catch ex As Exception
 
             End Try
+
         End If
 
     End Sub
