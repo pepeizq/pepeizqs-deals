@@ -246,4 +246,7 @@
   <data name="ConfigCurrencyTooltip.Text" xml:space="preserve">
     <value />
   </data>
+  <data name="ConfigSteam+Tooltip.Text" xml:space="preserve">
+    <value />
+  </data>
 </root>

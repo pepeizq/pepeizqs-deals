@@ -13,7 +13,8 @@
 
     Public Sub New(ByVal titulo As String, ByVal imagen As JuegoImagenes, ByVal enlaces As JuegoEnlaces,
                    ByVal descuento As String, ByVal drm As String, ByVal tienda As String,
-                   ByVal fechaAñadido As DateTime, ByVal analisis As JuegoAnalisis, ByVal sistemas As JuegoSistemas)
+                   ByVal fechaAñadido As DateTime, ByVal fechaTermina As DateTime,
+                   ByVal analisis As JuegoAnalisis, ByVal sistemas As JuegoSistemas)
         Me.Titulo = titulo
         Me.Imagenes = Imagenes
         Me.Enlaces = enlaces
@@ -21,6 +22,7 @@
         Me.DRM = drm
         Me.Tienda = tienda
         Me.FechaAñadido = fechaAñadido
+        Me.FechaTermina = fechaTermina
         Me.Analisis = analisis
         Me.Sistemas = sistemas
     End Sub

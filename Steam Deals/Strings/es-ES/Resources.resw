@@ -144,6 +144,9 @@
   <data name="ConfigReviewsTooltip.Text" xml:space="preserve">
     <value>Automáticamente buscar análisis</value>
   </data>
+  <data name="ConfigSteam+Tooltip.Text" xml:space="preserve">
+    <value>Cargar más datos en Steam pero tardará más tiempo</value>
+  </data>
   <data name="ConfigUpdateReviews.Text" xml:space="preserve">
     <value>Análisis</value>
   </data>

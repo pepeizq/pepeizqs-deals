@@ -29,6 +29,12 @@ Module Configuracion
             DivisaActualizar(ApplicationData.Current.LocalSettings.Values("divisas"))
         End If
 
+        If ApplicationData.Current.LocalSettings.Values("steam+") Is Nothing Then
+            SteamMasActivar(True)
+        Else
+            SteamMasActivar(ApplicationData.Current.LocalSettings.Values("steam+"))
+        End If
+
     End Sub
 
     Public Sub EditorActivar(estado As Boolean)
@@ -105,6 +111,18 @@ Module Configuracion
         If estado = True Then
             Divisas.Generar()
         End If
+
+    End Sub
+
+    Public Sub SteamMasActivar(estado As Boolean)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        ApplicationData.Current.LocalSettings.Values("steam+") = estado
+
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteam+")
+        toggle.IsChecked = estado
 
     End Sub
 

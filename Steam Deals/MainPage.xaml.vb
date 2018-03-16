@@ -1435,6 +1435,12 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub ToggleConfigSteamMas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigSteamMas.Click
+
+        Configuracion.SteamMasActivar(toggleConfigSteamMas.IsChecked)
+
+    End Sub
+
     Private Sub BotonEditorIniciar_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorIniciar.Click
 
         gridPrincipal.Visibility = Visibility.Collapsed

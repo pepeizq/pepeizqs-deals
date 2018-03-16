@@ -144,6 +144,9 @@
   <data name="ConfigReviewsTooltip.Text" xml:space="preserve">
     <value>Automatically search for reviews</value>
   </data>
+  <data name="ConfigSteam+Tooltip.Text" xml:space="preserve">
+    <value>Load more data on Steam but it will take more time</value>
+  </data>
   <data name="ConfigUpdateReviews.Text" xml:space="preserve">
     <value>Reviews</value>
   </data>

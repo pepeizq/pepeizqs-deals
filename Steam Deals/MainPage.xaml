@@ -134,6 +134,12 @@
                                             <TextBlock x:Uid="ConfigCurrencyTooltip" FontSize="15" TextWrapping="Wrap"/>
                                         </ToolTipService.ToolTip>
                                     </ToggleMenuFlyoutItem>
+
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigSteamMas" Text="Steam +" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock x:Uid="ConfigSteam+Tooltip" FontSize="15" TextWrapping="Wrap"/>
+                                        </ToolTipService.ToolTip>
+                                    </ToggleMenuFlyoutItem>
                                 </MenuFlyout>
                             </Button.Flyout>
                         </Button>
