@@ -12,24 +12,35 @@ Module Editor
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
+        Dim paquete As New EditorPaquete(listaJuegos, tienda)
+
         Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
-        imagenTienda.Source = tienda.Icono
-        imagenTienda.Tag = tienda
+        imagenTienda.Source = paquete.Tienda.Icono
+        imagenTienda.Tag = paquete.Tienda
 
         Dim tbTienda As TextBlock = pagina.FindName("tbEditorTienda")
-        tbTienda.Text = tienda.NombreMostrar + " (" + listaJuegos.Count.ToString + ")"
+        tbTienda.Text = paquete.Tienda.NombreMostrar + " (" + paquete.ListaJuegos.Count.ToString + ")"
 
         Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
         Dim webSeleccionada As Integer = cbWebs.SelectedIndex
 
+        Dim nombreTablaGenerar As String = paquete.Tienda.NombreUsar.ToLower + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + DateTime.Now.Hour.ToString + DateTime.Now.Minute.ToString + DateTime.Now.Second.ToString
+
         Dim wv As WebView = pagina.FindName("wvEditor")
+        wv.Tag = nombreTablaGenerar
 
         If webSeleccionada = 0 Then
-            wv.Navigate(New Uri("https://pepeizqapps.com/wp-admin/admin.php?page=wpdatatables-constructor&source"))
+
+
+            If listaJuegos.Count = 1 Then
+                wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/post-new.php?post_type=us_portfolio"))
+            ElseIf listaJuegos.Count > 1 Then
+                wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=wpdatatables-constructor&source"))
+            End If
         End If
 
         Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
-        botonExportarExcel.Tag = listaJuegos
+        botonExportarExcel.Tag = paquete.ListaJuegos
 
     End Sub
 
@@ -46,6 +57,8 @@ Module Editor
 
         Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
         listaJuegos = botonExportarExcel.Tag
+
+        Dim wv As WebView = pagina.FindName("wvEditor")
 
         Using motor As New ExcelEngine
             motor.Excel.DefaultVersion = ExcelVersion.Excel2016
@@ -94,7 +107,7 @@ Module Editor
                         colorLetra = "#294B5F"
                     ElseIf listaJuegos(i).Analisis.Porcentaje > 49 And listaJuegos(i).Analisis.Porcentaje < 75 Then
                         imagenUrl = "http://store.akamai.steamstatic.com/public/images/v6/user_reviews_mixed.png"
-                        colorFondo = "#AC9779"
+                        colorFondo = "#d5cbbc"
                         colorLetra = "#544834"
                     ElseIf listaJuegos(i).Analisis.Porcentaje < 50 Then
                         imagenUrl = "http://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
@@ -122,7 +135,7 @@ Module Editor
                         cantidadAnalisisOrdenar = "0" + cantidadAnalisisOrdenar
                     End If
 
-                    worksheet.Range("E" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Analisis.Enlace + ChrW(34) + " style=" + ChrW(34) + "padding:5px;color:" + colorLetra + ";background-color:" + colorFondo + ";" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:10px;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "% - Reviews: " + listaJuegos(i).Analisis.Cantidad + "</a>"
+                    worksheet.Range("E" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Analisis.Enlace + ChrW(34) + " style=" + ChrW(34) + "padding:5px;color:" + colorLetra + ";background-color:" + colorFondo + ";" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;vertical-align:middle;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "% - Reviews: " + listaJuegos(i).Analisis.Cantidad + "</a>"
                 End If
 
                 i += 1
@@ -136,7 +149,7 @@ Module Editor
 
             Dim guardarPicker As New FileSavePicker With {
                 .SuggestedStartLocation = PickerLocationId.Desktop,
-                .SuggestedFileName = tienda.NombreUsar.ToLower + DateTime.Now.Month.ToString + DateTime.Now.Day.ToString + DateTime.Now.Hour.ToString + DateTime.Now.Minute.ToString + DateTime.Now.Second.ToString
+                .SuggestedFileName = wv.Tag
             }
 
             guardarPicker.FileTypeChoices.Add("Excel Files", ficherosExcel)
@@ -154,7 +167,7 @@ Module Editor
 
     Public Async Sub CargaWeb(wv As WebView)
 
-        If wv.Source = New Uri("https://pepeizqapps.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
+        If wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
             Dim lista As New List(Of String) From {
                 "document.getElementsByClassName('btn dropdown-toggle bs-placeholder btn-default')[0].click();"
             }

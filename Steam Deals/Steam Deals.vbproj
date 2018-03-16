@@ -105,9 +105,11 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clases\EditorPaquete.vb" />
     <Compile Include="Clases\Juego.vb" />
     <Compile Include="Clases\JuegoAnalisis.vb" />
     <Compile Include="Clases\JuegoEnlaces.vb" />
+    <Compile Include="Clases\JuegoImagenes.vb" />
     <Compile Include="Clases\JuegoSistemas.vb" />
     <Compile Include="Clases\Tienda.vb" />
     <Compile Include="MainPage.xaml.vb">

@@ -167,6 +167,12 @@ Module Interfaz
         Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
         tbSeleccionadas.Text = String.Empty
 
+        Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
+        tbCargadas.Text = String.Empty
+
+        Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
+        tbMostradas.Text = String.Empty
+
         If tienda = steamT.NombreUsar Then
             Steam.GenerarOfertas()
         End If
@@ -487,7 +493,14 @@ Module Interfaz
             seleccionadas = tbSeleccionadas.Text
         End If
 
-        tbSeleccionadas.Text = seleccionadas + 1
+        seleccionadas = seleccionadas + 1
+
+        If seleccionadas = 1 Then
+            Dim botonIniciar As Button = pagina.FindName("botonEditorIniciar")
+            botonIniciar.IsEnabled = True
+        End If
+
+        tbSeleccionadas.Text = seleccionadas
 
     End Sub
 
@@ -503,6 +516,9 @@ Module Interfaz
 
         If seleccionadas = 0 Then
             tbSeleccionadas.Text = String.Empty
+
+            Dim botonIniciar As Button = pagina.FindName("botonEditorIniciar")
+            botonIniciar.IsEnabled = False
         Else
             tbSeleccionadas.Text = seleccionadas
         End If

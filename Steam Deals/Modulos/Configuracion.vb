@@ -42,11 +42,14 @@ Module Configuracion
         toggle.IsChecked = estado
 
         Dim sp As StackPanel = pagina.FindName("spEditor")
+        Dim botonActualizar As Button = pagina.FindName("botonActualizar")
 
         If estado = True Then
             sp.Visibility = Visibility.Visible
+            botonActualizar.Visibility = Visibility.Visible
         Else
             sp.Visibility = Visibility.Collapsed
+            botonActualizar.Visibility = Visibility.Collapsed
         End If
 
     End Sub

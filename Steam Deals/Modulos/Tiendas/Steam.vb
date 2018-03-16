@@ -123,7 +123,12 @@ Module Steam
                             int8 = temp7.IndexOf("?")
                             temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                            Dim imagen As String = temp8.Trim
+                            temp8 = temp8.Trim
+
+                            Dim imagenPequeña As String = temp8.Replace("capsule_sm_120", "capsule_184x69")
+                            Dim imagenGrande As String = temp8.Replace("capsule_sm_120", "header")
+
+                            Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                             Dim temp9, temp10 As String
                             Dim int9, int10 As Integer
@@ -219,7 +224,7 @@ Module Steam
                                     analisis = AñadirAnalisis(temp2, listaAnalisis)
                                 End If
 
-                                Dim juego As New Juego(titulo, imagen, enlaces, descuento, Nothing, "Steam", DateTime.Today, analisis, sistemas)
+                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Steam", DateTime.Today, analisis, sistemas)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
