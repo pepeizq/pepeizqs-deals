@@ -32,8 +32,11 @@ Module Ordenar
         Dim numOfertasCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
         numOfertasCargadas.Text = String.Empty
 
-        Dim spEditor As StackPanel = pagina.FindName("spEditor")
-        spEditor.IsHitTestVisible = False
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
+        botonLimpiarSeleccion.IsEnabled = False
 
         If Not lv Is Nothing Then
             lv.IsEnabled = False
@@ -162,6 +165,8 @@ Module Ordenar
                     End If
                 End If
 
+                Dim listaGrids As New List(Of Juego)
+
                 For Each juego In listaJuegos
 
                     Dim tituloGrid As Boolean = False
@@ -175,8 +180,6 @@ Module Ordenar
                     Next
 
                     If tituloGrid = False Then
-                        Dim listaGrids As New List(Of Grid)
-
                         If buscar = True Then
                             If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
                                 Dim boolAntiguo As Boolean = False
@@ -220,23 +223,29 @@ Module Ordenar
                                         listaJuegosAntigua = New List(Of Juego)
                                     End If
 
-                                    listaGrids.Add(Interfaz.AñadirOfertaListado(juego))
+                                    listaGrids.Add(juego)
                                     listaJuegosAntigua.Add(juego)
                                     listaUltimasOfertas.Add(juego)
                                 End If
                             End If
 
                             If ApplicationData.Current.LocalSettings.Values("ultimavisita") = False Then
-                                listaGrids.Add(Interfaz.AñadirOfertaListado(juego))
+                                listaGrids.Add(juego)
                             End If
                         Else
-                            listaGrids.Add(Interfaz.AñadirOfertaListado(juego))
+                            listaGrids.Add(juego)
                         End If
-
-                        For Each grid In listaGrids
-                            lv.Items.Add(grid)
-                        Next
                     End If
+                Next
+
+                For Each juegoGrid In listaGrids
+                    If tienda = "Steam" Then
+                        If ApplicationData.Current.LocalSettings.Values("steam+") = True Then
+                            juegoGrid = Await Steam.SteamMas(juegoGrid)
+                        End If
+                    End If
+
+                    lv.Items.Add(Interfaz.AñadirOfertaListado(juegoGrid))
                 Next
 
                 If lv.Items.Count > 0 Then
@@ -295,7 +304,8 @@ Module Ordenar
         botonActualizarTienda.IsEnabled = True
         cbOrdenar.IsEnabled = True
         gridProgreso.Visibility = Visibility.Collapsed
-        spEditor.IsHitTestVisible = True
+        botonSeleccionarTodo.IsEnabled = True
+        botonLimpiarSeleccion.IsEnabled = True
 
     End Sub
 

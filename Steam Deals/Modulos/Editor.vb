@@ -30,9 +30,7 @@ Module Editor
         wv.Tag = nombreTablaGenerar
 
         If webSeleccionada = 0 Then
-
-
-            If listaJuegos.Count = 1 Then
+            If listaJuegos.Count < 2 Then
                 wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/post-new.php?post_type=us_portfolio"))
             ElseIf listaJuegos.Count > 1 Then
                 wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=wpdatatables-constructor&source"))
@@ -76,8 +74,8 @@ Module Editor
 
             Dim i As Integer = 0
             While i < listaJuegos.Count
-                worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagen + ChrW(34) + "></a>"
-                worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " >" + listaJuegos(i).Titulo + "</a>"
+                worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + "></a>"
+                worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Enlaces.Enlaces(0) + ChrW(34) + " style=" + ChrW(34) + "color:#164675;" + ChrW(34) + ">" + listaJuegos(i).Titulo + "</a>"
                 worksheet.Range("C" + (i + 2).ToString).Text = "<span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span>"
 
                 Dim precioFinalOrdenar As String = listaJuegos(i).Enlaces.Precios(0)
@@ -111,7 +109,7 @@ Module Editor
                         colorLetra = "#544834"
                     ElseIf listaJuegos(i).Analisis.Porcentaje < 50 Then
                         imagenUrl = "http://store.akamai.steamstatic.com/public/images/v6/user_reviews_negative.png"
-                        colorFondo = "#865145"
+                        colorFondo = "#ceb9b4"
                         colorLetra = "#BB897D"
                     End If
 
@@ -135,7 +133,13 @@ Module Editor
                         cantidadAnalisisOrdenar = "0" + cantidadAnalisisOrdenar
                     End If
 
-                    worksheet.Range("E" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + listaJuegos(i).Analisis.Enlace + ChrW(34) + " style=" + ChrW(34) + "padding:5px;color:" + colorLetra + ";background-color:" + colorFondo + ";" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;vertical-align:middle;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "% - Reviews: " + listaJuegos(i).Analisis.Cantidad + "</a>"
+                    Dim enlaceAnalisis As String = listaJuegos(i).Analisis.Enlace
+
+                    If enlaceAnalisis = Nothing Then
+                        enlaceAnalisis = listaJuegos(i).Enlaces.Enlaces(0)
+                    End If
+
+                    worksheet.Range("E" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceAnalisis + ChrW(34) + " style=" + ChrW(34) + "padding:5px;color:" + colorLetra + ";background-color:" + colorFondo + ";" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;vertical-align:middle;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "% - Reviews: " + listaJuegos(i).Analisis.Cantidad + "</a>"
                 End If
 
                 i += 1

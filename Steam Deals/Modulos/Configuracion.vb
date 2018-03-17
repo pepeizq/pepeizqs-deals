@@ -30,7 +30,7 @@ Module Configuracion
         End If
 
         If ApplicationData.Current.LocalSettings.Values("steam+") Is Nothing Then
-            SteamMasActivar(True)
+            SteamMasActivar(False)
         Else
             SteamMasActivar(ApplicationData.Current.LocalSettings.Values("steam+"))
         End If
@@ -89,8 +89,10 @@ Module Configuracion
             listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
         End If
 
-        Dim tbCargados As TextBlock = pagina.FindName("tbAnalisisCargados")
-        tbCargados.Text = listaAnalisis.Count
+        If Not listaAnalisis Is Nothing Then
+            Dim tbCargados As TextBlock = pagina.FindName("tbAnalisisCargados")
+            tbCargados.Text = listaAnalisis.Count
+        End If
 
         If estado = True Then
             Analisis.Generar()
@@ -121,7 +123,7 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("steam+") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteam+")
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
         toggle.IsChecked = estado
 
     End Sub

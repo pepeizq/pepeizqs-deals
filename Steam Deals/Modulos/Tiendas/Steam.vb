@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.Storage
 
 Module Steam
 
@@ -24,19 +25,6 @@ Module Steam
 
         Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = "0%"
-
-        'Dim lvEditor As ListView = pagina.FindName("lvEditorSteam")
-        'lvEditor.IsEnabled = False
-
-        'Dim lvOpciones As ListView = pagina.FindName("lvOpcionesSteam")
-        'lvOpciones.IsEnabled = False
-
-        'Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSteam")
-        'cbOrdenar.IsEnabled = False
-
-
-        'Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasSteam")
-        'panelNoOfertas.Visibility = Visibility.Collapsed
 
         listaJuegos.Clear()
 
@@ -125,8 +113,11 @@ Module Steam
 
                             temp8 = temp8.Trim
 
-                            Dim imagenPequeña As String = temp8.Replace("capsule_sm_120", "capsule_184x69")
-                            Dim imagenGrande As String = temp8.Replace("capsule_sm_120", "header")
+                            Dim imagenPequeña As String = temp8
+                            imagenPequeña = imagenPequeña.Replace("capsule_sm_120", "capsule_184x69")
+
+                            Dim imagenGrande As String = temp8
+                            imagenGrande = imagenGrande.Replace("capsule_sm_120", "header")
 
                             Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
@@ -224,7 +215,17 @@ Module Steam
                                     analisis = AñadirAnalisis(temp2, listaAnalisis)
                                 End If
 
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Steam", DateTime.Today, analisis, sistemas)
+                                Dim temp13, temp14 As String
+                                Dim int13 As Integer
+
+                                temp13 = enlace.Replace("http://store.steampowered.com/", Nothing)
+                                int13 = temp13.IndexOf("/")
+
+                                temp14 = temp13.Remove(int13, temp13.Length - int13)
+
+                                Dim tipo As String = temp14.Trim
+
+                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Steam", Nothing, tipo, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
@@ -333,6 +334,60 @@ Module Steam
         numPaginas = numPaginas + 1
 
         Return numPaginas
+    End Function
+
+    Public Async Function SteamMas(juego As Juego) As Task(Of Juego)
+
+        Dim htmlMas As String = Await HttpClient(New Uri(juego.Enlaces.Enlaces(0)))
+
+        If Not htmlMas = Nothing Then
+            If htmlMas.Contains(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34)) Then
+                Dim temp, temp2 As String
+                Dim int, int2 As Integer
+
+                int = htmlMas.IndexOf(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34))
+                temp = htmlMas.Remove(0, int + 10)
+
+                int2 = temp.IndexOf("</p>")
+                temp2 = temp.Remove(int2, temp.Length - int2)
+
+                If temp2.Contains("Offer ends") Then
+                    int = temp2.IndexOf("Offer ends")
+                    temp2 = temp2.Remove(0, int + 10)
+
+                    temp2 = temp2.Trim
+
+                    Dim fecha As DateTime = Nothing
+
+                    Try
+                        fecha = DateTime.Parse(temp2)
+                        fecha = fecha.AddHours(19)
+                        juego.FechaTermina = fecha
+                    Catch ex As Exception
+
+                    End Try
+
+                    Dim temp3 As String
+                    Dim int3 As Integer
+
+                    int3 = temp.IndexOf("Offer ends")
+                    temp3 = temp.Remove(int3, temp.Length - int3)
+
+                    int3 = temp3.IndexOf(">")
+                    temp3 = temp3.Remove(0, int3 + 1)
+
+                    temp3 = temp3.Replace("!", Nothing)
+                    temp3 = temp3.Replace("¡", Nothing)
+                    temp3 = temp3.Trim
+                    temp3 = temp3.ToLower
+
+                    juego.Promocion = temp3
+                End If
+            End If
+        End If
+
+        Return juego
+
     End Function
 
 End Module

@@ -1,12 +1,13 @@
-﻿Imports Windows.Web.Http
+﻿Imports Windows.UI.Core
+Imports Windows.Web.Http
 
 Module Decompiladores
 
     Public Async Function HttpClient(url As Uri) As Task(Of String)
 
-        Dim cliente As New HttpClient()
         Dim httpFinal As String = Nothing
 
+        Dim cliente As New HttpClient()
         cliente.DefaultRequestHeaders.Add("user-agent", "Chrome/45.0.2454.93")
 
         Try
@@ -20,6 +21,7 @@ Module Decompiladores
         End Try
 
         cliente.Dispose()
+
         Return httpFinal
     End Function
 

@@ -161,8 +161,11 @@ Module Interfaz
         Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
-        Dim spEditor As StackPanel = pagina.FindName("spEditor")
-        spEditor.IsHitTestVisible = False
+        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
+        botonSeleccionarTodo.IsEnabled = False
+
+        Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
+        botonLimpiarSeleccion.IsEnabled = False
 
         Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
         tbSeleccionadas.Text = String.Empty
@@ -245,29 +248,31 @@ Module Interfaz
             sp1.Children.Add(cb)
         End If
 
-        If Not juego.Imagen = Nothing Then
-            Dim borde As New Border With {
-                .BorderBrush = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
-                .BorderThickness = New Thickness(1, 1, 1, 1),
-                .Margin = New Thickness(2, 2, 10, 2)
-            }
+        If Not juego.Imagenes Is Nothing Then
+            If Not juego.Imagenes.Pequeña = Nothing Then
+                Dim borde As New Border With {
+                    .BorderBrush = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
+                    .BorderThickness = New Thickness(1, 1, 1, 1),
+                    .Margin = New Thickness(2, 2, 10, 2)
+                }
 
-            Dim imagen As New ImageEx With {
-                .Stretch = Stretch.Uniform,
-                .IsCacheEnabled = True,
-                .MaxHeight = 120,
-                .MaxWidth = 150
-            }
+                Dim imagen As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .MaxHeight = 120,
+                    .MaxWidth = 150
+                }
 
-            Try
-                imagen.Source = New BitmapImage(New Uri(juego.Imagen))
-            Catch ex As Exception
+                Try
+                    imagen.Source = New BitmapImage(New Uri(juego.Imagenes.Pequeña))
+                Catch ex As Exception
 
-            End Try
+                End Try
 
-            borde.Child = imagen
+                borde.Child = imagen
 
-            sp1.Children.Add(borde)
+                sp1.Children.Add(borde)
+            End If
         End If
 
         Dim sp2 As New StackPanel With {
@@ -365,54 +370,167 @@ Module Interfaz
             sp3.Children.Add(fondoAnalisis)
         End If
 
-        If Not juego.Sistemas Is Nothing Then
-            Dim fondoSistemas As New StackPanel With {
-                .Orientation = Orientation.Horizontal
-            }
-
-            If juego.Sistemas.Windows = True Then
-                Dim imagenWin As New ImageEx With {
-                    .Width = 16,
-                    .Height = 16,
-                    .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/win.png")),
-                    .Padding = New Thickness(2, 0, 2, 0),
-                    .IsCacheEnabled = True
+        If ApplicationData.Current.LocalSettings.Values("editor2") = False Then
+            If Not juego.Sistemas Is Nothing Then
+                Dim fondoSistemas As New StackPanel With {
+                    .Orientation = Orientation.Horizontal
                 }
 
-                fondoSistemas.Children.Add(imagenWin)
-            End If
+                If juego.Sistemas.Windows = True Then
+                    Dim imagenWin As New ImageEx With {
+                        .Width = 16,
+                        .Height = 16,
+                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/win.png")),
+                        .Padding = New Thickness(2, 0, 2, 0),
+                        .IsCacheEnabled = True
+                    }
 
-            If juego.Sistemas.Mac = True Then
-                Dim imagenMac As New ImageEx With {
-                    .Width = 16,
-                    .Height = 16,
-                    .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/mac.png")),
-                    .Padding = New Thickness(2, 0, 2, 0),
-                    .IsCacheEnabled = True
+                    fondoSistemas.Children.Add(imagenWin)
+                End If
+
+                If juego.Sistemas.Mac = True Then
+                    Dim imagenMac As New ImageEx With {
+                        .Width = 16,
+                        .Height = 16,
+                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/mac.png")),
+                        .Padding = New Thickness(2, 0, 2, 0),
+                        .IsCacheEnabled = True
+                    }
+
+                    fondoSistemas.Children.Add(imagenMac)
+                End If
+
+                If juego.Sistemas.Linux = True Then
+                    Dim imagenLinux As New ImageEx With {
+                        .Width = 16,
+                        .Height = 16,
+                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/linux.png")),
+                        .Padding = New Thickness(2, 0, 2, 0),
+                        .IsCacheEnabled = True
+                    }
+
+                    fondoSistemas.Children.Add(imagenLinux)
+                End If
+
+                If fondoSistemas.Children.Count > 0 Then
+                    fondoSistemas.Padding = New Thickness(4, 0, 4, 0)
+                    fondoSistemas.Height = 26
+                    fondoSistemas.Background = New SolidColorBrush(Colors.SlateGray)
+                    fondoSistemas.Margin = New Thickness(0, 0, 20, 0)
+                End If
+
+                sp3.Children.Add(fondoSistemas)
+            End If
+        End If
+
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            If Not juego.FechaTermina = Nothing Then
+                Dim fondoFecha As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Padding = New Thickness(4, 0, 4, 0),
+                    .Height = 26,
+                    .Background = New SolidColorBrush(Colors.SlateGray),
+                    .Margin = New Thickness(0, 0, 20, 0)
                 }
 
-                fondoSistemas.Children.Add(imagenMac)
-            End If
-
-            If juego.Sistemas.Linux = True Then
-                Dim imagenLinux As New ImageEx With {
-                    .Width = 16,
-                    .Height = 16,
-                    .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/linux.png")),
-                    .Padding = New Thickness(2, 0, 2, 0),
-                    .IsCacheEnabled = True
+                Dim tbFecha As New TextBlock With {
+                    .Text = juego.FechaTermina.Day.ToString + "/" + juego.FechaTermina.Month.ToString + " - " + juego.FechaTermina.Hour.ToString + ":00",
+                    .Margin = New Thickness(0, 0, 0, 0),
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .FontSize = 12
                 }
 
-                fondoSistemas.Children.Add(imagenLinux)
+                fondoFecha.Children.Add(tbFecha)
+
+                sp3.Children.Add(fondoFecha)
             End If
 
-            If fondoSistemas.Children.Count > 0 Then
-                fondoSistemas.Padding = New Thickness(4, 0, 4, 0)
-                fondoSistemas.Height = 26
-                fondoSistemas.Background = New SolidColorBrush(Colors.SlateGray)
+            If Not juego.Promocion = Nothing Then
+                Dim fondoPromocion As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Padding = New Thickness(4, 0, 4, 0),
+                    .Height = 26,
+                    .Background = New SolidColorBrush(Colors.SlateGray),
+                    .Margin = New Thickness(0, 0, 20, 0)
+                }
+
+                Dim tbPromocion As New TextBlock With {
+                    .Text = juego.Promocion,
+                    .Margin = New Thickness(0, 0, 0, 0),
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .FontSize = 12
+                }
+
+                fondoPromocion.Children.Add(tbPromocion)
+
+                sp3.Children.Add(fondoPromocion)
             End If
 
-            sp3.Children.Add(fondoSistemas)
+            Dim spTooltip As New StackPanel
+
+            If Not juego.Tipo = Nothing Then
+                Dim fondoTipo As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Padding = New Thickness(4, 0, 4, 0),
+                    .Height = 26,
+                    .Background = New SolidColorBrush(Colors.SlateGray)
+                }
+
+                Dim tbTipo As New TextBlock With {
+                    .Text = juego.Tipo,
+                    .Margin = New Thickness(0, 0, 0, 0),
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .FontSize = 12
+                }
+
+                fondoTipo.Children.Add(tbTipo)
+
+                spTooltip.Children.Add(fondoTipo)
+            End If
+
+            If Not juego.Desarrolladores Is Nothing Then
+                Dim fondoDesarrolladores As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Padding = New Thickness(4, 0, 4, 0),
+                    .Height = 26,
+                    .Background = New SolidColorBrush(Colors.SlateGray),
+                    .Margin = New Thickness(20, 0, 0, 0)
+                }
+
+                Dim desarrolladores As String = Nothing
+
+                If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
+                    If juego.Desarrolladores.Desarrolladores.Count > 0 Then
+                        desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
+                    End If
+                End If
+
+                If Not juego.Desarrolladores.Editores Is Nothing Then
+                    If juego.Desarrolladores.Editores.Count > 0 Then
+                        desarrolladores = desarrolladores + juego.Desarrolladores.Editores(0) + " "
+                    End If
+                End If
+
+                Dim tbDesarrolladores As New TextBlock With {
+                    .Text = desarrolladores.Trim,
+                    .Margin = New Thickness(0, 0, 0, 0),
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .FontSize = 12
+                }
+
+                fondoDesarrolladores.Children.Add(tbDesarrolladores)
+
+                spTooltip.Children.Add(fondoDesarrolladores)
+            End If
+
+            If spTooltip.Children.Count > 0 Then
+                ToolTipService.SetToolTip(grid, spTooltip)
+                ToolTipService.SetPlacement(grid, PlacementMode.Bottom)
+            End If
         End If
 
         sp2.Children.Add(sp3)
@@ -494,12 +612,6 @@ Module Interfaz
         End If
 
         seleccionadas = seleccionadas + 1
-
-        If seleccionadas = 1 Then
-            Dim botonIniciar As Button = pagina.FindName("botonEditorIniciar")
-            botonIniciar.IsEnabled = True
-        End If
-
         tbSeleccionadas.Text = seleccionadas
 
     End Sub
@@ -516,9 +628,6 @@ Module Interfaz
 
         If seleccionadas = 0 Then
             tbSeleccionadas.Text = String.Empty
-
-            Dim botonIniciar As Button = pagina.FindName("botonEditorIniciar")
-            botonIniciar.IsEnabled = False
         Else
             tbSeleccionadas.Text = seleccionadas
         End If

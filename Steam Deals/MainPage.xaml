@@ -177,7 +177,7 @@
 
                     <StackPanel x:Name="spEditor" Grid.Column="0" Orientation="Horizontal" Visibility="Collapsed">
 
-                        <Button x:Name="botonEditorIniciar" Margin="10,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}" IsEnabled="False">
+                        <Button x:Name="botonEditorIniciar" Margin="10,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#59151;" FontSize="20" Foreground="White" Margin="0,0,10,0"/>
