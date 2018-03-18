@@ -233,10 +233,6 @@ Module Analisis
             End If
         End If
 
-        If analisis Is Nothing Then
-            analisis = New JuegoAnalisis(Nothing, Nothing, Nothing, Nothing)
-        End If
-
         Return analisis
     End Function
 

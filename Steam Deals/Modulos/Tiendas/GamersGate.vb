@@ -1,39 +1,31 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports System.Net
+Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module GamersGate
 
     Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
 
-        Bw.WorkerReportsProgress = True
-        Bw.WorkerSupportsCancellation = True
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listadoGamersGate")
+        Dim lv As ListView = pagina.FindName("listaTiendaGamersGate")
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorGamersGate")
-        lvEditor.IsEnabled = False
-
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesGamersGate")
-        lvOpciones.IsEnabled = False
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGamersGate")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoGamersGate")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasGamersGate")
-        panelNoOfertas.Visibility = Visibility.Collapsed
-
         listaJuegos.Clear()
+
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
         If Bw.IsBusy = False Then
             Bw.RunWorkerAsync()
@@ -43,18 +35,8 @@ Module GamersGate
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
-
         Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
         Dim html As String = html_.Result
-
-        Dim htmlUS_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=usa"))
-        Dim htmlUS As String = htmlUS_.Result
 
         Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
         Dim htmlUK As String = htmlUK_.Result
@@ -89,13 +71,10 @@ Module GamersGate
                             int4 = temp3.IndexOf("</title>")
                             temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                            temp4 = temp4.Replace("&#38;", "&")
-                            temp4 = temp4.Replace("&#39;", "'")
-                            temp4 = temp4.Replace("&#194;", "®")
-                            temp4 = temp4.Replace("&#226;", "-")
-                            temp4 = temp4.Replace("&amp;", "&")
+                            temp4 = temp4.Trim
+                            temp4 = WebUtility.HtmlDecode(temp4)
 
-                            Dim titulo As String = temp4.Trim
+                            Dim titulo As String = temp4
 
                             Dim temp7, temp8 As String
                             Dim int7, int8 As Integer
@@ -121,9 +100,12 @@ Module GamersGate
                             int10 = temp9.IndexOf("</boximg_small>")
                             temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                            temp10 = temp10.Replace("/w90/", Nothing)
+                            Dim imagenPequeña As String = temp10
 
-                            Dim imagen As String = temp10.Trim
+                            Dim imagenGrande As String = temp10
+                            imagenGrande = imagenGrande.Replace("/w90/", "/w180/")
+
+                            Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                             Dim temp11, temp12 As String
                             Dim int11, int12 As Integer
@@ -136,45 +118,13 @@ Module GamersGate
 
                             Dim precio As String = temp12.Trim
 
-                            If Not precio = Nothing Then
-                                precio = precio.Replace(".", ",")
+                            If Not precio.Contains(".") Then
+                                precio = precio + ".00"
                             End If
 
-                            If Not precio.Contains(",") Then
-                                precio = precio + ",00"
-                            End If
-
-                            precio = precio + " €"
+                            precio = precio + "€"
 
                             If Not precio = "-" Then
-                                Dim precioUS As String
-                                If Not htmlUS = Nothing Then
-                                    Dim tempUS, tempUS2, tempUS3 As String
-                                    Dim intUS, intUS2, intUS3 As Integer
-
-                                    intUS = htmlUS.IndexOf(enlaceUS)
-
-                                    If Not intUS = -1 Then
-                                        tempUS = htmlUS.Remove(0, intUS)
-
-                                        intUS2 = tempUS.IndexOf("<price>")
-                                        tempUS2 = tempUS.Remove(0, intUS2 + 7)
-
-                                        intUS3 = tempUS2.IndexOf("</price>")
-                                        tempUS3 = tempUS2.Remove(intUS3, tempUS2.Length - intUS3)
-
-                                        precioUS = "$" + tempUS3.Trim
-
-                                        If Not precioUS.Contains(".") Then
-                                            precioUS = precioUS + ".00"
-                                        End If
-                                    Else
-                                        precioUS = Nothing
-                                    End If
-                                Else
-                                    precioUS = Nothing
-                                End If
-
                                 Dim precioUK As String
                                 If Not htmlUK = Nothing Then
                                     Dim tempUK, tempUK2, tempUK3 As String
@@ -202,6 +152,24 @@ Module GamersGate
                                 Else
                                     precioUK = Nothing
                                 End If
+
+                                Dim listaPaises As New List(Of String) From {
+                                    "EU", "UK"
+                                }
+
+                                Dim listaEnlaces As New List(Of String) From {
+                                    enlace, enlaceUK
+                                }
+
+                                Dim listaAfiliados As New List(Of String) From {
+                                    enlace + "?caff=2385601", enlaceUK + "?caff=2385601"
+                                }
+
+                                Dim listaPrecios As New List(Of String) From {
+                                    precio, precioUK
+                                }
+
+                                Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
 
                                 Dim temp13, temp14 As String
                                 Dim int13, int14 As Integer
@@ -256,28 +224,57 @@ Module GamersGate
                                     linux = True
                                 End If
 
-                                Dim afiliado As String = "?caff=2385601"
+                                Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                                Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                                Dim temp19, temp20 As String
+                                Dim int19, int20 As Integer
 
-                                'Dim juego As New Juego(titulo, enlace, enlaceUS, enlaceUK, enlace + afiliado, enlaceUS + afiliado, enlaceUK + afiliado, imagen, precio, precioUS, precioUK, descuento, drm, windows, mac, linux, "GamersGate", DateTime.Today, val.Cantidad, val.Enlace)
+                                int19 = temp2.IndexOf("<sku>")
+                                temp19 = temp2.Remove(0, int19 + 5)
 
-                                'Dim tituloBool As Boolean = False
-                                'Dim k As Integer = 0
-                                'While k < listaJuegos.Count
-                                '    If listaJuegos(k).Titulo = juego.Titulo Then
-                                '        tituloBool = True
-                                '    End If
-                                '    k += 1
-                                'End While
+                                int20 = temp19.IndexOf("</sku>")
+                                temp20 = temp19.Remove(int20, temp19.Length - int20)
 
-                                'If juego.Descuento = Nothing Then
-                                '    tituloBool = True
-                                'End If
+                                Dim tipo As String = Nothing
 
-                                'If tituloBool = False Then
-                                '    listaJuegos.Add(juego)
-                                'End If
+                                If temp20.Contains("DD-") Then
+                                    tipo = "dd"
+                                ElseIf temp20.Contains("DLC-") Then
+                                    tipo = "dlc"
+                                End If
+
+                                Dim int21, int22 As Integer
+                                Dim temp21, temp22 As String
+
+                                int21 = temp2.IndexOf("<discount_end>")
+                                temp21 = temp2.Remove(0, int21 + 14)
+
+                                int22 = temp21.IndexOf("</discount_end>")
+                                temp22 = temp21.Remove(int22, temp21.Length - int22)
+
+                                Dim fechaTermina As DateTime = Nothing
+                                fechaTermina = DateTime.Parse(temp22.Trim)
+
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+
+                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "GamersGate", Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
+                                    End If
+                                    k += 1
+                                End While
+
+                                If juego.Descuento = Nothing Then
+                                    tituloBool = True
+                                End If
+
+                                If tituloBool = False Then
+                                    listaJuegos.Add(juego)
+                                End If
                             End If
                         End If
                     End If

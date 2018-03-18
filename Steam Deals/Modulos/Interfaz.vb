@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
 Imports Windows.System
 Imports Windows.UI
@@ -36,7 +35,7 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(gamersgateT))
 
 
-        cbTiendas.SelectedIndex = 0
+        'cbTiendas.SelectedIndex = 0
 
     End Sub
 
@@ -178,11 +177,16 @@ Module Interfaz
 
         If tienda = steamT.NombreUsar Then
             Steam.GenerarOfertas()
+        ElseIf tienda = gamersgateT.NombreMostrar Then
+            GamersGate.GenerarOfertas()
         End If
 
     End Sub
 
     Public Function AñadirOfertaListado(juego As Juego)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
 
         Dim recursos As New Resources.ResourceLoader()
 
@@ -312,9 +316,10 @@ Module Interfaz
                 imagenDRM.IsCacheEnabled = True
 
                 Dim fondoDRM As New Grid With {
-                    .Height = 34,
+                    .Height = 26,
                     .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Padding = New Thickness(6, 0, 6, 0)
+                    .Padding = New Thickness(6, 0, 6, 0),
+                    .Margin = New Thickness(0, 0, 20, 0)
                 }
 
                 fondoDRM.Children.Add(imagenDRM)
@@ -587,6 +592,69 @@ Module Interfaz
             sp4.Children.Add(fondoPrecio)
 
         ElseIf juego.Enlaces.Precios.Count > 1 Then
+
+            Dim spPrecioVertical As New StackPanel With {
+                .Orientation = Orientation.Vertical,
+                .Margin = New Thickness(10, 0, 20, 0),
+                .VerticalAlignment = VerticalAlignment.Center
+            }
+
+            Dim i As Integer = 0
+            While i < juego.Enlaces.Precios.Count
+                Dim spPrecio As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Background = New SolidColorBrush(Colors.Black),
+                    .Padding = New Thickness(5, 0, 5, 0),
+                    .Height = 34,
+                    .MinWidth = 100,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Margin = New Thickness(0, 5, 0, 0)
+                }
+
+                Dim bandera As New ImageEx With {
+                    .IsCacheEnabled = True,
+                    .Margin = New Thickness(5, 0, 10, 0),
+                    .MaxHeight = 30,
+                    .MaxWidth = 22
+                }
+
+                If juego.Enlaces.Paises(i).Contains("EU") Then
+                    bandera.Source = "Assets\Banderas\pais_ue2.png"
+                ElseIf juego.Enlaces.Paises(i).Contains("UK") Then
+                    bandera.Source = "Assets\Banderas\pais_uk2.png"
+                ElseIf juego.Enlaces.Paises(i).Contains("FR") Then
+                    bandera.Source = "Assets\Banderas\pais_fr2.png"
+                ElseIf juego.Enlaces.Paises(i).Contains("DE") Then
+                    bandera.Source = "Assets\Banderas\pais_de2.png"
+                End If
+
+                spPrecio.Children.Add(bandera)
+
+                Dim precio As String = juego.Enlaces.Precios(i)
+
+                If precio.Contains("£") Then
+                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                    precio = Divisas.CambioMoneda(precio, tbLibra.Text)
+                End If
+
+                precio = precio.Replace("€", Nothing)
+                precio = precio.Replace(",", ".")
+                precio = precio.Trim
+                precio = precio + " €"
+
+                Dim tbPrecio As New TextBlock With {
+                    .Text = precio,
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White)
+                }
+
+                spPrecio.Children.Add(tbPrecio)
+
+                spPrecioVertical.Children.Add(spPrecio)
+                i += 1
+            End While
+
+            sp4.Children.Add(spPrecioVertical)
 
         End If
 

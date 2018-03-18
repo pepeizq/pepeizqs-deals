@@ -1,6 +1,5 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.Storage
 
 Module Steam
 

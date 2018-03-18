@@ -110,6 +110,7 @@ Module Divisas
                 dou2 = CDbl(precio)
 
                 temporalEuros = (Math.Round(dou * dou2, 2)).ToString + " €"
+                temporalEuros = temporalEuros.Replace(",", ".")
             End If
         End If
 
