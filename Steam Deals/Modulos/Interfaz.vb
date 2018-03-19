@@ -581,8 +581,15 @@ Module Interfaz
                 .Margin = New Thickness(10, 0, 20, 0)
             }
 
+            Dim precio As String = juego.Enlaces.Precios(0)
+
+            precio = precio.Replace("€", Nothing)
+            precio = precio.Replace(",", ".")
+            precio = precio.Trim
+            precio = precio + " €"
+
             Dim textoPrecio As New TextBlock With {
-                .Text = juego.Enlaces.Precios(0),
+                .Text = precio,
                 .VerticalAlignment = VerticalAlignment.Center,
                 .HorizontalAlignment = HorizontalAlignment.Center,
                 .Foreground = New SolidColorBrush(Colors.White)
@@ -699,6 +706,64 @@ Module Interfaz
         Else
             tbSeleccionadas.Text = seleccionadas
         End If
+
+    End Sub
+
+    Public Sub AñadirOpcionSeleccion(texto As String)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim menuEditorSeleccionarOpciones As MenuFlyout = pagina.FindName("menuEditorSeleccionarOpciones")
+
+        Dim añadir As Boolean = True
+
+        For Each item As MenuFlyoutItem In menuEditorSeleccionarOpciones.Items
+            If item.Text = texto Then
+                añadir = False
+            End If
+        Next
+
+        If añadir = True Then
+            Dim menuItem As New MenuFlyoutItem With {
+                .Text = texto
+            }
+
+            AddHandler menuItem.Click, AddressOf SeleccionarOfertasPromocion
+            AddHandler menuItem.PointerEntered, AddressOf UsuarioEntraBoton
+            AddHandler menuItem.PointerExited, AddressOf UsuarioSaleBoton
+
+            menuEditorSeleccionarOpciones.Items.Add(menuItem)
+        End If
+
+    End Sub
+
+    Private Sub SeleccionarOfertasPromocion(sender As Object, e As RoutedEventArgs)
+
+        Dim menuItem As MenuFlyoutItem = e.OriginalSource
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim lv As ListView = grid.Children(0)
+
+                For Each item In lv.Items
+                    Dim itemGrid As Grid = item
+                    Dim juego As Juego = itemGrid.Tag
+
+                    Dim sp As StackPanel = itemGrid.Children(0)
+                    Dim cb As CheckBox = sp.Children(0)
+
+                    If Juego.Promocion = menuItem.Text Then
+                        cb.IsChecked = True
+                    End If
+                Next
+            End If
+        Next
 
     End Sub
 

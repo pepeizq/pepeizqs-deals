@@ -205,7 +205,7 @@
     <value>Quelltext</value>
   </data>
   <data name="Title.Content" xml:space="preserve">
-    <value>Name</value>
+    <value />
   </data>
   <data name="MoreThings_VoteApp" xml:space="preserve">
     <value>Bewerten Sie die App</value>
@@ -247,6 +247,12 @@
     <value />
   </data>
   <data name="ConfigSteam+Tooltip.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditorExportExcel.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditorInsertHtmlTable.Text" xml:space="preserve">
     <value />
   </data>
 </root>

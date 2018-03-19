@@ -38,6 +38,9 @@ Module Ordenar
         Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
         botonLimpiarSeleccion.IsEnabled = False
 
+        Dim menuEditorSeleccionarOpciones As MenuFlyout = pagina.FindName("menuEditorSeleccionarOpciones")
+        menuEditorSeleccionarOpciones.Items.Clear()
+
         If Not lv Is Nothing Then
             lv.IsEnabled = False
 
@@ -239,13 +242,25 @@ Module Ordenar
                 Next
 
                 For Each juegoGrid In listaGrids
-                    If tienda = "Steam" Then
-                        If ApplicationData.Current.LocalSettings.Values("steam+") = True Then
-                            juegoGrid = Await Steam.SteamMas(juegoGrid)
+                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                        If tienda = "Steam" Then
+                            If ApplicationData.Current.LocalSettings.Values("steam+") = True Then
+                                If juegoGrid.Promocion = Nothing Then
+                                    juegoGrid = Await Steam.SteamMas(juegoGrid)
+                                End If
+                            End If
                         End If
                     End If
 
                     lv.Items.Add(Interfaz.AñadirOfertaListado(juegoGrid))
+
+                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                        If Not juegoGrid.Promocion Is Nothing Then
+                            If Not juegoGrid.Promocion = Nothing Then
+                                Interfaz.AñadirOpcionSeleccion(juegoGrid.Promocion)
+                            End If
+                        End If
+                    End If
                 Next
 
                 If lv.Items.Count > 0 Then

@@ -183,6 +183,12 @@
   <data name="EditorCutTitle.Text" xml:space="preserve">
     <value>Cut Title</value>
   </data>
+  <data name="EditorExportExcel.Text" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="EditorInsertHtmlTable.Text" xml:space="preserve">
+    <value>Insert Html Table</value>
+  </data>
   <data name="EditorLimit.Text" xml:space="preserve">
     <value>Due to the heavy text, use the buttons below to copy the deals</value>
   </data>

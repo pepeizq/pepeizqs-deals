@@ -1474,19 +1474,21 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorSeleccionarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodo.Click
 
-        For Each grid As Grid In gridOfertasTiendas.Children
-            If grid.Visibility = Visibility.Visible Then
-                Dim lv As ListView = grid.Children(0)
+        If menuEditorSeleccionarOpciones.Items.Count = 0 Then
+            For Each grid As Grid In gridOfertasTiendas.Children
+                If grid.Visibility = Visibility.Visible Then
+                    Dim lv As ListView = grid.Children(0)
 
-                For Each item In lv.Items
-                    Dim itemGrid As Grid = item
-                    Dim sp As StackPanel = itemGrid.Children(0)
-                    Dim cb As CheckBox = sp.Children(0)
+                    For Each item In lv.Items
+                        Dim itemGrid As Grid = item
+                        Dim sp As StackPanel = itemGrid.Children(0)
+                        Dim cb As CheckBox = sp.Children(0)
 
-                    cb.IsChecked = True
-                Next
-            End If
-        Next
+                        cb.IsChecked = True
+                    Next
+                End If
+            Next
+        End If
 
     End Sub
 

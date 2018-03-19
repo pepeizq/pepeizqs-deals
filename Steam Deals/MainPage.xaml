@@ -196,6 +196,10 @@
                                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="20" Foreground="White"/>
                                 </StackPanel>
                             </Button.Content>
+
+                            <Button.Flyout>
+                                <MenuFlyout x:Name="menuEditorSeleccionarOpciones"/>
+                            </Button.Flyout>
                         </Button>
 
                         <Button x:Name="botonEditorLimpiarSeleccion" Margin="15,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
@@ -251,7 +255,7 @@
                         <ComboBoxItem PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <ComboBoxItem.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
+                                    <controls:ImageEx Source="Assets\Webs\web_pepeizqdeals.png" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
                                     <TextBlock Text="pepeizq's deals"/>
                                 </StackPanel>
                             </ComboBoxItem.Content>
@@ -259,7 +263,7 @@
                         <ComboBoxItem PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <ComboBoxItem.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets\web_vayaansias.ico" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
+                                    <controls:ImageEx Source="Assets\Webs\web_vayaansias.ico" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
                                     <TextBlock Text="VayaAnsias"/>
                                 </StackPanel>
                             </ComboBoxItem.Content>
@@ -267,18 +271,33 @@
                         <ComboBoxItem PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <ComboBoxItem.Content>
                                 <StackPanel Orientation="Horizontal">
-                                    <controls:ImageEx Source="Assets\web_reddit.ico" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
+                                    <controls:ImageEx Source="Assets\Webs\web_reddit.ico" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
                                     <TextBlock Text="Reddit"/>
                                 </StackPanel>
                             </ComboBoxItem.Content>
                         </ComboBoxItem>
                     </ComboBox>
 
-                    <Button x:Name="botonEditorExportarExcel" Margin="35,5" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                        <Button.Content>
-                            <fa:FontAwesome Icon="FileExcelOutline" Foreground="White"/>
-                        </Button.Content>
-                    </Button>
+                    <StackPanel x:Name="spEditorpepeizq" Orientation="Horizontal" Margin="30,0,0,0">
+                        <Button x:Name="botonEditorExportarExcel" Margin="5" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:FontAwesome Icon="FileExcelOutline" Foreground="White" Margin="0,0,10,0"/>
+                                    <TextBlock x:Uid="EditorExportExcel" Foreground="White"/>
+                                </StackPanel>                                 
+                            </Button.Content>
+                        </Button>
+
+                        <Button x:Name="botonEditorInsertarrHtmlTabla" Margin="5" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <fa:FontAwesome Icon="Table" Foreground="White" Margin="0,0,10,0"/>
+                                    <TextBlock x:Uid="EditorInsertHtmlTable" Foreground="White"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                    
                 </StackPanel>                             
             </Grid>
 

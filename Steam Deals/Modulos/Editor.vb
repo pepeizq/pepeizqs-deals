@@ -125,27 +125,31 @@ Module Editor
                     drm = listaJuegos(i).DRM
 
                     If drm.ToLower.Contains("steam") Then
-                        drm = "<br><br><span style=" + ChrW(34) + "background-color:#b9babc;color:white;padding:5px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_steam.png" + ChrW(34) + "></span>"
+                        drm = "<br><span style=" + ChrW(34) + "background-color:#b9babc;color:white;padding:5px;display:inline-flex;align-items:center;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_steam.png" + ChrW(34) + "></span>"
+                    ElseIf drm.ToLower.Contains("uplay") Then
+                        drm = "<br><span style=" + ChrW(34) + "background-color:#bae5f6;color:white;padding:5px;display:inline-flex;align-items:center;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_uplay.png" + ChrW(34) + "></span>"
+                    Else
+                        drm = Nothing
                     End If
                 End If
 
                 If listaJuegos(i).Enlaces.Precios.Count = 1 Then
                     Dim enlaceMostrar As String = Nothing
 
-                    If listaJuegos(i).Enlaces.Afiliados(0) = Nothing Then
+                    If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
                         enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(0)
                     Else
                         enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(0)
                     End If
 
                     worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + "></a>"
-                    worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:14px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + drm + "</a>"
+                    worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + drm + "</a>"
                 Else
                     worksheet.Range("A" + (i + 2).ToString).Text = "<img title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + ">"
-                    worksheet.Range("B" + (i + 2).ToString).Text = "<span title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:14px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + "</span>" + drm
+                    worksheet.Range("B" + (i + 2).ToString).Text = "<span title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + "</span>" + drm
                 End If
 
-                worksheet.Range("C" + (i + 2).ToString).Text = "<span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;font-size:14px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span>"
+                worksheet.Range("C" + (i + 2).ToString).Text = "<span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span>"
 
                 Dim letra As Char = "D"
 
@@ -177,17 +181,17 @@ Module Editor
                         precioFinalOrdenar = "0" + precioFinalOrdenar
                     End If
 
-                    If listaJuegos(i).Enlaces.Precios.Count = 1 Then
-                        worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<span title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " style=" + ChrW(34) + "background-color:black;color:white;padding:5px;font-size:14px;" + ChrW(34) + ">" + precioFinalMostrar + "</span>"
+                    Dim enlaceMostrar As String = Nothing
+
+                    If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
+                        enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(h)
                     Else
-                        Dim enlaceMostrar As String = Nothing
+                        enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(h)
+                    End If
 
-                        If listaJuegos(i).Enlaces.Afiliados(h) = Nothing Then
-                            enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(h)
-                        Else
-                            enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(h)
-                        End If
-
+                    If listaJuegos(i).Enlaces.Precios.Count = 1 Then
+                        worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:black;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + precioFinalMostrar + "</span></a>"
+                    Else
                         Dim imagenMostrar As String = Nothing
 
                         If listaJuegos(i).Enlaces.Paises(h).Contains("EU") Then
@@ -200,7 +204,7 @@ Module Editor
                             imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_de2.png" + ChrW(34) + ">"
                         End If
 
-                        worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " style=" + ChrW(34) + "background-color:black;color:white;padding:5px;font-size:14px;" + ChrW(34) + ">" + imagenMostrar + precioFinalMostrar + "</span>"
+                        worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:black;color:white;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;font-size:15px;display:inline-flex;align-items:center;" + ChrW(34) + ">" + imagenMostrar + precioFinalMostrar + "</span></a>"
                     End If
 
                     letra = ChrW(AscW(letra) + 1)
@@ -248,11 +252,15 @@ Module Editor
 
                     Dim enlaceAnalisis As String = listaJuegos(i).Analisis.Enlace
 
+                    If Not listaJuegos(i).Enlaces.Afiliados Is Nothing Then
+                        enlaceAnalisis = listaJuegos(i).Enlaces.Afiliados(0)
+                    End If
+
                     If enlaceAnalisis = Nothing Then
                         enlaceAnalisis = listaJuegos(i).Enlaces.Enlaces(0)
                     End If
 
-                    worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceAnalisis + ChrW(34) + " style=" + ChrW(34) + "padding:5px;font-size:14px;color:" + colorLetra + ";background-color:" + colorFondo + ";" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;vertical-align:middle;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "%</a>"
+                    worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceAnalisis + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "font-size:15px;color:" + colorLetra + ";" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:" + colorFondo + ";display:inline-flex;align-items:center;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "%</span></a>"
                 End If
 
                 i += 1
@@ -284,9 +292,12 @@ Module Editor
 
     Public Async Sub CargaWeb(wv As WebView)
 
-        If wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
+        Dim nombreTablaGenerar As String = Nothing
+        nombreTablaGenerar = wv.Tag
+
+        If wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/post-new.php?post_type=us_portfolio") Then
             Dim lista As New List(Of String) From {
-                "document.getElementsByClassName('btn dropdown-toggle bs-placeholder btn-default')[0].click();"
+                "document.getElementById('content-html').click();"
             }
 
             Dim argumentos As IEnumerable(Of String) = lista
@@ -297,7 +308,38 @@ Module Editor
 
             End Try
 
+
+
+        ElseIf wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
+            Dim lista As New List(Of String) From {
+                "document.getElementById('wdt-table-title-edit').value = '" + nombreTablaGenerar + "';"
+            }
+
+            Dim argumentos As IEnumerable(Of String) = lista
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos)
+            Catch ex As Exception
+
+            End Try
+
+            Dim lista2 As New List(Of String) From {
+                "document.getElementsByClassName('btn dropdown-toggle bs-placeholder btn-default')[0].click();"
+            }
+
+            Dim argumentos2 As IEnumerable(Of String) = lista2
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos2)
+            Catch ex As Exception
+
+            End Try
+
         End If
+
+    End Sub
+
+    Public Sub CopiarHtmlTabla()
 
     End Sub
 
