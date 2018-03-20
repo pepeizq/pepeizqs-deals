@@ -133,23 +133,17 @@ Module Editor
                     End If
                 End If
 
-                If listaJuegos(i).Enlaces.Precios.Count = 1 Then
-                    Dim enlaceMostrar As String = Nothing
+                Dim enlaceMostrar As String = Nothing
 
-                    If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
-                        enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(0)
-                    Else
-                        enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(0)
-                    End If
-
-                    worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + "></a>"
-                    worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + drm + "</a>"
+                If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
+                    enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(0)
                 Else
-                    worksheet.Range("A" + (i + 2).ToString).Text = "<img title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + ">"
-                    worksheet.Range("B" + (i + 2).ToString).Text = "<span title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + "</span>" + drm
+                    enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(0)
                 End If
 
-                worksheet.Range("C" + (i + 2).ToString).Text = "<span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span>"
+                worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + "></a>"
+                worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + drm + "</a>"
+                worksheet.Range("C" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Descuento + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span></a>"
 
                 Dim letra As Char = "D"
 
@@ -180,8 +174,6 @@ Module Editor
                     ElseIf posicionPunto = 2 Then
                         precioFinalOrdenar = "0" + precioFinalOrdenar
                     End If
-
-                    Dim enlaceMostrar As String = Nothing
 
                     If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
                         enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(h)

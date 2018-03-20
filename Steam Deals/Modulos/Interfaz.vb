@@ -6,8 +6,9 @@ Imports Windows.UI.Core
 
 Module Interfaz
 
-    Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico")
-    Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico")
+    Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0)
+    Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1)
+    Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2)
 
     Public Sub Generar()
 
@@ -15,10 +16,16 @@ Module Interfaz
         Dim pagina As Page = frame.Content
 
         Dim tbTitulo As TextBlock = pagina.FindName("tbTitulo")
-        tbTitulo.Text = tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ")"
+        tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ")"
 
         Dim gridOfertas As Grid = pagina.FindName("gridOfertas")
         gridOfertas.Visibility = Visibility.Visible
+
+        Dim gvTiendas As GridView = pagina.FindName("gvOfertasTiendas")
+
+        gvTiendas.Items.Add(AñadirBotonTienda(steamT))
+        gvTiendas.Items.Add(AñadirBotonTienda(gamersgateT))
+        gvTiendas.Items.Add(AñadirBotonTienda(humbleT))
 
         Dim cbTiendas As ComboBox = pagina.FindName("cbTiendas")
 
@@ -28,14 +35,22 @@ Module Interfaz
 
         cbTiendas.Items.Add(AñadirCbTienda(steamT))
         cbTiendas.Items.Add(AñadirCbTienda(gamersgateT))
+        cbTiendas.Items.Add(AñadirCbTienda(humbleT))
 
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
 
         gridOfertasTiendas.Children.Add(AñadirGridTienda(steamT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(gamersgateT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(humbleT))
 
+    End Sub
 
-        'cbTiendas.SelectedIndex = 0
+    Private Sub UsuarioClickeaTienda(sender As Object, e As RoutedEventArgs)
+
+        Dim boton As Button = sender
+        Dim tienda As Tienda = boton.Tag
+
+        IniciarTienda(tienda)
 
     End Sub
 
@@ -43,11 +58,51 @@ Module Interfaz
 
         Dim cbTiendas As ComboBox = sender
         Dim cbItem As ComboBoxItem = cbTiendas.SelectedItem
-        Dim tienda As String = cbItem.Tag
+        Dim tienda As Tienda = cbItem.Tag
 
         IniciarTienda(tienda)
 
     End Sub
+
+    Private Function AñadirBotonTienda(tienda As Tienda)
+
+        Dim sp As New StackPanel With {
+            .Orientation = Orientation.Horizontal
+        }
+
+        Dim icono As New ImageEx With {
+            .IsCacheEnabled = True,
+            .Source = tienda.Icono,
+            .Height = 16,
+            .Width = 16,
+            .Margin = New Thickness(0, 0, 10, 0)
+        }
+
+        sp.Children.Add(icono)
+
+        Dim tb As New TextBlock With {
+            .Text = tienda.NombreMostrar,
+            .Foreground = New SolidColorBrush(Colors.White)
+        }
+
+        sp.Children.Add(tb)
+
+        Dim boton As New Button With {
+            .Margin = New Thickness(10, 10, 10, 10),
+            .Padding = New Thickness(15, 10, 15, 10),
+            .MinWidth = 150,
+            .Tag = tienda,
+            .Content = sp,
+            .Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+        }
+
+        AddHandler boton.Click, AddressOf UsuarioClickeaTienda
+        AddHandler boton.PointerEntered, AddressOf UsuarioEntraBoton
+        AddHandler boton.PointerExited, AddressOf UsuarioSaleBoton
+
+        Return boton
+
+    End Function
 
     Private Function AñadirCbTienda(tienda As Tienda)
 
@@ -73,7 +128,7 @@ Module Interfaz
 
         Dim cbItem As New ComboBoxItem With {
             .Content = sp,
-            .Tag = tienda.NombreUsar
+            .Tag = tienda
         }
 
         AddHandler cbItem.PointerEntered, AddressOf UsuarioEntraBoton
@@ -92,7 +147,7 @@ Module Interfaz
         }
 
         Dim listaOfertas As New ListView With {
-            .Name = "listaTienda" + tienda.NombreMostrar,
+            .Name = "listaTienda" + tienda.NombreUsar,
             .ItemContainerStyle = App.Current.Resources("ListViewEstilo1"),
             .IsItemClickEnabled = True,
             .Tag = tienda
@@ -134,19 +189,27 @@ Module Interfaz
 
     End Sub
 
-    Public Sub IniciarTienda(tienda As String)
+    Public Sub IniciarTienda(tienda As Tienda)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
+        Dim gridSeleccionar As Grid = pagina.FindName("gridSeleccionarOfertasTiendas")
+        gridSeleccionar.Visibility = Visibility.Collapsed
+
         Dim gridTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        gridTiendas.Visibility = Visibility.Visible
 
         For Each grid As Grid In gridTiendas.Children
             grid.Visibility = Visibility.Collapsed
         Next
 
-        Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda)
+        Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
+
+        Dim cbTiendas As ComboBox = pagina.FindName("cbTiendas")
+        cbTiendas.Visibility = Visibility.Visible
+        cbTiendas.SelectedIndex = tienda.Posicion
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
@@ -175,10 +238,12 @@ Module Interfaz
         Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
         tbMostradas.Text = String.Empty
 
-        If tienda = steamT.NombreUsar Then
+        If tienda.NombreUsar = steamT.NombreUsar Then
             Steam.GenerarOfertas()
-        ElseIf tienda = gamersgateT.NombreMostrar Then
+        ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
             GamersGate.GenerarOfertas()
+        ElseIf tienda.NombreUsar = humbleT.Nombreusar Then
+            Humble.GenerarOfertas()
         End If
 
     End Sub

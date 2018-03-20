@@ -118,12 +118,10 @@
     </Compile>
     <Compile Include="Modulos\Configuracion.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
-    <Compile Include="Modulos\CuentaSteam.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor.vb" />
     <Compile Include="Modulos\Interfaz.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
-    <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
     <Compile Include="Modulos\Tiendas\BundleStars.vb" />

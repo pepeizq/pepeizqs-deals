@@ -243,17 +243,20 @@ Module GamersGate
                                     tipo = "dlc"
                                 End If
 
-                                Dim int21, int22 As Integer
-                                Dim temp21, temp22 As String
-
-                                int21 = temp2.IndexOf("<discount_end>")
-                                temp21 = temp2.Remove(0, int21 + 14)
-
-                                int22 = temp21.IndexOf("</discount_end>")
-                                temp22 = temp21.Remove(int22, temp21.Length - int22)
-
                                 Dim fechaTermina As DateTime = Nothing
-                                fechaTermina = DateTime.Parse(temp22.Trim)
+
+                                If temp2.Contains("<discount_end>") Then
+                                    Dim int21, int22 As Integer
+                                    Dim temp21, temp22 As String
+
+                                    int21 = temp2.IndexOf("<discount_end>")
+                                    temp21 = temp2.Remove(0, int21 + 14)
+
+                                    int22 = temp21.IndexOf("</discount_end>")
+                                    temp22 = temp21.Remove(int22, temp21.Length - int22)
+
+                                    fechaTermina = DateTime.Parse(temp22.Trim)
+                                End If
 
                                 Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 

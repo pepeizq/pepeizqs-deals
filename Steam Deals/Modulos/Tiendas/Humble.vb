@@ -1,48 +1,36 @@
 ﻿Imports System.Globalization
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Globalization.NumberFormatting
 Imports Windows.System.UserProfile
 
 Module Humble
 
-    Dim WithEvents Bw As BackgroundWorker
-    Dim listaJuegos As List(Of Juego)
+    Dim WithEvents Bw As New BackgroundWorker
+    Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
+
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listadoHumble")
+        Dim lv As ListView = pagina.FindName("listaTiendaHumble")
         lv.IsEnabled = False
         lv.Items.Clear()
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorHumble")
-        lvEditor.IsEnabled = False
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+        tb.Text = "0%"
 
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesHumble")
-        lvOpciones.IsEnabled = False
+        listaJuegos.Clear()
 
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarHumble")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoHumble")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasHumble")
-        panelNoOfertas.Visibility = Visibility.Collapsed
-
-        Dim tbProgreso As TextBlock = pagina.FindName("tbProgresoHumble")
-        tbProgreso.Text = "0%"
-
-        Dim pr As RadialProgressBar = pagina.FindName("prHumble")
-        pr.Value = 0
-
-        Bw = New BackgroundWorker With {
-            .WorkerReportsProgress = True,
-            .WorkerSupportsCancellation = True
-        }
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
         If Bw.IsBusy = False Then
             Bw.RunWorkerAsync()
@@ -51,15 +39,6 @@ Module Humble
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
-
-        listaJuegos = New List(Of Juego)
 
         Dim numPaginas As Integer = 0
         Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&filter=onsale&request=2&page_size=20&page=0"))
@@ -117,22 +96,8 @@ Module Humble
                         int4 = temp3.IndexOf(ChrW(34))
                         temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                        temp4 = temp4.Replace("\u007e", "ç")
-                        temp4 = temp4.Replace("\u00b2", "²")
-                        temp4 = temp4.Replace("\u00fc", "ü")
-                        temp4 = temp4.Replace("\u00e9", "é")
-                        temp4 = temp4.Replace("\u00e0", "à")
-                        temp4 = temp4.Replace("\u00ae", "®")
-                        temp4 = temp4.Replace("\u2013", "-")
-                        temp4 = temp4.Replace("\u2019", "'")
-                        temp4 = temp4.Replace("\u2122", "™")
-                        temp4 = temp4.Replace("\u5c0e", "導")
-                        temp4 = temp4.Replace("\u526a", "剪")
-                        temp4 = temp4.Replace("\u6f14", "演")
-                        temp4 = temp4.Replace("\u7248", "版")
-                        temp4 = temp4.Replace("\u8f2f", "輯")
-                        temp4 = temp4.Replace("\u96f7", "雷")
-                        temp4 = temp4.Replace("\u96fb", "電")
+                        temp4 = temp4.Trim
+                        temp4 = Text.RegularExpressions.Regex.Unescape(temp4)
 
                         Dim titulo As String = temp4.Trim
 
@@ -146,8 +111,6 @@ Module Humble
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
                         Dim enlace As String = "https://www.humblebundle.com/store/" + temp6.Trim
-
-                        Dim referido As String = enlace + "?partner=pepeizqdeals"
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
@@ -173,7 +136,32 @@ Module Humble
                             temp8 = Nothing
                         End If
 
-                        Dim imagen As String = temp8
+                        Dim imagenPequeña As String = temp8
+
+                        int7 = temp2.IndexOf(ChrW(34) + "featured_image_medium" + ChrW(34))
+
+                        If Not int7 = -1 Then
+                            temp7 = temp2.Remove(0, int7)
+
+                            int7 = temp7.IndexOf("http")
+
+                            If Not int7 = -1 Then
+                                temp7 = temp7.Remove(0, int7)
+
+                                int8 = temp7.IndexOf(ChrW(34))
+                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+
+                                temp8 = temp8.Trim
+                            Else
+                                temp8 = Nothing
+                            End If
+                        Else
+                            temp8 = Nothing
+                        End If
+
+                        Dim imagenGrande As String = temp8
+
+                        Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
@@ -192,10 +180,24 @@ Module Humble
                         Dim moneda As String = GlobalizationPreferences.Currencies(0)
 
                         Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
-                                        .Mode = CurrencyFormatterMode.UseSymbol
-                                    }
+                            .Mode = CurrencyFormatterMode.UseSymbol
+                        }
 
                         Dim precio As String = formateador.Format(tempDouble)
+
+                        Dim listaEnlaces As New List(Of String) From {
+                            enlace
+                        }
+
+                        Dim listaAfiliados As New List(Of String) From {
+                            enlace + "?partner=pepeizqdeals"
+                        }
+
+                        Dim listaPrecios As New List(Of String) From {
+                            precio
+                        }
+
+                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
                         Dim temp13, temp14 As String
                         Dim int13, int14 As Integer
@@ -255,34 +257,55 @@ Module Humble
                             linux = True
                         End If
 
-                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                        Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, referido, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Humble Store", DateTime.Today, val.Cantidad, val.Enlace)
+                        Dim temp19, temp20 As String
+                        Dim int19, int20 As Integer
 
-                        'Dim tituloBool As Boolean = False
-                        'Dim k As Integer = 0
-                        'While k < listaJuegos.Count
-                        '    If listaJuegos(k).Titulo = juego.Titulo Then
-                        '        tituloBool = True
-                        '    End If
-                        '    k += 1
-                        'End While
+                        int19 = temp2.IndexOf(ChrW(34) + "sale_end" + ChrW(34))
+                        temp19 = temp2.Remove(0, int19 + 11)
 
-                        'If juego.Descuento = Nothing Then
-                        '    tituloBool = True
-                        'Else
-                        '    If juego.Descuento = "00%" Then
-                        '        tituloBool = True
-                        '    End If
+                        int20 = temp19.IndexOf(",")
+                        temp20 = temp19.Remove(int20, temp19.Length - int20)
 
-                        '    If juego.Descuento.Contains("-") Then
-                        '        tituloBool = True
-                        '    End If
-                        'End If
+                        temp20 = temp20.Replace(".0", Nothing)
 
-                        'If tituloBool = False Then
-                        '    listaJuegos.Add(juego)
-                        'End If
+                        Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                        Try
+                            fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(temp20.Trim))
+                            fechaTermina = fechaTermina.ToLocalTime
+                        Catch ex As Exception
+
+                        End Try
+
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+
+                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Humble Store", Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+
+                        Dim tituloBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Titulo = juego.Titulo Then
+                                tituloBool = True
+                            End If
+                            k += 1
+                        End While
+
+                        If juego.Descuento = Nothing Then
+                            tituloBool = True
+                        Else
+                            If juego.Descuento = "00%" Then
+                                tituloBool = True
+                            End If
+
+                            If juego.Descuento.Contains("-") Then
+                                tituloBool = True
+                            End If
+                        End If
+
+                        If tituloBool = False Then
+                            listaJuegos.Add(juego)
+                        End If
                     End If
                 End If
                 j += 1
@@ -298,11 +321,9 @@ Module Humble
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoHumble")
-        Dim pr As RadialProgressBar = pagina.FindName("prHumble")
 
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = e.ProgressPercentage.ToString + "%"
-        pr.Value = e.ProgressPercentage
 
     End Sub
 
