@@ -1,7 +1,4 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.ApplicationModel.DataTransfer
-Imports Windows.Storage
-Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
 
@@ -74,7 +71,7 @@ Public NotInheritable Class MainPage
             If grid.Visibility = Visibility.Visible Then
                 Dim tienda As Tienda = grid.Tag
 
-                Interfaz.IniciarTienda(tienda)
+                Interfaz.IniciarTienda(tienda, True)
             End If
         Next
 

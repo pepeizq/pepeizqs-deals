@@ -18,10 +18,6 @@ Module Steam
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listaTiendaSteam")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
         Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = "0%"
 

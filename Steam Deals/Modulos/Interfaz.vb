@@ -22,6 +22,7 @@ Module Interfaz
         gridOfertas.Visibility = Visibility.Visible
 
         Dim gvTiendas As GridView = pagina.FindName("gvOfertasTiendas")
+        AddHandler gvTiendas.ItemClick, AddressOf UsuarioClickeaTienda
 
         gvTiendas.Items.Add(AñadirBotonTienda(steamT))
         gvTiendas.Items.Add(AñadirBotonTienda(gamersgateT))
@@ -45,12 +46,12 @@ Module Interfaz
 
     End Sub
 
-    Private Sub UsuarioClickeaTienda(sender As Object, e As RoutedEventArgs)
+    Private Sub UsuarioClickeaTienda(sender As Object, e As ItemClickEventArgs)
 
-        Dim boton As Button = sender
-        Dim tienda As Tienda = boton.Tag
+        Dim sp As StackPanel = e.ClickedItem
+        Dim tienda As Tienda = sp.Tag
 
-        IniciarTienda(tienda)
+        IniciarTienda(tienda, False)
 
     End Sub
 
@@ -60,14 +61,15 @@ Module Interfaz
         Dim cbItem As ComboBoxItem = cbTiendas.SelectedItem
         Dim tienda As Tienda = cbItem.Tag
 
-        IniciarTienda(tienda)
+        IniciarTienda(tienda, False)
 
     End Sub
 
     Private Function AñadirBotonTienda(tienda As Tienda)
 
         Dim sp As New StackPanel With {
-            .Orientation = Orientation.Horizontal
+            .Orientation = Orientation.Horizontal,
+            .Tag = tienda
         }
 
         Dim icono As New ImageEx With {
@@ -87,16 +89,15 @@ Module Interfaz
 
         sp.Children.Add(tb)
 
-        Dim boton As New Button With {
+        Dim boton As New GridViewItem With {
             .Margin = New Thickness(10, 10, 10, 10),
             .Padding = New Thickness(15, 10, 15, 10),
             .MinWidth = 150,
-            .Tag = tienda,
             .Content = sp,
-            .Background = New SolidColorBrush(App.Current.Resources("ColorSecundario"))
+            .Background = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
+            .HorizontalContentAlignment = HorizontalAlignment.Center
         }
 
-        AddHandler boton.Click, AddressOf UsuarioClickeaTienda
         AddHandler boton.PointerEntered, AddressOf UsuarioEntraBoton
         AddHandler boton.PointerExited, AddressOf UsuarioSaleBoton
 
@@ -189,7 +190,7 @@ Module Interfaz
 
     End Sub
 
-    Public Sub IniciarTienda(tienda As Tienda)
+    Public Sub IniciarTienda(tienda As Tienda, actualizar As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -211,39 +212,49 @@ Module Interfaz
         cbTiendas.Visibility = Visibility.Visible
         cbTiendas.SelectedIndex = tienda.Posicion
 
-        Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
-        botonActualizarTienda.IsEnabled = False
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
-        cbOrdenar.IsEnabled = False
-
         Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
-        botonSeleccionarTodo.IsEnabled = False
+        Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
-        Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
-        botonLimpiarSeleccion.IsEnabled = False
+        If actualizar = True Then
+            lv.Items.Clear()
+        End If
 
-        Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
-        tbSeleccionadas.Text = String.Empty
+        If lv.Items.Count = 0 Then
+            lv.IsEnabled = False
 
-        Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
-        tbCargadas.Text = String.Empty
+            Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
+            gridProgreso.Visibility = Visibility.Visible
 
-        Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
-        tbMostradas.Text = String.Empty
+            Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
+            botonActualizarTienda.IsEnabled = False
 
-        If tienda.NombreUsar = steamT.NombreUsar Then
-            Steam.GenerarOfertas()
-        ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-            GamersGate.GenerarOfertas()
-        ElseIf tienda.NombreUsar = humbleT.Nombreusar Then
-            Humble.GenerarOfertas()
+            Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
+            cbOrdenar.IsEnabled = False
+
+            Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
+            botonSeleccionarTodo.IsEnabled = False
+
+            Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
+            botonLimpiarSeleccion.IsEnabled = False
+
+            Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
+            tbSeleccionadas.Text = String.Empty
+
+            Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
+            tbCargadas.Text = String.Empty
+
+            Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
+            tbMostradas.Text = String.Empty
+
+            If tienda.NombreUsar = steamT.NombreUsar Then
+                Steam.GenerarOfertas()
+            ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
+                GamersGate.GenerarOfertas()
+            ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
+                Humble.GenerarOfertas()
+            End If
         End If
 
     End Sub

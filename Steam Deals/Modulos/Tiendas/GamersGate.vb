@@ -15,13 +15,6 @@ Module GamersGate
             listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
         End If
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim lv As ListView = pagina.FindName("listaTiendaGamersGate")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
         listaJuegos.Clear()
 
         Bw.WorkerReportsProgress = True
