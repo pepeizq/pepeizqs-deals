@@ -124,7 +124,7 @@
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
-    <Compile Include="Modulos\Tiendas\BundleStars.vb" />
+    <Compile Include="Modulos\Tiendas\Fanatical.vb" />
     <Compile Include="Modulos\Herramientas\Calculadora.vb" />
     <Compile Include="Modulos\Herramientas\Decompiladores.vb" />
     <Compile Include="Modulos\Tiendas\GamersGate.vb" />

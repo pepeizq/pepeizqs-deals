@@ -223,4 +223,10 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorInsertarHtmlTabla_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorInsertarHtmlTabla.Click
+
+        Editor.InsertarHtml()
+
+    End Sub
+
 End Class

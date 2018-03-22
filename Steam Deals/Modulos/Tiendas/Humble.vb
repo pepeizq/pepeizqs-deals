@@ -186,7 +186,7 @@ Module Humble
                         }
 
                         Dim listaAfiliados As New List(Of String) From {
-                            enlace + "?partner=pepeizqdeals"
+                            enlace + "?partner=vayaansias"
                         }
 
                         Dim listaPrecios As New List(Of String) From {

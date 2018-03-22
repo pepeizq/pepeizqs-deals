@@ -1,34 +1,27 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports System.Net
+Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module GOG
 
     Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
+
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listadoGOG")
-        lv.IsEnabled = False
-        lv.Items.Clear()
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+        tb.Text = "0%"
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorGOG")
-        lvEditor.IsEnabled = False
-
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesGOG")
-        lvOpciones.IsEnabled = False
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarGOG")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoGOG")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasGOG")
-        panelNoOfertas.Visibility = Visibility.Collapsed
+        listaJuegos.Clear()
 
         Bw.WorkerReportsProgress = True
         Bw.WorkerSupportsCancellation = True
@@ -40,13 +33,6 @@ Module GOG
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
 
         Dim i As Integer = 1
         While i < 100
@@ -81,15 +67,15 @@ Module GOG
                         int4 = temp3.IndexOf("</title>")
                         temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                        temp4 = temp4.Replace("&#039;", "'")
-                        temp4 = temp4.Replace("&amp;", "&")
+                        temp4 = temp4.Trim
+                        temp4 = WebUtility.HtmlDecode(temp4)
 
                         If temp4.Contains(", The") Then
                             temp4 = temp4.Replace(", The", Nothing)
                             temp4 = "The " + temp4
                         End If
 
-                        Dim titulo As String = temp4.Trim
+                        Dim titulo As String = temp4
 
                         Dim temp5, temp6 As String
                         Dim int5, int6 As Integer
@@ -112,7 +98,9 @@ Module GOG
                         int8 = temp7.IndexOf("</img_icon>")
                         temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                        Dim imagen As String = "http:" + temp8.Trim.Replace("_100.", "_196.")
+                        Dim imagenPequeña As String = "http:" + temp8.Trim.Replace("_100.", "_196.")
+
+                        Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
@@ -123,10 +111,21 @@ Module GOG
                         int10 = temp9.IndexOf("</price>")
                         temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                        temp10 = temp10.Replace(".", ",")
-                        temp10 = temp10.Replace("€", Nothing)
+                        Dim precio As String = temp10.Trim
 
-                        Dim precio As String = temp10.Trim + " €"
+                        Dim listaEnlaces As New List(Of String) From {
+                            enlace
+                        }
+
+                        Dim listaAfiliados As New List(Of String) From {
+                            afiliado
+                        }
+
+                        Dim listaPrecios As New List(Of String) From {
+                            precio
+                        }
+
+                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
                         Dim temp11, temp12 As String
                         Dim int11, int12 As Integer
@@ -166,26 +165,28 @@ Module GOG
                                 linux = True
                             End If
 
-                            Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                            Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                            'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, windows, mac, linux, "GOG", DateTime.Today, val.Cantidad, val.Enlace)
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                            'Dim tituloBool As Boolean = False
-                            'Dim k As Integer = 0
-                            'While k < listaJuegos.Count
-                            '    If listaJuegos(k).Titulo = juego.Titulo Then
-                            '        tituloBool = True
-                            '    End If
-                            '    k += 1
-                            'End While
+                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "GOG", Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
-                            'If juego.Descuento = Nothing Then
-                            '    tituloBool = True
-                            'End If
+                            Dim tituloBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                    tituloBool = True
+                                End If
+                                k += 1
+                            End While
 
-                            'If tituloBool = False Then
-                            '    listaJuegos.Add(juego)
-                            'End If
+                            If juego.Descuento = Nothing Then
+                                tituloBool = True
+                            End If
+
+                            If tituloBool = False Then
+                                listaJuegos.Add(juego)
+                            End If
                         End If
 
                         Bw.ReportProgress(i)
@@ -202,9 +203,9 @@ Module GOG
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoGOG")
 
-        tb.Text = e.ProgressPercentage.ToString
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+        tb.Text = e.ProgressPercentage.ToString + "%"
 
     End Sub
 

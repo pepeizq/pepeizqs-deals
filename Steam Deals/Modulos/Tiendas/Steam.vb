@@ -206,7 +206,7 @@ Module Steam
 
                                 Dim analisis As JuegoAnalisis = Nothing
 
-                                If temp2.Contains("data-store-tooltip=") Then
+                                If temp2.Contains("data-tooltip-html=") Then
                                     analisis = AñadirAnalisis(temp2, listaAnalisis)
                                 End If
 

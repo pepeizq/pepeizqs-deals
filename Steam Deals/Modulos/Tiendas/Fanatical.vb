@@ -1,57 +1,32 @@
-﻿Imports Microsoft.Toolkit.Uwp
+﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 
-Module BundleStars
+Module Fanatical
 
-    Dim WithEvents bw As BackgroundWorker
-    Dim listaJuegos As List(Of Juego)
+    Dim WithEvents Bw As New BackgroundWorker
+    Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
+        Dim helper As New LocalObjectStorageHelper
 
-        Dim lv As ListView = pagina.FindName("listadoBundleStars")
-        lv.IsEnabled = False
-        lv.Items.Clear()
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorBundleStars")
-        lvEditor.IsEnabled = False
+        listaJuegos.Clear()
 
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesBundleStars")
-        lvOpciones.IsEnabled = False
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarBundleStars")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoBundleStars")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasBundleStars")
-        panelNoOfertas.Visibility = Visibility.Collapsed
-
-        bw = New BackgroundWorker With {
-            .WorkerReportsProgress = True,
-            .WorkerSupportsCancellation = True
-        }
-
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
-
-        listaJuegos = New List(Of Juego)
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim i As Integer = 1
         While i < 5000
@@ -91,9 +66,10 @@ Module BundleStars
                         int4 = temp3.IndexOf(ChrW(34))
                         temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                        temp4 = temp4.Replace("&amp;", "&")
+                        temp4 = temp4.Trim
+                        temp4 = WebUtility.HtmlDecode(temp4)
 
-                        Dim titulo As String = temp4.Trim
+                        Dim titulo As String = temp4
 
                         Dim temp5, temp6 As String
                         Dim int5, int6 As Integer
@@ -116,7 +92,9 @@ Module BundleStars
                         int8 = temp7.IndexOf(ChrW(34))
                         temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                        Dim imagen As String = "https://cdn.fanatical.com/production/product/400x225/" + temp8.Trim
+                        Dim imagenPequeña As String = "https://cdn.fanatical.com/production/product/400x225/" + temp8.Trim
+
+                        Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
@@ -195,6 +173,24 @@ Module BundleStars
                             precioUK = precioUK.Trim
                         End If
 
+                        Dim listaPaises As New List(Of String) From {
+                            "US", "EU", "UK"
+                        }
+
+                        Dim listaEnlaces As New List(Of String) From {
+                            enlace, enlace, enlace
+                        }
+
+                        Dim listaAfiliados As New List(Of String) From {
+                            afiliado, afiliado, afiliado
+                        }
+
+                        Dim listaPrecios As New List(Of String) From {
+                            precioUS, precioEU, precioUK
+                        }
+
+                        Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
+
                         Dim drm As String = Nothing
 
                         If temp2.Contains(ChrW(34) + "drm" + ChrW(34)) Then
@@ -245,56 +241,58 @@ Module BundleStars
                             linux = True
                         End If
 
-                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                        Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precioUS, precioEU, precioUK, descuento, drm, windows, mac, linux, "Fanatical", DateTime.Today, val.Cantidad, val.Enlace)
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                        'Dim tituloBool As Boolean = False
-                        'Dim k As Integer = 0
-                        'While k < listaJuegos.Count
-                        '    If listaJuegos(k).Titulo = juego.Titulo Then
-                        '        tituloBool = True
-                        '    End If
-                        '    k += 1
-                        'End While
+                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Fanatical", Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
-                        'If juego.Descuento = Nothing Then
-                        '    tituloBool = True
-                        'Else
-                        '    If juego.Descuento = "00%" Then
-                        '        tituloBool = True
-                        '    End If
-                        'End If
+                        Dim tituloBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Titulo = juego.Titulo Then
+                                tituloBool = True
+                            End If
+                            k += 1
+                        End While
 
-                        'If tituloBool = False Then
-                        '    listaJuegos.Add(juego)
-                        'End If
+                        If juego.Descuento = Nothing Then
+                            tituloBool = True
+                        Else
+                            If juego.Descuento = "00%" Then
+                                tituloBool = True
+                            End If
+                        End If
+
+                        If tituloBool = False Then
+                            listaJuegos.Add(juego)
+                        End If
                     End If
                     j += 1
                 End While
             End If
-            bw.ReportProgress(i)
+            Bw.ReportProgress(i)
             i += 1
         End While
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoBundleStars")
 
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = e.ProgressPercentage.ToString
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasBundleStars", listaJuegos)
+        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasFanatical", listaJuegos)
 
-        Ordenar.Ofertas("BundleStars", True, False)
+        Ordenar.Ofertas("Fanatical", True, False)
 
     End Sub
 

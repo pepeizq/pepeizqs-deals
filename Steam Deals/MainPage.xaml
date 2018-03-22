@@ -154,7 +154,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <GridView x:Name="gvOfertasTiendas" VerticalAlignment="Center" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True"/>
+                    <GridView x:Name="gvOfertasTiendas" VerticalAlignment="Center" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" MaxWidth="600"/>
                 </Grid>
 
                 <Grid x:Name="gridOfertasTiendas" Grid.Row="1" Visibility="Collapsed">
@@ -179,7 +179,7 @@
                     </Grid>
                 </controls:DropShadowPanel>
 
-                <Grid Grid.Row="2" Padding="10" Background="{StaticResource GridTituloBackground}">
+                <Grid x:Name="gridOfertasBarraInferior" Grid.Row="2" Padding="10" Background="{StaticResource GridTituloBackground}" Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -299,7 +299,7 @@
                             </Button.Content>
                         </Button>
 
-                        <Button x:Name="botonEditorInsertarrHtmlTabla" Margin="5" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                        <Button x:Name="botonEditorInsertarHtmlTabla" Margin="5" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <fa:FontAwesome Icon="Table" Foreground="White" Margin="0,0,10,0"/>

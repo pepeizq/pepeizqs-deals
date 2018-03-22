@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Syncfusion.XlsIO
 Imports Windows.Storage
@@ -12,14 +11,16 @@ Module Editor
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim paquete As New EditorPaquete(listaJuegos, tienda)
+        Dim paquete As New EditorPaquete(listaJuegos, tienda, Nothing)
 
         Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
-        imagenTienda.Source = paquete.Tienda.Icono
-        imagenTienda.Tag = paquete.Tienda
 
-        Dim tbTienda As TextBlock = pagina.FindName("tbEditorTienda")
-        tbTienda.Text = paquete.Tienda.NombreMostrar + " (" + paquete.ListaJuegos.Count.ToString + ")"
+        If Not paquete.Tienda Is Nothing Then
+            imagenTienda.Source = paquete.Tienda.Icono
+
+            Dim tbTienda As TextBlock = pagina.FindName("tbEditorTienda")
+            tbTienda.Text = paquete.Tienda.NombreMostrar + " (" + paquete.ListaJuegos.Count.ToString + ")"
+        End If
 
         Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
         Dim webSeleccionada As Integer = cbWebs.SelectedIndex
@@ -55,9 +56,9 @@ Module Editor
         End If
 
         Dim nombreTablaGenerar As String = paquete.Tienda.NombreUsar.ToLower + mes + dia + hora + minuto + segundo
+        paquete.NombreTabla = nombreTablaGenerar
 
         Dim wv As WebView = pagina.FindName("wvEditor")
-        wv.Tag = nombreTablaGenerar
 
         If webSeleccionada = 0 Then
             If listaJuegos.Count < 2 Then
@@ -67,24 +68,18 @@ Module Editor
             End If
         End If
 
-        Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
-        botonExportarExcel.Tag = paquete.ListaJuegos
+        imagenTienda.Tag = paquete
 
     End Sub
 
     Public Async Sub ExportarExcel()
 
-        Dim listaJuegos As List(Of Juego) = Nothing
-        Dim tienda As Tienda = Nothing
-
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
         Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
-        tienda = imagenTienda.Tag
-
-        Dim botonExportarExcel As Button = pagina.FindName("botonEditorExportarExcel")
-        listaJuegos = botonExportarExcel.Tag
+        Dim paquete As EditorPaquete = imagenTienda.Tag
+        Dim listaJuegos As List(Of Juego) = paquete.ListaJuegos
 
         Dim wv As WebView = pagina.FindName("wvEditor")
 
@@ -93,9 +88,6 @@ Module Editor
 
             Dim workbook As IWorkbook = motor.Excel.Workbooks.Create(1)
             Dim worksheet As IWorksheet = workbook.Worksheets(0)
-
-            worksheet.Range("C1").ColumnWidth = 50
-            worksheet.Range("D1").ColumnWidth = 50
 
             worksheet.Range("B1").Text = "Title"
             worksheet.Range("C1").Text = "Discount"
@@ -266,11 +258,10 @@ Module Editor
 
             Dim guardarPicker As New FileSavePicker With {
                 .SuggestedStartLocation = PickerLocationId.Desktop,
-                .SuggestedFileName = wv.Tag
+                .SuggestedFileName = paquete.NombreTabla
             }
 
             guardarPicker.FileTypeChoices.Add("Excel Files", ficherosExcel)
-
             fichero = Await guardarPicker.PickSaveFileAsync
 
             If Not fichero Is Nothing Then
@@ -284,23 +275,15 @@ Module Editor
 
     Public Async Sub CargaWeb(wv As WebView)
 
-        Dim nombreTablaGenerar As String = Nothing
-        nombreTablaGenerar = wv.Tag
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
+        Dim paquete As EditorPaquete = imagenTienda.Tag
+
+        Dim nombreTablaGenerar As String = paquete.NombreTabla
 
         If wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/post-new.php?post_type=us_portfolio") Then
-            Dim lista As New List(Of String) From {
-                "document.getElementById('content-html').click();"
-            }
-
-            Dim argumentos As IEnumerable(Of String) = lista
-
-            Try
-                Await wv.InvokeScriptAsync("eval", argumentos)
-            Catch ex As Exception
-
-            End Try
-
-
 
         ElseIf wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=wpdatatables-constructor&source") Then
             Dim lista As New List(Of String) From {
@@ -331,7 +314,92 @@ Module Editor
 
     End Sub
 
-    Public Sub CopiarHtmlTabla()
+    Public Async Sub InsertarHtml()
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
+        Dim paquete As EditorPaquete = imagenTienda.Tag
+
+        Dim wv As WebView = pagina.FindName("wvEditor")
+
+        If wv.Source = New Uri("https://pepeizqdeals.com/wp-admin/post-new.php?post_type=us_portfolio") Then
+            Dim html As String = "[vc_row][vc_column][wpdatatable id=" + ChrW(34) + "28" + ChrW(34) + "][/vc_column][/vc_row]"
+
+            Dim lista As New List(Of String) From {
+                "document.getElementById('content-html').click();"
+            }
+
+            Dim argumentos As IEnumerable(Of String) = lista
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos)
+            Catch ex As Exception
+
+            End Try
+
+            Dim lista2 As New List(Of String) From {
+                "document.getElementById('content').value = '" + html + "';"
+            }
+
+            Dim argumentos2 As IEnumerable(Of String) = lista2
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos2)
+            Catch ex As Exception
+
+            End Try
+
+            Dim listaJuegos As List(Of Juego) = paquete.ListaJuegos
+
+            listaJuegos.Sort(Function(x As Juego, y As Juego)
+                                 Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                 If resultado = 0 Then
+                                     resultado = x.Titulo.CompareTo(y.Titulo)
+                                 End If
+                                 Return resultado
+                             End Function)
+
+            Dim titulo As String = " Sale (" + listaJuegos(listaJuegos.Count - 1).Descuento + "-" + listaJuegos(0).Descuento + ") in " + paquete.Tienda.NombreMostrar + " (" + listaJuegos.Count.ToString + " Deals)"
+
+            Dim lista3 As New List(Of String) From {
+                "document.getElementById('title').value = '" + titulo + "';"
+            }
+
+            Dim argumentos3 As IEnumerable(Of String) = lista3
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos3)
+            Catch ex As Exception
+
+            End Try
+
+            Dim lista4 As New List(Of String) From {
+                "document.getElementById('in-us_portfolio_category-6').click();"
+            }
+
+            Dim argumentos4 As IEnumerable(Of String) = lista4
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos4)
+            Catch ex As Exception
+
+            End Try
+
+            Dim lista5 As New List(Of String) From {
+                "document.getElementById('enable-expirationdate').click();"
+            }
+
+            Dim argumentos5 As IEnumerable(Of String) = lista5
+
+            Try
+                Await wv.InvokeScriptAsync("eval", argumentos5)
+            Catch ex As Exception
+
+            End Try
+
+        End If
 
     End Sub
 

@@ -69,7 +69,7 @@ Module Analisis
                             int2 = temp.IndexOf("</a>")
                             temp2 = temp.Remove(int2, temp.Length - int2)
 
-                            If temp2.Contains("data-store-tooltip=") Then
+                            If temp2.Contains("data-tooltip-html=") Then
                                 AñadirAnalisis(temp2, listaAnalisis)
                             End If
                         End If
@@ -117,7 +117,7 @@ Module Analisis
         Dim analisis As JuegoAnalisis = Nothing
 
         If Not html = Nothing Then
-            If html.Contains("data-store-tooltip=") Then
+            If html.Contains("data-tooltip-html=") Then
                 Dim temp3, temp4 As String
                 Dim int3, int4 As Integer
 
@@ -135,7 +135,7 @@ Module Analisis
                 Dim temp5, temp6 As String
                 Dim int5, int6 As Integer
 
-                int5 = html.IndexOf("data-store-tooltip=")
+                int5 = html.IndexOf("data-tooltip-html=")
                 temp5 = html.Remove(0, int5)
 
                 int6 = temp5.IndexOf("%")
@@ -174,7 +174,7 @@ Module Analisis
                 Dim temp9, temp10 As String
                 Dim int9, int10 As Integer
 
-                int9 = html.IndexOf("data-store-tooltip=")
+                int9 = html.IndexOf("data-tooltip-html=")
                 temp9 = html.Remove(0, int9)
 
                 int10 = temp9.IndexOf("user reviews")

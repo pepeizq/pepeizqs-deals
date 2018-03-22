@@ -9,6 +9,9 @@ Module Interfaz
     Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0)
     Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1)
     Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2)
+    Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3)
+    Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4)
+    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5)
 
     Public Sub Generar()
 
@@ -27,6 +30,9 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(steamT))
         gvTiendas.Items.Add(AñadirBotonTienda(gamersgateT))
         gvTiendas.Items.Add(AñadirBotonTienda(humbleT))
+        gvTiendas.Items.Add(AñadirBotonTienda(gamesplanetT))
+        gvTiendas.Items.Add(AñadirBotonTienda(fanaticalT))
+        gvTiendas.Items.Add(AñadirBotonTienda(gogT))
 
         Dim cbTiendas As ComboBox = pagina.FindName("cbTiendas")
 
@@ -37,16 +43,28 @@ Module Interfaz
         cbTiendas.Items.Add(AñadirCbTienda(steamT))
         cbTiendas.Items.Add(AñadirCbTienda(gamersgateT))
         cbTiendas.Items.Add(AñadirCbTienda(humbleT))
+        cbTiendas.Items.Add(AñadirCbTienda(gamesplanetT))
+        cbTiendas.Items.Add(AñadirCbTienda(fanaticalT))
+        cbTiendas.Items.Add(AñadirCbTienda(gogT))
 
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
 
         gridOfertasTiendas.Children.Add(AñadirGridTienda(steamT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(gamersgateT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(humbleT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(gamesplanetT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(fanaticalT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(gogT))
 
     End Sub
 
     Private Sub UsuarioClickeaTienda(sender As Object, e As ItemClickEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim gridBarraInferior As Grid = pagina.FindName("gridOfertasBarraInferior")
+        gridBarraInferior.Visibility = Visibility.Visible
 
         Dim sp As StackPanel = e.ClickedItem
         Dim tienda As Tienda = sp.Tag
@@ -254,6 +272,12 @@ Module Interfaz
                 GamersGate.GenerarOfertas()
             ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
                 Humble.GenerarOfertas()
+            ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
+                GamesPlanet.GenerarOfertas()
+            ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
+                Fanatical.GenerarOfertas()
+            ElseIf tienda.NombreUsar = gogT.NombreUsar Then
+                GOG.GenerarOfertas()
             End If
         End If
 
@@ -339,8 +363,8 @@ Module Interfaz
                 Dim imagen As New ImageEx With {
                     .Stretch = Stretch.Uniform,
                     .IsCacheEnabled = True,
-                    .MaxHeight = 120,
-                    .MaxWidth = 150
+                    .MaxHeight = 160,
+                    .MaxWidth = 200
                 }
 
                 Try
@@ -709,31 +733,41 @@ Module Interfaz
                     bandera.Source = "Assets\Banderas\pais_fr2.png"
                 ElseIf juego.Enlaces.Paises(i).Contains("DE") Then
                     bandera.Source = "Assets\Banderas\pais_de2.png"
+                ElseIf juego.Enlaces.Paises(i).Contains("US") Then
+                    bandera.Source = "Assets\Banderas\pais_us2.png"
                 End If
 
                 spPrecio.Children.Add(bandera)
 
                 Dim precio As String = juego.Enlaces.Precios(i)
 
-                If precio.Contains("£") Then
-                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                    precio = Divisas.CambioMoneda(precio, tbLibra.Text)
+                If Not precio = Nothing Then
+                    If precio.Contains("£") Then
+                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                        precio = Divisas.CambioMoneda(precio, tbLibra.Text)
+                    ElseIf precio.Contains("$") Then
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                        precio = Divisas.CambioMoneda(precio, tbDolar.Text)
+                    End If
+
+                    If precio.Contains("€") Then
+                        precio = precio.Replace("€", Nothing)
+                        precio = precio.Replace(",", ".")
+                        precio = precio.Trim
+                        precio = precio + " €"
+                    End If
+
+                    Dim tbPrecio As New TextBlock With {
+                        .Text = precio,
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(Colors.White)
+                    }
+
+                    spPrecio.Children.Add(tbPrecio)
+
+                    spPrecioVertical.Children.Add(spPrecio)
                 End If
 
-                precio = precio.Replace("€", Nothing)
-                precio = precio.Replace(",", ".")
-                precio = precio.Trim
-                precio = precio + " €"
-
-                Dim tbPrecio As New TextBlock With {
-                    .Text = precio,
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White)
-                }
-
-                spPrecio.Children.Add(tbPrecio)
-
-                spPrecioVertical.Children.Add(spPrecio)
                 i += 1
             End While
 
