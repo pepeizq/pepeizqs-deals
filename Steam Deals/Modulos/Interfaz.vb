@@ -12,6 +12,10 @@ Module Interfaz
     Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3)
     Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4)
     Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5)
+    Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6)
+    Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7)
+    Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8)
+    Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
 
     Public Sub Generar()
 
@@ -33,6 +37,10 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(gamesplanetT))
         gvTiendas.Items.Add(AñadirBotonTienda(fanaticalT))
         gvTiendas.Items.Add(AñadirBotonTienda(gogT))
+        gvTiendas.Items.Add(AñadirBotonTienda(wingamestoreT))
+        gvTiendas.Items.Add(AñadirBotonTienda(silagamesT))
+        gvTiendas.Items.Add(AñadirBotonTienda(nuuvemT))
+        gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
 
         Dim cbTiendas As ComboBox = pagina.FindName("cbTiendas")
 
@@ -46,6 +54,10 @@ Module Interfaz
         cbTiendas.Items.Add(AñadirCbTienda(gamesplanetT))
         cbTiendas.Items.Add(AñadirCbTienda(fanaticalT))
         cbTiendas.Items.Add(AñadirCbTienda(gogT))
+        cbTiendas.Items.Add(AñadirCbTienda(wingamestoreT))
+        cbTiendas.Items.Add(AñadirCbTienda(silagamesT))
+        cbTiendas.Items.Add(AñadirCbTienda(nuuvemT))
+        cbTiendas.Items.Add(AñadirCbTienda(microsoftstoreT))
 
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
 
@@ -55,6 +67,10 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(gamesplanetT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(fanaticalT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(gogT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(wingamestoreT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(silagamesT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(nuuvemT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(microsoftstoreT))
 
     End Sub
 
@@ -108,9 +124,9 @@ Module Interfaz
         sp.Children.Add(tb)
 
         Dim boton As New GridViewItem With {
-            .Margin = New Thickness(10, 10, 10, 10),
+            .Margin = New Thickness(15, 15, 15, 15),
             .Padding = New Thickness(15, 10, 15, 10),
-            .MinWidth = 150,
+            .MinWidth = 170,
             .Content = sp,
             .Background = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
             .HorizontalContentAlignment = HorizontalAlignment.Center
@@ -278,6 +294,14 @@ Module Interfaz
                 Fanatical.GenerarOfertas()
             ElseIf tienda.NombreUsar = gogT.NombreUsar Then
                 GOG.GenerarOfertas()
+            ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
+                WinGameStore.GenerarOfertas()
+            ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
+                SilaGames.GenerarOfertas()
+            ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
+                Nuuvem.GenerarOfertas()
+            ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
+                MicrosoftStore.GenerarOfertas()
             End If
         End If
 
@@ -380,7 +404,8 @@ Module Interfaz
         End If
 
         Dim sp2 As New StackPanel With {
-            .Orientation = Orientation.Vertical
+            .Orientation = Orientation.Vertical,
+            .VerticalAlignment = VerticalAlignment.Center
         }
 
         Dim tbTitulo As New TextBlock With {
@@ -683,10 +708,22 @@ Module Interfaz
 
             Dim precio As String = juego.Enlaces.Precios(0)
 
-            precio = precio.Replace("€", Nothing)
-            precio = precio.Replace(",", ".")
-            precio = precio.Trim
-            precio = precio + " €"
+            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                If precio.Contains("£") Then
+                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                    precio = Divisas.CambioMoneda(precio, tbLibra.Text)
+                ElseIf precio.Contains("$") Then
+                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                    precio = Divisas.CambioMoneda(precio, tbDolar.Text)
+                End If
+
+                If precio.Contains("€") Then
+                    precio = precio.Replace("€", Nothing)
+                    precio = precio.Replace(",", ".")
+                    precio = precio.Trim
+                    precio = precio + " €"
+                End If
+            End If
 
             Dim textoPrecio As New TextBlock With {
                 .Text = precio,
@@ -742,19 +779,21 @@ Module Interfaz
                 Dim precio As String = juego.Enlaces.Precios(i)
 
                 If Not precio = Nothing Then
-                    If precio.Contains("£") Then
-                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                        precio = Divisas.CambioMoneda(precio, tbLibra.Text)
-                    ElseIf precio.Contains("$") Then
-                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                        precio = Divisas.CambioMoneda(precio, tbDolar.Text)
-                    End If
+                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                        If precio.Contains("£") Then
+                            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                            precio = Divisas.CambioMoneda(precio, tbLibra.Text)
+                        ElseIf precio.Contains("$") Then
+                            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                            precio = Divisas.CambioMoneda(precio, tbDolar.Text)
+                        End If
 
-                    If precio.Contains("€") Then
-                        precio = precio.Replace("€", Nothing)
-                        precio = precio.Replace(",", ".")
-                        precio = precio.Trim
-                        precio = precio + " €"
+                        If precio.Contains("€") Then
+                            precio = precio.Replace("€", Nothing)
+                            precio = precio.Replace(",", ".")
+                            precio = precio.Trim
+                            precio = precio + " €"
+                        End If
                     End If
 
                     Dim tbPrecio As New TextBlock With {

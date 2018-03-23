@@ -1,52 +1,32 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports System.Net
+Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module SilaGames
 
-    Dim WithEvents bw As New BackgroundWorker
+    Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
+        Dim helper As New LocalObjectStorageHelper
 
-        Dim lv As ListView = pagina.FindName("listadoSilaGames")
-        lv.IsEnabled = False
-        lv.Items.Clear()
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorSilaGames")
-        lvEditor.IsEnabled = False
+        listaJuegos.Clear()
 
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesSilaGames")
-        lvOpciones.IsEnabled = False
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarSilaGames")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoSilaGames")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasSilaGames")
-        panelNoOfertas.Visibility = Visibility.Collapsed
-
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
-
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("http://52.28.153.212/cjAffiliateEU.xml"))
         Dim html As String = html_.Result
@@ -75,10 +55,10 @@ Module SilaGames
                     int4 = temp3.IndexOf("</name>")
                     temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                    temp4 = temp4.Replace("&apos;", "'")
-                    temp4 = temp4.Replace("&amp;", "&")
+                    temp4 = temp4.Trim
+                    temp4 = WebUtility.HtmlDecode(temp4)
 
-                    Dim titulo As String = temp4.Trim
+                    Dim titulo As String = temp4
 
                     Dim temp5, temp6 As String
                     Dim int5, int6 As Integer
@@ -108,7 +88,9 @@ Module SilaGames
 
                     temp8 = temp8.Replace("@2x", Nothing)
 
-                    Dim imagen As String = temp8.Trim
+                    Dim imagenPequeña As String = temp8.Trim
+
+                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
                     Dim temp9, temp10 As String
                     Dim int9, int10 As Integer
@@ -140,6 +122,20 @@ Module SilaGames
                     temp12 = temp12.Trim + " €"
 
                     If Not precio = temp12 Then
+                        Dim listaEnlaces As New List(Of String) From {
+                            enlace
+                        }
+
+                        Dim listaAfiliados As New List(Of String) From {
+                            afiliado
+                        }
+
+                        Dim listaPrecios As New List(Of String) From {
+                            precio
+                        }
+
+                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
+
                         Dim descuento As String = Calculadora.GenerarDescuento(temp12, precio)
 
                         Dim temp13, temp14 As String
@@ -159,30 +155,30 @@ Module SilaGames
                             drm = "uplay"
                         End If
 
-                        Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, False, False, False, "Sila Games", DateTime.Today, val.Cantidad, val.Enlace)
+                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Sila Games", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                        'Dim tituloBool As Boolean = False
-                        'Dim k As Integer = 0
-                        'While k < listaJuegos.Count
-                        '    If listaJuegos(k).Titulo = juego.Titulo Then
-                        '        tituloBool = True
-                        '    End If
-                        '    k += 1
-                        'End While
+                        Dim tituloBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Titulo = juego.Titulo Then
+                                tituloBool = True
+                            End If
+                            k += 1
+                        End While
 
-                        'If juego.Descuento = Nothing Then
-                        '    tituloBool = True
-                        'End If
+                        If juego.Descuento = Nothing Then
+                            tituloBool = True
+                        End If
 
-                        'If juego.Descuento = "00%" Then
-                        '    tituloBool = True
-                        'End If
+                        If juego.Descuento = "00%" Then
+                            tituloBool = True
+                        End If
 
-                        'If tituloBool = False Then
-                        '    listaJuegos.Add(juego)
-                        'End If
+                        If tituloBool = False Then
+                            listaJuegos.Add(juego)
+                        End If
                     End If
                 End If
             End If
@@ -191,17 +187,12 @@ Module SilaGames
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoSilaGames")
-
-        tb.Text = e.ProgressPercentage.ToString + "%"
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasSilaGames", listaJuegos)

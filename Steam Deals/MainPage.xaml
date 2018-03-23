@@ -109,7 +109,7 @@
 
                             <Button.Flyout>
                                 <MenuFlyout Placement="Bottom">
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigEditor" x:Uid="Editor2" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigEditor" x:Uid="Editor2" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                                         <ToolTipService.ToolTip>
                                             <TextBlock x:Uid="ConfigEditorTooltip" FontSize="15" TextWrapping="Wrap"/>
                                         </ToolTipService.ToolTip>
@@ -135,7 +135,7 @@
                                         </ToolTipService.ToolTip>
                                     </ToggleMenuFlyoutItem>
 
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigSteamMas" Text="Steam +" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <ToggleMenuFlyoutItem x:Name="toggleConfigSteamMas" Text="Steam +" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                                         <ToolTipService.ToolTip>
                                             <TextBlock x:Uid="ConfigSteam+Tooltip" FontSize="15" TextWrapping="Wrap"/>
                                         </ToolTipService.ToolTip>
@@ -154,7 +154,10 @@
                         </LinearGradientBrush>
                     </Grid.Background>
 
-                    <GridView x:Name="gvOfertasTiendas" VerticalAlignment="Center" HorizontalAlignment="Center" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" MaxWidth="600"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock x:Uid="SelectStore" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" MaxWidth="700"/>
+                    </StackPanel>
                 </Grid>
 
                 <Grid x:Name="gridOfertasTiendas" Grid.Row="1" Visibility="Collapsed">

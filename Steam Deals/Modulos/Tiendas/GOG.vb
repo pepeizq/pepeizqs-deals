@@ -205,7 +205,7 @@ Module GOG
         Dim pagina As Page = frame.Content
 
         Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-        tb.Text = e.ProgressPercentage.ToString + "%"
+        tb.Text = e.ProgressPercentage.ToString
 
     End Sub
 

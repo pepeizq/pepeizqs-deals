@@ -1,39 +1,31 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports System.Net
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module MicrosoftStore
 
-    Dim WithEvents Bw As BackgroundWorker
-    Dim listaJuegos As List(Of Juego)
+    Dim WithEvents Bw As New BackgroundWorker
+    Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
+
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listadoMicrosoftStore")
-        lv.IsEnabled = False
-        lv.Items.Clear()
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+        tb.Text = "0%"
 
-        Dim lvEditor As ListView = pagina.FindName("lvEditorMicrosoftStore")
-        lvEditor.IsEnabled = False
+        listaJuegos.Clear()
 
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesMicrosoftStore")
-        lvOpciones.IsEnabled = False
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarMicrosoftStore")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoMicrosoftStore")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasMicrosoftStore")
-        panelNoOfertas.Visibility = Visibility.Collapsed
-
-        Bw = New BackgroundWorker With {
-            .WorkerReportsProgress = True,
-            .WorkerSupportsCancellation = True
-        }
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
 
         If Bw.IsBusy = False Then
             Bw.RunWorkerAsync()
@@ -42,15 +34,6 @@ Module MicrosoftStore
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
-
-        listaJuegos = New List(Of Juego)
 
         Dim i As Integer = 0
         While i < 5000
@@ -96,13 +79,10 @@ Module MicrosoftStore
                                 int4 = temp3.IndexOf("</h3>")
                                 temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                temp4 = temp4.Replace("&#39;", "'")
-                                temp4 = temp4.Replace("&#174;", "®")
-                                temp4 = temp4.Replace("&#225;", "á")
-                                temp4 = temp4.Replace("&#237;", "í")
-                                temp4 = temp4.Replace("&#243;", "ó")
+                                temp4 = temp4.Trim
+                                temp4 = WebUtility.HtmlDecode(temp4)
 
-                                Dim titulo As String = temp4.Trim
+                                Dim titulo As String = temp4
 
                                 Dim temp5, temp6 As String
                                 Dim int5, int6 As Integer
@@ -136,7 +116,9 @@ Module MicrosoftStore
                                     temp8 = temp8.Remove(int8, temp8.Length - int8)
                                 End If
 
-                                Dim imagen As String = temp8.Trim
+                                Dim imagenPequeña As String = temp8.Trim
+
+                                Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
                                 Dim temp9, temp10 As String
                                 Dim int9, int10 As Integer
@@ -152,6 +134,16 @@ Module MicrosoftStore
 
                                 Dim precio As String = temp10.Trim
 
+                                Dim listaEnlaces As New List(Of String) From {
+                                    enlace
+                                }
+
+                                Dim listaPrecios As New List(Of String) From {
+                                    precio
+                                }
+
+                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+
                                 Dim temp11, temp12 As String
                                 Dim int11, int12 As Integer
 
@@ -166,26 +158,26 @@ Module MicrosoftStore
 
                                 Dim descuento As String = Calculadora.GenerarDescuento(temp12.Trim, precio)
 
-                                Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                                'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Microsoft Store", DateTime.Today, val.Cantidad, val.Enlace)
+                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Microsoft Store", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                'Dim tituloBool As Boolean = False
-                                'Dim k As Integer = 0
-                                'While k < listaJuegos.Count
-                                '    If listaJuegos(k).Titulo = juego.Titulo Then
-                                '        tituloBool = True
-                                '    End If
-                                '    k += 1
-                                'End While
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
+                                    End If
+                                    k += 1
+                                End While
 
-                                'If juego.Descuento = Nothing Then
-                                '    tituloBool = True
-                                'End If
+                                If juego.Descuento = Nothing Then
+                                    tituloBool = True
+                                End If
 
-                                'If tituloBool = False Then
-                                '    listaJuegos.Add(juego)
-                                'End If
+                                If tituloBool = False Then
+                                    listaJuegos.Add(juego)
+                                End If
                             End If
                         End If
                         j += 1
@@ -203,8 +195,8 @@ Module MicrosoftStore
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoMicrosoftStore")
 
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = e.ProgressPercentage.ToString
 
     End Sub

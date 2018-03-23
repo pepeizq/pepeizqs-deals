@@ -1,57 +1,32 @@
-﻿Imports Microsoft.Toolkit.Uwp
+﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module Nuuvem
 
-    Dim WithEvents bw As New BackgroundWorker
+    Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
 
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        Dim helper As New LocalObjectStorageHelper
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim lv As ListView = pagina.FindName("listadoNuuvem")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
-        Dim lvEditor As ListView = pagina.FindName("lvEditorNuuvem")
-        lvEditor.IsEnabled = False
-
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesNuuvem")
-        lvOpciones.IsEnabled = False
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarNuuvem")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoNuuvem")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasNuuvem")
-        panelNoOfertas.Visibility = Visibility.Collapsed
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         listaJuegos.Clear()
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
+
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
-
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
-
-        listaJuegos = New List(Of Juego)
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim tope As Integer = 2000
         Dim i As Integer = 1
@@ -84,8 +59,8 @@ Module Nuuvem
                             int4 = temp3.IndexOf(ChrW(34))
                             temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                            temp4 = temp4.Replace("&amp;", "&")
-                            temp4 = temp4.Replace("&#39;", "'")
+                            temp4 = temp4.Trim
+                            temp4 = WebUtility.HtmlDecode(temp4)
 
                             Dim titulo As String = temp4.Trim
 
@@ -112,7 +87,9 @@ Module Nuuvem
                             int8 = temp7.IndexOf(ChrW(34))
                             temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                            Dim imagen As String = temp8.Trim
+                            Dim imagenPequeña As String = temp8.Trim
+
+                            Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
                             Dim temp9, temp10 As String
                             Dim int9, int10 As Integer
@@ -137,6 +114,16 @@ Module Nuuvem
                             End While
 
                             Dim precio As String = temp10.Trim
+
+                            Dim listaEnlaces As New List(Of String) From {
+                                enlace
+                            }
+
+                            Dim listaPrecios As New List(Of String) From {
+                                precio
+                            }
+
+                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
                             Dim temp11, temp12 As String
                             Dim int11, int12 As Integer
@@ -182,26 +169,28 @@ Module Nuuvem
                                 linux = True
                             End If
 
-                            Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
+                            Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                            'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, Nothing, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, drm, windows, mac, linux, "Nuuvem", DateTime.Today, val.Cantidad, val.Enlace)
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                            'Dim tituloBool As Boolean = False
-                            'Dim k As Integer = 0
-                            'While k < listaJuegos.Count
-                            '    If listaJuegos(k).Titulo = juego.Titulo Then
-                            '        tituloBool = True
-                            '    End If
-                            '    k += 1
-                            'End While
+                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Nuuvem", Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
-                            'If juego.Descuento = Nothing Then
-                            '    tituloBool = True
-                            'End If
+                            Dim tituloBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                    tituloBool = True
+                                End If
+                                k += 1
+                            End While
 
-                            'If tituloBool = False Then
-                            '    listaJuegos.Add(juego)
-                            'End If
+                            If juego.Descuento = Nothing Then
+                                tituloBool = True
+                            End If
+
+                            If tituloBool = False Then
+                                listaJuegos.Add(juego)
+                            End If
                         End If
                         j += 1
                     End While
@@ -209,23 +198,23 @@ Module Nuuvem
                     Exit While
                 End If
             End If
-            bw.ReportProgress(i)
+            Bw.ReportProgress(i)
             i += 1
         End While
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoNuuvem")
 
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = e.ProgressPercentage.ToString
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasNuuvem", listaJuegos)

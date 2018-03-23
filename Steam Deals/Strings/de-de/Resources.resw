@@ -255,4 +255,7 @@
   <data name="EditorInsertHtmlTable.Text" xml:space="preserve">
     <value />
   </data>
+  <data name="SelectStore.Text" xml:space="preserve">
+    <value />
+  </data>
 </root>

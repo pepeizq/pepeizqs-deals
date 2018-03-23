@@ -81,7 +81,7 @@ Module Fanatical
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
                         Dim enlace As String = temp6.Trim
-                        Dim afiliado As String = "http://www.shareasale.com/r.cfm?u=1349489&b=880704&m=66498&urllink=" + enlace
+                        Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer

@@ -252,6 +252,9 @@
   <data name="SelectClear.Text" xml:space="preserve">
     <value>Limpiar Selección</value>
   </data>
+  <data name="SelectStore.Text" xml:space="preserve">
+    <value>Selecciona una tienda</value>
+  </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Título</value>
   </data>

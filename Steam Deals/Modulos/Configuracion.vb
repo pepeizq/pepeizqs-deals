@@ -49,13 +49,16 @@ Module Configuracion
 
         Dim sp As StackPanel = pagina.FindName("spEditor")
         Dim botonActualizar As Button = pagina.FindName("botonActualizar")
+        Dim toggleSteamMas As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
 
         If estado = True Then
             sp.Visibility = Visibility.Visible
             botonActualizar.Visibility = Visibility.Visible
+            toggleSteamMas.Visibility = Visibility.Visible
         Else
             sp.Visibility = Visibility.Collapsed
             botonActualizar.Visibility = Visibility.Collapsed
+            toggleSteamMas.Visibility = Visibility.Collapsed
         End If
 
     End Sub
