@@ -155,6 +155,7 @@
   <ItemGroup>
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\fanatical.ico" />
     <Content Include="Assets\Analisis\mixed.png" />
     <Content Include="Assets\Analisis\negative.png" />
@@ -234,7 +235,6 @@
     <Content Include="Assets\Sistemas\linux.png" />
     <Content Include="Assets\Sistemas\mac.png" />
     <Content Include="Assets\Sistemas\win.png" />
-    <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Webs\web_reddit.ico" />
     <Content Include="Assets\Webs\web_vayaansias.ico" />
     <Content Include="My Project\Default.rd.xml" />
