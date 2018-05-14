@@ -23,7 +23,7 @@ Module Ordenar
         Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
         tbProgreso.Text = String.Empty
 
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
+        Dim panelNoOfertas As Grid = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
         Dim numOfertasMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")

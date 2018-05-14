@@ -1,9 +1,33 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports FontAwesome.UWP
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.UI
 Imports Windows.UI.Core
 
 Public NotInheritable Class MainPage
     Inherits Page
+
+    Private Sub Nv_ItemInvoked(sender As NavigationView, args As NavigationViewItemInvokedEventArgs)
+
+        Dim recursos As New Resources.ResourceLoader()
+
+        If TypeOf args.InvokedItem Is TextBlock Then
+            Dim item As TextBlock = args.InvokedItem
+
+            If item.Text = recursos.GetString("Tiles") Then
+                'GridVisibilidad(gridTiles, item.Text)
+            ElseIf item.Text = recursos.GetString("Config") Then
+                Divisas.Generar()
+                'GridVisibilidad(gridConfig, item.Text)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub Nv_ItemFlyout(sender As NavigationViewItem, args As TappedRoutedEventArgs)
+
+        FlyoutBase.ShowAttachedFlyout(sender)
+
+    End Sub
 
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -13,6 +37,8 @@ Public NotInheritable Class MainPage
         Configuracion.Iniciar()
         MasCosas.Generar()
         Interfaz.Generar()
+
+        nvPrincipal.IsPaneOpen = False
 
         '--------------------------------------------------------
 
@@ -33,10 +59,8 @@ Public NotInheritable Class MainPage
         Await Dispatcher.RunAsync(CoreDispatcherPriority.High, Sub()
                                                                    If estado = True Then
                                                                        gridEditor.Background = App.Current.Resources("GridAcrilico")
-                                                                       gridMasCosas.Background = App.Current.Resources("GridAcrilico")
                                                                    Else
                                                                        gridEditor.Background = New SolidColorBrush(Colors.LightGray)
-                                                                       gridMasCosas.Background = New SolidColorBrush(Colors.LightGray)
                                                                    End If
                                                                End Sub)
 
@@ -47,7 +71,6 @@ Public NotInheritable Class MainPage
         tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - " + tag
 
         gridEditor.Visibility = Visibility.Collapsed
-        gridMasCosas.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
 
@@ -91,51 +114,45 @@ Public NotInheritable Class MainPage
 
     'CONFIG---------------------------------------------------------------------------------
 
-    Private Sub MenuItemConfigActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles menuItemConfigActualizarAnalisis.Click
+    'Private Sub MenuItemConfigActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles menuItemConfigActualizarAnalisis.Click
 
-        Analisis.Generar()
+    '    Analisis.Generar()
 
-    End Sub
+    'End Sub
 
-    Private Sub MenuItemConfigActualizarDivisas_Click(sender As Object, e As RoutedEventArgs) Handles menuItemConfigActualizarDivisas.Click
+    'Private Sub ToggleConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigEditor.Click
 
-        Divisas.Generar()
+    '    Configuracion.EditorActivar(toggleConfigEditor.IsChecked)
 
-    End Sub
+    'End Sub
 
-    Private Sub ToggleConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigEditor.Click
+    'Private Sub ToggleConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigUltimaVisita.Click
 
-        Configuracion.EditorActivar(toggleConfigEditor.IsChecked)
+    '    Configuracion.UltimaVisitaFiltrar(toggleConfigUltimaVisita.IsChecked)
 
-    End Sub
+    'End Sub
 
-    Private Sub ToggleConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigUltimaVisita.Click
+    'Private Sub ToggleConfigAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigAnalisis.Click
 
-        Configuracion.UltimaVisitaFiltrar(toggleConfigUltimaVisita.IsChecked)
+    '    Configuracion.AnalisisBuscar(toggleConfigAnalisis.IsChecked)
 
-    End Sub
+    'End Sub
 
-    Private Sub ToggleConfigAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigAnalisis.Click
+    'Private Sub ToggleConfigDivisas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigDivisas.Click
 
-        Configuracion.AnalisisBuscar(toggleConfigAnalisis.IsChecked)
+    '    Configuracion.DivisaActualizar(toggleConfigDivisas.IsChecked)
 
-    End Sub
+    'End Sub
 
-    Private Sub ToggleConfigDivisas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigDivisas.Click
+    'Private Sub ToggleConfigSteamMas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigSteamMas.Click
 
-        Configuracion.DivisaActualizar(toggleConfigDivisas.IsChecked)
+    '    Configuracion.SteamMasActivar(toggleConfigSteamMas.IsChecked)
 
-    End Sub
-
-    Private Sub ToggleConfigSteamMas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigSteamMas.Click
-
-        Configuracion.SteamMasActivar(toggleConfigSteamMas.IsChecked)
-
-    End Sub
+    'End Sub
 
     Private Sub BotonEditorIniciar_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorIniciar.Click
 
-        gridPrincipal.Visibility = Visibility.Collapsed
+        'gridPrincipal.Visibility = Visibility.Collapsed
         gridEditor.Visibility = Visibility.Visible
 
         Dim helper As New LocalObjectStorageHelper
@@ -206,7 +223,6 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonOfertasVolver_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertasVolver.Click
 
-        gridPrincipal.Visibility = Visibility.Visible
         gridEditor.Visibility = Visibility.Collapsed
 
     End Sub

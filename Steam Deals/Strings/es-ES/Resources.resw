@@ -255,6 +255,9 @@
   <data name="SelectStore.Text" xml:space="preserve">
     <value>Selecciona una tienda</value>
   </data>
+  <data name="Stores.Text" xml:space="preserve">
+    <value>Tiendas</value>
+  </data>
   <data name="Title.Content" xml:space="preserve">
     <value>Título</value>
   </data>

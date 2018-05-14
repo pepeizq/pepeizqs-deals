@@ -21,240 +21,164 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="gridTitulo" Grid.Row="0" Background="{StaticResource GridTituloBackground}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock x:Name="tbTitulo" Grid.Column="0" Margin="20,0,0,0" FontSize="13" Foreground="White" VerticalAlignment="Center"/>
-
-            <Button x:Name="botonMasCosas" Grid.Column="1" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                <Button.Content>
-                    <FontIcon Glyph="&#57361;" FontFamily="Segoe MDL2 Assets" Foreground="White" Margin="10,5" FontSize="15"/>
-                </Button.Content>
-
-                <Button.Flyout>
-                    <MenuFlyout x:Name="botonMasCosasMenu"/>
-                </Button.Flyout>
-            </Button>
+            <TextBlock x:Name="tbTitulo" Margin="50,0,0,0" FontSize="13" Foreground="White" VerticalAlignment="Center"/>
         </Grid>
 
-        <Grid x:Name="gridPrincipal" Grid.Row="1">
-            <Grid.Transitions>
-                <TransitionCollection>
-                    <EdgeUIThemeTransition Edge="Bottom"/>
-                </TransitionCollection>
-            </Grid.Transitions>
+        <NavigationView x:Name="nvPrincipal" Grid.Row="1" ItemInvoked="Nv_ItemInvoked"
+                        OpenPaneLength="200" AlwaysShowHeader="False" IsSettingsVisible="False">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="itemTiendas" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                    <NavigationViewItem.Icon>
+                        <fa:FontAwesome Icon="Home" Foreground="White"/>
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Uid="Stores" Foreground="White"/>
+                    </NavigationViewItem.Content>
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout x:Name="botonTiendasMenu"/>
+                    </FlyoutBase.AttachedFlyout>
+                </NavigationViewItem>
+                <StackPanel Orientation="Horizontal" Margin="-1,0,0,0" Padding="0">
+                    <controls:ImageEx x:Name="imagenTiendaSeleccionada" Height="16" Width="16" IsCacheEnabled="True"/>
+                    <TextBlock x:Name="tbTiendaSeleccionada" Margin="17,0,0,0" Foreground="White"/>
+                </StackPanel> 
+            </NavigationView.MenuItems>
+            <NavigationView.PaneFooter>
+                <StackPanel Orientation="Vertical">
+                    <NavigationViewItem Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                        <NavigationViewItem.Icon>
+                            <fa:FontAwesome Icon="Cog" Foreground="White"/>
+                        </NavigationViewItem.Icon>
+                        <NavigationViewItem.Content>
+                            <TextBlock x:Uid="Config" Foreground="White"/>
+                        </NavigationViewItem.Content>
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutSubItem x:Name="itemDivisas" x:Uid="ConfigCurrency" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <MenuFlyoutItem x:Name="itemDivisasEuro"/>
+                                    <MenuFlyoutItem x:Name="itemDivisasDolar"/>
+                                    <MenuFlyoutItem x:Name="itemDivisasLibra"/>
+                                </MenuFlyoutSubItem>
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </NavigationViewItem> 
+                    <NavigationViewItemSeparator/>
+                    <NavigationViewItem x:Name="itemMasCosas" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout x:Name="botonMasCosasMenu"/>
+                        </FlyoutBase.AttachedFlyout>
+                    </NavigationViewItem>
+                </StackPanel>
+            </NavigationView.PaneFooter>
 
-            <Grid x:Name="gridOfertas" Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+            <Grid>
+                <Grid.Transitions>
+                    <TransitionCollection>
+                        <EdgeUIThemeTransition Edge="Bottom"/>
+                    </TransitionCollection>
+                </Grid.Transitions>
 
-                <Grid Grid.Row="0" Background="{StaticResource GridTituloBackground}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="#FFE4E4E4" Offset="0.5" />
+                        <GradientStop Color="#FFBFBFBF" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Grid.Background>
 
-                    <ComboBox x:Name="cbTiendas" Grid.Column="0" Margin="20,10" MinWidth="200" VerticalAlignment="Center" Visibility="Collapsed"/>
+                <Grid x:Name="gridOfertas" Visibility="Collapsed">
 
-                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="5">
-                        <StackPanel x:Name="spAnalisis" Orientation="Horizontal" Padding="10" Margin="0,0,20,0" Visibility="Collapsed">
-                            <TextBlock x:Name="tbAnalisisPorcentaje" Margin="0,0,10,0" Foreground="White" VerticalAlignment="Center"/>
-                            <ProgressBar x:Name="pbAnalisis" VerticalAlignment="Center" Foreground="White"/>
+                    <Grid x:Name="gridSeleccionarOfertasTiendas">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock x:Uid="SelectStore" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                            <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" MaxWidth="700"/>
                         </StackPanel>
+                    </Grid>
 
-                        <Button x:Name="botonActualizar" Margin="5" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}" Visibility="Collapsed">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="10,5">
-                                    <FontIcon Glyph="&#59541;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="15" Margin="0,0,10,0"/>
-                                    <TextBlock x:Uid="Refresh" Foreground="White"/>
-                                </StackPanel>
-                            </Button.Content>
+                    <Grid x:Name="gridOfertasTiendas" Visibility="Collapsed"/>
 
-                            <Button.Flyout>
-                                <MenuFlyout Placement="Bottom">
-                                    <MenuFlyoutItem x:Name="menuItemConfigActualizarAnalisis" x:Uid="ConfigUpdateReviews" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Name="tbAnalisisCargados" FontSize="15" TextWrapping="Wrap"/>
-                                        </ToolTipService.ToolTip>
-                                    </MenuFlyoutItem>
-                                    <MenuFlyoutItem x:Name="menuItemConfigActualizarDivisas" x:Uid="ConfigCurrency" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <ToolTipService.ToolTip>
-                                            <StackPanel Orientation="Horizontal">
-                                                <controls:ImageEx Source="Assets/pais_ue2.png" Margin="5,0" Width="32" Height="24" IsCacheEnabled="true"/>
-                                                <TextBlock VerticalAlignment="Center" Text="1 €" FontSize="15"/>
-                                                <controls:ImageEx Source="Assets/pais_us2.png" Margin="15,0,5,0" Width="32" Height="24" IsCacheEnabled="true"/>
-                                                <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center" FontSize="15"/>
-                                                <controls:ImageEx Source="Assets/pais_uk2.png" Margin="15,0,5,0" Width="32" Height="24" IsCacheEnabled="true"/>
-                                                <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center" FontSize="15"/>
-                                            </StackPanel>
-                                        </ToolTipService.ToolTip>
-                                    </MenuFlyoutItem>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
+                    <Grid x:Name="gridProgreso" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                        <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
+                        <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
 
-                        <Button x:Name="botonConfiguracion" Margin="5" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="10,5">
-                                    <FontIcon Glyph="&#59155;" FontFamily="Segoe MDL2 Assets" Foreground="White" FontSize="15" Margin="0,0,10,0"/>
-                                    <TextBlock x:Uid="Config" Foreground="White"/>
-                                </StackPanel>
-                            </Button.Content>
-
-                            <Button.Flyout>
-                                <MenuFlyout Placement="Bottom">
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigEditor" x:Uid="Editor2" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Uid="ConfigEditorTooltip" FontSize="15" TextWrapping="Wrap"/>
-                                        </ToolTipService.ToolTip>
-                                    </ToggleMenuFlyoutItem>
-
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigUltimaVisita" x:Uid="ConfigLastVisit" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Uid="ConfigLastVisitTooltip" FontSize="15" TextWrapping="Wrap"/>
-                                        </ToolTipService.ToolTip>
-                                    </ToggleMenuFlyoutItem>
-
-                                    <MenuFlyoutSeparator/>
-
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigAnalisis" x:Uid="ConfigReviews" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Uid="ConfigReviewsTooltip" FontSize="15" TextWrapping="Wrap"/>
-                                        </ToolTipService.ToolTip>
-                                    </ToggleMenuFlyoutItem>
-
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigDivisas" x:Uid="ConfigCurrency" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Uid="ConfigCurrencyTooltip" FontSize="15" TextWrapping="Wrap"/>
-                                        </ToolTipService.ToolTip>
-                                    </ToggleMenuFlyoutItem>
-
-                                    <ToggleMenuFlyoutItem x:Name="toggleConfigSteamMas" Text="Steam +" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <ToolTipService.ToolTip>
-                                            <TextBlock x:Uid="ConfigSteam+Tooltip" FontSize="15" TextWrapping="Wrap"/>
-                                        </ToolTipService.ToolTip>
-                                    </ToggleMenuFlyoutItem>
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-
-                <Grid x:Name="gridSeleccionarOfertasTiendas" Grid.Row="1">
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#FFE4E4E4" Offset="0.5" />
-                            <GradientStop Color="#FFBFBFBF" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Grid.Background>
-
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock x:Uid="SelectStore" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                        <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" MaxWidth="700"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid x:Name="gridOfertasTiendas" Grid.Row="1" Visibility="Collapsed">
-                    <Grid.Background>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                            <GradientStop Color="#FFE4E4E4" Offset="0.5" />
-                            <GradientStop Color="#FFBFBFBF" Offset="1.0" />
-                        </LinearGradientBrush>
-                    </Grid.Background>
-                </Grid>
-          
-                <Grid x:Name="gridProgreso" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                    <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
-                    <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
-
-                <controls:DropShadowPanel x:Name="panelNoOfertas" Grid.Row="1" Color="IndianRed" 
-                                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                                        BlurRadius="4" ShadowOpacity="1" OffsetZ="5" Visibility="Collapsed">
-                    <Grid Padding="10" Background="IndianRed">
+                    <Grid x:Name="panelNoOfertas" Padding="10" Background="IndianRed"  HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                         <TextBlock x:Uid="NoDeals" TextWrapping="Wrap" Foreground="White"/>
                     </Grid>
-                </controls:DropShadowPanel>
 
-                <Grid x:Name="gridOfertasBarraInferior" Grid.Row="2" Padding="10" Background="{StaticResource GridTituloBackground}" Visibility="Collapsed">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="gridOfertasBarraInferior" Grid.Row="2" Padding="10" Background="{StaticResource GridTituloBackground}" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                    <StackPanel x:Name="spEditor" Grid.Column="0" Orientation="Horizontal" Visibility="Collapsed">
+                        <StackPanel x:Name="spEditor" Grid.Column="0" Orientation="Horizontal" Visibility="Collapsed">
 
-                        <Button x:Name="botonEditorIniciar" Margin="10,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#59151;" FontSize="20" Foreground="White" Margin="0,0,10,0"/>
-                                    <TextBlock x:Uid="Editor2" Foreground="White"/>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
+                            <Button x:Name="botonEditorIniciar" Margin="10,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#59151;" FontSize="20" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock x:Uid="Editor2" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
 
-                        <Button x:Name="botonEditorSeleccionarTodo" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                            <ToolTipService.ToolTip>
-                                <TextBlock x:Uid="SelectAll" FontSize="15"/>
-                            </ToolTipService.ToolTip>
+                            <Button x:Name="botonEditorSeleccionarTodo" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                                <ToolTipService.ToolTip>
+                                    <TextBlock x:Uid="SelectAll" FontSize="15"/>
+                                </ToolTipService.ToolTip>
 
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="20" Foreground="White"/>
-                                </StackPanel>
-                            </Button.Content>
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE73A;" FontSize="20" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
 
-                            <Button.Flyout>
-                                <MenuFlyout x:Name="menuEditorSeleccionarOpciones"/>
-                            </Button.Flyout>
-                        </Button>
+                                <Button.Flyout>
+                                    <MenuFlyout x:Name="menuEditorSeleccionarOpciones"/>
+                                </Button.Flyout>
+                            </Button>
 
-                        <Button x:Name="botonEditorLimpiarSeleccion" Margin="15,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                            <ToolTipService.ToolTip>
-                                <TextBlock x:Uid="SelectClear" FontSize="15"/>
-                            </ToolTipService.ToolTip>
+                            <Button x:Name="botonEditorLimpiarSeleccion" Margin="15,0,40,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                                <ToolTipService.ToolTip>
+                                    <TextBlock x:Uid="SelectClear" FontSize="15"/>
+                                </ToolTipService.ToolTip>
 
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="20" Foreground="White"/>
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE739;" FontSize="20" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
 
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock x:Name="tbNumOfertasSeleccionadas" VerticalAlignment="Center" Foreground="White"/>
-                            <TextBlock x:Name="tbNumOfertasCargadas" VerticalAlignment="Center" Foreground="White"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="tbNumOfertasSeleccionadas" VerticalAlignment="Center" Foreground="White"/>
+                                <TextBlock x:Name="tbNumOfertasCargadas" VerticalAlignment="Center" Foreground="White"/>
+                            </StackPanel>
+
                         </StackPanel>
 
-                    </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal">
+                            <TextBlock x:Name="tbNumOfertasMostradas" VerticalAlignment="Center" Foreground="White"/>
 
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <TextBlock x:Name="tbNumOfertasMostradas" VerticalAlignment="Center" Foreground="White"/>
+                            <Button x:Name="botonActualizarTienda" Margin="35,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                                <Button.Content>
+                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
+                                </Button.Content>
+                            </Button>
 
-                        <Button x:Name="botonActualizarTienda" Margin="35,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                            <Button.Content>
-                                <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                            </Button.Content>
-                        </Button>
-
-                        <TextBlock x:Uid="OrderDeals" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                        <ComboBox x:Name="cbOrdenar" Width="120" VerticalAlignment="Center" SelectedIndex="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                            <ComboBoxItem x:Uid="Discount"/>
-                            <ComboBoxItem x:Uid="Price"/>
-                            <ComboBoxItem x:Uid="Title"/>
-                            <ComboBoxItem x:Uid="Review"/>
-                        </ComboBox>
-                    </StackPanel>
+                            <TextBlock x:Uid="OrderDeals" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
+                            <ComboBox x:Name="cbOrdenar" Width="120" VerticalAlignment="Center" SelectedIndex="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <ComboBoxItem x:Uid="Discount"/>
+                                <ComboBoxItem x:Uid="Price"/>
+                                <ComboBoxItem x:Uid="Title"/>
+                                <ComboBoxItem x:Uid="Review"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </NavigationView>
 
         <Grid x:Name="gridEditor" Grid.Row="1" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -352,7 +276,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
-        <Grid x:Name="gridMasCosas" Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </Page>

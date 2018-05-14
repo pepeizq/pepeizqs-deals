@@ -42,22 +42,22 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(nuuvemT))
         gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
 
-        Dim cbTiendas As ComboBox = pagina.FindName("cbTiendas")
+        Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
 
-        AddHandler cbTiendas.SelectionChanged, AddressOf UsuarioSeleccionaTienda
-        AddHandler cbTiendas.PointerEntered, AddressOf UsuarioEntraBoton
-        AddHandler cbTiendas.PointerExited, AddressOf UsuarioSaleBoton
+        'AddHandler menuTiendas.SelectionChanged, AddressOf UsuarioSeleccionaTienda
+        'AddHandler menuTiendas.PointerEntered, AddressOf UsuarioEntraBoton
+        'AddHandler menuTiendas.PointerExited, AddressOf UsuarioSaleBoton
 
-        cbTiendas.Items.Add(AñadirCbTienda(steamT))
-        cbTiendas.Items.Add(AñadirCbTienda(gamersgateT))
-        cbTiendas.Items.Add(AñadirCbTienda(humbleT))
-        cbTiendas.Items.Add(AñadirCbTienda(gamesplanetT))
-        cbTiendas.Items.Add(AñadirCbTienda(fanaticalT))
-        cbTiendas.Items.Add(AñadirCbTienda(gogT))
-        cbTiendas.Items.Add(AñadirCbTienda(wingamestoreT))
-        cbTiendas.Items.Add(AñadirCbTienda(silagamesT))
-        cbTiendas.Items.Add(AñadirCbTienda(nuuvemT))
-        cbTiendas.Items.Add(AñadirCbTienda(microsoftstoreT))
+        menuTiendas.Items.Add(AñadirMenuTienda(steamT))
+        menuTiendas.Items.Add(AñadirMenuTienda(gamersgateT))
+        menuTiendas.Items.Add(AñadirMenuTienda(humbleT))
+        menuTiendas.Items.Add(AñadirMenuTienda(gamesplanetT))
+        menuTiendas.Items.Add(AñadirMenuTienda(fanaticalT))
+        menuTiendas.Items.Add(AñadirMenuTienda(gogT))
+        menuTiendas.Items.Add(AñadirMenuTienda(wingamestoreT))
+        menuTiendas.Items.Add(AñadirMenuTienda(silagamesT))
+        menuTiendas.Items.Add(AñadirMenuTienda(nuuvemT))
+        menuTiendas.Items.Add(AñadirMenuTienda(microsoftstoreT))
 
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
 
@@ -78,9 +78,6 @@ Module Interfaz
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-
-        Dim gridBarraInferior As Grid = pagina.FindName("gridOfertasBarraInferior")
-        gridBarraInferior.Visibility = Visibility.Visible
 
         Dim sp As StackPanel = e.ClickedItem
         Dim tienda As Tienda = sp.Tag
@@ -139,37 +136,17 @@ Module Interfaz
 
     End Function
 
-    Private Function AñadirCbTienda(tienda As Tienda)
+    Private Function AñadirMenuTienda(tienda As Tienda)
 
-        Dim sp As New StackPanel With {
-            .Orientation = Orientation.Horizontal
-        }
-
-        Dim icono As New ImageEx With {
-            .IsCacheEnabled = True,
-            .Source = tienda.Icono,
-            .Height = 16,
-            .Width = 16,
-            .Margin = New Thickness(0, 0, 10, 0)
-        }
-
-        sp.Children.Add(icono)
-
-        Dim tb As New TextBlock With {
-            .Text = tienda.NombreMostrar
-        }
-
-        sp.Children.Add(tb)
-
-        Dim cbItem As New ComboBoxItem With {
-            .Content = sp,
+        Dim menuItem As New MenuFlyoutItem With {
+            .Text = tienda.NombreMostrar,
             .Tag = tienda
         }
 
-        AddHandler cbItem.PointerEntered, AddressOf UsuarioEntraBoton
-        AddHandler cbItem.PointerExited, AddressOf UsuarioSaleBoton
+        AddHandler menuItem.PointerEntered, AddressOf UsuarioEntraBoton
+        AddHandler menuItem.PointerExited, AddressOf UsuarioSaleBoton
 
-        Return cbItem
+        Return menuItem
 
     End Function
 
@@ -239,14 +216,16 @@ Module Interfaz
             grid.Visibility = Visibility.Collapsed
         Next
 
+        Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaSeleccionada")
+        imagenTienda.Source = tienda.Icono
+
+        Dim tbTienda As TextBlock = pagina.FindName("tbTiendaSeleccionada")
+        tbTienda.Text = tienda.NombreMostrar
+
         Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
 
-        Dim cbTiendas As ComboBox = pagina.FindName("cbTiendas")
-        cbTiendas.Visibility = Visibility.Visible
-        cbTiendas.SelectedIndex = tienda.Posicion
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertas")
+        Dim panelNoOfertas As Grid = pagina.FindName("panelNoOfertas")
         panelNoOfertas.Visibility = Visibility.Collapsed
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)

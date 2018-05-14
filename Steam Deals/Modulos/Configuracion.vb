@@ -5,11 +5,11 @@ Module Configuracion
 
     Public Sub Iniciar()
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") Is Nothing Then
-            EditorActivar(False)
-        Else
-            EditorActivar(ApplicationData.Current.LocalSettings.Values("editor2"))
-        End If
+        'If ApplicationData.Current.LocalSettings.Values("editor2") Is Nothing Then
+        '    EditorActivar(False)
+        'Else
+        '    EditorActivar(ApplicationData.Current.LocalSettings.Values("editor2"))
+        'End If
 
         If ApplicationData.Current.LocalSettings.Values("ultimavisita") Is Nothing Then
             UltimaVisitaFiltrar(True)
@@ -44,8 +44,8 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("editor2") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigEditor")
-        toggle.IsChecked = estado
+        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigEditor")
+        'toggle.IsChecked = estado
 
         Dim sp As StackPanel = pagina.FindName("spEditor")
         Dim botonActualizar As Button = pagina.FindName("botonActualizar")
@@ -70,8 +70,8 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("ultimavisita") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigUltimaVisita")
-        toggle.IsChecked = estado
+        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigUltimaVisita")
+        'toggle.IsChecked = estado
 
     End Sub
 
@@ -82,8 +82,8 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("analisis") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigAnalisis")
-        toggle.IsChecked = estado
+        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigAnalisis")
+        'toggle.IsChecked = estado
 
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim helper As New LocalObjectStorageHelper
@@ -93,8 +93,8 @@ Module Configuracion
         End If
 
         If Not listaAnalisis Is Nothing Then
-            Dim tbCargados As TextBlock = pagina.FindName("tbAnalisisCargados")
-            tbCargados.Text = listaAnalisis.Count
+            'Dim tbCargados As TextBlock = pagina.FindName("tbAnalisisCargados")
+            'tbCargados.Text = listaAnalisis.Count
         End If
 
         If estado = True Then
@@ -110,8 +110,8 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("divisas") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigDivisas")
-        toggle.IsChecked = estado
+        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigDivisas")
+        'toggle.IsChecked = estado
 
         If estado = True Then
             Divisas.Generar()
@@ -126,8 +126,8 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("steam+") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
-        toggle.IsChecked = estado
+        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
+        'toggle.IsChecked = estado
 
     End Sub
 
