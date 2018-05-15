@@ -22,8 +22,15 @@ Module Interfaz
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
+        Dim recursos As New Resources.ResourceLoader()
+
         Dim tbTitulo As TextBlock = pagina.FindName("tbTitulo")
         tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ")"
+
+        Dim botonOrdenarMenu As MenuFlyout = pagina.FindName("botonOrdenarMenu")
+        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Discount"), 0))
+        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Title"), 2))
+        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Reviews"), 3))
 
         Dim gridOfertas As Grid = pagina.FindName("gridOfertas")
         gridOfertas.Visibility = Visibility.Visible
@@ -43,10 +50,6 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
 
         Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
-
-        'AddHandler menuTiendas.SelectionChanged, AddressOf UsuarioSeleccionaTienda
-        'AddHandler menuTiendas.PointerEntered, AddressOf UsuarioEntraBoton
-        'AddHandler menuTiendas.PointerExited, AddressOf UsuarioSaleBoton
 
         menuTiendas.Items.Add(AñadirMenuTienda(steamT))
         menuTiendas.Items.Add(AñadirMenuTienda(gamersgateT))
@@ -76,9 +79,6 @@ Module Interfaz
 
     Private Sub UsuarioClickeaTienda(sender As Object, e As ItemClickEventArgs)
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
         Dim sp As StackPanel = e.ClickedItem
         Dim tienda As Tienda = sp.Tag
 
@@ -86,13 +86,32 @@ Module Interfaz
 
     End Sub
 
-    Private Sub UsuarioSeleccionaTienda(sender As Object, e As SelectionChangedEventArgs)
+    Private Sub UsuarioClickeaTienda2(sender As Object, e As RoutedEventArgs)
 
-        Dim cbTiendas As ComboBox = sender
-        Dim cbItem As ComboBoxItem = cbTiendas.SelectedItem
-        Dim tienda As Tienda = cbItem.Tag
+        Dim menuItem As MenuFlyoutItem = sender
+        Dim tienda As Tienda = menuItem.Tag
 
         IniciarTienda(tienda, False)
+
+    End Sub
+
+    Private Sub UsuarioClickeaOrdenar(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim menuItem As MenuFlyoutItem = sender
+        ApplicationData.Current.LocalSettings.Values("ordenar") = menuItem.Tag
+
+        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim tienda As Tienda = grid.Tag
+
+                Ordenar.Ofertas(tienda.NombreUsar, False, False)
+            End If
+        Next
 
     End Sub
 
@@ -143,6 +162,7 @@ Module Interfaz
             .Tag = tienda
         }
 
+        AddHandler menuItem.Click, AddressOf UsuarioClickeaTienda2
         AddHandler menuItem.PointerEntered, AddressOf UsuarioEntraBoton
         AddHandler menuItem.PointerExited, AddressOf UsuarioSaleBoton
 
@@ -170,6 +190,21 @@ Module Interfaz
         gridTienda.Children.Add(listaOfertas)
 
         Return gridTienda
+
+    End Function
+
+    Private Function AñadirMenuOrdenar(ordenar As String, numero As Integer)
+
+        Dim menuItem As New MenuFlyoutItem With {
+            .Text = ordenar,
+            .Tag = numero
+        }
+
+        AddHandler menuItem.Click, AddressOf UsuarioClickeaOrdenar
+        AddHandler menuItem.PointerEntered, AddressOf UsuarioEntraBoton
+        AddHandler menuItem.PointerExited, AddressOf UsuarioSaleBoton
+
+        Return menuItem
 
     End Function
 
@@ -222,6 +257,18 @@ Module Interfaz
         Dim tbTienda As TextBlock = pagina.FindName("tbTiendaSeleccionada")
         tbTienda.Text = tienda.NombreMostrar
 
+        Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
+        itemTiendas.IsEnabled = False
+
+        Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
+        itemActualizarOfertas.IsEnabled = False
+
+        Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
+        itemOrdenarOfertas.IsEnabled = False
+
+        Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
+        itemConfig.IsEnabled = False
+
         Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
 
@@ -239,12 +286,6 @@ Module Interfaz
 
             Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
             gridProgreso.Visibility = Visibility.Visible
-
-            Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
-            botonActualizarTienda.IsEnabled = False
-
-            Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
-            cbOrdenar.IsEnabled = False
 
             Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
             botonSeleccionarTodo.IsEnabled = False

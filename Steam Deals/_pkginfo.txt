@@ -1,1 +1,1 @@
-F:\Proyectos\Steam Deals\Steam Deals\bin\ARM\Release\Upload\Steam Deals_1.2.1.0\Steam Deals_1.2.1.0_x86_x64_arm.appxbundle
+E:\Proyectos\Steam Deals\Steam Deals\bin\ARM\Release\Upload\Steam Deals_1.3.0.0\Steam Deals_1.3.0.0_x86_x64_arm.appxbundle

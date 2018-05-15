@@ -157,7 +157,7 @@ Module Analisis
                 Dim temp7, temp8 As String
                 Dim int7, int8 As Integer
 
-                int7 = html.IndexOf("http://")
+                int7 = html.IndexOf("https://")
                 temp7 = html.Remove(0, int7)
 
                 int8 = temp7.IndexOf("?")

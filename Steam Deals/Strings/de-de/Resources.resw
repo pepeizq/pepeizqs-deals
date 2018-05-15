@@ -141,7 +141,7 @@
   <data name="Deals2.Text" xml:space="preserve">
     <value>Käufe</value>
   </data>
-  <data name="Discount.Content" xml:space="preserve">
+  <data name="Discount" xml:space="preserve">
     <value>Rabatt</value>
   </data>
   <data name="Editor" xml:space="preserve">
@@ -180,9 +180,6 @@
   <data name="OrderDeals.Text" xml:space="preserve">
     <value>Bestellung von:</value>
   </data>
-  <data name="Price.Content" xml:space="preserve">
-    <value>Preis</value>
-  </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Bewertung</value>
   </data>
@@ -204,7 +201,7 @@
   <data name="MoreThings_SourceCode" xml:space="preserve">
     <value>Quelltext</value>
   </data>
-  <data name="Title.Content" xml:space="preserve">
+  <data name="Title" xml:space="preserve">
     <value />
   </data>
   <data name="MoreThings_VoteApp" xml:space="preserve">
@@ -229,9 +226,6 @@
     <value />
   </data>
   <data name="Reviews" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Review.Content" xml:space="preserve">
     <value />
   </data>
   <data name="ConfigUpdateReviews.Text" xml:space="preserve">

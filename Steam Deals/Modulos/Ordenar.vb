@@ -11,11 +11,19 @@ Module Ordenar
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda)
 
-        Dim botonActualizarTienda As Button = pagina.FindName("botonActualizarTienda")
-        botonActualizarTienda.IsEnabled = False
+        Dim ordenar As Integer = ApplicationData.Current.LocalSettings.Values("ordenar")
 
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenar")
-        cbOrdenar.IsEnabled = False
+        Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
+        itemTiendas.IsEnabled = False
+
+        Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
+        itemActualizarOfertas.IsEnabled = False
+
+        Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
+        itemOrdenarOfertas.IsEnabled = False
+
+        Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
+        itemConfig.IsEnabled = False
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
@@ -70,7 +78,7 @@ Module Ordenar
             If Not listaJuegos Is Nothing Then
                 lv.Items.Clear()
 
-                If cbOrdenar.SelectedIndex = 0 Then
+                If Ordenar = 0 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                          If resultado = 0 Then
@@ -78,7 +86,7 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf cbOrdenar.SelectedIndex = 1 Then
+                ElseIf Ordenar = 1 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim precioX As String = x.Enlaces.Precios(0)
                                          Dim precioY As String = y.Enlaces.Precios(0)
@@ -134,9 +142,9 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf cbOrdenar.SelectedIndex = 2 Then
+                ElseIf Ordenar = 2 Then
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
-                ElseIf cbOrdenar.SelectedIndex = 3 Then
+                ElseIf Ordenar = 3 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim analisisX As Integer = 0
 
@@ -316,8 +324,10 @@ Module Ordenar
             lv.IsEnabled = True
         End If
 
-        botonActualizarTienda.IsEnabled = True
-        cbOrdenar.IsEnabled = True
+        itemTiendas.IsEnabled = True
+        itemActualizarOfertas.IsEnabled = True
+        itemOrdenarOfertas.IsEnabled = True
+        itemConfig.IsEnabled = True
         gridProgreso.Visibility = Visibility.Collapsed
         botonSeleccionarTodo.IsEnabled = True
         botonLimpiarSeleccion.IsEnabled = True

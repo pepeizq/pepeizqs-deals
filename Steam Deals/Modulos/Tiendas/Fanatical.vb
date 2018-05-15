@@ -49,7 +49,7 @@ Module Fanatical
 
                         html = temp
 
-                        int2 = temp.IndexOf(ChrW(34) + "}")
+                        int2 = temp.IndexOf(ChrW(34) + "expiry" + ChrW(34))
 
                         If int2 = -1 Then
                             temp2 = temp

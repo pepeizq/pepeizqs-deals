@@ -36,11 +36,11 @@ Module Steam
 
         Dim numPaginas As Integer = 0
 
-        numPaginas = GenerarNumPaginas(New Uri("http://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=1&l=english"))
+        numPaginas = GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=1&l=english"))
 
         Dim i As Integer = 1
         While i < numPaginas
-            Dim html_ As Task(Of String) = HttpClient(New Uri("http://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString + "&l=english"))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString + "&l=english"))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -57,11 +57,11 @@ Module Steam
 
                     Dim j As Integer = 0
                     While j < 50
-                        If html.Contains("<a href=" + ChrW(34) + "http://store.steampowered.com/") Then
+                        If html.Contains("<a href=" + ChrW(34) + "https://store.steampowered.com/") Then
                             Dim temp, temp2 As String
                             Dim int, int2 As Integer
 
-                            int = html.IndexOf("<a href=" + ChrW(34) + "http://store.steampowered.com/")
+                            int = html.IndexOf("<a href=" + ChrW(34) + "https://store.steampowered.com/")
                             temp = html.Remove(0, int + 5)
 
                             html = temp
@@ -89,7 +89,7 @@ Module Steam
                             Dim temp5, temp6 As String
                             Dim int5, int6 As Integer
 
-                            int5 = temp2.IndexOf("http://")
+                            int5 = temp2.IndexOf("https://")
                             temp5 = temp2.Remove(0, int5)
 
                             int6 = temp5.IndexOf("?")

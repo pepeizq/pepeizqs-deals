@@ -29,7 +29,7 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="itemTiendas" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                     <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Home" Foreground="White"/>
+                        <fa:FontAwesome Icon="CaretDown" Foreground="White"/>
                     </NavigationViewItem.Icon>
                     <NavigationViewItem.Content>
                         <TextBlock x:Uid="Stores" Foreground="White"/>
@@ -38,14 +38,34 @@
                         <MenuFlyout x:Name="botonTiendasMenu"/>
                     </FlyoutBase.AttachedFlyout>
                 </NavigationViewItem>
-                <StackPanel Orientation="Horizontal" Margin="-1,0,0,0" Padding="0">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Padding="0">
                     <controls:ImageEx x:Name="imagenTiendaSeleccionada" Height="16" Width="16" IsCacheEnabled="True"/>
-                    <TextBlock x:Name="tbTiendaSeleccionada" Margin="17,0,0,0" Foreground="White"/>
-                </StackPanel> 
+                    <TextBlock x:Name="tbTiendaSeleccionada" Margin="16,0,0,0" Foreground="White"/>
+                </StackPanel>
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem x:Name="itemActualizarOfertas" IsEnabled="False" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                    <NavigationViewItem.Icon>
+                        <fa:FontAwesome Icon="Refresh" Foreground="White"/>
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Uid="Refresh" Foreground="White"/>
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="itemOrdenarOfertas" IsEnabled="False" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                    <NavigationViewItem.Icon>
+                        <fa:FontAwesome Icon="Sort" Foreground="White"/>
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.Content>
+                        <TextBlock x:Uid="OrderDeals" Foreground="White"/>
+                    </NavigationViewItem.Content>
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout x:Name="botonOrdenarMenu"/>
+                    </FlyoutBase.AttachedFlyout>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>
                 <StackPanel Orientation="Vertical">
-                    <NavigationViewItem Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                    <NavigationViewItem x:Name="itemConfig" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                         <NavigationViewItem.Icon>
                             <fa:FontAwesome Icon="Cog" Foreground="White"/>
                         </NavigationViewItem.Icon>
@@ -54,6 +74,8 @@
                         </NavigationViewItem.Content>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
+                                <ToggleMenuFlyoutItem x:Name="itemUltimaVisita" x:Uid="ConfigLastVisit"/>
+                                <MenuFlyoutSeparator/>
                                 <MenuFlyoutSubItem x:Name="itemDivisas" x:Uid="ConfigCurrency" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <MenuFlyoutItem x:Name="itemDivisasEuro"/>
                                     <MenuFlyoutItem x:Name="itemDivisasDolar"/>
@@ -160,20 +182,6 @@
 
                         <StackPanel Grid.Column="2" Orientation="Horizontal">
                             <TextBlock x:Name="tbNumOfertasMostradas" VerticalAlignment="Center" Foreground="White"/>
-
-                            <Button x:Name="botonActualizarTienda" Margin="35,0" Padding="10" BorderThickness="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
-                                <Button.Content>
-                                    <SymbolIcon Symbol="Refresh" Foreground="White"/>
-                                </Button.Content>
-                            </Button>
-
-                            <TextBlock x:Uid="OrderDeals" Margin="0,0,5,0" VerticalAlignment="Center" Foreground="White"/>
-                            <ComboBox x:Name="cbOrdenar" Width="120" VerticalAlignment="Center" SelectedIndex="0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                <ComboBoxItem x:Uid="Discount"/>
-                                <ComboBoxItem x:Uid="Price"/>
-                                <ComboBoxItem x:Uid="Title"/>
-                                <ComboBoxItem x:Uid="Review"/>
-                            </ComboBox>
                         </StackPanel>
                     </Grid>
                 </Grid>

@@ -159,7 +159,7 @@
   <data name="DescriptionStore" xml:space="preserve">
     <value>Busca las mejores ofertas en Steam y otras tiendas digitales usando esta aplicación.</value>
   </data>
-  <data name="Discount.Content" xml:space="preserve">
+  <data name="Discount" xml:space="preserve">
     <value>Descuento</value>
   </data>
   <data name="Editor" xml:space="preserve">
@@ -226,10 +226,7 @@
     <value>No hay ofertas</value>
   </data>
   <data name="OrderDeals.Text" xml:space="preserve">
-    <value>Ordenar por:</value>
-  </data>
-  <data name="Price.Content" xml:space="preserve">
-    <value>Precio</value>
+    <value>Ordenar por</value>
   </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Valoración</value>
@@ -237,8 +234,8 @@
   <data name="Refresh.Text" xml:space="preserve">
     <value>Actualizar</value>
   </data>
-  <data name="Review.Content" xml:space="preserve">
-    <value>Análisis</value>
+  <data name="Refresh2" xml:space="preserve">
+    <value>Actualizar</value>
   </data>
   <data name="Reviews" xml:space="preserve">
     <value>Análisis</value>
@@ -258,7 +255,7 @@
   <data name="Stores.Text" xml:space="preserve">
     <value>Tiendas</value>
   </data>
-  <data name="Title.Content" xml:space="preserve">
+  <data name="Title" xml:space="preserve">
     <value>Título</value>
   </data>
 </root>

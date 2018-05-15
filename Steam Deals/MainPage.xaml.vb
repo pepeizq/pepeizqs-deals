@@ -15,8 +15,18 @@ Public NotInheritable Class MainPage
 
             If item.Text = recursos.GetString("Tiles") Then
                 'GridVisibilidad(gridTiles, item.Text)
+            ElseIf item.Text = recursos.GetString("Refresh2") Then
+
+                For Each grid As Grid In gridOfertasTiendas.Children
+                    If grid.Visibility = Visibility.Visible Then
+                        Dim tienda As Tienda = grid.Tag
+
+                        Interfaz.IniciarTienda(tienda, True)
+                    End If
+                Next
+
             ElseIf item.Text = recursos.GetString("Config") Then
-                Divisas.Generar()
+
                 'GridVisibilidad(gridConfig, item.Text)
             End If
         End If
@@ -37,6 +47,7 @@ Public NotInheritable Class MainPage
         Configuracion.Iniciar()
         MasCosas.Generar()
         Interfaz.Generar()
+        Divisas.Generar()
 
         nvPrincipal.IsPaneOpen = False
 
@@ -88,31 +99,13 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonActualizarTienda_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarTienda.Click
-
-        For Each grid As Grid In gridOfertasTiendas.Children
-            If grid.Visibility = Visibility.Visible Then
-                Dim tienda As Tienda = grid.Tag
-
-                Interfaz.IniciarTienda(tienda, True)
-            End If
-        Next
-
-    End Sub
-
-    Private Sub CbOrdenar_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbOrdenar.SelectionChanged
-
-        For Each grid As Grid In gridOfertasTiendas.Children
-            If grid.Visibility = Visibility.Visible Then
-                Dim tienda As Tienda = grid.Tag
-
-                Ordenar.Ofertas(tienda.NombreUsar, False, False)
-            End If
-        Next
-
-    End Sub
-
     'CONFIG---------------------------------------------------------------------------------
+
+    Private Sub ItemUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemUltimaVisita.Click
+
+        Configuracion.UltimaVisitaFiltrar(itemUltimaVisita.IsChecked)
+
+    End Sub
 
     'Private Sub MenuItemConfigActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles menuItemConfigActualizarAnalisis.Click
 
@@ -123,12 +116,6 @@ Public NotInheritable Class MainPage
     'Private Sub ToggleConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigEditor.Click
 
     '    Configuracion.EditorActivar(toggleConfigEditor.IsChecked)
-
-    'End Sub
-
-    'Private Sub ToggleConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigUltimaVisita.Click
-
-    '    Configuracion.UltimaVisitaFiltrar(toggleConfigUltimaVisita.IsChecked)
 
     'End Sub
 

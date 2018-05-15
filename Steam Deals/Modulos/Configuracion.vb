@@ -5,6 +5,10 @@ Module Configuracion
 
     Public Sub Iniciar()
 
+        If ApplicationData.Current.LocalSettings.Values("ordenar") Is Nothing Then
+            ApplicationData.Current.LocalSettings.Values("ordenar") = 0
+        End If
+
         'If ApplicationData.Current.LocalSettings.Values("editor2") Is Nothing Then
         '    EditorActivar(False)
         'Else
@@ -70,8 +74,8 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("ultimavisita") = estado
 
-        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigUltimaVisita")
-        'toggle.IsChecked = estado
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemUltimaVisita")
+        toggle.IsChecked = estado
 
     End Sub
 
