@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Animations
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
 Imports Windows.System
 Imports Windows.UI
@@ -180,7 +181,7 @@ Module Interfaz
 
         Dim listaOfertas As New ListView With {
             .Name = "listaTienda" + tienda.NombreUsar,
-            .ItemContainerStyle = App.Current.Resources("ListViewEstilo1"),
+            .ItemContainerStyle = App.Current.Resources("ListViewEstilo2"),
             .IsItemClickEnabled = True,
             .Tag = tienda
         }
@@ -836,8 +837,8 @@ Module Interfaz
 
         grid.Children.Add(sp4)
 
-        AddHandler grid.PointerEntered, AddressOf UsuarioEntraBoton
-        AddHandler grid.PointerExited, AddressOf UsuarioSaleBoton
+        AddHandler grid.PointerEntered, AddressOf UsuarioEntraBoton2
+        AddHandler grid.PointerExited, AddressOf UsuarioSaleBoton2
 
         Return grid
 
@@ -927,7 +928,7 @@ Module Interfaz
                     Dim sp As StackPanel = itemGrid.Children(0)
                     Dim cb As CheckBox = sp.Children(0)
 
-                    If Juego.Promocion = menuItem.Text Then
+                    If juego.Promocion = menuItem.Text Then
                         cb.IsChecked = True
                     End If
                 Next
@@ -943,6 +944,50 @@ Module Interfaz
     End Sub
 
     Private Sub UsuarioSaleBoton(sender As Object, e As PointerRoutedEventArgs)
+
+        Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
+
+    End Sub
+
+    Private Sub UsuarioEntraBoton2(sender As Object, e As PointerRoutedEventArgs)
+
+        Dim grid As Grid = sender
+
+        For Each item In grid.Children
+            If TypeOf item Is StackPanel Then
+                Dim sp As StackPanel = item
+
+                For Each subitem In sp.Children
+                    If TypeOf subitem Is Border Then
+                        Dim borde As Border = subitem
+                        Dim imagen As ImageEx = borde.Child
+                        imagen.Saturation(0).Start()
+                    End If
+                Next
+            End If
+        Next
+
+        Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Hand, 1)
+
+    End Sub
+
+    Private Sub UsuarioSaleBoton2(sender As Object, e As PointerRoutedEventArgs)
+
+        Dim grid As Grid = sender
+
+        For Each item In grid.Children
+            If TypeOf item Is StackPanel Then
+                Dim sp As StackPanel = item
+
+                For Each subitem In sp.Children
+                    If TypeOf subitem Is Border Then
+                        Dim borde As Border = subitem
+                        Dim imagen As ImageEx = borde.Child
+                        imagen.Saturation(1).Start()
+                    End If
+                Next
+            End If
+        Next
 
         Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
 
