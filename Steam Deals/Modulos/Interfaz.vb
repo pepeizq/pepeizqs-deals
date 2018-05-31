@@ -181,7 +181,7 @@ Module Interfaz
 
         Dim listaOfertas As New ListView With {
             .Name = "listaTienda" + tienda.NombreUsar,
-            .ItemContainerStyle = App.Current.Resources("ListViewEstilo2"),
+            .ItemContainerStyle = App.Current.Resources("ListViewEstilo3"),
             .IsItemClickEnabled = True,
             .Tag = tienda
         }
