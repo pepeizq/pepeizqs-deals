@@ -195,6 +195,10 @@ Module WinGameStore
                     juego.DRM = "steam"
                 ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam & DRM Free</b>") Then
                     juego.DRM = "steam"
+                ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam Key</b>") Then
+                    juego.DRM = "steam"
+                ElseIf htmlJuego.Contains("<label>DRM</label><b>Ubisoft Uplay Direct Activation</b>") Then
+                    juego.DRM = "uplay"
                 End If
 
                 If juego.Enlaces.Enlaces(0).Contains("3861/XCOM-Enemy-Within") Then
