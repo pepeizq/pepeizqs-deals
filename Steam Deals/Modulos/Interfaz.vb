@@ -259,16 +259,9 @@ Module Interfaz
         tbTienda.Text = tienda.NombreMostrar
 
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
-        itemTiendas.IsEnabled = False
-
         Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
-        itemActualizarOfertas.IsEnabled = False
-
         Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
-        itemOrdenarOfertas.IsEnabled = False
-
         Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
-        itemConfig.IsEnabled = False
 
         Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
@@ -283,6 +276,11 @@ Module Interfaz
         End If
 
         If lv.Items.Count = 0 Then
+            itemTiendas.IsEnabled = False
+            itemActualizarOfertas.IsEnabled = False
+            itemOrdenarOfertas.IsEnabled = False
+            itemConfig.IsEnabled = False
+
             lv.IsEnabled = False
 
             Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
@@ -324,6 +322,11 @@ Module Interfaz
             ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
                 MicrosoftStore.GenerarOfertas()
             End If
+        Else
+            itemTiendas.IsEnabled = True
+            itemActualizarOfertas.IsEnabled = True
+            itemOrdenarOfertas.IsEnabled = True
+            itemConfig.IsEnabled = True
         End If
 
     End Sub
