@@ -325,7 +325,7 @@ Module Humble
 
     Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasHumble", listaJuegos)
 
         Ordenar.Ofertas("Humble", True, False)

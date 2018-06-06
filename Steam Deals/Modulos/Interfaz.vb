@@ -343,6 +343,8 @@ Module Interfaz
                 Nuuvem.GenerarOfertas()
             ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
                 MicrosoftStore.GenerarOfertas()
+            ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
+                AmazonEs.GenerarOfertas()
             End If
         Else
             itemTiendas.IsEnabled = True

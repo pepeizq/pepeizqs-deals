@@ -1,48 +1,32 @@
-﻿Imports Microsoft.Toolkit.Uwp
+﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Module AmazonEs
 
-    Dim WithEvents bw As New BackgroundWorker
+    Dim WithEvents Bw As New BackgroundWorker
     Dim listaJuegos As New List(Of Juego)
+    Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Sub GenerarOfertas()
+    Public Async Sub GenerarOfertas()
 
-        bw.WorkerReportsProgress = True
-        bw.WorkerSupportsCancellation = True
+        Dim helper As New LocalObjectStorageHelper
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim lv As ListView = pagina.FindName("listadoAmazonEs")
-        lv.IsEnabled = False
-        lv.Items.Clear()
-
-        Dim lvEditor As ListView = pagina.FindName("lvEditorAmazonEs")
-        lvEditor.IsEnabled = False
-
-        Dim lvOpciones As ListView = pagina.FindName("lvOpcionesAmazonEs")
-        lvOpciones.IsEnabled = False
-
-        Dim cbOrdenar As ComboBox = pagina.FindName("cbOrdenarAmazonEs")
-        cbOrdenar.IsEnabled = False
-
-        Dim gridProgreso As Grid = pagina.FindName("gridProgresoAmazonEs")
-        gridProgreso.Visibility = Visibility.Visible
-
-        Dim panelNoOfertas As DropShadowPanel = pagina.FindName("panelNoOfertasAmazonEs")
-        panelNoOfertas.Visibility = Visibility.Collapsed
+        If Await helper.FileExistsAsync("listaAnalisis") Then
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+        End If
 
         listaJuegos.Clear()
 
-        If bw.IsBusy = False Then
-            bw.RunWorkerAsync()
+        Bw.WorkerReportsProgress = True
+        Bw.WorkerSupportsCancellation = True
+
+        If Bw.IsBusy = False Then
+            Bw.RunWorkerAsync()
         End If
 
     End Sub
 
-    Private Sub bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim listaJuegosAntigua As New List(Of Juego)
 
@@ -50,14 +34,6 @@ Module AmazonEs
         If helper.FileExistsAsync("listaOfertasAntiguaAmazonEs").Result = True Then
             listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaAmazonEs").Result
         End If
-
-        Dim listaValoraciones As List(Of JuegoAnalisis) = Nothing
-
-        If helper.FileExistsAsync("listaValoraciones").Result Then
-            listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaValoraciones").Result
-        End If
-
-        listaJuegos = New List(Of Juego)
 
         Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s/ref=sr_pg_2?fst=as%3Aoff&rh=n%3A599382031%2Cn%3A%21599383031%2Cn%3A665498031%2Cp_6%3AA1AT7YVPFBWXBL%2Cn%3A665499031&page=2&bbn=665498031&ie=UTF8&qid=1491219810"))
         Dim htmlPaginas As String = htmlPaginas_.Result
@@ -122,7 +98,14 @@ Module AmazonEs
                         temp6 = temp6.Replace("http:", "https:")
 
                         Dim enlace As String = temp6.Trim
-                        Dim afiliado As String = enlace + "/?tag=vayaa-21"
+
+                        Dim listaEnlaces As New List(Of String) From {
+                            enlace
+                        }
+
+                        Dim listaAfiliados As New List(Of String) From {
+                            enlace + "/?tag=vayaa-21"
+                        }
 
                         Dim temp7, temp8 As String
                         Dim int7, int8 As Integer
@@ -133,7 +116,14 @@ Module AmazonEs
                         int8 = temp7.IndexOf(ChrW(34))
                         temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                        Dim imagen As String = temp8.Trim
+                        Dim imagenPequeña As String = temp8.Trim
+
+                        Dim imagenGrande As String = imagenPequeña
+
+                        imagenGrande = imagenGrande.Replace("_AC_US160_", "_SY445_")
+                        imagenGrande = imagenGrande.Replace("_AC_US218_", "_SY445_")
+
+                        Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer
@@ -165,101 +155,105 @@ Module AmazonEs
                             precio = temp10.Trim + " €"
                         End If
 
+                        Dim listaPrecios As New List(Of String) From {
+                            precio
+                        }
+
+                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
+
                         Dim descuento As String = Nothing
 
                         Dim encontrado As Boolean = False
 
-                        'If listaJuegosAntigua.Count > 0 Then
-                        '    For Each juegoAntiguo In listaJuegosAntigua
-                        '        If juegoAntiguo.Enlace1 = enlace Then
-                        '            Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
-                        '            tempAntiguoPrecio = tempAntiguoPrecio.Trim
+                        If listaJuegosAntigua.Count > 0 Then
+                            For Each juegoAntiguo In listaJuegosAntigua
+                                If juegoAntiguo.Enlaces.Enlaces(0) = enlace Then
+                                    Dim tempAntiguoPrecio As String = juegoAntiguo.Enlaces.Precios(0).Replace("€", Nothing)
+                                    tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
-                        '            Dim tempPrecio As String = precio.Replace("€", Nothing)
-                        '            tempPrecio = tempPrecio.Trim
+                                    Dim tempPrecio As String = precio.Replace("€", Nothing)
+                                    tempPrecio = tempPrecio.Trim
 
-                        '            Try
-                        '                If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
-                        '                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
-                        '                Else
-                        '                    descuento = Nothing
-                        '                End If
-                        '            Catch ex As Exception
-                        '                descuento = Nothing
-                        '            End Try
+                                    Try
+                                        If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
+                                            descuento = Calculadora.GenerarDescuento(juegoAntiguo.Enlaces.Precios(0), precio)
+                                        Else
+                                            descuento = Nothing
+                                        End If
+                                    Catch ex As Exception
+                                        descuento = Nothing
+                                    End Try
 
-                        '            If Not descuento = Nothing Then
-                        '                If descuento = "00%" Then
-                        '                    descuento = Nothing
-                        '                End If
-                        '            End If
+                                    If Not descuento = Nothing Then
+                                        If descuento = "00%" Then
+                                            descuento = Nothing
+                                        End If
+                                    End If
 
-                        '            If Not descuento = Nothing Then
-                        '                If descuento.Contains("-") Then
-                        '                    descuento = Nothing
-                        '                End If
-                        '            End If
+                                    If Not descuento = Nothing Then
+                                        If descuento.Contains("-") Then
+                                            descuento = Nothing
+                                        End If
+                                    End If
 
-                        '            If Not descuento = Nothing Then
-                        '                If Not descuento.Contains("%") Then
-                        '                    descuento = Nothing
-                        '                End If
-                        '            End If
+                                    If Not descuento = Nothing Then
+                                        If Not descuento.Contains("%") Then
+                                            descuento = Nothing
+                                        End If
+                                    End If
 
-                        '            juegoAntiguo.Precio1 = precio
-                        '            encontrado = True
-                        '        End If
-                        '    Next
-                        'End If
+                                    juegoAntiguo.Enlaces.Precios(0) = precio
+                                    encontrado = True
+                                End If
+                            Next
+                        End If
 
-                        'If encontrado = False Then
-                        '    descuento = "00%"
-                        'End If
+                        If encontrado = False Then
+                            descuento = "00%"
+                        End If
 
-                        'Dim val As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaValoraciones)
-                        'Dim juego As New Juego(titulo, enlace, Nothing, Nothing, afiliado, Nothing, Nothing, imagen, precio, Nothing, Nothing, descuento, Nothing, Nothing, Nothing, Nothing, "Amazon.es", DateTime.Today, val.Cantidad, val.Enlace)
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Amazon.es", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                        'Dim tituloBool As Boolean = False
-                        'Dim k As Integer = 0
-                        'While k < listaJuegos.Count
-                        '    If listaJuegos(k).Titulo = juego.Titulo Then
-                        '        tituloBool = True
-                        '    End If
-                        '    k += 1
-                        'End While
+                        Dim tituloBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Titulo = juego.Titulo Then
+                                tituloBool = True
+                            End If
+                            k += 1
+                        End While
 
-                        'If juego.Descuento = Nothing Then
-                        '    tituloBool = True
-                        'End If
+                        If juego.Descuento = Nothing Then
+                            tituloBool = True
+                        End If
 
-                        'If tituloBool = False Then
-                        '    listaJuegos.Add(juego)
-                        'End If
+                        If tituloBool = False Then
+                            listaJuegos.Add(juego)
+                        End If
                     End If
                     j += 1
                 End While
             End If
-            bw.ReportProgress(CInt((100 / numPaginas) * i))
+            Bw.ReportProgress(CInt((100 / numPaginas) * i))
             i += 1
         End While
 
     End Sub
 
-    Private Sub bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
-        Dim tb As TextBlock = pagina.FindName("tbProgresoAmazonEs")
-        Dim pr As RadialProgressBar = pagina.FindName("prAmazonEs")
 
+        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
         tb.Text = e.ProgressPercentage.ToString + "%"
-        pr.Value = e.ProgressPercentage
 
     End Sub
 
-    Private Async Sub bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAmazonEs", listaJuegos)
 
         Ordenar.Ofertas("AmazonEs", True, False)
@@ -323,38 +317,7 @@ Module AmazonEs
         titulo = titulo.Replace("()", Nothing)
         titulo = titulo.Replace("®", Nothing)
 
-        titulo = titulo.Replace("&#39;", "'")
-        titulo = titulo.Replace("&#160;", " ")
-        titulo = titulo.Replace("&#161;", "¡")
-        titulo = titulo.Replace("&#191;", "¿")
-        titulo = titulo.Replace("&#201;", "É")
-        titulo = titulo.Replace("&#223;", "ß")
-        titulo = titulo.Replace("&#225;", "á")
-        titulo = titulo.Replace("&#228;", "ä")
-        titulo = titulo.Replace("&#231;", "ç")
-        titulo = titulo.Replace("&#232;", "è")
-        titulo = titulo.Replace("&#233;", "é")
-        titulo = titulo.Replace("&#237;", "í")
-        titulo = titulo.Replace("&#243;", "ó")
-        titulo = titulo.Replace("&#246;", "ö")
-        titulo = titulo.Replace("&#252;", "ü")
-        titulo = titulo.Replace("&ntilde;", "ñ")
-        titulo = titulo.Replace("&eacute;", "é")
-        titulo = titulo.Replace("&Eacute;", "É")
-        titulo = titulo.Replace("&oacute;", "ó")
-        titulo = titulo.Replace("&iacute;", "í")
-        titulo = titulo.Replace("&uuml;", "ü")
-        titulo = titulo.Replace("&auml;", "ä")
-        titulo = titulo.Replace("&agrave;", "à")
-        titulo = titulo.Replace("&uacute;", "ú")
-        titulo = titulo.Replace("&aacute;", "á")
-        titulo = titulo.Replace("&Atilde;&shy;", "Ã")
-        titulo = titulo.Replace("&ordm;", "º")
-        titulo = titulo.Replace("&ordf;", "ª")
-        titulo = titulo.Replace("&szlig;", "ß")
-        titulo = titulo.Replace("&iexcl;", "¡")
-        titulo = titulo.Replace("&amp;", "&")
-        titulo = titulo.Replace("&nbsp;", " ")
+        titulo = WebUtility.HtmlDecode(titulo)
 
         titulo = titulo.Trim
 

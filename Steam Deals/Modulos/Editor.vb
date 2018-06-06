@@ -649,9 +649,6 @@ Module Editor
                         If listaFinal(0).Tienda = "Amazon.es" Then
                             imagen = listaFinal(0).Imagenes.Grande
 
-                            imagen = imagen.Replace("_AC_US160_", "_SY445_")
-                            imagen = imagen.Replace("_AC_US218_", "_SY445_")
-
                             imagen = imagen + ChrW(34) + " Width=" + ChrW(34) + "20%"
                         Else
                             If Not listaFinal(0).Imagenes.Grande = Nothing Then
