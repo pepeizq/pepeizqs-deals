@@ -17,6 +17,7 @@ Module Interfaz
     Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7)
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8)
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
+    Dim amazonesT As New Tienda("Amazon.es", "Amazones", "Assets/Tiendas/amazon.png", 10)
 
     Public Sub Generar()
 
@@ -50,6 +51,10 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(nuuvemT))
         gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
 
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
+        End If
+
         Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
 
         menuTiendas.Items.Add(AñadirMenuTienda(steamT))
@@ -63,6 +68,10 @@ Module Interfaz
         menuTiendas.Items.Add(AñadirMenuTienda(nuuvemT))
         menuTiendas.Items.Add(AñadirMenuTienda(microsoftstoreT))
 
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
+        End If
+
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
 
         gridOfertasTiendas.Children.Add(AñadirGridTienda(steamT))
@@ -75,6 +84,10 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(silagamesT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(nuuvemT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(microsoftstoreT))
+
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
+        End If
 
     End Sub
 
@@ -254,6 +267,7 @@ Module Interfaz
 
         Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaSeleccionada")
         imagenTienda.Source = tienda.Icono
+        imagenTienda.Tag = tienda
 
         Dim tbTienda As TextBlock = pagina.FindName("tbTiendaSeleccionada")
         tbTienda.Text = tienda.NombreMostrar
@@ -262,12 +276,16 @@ Module Interfaz
         Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
         Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
         Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
+        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
 
         Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
 
-        Dim panelNoOfertas As Grid = pagina.FindName("panelNoOfertas")
-        panelNoOfertas.Visibility = Visibility.Collapsed
+        Dim gridEditor As Grid = pagina.FindName("gridEditor")
+        gridEditor.Visibility = Visibility.Collapsed
+
+        Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
+        gridNoOfertas.Visibility = Visibility.Collapsed
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
@@ -280,17 +298,21 @@ Module Interfaz
             itemActualizarOfertas.IsEnabled = False
             itemOrdenarOfertas.IsEnabled = False
             itemConfig.IsEnabled = False
+            itemEditor.IsEnabled = False
 
             lv.IsEnabled = False
 
             Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
             gridProgreso.Visibility = Visibility.Visible
 
-            Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
-            botonSeleccionarTodo.IsEnabled = False
+            Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
+            spTiendaSeleccionada.IsHitTestVisible = False
 
-            Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
-            botonLimpiarSeleccion.IsEnabled = False
+            Dim itemSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
+            itemSeleccionarTodo.IsEnabled = False
+
+            Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
+            itemLimpiarSeleccion.IsEnabled = False
 
             Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
             tbSeleccionadas.Text = String.Empty
@@ -327,6 +349,7 @@ Module Interfaz
             itemActualizarOfertas.IsEnabled = True
             itemOrdenarOfertas.IsEnabled = True
             itemConfig.IsEnabled = True
+            itemEditor.IsEnabled = True
         End If
 
     End Sub
@@ -734,10 +757,10 @@ Module Interfaz
 
             If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                 If precio.Contains("£") Then
-                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                    Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
                     precio = Divisas.CambioMoneda(precio, tbLibra.Text)
                 ElseIf precio.Contains("$") Then
-                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
                     precio = Divisas.CambioMoneda(precio, tbDolar.Text)
                 End If
 
@@ -805,10 +828,10 @@ Module Interfaz
                 If Not precio = Nothing Then
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                         If precio.Contains("£") Then
-                            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                            Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
                             precio = Divisas.CambioMoneda(precio, tbLibra.Text)
                         ElseIf precio.Contains("$") Then
-                            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                            Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
                             precio = Divisas.CambioMoneda(precio, tbDolar.Text)
                         End If
 
@@ -870,14 +893,17 @@ Module Interfaz
         Dim pagina As Page = frame.Content
 
         Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
-        Dim seleccionadas As Integer = tbSeleccionadas.Text
 
-        seleccionadas = seleccionadas - 1
+        If Not tbSeleccionadas.Text = Nothing Then
+            Dim seleccionadas As Integer = tbSeleccionadas.Text
 
-        If seleccionadas = 0 Then
-            tbSeleccionadas.Text = String.Empty
-        Else
-            tbSeleccionadas.Text = seleccionadas
+            seleccionadas = seleccionadas - 1
+
+            If seleccionadas = 0 Then
+                tbSeleccionadas.Text = String.Empty
+            Else
+                tbSeleccionadas.Text = seleccionadas
+            End If
         End If
 
     End Sub

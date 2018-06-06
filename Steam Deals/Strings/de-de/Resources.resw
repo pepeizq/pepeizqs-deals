@@ -165,7 +165,7 @@
   <data name="EditorCutTitle.Text" xml:space="preserve">
     <value>Name ausschneiden</value>
   </data>
-  <data name="EditorLimit.Text" xml:space="preserve">
+  <data name="EditorLimit" xml:space="preserve">
     <value />
   </data>
   <data name="LastDeals.Text" xml:space="preserve">

@@ -1,20 +1,37 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Windows.ApplicationModel.DataTransfer
+Imports Windows.Storage
+Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
 
 Public NotInheritable Class MainPage
     Inherits Page
 
-    Private Sub Nv_ItemInvoked(sender As NavigationView, args As NavigationViewItemInvokedEventArgs)
+    Private Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
+
+        itemActualizarOfertas.Visibility = Visibility.Visible
+        itemOrdenarOfertas.Visibility = Visibility.Visible
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim lv As ListView = grid.Children(0)
+
+                If lv.Items.Count > 0 Then
+                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                        itemEditorSeleccionarTodo.Visibility = Visibility.Visible
+                        itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
+                    End If
+                End If
+            End If
+        Next
 
         Dim recursos As New Resources.ResourceLoader()
 
-        If TypeOf args.InvokedItem Is TextBlock Then
-            Dim item As TextBlock = args.InvokedItem
+        If TypeOf e.InvokedItem Is TextBlock Then
+            Dim item As TextBlock = e.InvokedItem
 
-            If item.Text = recursos.GetString("Tiles") Then
-                'GridVisibilidad(gridTiles, item.Text)
-            ElseIf item.Text = recursos.GetString("Refresh2") Then
+            If item.Text = recursos.GetString("Refresh2") Then
+                gridEditor.Visibility = Visibility.Collapsed
 
                 For Each grid As Grid In gridOfertasTiendas.Children
                     If grid.Visibility = Visibility.Visible Then
@@ -24,15 +41,79 @@ Public NotInheritable Class MainPage
                     End If
                 Next
 
-            ElseIf item.Text = recursos.GetString("Config") Then
+            ElseIf item.Text = recursos.GetString("Editor") Then
+                For Each grid As Grid In gridOfertasTiendas.Children
+                    If grid.Visibility = Visibility.Visible Then
+                        itemActualizarOfertas.Visibility = Visibility.Collapsed
+                        itemOrdenarOfertas.Visibility = Visibility.Collapsed
 
-                'GridVisibilidad(gridConfig, item.Text)
+                        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                            itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
+                            itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
+                        End If
+
+                        Dim lv As ListView = grid.Children(0)
+                        gridEditor.Tag = lv
+                        Editor.Generar(lv)
+                    End If
+
+                    grid.Visibility = Visibility.Collapsed
+                Next
+
+                GridVisibilidad(gridEditor, item.Text)
+            ElseIf item.Text = recursos.GetString("SelectAll2") Then
+                For Each grid As Grid In gridOfertasTiendas.Children
+                    If grid.Visibility = Visibility.Visible Then
+                        Dim lv As ListView = grid.Children(0)
+
+                        For Each itemlv In lv.Items
+                            Dim itemGrid As Grid = itemlv
+                            Dim sp As StackPanel = itemGrid.Children(0)
+                            Dim cb As CheckBox = sp.Children(0)
+
+                            cb.IsChecked = True
+                        Next
+                    End If
+                Next
+            ElseIf item.Text = recursos.GetString("SelectClear2") Then
+                For Each grid As Grid In gridOfertasTiendas.Children
+                    If grid.Visibility = Visibility.Visible Then
+                        Dim lv As ListView = grid.Children(0)
+
+                        For Each itemlv In lv.Items
+                            Dim itemGrid As Grid = itemlv
+                            Dim sp As StackPanel = itemGrid.Children(0)
+                            Dim cb As CheckBox = sp.Children(0)
+
+                            cb.IsChecked = False
+                        Next
+                    End If
+                Next
             End If
         End If
 
     End Sub
 
-    Private Sub Nv_ItemFlyout(sender As NavigationViewItem, args As TappedRoutedEventArgs)
+    Private Sub SpTiendaSeleccionada_PointerPressed(sender As Object, e As PointerRoutedEventArgs) Handles spTiendaSeleccionada.PointerPressed
+
+        If Not imagenTiendaSeleccionada.Tag Is Nothing Then
+            itemActualizarOfertas.Visibility = Visibility.Visible
+            itemOrdenarOfertas.Visibility = Visibility.Visible
+
+            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                itemEditorSeleccionarTodo.Visibility = Visibility.Visible
+                itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
+            End If
+
+            gridEditor.Visibility = Visibility.Collapsed
+
+            Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
+            Interfaz.IniciarTienda(tienda, False)
+        End If
+
+    End Sub
+
+    Private Sub Nv_ItemFlyout(sender As NavigationViewItem, e As TappedRoutedEventArgs)
 
         FlyoutBase.ShowAttachedFlyout(sender)
 
@@ -100,9 +181,15 @@ Public NotInheritable Class MainPage
 
     'CONFIG---------------------------------------------------------------------------------
 
-    Private Sub ItemUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemUltimaVisita.Click
+    Private Sub ItemConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigUltimaVisita.Click
 
-        Configuracion.UltimaVisitaFiltrar(itemUltimaVisita.IsChecked)
+        Configuracion.UltimaVisitaFiltrar(itemConfigUltimaVisita.IsChecked)
+
+    End Sub
+
+    Private Sub ItemConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigEditor.Click
+
+        Configuracion.EditorActivar(itemConfigEditor.IsChecked)
 
     End Sub
 
@@ -112,11 +199,7 @@ Public NotInheritable Class MainPage
 
     'End Sub
 
-    'Private Sub ToggleConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigEditor.Click
 
-    '    Configuracion.EditorActivar(toggleConfigEditor.IsChecked)
-
-    'End Sub
 
     'Private Sub ToggleConfigAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigAnalisis.Click
 
@@ -136,98 +219,77 @@ Public NotInheritable Class MainPage
 
     'End Sub
 
-    Private Sub BotonEditorIniciar_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorIniciar.Click
 
-        'gridPrincipal.Visibility = Visibility.Collapsed
-        gridEditor.Visibility = Visibility.Visible
+    'EDITOR---------------------------------------------------------------------------------
 
-        Dim helper As New LocalObjectStorageHelper
-        Dim listaFinal As New List(Of Juego)
-        Dim tienda As Tienda = Nothing
+    Private Sub CbEditorWebs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorWebs.SelectionChanged
 
-        For Each grid As Grid In gridOfertasTiendas.Children
-            If grid.Visibility = Visibility.Visible Then
-                Dim lv As ListView = grid.Children(0)
-                tienda = lv.Tag
-
-                For Each item In lv.Items
-                    Dim itemGrid As Grid = item
-                    Dim sp As StackPanel = itemGrid.Children(0)
-                    Dim cb As CheckBox = sp.Children(0)
-
-                    If cb.IsChecked = True Then
-                        Dim juego As Juego = itemGrid.Tag
-                        listaFinal.Add(juego)
-                    End If
-                Next
-            End If
-        Next
-
-        Editor.Generar2(listaFinal, tienda)
+        Dim lv As ListView = gridEditor.Tag
+        Editor.Generar(lv)
 
     End Sub
 
-    Private Sub BotonEditorSeleccionarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorSeleccionarTodo.Click
+    Private Async Sub BotonEditorAbrirEnlace_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorAbrirEnlace.Click
 
-        If menuEditorSeleccionarOpciones.Items.Count = 0 Then
-            For Each grid As Grid In gridOfertasTiendas.Children
-                If grid.Visibility = Visibility.Visible Then
-                    Dim lv As ListView = grid.Children(0)
-
-                    For Each item In lv.Items
-                        Dim itemGrid As Grid = item
-                        Dim sp As StackPanel = itemGrid.Children(0)
-                        Dim cb As CheckBox = sp.Children(0)
-
-                        cb.IsChecked = True
-                    Next
-                End If
-            Next
+        If cbEditorWebs.SelectedIndex = 0 Then
+            Await Launcher.LaunchUriAsync(New Uri("https://www.reddit.com/r/GameDeals/submit"))
+        ElseIf cbEditorWebs.SelectedIndex = 1 Then
+            Await Launcher.LaunchUriAsync(New Uri("https://www.blogger.com/blogger.g?blogID=1309083716416671969#editor/src=sidebar"))
         End If
 
     End Sub
 
-    Private Sub BotonEditorLimpiarSeleccion_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorLimpiarSeleccion.Click
+    Private Sub BotonEditorTituloCopiarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCopiarReddit.Click
 
-        For Each grid As Grid In gridOfertasTiendas.Children
-            If grid.Visibility = Visibility.Visible Then
-                Dim lv As ListView = grid.Children(0)
-
-                For Each item In lv.Items
-                    Dim itemGrid As Grid = item
-                    Dim sp As StackPanel = itemGrid.Children(0)
-                    Dim cb As CheckBox = sp.Children(0)
-
-                    cb.IsChecked = False
-                Next
-            End If
-        Next
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorTituloReddit.Text)
+        Clipboard.SetContent(texto)
 
     End Sub
 
-    'EDITOR---------------------------------------------------------------------------------
+    Private Sub BotonEditorTituloCortarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCortarReddit.Click
 
-    Private Sub BotonOfertasVolver_Click(sender As Object, e As RoutedEventArgs) Handles botonOfertasVolver.Click
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorTituloReddit.Text)
+        Clipboard.SetContent(texto)
 
-        gridEditor.Visibility = Visibility.Collapsed
-
-    End Sub
-
-    Private Sub BotonEditorExportarExcel_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorExportarExcel.Click
-
-        Editor.ExportarExcel()
+        tbEditorTituloReddit.Text = String.Empty
 
     End Sub
 
-    Private Sub WvEditor_DOMContentLoaded(sender As WebView, args As WebViewDOMContentLoadedEventArgs) Handles wvEditor.DOMContentLoaded
+    Private Sub BotonEditorEnlacesCopiarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCopiarReddit.Click
 
-        Editor.CargaWeb(wvEditor)
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorEnlacesReddit.Tag)
+        Clipboard.SetContent(texto)
 
     End Sub
 
-    Private Sub BotonEditorInsertarHtmlTabla_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorInsertarHtmlTabla.Click
+    Private Sub BotonEditorEnlacesCortarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCortarReddit.Click
 
-        Editor.InsertarHtml()
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorEnlacesReddit.Tag)
+        Clipboard.SetContent(texto)
+
+        tbEditorEnlacesReddit.Text = String.Empty
+
+    End Sub
+
+    Private Sub BotonEditorTituloCopiarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCopiarVayaAnsias.Click
+
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorTituloVayaAnsias.Text)
+        Clipboard.SetContent(texto)
+
+    End Sub
+
+    Private Sub BotonEditorTituloCortarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCortarVayaAnsias.Click
+
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorTituloVayaAnsias.Text)
+        Clipboard.SetContent(texto)
+
+        tbEditorTituloVayaAnsias.Text = String.Empty
 
     End Sub
 

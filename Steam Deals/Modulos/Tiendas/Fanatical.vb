@@ -29,7 +29,7 @@ Module Fanatical
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim i As Integer = 1
-        While i < 5000
+        While i < 200
             Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://api.fanatical.com/api/feed?auth=vayaansias&cc=FR&page=" + i.ToString))
             Dim html As String = html_.Result
 

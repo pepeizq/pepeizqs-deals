@@ -189,8 +189,8 @@
   <data name="EditorInsertHtmlTable.Text" xml:space="preserve">
     <value>Insert Html Table</value>
   </data>
-  <data name="EditorLimit.Text" xml:space="preserve">
-    <value>Due to the heavy text, use the buttons below to copy the deals</value>
+  <data name="EditorLimit" xml:space="preserve">
+    <value>Due to the heavy text, use the buttons to copy the deals</value>
   </data>
   <data name="LastDeals.Text" xml:space="preserve">
     <value>Latest Deals</value>
@@ -246,7 +246,13 @@
   <data name="SelectAll.Text" xml:space="preserve">
     <value>Select All</value>
   </data>
+  <data name="SelectAll2" xml:space="preserve">
+    <value>Select All</value>
+  </data>
   <data name="SelectClear.Text" xml:space="preserve">
+    <value>Clear Selection</value>
+  </data>
+  <data name="SelectClear2" xml:space="preserve">
     <value>Clear Selection</value>
   </data>
   <data name="SelectStore.Text" xml:space="preserve">

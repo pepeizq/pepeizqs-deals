@@ -9,11 +9,11 @@ Module Configuracion
             ApplicationData.Current.LocalSettings.Values("ordenar") = 0
         End If
 
-        'If ApplicationData.Current.LocalSettings.Values("editor2") Is Nothing Then
-        '    EditorActivar(False)
-        'Else
-        '    EditorActivar(ApplicationData.Current.LocalSettings.Values("editor2"))
-        'End If
+        If ApplicationData.Current.LocalSettings.Values("editor2") Is Nothing Then
+            EditorActivar(False)
+        Else
+            EditorActivar(ApplicationData.Current.LocalSettings.Values("editor2"))
+        End If
 
         If ApplicationData.Current.LocalSettings.Values("ultimavisita") Is Nothing Then
             UltimaVisitaFiltrar(True)
@@ -48,22 +48,43 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("editor2") = estado
 
-        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigEditor")
-        'toggle.IsChecked = estado
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigEditor")
+        toggle.IsChecked = estado
 
-        Dim sp As StackPanel = pagina.FindName("spEditor")
-        Dim botonActualizar As Button = pagina.FindName("botonActualizar")
-        Dim toggleSteamMas As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
+        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
+        Dim itemEditorSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
+        Dim itemEditorLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
 
         If estado = True Then
-            sp.Visibility = Visibility.Visible
-            botonActualizar.Visibility = Visibility.Visible
-            toggleSteamMas.Visibility = Visibility.Visible
+            itemEditor.Visibility = Visibility.Visible
+
+            Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
+
+            If ApplicationData.Current.LocalSettings.Values("editorWeb") Is Nothing Then
+                ApplicationData.Current.LocalSettings.Values("editorWeb") = 0
+                cbWebs.SelectedIndex = 0
+            Else
+                cbWebs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorWeb")
+            End If
         Else
-            sp.Visibility = Visibility.Collapsed
-            botonActualizar.Visibility = Visibility.Collapsed
-            toggleSteamMas.Visibility = Visibility.Collapsed
+            itemEditor.Visibility = Visibility.Collapsed
+            itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
+            itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
         End If
+
+        'Dim sp As StackPanel = pagina.FindName("spEditor")
+        'Dim botonActualizar As Button = pagina.FindName("botonActualizar")
+        'Dim toggleSteamMas As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
+
+        'If estado = True Then
+        '    sp.Visibility = Visibility.Visible
+        '    botonActualizar.Visibility = Visibility.Visible
+        '    toggleSteamMas.Visibility = Visibility.Visible
+        'Else
+        '    sp.Visibility = Visibility.Collapsed
+        '    botonActualizar.Visibility = Visibility.Collapsed
+        '    toggleSteamMas.Visibility = Visibility.Collapsed
+        'End If
 
     End Sub
 
@@ -74,7 +95,7 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("ultimavisita") = estado
 
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemUltimaVisita")
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigUltimaVisita")
         toggle.IsChecked = estado
 
     End Sub

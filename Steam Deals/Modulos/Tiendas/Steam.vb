@@ -213,7 +213,7 @@ Module Steam
                                 Dim temp13, temp14 As String
                                 Dim int13 As Integer
 
-                                temp13 = enlace.Replace("http://store.steampowered.com/", Nothing)
+                                temp13 = enlace.Replace("https://store.steampowered.com/", Nothing)
                                 int13 = temp13.IndexOf("/")
 
                                 temp14 = temp13.Remove(int13, temp13.Length - int13)

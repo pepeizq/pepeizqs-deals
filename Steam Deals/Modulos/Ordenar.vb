@@ -15,6 +15,9 @@ Module Ordenar
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
         itemTiendas.IsEnabled = False
 
+        Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
+        spTiendaSeleccionada.IsHitTestVisible = False
+
         Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
         itemActualizarOfertas.IsEnabled = False
 
@@ -24,29 +27,29 @@ Module Ordenar
         Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
         itemConfig.IsEnabled = False
 
+        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
+        itemEditor.IsEnabled = False
+
+        Dim itemSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
+        itemSeleccionarTodo.IsEnabled = False
+
+        Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
+        itemLimpiarSeleccion.IsEnabled = False
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
 
         Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
         tbProgreso.Text = String.Empty
 
-        Dim panelNoOfertas As Grid = pagina.FindName("panelNoOfertas")
-        panelNoOfertas.Visibility = Visibility.Collapsed
+        Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
+        gridNoOfertas.Visibility = Visibility.Collapsed
 
         Dim numOfertasMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
         numOfertasMostradas.Text = String.Empty
 
         Dim numOfertasCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
         numOfertasCargadas.Text = String.Empty
-
-        Dim botonSeleccionarTodo As Button = pagina.FindName("botonEditorSeleccionarTodo")
-        botonSeleccionarTodo.IsEnabled = False
-
-        Dim botonLimpiarSeleccion As Button = pagina.FindName("botonEditorLimpiarSeleccion")
-        botonLimpiarSeleccion.IsEnabled = False
-
-        Dim menuEditorSeleccionarOpciones As MenuFlyout = pagina.FindName("menuEditorSeleccionarOpciones")
-        menuEditorSeleccionarOpciones.Items.Clear()
 
         If Not lv Is Nothing Then
             lv.IsEnabled = False
@@ -77,7 +80,7 @@ Module Ordenar
             If Not listaJuegos Is Nothing Then
                 lv.Items.Clear()
 
-                If Ordenar = 0 Then
+                If ordenar = 0 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                          If resultado = 0 Then
@@ -85,7 +88,7 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf Ordenar = 1 Then
+                ElseIf ordenar = 1 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim precioX As String = x.Enlaces.Precios(0)
                                          Dim precioY As String = y.Enlaces.Precios(0)
@@ -141,9 +144,9 @@ Module Ordenar
                                          End If
                                          Return resultado
                                      End Function)
-                ElseIf Ordenar = 2 Then
+                ElseIf ordenar = 2 Then
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
-                ElseIf Ordenar = 3 Then
+                ElseIf ordenar = 3 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
                                          Dim analisisX As Integer = 0
 
@@ -274,10 +277,6 @@ Module Ordenar
                     numOfertasMostradas.Text = lv.Items.Count.ToString
                 End If
 
-                If listaJuegos.Count > 0 Then
-                    numOfertasCargadas.Text = listaJuegos.Count.ToString
-                End If
-
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
                         Dim boolBorrar As Boolean = False
@@ -315,21 +314,38 @@ Module Ordenar
             End If
 
             If lv.Items.Count = 0 Then
-                panelNoOfertas.Visibility = Visibility.Visible
+                gridNoOfertas.Visibility = Visibility.Visible
+
+                If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                    itemSeleccionarTodo.Visibility = Visibility.Collapsed
+                    itemLimpiarSeleccion.Visibility = Visibility.Collapsed
+
+                    numOfertasCargadas.Visibility = Visibility.Visible
+                    numOfertasCargadas.Text = "(" + listaJuegos.Count.ToString + ")"
+                Else
+                    numOfertasCargadas.Visibility = Visibility.Collapsed
+                End If
             Else
-                panelNoOfertas.Visibility = Visibility.Collapsed
+                gridNoOfertas.Visibility = Visibility.Collapsed
+
+                If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                    itemSeleccionarTodo.Visibility = Visibility.Visible
+                    itemLimpiarSeleccion.Visibility = Visibility.Visible
+                End If
             End If
 
             lv.IsEnabled = True
         End If
 
         itemTiendas.IsEnabled = True
+        spTiendaSeleccionada.IsHitTestVisible = True
         itemActualizarOfertas.IsEnabled = True
         itemOrdenarOfertas.IsEnabled = True
         itemConfig.IsEnabled = True
+        itemEditor.IsEnabled = True
+        itemSeleccionarTodo.IsEnabled = True
+        itemLimpiarSeleccion.IsEnabled = True
         gridProgreso.Visibility = Visibility.Collapsed
-        botonSeleccionarTodo.IsEnabled = True
-        botonLimpiarSeleccion.IsEnabled = True
 
     End Sub
 
