@@ -55,7 +55,7 @@ Module Ordenar
             lv.IsEnabled = False
 
             Dim helper As New LocalObjectStorageHelper
-            Dim listaJuegos As List(Of Juego) = Nothing
+            Dim listaJuegos As New List(Of Juego)
             Dim listaUltimasOfertas As New List(Of Juego)
 
             If buscar = True Then
@@ -68,8 +68,6 @@ Module Ordenar
                         listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda)
                     End If
                 Else
-                    listaJuegos = New List(Of Juego)
-
                     For Each item In lv.Items
                         Dim grid As Grid = item
                         listaJuegos.Add(grid.Tag)

@@ -17,7 +17,7 @@ Module Interfaz
     Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7)
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8)
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
-    Dim amazonesT As New Tienda("Amazon.es", "Amazones", "Assets/Tiendas/amazon.png", 10)
+    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 10)
 
     Public Sub Generar()
 
