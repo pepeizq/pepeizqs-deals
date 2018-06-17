@@ -76,6 +76,9 @@ Module Fanatical
                     int5 = temp2.IndexOf(ChrW(34) + "url" + ChrW(34))
                     temp5 = temp2.Remove(0, int5 + 7)
 
+                    int5 = temp5.IndexOf(ChrW(34))
+                    temp5 = temp5.Remove(0, int5 + 1)
+
                     int6 = temp5.IndexOf(ChrW(34))
                     temp6 = temp5.Remove(int6, temp5.Length - int6)
 
