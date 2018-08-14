@@ -231,9 +231,9 @@ Public NotInheritable Class MainPage
 
     Private Async Sub BotonEditorAbrirEnlace_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorAbrirEnlace.Click
 
-        If cbEditorWebs.SelectedIndex = 0 Then
+        If cbEditorWebs.SelectedIndex = 1 Then
             Await Launcher.LaunchUriAsync(New Uri("https://www.reddit.com/r/GameDeals/submit"))
-        ElseIf cbEditorWebs.SelectedIndex = 1 Then
+        ElseIf cbEditorWebs.SelectedIndex = 2 Then
             Await Launcher.LaunchUriAsync(New Uri("https://www.blogger.com/blogger.g?blogID=1309083716416671969#editor/src=sidebar"))
         End If
 
@@ -290,6 +290,24 @@ Public NotInheritable Class MainPage
         Clipboard.SetContent(texto)
 
         tbEditorTituloVayaAnsias.Text = String.Empty
+
+    End Sub
+
+    Private Sub BotonEditorEnlacesCopiarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCopiarVayaAnsias.Click
+
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorEnlacesVayaAnsias.Tag)
+        Clipboard.SetContent(texto)
+
+    End Sub
+
+    Private Sub BotonEditorEnlacesCortarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCortarVayaAnsias.Click
+
+        Dim texto As New DataPackage
+        texto.SetText(tbEditorEnlacesVayaAnsias.Tag)
+        Clipboard.SetContent(texto)
+
+        tbEditorEnlacesVayaAnsias.Text = String.Empty
 
     End Sub
 

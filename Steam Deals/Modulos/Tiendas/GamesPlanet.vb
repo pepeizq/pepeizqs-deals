@@ -213,7 +213,7 @@ Module GamesPlanet
                             }
 
                             Dim listaAfiliados As New List(Of String) From {
-                                enlace + "?ref=pepeizq", enlaceFR + "?ref=pepeizq", enlaceDE + "?ref=pepeizq"
+                                enlace + "?ref=vayaansias", enlaceFR + "?ref=vayaansias", enlaceDE + "?ref=vayaansias"
                             }
 
                             Dim listaPrecios As New List(Of String) From {

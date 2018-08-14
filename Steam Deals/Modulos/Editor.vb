@@ -1,8 +1,8 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Syncfusion.XlsIO
 Imports Windows.Storage
-Imports Windows.Storage.Pickers
+Imports Windows.System
+Imports WordPressPCL
 
 Module Editor
 
@@ -72,206 +72,206 @@ Module Editor
 
     End Sub
 
-    Public Async Sub ExportarExcel()
+    'Public Async Sub ExportarExcel()
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
+    '    Dim frame As Frame = Window.Current.Content
+    '    Dim pagina As Page = frame.Content
 
-        Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
-        Dim paquete As EditorPaquete = imagenTienda.Tag
-        Dim listaJuegos As List(Of Juego) = paquete.ListaJuegos
+    '    Dim imagenTienda As ImageEx = pagina.FindName("imagenEditorTienda")
+    '    Dim paquete As EditorPaquete = imagenTienda.Tag
+    '    Dim listaJuegos As List(Of Juego) = paquete.ListaJuegos
 
-        Dim wv As WebView = pagina.FindName("wvEditor")
+    '    Dim wv As WebView = pagina.FindName("wvEditor")
 
-        Using motor As New ExcelEngine
-            motor.Excel.DefaultVersion = ExcelVersion.Excel2016
+    '    Using motor As New ExcelEngine
+    '        motor.Excel.DefaultVersion = ExcelVersion.Excel2016
 
-            Dim workbook As IWorkbook = motor.Excel.Workbooks.Create(1)
-            Dim worksheet As IWorksheet = workbook.Worksheets(0)
+    '        Dim workbook As IWorkbook = motor.Excel.Workbooks.Create(1)
+    '        Dim worksheet As IWorksheet = workbook.Worksheets(0)
 
-            worksheet.Range("B1").Text = "Title"
-            worksheet.Range("C1").Text = "Discount"
+    '        worksheet.Range("B1").Text = "Title"
+    '        worksheet.Range("C1").Text = "Discount"
 
-            If listaJuegos(0).Enlaces.Precios.Count = 1 Then
-                worksheet.Range("D1").Text = "Price"
-                worksheet.Range("E1").Text = "Reviews"
-            Else
-                Dim letra As Char = "D"
+    '        If listaJuegos(0).Enlaces.Precios.Count = 1 Then
+    '            worksheet.Range("D1").Text = "Price"
+    '            worksheet.Range("E1").Text = "Reviews"
+    '        Else
+    '            Dim letra As Char = "D"
 
-                Dim j As Integer = 0
-                While j < listaJuegos(0).Enlaces.Paises.Count
-                    worksheet.Range(letra.ToString + "1").Text = "Price (" + listaJuegos(0).Enlaces.Paises(j) + ")"
+    '            Dim j As Integer = 0
+    '            While j < listaJuegos(0).Enlaces.Paises.Count
+    '                worksheet.Range(letra.ToString + "1").Text = "Price (" + listaJuegos(0).Enlaces.Paises(j) + ")"
 
-                    letra = ChrW(AscW(letra) + 1)
-                    j += 1
-                End While
+    '                letra = ChrW(AscW(letra) + 1)
+    '                j += 1
+    '            End While
 
-                worksheet.Range(letra.ToString + "1").Text = "Reviews"
-            End If
+    '            worksheet.Range(letra.ToString + "1").Text = "Reviews"
+    '        End If
 
-            Dim i As Integer = 0
-            While i < listaJuegos.Count
-                Dim drm As String = Nothing
+    '        Dim i As Integer = 0
+    '        While i < listaJuegos.Count
+    '            Dim drm As String = Nothing
 
-                If Not listaJuegos(i).DRM = Nothing Then
-                    drm = listaJuegos(i).DRM
+    '            If Not listaJuegos(i).DRM = Nothing Then
+    '                drm = listaJuegos(i).DRM
 
-                    If drm.ToLower.Contains("steam") Then
-                        drm = "<br><span style=" + ChrW(34) + "background-color:#b9babc;color:white;padding:5px;display:inline-flex;align-items:center;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_steam.png" + ChrW(34) + "></span>"
-                    ElseIf drm.ToLower.Contains("uplay") Then
-                        drm = "<br><span style=" + ChrW(34) + "background-color:#bae5f6;color:white;padding:5px;display:inline-flex;align-items:center;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_uplay.png" + ChrW(34) + "></span>"
-                    Else
-                        drm = Nothing
-                    End If
-                End If
+    '                If drm.ToLower.Contains("steam") Then
+    '                    drm = "<br><span style=" + ChrW(34) + "background-color:#b9babc;color:white;padding:5px;display:inline-flex;align-items:center;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_steam.png" + ChrW(34) + "></span>"
+    '                ElseIf drm.ToLower.Contains("uplay") Then
+    '                    drm = "<br><span style=" + ChrW(34) + "background-color:#bae5f6;color:white;padding:5px;display:inline-flex;align-items:center;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/drm_uplay.png" + ChrW(34) + "></span>"
+    '                Else
+    '                    drm = Nothing
+    '                End If
+    '            End If
 
-                Dim enlaceMostrar As String = Nothing
+    '            Dim enlaceMostrar As String = Nothing
 
-                If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
-                    enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(0)
-                Else
-                    enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(0)
-                End If
+    '            If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
+    '                enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(0)
+    '            Else
+    '                enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(0)
+    '            End If
 
-                worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + "></a>"
-                worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + drm + "</a>"
-                worksheet.Range("C" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Descuento + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span></a>"
+    '            worksheet.Range("A" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><img src=" + ChrW(34) + listaJuegos(i).Imagenes.Pequeña + ChrW(34) + "></a>"
+    '            worksheet.Range("B" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Titulo + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "color:#164675;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Titulo + drm + "</a>"
+    '            worksheet.Range("C" + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Descuento + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " ><span style=" + ChrW(34) + "background-color:green;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + listaJuegos(i).Descuento + "</span></a>"
 
-                Dim letra As Char = "D"
+    '            Dim letra As Char = "D"
 
-                Dim h As Integer = 0
-                While h < listaJuegos(i).Enlaces.Precios.Count
-                    Dim precioFinalMostrar As String = listaJuegos(i).Enlaces.Precios(h)
+    '            Dim h As Integer = 0
+    '            While h < listaJuegos(i).Enlaces.Precios.Count
+    '                Dim precioFinalMostrar As String = listaJuegos(i).Enlaces.Precios(h)
 
-                    If precioFinalMostrar.Contains("£") Then
-                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                        precioFinalMostrar = Divisas.CambioMoneda(precioFinalMostrar, tbLibra.Text)
-                    End If
+    '                If precioFinalMostrar.Contains("£") Then
+    '                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+    '                    precioFinalMostrar = Divisas.CambioMoneda(precioFinalMostrar, tbLibra.Text)
+    '                End If
 
-                    precioFinalMostrar = precioFinalMostrar.Replace("€", Nothing)
-                    precioFinalMostrar = precioFinalMostrar.Replace(",", ".")
-                    precioFinalMostrar = precioFinalMostrar.Trim
-                    precioFinalMostrar = precioFinalMostrar + " €"
+    '                precioFinalMostrar = precioFinalMostrar.Replace("€", Nothing)
+    '                precioFinalMostrar = precioFinalMostrar.Replace(",", ".")
+    '                precioFinalMostrar = precioFinalMostrar.Trim
+    '                precioFinalMostrar = precioFinalMostrar + " €"
 
-                    Dim precioFinalOrdenar As String = precioFinalMostrar
-                    Dim posicionPunto As Integer = precioFinalMostrar.IndexOf(".")
+    '                Dim precioFinalOrdenar As String = precioFinalMostrar
+    '                Dim posicionPunto As Integer = precioFinalMostrar.IndexOf(".")
 
-                    precioFinalOrdenar = precioFinalOrdenar.Replace("€", Nothing)
-                    precioFinalOrdenar = precioFinalOrdenar.Trim
+    '                precioFinalOrdenar = precioFinalOrdenar.Replace("€", Nothing)
+    '                precioFinalOrdenar = precioFinalOrdenar.Trim
 
-                    If posicionPunto = 0 Then
-                        precioFinalOrdenar = "000" + precioFinalOrdenar
-                    ElseIf posicionPunto = 1 Then
-                        precioFinalOrdenar = "00" + precioFinalOrdenar
-                    ElseIf posicionPunto = 2 Then
-                        precioFinalOrdenar = "0" + precioFinalOrdenar
-                    End If
+    '                If posicionPunto = 0 Then
+    '                    precioFinalOrdenar = "000" + precioFinalOrdenar
+    '                ElseIf posicionPunto = 1 Then
+    '                    precioFinalOrdenar = "00" + precioFinalOrdenar
+    '                ElseIf posicionPunto = 2 Then
+    '                    precioFinalOrdenar = "0" + precioFinalOrdenar
+    '                End If
 
-                    If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
-                        enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(h)
-                    Else
-                        enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(h)
-                    End If
+    '                If listaJuegos(i).Enlaces.Afiliados Is Nothing Then
+    '                    enlaceMostrar = listaJuegos(i).Enlaces.Enlaces(h)
+    '                Else
+    '                    enlaceMostrar = listaJuegos(i).Enlaces.Afiliados(h)
+    '                End If
 
-                    If listaJuegos(i).Enlaces.Precios.Count = 1 Then
-                        worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:black;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + precioFinalMostrar + "</span></a>"
-                    Else
-                        Dim imagenMostrar As String = Nothing
+    '                If listaJuegos(i).Enlaces.Precios.Count = 1 Then
+    '                    worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:black;color:white;padding:5px;font-size:15px;" + ChrW(34) + ">" + precioFinalMostrar + "</span></a>"
+    '                Else
+    '                    Dim imagenMostrar As String = Nothing
 
-                        If listaJuegos(i).Enlaces.Paises(h).Contains("EU") Then
-                            imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_ue2.png" + ChrW(34) + ">"
-                        ElseIf listaJuegos(i).Enlaces.Paises(h).Contains("UK") Then
-                            imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_uk2.png" + ChrW(34) + ">"
-                        ElseIf listaJuegos(i).Enlaces.Paises(h).Contains("FR") Then
-                            imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_fr2.png" + ChrW(34) + ">"
-                        ElseIf listaJuegos(i).Enlaces.Paises(h).Contains("DE") Then
-                            imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_de2.png" + ChrW(34) + ">"
-                        End If
+    '                    If listaJuegos(i).Enlaces.Paises(h).Contains("EU") Then
+    '                        imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_ue2.png" + ChrW(34) + ">"
+    '                    ElseIf listaJuegos(i).Enlaces.Paises(h).Contains("UK") Then
+    '                        imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_uk2.png" + ChrW(34) + ">"
+    '                    ElseIf listaJuegos(i).Enlaces.Paises(h).Contains("FR") Then
+    '                        imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_fr2.png" + ChrW(34) + ">"
+    '                    ElseIf listaJuegos(i).Enlaces.Paises(h).Contains("DE") Then
+    '                        imagenMostrar = "<img style=" + ChrW(34) + "height:16px;width:22px;margin-right:5px;" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/03/pais_de2.png" + ChrW(34) + ">"
+    '                    End If
 
-                        worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:black;color:white;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;font-size:15px;display:inline-flex;align-items:center;" + ChrW(34) + ">" + imagenMostrar + precioFinalMostrar + "</span></a>"
-                    End If
+    '                    worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + precioFinalOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceMostrar + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:black;color:white;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;font-size:15px;display:inline-flex;align-items:center;" + ChrW(34) + ">" + imagenMostrar + precioFinalMostrar + "</span></a>"
+    '                End If
 
-                    letra = ChrW(AscW(letra) + 1)
-                    h += 1
-                End While
+    '                letra = ChrW(AscW(letra) + 1)
+    '                h += 1
+    '            End While
 
-                If Not listaJuegos(i).Analisis Is Nothing Then
-                    Dim imagenUrl As String = Nothing
-                    Dim colorFondo As String = Nothing
-                    Dim colorLetra As String = Nothing
+    '            If Not listaJuegos(i).Analisis Is Nothing Then
+    '                Dim imagenUrl As String = Nothing
+    '                Dim colorFondo As String = Nothing
+    '                Dim colorLetra As String = Nothing
 
-                    If listaJuegos(i).Analisis.Porcentaje > 74 Then
-                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/2018/03/positive.png"
-                        colorFondo = "#ABCADB"
-                        colorLetra = "#294B5F"
-                    ElseIf listaJuegos(i).Analisis.Porcentaje > 49 And listaJuegos(i).Analisis.Porcentaje < 75 Then
-                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/2018/03/mixed.png"
-                        colorFondo = "#d5cbbc"
-                        colorLetra = "#544834"
-                    ElseIf listaJuegos(i).Analisis.Porcentaje < 50 Then
-                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/2018/03/negative.png"
-                        colorFondo = "#ceb9b4"
-                        colorLetra = "#631502"
-                    End If
+    '                If listaJuegos(i).Analisis.Porcentaje > 74 Then
+    '                    imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/2018/03/positive.png"
+    '                    colorFondo = "#ABCADB"
+    '                    colorLetra = "#294B5F"
+    '                ElseIf listaJuegos(i).Analisis.Porcentaje > 49 And listaJuegos(i).Analisis.Porcentaje < 75 Then
+    '                    imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/2018/03/mixed.png"
+    '                    colorFondo = "#d5cbbc"
+    '                    colorLetra = "#544834"
+    '                ElseIf listaJuegos(i).Analisis.Porcentaje < 50 Then
+    '                    imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/2018/03/negative.png"
+    '                    colorFondo = "#ceb9b4"
+    '                    colorLetra = "#631502"
+    '                End If
 
-                    Dim cantidadAnalisisOrdenar As String = listaJuegos(i).Analisis.Cantidad
-                    cantidadAnalisisOrdenar = cantidadAnalisisOrdenar.Replace(",", Nothing)
-                    cantidadAnalisisOrdenar = cantidadAnalisisOrdenar.Replace(".", Nothing)
+    '                Dim cantidadAnalisisOrdenar As String = listaJuegos(i).Analisis.Cantidad
+    '                cantidadAnalisisOrdenar = cantidadAnalisisOrdenar.Replace(",", Nothing)
+    '                cantidadAnalisisOrdenar = cantidadAnalisisOrdenar.Replace(".", Nothing)
 
-                    If cantidadAnalisisOrdenar.Length = 3 Then
-                        cantidadAnalisisOrdenar = "0000000" + cantidadAnalisisOrdenar
-                    ElseIf cantidadAnalisisOrdenar.Length = 4 Then
-                        cantidadAnalisisOrdenar = "000000" + cantidadAnalisisOrdenar
-                    ElseIf cantidadAnalisisOrdenar.Length = 5 Then
-                        cantidadAnalisisOrdenar = "00000" + cantidadAnalisisOrdenar
-                    ElseIf cantidadAnalisisOrdenar.Length = 6 Then
-                        cantidadAnalisisOrdenar = "0000" + cantidadAnalisisOrdenar
-                    ElseIf cantidadAnalisisOrdenar.Length = 7 Then
-                        cantidadAnalisisOrdenar = "000" + cantidadAnalisisOrdenar
-                    ElseIf cantidadAnalisisOrdenar.Length = 8 Then
-                        cantidadAnalisisOrdenar = "00" + cantidadAnalisisOrdenar
-                    ElseIf cantidadAnalisisOrdenar.Length = 9 Then
-                        cantidadAnalisisOrdenar = "0" + cantidadAnalisisOrdenar
-                    End If
+    '                If cantidadAnalisisOrdenar.Length = 3 Then
+    '                    cantidadAnalisisOrdenar = "0000000" + cantidadAnalisisOrdenar
+    '                ElseIf cantidadAnalisisOrdenar.Length = 4 Then
+    '                    cantidadAnalisisOrdenar = "000000" + cantidadAnalisisOrdenar
+    '                ElseIf cantidadAnalisisOrdenar.Length = 5 Then
+    '                    cantidadAnalisisOrdenar = "00000" + cantidadAnalisisOrdenar
+    '                ElseIf cantidadAnalisisOrdenar.Length = 6 Then
+    '                    cantidadAnalisisOrdenar = "0000" + cantidadAnalisisOrdenar
+    '                ElseIf cantidadAnalisisOrdenar.Length = 7 Then
+    '                    cantidadAnalisisOrdenar = "000" + cantidadAnalisisOrdenar
+    '                ElseIf cantidadAnalisisOrdenar.Length = 8 Then
+    '                    cantidadAnalisisOrdenar = "00" + cantidadAnalisisOrdenar
+    '                ElseIf cantidadAnalisisOrdenar.Length = 9 Then
+    '                    cantidadAnalisisOrdenar = "0" + cantidadAnalisisOrdenar
+    '                End If
 
-                    Dim enlaceAnalisis As String = listaJuegos(i).Analisis.Enlace
+    '                Dim enlaceAnalisis As String = listaJuegos(i).Analisis.Enlace
 
-                    If Not listaJuegos(i).Enlaces.Afiliados Is Nothing Then
-                        enlaceAnalisis = listaJuegos(i).Enlaces.Afiliados(0)
-                    End If
+    '                If Not listaJuegos(i).Enlaces.Afiliados Is Nothing Then
+    '                    enlaceAnalisis = listaJuegos(i).Enlaces.Afiliados(0)
+    '                End If
 
-                    If enlaceAnalisis = Nothing Then
-                        enlaceAnalisis = listaJuegos(i).Enlaces.Enlaces(0)
-                    End If
+    '                If enlaceAnalisis = Nothing Then
+    '                    enlaceAnalisis = listaJuegos(i).Enlaces.Enlaces(0)
+    '                End If
 
-                    worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceAnalisis + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "font-size:15px;color:" + colorLetra + ";" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:" + colorFondo + ";display:inline-flex;align-items:center;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "%</span></a>"
-                End If
+    '                worksheet.Range(letra.ToString + (i + 2).ToString).Text = "<a title=" + ChrW(34) + listaJuegos(i).Analisis.Porcentaje + " " + cantidadAnalisisOrdenar + ChrW(34) + " href=" + ChrW(34) + enlaceAnalisis + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " style=" + ChrW(34) + "font-size:15px;color:" + colorLetra + ";" + ChrW(34) + "><span style=" + ChrW(34) + "background-color:" + colorFondo + ";display:inline-flex;align-items:center;padding-left:5px;padding-right:5px;padding-top:2px;padding-bottom:2px;" + ChrW(34) + "><img src=" + ChrW(34) + imagenUrl + ChrW(34) + " style=" + ChrW(34) + "margin-right:5px;" + ChrW(34) + ">" + listaJuegos(i).Analisis.Porcentaje + "%</span></a>"
+    '            End If
 
-                i += 1
-            End While
+    '            i += 1
+    '        End While
 
-            Dim ficherosExcel As New List(Of String) From {
-                ".xlsx"
-            }
+    '        Dim ficherosExcel As New List(Of String) From {
+    '            ".xlsx"
+    '        }
 
-            Dim fichero As StorageFile = Nothing
+    '        Dim fichero As StorageFile = Nothing
 
-            Dim guardarPicker As New FileSavePicker With {
-                .SuggestedStartLocation = PickerLocationId.Desktop,
-                .SuggestedFileName = paquete.NombreTabla
-            }
+    '        Dim guardarPicker As New FileSavePicker With {
+    '            .SuggestedStartLocation = PickerLocationId.Desktop,
+    '            .SuggestedFileName = paquete.NombreTabla
+    '        }
 
-            guardarPicker.FileTypeChoices.Add("Excel Files", ficherosExcel)
-            fichero = Await guardarPicker.PickSaveFileAsync
+    '        guardarPicker.FileTypeChoices.Add("Excel Files", ficherosExcel)
+    '        fichero = Await guardarPicker.PickSaveFileAsync
 
-            If Not fichero Is Nothing Then
-                Dim stream As Stream = Await fichero.OpenStreamForWriteAsync
-                workbook.SaveAs(stream)
-                workbook.Close()
-            End If
-        End Using
+    '        If Not fichero Is Nothing Then
+    '            Dim stream As Stream = Await fichero.OpenStreamForWriteAsync
+    '            workbook.SaveAs(stream)
+    '            workbook.Close()
+    '        End If
+    '    End Using
 
-    End Sub
+    'End Sub
 
     Public Async Sub CargaWeb(wv As WebView)
 
@@ -501,10 +501,33 @@ Module Editor
                         cantidadJuegos = listaFinal.Count.ToString
                     End If
 
+                    Dim gridpepeizq As Grid = pagina.FindName("gridEditorpepeizqdeals")
                     Dim gridReddit As Grid = pagina.FindName("gridEditorReddit")
                     Dim gridVayaAnsias As Grid = pagina.FindName("gridEditorVayaAnsias")
 
                     If cbWebs.SelectedIndex = 0 Then
+                        gridpepeizq.Visibility = Visibility.Visible
+                        gridReddit.Visibility = Visibility.Collapsed
+                        gridVayaAnsias.Visibility = Visibility.Collapsed
+
+                        Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+
+                        If listaFinal.Count = 0 Then
+                            tbTitulo.Text = String.Empty
+                        ElseIf listaFinal.Count = 1 Then
+                            tbTitulo.Text = listaFinal(0).Titulo + " • " + listaFinal(0).Descuento + " • " + listaFinal(0).Enlaces.Precios(0) + " • " + listaFinal(0).Tienda
+                        Else
+                            tbTitulo.Text = "[" + listaFinal(0).Tienda + "] Sale | Up to " + listaFinal(0).Descuento + " off (" + cantidadJuegos + " deals)"
+                        End If
+
+
+                        Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+                        AddHandler botonSubir.Click, AddressOf SubirDatospepeizqdeals
+
+
+
+                    ElseIf cbWebs.SelectedIndex = 1 Then
+                        gridpepeizq.Visibility = Visibility.Collapsed
                         gridReddit.Visibility = Visibility.Visible
                         gridVayaAnsias.Visibility = Visibility.Collapsed
 
@@ -599,7 +622,8 @@ Module Editor
                             tbEnlaces.Text = recursos.GetString("EditorLimit")
                         End If
 
-                    ElseIf cbWebs.SelectedIndex = 1 Then
+                    ElseIf cbWebs.SelectedIndex = 2 Then
+                        gridpepeizq.Visibility = Visibility.Collapsed
                         gridReddit.Visibility = Visibility.Collapsed
                         gridVayaAnsias.Visibility = Visibility.Visible
 
@@ -776,6 +800,36 @@ Module Editor
                 End If
             End If
         End If
+
+    End Sub
+
+    Private Async Sub SubirDatospepeizqdeals(sender As Object, e As RoutedEventArgs)
+
+        Dim boton As Button = sender
+        boton.IsEnabled = False
+
+        Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+            .AuthMethod = Models.AuthMethod.JWT
+        }
+
+        Await cliente.RequestJWToken("pepeizqa", "q9ZEvVWsv7cryyBT")
+
+        If Await cliente.IsValidJWToken = True Then
+
+            Dim post As New Models.Post With {
+                .Title = New Models.Title("test9"),
+                .Content = New Models.Content("yolo123"),
+                .Status = Models.Status.Draft,
+                .Categories = (New Integer() {3})
+            }
+
+            Dim resultado As Models.Post = Await cliente.Posts.Create(post)
+
+            Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
+
+        End If
+
+        boton.IsEnabled = True
 
     End Sub
 

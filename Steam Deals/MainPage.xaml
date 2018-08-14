@@ -200,6 +200,14 @@
                                     <ComboBoxItem.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <controls:ImageEx Source="Assets\Webs\web_reddit.ico" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
+                                            <TextBlock Text="pepeizq's deals"/>
+                                        </StackPanel>
+                                    </ComboBoxItem.Content>
+                                </ComboBoxItem>
+                                <ComboBoxItem PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <ComboBoxItem.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:ImageEx Source="Assets\Webs\web_reddit.ico" Width="16" Height="16" IsCacheEnabled="True" Margin="0,0,10,0"/>
                                             <TextBlock Text="Reddit"/>
                                         </StackPanel>
                                     </ComboBoxItem.Content>
@@ -217,12 +225,43 @@
                             <TextBlock x:Name="tbNumOfertasSeleccionadas" Margin="20,0,0,0" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
 
-                        <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                        <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <Button.Content>
                                 <fa:FontAwesome Icon="Globe" Foreground="White"/>
                             </Button.Content>
                         </Button>
                     </StackPanel>
+
+                    <Grid x:Name="gridEditorpepeizqdeals" Grid.Row="1" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Padding="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Vertical">
+                                <TextBox x:Name="tbEditorTitulopepeizqdeals" Margin="10"/>
+                                <TextBox x:Name="tbEditorImagenpepeizqdeals" Margin="10"/>
+                                <TextBox x:Name="tbEditorEnlacepepeizqdeals" Margin="10"/>
+                            </StackPanel>
+
+                            <controls:ImageEx x:Name="imagenEditorpepeizqdeals" Grid.Column="1"/>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Padding="20">
+                            <Button x:Name="botonEditorSubirpepeizqdeals" Background="{StaticResource BrushSecundario}" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button.Content>
+                                    <fa:FontAwesome Icon="Upload" Foreground="White"/>
+                                </Button.Content>
+                            </Button>
+                        </Grid>
+                    </Grid>
 
                     <Grid x:Name="gridEditorReddit" Grid.Row="1" Visibility="Collapsed">
                         <Grid.RowDefinitions>
