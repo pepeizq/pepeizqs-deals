@@ -264,7 +264,6 @@
                             
                         </Grid>
 
-                        <TextBox x:Name="tbEditorResultadopepeizqdeals" Grid.Row="2" Margin="10" TextWrapping="Wrap"/>
                     </Grid>
 
                     <Grid x:Name="gridEditorReddit" Grid.Row="1" Visibility="Collapsed">

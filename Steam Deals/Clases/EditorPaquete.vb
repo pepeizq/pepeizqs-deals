@@ -11,3 +11,19 @@
     End Sub
 
 End Class
+
+Public Class EditorPaquetepepeizqdeals
+
+    Public Property ContenidoEnlaces As String
+    Public Property Tienda As String
+    Public Property Descuento As String
+    Public Property Precio As String
+
+    Public Sub New(ByVal contenidoenlaces As String, ByVal tienda As String, ByVal descuento As String, ByVal precio As String)
+        Me.ContenidoEnlaces = contenidoenlaces
+        Me.Tienda = tienda
+        Me.Descuento = descuento
+        Me.Precio = precio
+    End Sub
+
+End Class

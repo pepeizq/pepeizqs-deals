@@ -130,6 +130,7 @@ Module Editor
                         End If
 
                         Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+                        Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
 
                         If listaFinal.Count = 1 Then
                             If Not listaFinal(0).Imagenes.Grande = String.Empty Then
@@ -138,8 +139,10 @@ Module Editor
                                 tbImagen.Text = listaFinal(0).Imagenes.Pequeña
                             End If
 
-                            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
                             imagen.Source = tbImagen.Text
+                        Else
+                            tbImagen.Text = String.Empty
+                            imagen.Source = Nothing
                         End If
 
                         AddHandler tbImagen.TextChanged, AddressOf MostrarImagenpepeizqdeals
@@ -148,6 +151,8 @@ Module Editor
 
                         If listaFinal.Count = 1 Then
                             tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
+                        Else
+                            tbEnlace.Text = Nothing
                         End If
 
                         If listaFinal.Count > 1 Then
@@ -176,10 +181,10 @@ Module Editor
                                     imagenFinal = juego.Imagenes.Grande
                                 End If
 
-                                contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " onclick=" + ChrW(34) + "window.location='" + juego.Enlaces.Enlaces(0) + "';" + ChrW(34) + ">" + Environment.NewLine
+                                contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " onClick=" + ChrW(34) + "window.open('" + juego.Enlaces.Enlaces(0) + "');" + ChrW(34) + ">" + Environment.NewLine
                                 contenidoEnlaces = contenidoEnlaces + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + "/></td>" + Environment.NewLine
                                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + "</td>" + Environment.NewLine
-                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + juego.Descuento + "</td>" + Environment.NewLine
+                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: forestgreen; color: white;" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
 
                                 Dim precioFinal As String = juego.Enlaces.Precios(0)
                                 precioFinal = precioFinal.Replace(".", ",")
@@ -187,10 +192,20 @@ Module Editor
                                 precioFinal = precioFinal.Trim
                                 precioFinal = precioFinal + " €"
 
-                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + precioFinal + "</td>" + Environment.NewLine
+                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: black; color: white;" + ChrW(34) + ">" + precioFinal + "</span></td>" + Environment.NewLine
 
                                 If Not juego.Analisis Is Nothing Then
-                                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + juego.Analisis.Porcentaje + "</td>" + Environment.NewLine
+                                    Dim contenidoAnalisis As String = Nothing
+
+                                    If juego.Analisis.Porcentaje > 74 Then
+                                        contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #4886ab; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                                    ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
+                                        contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #99835e; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                                    ElseIf juego.Analisis.Porcentaje < 50 Then
+                                        contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #835144; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                                    End If
+
+                                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
                                 Else
                                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">--</td>" + Environment.NewLine
                                 End If
@@ -203,7 +218,13 @@ Module Editor
                         End If
 
                         Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
-                        botonSubir.Tag = contenidoEnlaces
+
+                        If listaFinal.Count = 1 Then
+                            botonSubir.Tag = New EditorPaquetepepeizqdeals(contenidoEnlaces, listaFinal(0).Tienda, listaFinal(0).Descuento, listaFinal(0).Enlaces.Precios(0))
+                        Else
+                            botonSubir.Tag = New EditorPaquetepepeizqdeals(contenidoEnlaces, listaFinal(0).Tienda, "Up to " + listaFinal(0).Descuento, cantidadJuegos + " deals")
+                        End If
+
                         RemoveHandler botonSubir.Click, AddressOf SubirDatospepeizqdeals
                         AddHandler botonSubir.Click, AddressOf SubirDatospepeizqdeals
 
@@ -502,9 +523,13 @@ Module Editor
         Dim pagina As Page = frame.Content
 
         Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+        Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+        Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
 
         Dim boton As Button = sender
         boton.IsEnabled = False
+
+        Dim cosas As EditorPaquetepepeizqdeals = boton.Tag
 
         Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
             .AuthMethod = Models.AuthMethod.JWT
@@ -514,31 +539,53 @@ Module Editor
 
         If Await cliente.IsValidJWToken = True Then
 
-            Dim etiqueta As Integer = Nothing
+            Dim listaEtiquetas As New List(Of Integer)
 
-            If tbTitulo.Text.Contains("Steam") Then
-                etiqueta = 1
-            ElseIf tbTitulo.Text.Contains("Humble Store") Then
-                etiqueta = 0
+            If cosas.Tienda = "Steam" Then
+                listaEtiquetas.Add(5)
+            ElseIf cosas.Tienda = "Humble Store" Then
+                listaEtiquetas.Add(6)
+            ElseIf cosas.Tienda = "GamersGate" Then
+                listaEtiquetas.Add(7)
+            ElseIf cosas.Tienda = "GamesPlanet" Then
+                listaEtiquetas.Add(8)
+            ElseIf cosas.Tienda = "GOG" Then
+                listaEtiquetas.Add(9)
             End If
 
             Dim post As New Models.Post With {
                 .Title = New Models.Title(tbTitulo.Text),
-                .Content = New Models.Content(boton.Tag),
+                .Content = New Models.Content(cosas.ContenidoEnlaces),
                 .Status = Models.Status.Draft,
                 .Categories = New Integer() {3}
             }
 
-            If Not etiqueta = Nothing Then
-                post.Tags = New Integer() {etiqueta}
+            Dim postString As String = JsonConvert.SerializeObject(post)
+
+            Dim postEditor As EditorPost = JsonConvert.DeserializeObject(Of EditorPost)(postString)
+            postEditor.Etiquetas = listaEtiquetas
+            postEditor.FechaOriginal = DateTime.Now
+            postEditor.Descuento = cosas.Descuento
+
+            Dim precioFinal As String = cosas.Precio
+            precioFinal = precioFinal.Replace(".", ",")
+            precioFinal = precioFinal.Replace("€", Nothing)
+            precioFinal = precioFinal.Trim
+            precioFinal = precioFinal + " €"
+
+            postEditor.Precio = precioFinal
+
+            If tbEnlace.Text.Trim.Length > 0 Then
+                postEditor.Redireccion = tbEnlace.Text.Trim
             End If
 
-            Dim resultado As Models.Post = Await cliente.Posts.Create(post)
+            If tbImagen.Text.Trim.Length > 0 Then
+                postEditor.Imagen = tbImagen.Text.Trim
+            End If
+
+            Dim resultado As EditorPost = Await cliente.CustomRequest.Create(Of EditorPost, EditorPost)("wp/v2/posts", postEditor)
 
             Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
-
-            Dim tbResultado As TextBox = pagina.FindName("tbEditorResultadopepeizqdeals")
-            tbResultado.Text = JsonConvert.SerializeObject(resultado)
 
         End If
 
