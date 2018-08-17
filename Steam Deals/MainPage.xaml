@@ -237,6 +237,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0" Padding="20">
@@ -255,15 +256,22 @@
                         </Grid>
 
                         <Grid Grid.Row="1" Padding="20">
-                            <Button x:Name="botonEditorSubirpepeizqdeals" Background="{StaticResource BrushSecundario}" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorSubirpepeizqdeals" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
-                                    <fa:FontAwesome Icon="Upload" Foreground="White"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Upload" Foreground="White"/>
+                                        <TextBlock x:Uid="Upload" Margin="10,0,0,0" Foreground="White"/>
+                                    </StackPanel>
                                 </Button.Content>
                             </Button>
-
-                            
                         </Grid>
 
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" Padding="20" HorizontalAlignment="Right">
+                            <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                            <TextBox x:Name="tbEditorUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
+                            <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                            <PasswordBox x:Name="tbEditorContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
+                        </StackPanel>
                     </Grid>
 
                     <Grid x:Name="gridEditorReddit" Grid.Row="1" Visibility="Collapsed">

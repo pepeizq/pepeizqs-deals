@@ -73,5 +73,8 @@ Public Class EditorPost
     <JsonProperty("price")>
     Public Precio As String
 
+    <JsonProperty("storeicon")>
+    Public IconoTienda As String
+
 End Class
 

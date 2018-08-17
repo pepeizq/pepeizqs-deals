@@ -109,11 +109,15 @@ Module Divisas
 
                 Dim dou, dou2 As Double
 
-                dou = CDbl(moneda)
-                dou2 = CDbl(precio)
+                Try
+                    dou = CDbl(moneda)
+                    dou2 = CDbl(precio)
 
-                temporalEuros = (Math.Round(dou * dou2, 2)).ToString + " €"
-                temporalEuros = temporalEuros.Replace(",", ".")
+                    temporalEuros = (Math.Round(dou * dou2, 2)).ToString + " €"
+                    temporalEuros = temporalEuros.Replace(",", ".")
+                Catch ex As Exception
+
+                End Try
             End If
         End If
 

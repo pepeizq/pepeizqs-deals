@@ -96,7 +96,7 @@ Module Interfaz
         Dim sp As StackPanel = e.ClickedItem
         Dim tienda As Tienda = sp.Tag
 
-        IniciarTienda(tienda, False)
+        IniciarTienda(tienda, False, True)
 
     End Sub
 
@@ -105,7 +105,28 @@ Module Interfaz
         Dim menuItem As MenuFlyoutItem = sender
         Dim tienda As Tienda = menuItem.Tag
 
-        IniciarTienda(tienda, False)
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
+
+            Dim actualizar As Boolean = True
+
+            If Not lv Is Nothing Then
+                If lv.Items.Count > 0 Then
+                    actualizar = False
+                End If
+            End If
+
+            If actualizar = True Then
+                IniciarTienda(tienda, True, True)
+            Else
+                IniciarTienda(tienda, True, False)
+            End If
+        Else
+            IniciarTienda(tienda, False, True)
+        End If
 
     End Sub
 
@@ -250,7 +271,7 @@ Module Interfaz
 
     End Sub
 
-    Public Sub IniciarTienda(tienda As Tienda, actualizar As Boolean)
+    Public Sub IniciarTienda(tienda As Tienda, actualizar As Boolean, cambiar As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -275,6 +296,8 @@ Module Interfaz
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
         Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
         Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
+        Dim itemSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
+        Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
         Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
         Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
 
@@ -289,11 +312,37 @@ Module Interfaz
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
-        If actualizar = True Then
-            lv.Items.Clear()
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            If actualizar = False Then
+                lv.Items.Clear()
+            Else
+                For Each item In lv.Items
+                    item.Opacity = 0.5
+                Next
+
+                lv.IsEnabled = False
+            End If
+        Else
+            If actualizar = True Then
+                lv.Items.Clear()
+            End If
+        End If
+
+        Dim iniciar As Boolean = False
+
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            iniciar = True
+        End If
+
+        If cambiar = False Then
+            iniciar = False
         End If
 
         If lv.Items.Count = 0 Then
+            iniciar = True
+        End If
+
+        If iniciar = True Then
             itemTiendas.IsEnabled = False
             itemActualizarOfertas.IsEnabled = False
             itemOrdenarOfertas.IsEnabled = False
@@ -308,10 +357,7 @@ Module Interfaz
             Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
             spTiendaSeleccionada.IsHitTestVisible = False
 
-            Dim itemSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
             itemSeleccionarTodo.IsEnabled = False
-
-            Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
             itemLimpiarSeleccion.IsEnabled = False
 
             Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
@@ -352,6 +398,19 @@ Module Interfaz
             itemOrdenarOfertas.IsEnabled = True
             itemConfig.IsEnabled = True
             itemEditor.IsEnabled = True
+
+            lv.IsEnabled = True
+
+            If lv.Items.Count > 0 Then
+                For Each item In lv.Items
+                    item.Opacity = 1
+                Next
+
+                itemSeleccionarTodo.IsEnabled = True
+                itemSeleccionarTodo.Visibility = Visibility.Visible
+                itemLimpiarSeleccion.IsEnabled = True
+                itemLimpiarSeleccion.Visibility = Visibility.Visible
+            End If
         End If
 
     End Sub
@@ -766,11 +825,13 @@ Module Interfaz
                     precio = Divisas.CambioMoneda(precio, tbDolar.Text)
                 End If
 
-                If precio.Contains("€") Then
-                    precio = precio.Replace("€", Nothing)
-                    precio = precio.Replace(",", ".")
-                    precio = precio.Trim
-                    precio = precio + " €"
+                If Not precio = String.Empty Then
+                    If precio.Contains("€") Then
+                        precio = precio.Replace("€", Nothing)
+                        precio = precio.Replace(",", ".")
+                        precio = precio.Trim
+                        precio = precio + " €"
+                    End If
                 End If
             End If
 

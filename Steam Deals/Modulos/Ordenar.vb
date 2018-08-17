@@ -76,7 +76,9 @@ Module Ordenar
             End If
 
             If Not listaJuegos Is Nothing Then
-                lv.Items.Clear()
+                If ApplicationData.Current.LocalSettings.Values("editor2") = False Then
+                    lv.Items.Clear()
+                End If
 
                 If ordenar = 0 Then
                     listaJuegos.Sort(Function(x As Juego, y As Juego)
@@ -333,6 +335,10 @@ Module Ordenar
             End If
 
             lv.IsEnabled = True
+
+            For Each item In lv.Items
+                item.Opacity = 1
+            Next
         End If
 
         itemTiendas.IsEnabled = True

@@ -37,7 +37,7 @@ Public NotInheritable Class MainPage
                     If grid.Visibility = Visibility.Visible Then
                         Dim tienda As Tienda = grid.Tag
 
-                        Interfaz.IniciarTienda(tienda, True)
+                        Interfaz.IniciarTienda(tienda, True, True)
                     End If
                 Next
 
@@ -100,15 +100,17 @@ Public NotInheritable Class MainPage
             itemActualizarOfertas.Visibility = Visibility.Visible
             itemOrdenarOfertas.Visibility = Visibility.Visible
 
-            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                itemEditorSeleccionarTodo.Visibility = Visibility.Visible
-                itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
-            End If
-
             gridEditor.Visibility = Visibility.Collapsed
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-            Interfaz.IniciarTienda(tienda, False)
+
+            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                itemEditorSeleccionarTodo.Visibility = Visibility.Visible
+                itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
+                Interfaz.IniciarTienda(tienda, True, True)
+            Else
+                Interfaz.IniciarTienda(tienda, False, True)
+            End If
         End If
 
     End Sub
@@ -308,6 +310,22 @@ Public NotInheritable Class MainPage
         Clipboard.SetContent(texto)
 
         tbEditorEnlacesVayaAnsias.Text = String.Empty
+
+    End Sub
+
+    Private Sub TbEditorUsuariopepeizqdeals_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdeals.TextChanged
+
+        If tbEditorUsuariopepeizqdeals.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") = tbEditorUsuariopepeizqdeals.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorContraseñapepeizqdeals_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdeals.PasswordChanged
+
+        If tbEditorContraseñapepeizqdeals.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") = tbEditorContraseñapepeizqdeals.Password.Trim
+        End If
 
     End Sub
 
