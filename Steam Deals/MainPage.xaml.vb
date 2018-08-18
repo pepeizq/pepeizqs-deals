@@ -107,7 +107,7 @@ Public NotInheritable Class MainPage
             If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                 itemEditorSeleccionarTodo.Visibility = Visibility.Visible
                 itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
-                Interfaz.IniciarTienda(tienda, True, True)
+                Interfaz.IniciarTienda(tienda, True, False)
             Else
                 Interfaz.IniciarTienda(tienda, False, True)
             End If

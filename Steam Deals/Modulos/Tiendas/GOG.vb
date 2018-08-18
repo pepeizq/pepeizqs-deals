@@ -99,8 +99,9 @@ Module GOG
                         temp8 = temp7.Remove(int8, temp7.Length - int8)
 
                         Dim imagenPequeña As String = "http:" + temp8.Trim.Replace("_100.", "_196.")
+                        Dim imagenGrande As String = "http:" + temp8.Trim.Replace("_100.", "_392.")
 
-                        Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
+                        Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                         Dim temp9, temp10 As String
                         Dim int9, int10 As Integer

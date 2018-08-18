@@ -247,9 +247,14 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Orientation="Vertical">
-                                <TextBox x:Name="tbEditorTitulopepeizqdeals" Margin="10" TextWrapping="Wrap"/>
-                                <TextBox x:Name="tbEditorImagenpepeizqdeals" Margin="10" TextWrapping="Wrap"/>
-                                <TextBox x:Name="tbEditorEnlacepepeizqdeals" Margin="10" TextWrapping="Wrap"/>
+                                <TextBlock x:Uid="Title2"/>
+                                <TextBox x:Name="tbEditorTitulopepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBlock x:Uid="Image"/>
+                                <TextBox x:Name="tbEditorImagenpepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBlock x:Uid="Url"/>
+                                <TextBox x:Name="tbEditorEnlacepepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBlock x:Uid="Title3"/>
+                                <TextBox x:Name="tbEditorTituloComplementopepeizqdeals" Margin="0,10" TextWrapping="Wrap"/>
                             </StackPanel>
 
                             <controls:ImageEx x:Name="imagenEditorpepeizqdeals" Grid.Column="1" Margin="10,10,0,0"/>

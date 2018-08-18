@@ -63,13 +63,13 @@ Module Editor
                 Next
 
                 If listaFinal.Count > 0 Then
-                    'listaFinal.Sort(Function(x As Juego, y As Juego)
-                    '                    Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
-                    '                    If resultado = 0 Then
-                    '                        resultado = x.Titulo.CompareTo(y.Titulo)
-                    '                    End If
-                    '                    Return resultado
-                    '                End Function)
+                    listaFinal.Sort(Function(x As Juego, y As Juego)
+                                        Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                        If resultado = 0 Then
+                                            resultado = x.Titulo.CompareTo(y.Titulo)
+                                        End If
+                                        Return resultado
+                                    End Function)
 
                     Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
                     Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
@@ -122,9 +122,15 @@ Module Editor
                             precioFinal = precioFinal.Trim
                             precioFinal = precioFinal + " €"
 
-                            tbTitulo.Text = listaFinal(0).Titulo + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda
+                            tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda
                         Else
-                            Dim listaAnalisis As List(Of Juego) = listaFinal
+                            tbTitulo.Text = "Sale • Up to " + listaFinal(0).Descuento + " • " + cantidadJuegos + " deals • " + listaFinal(0).Tienda
+
+                            Dim listaAnalisis As New List(Of Juego)
+
+                            For Each item In listaFinal
+                                listaAnalisis.Add(item)
+                            Next
 
                             listaAnalisis.Sort(Function(x As Juego, y As Juego)
 
@@ -147,25 +153,26 @@ Module Editor
                                                    Return resultado
                                                End Function)
 
-                            Dim complementoTitulo As String = listaAnalisis(0).Titulo + " (" + listaAnalisis(0).Descuento + ")"
+                            Dim complementoTitulo As String = LimpiarTitulo(listaAnalisis(0).Titulo) + " (" + listaAnalisis(0).Descuento + ")"
 
                             If listaFinal.Count > 1 Then
-                                complementoTitulo = complementoTitulo + ", " + listaAnalisis(1).Titulo + " (" + listaAnalisis(1).Descuento + ")"
+                                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ")"
                             End If
 
                             If listaFinal.Count > 2 Then
-                                complementoTitulo = complementoTitulo + ", " + listaAnalisis(2).Titulo + " (" + listaAnalisis(2).Descuento + ")"
+                                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ")"
                             End If
 
                             If listaFinal.Count > 3 Then
-                                complementoTitulo = complementoTitulo + ", " + listaAnalisis(3).Titulo + " (" + listaAnalisis(3).Descuento + ")"
+                                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ")"
                             End If
 
                             If Not complementoTitulo = Nothing Then
-                                complementoTitulo = " • " + complementoTitulo + " and more"
-                            End If
+                                complementoTitulo = complementoTitulo + " and more"
 
-                            tbTitulo.Text = "Sale in " + listaFinal(0).Tienda + " • Up to " + listaFinal(0).Descuento + " • " + cantidadJuegos + " deals" + complementoTitulo
+                                Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+                                tbTituloComplemento.Text = complementoTitulo
+                            End If
                         End If
 
                         Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
@@ -194,91 +201,12 @@ Module Editor
                             tbEnlace.Text = String.Empty
                         End If
 
-                        If listaFinal.Count > 1 Then
-                            contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 25%;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=0]</td>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
-
-                            For Each juego In listaFinal
-                                Dim tituloFinal As String = juego.Titulo
-
-                                tituloFinal = tituloFinal.Replace(ChrW(34), Nothing)
-                                tituloFinal = tituloFinal.Replace("™", Nothing)
-                                tituloFinal = tituloFinal.Replace("®", Nothing)
-
-                                Dim imagenFinal As String = Nothing
-
-                                If Not juego.Imagenes.Pequeña = String.Empty Then
-                                    imagenFinal = juego.Imagenes.Pequeña
-                                Else
-                                    imagenFinal = juego.Imagenes.Grande
-                                End If
-
-                                contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + juego.Enlaces.Enlaces(0) + "'>" + Environment.NewLine
-                                contenidoEnlaces = contenidoEnlaces + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + "/></td>" + Environment.NewLine
-
-                                Dim drmFinal As String = Nothing
-
-                                If juego.DRM.ToLower.Contains("steam") Then
-                                    drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #a6a6a6; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_steam.png" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
-                                ElseIf juego.DRM.ToLower.Contains("origin") Then
-                                    drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #ffc680; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_origin.png" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
-                                ElseIf juego.DRM.ToLower.Contains("uplay") Then
-                                    drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #2088e3; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_uplay.png" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
-                                ElseIf juego.DRM.ToLower.Contains("gog") Then
-                                    drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #DA8BF0; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_gog.ico" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
-                                End If
-
-                                If Not drmFinal = Nothing Then
-                                    drmFinal = "<br/>" + drmFinal
-                                End If
-
-                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
-                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: forestgreen; color: white;" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
-
-                                Dim precioFinal As String = juego.Enlaces.Precios(0)
-                                precioFinal = precioFinal.Replace(".", ",")
-                                precioFinal = precioFinal.Replace("€", Nothing)
-                                precioFinal = precioFinal.Trim
-                                precioFinal = precioFinal + " €"
-
-                                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: black; color: white;" + ChrW(34) + ">" + precioFinal + "</span></td>" + Environment.NewLine
-
-                                If Not juego.Analisis Is Nothing Then
-                                    Dim contenidoAnalisis As String = Nothing
-
-                                    If juego.Analisis.Porcentaje > 74 Then
-                                        contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #4886ab; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                                    ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
-                                        contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #99835e; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                                    ElseIf juego.Analisis.Porcentaje < 50 Then
-                                        contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #835144; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                                    End If
-
-                                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
-                                Else
-                                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">0</td>" + Environment.NewLine
-                                End If
-
-                                contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
-                            Next
-
-                            contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
-                            contenidoEnlaces = contenidoEnlaces + "</table>" + Environment.NewLine
-                        End If
-
                         Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
 
                         If listaFinal.Count = 1 Then
-                            botonSubir.Tag = New EditorPaquetepepeizqdeals(contenidoEnlaces, listaFinal(0).Tienda, listaFinal(0).Descuento, listaFinal(0).Enlaces.Precios(0))
+                            botonSubir.Tag = New EditorPaquetepepeizqdeals(listaFinal, listaFinal(0).Tienda, listaFinal(0).Descuento, listaFinal(0).Enlaces.Precios(0))
                         Else
-                            botonSubir.Tag = New EditorPaquetepepeizqdeals(contenidoEnlaces, listaFinal(0).Tienda, "Up to " + listaFinal(0).Descuento, cantidadJuegos + " deals")
+                            botonSubir.Tag = New EditorPaquetepepeizqdeals(listaFinal, listaFinal(0).Tienda, "Up to " + listaFinal(0).Descuento, cantidadJuegos + " deals")
                         End If
 
                         RemoveHandler botonSubir.Click, AddressOf SubirDatospepeizqdeals
@@ -581,6 +509,7 @@ Module Editor
         Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
         Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
         Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+        Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
 
         Dim boton As Button = sender
         boton.IsEnabled = False
@@ -594,6 +523,86 @@ Module Editor
         Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
         If Await cliente.IsValidJWToken = True Then
+
+            Dim contenidoEnlaces As String = String.Empty
+
+            If cosas.ListaJuegos.Count > 1 Then
+                contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td>Image</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=1 perpage=25]</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
+
+                For Each juego In cosas.ListaJuegos
+                    Dim tituloFinal As String = juego.Titulo
+                    tituloFinal = LimpiarTitulo(tituloFinal)
+
+                    Dim imagenFinal As String = Nothing
+
+                    If Not juego.Imagenes.Pequeña = String.Empty Then
+                        imagenFinal = juego.Imagenes.Pequeña
+                    Else
+                        imagenFinal = juego.Imagenes.Grande
+                    End If
+
+                    contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + juego.Enlaces.Enlaces(0) + "'>" + Environment.NewLine
+                    contenidoEnlaces = contenidoEnlaces + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " style=" + ChrW(34) + "width: 100%;display: block;" + ChrW(34) + " /></td>" + Environment.NewLine
+
+                    Dim drmFinal As String = Nothing
+
+                    If Not juego.DRM = Nothing Then
+                        If juego.DRM.ToLower.Contains("steam") Then
+                            drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #a6a6a6; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_steam.png" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
+                        ElseIf juego.DRM.ToLower.Contains("origin") Then
+                            drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #ffc680; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_origin.png" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
+                        ElseIf juego.DRM.ToLower.Contains("uplay") Then
+                            drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #2088e3; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_uplay.png" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
+                        ElseIf juego.DRM.ToLower.Contains("gog") Then
+                            drmFinal = "<span style=" + ChrW(34) + "padding: 5px; background-color: #DA8BF0; margin-top 10px;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_gog.ico" + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;vertical-align:middle;" + ChrW(34) + "/></span></td>"
+                        End If
+                    End If
+
+                    If Not drmFinal = Nothing Then
+                        drmFinal = "<br/>" + drmFinal
+                    End If
+
+                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
+                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: forestgreen; color: white;" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
+
+                    Dim precioFinalJuego As String = juego.Enlaces.Precios(0)
+                    precioFinalJuego = precioFinalJuego.Replace(".", ",")
+                    precioFinalJuego = precioFinalJuego.Replace("€", Nothing)
+                    precioFinalJuego = precioFinalJuego.Trim
+                    precioFinalJuego = precioFinalJuego + " €"
+
+                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: black; color: white;" + ChrW(34) + ">" + precioFinalJuego + "</span></td>" + Environment.NewLine
+
+                    If Not juego.Analisis Is Nothing Then
+                        Dim contenidoAnalisis As String = Nothing
+
+                        If juego.Analisis.Porcentaje > 74 Then
+                            contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #4886ab; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                        ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
+                            contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #99835e; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                        ElseIf juego.Analisis.Porcentaje < 50 Then
+                            contenidoAnalisis = "<span style=" + ChrW(34) + "padding: 5px; background-color: #835144; color: white;" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                        End If
+
+                        contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
+                    Else
+                        contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">0</td>" + Environment.NewLine
+                    End If
+
+                    contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
+                Next
+
+                contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "</table>" + Environment.NewLine
+            End If
 
             Dim listaEtiquetas As New List(Of Integer)
             Dim iconoTienda As String = String.Empty
@@ -613,12 +622,15 @@ Module Editor
             ElseIf cosas.Tienda = "GOG" Then
                 listaEtiquetas.Add(9)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/gog.ico"
+            ElseIf cosas.Tienda = "Fanatical" Then
+                listaEtiquetas.Add(10)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/fanatical.ico"
             End If
 
             Dim post As New Models.Post With {
                 .Title = New Models.Title(tbTitulo.Text),
-                .Content = New Models.Content(cosas.ContenidoEnlaces),
-                .Status = Models.Status.Draft,
+                .Content = New Models.Content(contenidoEnlaces),
+                .Status = Models.Status.Publish,
                 .Categories = New Integer() {3}
             }
 
@@ -648,14 +660,26 @@ Module Editor
                 postEditor.Imagen = tbImagen.Text.Trim
             End If
 
+            If tbTituloComplemento.Text.Trim.Length > 0 Then
+                postEditor.TituloComplemento = tbTituloComplemento.Text.Trim
+            End If
+
             If Not iconoTienda = String.Empty Then
                 iconoTienda = "<img src=" + ChrW(34) + iconoTienda + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;" + ChrW(34) + "/>"
                 postEditor.IconoTienda = iconoTienda
             End If
 
-            Dim resultado As EditorPost = Await cliente.CustomRequest.Create(Of EditorPost, EditorPost)("wp/v2/posts", postEditor)
+            Dim resultado As EditorPost = Nothing
 
-            Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
+            Try
+                resultado = Await cliente.CustomRequest.Create(Of EditorPost, EditorPost)("wp/v2/posts", postEditor)
+            Catch ex As Exception
+
+            End Try
+
+            If Not resultado Is Nothing Then
+                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
+            End If
 
         End If
 
@@ -688,6 +712,15 @@ Module Editor
         End If
 
         Return tienda
+    End Function
+
+    Private Function LimpiarTitulo(titulo As String)
+
+        titulo = titulo.Replace(ChrW(34), ChrW(39))
+        titulo = titulo.Replace("™", Nothing)
+        titulo = titulo.Replace("®", Nothing)
+
+        Return titulo
     End Function
 
 End Module
