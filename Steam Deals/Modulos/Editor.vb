@@ -538,6 +538,21 @@ Module Editor
                 contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
 
                 For Each juego In cosas.ListaJuegos
+                    Dim claveMejorPrecio As Integer = 0
+
+                    If cosas.Tienda = "GamersGate" Then
+                        Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                        Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(1), tbLibra.Text)
+
+                        If precioUK > juego.Enlaces.Precios(0) Then
+                            claveMejorPrecio = 0
+                        Else
+                            claveMejorPrecio = 1
+                        End If
+                    ElseIf cosas.Tienda = "Fanatical" Then
+                        claveMejorPrecio = 1
+                    End If
+
                     Dim tituloFinal As String = juego.Titulo
                     tituloFinal = LimpiarTitulo(tituloFinal)
 
@@ -549,7 +564,7 @@ Module Editor
                         imagenFinal = juego.Imagenes.Grande
                     End If
 
-                    contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + juego.Enlaces.Enlaces(0) + "'>" + Environment.NewLine
+                    contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + juego.Enlaces.Enlaces(claveMejorPrecio) + "'>" + Environment.NewLine
                     contenidoEnlaces = contenidoEnlaces + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " style=" + ChrW(34) + "width: 100%;display: block;" + ChrW(34) + " /></td>" + Environment.NewLine
 
                     Dim drmFinal As String = Nothing
@@ -573,7 +588,7 @@ Module Editor
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span style=" + ChrW(34) + "padding: 5px; background-color: forestgreen; color: white;" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
 
-                    Dim precioFinalJuego As String = juego.Enlaces.Precios(0)
+                    Dim precioFinalJuego As String = juego.Enlaces.Precios(claveMejorPrecio)
                     precioFinalJuego = precioFinalJuego.Replace(".", ",")
                     precioFinalJuego = precioFinalJuego.Replace("€", Nothing)
                     precioFinalJuego = precioFinalJuego.Trim

@@ -735,34 +735,42 @@ Module Interfaz
                     .Padding = New Thickness(4, 0, 4, 0),
                     .Height = 26,
                     .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(20, 0, 0, 0)
+                    .Margin = New Thickness(0, 0, 20, 0)
                 }
 
                 Dim desarrolladores As String = Nothing
 
                 If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
                     If juego.Desarrolladores.Desarrolladores.Count > 0 Then
-                        desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
+                        If juego.Desarrolladores.Desarrolladores(0).Trim.Length > 0 Then
+                            desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
+                        End If
                     End If
                 End If
 
                 If Not juego.Desarrolladores.Editores Is Nothing Then
                     If juego.Desarrolladores.Editores.Count > 0 Then
-                        desarrolladores = desarrolladores + juego.Desarrolladores.Editores(0) + " "
+                        If juego.Desarrolladores.Editores(0).Trim.Length > 0 Then
+                            desarrolladores = desarrolladores + juego.Desarrolladores.Editores(0) + " "
+                        End If
                     End If
                 End If
 
-                Dim tbDesarrolladores As New TextBlock With {
-                    .Text = desarrolladores.Trim,
-                    .Margin = New Thickness(0, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
-                }
+                If Not desarrolladores = Nothing Then
+                    If desarrolladores.Trim.Length > 0 Then
+                        Dim tbDesarrolladores As New TextBlock With {
+                            .Text = desarrolladores.Trim,
+                            .Margin = New Thickness(0, 0, 0, 0),
+                            .VerticalAlignment = VerticalAlignment.Center,
+                            .Foreground = New SolidColorBrush(Colors.White),
+                            .FontSize = 12
+                        }
 
-                fondoDesarrolladores.Children.Add(tbDesarrolladores)
+                        fondoDesarrolladores.Children.Add(tbDesarrolladores)
 
-                spTooltip.Children.Add(fondoDesarrolladores)
+                        sp3.Children.Add(fondoDesarrolladores)
+                    End If
+                End If
             End If
 
             If spTooltip.Children.Count > 0 Then
