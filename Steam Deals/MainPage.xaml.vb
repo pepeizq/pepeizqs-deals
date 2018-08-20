@@ -231,6 +231,12 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorActualizarAnalisis.Click
+
+        Analisis.Generar()
+
+    End Sub
+
     Private Async Sub BotonEditorAbrirEnlace_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorAbrirEnlace.Click
 
         If cbEditorWebs.SelectedIndex = 1 Then
@@ -326,6 +332,36 @@ Public NotInheritable Class MainPage
         If tbEditorContraseñapepeizqdeals.Password.Trim.Length > 0 Then
             ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") = tbEditorContraseñapepeizqdeals.Password.Trim
         End If
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridDeals.Click
+
+        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGridBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridBundles.Click
+
+        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridBundles, gridEditorpepeizqdealsBundles)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGridFree_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridFree.Click
+
+        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridFree, gridEditorpepeizqdealsFree)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGridSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridSubscriptions.Click
+
+        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridSubscriptions, gridEditorpepeizqdealsSubscriptions)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGridCuentas_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCuentas.Click
+
+        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
 
     End Sub
 

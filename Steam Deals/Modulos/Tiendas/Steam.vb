@@ -109,7 +109,7 @@ Module Steam
                             temp8 = temp8.Trim
 
                             Dim imagenPequeña As String = temp8
-                            imagenPequeña = imagenPequeña.Replace("capsule_sm_120", "capsule_184x69")
+                            imagenPequeña = imagenPequeña.Replace("capsule_sm_120", "header_292x136")
 
                             Dim imagenGrande As String = temp8
                             imagenGrande = imagenGrande.Replace("capsule_sm_120", "header")

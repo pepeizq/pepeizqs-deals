@@ -17,11 +17,12 @@ Module Analisis
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sp As StackPanel = pagina.FindName("spAnalisis")
-        sp.Visibility = Visibility.Visible
+        Dim boton As Button = pagina.FindName("botonEditorActualizarAnalisis")
+        boton.IsEnabled = False
 
-        Dim menuItem As MenuFlyoutItem = pagina.FindName("menuItemConfigActualizarAnalisis")
-        menuItem.IsEnabled = False
+        Dim tbAvance As TextBlock = pagina.FindName("tbEditorAnalisisAvance")
+        tbAvance.Text = String.Empty
+        tbAvance.Visibility = Visibility.Visible
 
         Bw = New BackgroundWorker With {
            .WorkerReportsProgress = True,
@@ -36,11 +37,11 @@ Module Analisis
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-        Dim numPaginas As Integer = Steam.GenerarNumPaginas(New Uri("http://store.steampowered.com/search/?page=2&l=english"))
+        Dim numPaginas As Integer = Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
         Dim i As Integer = 1
         While i < numPaginas
-            Dim html_ As Task(Of String) = HttpClient(New Uri("http://store.steampowered.com/search/?page=" + i.ToString + "&l=english"))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/search/?page=" + i.ToString + "&l=english"))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -57,11 +58,11 @@ Module Analisis
 
                     Dim j As Integer = 0
                     While j < 50
-                        If html.Contains("<a href=" + ChrW(34) + "http://store.steampowered.com/") Then
+                        If html.Contains("<a href=" + ChrW(34) + "https://store.steampowered.com/") Then
                             Dim temp, temp2 As String
                             Dim int, int2 As Integer
 
-                            int = html.IndexOf("<a href=" + ChrW(34) + "http://store.steampowered.com/")
+                            int = html.IndexOf("<a href=" + ChrW(34) + "https://store.steampowered.com/")
                             temp = html.Remove(0, int + 5)
 
                             html = temp
@@ -88,11 +89,8 @@ Module Analisis
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tb As TextBlock = pagina.FindName("tbAnalisisPorcentaje")
-        tb.Text = e.ProgressPercentage.ToString + "%"
-
-        Dim pb As ProgressBar = pagina.FindName("pbAnalisis")
-        pb.Value = e.ProgressPercentage
+        Dim tbAvance As TextBlock = pagina.FindName("tbEditorAnalisisAvance")
+        tbAvance.Text = e.ProgressPercentage.ToString + "%"
 
     End Sub
 
@@ -101,14 +99,14 @@ Module Analisis
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sp As StackPanel = pagina.FindName("spAnalisis")
-        sp.Visibility = Visibility.Collapsed
+        Dim boton As Button = pagina.FindName("botonEditorActualizarAnalisis")
+        boton.IsEnabled = True
 
-        Dim menuItem As MenuFlyoutItem = pagina.FindName("menuItemConfigActualizarAnalisis")
-        menuItem.IsEnabled = True
+        Dim tbAvance As TextBlock = pagina.FindName("tbEditorAnalisisAvance")
+        tbAvance.Text = String.Empty
+        tbAvance.Visibility = Visibility.Collapsed
 
-        Dim tbCargados As TextBlock = pagina.FindName("tbAnalisisCargados")
-        tbCargados.Text = listaAnalisis.Count
+        Notificaciones.Toast(listaAnalisis.Count.ToString, Nothing)
 
     End Sub
 

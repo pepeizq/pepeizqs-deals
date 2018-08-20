@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accounts.Text" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="Bundles.Text" xml:space="preserve">
+    <value>Bundles</value>
+  </data>
   <data name="Config.Text" xml:space="preserve">
     <value>Configuration</value>
   </data>
@@ -192,6 +198,9 @@
   <data name="EditorLimit" xml:space="preserve">
     <value>Due to the heavy text, use the buttons to copy the deals</value>
   </data>
+  <data name="Free.Text" xml:space="preserve">
+    <value>Free</value>
+  </data>
   <data name="Image.Text" xml:space="preserve">
     <value>Image</value>
   </data>
@@ -266,6 +275,9 @@
   </data>
   <data name="Stores.Text" xml:space="preserve">
     <value>Stores</value>
+  </data>
+  <data name="Subscriptions.Text" xml:space="preserve">
+    <value>Subscriptions</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
