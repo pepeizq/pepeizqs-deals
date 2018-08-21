@@ -366,8 +366,8 @@ Module Interfaz
             Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
             tbCargadas.Text = String.Empty
 
-            Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
-            tbMostradas.Text = String.Empty
+            'Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
+            'tbMostradas.Text = String.Empty
 
             If tienda.NombreUsar = steamT.NombreUsar Then
                 Steam.GenerarOfertas()

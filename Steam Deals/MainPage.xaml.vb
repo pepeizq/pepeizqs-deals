@@ -365,4 +365,16 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorpepeizqdealsGridIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridIconos.Click
+
+        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
+
+        Editor.GenerarIconos()
+
+    End Sub
+
 End Class

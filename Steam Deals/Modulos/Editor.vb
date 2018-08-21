@@ -1,7 +1,10 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Windows.Graphics.Imaging
 Imports Windows.Storage
 Imports Windows.System
+Imports Windows.UI
 Imports WordPressPCL
 
 Module Editor
@@ -128,6 +131,8 @@ Module Editor
                         Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
                         tbTituloComplemento.Text = String.Empty
 
+                        Dim listaAnalisis As New List(Of Juego)
+
                         If listaFinal.Count = 1 Then
                             Dim precioFinal As String = String.Empty
 
@@ -195,8 +200,6 @@ Module Editor
                             tbTitulo.Text = "Sale • Up to " + listaFinal(0).Descuento + " • " + cantidadJuegos + " deals • " + listaFinal(0).Tienda
                             tbEnlace.Text = String.Empty
 
-                            Dim listaAnalisis As New List(Of Juego)
-
                             For Each item In listaFinal
                                 listaAnalisis.Add(item)
                             Next
@@ -255,19 +258,47 @@ Module Editor
                         End If
 
                         Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+                        tbImagen.Text = String.Empty
+
                         Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
+                        imagen.Source = Nothing
+
+                        Dim gvImagen As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdeals")
+                        gvImagen.Items.Clear()
+                        gvImagen.Visibility = Visibility.Collapsed
 
                         If listaFinal.Count = 1 Then
                             If Not listaFinal(0).Imagenes.Grande = String.Empty Then
-                                tbImagen.Text = listaFinal(0).Imagenes.Grande
+                                If listaFinal(0).Tienda = "Humble Store" Then
+                                    tbImagen.Text = listaFinal(0).Imagenes.Pequeña
+                                Else
+                                    tbImagen.Text = listaFinal(0).Imagenes.Grande
+                                End If
                             Else
                                 tbImagen.Text = listaFinal(0).Imagenes.Pequeña
                             End If
 
                             imagen.Source = tbImagen.Text
                         Else
-                            tbImagen.Text = String.Empty
-                            imagen.Source = Nothing
+                            gvImagen.DesiredWidth = 160
+                            gvImagen.Visibility = Visibility.Visible
+
+                            Dim i As Integer = 0
+                            Dim j As Integer = 0
+                            While i < 100
+                                If j < listaAnalisis.Count Then
+                                    Dim imagenJuego As New ImageEx With {
+                                        .Source = listaAnalisis(j).Imagenes.Pequeña
+                                    }
+
+                                    gvImagen.Items.Add(imagenJuego)
+                                Else
+                                    j = -1
+                                End If
+
+                                i += 1
+                                j += 1
+                            End While
                         End If
 
                         AddHandler tbImagen.TextChanged, AddressOf MostrarImagenpepeizqdeals
@@ -596,6 +627,7 @@ Module Editor
         If Await cliente.IsValidJWToken = True Then
 
             Dim contenidoEnlaces As String = String.Empty
+            Dim imagenFinalGrid As Models.MediaItem = Nothing
 
             If cosas.ListaJuegos.Count > 1 Then
                 contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
@@ -720,6 +752,16 @@ Module Editor
 
                 contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "</table>" + Environment.NewLine
+
+                Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+
+                If Not ficheroImagen Is Nothing Then
+                    Dim gridImagen As Grid = pagina.FindName("gridImagenGvEditorpepeizqdeals")
+
+                    Await GenerarImagen(ficheroImagen, gridImagen, 400, 400)
+
+                    imagenFinalGrid = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                End If
             End If
 
             Dim listaEtiquetas As New List(Of Integer)
@@ -776,6 +818,10 @@ Module Editor
 
             If tbImagen.Text.Trim.Length > 0 Then
                 postEditor.Imagen = tbImagen.Text.Trim
+            Else
+                If Not imagenFinalGrid Is Nothing Then
+                    postEditor.Imagen = imagenFinalGrid.Link
+                End If
             End If
 
             If tbTituloComplemento.Text.Trim.Length > 0 Then
@@ -861,6 +907,9 @@ Module Editor
         Dim botonCuentas As Button = pagina.FindName("botonEditorpepeizqdealsGridCuentas")
         botonCuentas.Opacity = 0.7
 
+        Dim botonIconos As Button = pagina.FindName("botonEditorpepeizqdealsGridIconos")
+        botonIconos.Opacity = 0.7
+
         Dim gridDeals As Grid = pagina.FindName("gridEditorpepeizqdealsDeals")
         gridDeals.Visibility = Visibility.Collapsed
 
@@ -876,8 +925,72 @@ Module Editor
         Dim gridCuentas As Grid = pagina.FindName("gridEditorpepeizqdealsCuentas")
         gridCuentas.Visibility = Visibility.Collapsed
 
+        Dim gridIconos As Grid = pagina.FindName("gridEditorpepeizqdealsIconos")
+        gridIconos.Visibility = Visibility.Collapsed
+
         boton.Opacity = 1
         grid.Visibility = Visibility.Visible
+
+    End Sub
+
+    Private Async Function GenerarImagen(fichero As StorageFile, grid As Grid, ancho As Integer, alto As Integer) As Task
+
+        Dim resultadoRender As New RenderTargetBitmap()
+        Await resultadoRender.RenderAsync(grid)
+        Dim buffer As Streams.IBuffer = Await resultadoRender.GetPixelsAsync
+        Dim pixeles As Byte() = buffer.ToArray
+        Dim rawdpi As DisplayInformation = DisplayInformation.GetForCurrentView()
+
+        Using stream As Streams.IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
+            Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
+            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
+
+            encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Linear
+            encoder.BitmapTransform.ScaledWidth = ancho
+            encoder.BitmapTransform.ScaledHeight = alto
+
+            Await encoder.FlushAsync
+        End Using
+
+    End Function
+
+    Public Sub GenerarIconos()
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosTiendas")
+
+        Dim listaTiendas As New List(Of EditorIconoTiendapepeizqdeals) From {
+            New EditorIconoTiendapepeizqdeals("Assets/Tiendas/steam.ico", "#475166")
+        }
+
+        For Each tienda In listaTiendas
+            Dim imagenIcono As New ImageEx With {
+                .Width = 16,
+                .Height = 16,
+                .IsCacheEnabled = True,
+                .Source = tienda.Icono
+            }
+
+            Dim grid As New Grid With {
+                .Padding = New Thickness(5, 5, 5, 5),
+                .Background = New SolidColorBrush(tienda.Fondo.ToColor)
+            }
+
+            grid.Children.Add(imagenIcono)
+
+            Dim boton As New Button With {
+                .BorderThickness = New Thickness(0, 0, 0, 0),
+                .Background = New SolidColorBrush(Colors.Transparent)
+            }
+
+            boton.Content = grid
+
+
+
+            gv.Items.Add(boton)
+        Next
 
     End Sub
 

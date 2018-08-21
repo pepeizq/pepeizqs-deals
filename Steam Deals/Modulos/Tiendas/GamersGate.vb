@@ -133,11 +133,7 @@ Module GamersGate
 
                     Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                    Dim listaDesarrolladores As New List(Of String) From {
-                        juego.Desarrollador
-                    }
-
-                    Dim desarrolladores As New JuegoDesarrolladores(listaDesarrolladores, Nothing)
+                    Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juego.Desarrollador}, Nothing)
 
                     Dim juegoFinal As New Juego(titulo, imagenes, enlaces, descuento, drm, "GamersGate", Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 

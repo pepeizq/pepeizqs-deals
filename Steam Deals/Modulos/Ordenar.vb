@@ -45,9 +45,6 @@ Module Ordenar
         Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
         gridNoOfertas.Visibility = Visibility.Collapsed
 
-        Dim numOfertasMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
-        numOfertasMostradas.Text = String.Empty
-
         Dim numOfertasCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
         numOfertasCargadas.Text = String.Empty
 
@@ -272,10 +269,6 @@ Module Ordenar
                         End If
                     End If
                 Next
-
-                If lv.Items.Count > 0 Then
-                    numOfertasMostradas.Text = lv.Items.Count.ToString
-                End If
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then

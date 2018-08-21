@@ -201,6 +201,9 @@
   <data name="Free.Text" xml:space="preserve">
     <value>Gratis</value>
   </data>
+  <data name="Icons.Text" xml:space="preserve">
+    <value>Iconos</value>
+  </data>
   <data name="Image.Text" xml:space="preserve">
     <value>Imagen</value>
   </data>

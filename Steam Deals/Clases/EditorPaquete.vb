@@ -27,3 +27,15 @@ Public Class EditorPaquetepepeizqdeals
     End Sub
 
 End Class
+
+Public Class EditorIconoTiendapepeizqdeals
+
+    Public Property Icono As String
+    Public Property Fondo As String
+
+    Public Sub New(ByVal icono As String, ByVal fondo As String)
+        Me.Icono = icono
+        Me.Fondo = fondo
+    End Sub
+
+End Class

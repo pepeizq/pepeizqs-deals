@@ -138,7 +138,7 @@ Module Fanatical
 
                     End Try
 
-                    Dim desarrolladores As New JuegoDesarrolladores(juegoFanatical.Desarrolladores, juegoFanatical.Publishers)
+                    Dim desarrolladores As New JuegoDesarrolladores(juegoFanatical.Publishers, Nothing)
 
                     Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Fanatical", Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
