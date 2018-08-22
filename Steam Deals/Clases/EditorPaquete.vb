@@ -30,12 +30,16 @@ End Class
 
 Public Class EditorIconoTiendapepeizqdeals
 
+    Public Property Nombre As String
     Public Property Icono As String
     Public Property Fondo As String
+    Public Property Grid As Grid
 
-    Public Sub New(ByVal icono As String, ByVal fondo As String)
+    Public Sub New(ByVal nombre As String, ByVal icono As String, ByVal fondo As String, ByVal grid As Grid)
+        Me.Nombre = nombre
         Me.Icono = icono
         Me.Fondo = fondo
+        Me.Grid = grid
     End Sub
 
 End Class

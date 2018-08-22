@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Newtonsoft.Json
 
 Module Divisas
 
@@ -44,8 +45,15 @@ Module Divisas
 
     Private Sub Bw_DoWork(sender As Object, e As DoWorkEventArgs) Handles bw.DoWork
 
-        dolar = ExtraerDivisa(HttpClient(New Uri("http://www.xe.com/es/currencyconverter/convert/?Amount=1.00&From=USD&To=EUR")).Result)
-        libra = ExtraerDivisa(HttpClient(New Uri("http://www.xe.com/es/currencyconverter/convert/?Amount=1.00&From=GBP&To=EUR")).Result)
+        Dim htmlD_ As Task(Of String) = Decompiladores.HttpClient(New Uri("http://free.currencyconverterapi.com/api/v5/convert?q=USD_EUR&compact=y"))
+        Dim htmlD As String = htmlD_.Result
+        Dim dolarC As Dolar = JsonConvert.DeserializeObject(Of Dolar)(htmlD)
+        dolar = dolarC.Moneda.Valor
+
+        Dim htmlL_ As Task(Of String) = Decompiladores.HttpClient(New Uri("http://free.currencyconverterapi.com/api/v5/convert?q=GBP_EUR&compact=y"))
+        Dim htmlL As String = htmlL_.Result
+        Dim libraC As Libra = JsonConvert.DeserializeObject(Of Libra)(htmlL)
+        libra = libraC.Moneda.Valor
 
     End Sub
 
@@ -60,36 +68,11 @@ Module Divisas
         Dim itemLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
         itemLibra.Text = "£" + libra
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of String)("divisaDolar", dolar)
         Await helper.SaveFileAsync(Of String)("divisaLibra", libra)
 
     End Sub
-
-    Private Function ExtraerDivisa(html As String) As String
-
-        If Not html = Nothing Then
-            If html.Contains("<span class='uccResultAmount'>") Then
-                Dim temp, temp2, temp3 As String
-                Dim int, int2, int3 As Integer
-
-                int = html.IndexOf("<span class='uccResultAmount'>")
-                temp = html.Remove(0, int)
-
-                int2 = temp.IndexOf(">")
-                temp2 = temp.Remove(0, int2 + 1)
-
-                int3 = temp2.IndexOf("</span>")
-                temp3 = temp2.Remove(int3, temp2.Length - int3)
-
-                Return temp3.Trim
-            Else
-                Return Nothing
-            End If
-        Else
-            Return Nothing
-        End If
-    End Function
 
     Public Function CambioMoneda(precio As String, moneda As String) As String
 
@@ -124,3 +107,24 @@ Module Divisas
         Return temporalEuros
     End Function
 End Module
+
+Public Class Dolar
+
+    <JsonProperty("USD_EUR")>
+    Public Moneda As Valor
+
+End Class
+
+Public Class Libra
+
+    <JsonProperty("GBP_EUR")>
+    Public Moneda As Valor
+
+End Class
+
+Public Class Valor
+
+    <JsonProperty("val")>
+    Public Valor As String
+
+End Class

@@ -3,6 +3,7 @@ Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Windows.Graphics.Imaging
 Imports Windows.Storage
+Imports Windows.Storage.Pickers
 Imports Windows.System
 Imports Windows.UI
 Imports WordPressPCL
@@ -185,6 +186,8 @@ Module Editor
                                 End If
                             ElseIf listaFinal(0).Tienda = "Fanatical" Then
                                 precioFinal = listaFinal(0).Enlaces.Precios(1)
+                            ElseIf listaFinal(0).Tienda = "WinGameStore" Then
+                                precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
                             Else
                                 precioFinal = listaFinal(0).Enlaces.Precios(0)
                                 tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
@@ -263,7 +266,7 @@ Module Editor
                         Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
                         imagen.Source = Nothing
 
-                        Dim gvImagen As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdeals")
+                        Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdeals")
                         gvImagen.Items.Clear()
                         gvImagen.Visibility = Visibility.Collapsed
 
@@ -280,15 +283,15 @@ Module Editor
 
                             imagen.Source = tbImagen.Text
                         Else
-                            gvImagen.DesiredWidth = 160
                             gvImagen.Visibility = Visibility.Visible
 
                             Dim i As Integer = 0
                             Dim j As Integer = 0
-                            While i < 100
+                            While i < 6
                                 If j < listaAnalisis.Count Then
                                     Dim imagenJuego As New ImageEx With {
-                                        .Source = listaAnalisis(j).Imagenes.Pequeña
+                                        .Source = listaAnalisis(j).Imagenes.Pequeña,
+                                        .MaxWidth = 200
                                     }
 
                                     gvImagen.Items.Add(imagenJuego)
@@ -628,6 +631,7 @@ Module Editor
 
             Dim contenidoEnlaces As String = String.Empty
             Dim imagenFinalGrid As Models.MediaItem = Nothing
+            Dim precioFinal As String = String.Empty
 
             If cosas.ListaJuegos.Count > 1 Then
                 contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
@@ -686,6 +690,9 @@ Module Editor
                         End If
                     ElseIf cosas.Tienda = "Fanatical" Then
                         claveMejorPrecio = 1
+                    ElseIf cosas.Tienda = "WinGameStore" Then
+                        Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                        juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     End If
 
                     Dim tituloFinal As String = juego.Titulo
@@ -753,14 +760,65 @@ Module Editor
                 contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "</table>" + Environment.NewLine
 
+                precioFinal = cosas.Precio
+
                 Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
 
                 If Not ficheroImagen Is Nothing Then
-                    Dim gridImagen As Grid = pagina.FindName("gridImagenGvEditorpepeizqdeals")
+                    Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdeals")
 
-                    Await GenerarImagen(ficheroImagen, gridImagen, 400, 400)
+                    Await GenerarImagen(ficheroImagen, gvImagen, gvImagen.ActualWidth, gvImagen.ActualHeight, 1)
 
                     imagenFinalGrid = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                End If
+            Else
+                If cosas.Tienda = "GamersGate" Then
+                    Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                    Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(1), tbLibra.Text)
+
+                    If precioUK > cosas.ListaJuegos(0).Enlaces.Precios(0) Then
+                        precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
+                    Else
+                        precioFinal = precioUK
+                    End If
+                ElseIf cosas.Tienda = "GamesPlanet" Then
+                    Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                    Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbLibra.Text)
+                    Dim precioFR As String = cosas.ListaJuegos(0).Enlaces.Precios(1)
+                    Dim precioDE As String = cosas.ListaJuegos(0).Enlaces.Precios(2)
+
+                    If precioUK < precioFR And precioUK < precioDE Then
+                        precioFinal = precioUK
+                    Else
+                        If precioDE < precioFR Then
+                            precioFinal = precioDE
+                        Else
+                            precioFinal = precioFR
+                        End If
+
+                        If precioFR = Nothing Then
+                            If precioDE < precioUK Then
+                                precioFinal = precioDE
+                            Else
+                                precioFinal = precioUK
+                            End If
+                        End If
+
+                        If precioDE = Nothing Then
+                            If precioFR < precioUK Then
+                                precioFinal = precioFR
+                            Else
+                                precioFinal = precioUK
+                            End If
+                        End If
+                    End If
+                ElseIf cosas.Tienda = "Fanatical" Then
+                    precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(1)
+                ElseIf cosas.Tienda = "WinGameStore" Then
+                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                    precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                Else
+                    precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
                 End If
             End If
 
@@ -769,22 +827,25 @@ Module Editor
 
             If cosas.Tienda = "Steam" Then
                 listaEtiquetas.Add(5)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/steam.ico"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_steam.png"
             ElseIf cosas.Tienda = "Humble Store" Then
                 listaEtiquetas.Add(6)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/humble.ico"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
             ElseIf cosas.Tienda = "GamersGate" Then
                 listaEtiquetas.Add(7)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/gamersgate.ico"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamersgate.png"
             ElseIf cosas.Tienda = "GamesPlanet" Then
                 listaEtiquetas.Add(8)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/gamesplanet.png"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamesplanet.png"
             ElseIf cosas.Tienda = "GOG" Then
                 listaEtiquetas.Add(9)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/gog.ico"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png"
             ElseIf cosas.Tienda = "Fanatical" Then
                 listaEtiquetas.Add(10)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/fanatical.ico"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png"
+            ElseIf cosas.Tienda = "WinGameStore" Then
+                listaEtiquetas.Add(14)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png"
             End If
 
             Dim post As New Models.Post With {
@@ -801,7 +862,6 @@ Module Editor
             postEditor.FechaOriginal = DateTime.Now
             postEditor.Descuento = cosas.Descuento
 
-            Dim precioFinal As String = cosas.Precio
             precioFinal = precioFinal.Replace(".", ",")
             precioFinal = precioFinal.Replace("€", Nothing)
             precioFinal = precioFinal.Trim
@@ -820,7 +880,7 @@ Module Editor
                 postEditor.Imagen = tbImagen.Text.Trim
             Else
                 If Not imagenFinalGrid Is Nothing Then
-                    postEditor.Imagen = imagenFinalGrid.Link
+                    postEditor.Imagen = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
                 End If
             End If
 
@@ -829,7 +889,7 @@ Module Editor
             End If
 
             If Not iconoTienda = String.Empty Then
-                iconoTienda = "<img src=" + ChrW(34) + iconoTienda + ChrW(34) + " style=" + ChrW(34) + "width:16px;height:16px;" + ChrW(34) + "/>"
+                iconoTienda = "<img src=" + ChrW(34) + iconoTienda + ChrW(34) + " />"
                 postEditor.IconoTienda = iconoTienda
             End If
 
@@ -933,17 +993,24 @@ Module Editor
 
     End Sub
 
-    Private Async Function GenerarImagen(fichero As StorageFile, grid As Grid, ancho As Integer, alto As Integer) As Task
+    Public Async Function GenerarImagen(fichero As StorageFile, objeto As Object, ancho As Integer, alto As Integer, formato As Integer) As Task
 
         Dim resultadoRender As New RenderTargetBitmap()
-        Await resultadoRender.RenderAsync(grid)
+        Await resultadoRender.RenderAsync(objeto)
         Dim buffer As Streams.IBuffer = Await resultadoRender.GetPixelsAsync
         Dim pixeles As Byte() = buffer.ToArray
         Dim rawdpi As DisplayInformation = DisplayInformation.GetForCurrentView()
 
         Using stream As Streams.IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
-            Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
+            Dim encoder As BitmapEncoder = Nothing
+
+            If formato = 1 Then
+                encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
+            Else
+                encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
+            End If
+
+            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
 
             encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Linear
             encoder.BitmapTransform.ScaledWidth = ancho
@@ -962,7 +1029,13 @@ Module Editor
         Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosTiendas")
 
         Dim listaTiendas As New List(Of EditorIconoTiendapepeizqdeals) From {
-            New EditorIconoTiendapepeizqdeals("Assets/Tiendas/steam.ico", "#475166")
+            New EditorIconoTiendapepeizqdeals("Steam", "Assets/Tiendas/steam.ico", "#475166", Nothing),
+            New EditorIconoTiendapepeizqdeals("Humble", "Assets/Tiendas/humble.ico", "#ea9192", Nothing),
+            New EditorIconoTiendapepeizqdeals("GamersGate", "Assets/Tiendas/gamersgate.ico", "#196176", Nothing),
+            New EditorIconoTiendapepeizqdeals("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "#838588", Nothing),
+            New EditorIconoTiendapepeizqdeals("GOG", "Assets/Tiendas/gog.ico", "#c957e9", Nothing),
+            New EditorIconoTiendapepeizqdeals("Fanatical", "Assets/Tiendas/fanatical.ico", "#ffcf89", Nothing),
+            New EditorIconoTiendapepeizqdeals("WinGameStore", "Assets/Tiendas/wingamestore.png", "#4a92d7", Nothing)
         }
 
         For Each tienda In listaTiendas
@@ -974,7 +1047,7 @@ Module Editor
             }
 
             Dim grid As New Grid With {
-                .Padding = New Thickness(5, 5, 5, 5),
+                .Padding = New Thickness(8, 8, 8, 8),
                 .Background = New SolidColorBrush(tienda.Fondo.ToColor)
             }
 
@@ -985,12 +1058,38 @@ Module Editor
                 .Background = New SolidColorBrush(Colors.Transparent)
             }
 
+            tienda.Grid = grid
             boton.Content = grid
+            boton.Tag = tienda
 
-
+            AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
             gv.Items.Add(boton)
         Next
+
+    End Sub
+
+    Public Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
+
+        Dim boton As Button = sender
+        Dim cosas As EditorIconoTiendapepeizqdeals = boton.Tag
+
+        Dim ficheroImagen As New List(Of String) From {
+            ".png"
+        }
+
+        Dim guardarPicker As New FileSavePicker With {
+            .SuggestedStartLocation = PickerLocationId.PicturesLibrary
+        }
+
+        guardarPicker.SuggestedFileName = "tienda_" + cosas.Nombre.ToLower
+        guardarPicker.FileTypeChoices.Add("Imagen", ficheroImagen)
+
+        Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
+
+        If Not ficheroResultado Is Nothing Then
+            Await GenerarImagen(ficheroResultado, cosas.Grid, 32, 32, 0)
+        End If
 
     End Sub
 

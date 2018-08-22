@@ -906,21 +906,25 @@ Module Interfaz
                             precio = Divisas.CambioMoneda(precio, tbDolar.Text)
                         End If
 
-                        If precio.Contains("€") Then
-                            precio = precio.Replace("€", Nothing)
-                            precio = precio.Replace(",", ".")
-                            precio = precio.Trim
-                            precio = precio + " €"
+                        If Not precio = Nothing Then
+                            If precio.Contains("€") Then
+                                precio = precio.Replace("€", Nothing)
+                                precio = precio.Replace(",", ".")
+                                precio = precio.Trim
+                                precio = precio + " €"
+                            End If
                         End If
                     End If
 
-                    Dim tbPrecio As New TextBlock With {
-                        .Text = precio,
-                        .VerticalAlignment = VerticalAlignment.Center,
-                        .Foreground = New SolidColorBrush(Colors.White)
-                    }
+                    If Not precio = Nothing Then
+                        Dim tbPrecio As New TextBlock With {
+                            .Text = precio,
+                            .VerticalAlignment = VerticalAlignment.Center,
+                            .Foreground = New SolidColorBrush(Colors.White)
+                        }
 
-                    spPrecio.Children.Add(tbPrecio)
+                        spPrecio.Children.Add(tbPrecio)
+                    End If
 
                     spPrecioVertical.Children.Add(spPrecio)
                 End If
