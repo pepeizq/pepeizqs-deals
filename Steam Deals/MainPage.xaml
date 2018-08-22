@@ -290,9 +290,17 @@
                                         <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
                                             <controls:ImageEx x:Name="imagenEditorpepeizqdeals" Stretch="None"/>
 
-                                            <Grid x:Name="gridImagenGvEditorpepeizqdeals">
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdeals" Width="400" Height="400" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False"/>
-                                            </Grid>
+                                            <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada" Background="Transparent" Padding="0">
+                                                <Button.Content>
+                                                    <GridView x:Name="gvEditorpepeizqdeals" MaxWidth="400" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
+                                                        <GridView.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <ItemsWrapGrid Margin="0,0,0,-10" MaximumRowsOrColumns="3"/>
+                                                            </ItemsPanelTemplate> 
+                                                        </GridView.ItemsPanel> 
+                                                    </GridView> 
+                                                </Button.Content>
+                                            </Button>
                                         </Grid>
                                     </StackPanel>
                                 </ScrollViewer>

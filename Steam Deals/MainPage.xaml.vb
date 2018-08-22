@@ -1,5 +1,6 @@
 ﻿Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
+Imports Windows.Storage.Pickers
 Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
@@ -374,6 +375,27 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
 
         Editor.GenerarIconos()
+
+    End Sub
+
+    Private Async Sub BotonEditorpepeizqdealsGenerarImagenEntrada_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenEntrada.Click
+
+        Dim ficheroImagen As New List(Of String) From {
+            ".jpg"
+        }
+
+        Dim guardarPicker As New FileSavePicker With {
+            .SuggestedStartLocation = PickerLocationId.PicturesLibrary
+        }
+
+        guardarPicker.SuggestedFileName = "imagenbase"
+        guardarPicker.FileTypeChoices.Add("Imagen", ficheroImagen)
+
+        Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
+
+        If Not ficheroResultado Is Nothing Then
+            Await GenerarImagen(ficheroResultado, gvEditorpepeizqdeals, gvEditorpepeizqdeals.ActualWidth, gvEditorpepeizqdeals.ActualHeight, 1)
+        End If
 
     End Sub
 
