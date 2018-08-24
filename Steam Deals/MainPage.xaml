@@ -292,13 +292,23 @@
 
                                             <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada" Background="Transparent" Padding="0">
                                                 <Button.Content>
-                                                    <GridView x:Name="gvEditorpepeizqdeals" MaxWidth="400" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
-                                                        <GridView.ItemsPanel>
-                                                            <ItemsPanelTemplate>
-                                                                <ItemsWrapGrid Margin="0,0,0,-10" MaximumRowsOrColumns="3"/>
-                                                            </ItemsPanelTemplate> 
-                                                        </GridView.ItemsPanel> 
-                                                    </GridView> 
+                                                    <StackPanel>
+                                                        <GridView x:Name="gvEditorpepeizqdealsVertical" Padding="-5,-5,-5,-15" MaxWidth="420" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
+                                                            <GridView.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Vertical"/>
+                                                                </ItemsPanelTemplate>
+                                                            </GridView.ItemsPanel>
+                                                        </GridView>
+
+                                                        <GridView x:Name="gvEditorpepeizqdealsHorizontal" Padding="-5,-5,-5,-15" MaxWidth="420" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
+                                                            <GridView.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                                                                </ItemsPanelTemplate>
+                                                            </GridView.ItemsPanel>
+                                                        </GridView>
+                                                    </StackPanel>
                                                 </Button.Content>
                                             </Button>
                                         </Grid>

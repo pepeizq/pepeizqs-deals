@@ -266,9 +266,13 @@ Module Editor
                         Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
                         imagen.Source = Nothing
 
-                        Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdeals")
-                        gvImagen.Items.Clear()
-                        gvImagen.Visibility = Visibility.Collapsed
+                        Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
+                        gvImagenVertical.Items.Clear()
+                        gvImagenVertical.Visibility = Visibility.Collapsed
+
+                        Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
+                        gvImagenHorizontal.Items.Clear()
+                        gvImagenHorizontal.Visibility = Visibility.Collapsed
 
                         If listaFinal.Count = 1 Then
                             If Not listaFinal(0).Imagenes.Grande = String.Empty Then
@@ -283,23 +287,41 @@ Module Editor
 
                             imagen.Source = tbImagen.Text
                         Else
-                            gvImagen.Visibility = Visibility.Visible
+                            If listaFinal(0).Tienda = "GamersGate" Then
+                                gvImagenVertical.Visibility = Visibility.Collapsed
+                                gvImagenHorizontal.Visibility = Visibility.Visible
+                            Else
+                                gvImagenVertical.Visibility = Visibility.Visible
+                                gvImagenHorizontal.Visibility = Visibility.Collapsed
+                            End If
 
                             Dim i As Integer = 0
                             Dim j As Integer = 0
                             While i < 6
                                 If j < listaAnalisis.Count Then
                                     Dim imagenJuego As New ImageEx With {
-                                        .Source = listaAnalisis(j).Imagenes.Pequeña
+                                        .Stretch = Stretch.Uniform
                                     }
+
+                                    If Not listaAnalisis(j).Imagenes.Grande = Nothing Then
+                                        imagenJuego.Source = listaAnalisis(j).Imagenes.Grande
+                                    Else
+                                        imagenJuego.Source = listaAnalisis(j).Imagenes.Pequeña
+                                    End If
 
                                     If listaFinal(0).Tienda = "GamersGate" Then
                                         imagenJuego.MaxWidth = 130
+
+                                        If Not imagenJuego.Source Is Nothing Then
+                                            gvImagenHorizontal.Items.Add(imagenJuego)
+                                        End If
                                     Else
                                         imagenJuego.MaxWidth = 200
-                                    End If
 
-                                    gvImagen.Items.Add(imagenJuego)
+                                        If Not imagenJuego.Source Is Nothing Then
+                                            gvImagenVertical.Items.Add(imagenJuego)
+                                        End If
+                                    End If
                                 Else
                                     j = -1
                                 End If
@@ -639,7 +661,7 @@ Module Editor
             Dim precioFinal As String = String.Empty
 
             If cosas.ListaJuegos.Count > 1 Then
-                contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td>Image</td>" + Environment.NewLine
@@ -670,6 +692,7 @@ Module Editor
 
                         If precioUK < precioFR And precioUK < precioDE Then
                             claveMejorPrecio = 0
+                            juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text)
                         Else
                             If precioDE < precioFR Then
                                 claveMejorPrecio = 2
@@ -682,6 +705,7 @@ Module Editor
                                     claveMejorPrecio = 2
                                 Else
                                     claveMejorPrecio = 0
+                                    juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text)
                                 End If
                             End If
 
@@ -690,6 +714,7 @@ Module Editor
                                     claveMejorPrecio = 1
                                 Else
                                     claveMejorPrecio = 0
+                                    juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text)
                                 End If
                             End If
                         End If
@@ -763,16 +788,25 @@ Module Editor
                 Next
 
                 contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "</table>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "</table>[/vc_column][/vc_row]" + Environment.NewLine
 
                 precioFinal = cosas.Precio
 
                 Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
 
                 If Not ficheroImagen Is Nothing Then
-                    Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdeals")
+                    Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
+                    Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
 
-                    Await GenerarImagen(ficheroImagen, gvImagen, gvImagen.ActualWidth, gvImagen.ActualHeight, 1)
+                    Dim gvFinal As GridView = Nothing
+
+                    If gvImagenVertical.Items.Count > gvImagenHorizontal.Items.Count Then
+                        gvFinal = gvImagenVertical
+                    Else
+                        gvFinal = gvImagenHorizontal
+                    End If
+
+                    Await GenerarImagen(ficheroImagen, gvFinal, gvFinal.ActualWidth, gvFinal.ActualHeight, 0)
 
                     imagenFinalGrid = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
                 End If
@@ -1015,9 +1049,9 @@ Module Editor
                 encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
             End If
 
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
+            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
 
-            encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Linear
+            encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Fant
             encoder.BitmapTransform.ScaledWidth = ancho
             encoder.BitmapTransform.ScaledHeight = alto
 

@@ -380,8 +380,22 @@ Public NotInheritable Class MainPage
 
     Private Async Sub BotonEditorpepeizqdealsGenerarImagenEntrada_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenEntrada.Click
 
+        Dim boton As Button = sender
+        Dim sp As StackPanel = boton.Content
+
+        Dim gv1 As GridView = sp.Children(0)
+        Dim gv2 As GridView = sp.Children(1)
+
+        Dim gvFinal As GridView = Nothing
+
+        If gv1.Items.Count > gv2.Items.Count Then
+            gvFinal = gv1
+        Else
+            gvFinal = gv2
+        End If
+
         Dim ficheroImagen As New List(Of String) From {
-            ".jpg"
+            ".png"
         }
 
         Dim guardarPicker As New FileSavePicker With {
@@ -394,7 +408,7 @@ Public NotInheritable Class MainPage
         Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
         If Not ficheroResultado Is Nothing Then
-            Await GenerarImagen(ficheroResultado, gvEditorpepeizqdeals, gvEditorpepeizqdeals.ActualWidth, gvEditorpepeizqdeals.ActualHeight, 1)
+            Await GenerarImagen(ficheroResultado, gvFinal, gvFinal.ActualWidth, gvFinal.ActualHeight, 0)
         End If
 
     End Sub

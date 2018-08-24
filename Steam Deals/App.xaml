@@ -16,9 +16,11 @@
 
         <Style x:Key="GridViewEstilo1" TargetType="GridViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Margin" Value="5"/>
         </Style>
 
         <SolidColorBrush x:Key="NavigationViewItemForeground" Color="White"/>
