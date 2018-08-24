@@ -290,9 +290,14 @@ Module Editor
                             While i < 6
                                 If j < listaAnalisis.Count Then
                                     Dim imagenJuego As New ImageEx With {
-                                        .Source = listaAnalisis(j).Imagenes.Pequeña,
-                                        .MaxWidth = 200
+                                        .Source = listaAnalisis(j).Imagenes.Pequeña
                                     }
+
+                                    If listaFinal(0).Tienda = "GamersGate" Then
+                                        imagenJuego.MaxWidth = 130
+                                    Else
+                                        imagenJuego.MaxWidth = 200
+                                    End If
 
                                     gvImagen.Items.Add(imagenJuego)
                                 Else
