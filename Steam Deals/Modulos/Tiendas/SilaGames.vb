@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module SilaGames
@@ -31,159 +32,103 @@ Module SilaGames
         Dim html_ As Task(Of String) = HttpClient(New Uri("http://52.28.153.212/cjAffiliateEU.xml"))
         Dim html As String = html_.Result
 
-        Dim i As Integer = 0
-        While i < 5000
-            If Not html = Nothing Then
-                If html.Contains("<product>") Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
+        If Not html = String.Empty Then
+            Dim xml As New XmlSerializer(GetType(SilaGamesJuegos))
+            Dim stream As New StringReader(html)
+            Dim listaJuegosSila As SilaGamesJuegos = xml.Deserialize(stream)
 
-                    int = html.IndexOf("<product>")
-                    temp = html.Remove(0, int + 5)
+            If Not listaJuegosSila Is Nothing Then
+                If listaJuegosSila.Juegos.Count > 0 Then
+                    For Each juegoSila In listaJuegosSila.Juegos
+                        Dim titulo As String = juegoSila.Titulo.Trim
+                        titulo = WebUtility.HtmlDecode(titulo)
 
-                    html = temp
-
-                    int2 = temp.IndexOf("</product>")
-                    temp2 = temp.Remove(int2, temp.Length - int2)
-
-                    Dim temp3, temp4 As String
-                    Dim int3, int4 As Integer
-
-                    int3 = temp2.IndexOf("<name>")
-                    temp3 = temp2.Remove(0, int3 + 6)
-
-                    int4 = temp3.IndexOf("</name>")
-                    temp4 = temp3.Remove(int4, temp3.Length - int4)
-
-                    temp4 = temp4.Trim
-                    temp4 = WebUtility.HtmlDecode(temp4)
-
-                    Dim titulo As String = temp4
-
-                    Dim temp5, temp6 As String
-                    Dim int5, int6 As Integer
-
-                    int5 = temp2.IndexOf("<buyurl>")
-                    temp5 = temp2.Remove(0, int5 + 8)
-
-                    int6 = temp5.IndexOf("</buyurl>")
-                    temp6 = temp5.Remove(int6, temp5.Length - int6)
-
-                    If temp6.Contains("?") Then
-                        int6 = temp6.IndexOf("?")
-                        temp6 = temp6.Remove(int6, temp6.Length - int6)
-                    End If
-
-                    Dim enlace As String = temp6.Trim
-                    Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
-
-                    Dim temp7, temp8 As String
-                    Dim int7, int8 As Integer
-
-                    int7 = temp2.IndexOf("<imageurl>")
-                    temp7 = temp2.Remove(0, int7 + 10)
-
-                    int8 = temp7.IndexOf("</imageurl>")
-                    temp8 = temp7.Remove(int8, temp7.Length - int8)
-
-                    temp8 = temp8.Replace("@2x", Nothing)
-
-                    Dim imagenPequeña As String = temp8.Trim
-
-                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
-
-                    Dim temp9, temp10 As String
-                    Dim int9, int10 As Integer
-
-                    int9 = temp2.IndexOf("<saleprice>")
-                    temp9 = temp2.Remove(0, int9 + 11)
-
-                    int10 = temp9.IndexOf("</saleprice>")
-                    temp10 = temp9.Remove(int10, temp9.Length - int10)
-
-                    temp10 = temp10.Insert(temp10.Length - 2, ",")
-
-                    If temp10.IndexOf(",") = 0 Then
-                        temp10 = "0" + temp10
-                    End If
-
-                    Dim precio As String = temp10.Trim + " €"
-
-                    Dim temp11, temp12 As String
-                    Dim int11, int12 As Integer
-
-                    int11 = temp2.IndexOf("<price>")
-                    temp11 = temp2.Remove(0, int11 + 7)
-
-                    int12 = temp11.IndexOf("</price>")
-                    temp12 = temp11.Remove(int12, temp11.Length - int12)
-
-                    temp12 = temp12.Insert(temp12.Length - 2, ",")
-                    temp12 = temp12.Trim + " €"
-
-                    If Not precio = temp12 Then
-                        Dim listaEnlaces As New List(Of String) From {
-                            enlace
-                        }
-
-                        Dim listaAfiliados As New List(Of String) From {
-                            afiliado
-                        }
-
-                        Dim listaPrecios As New List(Of String) From {
-                            precio
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
-
-                        Dim descuento As String = Calculadora.GenerarDescuento(temp12, precio)
-
-                        Dim temp13, temp14 As String
-                        Dim int13, int14 As Integer
-
-                        int13 = temp2.IndexOf("<keywords>")
-                        temp13 = temp2.Remove(0, int13)
-
-                        int14 = temp13.IndexOf("</keywords>")
-                        temp14 = temp13.Remove(int14, temp13.Length - int14)
-
-                        Dim drm As String = Nothing
-
-                        If temp14.Contains("steam") Then
-                            drm = "steam"
-                        ElseIf temp14.Contains("uplay") Then
-                            drm = "uplay"
+                        Dim enlace As String = juegoSila.Enlace.Trim
+                        If enlace.Contains("?") Then
+                            Dim intEnlace As Integer = enlace.IndexOf("?")
+                            enlace = enlace.Remove(intEnlace, enlace.Length - intEnlace)
                         End If
 
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                        Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
 
-                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Sila Games", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                        Dim imagenPequeña As String = juegoSila.Imagen.Trim
+                        imagenPequeña = imagenPequeña.Replace("@2x", Nothing)
+                        Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
+                        Dim precioRebajado As String = juegoSila.PrecioDescontado.Trim
+                        precioRebajado = precioRebajado.Insert(precioRebajado.Length - 2, ",")
+
+                        If precioRebajado.IndexOf(",") = 0 Then
+                            precioRebajado = "0" + precioRebajado
+                        End If
+
+                        precioRebajado = precioRebajado + " €"
+
+                        Dim precioBase As String = juegoSila.PrecioBase.Trim
+                        precioBase = precioBase.Insert(precioBase.Length - 2, ",")
+
+                        If precioBase.IndexOf(",") = 0 Then
+                            precioBase = "0" + precioBase
+                        End If
+
+                        precioBase = precioBase + " €"
+
+                        If Not precioRebajado = precioBase Then
+                            Dim listaEnlaces As New List(Of String) From {
+                                enlace
+                            }
+
+                            Dim listaAfiliados As New List(Of String) From {
+                                afiliado
+                            }
+
+                            Dim listaPrecios As New List(Of String) From {
+                                precioRebajado
+                            }
+
+                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
+
+                            Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+
+                            Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoSila.Publisher}, Nothing)
+
+                            Dim drm As String = Nothing
+
+                            If juegoSila.DRM.Contains("steam") Then
+                                drm = "steam"
+                            ElseIf juegoSila.DRM.Contains("uplay") Then
+                                drm = "uplay"
+                            End If
+
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+
+                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Sila Games", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrolladores)
+
+                            Dim tituloBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                    tituloBool = True
+                                End If
+                                k += 1
+                            End While
+
+                            If juego.Descuento = Nothing Then
                                 tituloBool = True
                             End If
-                            k += 1
-                        End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        End If
+                            If juego.Descuento = "00%" Then
+                                tituloBool = True
+                            End If
 
-                        If juego.Descuento = "00%" Then
-                            tituloBool = True
+                            If tituloBool = False Then
+                                listaJuegos.Add(juego)
+                            End If
                         End If
-
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
-                    End If
+                    Next
                 End If
             End If
-            i += 1
-        End While
+        End If
 
     End Sub
 
@@ -194,7 +139,7 @@ Module SilaGames
 
     Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasSilaGames", listaJuegos)
 
         Ordenar.Ofertas("SilaGames", True, False)
@@ -202,3 +147,36 @@ Module SilaGames
     End Sub
 
 End Module
+
+<XmlRoot("product_catalog_data")>
+Public Class SilaGamesJuegos
+
+    <XmlElement("product")>
+    Public Juegos As List(Of SilaGamesJuego)
+
+End Class
+
+Public Class SilaGamesJuego
+
+    <XmlElement("name")>
+    Public Titulo As String
+
+    <XmlElement("buyurl")>
+    Public Enlace As String
+
+    <XmlElement("imageurl")>
+    Public Imagen As String
+
+    <XmlElement("saleprice")>
+    Public PrecioDescontado As String
+
+    <XmlElement("price")>
+    Public PrecioBase As String
+
+    <XmlElement("publisher")>
+    Public Publisher As String
+
+    <XmlElement("keywords")>
+    Public DRM As String
+
+End Class

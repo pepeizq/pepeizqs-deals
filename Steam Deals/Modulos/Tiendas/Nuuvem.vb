@@ -113,6 +113,8 @@ Module Nuuvem
                                 l += 1
                             End While
 
+                            temp10 = temp10.Replace("USD", Nothing)
+
                             Dim precio As String = temp10.Trim
 
                             Dim listaEnlaces As New List(Of String) From {
@@ -216,7 +218,7 @@ Module Nuuvem
 
     Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasNuuvem", listaJuegos)
 
         Ordenar.Ofertas("Nuuvem", True, False)

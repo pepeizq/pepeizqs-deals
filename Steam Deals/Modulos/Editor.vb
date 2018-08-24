@@ -186,8 +186,10 @@ Module Editor
                                 End If
                             ElseIf listaFinal(0).Tienda = "Fanatical" Then
                                 precioFinal = listaFinal(0).Enlaces.Precios(1)
+                                tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
                             ElseIf listaFinal(0).Tienda = "WinGameStore" Then
                                 precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
+                                tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
                             Else
                                 precioFinal = listaFinal(0).Enlaces.Precios(0)
                                 tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
@@ -282,7 +284,9 @@ Module Editor
                                     tbImagen.Text = listaFinal(0).Imagenes.Grande
                                 End If
                             Else
-                                tbImagen.Text = listaFinal(0).Imagenes.Pequeña
+                                If Not listaFinal(0).Imagenes.Pequeña = String.Empty Then
+                                    tbImagen.Text = listaFinal(0).Imagenes.Pequeña
+                                End If
                             End If
 
                             imagen.Source = tbImagen.Text

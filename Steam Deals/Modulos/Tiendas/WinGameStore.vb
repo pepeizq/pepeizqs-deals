@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Newtonsoft.Json
 
 Module WinGameStore
 
@@ -31,128 +32,78 @@ Module WinGameStore
 
     End Sub
 
-    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles bw.DoWork
+    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
         Dim html As String = html_.Result
 
-        Dim i As Integer = 0
-        While i < 5000
-            If Not html = Nothing Then
-                If html.Contains("{" + ChrW(34) + "ID") Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
+        If Not html = Nothing Then
+            Dim listaJuegosWGS As List(Of WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of WinGameStoreJuego))(html)
 
-                    int = html.IndexOf("{" + ChrW(34) + "ID")
-                    temp = html.Remove(0, int + 4)
+            If Not listaJuegosWGS Is Nothing Then
+                If listaJuegosWGS.Count > 0 Then
+                    For Each juegoWGS In listaJuegosWGS
+                        If Not juegoWGS.PrecioRebajado = "0" Then
+                            Dim titulo As String = juegoWGS.Titulo.Trim
+                            titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
-                    html = temp
+                            Dim enlace As String = juegoWGS.Enlace
 
-                    int2 = temp.IndexOf("}")
-                    temp2 = temp.Remove(int2, temp.Length - int2)
+                            If Not enlace = String.Empty Then
+                                Dim afiliado As String = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + enlace
 
-                    Dim temp3, temp4 As String
-                    Dim int3, int4 As Integer
+                                Dim precio As String = "$" + juegoWGS.PrecioRebajado.Trim
 
-                    int3 = temp2.IndexOf("Title" + ChrW(34) + ":" + ChrW(34))
-                    temp3 = temp2.Remove(0, int3 + 8)
+                                If Not precio.Contains(".") Then
+                                    precio = precio + ".00"
+                                End If
 
-                    int4 = temp3.IndexOf(ChrW(34))
-                    temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                Dim listaEnlaces As New List(Of String) From {
+                                    enlace
+                                }
 
-                    temp4 = temp4.Trim
-                    temp4 = Text.RegularExpressions.Regex.Unescape(temp4)
+                                Dim listaAfiliados As New List(Of String) From {
+                                    afiliado
+                                }
 
-                    Dim titulo As String = temp4
+                                Dim listaPrecios As New List(Of String) From {
+                                    precio
+                                }
 
-                    Dim temp5, temp6 As String
-                    Dim int5, int6 As Integer
+                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
-                    int5 = temp2.IndexOf("http:\/\/www.wingamestore")
+                                Dim descuento As String = Calculadora.GenerarDescuento(juegoWGS.PrecioBase.Trim, precio)
 
-                    If int5 = -1 Then
-                        int5 = temp2.IndexOf("https:\/\/www.wingamestore")
-                    End If
+                                Dim drm As String = Nothing
 
-                    temp5 = temp2.Remove(0, int5)
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                    int6 = temp5.IndexOf(ChrW(34))
-                    temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                Dim juego As New Juego(titulo, Nothing, enlaces, descuento, drm, "WinGameStore", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                    temp6 = temp6.Replace("\", Nothing)
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
+                                    End If
+                                    k += 1
+                                End While
 
-                    Dim enlace As String = temp6.Trim
-                    Dim afiliado As String = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + enlace
+                                If juego.Descuento = Nothing Then
+                                    tituloBool = True
+                                End If
 
-                    Dim imagen As String = Nothing
-
-                    Dim temp7 As String
-                    Dim int7 As Integer
-
-                    int7 = temp2.IndexOf("Sale" + ChrW(34) + ":")
-                    temp7 = temp2.Remove(0, int7 + 6)
-
-                    If Not temp7 = "0" Then
-                        Dim precio As String = "$" + temp7.Trim
-
-                        If Not precio.Contains(".") Then
-                            precio = precio + ".00"
-                        End If
-
-                        Dim listaEnlaces As New List(Of String) From {
-                            enlace
-                        }
-
-                        Dim listaAfiliados As New List(Of String) From {
-                            afiliado
-                        }
-
-                        Dim listaPrecios As New List(Of String) From {
-                            precio
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
-
-                        Dim temp9, temp10 As String
-                        Dim int9, int10 As Integer
-
-                        int9 = temp2.IndexOf("Price" + ChrW(34) + ":")
-                        temp9 = temp2.Remove(0, int9 + 7)
-
-                        int10 = temp9.IndexOf(",")
-                        temp10 = temp9.Remove(int10, temp9.Length - int10)
-
-                        Dim descuento As String = Calculadora.GenerarDescuento(temp10.Trim, precio)
-
-                        Dim drm As String = Nothing
-
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
-
-                        Dim juego As New Juego(titulo, Nothing, enlaces, descuento, drm, "WinGameStore", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
+                                If tituloBool = False Then
+                                    listaJuegos.Add(juego)
+                                End If
                             End If
-                            k += 1
-                        End While
-
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
                         End If
-
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
-                    End If
+                    Next
                 End If
             End If
-            i += 1
-        End While
+        End If
 
-        i = 0
+        Dim i As Integer = 0
         For Each juego In listaJuegos
 
             Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlaces.Enlaces(0)))
@@ -188,7 +139,23 @@ Module WinGameStore
                     int3 = temp2.IndexOf(ChrW(34))
                     temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                    juego.Imagenes = New JuegoImagenes("http://www.wingamestore.com" + temp3.Trim, Nothing)
+                    juego.Imagenes = New JuegoImagenes("https://www.wingamestore.com" + temp3.Trim, Nothing)
+                End If
+
+                If htmlJuego.Contains("<label>Publisher</label>") Then
+                    Dim temp, temp2, temp3 As String
+                    Dim int, int2, int3 As Integer
+
+                    int = htmlJuego.IndexOf("<label>Publisher</label>")
+                    temp = htmlJuego.Remove(0, int + 5)
+
+                    int2 = temp.IndexOf("</a>")
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    int3 = temp2.LastIndexOf(">")
+                    temp3 = temp2.Remove(0, int3 + 1)
+
+                    juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
                 End If
 
                 If htmlJuego.Contains("<label>DRM</label><b>Steam</b>") Then
@@ -239,7 +206,7 @@ Module WinGameStore
 
     End Sub
 
-    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -249,9 +216,9 @@ Module WinGameStore
 
     End Sub
 
-    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
-        Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+        Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasWinGameStore", listaJuegos)
 
         Ordenar.Ofertas("WinGameStore", True, False)
@@ -259,3 +226,22 @@ Module WinGameStore
     End Sub
 
 End Module
+
+Public Class WinGameStoreJuego
+
+    <JsonProperty("Title")>
+    Public Titulo As String
+
+    <JsonProperty("WGSURL")>
+    Public Enlace As String
+
+    <JsonProperty("Sale")>
+    Public PrecioRebajado As String
+
+    <JsonProperty("Price")>
+    Public PrecioBase As String
+
+    <JsonProperty("ID")>
+    Public ID As String
+
+End Class

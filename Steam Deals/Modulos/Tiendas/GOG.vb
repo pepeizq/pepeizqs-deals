@@ -41,13 +41,13 @@ Module GOG
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
-                If html.Contains("<products></products>") Then
+                Dim stream As New StringReader(html)
+                Dim xml As New XmlSerializer(GetType(GOGCatalogo))
+                Dim listaJuegosGOG As GOGCatalogo = xml.Deserialize(stream)
+
+                If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
                     Exit While
                 Else
-                    Dim stream As New StringReader(html)
-                    Dim xml As New XmlSerializer(GetType(GOGCatalogo))
-                    Dim listaJuegosGOG As GOGCatalogo = xml.Deserialize(stream)
-
                     For Each juegoGOG In listaJuegosGOG.Juegos.Juegos
                         Dim titulo As String = juegoGOG.Titulo
                         titulo = titulo.Trim
@@ -70,16 +70,16 @@ Module GOG
                         Dim precio As String = juegoGOG.Precio
 
                         Dim listaEnlaces As New List(Of String) From {
-                            enlace
-                        }
+                                enlace
+                            }
 
                         Dim listaAfiliados As New List(Of String) From {
-                            afiliado
-                        }
+                                afiliado
+                            }
 
                         Dim listaPrecios As New List(Of String) From {
-                            precio
-                        }
+                                precio
+                            }
 
                         Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
