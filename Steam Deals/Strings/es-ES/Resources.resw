@@ -210,6 +210,9 @@
   <data name="LastDeals.Text" xml:space="preserve">
     <value>Últimas Ofertas</value>
   </data>
+  <data name="Login.Text" xml:space="preserve">
+    <value>Conectar</value>
+  </data>
   <data name="MessageStore.Text" xml:space="preserve">
     <value>Selecciona una tienda para cargar las ofertas</value>
   </data>

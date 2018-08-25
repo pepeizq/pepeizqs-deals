@@ -330,12 +330,23 @@
 
                             <Grid x:Name="gridEditorpepeizqdealsCuentas" Visibility="Collapsed">
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="pepeizqdeals.com REST API"/>
+                                    <TextBlock Text="REST API"/>
                                     <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
                                         <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
                                         <TextBox x:Name="tbEditorUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
                                         <PasswordBox x:Name="tbEditorContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
+                                    </StackPanel>
+                                    <TextBlock Text="Twitter"/>
+                                    <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
+                                        <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushSecundario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <TextBlock x:Uid="Login" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <controls:ImageEx x:Name="imagenEditorTwitterpepeizqdeals" Width="32" Height="32" IsCacheEnabled="True" Margin="20,0,10,0"/>
+                                        <TextBlock x:Name="tbEditorTwitterpepeizqdeals" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>

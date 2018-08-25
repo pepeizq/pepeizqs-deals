@@ -211,10 +211,10 @@ Public Class HumbleJuego
     <JsonProperty("human_name")>
     Public Titulo As String
 
-    <JsonProperty("featured_image_small")>
+    <JsonProperty("standard_carousel_image")>
     Public ImagenPequeña As String
 
-    <JsonProperty("featured_image_large")>
+    <JsonProperty("large_capsule")>
     Public ImagenGrande As String
 
     <JsonProperty("current_price")>

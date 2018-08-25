@@ -1,9 +1,12 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Services.Twitter
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Windows.Graphics.Imaging
+Imports Windows.Networking.BackgroundTransfer
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
+Imports Windows.Storage.Streams
 Imports Windows.System
 Imports Windows.UI
 Imports WordPressPCL
@@ -37,6 +40,20 @@ Module Editor
         If Not contraseñaPepeizq Is Nothing Then
             If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") Is Nothing Then
                 contraseñaPepeizq.Password = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq")
+            End If
+        End If
+
+        Dim helper As New LocalObjectStorageHelper
+
+        If helper.KeyExists("usuarioTwitter") Then
+            Dim usuario As TwitterUser = helper.Read(Of TwitterUser)("usuarioTwitter")
+
+            If Not usuario Is Nothing Then
+                Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
+                imagenAvatar.Source = usuario.ProfileImageUrlHttps
+
+                Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
+                tbUsuario.Text = usuario.ScreenName
             End If
         End If
 
@@ -188,6 +205,9 @@ Module Editor
                                 precioFinal = listaFinal(0).Enlaces.Precios(1)
                                 tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
                             ElseIf listaFinal(0).Tienda = "WinGameStore" Then
+                                precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
+                                tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
+                            ElseIf listaFinal(0).Tienda = "Chrono" Then
                                 precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
                                 tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
                             Else
@@ -455,7 +475,7 @@ Module Editor
                             tbTitulo.Text = String.Empty
                         ElseIf listaFinal.Count = 1 Then
                             If listaFinal(0).Tienda = "Amazon.es" Then
-                                tbTitulo.Text = listaFinal(0).Titulo + " a " + listaFinal(0).Enlaces.Precios(0).Replace(" ", Nothing) + " en " + Twitter(listaFinal(0).Tienda) + " (para #Steam) - Formato Físico"
+                                tbTitulo.Text = listaFinal(0).Titulo + " a " + listaFinal(0).Enlaces.Precios(0).Replace(" ", Nothing) + " en " + TiendaTwitterVayaAnsias(listaFinal(0).Tienda) + " (para #Steam) - Formato Físico"
                             Else
                                 Dim drm As String = Nothing
 
@@ -471,13 +491,13 @@ Module Editor
                                     End If
                                 End If
 
-                                tbTitulo.Text = listaFinal(0).Titulo + " al " + listaFinal(0).Descuento + " en " + Twitter(listaFinal(0).Tienda) + drm
+                                tbTitulo.Text = listaFinal(0).Titulo + " al " + listaFinal(0).Descuento + " en " + TiendaTwitterVayaAnsias(listaFinal(0).Tienda) + drm
                             End If
                         Else
                             Dim descuentoBajo As String = listaFinal(listaFinal.Count - 1).Descuento.Replace("%", Nothing)
                             Dim descuentoTop As String = listaFinal(0).Descuento
 
-                            tbTitulo.Text = listaFinal.Count.ToString + " juegos para #Steam en " + Twitter(listaFinal(0).Tienda) + " (" + descuentoBajo + "-" + descuentoTop + ")"
+                            tbTitulo.Text = listaFinal.Count.ToString + " juegos para #Steam en " + TiendaTwitterVayaAnsias(listaFinal(0).Tienda) + " (" + descuentoBajo + "-" + descuentoTop + ")"
                         End If
 
                         contenidoEnlaces = contenidoEnlaces + "<br/><div style=" + ChrW(34) + "text-align:center;" + ChrW(34) + ">" + Environment.NewLine
@@ -727,6 +747,9 @@ Module Editor
                     ElseIf cosas.Tienda = "WinGameStore" Then
                         Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
+                    ElseIf cosas.Tienda = "Chrono" Then
+                        Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                        juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     End If
 
                     Dim tituloFinal As String = juego.Titulo
@@ -946,15 +969,27 @@ Module Editor
 
             If Not resultado Is Nothing Then
                 Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
-            End If
 
+                Dim helper As New LocalObjectStorageHelper
+
+                If helper.KeyExists("usuarioTwitter") Then
+                    Dim usuario As TwitterUser = helper.Read(Of TwitterUser)("usuarioTwitter")
+
+                    If Not usuario Is Nothing Then
+                        Dim tituloTwitter As String = tbTitulo.Text
+                        tituloTwitter = TiendaTwitterpepeizqdeals(tituloTwitter)
+
+                        Twitter(usuario, tituloTwitter, resultado.Enlace, Nothing)
+                    End If
+                End If
+            End If
         End If
 
         boton.IsEnabled = True
 
     End Sub
 
-    Private Function Twitter(tienda As String)
+    Private Function TiendaTwitterVayaAnsias(tienda As String)
 
         If tienda = "Amazon.es" Then
             tienda = "@AmazonESP"
@@ -979,6 +1014,33 @@ Module Editor
         End If
 
         Return tienda
+    End Function
+
+    Private Function TiendaTwitterpepeizqdeals(titulo As String)
+
+        If titulo.Contains("• Amazon.es") Then
+            titulo = titulo.Replace("• Amazon.es", "• @AmazonESP")
+        ElseIf titulo.Contains("• Fanatical") Then
+            titulo = titulo.Replace("• Fanatical", "• @Fanatical")
+        ElseIf titulo.Contains("• GamersGate") Then
+            titulo = titulo.Replace("• GamersGate", "• @GamersGate")
+        ElseIf titulo.Contains("• GamesPlanet") Then
+            titulo = titulo.Replace("• GamesPlanet", "• @GamesPlanetUK")
+        ElseIf titulo.Contains("• GOG") Then
+            titulo = titulo.Replace("• GOG", "• @GOGcom")
+        ElseIf titulo.Contains("• Green Man Gaming") Then
+            titulo = titulo.Replace("• Green Man Gaming", "• @GreenManGaming")
+        ElseIf titulo.Contains("• Humble Store") Then
+            titulo = titulo.Replace("• Humble Store", "• @humblestore")
+        ElseIf titulo.Contains("• Microsoft Store") Then
+            titulo = titulo.Replace("• Microsoft Store", "• @MicrosoftStore")
+        ElseIf titulo.Contains("• Steam") Then
+            titulo = titulo.Replace("• Steam", "• @steam_games")
+        ElseIf titulo.Contains("• WinGameStore") Then
+            titulo = titulo.Replace("• WinGameStore", "• @wingamestore")
+        End If
+
+        Return titulo
     End Function
 
     Private Function LimpiarTitulo(titulo As String)
@@ -1040,11 +1102,11 @@ Module Editor
 
         Dim resultadoRender As New RenderTargetBitmap()
         Await resultadoRender.RenderAsync(objeto)
-        Dim buffer As Streams.IBuffer = Await resultadoRender.GetPixelsAsync
+        Dim buffer As IBuffer = Await resultadoRender.GetPixelsAsync
         Dim pixeles As Byte() = buffer.ToArray
         Dim rawdpi As DisplayInformation = DisplayInformation.GetForCurrentView()
 
-        Using stream As Streams.IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
+        Using stream As IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
             Dim encoder As BitmapEncoder = Nothing
 
             If formato = 1 Then
@@ -1136,4 +1198,83 @@ Module Editor
 
     End Sub
 
+    Public Async Sub Twitter(usuarioRecibido As TwitterUser, mensaje As String, enlace As String, imagen As String)
+
+        If Not usuarioRecibido Is Nothing Then
+            ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = usuarioRecibido.ScreenName
+        Else
+            ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = Nothing
+        End If
+
+        Dim servicio As New TwitterService
+        servicio.Initialize("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc", "https://pepeizqapps.com/")
+
+        Dim estado As Boolean = Await servicio.Provider.LoginAsync
+
+        If estado = True Then
+            Dim usuario As TwitterUser = Nothing
+
+            If Not usuarioRecibido Is Nothing Then
+                usuario = Await servicio.Provider.GetUserAsync(usuarioRecibido.ScreenName)
+
+                Dim stream As FileRandomAccessStream = Nothing
+
+                If Not imagen = String.Empty Then
+                    Dim ficheroImagen As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagentwitter", CreationCollisionOption.ReplaceExisting)
+                    Dim descargador As New BackgroundDownloader
+                    Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri(imagen), ficheroImagen)
+                    descarga.Priority = BackgroundTransferPriority.High
+                    Await descarga.StartAsync
+
+                    Dim ficheroDescargado As IStorageFile = descarga.ResultFile
+                    If Not ficheroDescargado Is Nothing Then
+                        stream = Await ficheroDescargado.OpenAsync(FileAccessMode.Read)
+                    End If
+                End If
+
+                Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
+
+                If Not htmlAcortador = String.Empty Then
+                    Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
+
+                    If Not acortador Is Nothing Then
+                        enlace = acortador.EnlaceAcortado
+                    End If
+                End If
+
+                If stream Is Nothing Then
+                    Await servicio.TweetStatusAsync(mensaje + " " + enlace)
+                Else
+                    Await servicio.TweetStatusAsync(mensaje + " " + enlace, stream.AsStream)
+                End If
+            Else
+                usuario = Await servicio.GetUserAsync
+
+                Dim frame As Frame = Window.Current.Content
+                Dim pagina As Page = frame.Content
+
+                Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
+                imagenAvatar.Source = usuario.ProfileImageUrlHttps
+
+                Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
+                tbUsuario.Text = usuario.ScreenName
+
+                Dim helper As New LocalObjectStorageHelper
+                helper.Save("usuarioTwitter", usuario)
+            End If
+        End If
+
+    End Sub
+
 End Module
+
+Public Class AcortadorPoSt
+
+    <JsonProperty("long_url")>
+    Public EnlaceOriginal As String
+
+    <JsonProperty("short_url")>
+    Public EnlaceAcortado As String
+
+End Class
+

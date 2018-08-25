@@ -196,20 +196,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    'Private Sub MenuItemConfigActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles menuItemConfigActualizarAnalisis.Click
-
-    '    Analisis.Generar()
-
-    'End Sub
-
-
-
-    'Private Sub ToggleConfigAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigAnalisis.Click
-
-    '    Configuracion.AnalisisBuscar(toggleConfigAnalisis.IsChecked)
-
-    'End Sub
-
     'Private Sub ToggleConfigDivisas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigDivisas.Click
 
     '    Configuracion.DivisaActualizar(toggleConfigDivisas.IsChecked)
@@ -413,4 +399,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
+
+        Editor.Twitter(Nothing, Nothing, Nothing, Nothing)
+
+    End Sub
 End Class

@@ -17,7 +17,8 @@ Module Interfaz
     Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7)
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8)
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
-    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 10)
+    Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10)
+    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 11)
 
     Public Sub Generar()
 
@@ -50,6 +51,7 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(silagamesT))
         gvTiendas.Items.Add(AñadirBotonTienda(nuuvemT))
         gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
+        gvTiendas.Items.Add(AñadirBotonTienda(chronoT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
@@ -67,6 +69,7 @@ Module Interfaz
         menuTiendas.Items.Add(AñadirMenuTienda(silagamesT))
         menuTiendas.Items.Add(AñadirMenuTienda(nuuvemT))
         menuTiendas.Items.Add(AñadirMenuTienda(microsoftstoreT))
+        menuTiendas.Items.Add(AñadirMenuTienda(chronoT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
@@ -84,6 +87,7 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(silagamesT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(nuuvemT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(microsoftstoreT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(chronoT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
@@ -389,6 +393,8 @@ Module Interfaz
                 Nuuvem.GenerarOfertas()
             ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
                 MicrosoftStore.GenerarOfertas()
+            ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
+                Chrono.GenerarOfertas()
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 AmazonEs.GenerarOfertas()
             End If

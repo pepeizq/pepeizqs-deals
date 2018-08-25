@@ -210,6 +210,9 @@
   <data name="LastDeals.Text" xml:space="preserve">
     <value>Latest Deals</value>
   </data>
+  <data name="Login.Text" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="MessageStore.Text" xml:space="preserve">
     <value>Select a store to load deals</value>
   </data>
