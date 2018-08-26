@@ -385,4 +385,53 @@ Module Steam
 
     End Function
 
+    Public Async Function GenerarFree(url As String) As Task(Of EditorFreepepeizqdeals)
+
+        Dim cosas As New EditorFreepepeizqdeals(Nothing, Nothing, "Steam")
+
+        Dim html As String = Await HttpClient(New Uri(url))
+
+        If Not html = Nothing Then
+            If html.Contains("<div class=" + ChrW(34) + "details_block" + ChrW(34) + ">") Then
+                Dim temp, temp2 As String
+                Dim int, int2 As Integer
+
+                int = html.IndexOf("<div class=" + ChrW(34) + "details_block" + ChrW(34) + ">")
+                temp = html.Remove(0, int + 5)
+
+                int2 = temp.IndexOf("<br>")
+                temp2 = temp.Remove(int2, temp.Length - int2)
+
+                If temp2.Contains(">") Then
+                    Dim int5 As Integer = temp2.IndexOf(">")
+
+                    temp2 = temp2.Remove(0, int5 + 1)
+                End If
+
+                If temp2.Contains("<b>") Then
+                    Dim int3 As Integer = temp2.IndexOf("<b>")
+                    Dim int4 As Integer = temp2.IndexOf("</b>")
+
+                    temp2 = temp2.Remove(int3, (int4 + 4) - int3)
+                End If
+
+                cosas.Titulo = temp2.Trim
+            End If
+        End If
+
+        If Not url = Nothing Then
+            Dim id As String = url
+            id = id.Replace("https://store.steampowered.com/app/", Nothing)
+
+            If id.Contains("/") Then
+                Dim int As Integer = id.IndexOf("/")
+                id = id.Remove(int, id.Length - int)
+            End If
+
+            cosas.Imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + id + "/header.jpg"
+        End If
+
+        Return cosas
+    End Function
+
 End Module
