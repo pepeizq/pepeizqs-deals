@@ -287,7 +287,7 @@ Module Ordenar
                                 End If
 
                                 Dim fechaComparar As DateTime = juegoAntiguo.FechaAñadido
-                                fechaComparar = fechaComparar.AddDays(1)
+                                fechaComparar = fechaComparar.AddDays(3)
 
                                 If fechaComparar < DateTime.Today Then
                                     listaJuegosAntigua.Remove(juegoAntiguo)

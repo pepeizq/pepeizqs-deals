@@ -57,6 +57,22 @@ Module Editor
             End If
         End If
 
+        Dim usuarioPepeizqSteam As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsSteam")
+
+        If Not usuarioPepeizqSteam Is Nothing Then
+            If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") Is Nothing Then
+                usuarioPepeizqSteam.Text = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
+            End If
+        End If
+
+        Dim contraseñaPepeizqSteam As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdealsSteam")
+
+        If Not contraseñaPepeizqSteam Is Nothing Then
+            If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") Is Nothing Then
+                contraseñaPepeizqSteam.Password = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
+            End If
+        End If
+
         If lv Is Nothing Then
             If cbWebs.SelectedIndex = 0 Then
                 gridpepeizq.Visibility = Visibility.Visible
@@ -68,6 +84,7 @@ Module Editor
                 MostrarGridpepeizqdeals(botonBundles, gridBundles)
 
                 CargarFreepepeizqdeals()
+                ComprobarSteampepeizqdeals
             Else
                 gridpepeizq.Visibility = Visibility.Collapsed
                 gridReddit.Visibility = Visibility.Collapsed
@@ -88,13 +105,7 @@ Module Editor
                 Next
 
                 If listaFinal.Count > 0 Then
-                    listaFinal.Sort(Function(x As Juego, y As Juego)
-                                        Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
-                                        If resultado = 0 Then
-                                            resultado = x.Titulo.CompareTo(y.Titulo)
-                                        End If
-                                        Return resultado
-                                    End Function)
+                    listaFinal.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
 
                     Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
                     Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
@@ -215,7 +226,7 @@ Module Editor
                                 tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
                             End If
 
-                            precioFinal = precioFinal.Replace(".", ",")
+                            precioFinal = precioFinal.Replace(",", ".")
                             precioFinal = precioFinal.Replace("€", Nothing)
                             precioFinal = precioFinal.Trim
                             precioFinal = precioFinal + " €"
@@ -371,6 +382,7 @@ Module Editor
                         '--------------------------------------------
 
                         CargarFreepepeizqdeals()
+                        ComprobarSteampepeizqdeals()
 
                     ElseIf cbWebs.SelectedIndex = 1 Then
                         gridpepeizq.Visibility = Visibility.Collapsed
@@ -671,6 +683,48 @@ Module Editor
 
     End Sub
 
+    Private Sub ComprobarSteampepeizqdeals()
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+        wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+
+        AddHandler wv.NavigationCompleted, AddressOf ComprobarSteampepeizqdeals2
+
+    End Sub
+
+    Private Async Sub ComprobarSteampepeizqdeals2(sender As Object, e As WebViewNavigationCompletedEventArgs)
+
+        Dim wv As WebView = sender
+
+        If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
+            If wv.DocumentTitle.Contains("Error") Then
+                wv.Navigate(New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate"))
+            End If
+        ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals#announcements" Then
+            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+        ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate" Then
+            Dim usuarioGuardado As String = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
+
+            If Not usuarioGuardado = Nothing Then
+                Dim usuario As String = "document.getElementById('steamAccountName').value = '" + usuarioGuardado + "'"
+                Await wv.InvokeScriptAsync("eval", New String() {usuario})
+
+                Dim contraseñaGuardada As String = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
+
+                If Not contraseñaGuardada = Nothing Then
+                    Dim contraseña As String = "document.getElementById('steamPassword').value = '" + contraseñaGuardada + "'"
+                    Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+
+                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('SteamLogin').click();"})
+                End If
+            End If
+        End If
+
+    End Sub
+
     Private Async Sub GenerarDatospepeizqdeals(sender As Object, e As RoutedEventArgs)
 
         Dim frame As Frame = Window.Current.Content
@@ -801,7 +855,7 @@ Module Editor
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
 
                 Dim precioFinalJuego As String = juego.Enlaces.Precios(claveMejorPrecio)
-                precioFinalJuego = precioFinalJuego.Replace(".", ",")
+                precioFinalJuego = precioFinalJuego.Replace(",", ".")
                 precioFinalJuego = precioFinalJuego.Replace("€", Nothing)
                 precioFinalJuego = precioFinalJuego.Trim
                 precioFinalJuego = precioFinalJuego + " €"
@@ -906,6 +960,9 @@ Module Editor
             ElseIf cosas.Tienda = "WinGameStore" Then
                 Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
                 precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+            ElseIf cosas.Tienda = "Chrono" Then
+                Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
             Else
                 precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
             End If
@@ -940,7 +997,7 @@ Module Editor
             iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png"
         End If
 
-        precioFinal = precioFinal.Replace(".", ",")
+        precioFinal = precioFinal.Replace(",", ".")
         precioFinal = precioFinal.Replace("€", Nothing)
         precioFinal = precioFinal.Trim
 
@@ -1134,6 +1191,22 @@ Module Editor
             If Not resultado Is Nothing Then
                 Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
+                Dim enlaceFinal As String = Nothing
+
+                Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + resultado.Enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
+
+                If Not htmlAcortador = String.Empty Then
+                    Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
+
+                    If Not acortador Is Nothing Then
+                        enlaceFinal = acortador.EnlaceAcortado
+                    End If
+                End If
+
+                If enlaceFinal = Nothing Then
+                    enlaceFinal = resultado.Enlace
+                End If
+
                 Dim helper As New LocalObjectStorageHelper
 
                 If helper.KeyExists("usuarioTwitter") Then
@@ -1143,7 +1216,24 @@ Module Editor
                         Dim tituloTwitter As String = titulo.Trim
                         tituloTwitter = TiendaTwitterpepeizqdeals(tituloTwitter)
 
-                        Twitter(usuario, tituloTwitter, resultado.Enlace, imagen.Trim)
+                        Twitter(usuario, tituloTwitter, enlaceFinal, imagen.Trim)
+                    End If
+                End If
+
+                Dim frame As Frame = Window.Current.Content
+                Dim pagina As Page = frame.Content
+
+                Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+
+                If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
+                    If Not wv.DocumentTitle.Contains("Error") Then
+                        Dim tituloHtml As String = "document.getElementById('headline').value = '" + titulo.Trim + "'"
+                        Await wv.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
+
+                        Dim enlaceHtml As String = "document.getElementById('body').value = '" + enlaceFinal + "'"
+                        Await wv.InvokeScriptAsync("eval", New List(Of String) From {enlaceHtml})
+
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
                     End If
                 End If
             End If
@@ -1431,16 +1521,6 @@ Module Editor
                     Dim ficheroDescargado As IStorageFile = descarga.ResultFile
                     If Not ficheroDescargado Is Nothing Then
                         stream = Await ficheroDescargado.OpenAsync(FileAccessMode.Read)
-                    End If
-                End If
-
-                Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
-
-                If Not htmlAcortador = String.Empty Then
-                    Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
-
-                    If Not acortador Is Nothing Then
-                        enlace = acortador.EnlaceAcortado
                     End If
                 End If
 

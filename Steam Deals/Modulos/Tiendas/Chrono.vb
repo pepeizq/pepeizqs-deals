@@ -39,8 +39,6 @@ Module Chrono
                 Dim titulo As String = juegoChrono.Titulo.Trim
                 titulo = WebUtility.HtmlDecode(titulo)
 
-                Dim imagenes As New JuegoImagenes(juegoChrono.Imagen, Nothing)
-
                 Dim enlace As String = juegoChrono.Enlace
 
                 Dim listaEnlaces As New List(Of String) From {
@@ -54,6 +52,23 @@ Module Chrono
                 }
 
                 Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+
+                Dim imagen As String = Nothing
+
+                Dim drm As String = Nothing
+
+                If Not juegoChrono.DRM Is Nothing Then
+                    If juegoChrono.DRM(0).Tipo = "steam_app" Then
+                        imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
+                        drm = "steam"
+                    End If
+                End If
+
+                If imagen = Nothing Then
+                    imagen = juegoChrono.Imagen
+                End If
+
+                Dim imagenes As New JuegoImagenes(imagen, Nothing)
 
                 Dim descuento As String = juegoChrono.Descuento
 
@@ -75,7 +90,7 @@ Module Chrono
 
                 Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Chrono", Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Chrono", Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
                 Dim tituloBool As Boolean = False
                 Dim k As Integer = 0
@@ -136,5 +151,18 @@ Public Class ChronoJuego
 
     <JsonProperty("sale_price")>
     Public Precio As String
+
+    <JsonProperty("items")>
+    Public DRM As List(Of ChronoJuegoDRM)
+
+End Class
+
+Public Class ChronoJuegoDRM
+
+    <JsonProperty("type")>
+    Public Tipo As String
+
+    <JsonProperty("id")>
+    Public ID As String
 
 End Class

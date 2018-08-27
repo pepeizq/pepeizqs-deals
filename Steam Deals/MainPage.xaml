@@ -351,26 +351,36 @@
                             </Grid>
 
                             <Grid x:Name="gridEditorpepeizqdealsCuentas" Visibility="Collapsed">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="REST API"/>
-                                    <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
-                                        <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="tbEditorUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
-                                        <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                        <PasswordBox x:Name="tbEditorContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
-                                    </StackPanel>
-                                    <TextBlock Text="Twitter"/>
-                                    <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
-                                        <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushSecundario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                            <Button.Content>
-                                                <TextBlock x:Uid="Login" Foreground="White"/>
-                                            </Button.Content>
-                                        </Button>
+                                <ScrollViewer>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="REST API"/>
+                                        <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
+                                            <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="tbEditorUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
+                                            <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                                            <PasswordBox x:Name="tbEditorContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
+                                        </StackPanel>
+                                        <TextBlock Text="Twitter"/>
+                                        <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
+                                            <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushSecundario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                                <Button.Content>
+                                                    <TextBlock x:Uid="Login" Foreground="White"/>
+                                                </Button.Content>
+                                            </Button>
 
-                                        <controls:ImageEx x:Name="imagenEditorTwitterpepeizqdeals" Width="32" Height="32" IsCacheEnabled="True" Margin="20,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorTwitterpepeizqdeals" VerticalAlignment="Center"/>
+                                            <controls:ImageEx x:Name="imagenEditorTwitterpepeizqdeals" Width="32" Height="32" IsCacheEnabled="True" Margin="20,0,10,0"/>
+                                            <TextBlock x:Name="tbEditorTwitterpepeizqdeals" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <TextBlock Text="Steam"/>
+                                        <StackPanel Orientation="Horizontal" Padding="0,10,0,10">
+                                            <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="tbEditorUsuariopepeizqdealsSteam" Margin="10,0" MinWidth="150"/>
+                                            <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                                            <PasswordBox x:Name="tbEditorContraseñapepeizqdealsSteam" Margin="10,0" MinWidth="150"/>
+                                        </StackPanel>
+                                        <WebView x:Name="wvEditorSteampepeizqdeals" Margin="0,0,0,30" MinWidth="700" MinHeight="700"/>
                                     </StackPanel>
-                                </StackPanel>
+                                </ScrollViewer>
                             </Grid>
 
                             <Grid x:Name="gridEditorpepeizqdealsIconos" Visibility="Collapsed">

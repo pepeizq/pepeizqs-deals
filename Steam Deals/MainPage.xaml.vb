@@ -196,12 +196,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    'Private Sub ToggleConfigDivisas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigDivisas.Click
-
-    '    Configuracion.DivisaActualizar(toggleConfigDivisas.IsChecked)
-
-    'End Sub
-
     'Private Sub ToggleConfigSteamMas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigSteamMas.Click
 
     '    Configuracion.SteamMasActivar(toggleConfigSteamMas.IsChecked)
@@ -213,8 +207,10 @@ Public NotInheritable Class MainPage
 
     Private Sub CbEditorWebs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorWebs.SelectionChanged
 
-        Dim lv As ListView = gridEditor.Tag
-        Editor.Generar(lv)
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            Dim lv As ListView = gridEditor.Tag
+            Editor.Generar(lv)
+        End If
 
     End Sub
 
@@ -404,4 +400,21 @@ Public NotInheritable Class MainPage
         Editor.Twitter(Nothing, Nothing, Nothing, Nothing)
 
     End Sub
+
+    Private Sub TbEditorUsuariopepeizqdealsSteam_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsSteam.TextChanged
+
+        If tbEditorUsuariopepeizqdealsSteam.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") = tbEditorUsuariopepeizqdealsSteam.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorContraseñapepeizqdealsSteam_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsSteam.PasswordChanged
+
+        If tbEditorContraseñapepeizqdealsSteam.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") = tbEditorContraseñapepeizqdealsSteam.Password.Trim
+        End If
+
+    End Sub
+
 End Class
