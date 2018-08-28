@@ -37,7 +37,7 @@ Module Analisis
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-        Dim numPaginas As Integer = Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
+        Dim numPaginas As Integer = pepeizq.Tiendas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
         Dim i As Integer = 1
         While i < numPaginas
@@ -234,7 +234,7 @@ Module Analisis
         Return analisis
     End Function
 
-    Public Function LimpiarTitulo(titulo As String)
+    Private Function LimpiarTitulo(titulo As String)
 
         titulo = titulo.Trim
 

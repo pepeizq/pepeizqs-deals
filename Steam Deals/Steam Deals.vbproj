@@ -108,8 +108,12 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Clases\EditorPaquete.vb" />
-    <Compile Include="Clases\EditorPost.vb" />
+    <Compile Include="Clases\Editor\EditorPaquete.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\Bundles.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\Deals.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\IconoTienda.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\Post.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\Free.vb" />
     <Compile Include="Clases\Juego.vb" />
     <Compile Include="Clases\JuegoAnalisis.vb" />
     <Compile Include="Clases\JuegoDesarrolladores.vb" />
@@ -121,6 +125,18 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modulos\Configuracion.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Bundles.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Free.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Grid.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Iconos.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Post.vb" />
+    <Compile Include="Modulos\Editor\ImagenFichero.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Steam.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Twitter.vb" />
+    <Compile Include="Modulos\Editor\Reddit.vb" />
+    <Compile Include="Modulos\Editor\VayaAnsias.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor.vb" />

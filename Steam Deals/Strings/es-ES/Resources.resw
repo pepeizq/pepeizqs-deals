@@ -249,6 +249,12 @@
   <data name="Password.Text" xml:space="preserve">
     <value>Contraseña</value>
   </data>
+  <data name="pepeizqdeals.Text" xml:space="preserve">
+    <value>O si buscar un juego en particular entra en esta web que he creado</value>
+  </data>
+  <data name="pepeizqdealsOpen.Text" xml:space="preserve">
+    <value>Abrir pepeizqdeals.com</value>
+  </data>
   <data name="Rating.Text" xml:space="preserve">
     <value>Valoración</value>
   </data>
@@ -276,8 +282,8 @@
   <data name="SelectClear2" xml:space="preserve">
     <value>Limpiar Selección</value>
   </data>
-  <data name="SelectStore.Text" xml:space="preserve">
-    <value>Selecciona una tienda</value>
+  <data name="SelectStore2.Text" xml:space="preserve">
+    <value>Selecciona una tienda para mirar las ofertas disponibles</value>
   </data>
   <data name="Stores.Text" xml:space="preserve">
     <value>Tiendas</value>

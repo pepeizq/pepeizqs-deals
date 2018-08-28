@@ -253,7 +253,7 @@ Module Ordenar
                         If tienda = "Steam" Then
                             If ApplicationData.Current.LocalSettings.Values("steam+") = True Then
                                 If juegoGrid.Promocion = Nothing Then
-                                    juegoGrid = Await Steam.SteamMas(juegoGrid)
+                                    juegoGrid = Await pepeizq.Tiendas.Steam.SteamMas(juegoGrid)
                                 End If
                             End If
                         End If

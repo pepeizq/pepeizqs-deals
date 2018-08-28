@@ -374,29 +374,29 @@ Module Interfaz
             'tbMostradas.Text = String.Empty
 
             If tienda.NombreUsar = steamT.NombreUsar Then
-                Steam.GenerarOfertas()
+                pepeizq.Tiendas.Steam.GenerarOfertas()
             ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-                GamersGate.GenerarOfertas()
+                pepeizq.Tiendas.GamersGate.GenerarOfertas()
             ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
-                Humble.GenerarOfertas()
+                pepeizq.Tiendas.Humble.GenerarOfertas()
             ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
-                GamesPlanet.GenerarOfertas()
+                pepeizq.Tiendas.GamesPlanet.GenerarOfertas()
             ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
-                Fanatical.GenerarOfertas()
+                pepeizq.Tiendas.Fanatical.GenerarOfertas()
             ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                GOG.GenerarOfertas()
+                pepeizq.Tiendas.GOG.GenerarOfertas()
             ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
-                WinGameStore.GenerarOfertas()
+                pepeizq.Tiendas.WinGameStore.GenerarOfertas()
             ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
-                SilaGames.GenerarOfertas()
+                pepeizq.Tiendas.SilaGames.GenerarOfertas()
             ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
-                Nuuvem.GenerarOfertas()
+                pepeizq.Tiendas.Nuuvem.GenerarOfertas()
             ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
-                MicrosoftStore.GenerarOfertas()
+                pepeizq.Tiendas.MicrosoftStore.GenerarOfertas()
             ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                Chrono.GenerarOfertas()
+                pepeizq.Tiendas.Chrono.GenerarOfertas()
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                AmazonEs.GenerarOfertas()
+                pepeizq.Tiendas.AmazonEs.GenerarOfertas()
             End If
         Else
             itemTiendas.IsEnabled = True

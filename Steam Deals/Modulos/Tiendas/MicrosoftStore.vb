@@ -1,213 +1,215 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 
-Module MicrosoftStore
+Namespace pepeizq.Tiendas
+    Module MicrosoftStore
 
-    Dim WithEvents Bw As New BackgroundWorker
-    Dim listaJuegos As New List(Of Juego)
-    Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim WithEvents Bw As New BackgroundWorker
+        Dim listaJuegos As New List(Of Juego)
+        Dim listaAnalisis As New List(Of JuegoAnalisis)
 
-    Public Async Sub GenerarOfertas()
+        Public Async Sub GenerarOfertas()
 
-        Dim helper As New LocalObjectStorageHelper
+            Dim helper As New LocalObjectStorageHelper
 
-        If Await helper.FileExistsAsync("listaAnalisis") Then
-            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
-        End If
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-        tb.Text = "0%"
-
-        listaJuegos.Clear()
-
-        Bw.WorkerReportsProgress = True
-        Bw.WorkerSupportsCancellation = True
-
-        If Bw.IsBusy = False Then
-            Bw.RunWorkerAsync()
-        End If
-
-    End Sub
-
-    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-        Dim i As Integer = 0
-        While i < 5000
-            Dim pagina As Integer = i
-
-            If Not pagina = 0 Then
-                pagina = pagina * 90
+            If Await helper.FileExistsAsync("listaAnalisis") Then
+                listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
             End If
 
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.microsoft.com/es-es/store/top-paid/games/pc?s=store&skipitems=" + pagina.ToString))
-            Dim html As String = html_.Result
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
 
-            If Not html = Nothing Then
-                If html.Contains("No se encontraron resultados.</p>") Then
-                    Exit While
+            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+            tb.Text = "0%"
+
+            listaJuegos.Clear()
+
+            Bw.WorkerReportsProgress = True
+            Bw.WorkerSupportsCancellation = True
+
+            If Bw.IsBusy = False Then
+                Bw.RunWorkerAsync()
+            End If
+
+        End Sub
+
+        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+
+            Dim i As Integer = 0
+            While i < 5000
+                Dim pagina As Integer = i
+
+                If Not pagina = 0 Then
+                    pagina = pagina * 90
                 End If
 
-                If html.Contains("<section") Then
-                    Dim j As Integer = 0
-                    While j < 90
-                        If html.Contains("<section") Then
-                            Dim temp, temp2 As String
-                            Dim int, int2 As Integer
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.microsoft.com/es-es/store/top-paid/games/pc?s=store&skipitems=" + pagina.ToString))
+                Dim html As String = html_.Result
 
-                            int = html.IndexOf("<section")
-                            temp = html.Remove(0, int + 5)
+                If Not html = Nothing Then
+                    If html.Contains("No se encontraron resultados.</p>") Then
+                        Exit While
+                    End If
 
-                            html = temp
+                    If html.Contains("<section") Then
+                        Dim j As Integer = 0
+                        While j < 90
+                            If html.Contains("<section") Then
+                                Dim temp, temp2 As String
+                                Dim int, int2 As Integer
 
-                            int2 = temp.IndexOf("</section>")
-                            temp2 = temp.Remove(int2, temp.Length - int2)
+                                int = html.IndexOf("<section")
+                                temp = html.Remove(0, int + 5)
 
-                            If temp2.Contains("<s aria-label=") Then
-                                Dim temp3, temp4 As String
-                                Dim int3, int4 As Integer
+                                html = temp
 
-                                int3 = temp2.IndexOf("<h3 class=" + ChrW(34) + "c-heading")
-                                temp3 = temp2.Remove(0, int3)
+                                int2 = temp.IndexOf("</section>")
+                                temp2 = temp.Remove(int2, temp.Length - int2)
 
-                                int3 = temp3.IndexOf(">")
-                                temp3 = temp3.Remove(0, int3 + 1)
+                                If temp2.Contains("<s aria-label=") Then
+                                    Dim temp3, temp4 As String
+                                    Dim int3, int4 As Integer
 
-                                int4 = temp3.IndexOf("</h3>")
-                                temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                    int3 = temp2.IndexOf("<h3 class=" + ChrW(34) + "c-heading")
+                                    temp3 = temp2.Remove(0, int3)
 
-                                temp4 = temp4.Trim
-                                temp4 = WebUtility.HtmlDecode(temp4)
+                                    int3 = temp3.IndexOf(">")
+                                    temp3 = temp3.Remove(0, int3 + 1)
 
-                                Dim titulo As String = temp4
+                                    int4 = temp3.IndexOf("</h3>")
+                                    temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                Dim temp5, temp6 As String
-                                Dim int5, int6 As Integer
+                                    temp4 = temp4.Trim
+                                    temp4 = WebUtility.HtmlDecode(temp4)
 
-                                int5 = temp2.IndexOf("<a href=")
-                                temp5 = temp2.Remove(0, int5 + 9)
+                                    Dim titulo As String = temp4
 
-                                int6 = temp5.IndexOf(ChrW(34))
-                                temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                    Dim temp5, temp6 As String
+                                    Dim int5, int6 As Integer
 
-                                If Not temp6.Contains("https://www.microsoft.com") Then
-                                    temp6 = "https://www.microsoft.com" + temp6
-                                End If
+                                    int5 = temp2.IndexOf("<a href=")
+                                    temp5 = temp2.Remove(0, int5 + 9)
 
-                                Dim enlace As String = temp6.Trim
+                                    int6 = temp5.IndexOf(ChrW(34))
+                                    temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                Dim temp7, temp8 As String
-                                Dim int7, int8 As Integer
+                                    If Not temp6.Contains("https://www.microsoft.com") Then
+                                        temp6 = "https://www.microsoft.com" + temp6
+                                    End If
 
-                                int7 = temp2.IndexOf("<img")
-                                temp7 = temp2.Remove(0, int7)
+                                    Dim enlace As String = temp6.Trim
 
-                                int7 = temp7.IndexOf("data-src=")
-                                temp7 = temp7.Remove(0, int7 + 10)
+                                    Dim temp7, temp8 As String
+                                    Dim int7, int8 As Integer
 
-                                int8 = temp7.IndexOf(ChrW(34))
-                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+                                    int7 = temp2.IndexOf("<img")
+                                    temp7 = temp2.Remove(0, int7)
 
-                                If temp8.Contains("?") Then
-                                    int8 = temp8.IndexOf("?")
-                                    temp8 = temp8.Remove(int8, temp8.Length - int8)
-                                End If
+                                    int7 = temp7.IndexOf("data-src=")
+                                    temp7 = temp7.Remove(0, int7 + 10)
 
-                                Dim imagenPequeña As String = temp8.Trim
+                                    int8 = temp7.IndexOf(ChrW(34))
+                                    temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
+                                    If temp8.Contains("?") Then
+                                        int8 = temp8.IndexOf("?")
+                                        temp8 = temp8.Remove(int8, temp8.Length - int8)
+                                    End If
 
-                                Dim temp9, temp10 As String
-                                Dim int9, int10 As Integer
+                                    Dim imagenPequeña As String = temp8.Trim
 
-                                int9 = temp2.IndexOf("<span itemprop=" + ChrW(34) + "price")
-                                temp9 = temp2.Remove(0, int9)
+                                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
-                                int9 = temp9.IndexOf(">")
-                                temp9 = temp9.Remove(0, int9 + 1)
+                                    Dim temp9, temp10 As String
+                                    Dim int9, int10 As Integer
 
-                                int10 = temp9.IndexOf("</span>")
-                                temp10 = temp9.Remove(int10, temp9.Length - int10)
+                                    int9 = temp2.IndexOf("<span itemprop=" + ChrW(34) + "price")
+                                    temp9 = temp2.Remove(0, int9)
 
-                                Dim precio As String = temp10.Trim
+                                    int9 = temp9.IndexOf(">")
+                                    temp9 = temp9.Remove(0, int9 + 1)
 
-                                Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
+                                    int10 = temp9.IndexOf("</span>")
+                                    temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                                Dim listaPrecios As New List(Of String) From {
-                                    precio
-                                }
+                                    Dim precio As String = temp10.Trim
 
-                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+                                    Dim listaEnlaces As New List(Of String) From {
+                                        enlace
+                                    }
 
-                                Dim temp11, temp12 As String
-                                Dim int11, int12 As Integer
+                                    Dim listaPrecios As New List(Of String) From {
+                                        precio
+                                    }
 
-                                int11 = temp2.IndexOf("<s aria-label=")
-                                temp11 = temp2.Remove(0, int11)
+                                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
-                                int11 = temp11.IndexOf(">")
-                                temp11 = temp11.Remove(0, int11 + 1)
+                                    Dim temp11, temp12 As String
+                                    Dim int11, int12 As Integer
 
-                                int12 = temp11.IndexOf("</s>")
-                                temp12 = temp11.Remove(int12, temp11.Length - int12)
+                                    int11 = temp2.IndexOf("<s aria-label=")
+                                    temp11 = temp2.Remove(0, int11)
 
-                                Dim descuento As String = Calculadora.GenerarDescuento(temp12.Trim, precio)
+                                    int11 = temp11.IndexOf(">")
+                                    temp11 = temp11.Remove(0, int11 + 1)
 
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                    int12 = temp11.IndexOf("</s>")
+                                    temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Microsoft Store", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim descuento As String = Calculadora.GenerarDescuento(temp12.Trim, precio)
 
-                                Dim tituloBool As Boolean = False
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+
+                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Microsoft Store", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+
+                                    Dim tituloBool As Boolean = False
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Titulo = juego.Titulo Then
+                                            tituloBool = True
+                                        End If
+                                        k += 1
+                                    End While
+
+                                    If juego.Descuento = Nothing Then
                                         tituloBool = True
                                     End If
-                                    k += 1
-                                End While
 
-                                If juego.Descuento = Nothing Then
-                                    tituloBool = True
-                                End If
-
-                                If tituloBool = False Then
-                                    listaJuegos.Add(juego)
+                                    If tituloBool = False Then
+                                        listaJuegos.Add(juego)
+                                    End If
                                 End If
                             End If
-                        End If
-                        j += 1
-                    End While
+                            j += 1
+                        End While
+                    End If
                 End If
-            End If
 
-            Bw.ReportProgress(i.ToString)
-            i += 1
-        End While
+                Bw.ReportProgress(i.ToString)
+                i += 1
+            End While
 
-    End Sub
+        End Sub
 
-    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
+        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
 
-        Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-        tb.Text = e.ProgressPercentage.ToString
+            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+            tb.Text = e.ProgressPercentage.ToString
 
-    End Sub
+        End Sub
 
-    Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
-        Dim helper As New LocalObjectStorageHelper
-        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasMicrosoftStore", listaJuegos)
+            Dim helper As New LocalObjectStorageHelper
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasMicrosoftStore", listaJuegos)
 
-        Ordenar.Ofertas("MicrosoftStore", True, False)
+            Ordenar.Ofertas("MicrosoftStore", True, False)
 
-    End Sub
+        End Sub
 
-End Module
+    End Module
+End Namespace
+

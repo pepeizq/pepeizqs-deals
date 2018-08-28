@@ -51,11 +51,11 @@ Public NotInheritable Class MainPage
                         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                             itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
                             itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
-                        End If
 
-                        Dim lv As ListView = grid.Children(0)
-                        gridEditor.Tag = lv
-                        Editor.Generar(lv)
+                            Dim lv As ListView = grid.Children(0)
+                            gridEditor.Tag = lv
+                            Editor.Generar(lv)
+                        End If
                     End If
 
                     grid.Visibility = Visibility.Collapsed
@@ -179,6 +179,12 @@ Public NotInheritable Class MainPage
     Private Sub UsuarioSaleBoton(sender As Object, e As PointerRoutedEventArgs)
 
         Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
+
+    End Sub
+
+    Private Async Sub BotonAbrirpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonAbrirpepeizqdeals.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/"))
 
     End Sub
 
@@ -320,43 +326,43 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridDeals.Click
 
-        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridBundles.Click
 
-        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridBundles, gridEditorpepeizqdealsBundles)
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridBundles, gridEditorpepeizqdealsBundles)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridFree_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridFree.Click
 
-        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridFree, gridEditorpepeizqdealsFree)
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridFree, gridEditorpepeizqdealsFree)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridSubscriptions.Click
 
-        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridSubscriptions, gridEditorpepeizqdealsSubscriptions)
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridSubscriptions, gridEditorpepeizqdealsSubscriptions)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridCuentas_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCuentas.Click
 
-        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridIconos.Click
 
-        Editor.MostrarGridpepeizqdeals(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
 
-        Editor.GenerarIconos()
+        pepeizq.Editor.pepeizqdeals.Iconos.Generar()
 
     End Sub
 
@@ -390,14 +396,14 @@ Public NotInheritable Class MainPage
         Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
         If Not ficheroResultado Is Nothing Then
-            Await GenerarImagen(ficheroResultado, gvFinal, gvFinal.ActualWidth, gvFinal.ActualHeight, 0)
+            Await pepeizq.Editor.ImagenFichero.Generar(ficheroResultado, gvFinal, gvFinal.ActualWidth, gvFinal.ActualHeight, 0)
         End If
 
     End Sub
 
     Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
-        Editor.Twitter(Nothing, Nothing, Nothing, Nothing)
+        pepeizq.Editor.pepeizqdeals.Twitter.Enviar(Nothing, Nothing, Nothing, Nothing)
 
     End Sub
 
