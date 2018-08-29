@@ -18,7 +18,8 @@ Module Interfaz
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8)
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
     Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10)
-    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 11)
+    Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11)
+    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 12)
 
     Public Sub Generar()
 
@@ -52,6 +53,7 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(nuuvemT))
         gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
         gvTiendas.Items.Add(AñadirBotonTienda(chronoT))
+        gvTiendas.Items.Add(AñadirBotonTienda(voiduT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
@@ -70,6 +72,7 @@ Module Interfaz
         menuTiendas.Items.Add(AñadirMenuTienda(nuuvemT))
         menuTiendas.Items.Add(AñadirMenuTienda(microsoftstoreT))
         menuTiendas.Items.Add(AñadirMenuTienda(chronoT))
+        menuTiendas.Items.Add(AñadirMenuTienda(voiduT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
@@ -88,6 +91,7 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(nuuvemT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(microsoftstoreT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(chronoT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(voiduT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
@@ -395,6 +399,8 @@ Module Interfaz
                 pepeizq.Tiendas.MicrosoftStore.GenerarOfertas()
             ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
                 pepeizq.Tiendas.Chrono.GenerarOfertas()
+            ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
+                pepeizq.Tiendas.Voidu.GenerarOfertas()
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 pepeizq.Tiendas.AmazonEs.GenerarOfertas()
             End If

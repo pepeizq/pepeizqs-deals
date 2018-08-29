@@ -42,6 +42,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsFree")
             tbImagen.IsEnabled = False
 
+            Dim boton As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
+            boton.IsEnabled = False
+
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Free = Nothing
                 Dim enlace As String = tbEnlace.Text.Trim
@@ -65,6 +68,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbEnlace.IsEnabled = True
             tbTitulo.IsEnabled = True
             tbImagen.IsEnabled = True
+            boton.IsEnabled = True
 
         End Sub
 
@@ -86,7 +90,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbImagen.IsEnabled = False
 
             Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
-                              tbEnlace.Text, tbImagen.Text, " ", 0)
+                              tbEnlace.Text, tbImagen.Text, " ", " ", 0)
 
             tbEnlace.IsEnabled = True
             tbTitulo.IsEnabled = True

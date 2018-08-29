@@ -187,6 +187,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If listaFinal(0).Tienda = "GamersGate" Then
                     gvImagenVertical.Visibility = Visibility.Collapsed
                     gvImagenHorizontal.Visibility = Visibility.Visible
+                ElseIf listaFinal(0).Tienda = "Voidu" Then
+                    gvImagenVertical.Visibility = Visibility.Collapsed
+                    gvImagenHorizontal.Visibility = Visibility.Visible
                 Else
                     gvImagenVertical.Visibility = Visibility.Visible
                     gvImagenHorizontal.Visibility = Visibility.Collapsed
@@ -207,6 +210,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         If listaFinal(0).Tienda = "GamersGate" Then
+                            imagenJuego.MaxWidth = 130
+
+                            If Not imagenJuego.Source Is Nothing Then
+                                gvImagenHorizontal.Items.Add(imagenJuego)
+                            End If
+                        ElseIf listaFinal(0).Tienda = "Voidu" Then
                             imagenJuego.MaxWidth = 130
 
                             If Not imagenJuego.Source Is Nothing Then
@@ -273,7 +282,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<td>Image</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "max-width: 300px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=1 perpage=25]</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
@@ -516,6 +525,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cosas.Tienda = "Microsoft Store" Then
                 listaEtiquetas.Add(16)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png"
+            ElseIf cosas.Tienda = "Sila Games" Then
+                listaEtiquetas.Add(17)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png"
+            ElseIf cosas.Tienda = "Voidu" Then
+                listaEtiquetas.Add(18)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png"
             End If
 
             precioFinal = precioFinal.Replace(",", ".")
@@ -548,8 +563,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tituloComplemento = tbTituloComplemento.Text.Trim
             End If
 
+            Dim iconoReview As String = String.Empty
+
+            If cosas.ListaJuegos.Count = 1 Then
+                If Not cosas.ListaJuegos(0).Analisis Is Nothing Then
+                    If cosas.ListaJuegos(0).Analisis.Porcentaje > 74 Then
+                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_positive.png"
+                    ElseIf cosas.ListaJuegos(0).Analisis.Porcentaje > 49 And cosas.ListaJuegos(0).Analisis.Porcentaje < 75 Then
+                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_mixed.png"
+                    ElseIf cosas.ListaJuegos(0).Analisis.Porcentaje < 50 Then
+                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_negative.png"
+                    End If
+                End If
+            End If
+
             Await Post.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
-                              redireccion, imagenPost, tituloComplemento, 0)
+                              redireccion, imagenPost, tituloComplemento, iconoReview, 0)
 
             tbTitulo.IsEnabled = True
             tbEnlace.IsEnabled = True

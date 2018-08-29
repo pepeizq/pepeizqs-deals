@@ -9,7 +9,7 @@ Namespace pepeizq.Editor.pepeizqdeals
     Module Post
 
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer), descuento As String, precio As String, iconoTienda As String,
-                                     redireccion As String, imagen As String, tituloComplemento As String, estado As Integer) As Task
+                                     redireccion As String, imagen As String, tituloComplemento As String, iconoReview As String, estado As Integer) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -83,6 +83,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
+                    End If
+                End If
+
+                If Not iconoReview = Nothing Then
+                    If iconoReview.Trim.Length > 0 Then
+                        iconoReview = "<img src=" + ChrW(34) + iconoReview.Trim + ChrW(34) + " />"
+                        postEditor.IconoReview = iconoReview
                     End If
                 End If
 

@@ -53,12 +53,12 @@ Namespace pepeizq.Tiendas
                         Dim enlaceUK As String = "https://uk." + enlace.Remove(0, intEnlace)
 
                         Dim listaEnlaces As New List(Of String) From {
-                        enlaceEU, enlaceUK
-                    }
+                            enlaceEU, enlaceUK
+                        }
 
                         Dim listaPaises As New List(Of String) From {
-                        "EU", "UK"
-                    }
+                            "EU", "UK"
+                        }
 
                         Dim imagenPequeña As String = juego.ImagenPequeña
                         Dim imagenGrande As String = juego.ImagenGrande
@@ -87,12 +87,12 @@ Namespace pepeizq.Tiendas
                         Next
 
                         Dim listaAfiliados As New List(Of String) From {
-                        enlace + "?caff=2385601", enlaceUK + "?caff=2385601"
-                    }
+                            enlace + "?caff=2385601", enlaceUK + "?caff=2385601"
+                        }
 
                         Dim listaPrecios As New List(Of String) From {
-                        precio, precioUK
-                    }
+                            precio, precioUK
+                        }
 
                         Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
 

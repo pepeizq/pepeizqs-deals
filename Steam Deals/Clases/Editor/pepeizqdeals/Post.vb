@@ -80,5 +80,8 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("title2")>
         Public TituloComplemento As String
 
+        <JsonProperty("review")>
+        Public IconoReview As String
+
     End Class
 End Namespace

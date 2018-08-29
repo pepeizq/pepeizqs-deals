@@ -362,7 +362,8 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
 
-        pepeizq.Editor.pepeizqdeals.Iconos.Generar()
+        pepeizq.Editor.pepeizqdeals.Iconos.GenerarTiendas()
+        pepeizq.Editor.pepeizqdeals.Iconos.GenerarReviews()
 
     End Sub
 

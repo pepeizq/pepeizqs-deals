@@ -139,17 +139,17 @@
 
                     <Grid x:Name="gridSeleccionarOfertasTiendas">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition x:Name="columnapepeizqdeals" Width="*"/>
                         </Grid.ColumnDefinitions>
                         
                         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock x:Uid="SelectStore2" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,50"/>
+                            <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,10"/>
                         </StackPanel>
 
                         <StackPanel x:Name="spPresentacionpepeizqdeals" Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock x:Uid="pepeizqdeals" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+                            <TextBlock x:Uid="pepeizqdeals" Margin="10,0,10,20" HorizontalAlignment="Center" TextWrapping="Wrap"/>
                             <Button x:Name="botonAbrirpepeizqdeals" Background="{StaticResource BrushSecundario}" Padding="15,10" HorizontalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
@@ -440,6 +440,8 @@
                                         </Button>
 
                                         <GridView x:Name="gvEditorpepeizqdealsIconosTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+
+                                        <GridView x:Name="gvEditorpepeizqdealsIconosReviews" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid> 
