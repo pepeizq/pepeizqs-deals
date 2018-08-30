@@ -1,5 +1,4 @@
-﻿Imports Windows.UI.Core
-Imports Windows.Web.Http
+﻿Imports Windows.Web.Http
 
 Module Decompiladores
 
@@ -8,7 +7,7 @@ Module Decompiladores
         Dim httpFinal As String = Nothing
 
         Dim cliente As New HttpClient()
-        cliente.DefaultRequestHeaders.Add("user-agent", "Chrome/45.0.2454.93")
+        cliente.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 5.1; rv:7.0.1) Gecko/20100101 Firefox/7.0.1")
 
         Try
             Dim respuesta As New HttpResponseMessage

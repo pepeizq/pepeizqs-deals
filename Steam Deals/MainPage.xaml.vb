@@ -69,10 +69,85 @@ Public NotInheritable Class MainPage
 
                         For Each itemlv In lv.Items
                             Dim itemGrid As Grid = itemlv
-                            Dim sp As StackPanel = itemGrid.Children(0)
-                            Dim cb As CheckBox = sp.Children(0)
 
-                            cb.IsChecked = True
+                            If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
+                                If ApplicationData.Current.LocalSettings.Values("filtrado") = 0 Then
+                                    Dim sp As StackPanel = itemGrid.Children(0)
+                                    Dim cb As CheckBox = sp.Children(0)
+
+                                    cb.IsChecked = True
+                                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 1 Then
+                                    If TypeOf itemGrid.Tag Is Juego Then
+                                        Dim juego As Juego = itemGrid.Tag
+
+                                        If Not juego.Analisis Is Nothing Then
+                                            If juego.Analisis.Porcentaje > 49 Then
+                                                Dim sp As StackPanel = itemGrid.Children(0)
+                                                Dim cb As CheckBox = sp.Children(0)
+
+                                                cb.IsChecked = True
+                                            End If
+                                        End If
+                                    End If
+                                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 2 Then
+                                    If TypeOf itemGrid.Tag Is Juego Then
+                                        Dim juego As Juego = itemGrid.Tag
+
+                                        If Not juego.Analisis Is Nothing Then
+                                            If juego.Analisis.Porcentaje > 74 Then
+                                                Dim sp As StackPanel = itemGrid.Children(0)
+                                                Dim cb As CheckBox = sp.Children(0)
+
+                                                cb.IsChecked = True
+                                            End If
+                                        End If
+                                    End If
+                                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 3 Then
+                                    If TypeOf itemGrid.Tag Is Juego Then
+                                        Dim juego As Juego = itemGrid.Tag
+
+                                        If Not juego.Analisis Is Nothing Then
+                                            If juego.Analisis.Porcentaje > 79 Then
+                                                Dim sp As StackPanel = itemGrid.Children(0)
+                                                Dim cb As CheckBox = sp.Children(0)
+
+                                                cb.IsChecked = True
+                                            End If
+                                        End If
+                                    End If
+                                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 4 Then
+                                    If TypeOf itemGrid.Tag Is Juego Then
+                                        Dim juego As Juego = itemGrid.Tag
+
+                                        If Not juego.Analisis Is Nothing Then
+                                            If juego.Analisis.Porcentaje > 84 Then
+                                                Dim sp As StackPanel = itemGrid.Children(0)
+                                                Dim cb As CheckBox = sp.Children(0)
+
+                                                cb.IsChecked = True
+                                            End If
+                                        End If
+                                    End If
+                                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 5 Then
+                                    If TypeOf itemGrid.Tag Is Juego Then
+                                        Dim juego As Juego = itemGrid.Tag
+
+                                        If Not juego.Analisis Is Nothing Then
+                                            If juego.Analisis.Porcentaje > 89 Then
+                                                Dim sp As StackPanel = itemGrid.Children(0)
+                                                Dim cb As CheckBox = sp.Children(0)
+
+                                                cb.IsChecked = True
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            Else
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
                         Next
                     End If
                 Next
@@ -404,7 +479,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
-        pepeizq.Editor.pepeizqdeals.Twitter.Enviar(Nothing, Nothing, Nothing, Nothing)
+        pepeizq.Editor.pepeizqdeals.Twitter.Enviar(Nothing, Nothing, Nothing)
 
     End Sub
 

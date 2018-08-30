@@ -3,6 +3,28 @@
 Namespace pepeizq.Editor.pepeizqdeals
     Module Steam
 
+        Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+
+            If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
+                If Not wv.DocumentTitle.Contains("Error") Then
+                    Dim tituloHtml As String = "document.getElementById('headline').value = '" + titulo.Trim + "'"
+                    Await wv.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
+
+                    Dim mensajeHtml As String = enlaceFinal
+                    mensajeHtml = "document.getElementById('body').value = '" + mensajeHtml + "'"
+                    Await wv.InvokeScriptAsync("eval", New List(Of String) From {mensajeHtml})
+
+                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
+                End If
+            End If
+
+        End Sub
+
         Public Sub Comprobar()
 
             Dim frame As Frame = Window.Current.Content

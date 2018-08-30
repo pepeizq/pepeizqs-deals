@@ -51,6 +51,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If enlace.Contains("https://store.steampowered.com/") Then
                     cosas = Await Steam(enlace)
+                ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
+                    cosas = Await Humble(enlace)
                 End If
 
                 If Not cosas Is Nothing Then
@@ -156,6 +158,55 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 cosas.Imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + id + "/header.jpg"
+            End If
+
+            Return cosas
+        End Function
+
+        Private Async Function Humble(enlace As String) As Task(Of Clases.Free)
+
+            Dim cosas As New Clases.Free(Nothing, Nothing, "Humble Store")
+
+            Dim html As String = Await HttpClient(New Uri(enlace))
+
+            If Not html = Nothing Then
+                If html.Contains("<meta name=" + ChrW(34) + "twitter:title" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<meta name=" + ChrW(34) + "twitter:title" + ChrW(34))
+                    temp = html.Remove(0, int + 2)
+
+                    int = temp.IndexOf("content=")
+                    temp = temp.Remove(0, int + 9)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Trim
+                    temp2 = temp2.Replace("Get ", Nothing)
+                    temp2 = temp2.Replace(" for free", Nothing)
+
+                    cosas.Titulo = temp2
+                End If
+
+                If html.Contains("<meta name=" + ChrW(34) + "twitter:image" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<meta name=" + ChrW(34) + "twitter:image" + ChrW(34))
+                    temp = html.Remove(0, int + 2)
+
+                    int = temp.IndexOf("content=")
+                    temp = temp.Remove(0, int + 9)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Trim
+
+                    cosas.Imagen = temp2
+                End If
             End If
 
             Return cosas

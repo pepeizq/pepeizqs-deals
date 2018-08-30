@@ -22,6 +22,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.Text = String.Empty
 
+            Dim listaDescuento As New List(Of String)
             Dim listaAnalisis As New List(Of Juego)
 
             If listaFinal.Count = 1 Then
@@ -95,12 +96,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda
             Else
-                tbTitulo.Text = "Sale • Up to " + listaFinal(0).Descuento + " • " + cantidadJuegos + " deals • " + listaFinal(0).Tienda
-                tbEnlace.Text = String.Empty
-
                 For Each item In listaFinal
+                    listaDescuento.Add(item.Descuento)
                     listaAnalisis.Add(item)
                 Next
+
+                listaDescuento.Sort()
+
+                tbTitulo.Text = "Sale • Up to " + listaDescuento(0) + " • " + cantidadJuegos + " deals • " + listaFinal(0).Tienda
+                tbEnlace.Text = String.Empty
 
                 listaAnalisis.Sort(Function(x As Juego, y As Juego)
 
@@ -244,11 +248,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             If listaFinal.Count = 1 Then
                 botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, listaFinal(0).Descuento, listaFinal(0).Enlaces.Precios(0))
             Else
-                botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, "Up to " + listaFinal(0).Descuento, cantidadJuegos + " deals")
+                botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, "Up to " + listaDescuento(0), cantidadJuegos + " deals")
             End If
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
+
+            listaDescuento.Clear()
+            listaAnalisis.Clear()
 
         End Sub
 
@@ -282,14 +289,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "max-width: 300px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+
+                If cosas.Tienda = "GamersGate" Then
+                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+                ElseIf cosas.Tienda = "Voidu" Then
+                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+                Else
+                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+                End If
+
                 contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=1 perpage=25]</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
 
+                Dim listaContenido As New List(Of String)
+
                 For Each juego In cosas.ListaJuegos
+                    Dim contenidoJuego As String = Nothing
                     Dim claveMejorPrecio As Integer = 0
 
                     If cosas.Tienda = "GamersGate" Then
@@ -357,8 +375,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                         imagenFinal = juego.Imagenes.Grande
                     End If
 
-                    contenidoEnlaces = contenidoEnlaces + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + juego.Enlaces.Enlaces(claveMejorPrecio) + "'>" + Environment.NewLine
-                    contenidoEnlaces = contenidoEnlaces + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-juego" + ChrW(34) + " /></td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + juego.Enlaces.Enlaces(claveMejorPrecio) + "'>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-juego" + ChrW(34) + " /></td>" + Environment.NewLine
 
                     Dim drmFinal As String = Nothing
 
@@ -378,8 +396,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                         drmFinal = "<br/>" + drmFinal
                     End If
 
-                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
-                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
 
                     Dim precioFinalJuego As String = juego.Enlaces.Precios(claveMejorPrecio)
                     precioFinalJuego = precioFinalJuego.Replace(",", ".")
@@ -387,7 +405,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     precioFinalJuego = precioFinalJuego.Trim
                     precioFinalJuego = precioFinalJuego + " €"
 
-                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + precioFinalJuego + "</span></td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + precioFinalJuego + "</span></td>" + Environment.NewLine
 
                     If Not juego.Analisis Is Nothing Then
                         Dim contenidoAnalisis As String = Nothing
@@ -400,12 +418,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                             contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
                         End If
 
-                        contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
+                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
                     Else
-                        contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">0</td>" + Environment.NewLine
+                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">0</td>" + Environment.NewLine
                     End If
 
-                    contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "</tr>" + Environment.NewLine
+                    listaContenido.Add(contenidoJuego)
+                Next
+
+                For Each item In listaContenido
+                    contenidoEnlaces = contenidoEnlaces + item
                 Next
 
                 contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
@@ -612,9 +635,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Function LimpiarTitulo(titulo As String)
 
-            titulo = titulo.Replace(ChrW(34), ChrW(39))
-            titulo = titulo.Replace("™", Nothing)
-            titulo = titulo.Replace("®", Nothing)
+            If Not titulo = Nothing Then
+                titulo = titulo.Replace(ChrW(34), ChrW(39))
+                titulo = titulo.Replace("™", Nothing)
+                titulo = titulo.Replace("®", Nothing)
+                titulo = titulo.Replace(">", Nothing)
+                titulo = titulo.Replace("<", Nothing)
+            End If
 
             Return titulo
         End Function

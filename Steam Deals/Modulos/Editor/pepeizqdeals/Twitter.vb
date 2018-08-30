@@ -8,10 +8,22 @@ Imports Windows.Storage.Streams
 Namespace pepeizq.Editor.pepeizqdeals
     Module Twitter
 
-        Public Async Sub Enviar(usuarioRecibido As TwitterUser, mensaje As String, enlace As String, imagen As String)
+        Public Async Sub Enviar(mensaje As String, enlace As String, imagen As String)
 
-            If Not usuarioRecibido Is Nothing Then
-                ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = usuarioRecibido.ScreenName
+            Dim helper As New LocalObjectStorageHelper
+            Dim usuarioGuardado As TwitterUser = Nothing
+
+            If helper.KeyExists("usuarioTwitter") Then
+                usuarioGuardado = helper.Read(Of TwitterUser)("usuarioTwitter")
+            End If
+
+            If Not mensaje = Nothing Then
+                mensaje = mensaje.Trim
+                mensaje = Twitter.ReemplazarTiendaTitulo(mensaje)
+            End If
+
+            If Not usuarioGuardado Is Nothing Then
+                ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = usuarioGuardado.ScreenName
             Else
                 ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = Nothing
             End If
@@ -24,8 +36,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             If estado = True Then
                 Dim usuario As TwitterUser = Nothing
 
-                If Not usuarioRecibido Is Nothing Then
-                    usuario = Await servicio.Provider.GetUserAsync(usuarioRecibido.ScreenName)
+                If Not usuarioGuardado Is Nothing Then
+                    usuario = Await servicio.Provider.GetUserAsync(usuarioGuardado.ScreenName)
 
                     Dim stream As FileRandomAccessStream = Nothing
 
@@ -59,7 +71,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
                     tbUsuario.Text = usuario.ScreenName
 
-                    Dim helper As New LocalObjectStorageHelper
                     helper.Save("usuarioTwitter", usuario)
                 End If
             End If

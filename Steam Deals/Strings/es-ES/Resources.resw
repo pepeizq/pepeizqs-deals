@@ -309,4 +309,7 @@
   <data name="Username.Text" xml:space="preserve">
     <value>Usuario</value>
   </data>
+  <data name="Month.Text" xml:space="preserve">
+    <value>Mes</value>
+  </data>
 </root>

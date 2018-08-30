@@ -29,6 +29,7 @@ Module Editor
                 pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                 pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                 pepeizq.Editor.pepeizqdeals.Free.Cargar()
+                pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
                 pepeizq.Editor.pepeizqdeals.Steam.Comprobar()
             Else
                 gridpepeizq.Visibility = Visibility.Collapsed
@@ -95,6 +96,7 @@ Module Editor
                         pepeizq.Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, cantidadJuegos)
                         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                         pepeizq.Editor.pepeizqdeals.Free.Cargar()
+                        pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
                         pepeizq.Editor.pepeizqdeals.Steam.Comprobar()
 
                     ElseIf cbWebs.SelectedIndex = 1 Then

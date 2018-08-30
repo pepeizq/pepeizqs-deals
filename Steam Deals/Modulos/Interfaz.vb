@@ -19,7 +19,9 @@ Module Interfaz
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
     Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10)
     Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11)
-    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 12)
+    'Dim indiegalaT As New Tienda("Indie Gala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12)
+    'Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
+    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 14)
 
     Public Sub Generar()
 
@@ -54,6 +56,8 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
         gvTiendas.Items.Add(AñadirBotonTienda(chronoT))
         gvTiendas.Items.Add(AñadirBotonTienda(voiduT))
+        'gvTiendas.Items.Add(AñadirBotonTienda(greenmangamingT))
+        'gvTiendas.Items.Add(AñadirBotonTienda(indiegalaT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
@@ -73,6 +77,8 @@ Module Interfaz
         menuTiendas.Items.Add(AñadirMenuTienda(microsoftstoreT))
         menuTiendas.Items.Add(AñadirMenuTienda(chronoT))
         menuTiendas.Items.Add(AñadirMenuTienda(voiduT))
+        'menuTiendas.Items.Add(AñadirMenuTienda(greenmangamingT))
+        'menuTiendas.Items.Add(AñadirMenuTienda(indiegalaT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
@@ -92,6 +98,8 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(microsoftstoreT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(chronoT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(voiduT))
+        'gridOfertasTiendas.Children.Add(AñadirGridTienda(greenmangamingT))
+        'gridOfertasTiendas.Children.Add(AñadirGridTienda(indiegalaT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
@@ -401,6 +409,10 @@ Module Interfaz
                 pepeizq.Tiendas.Chrono.GenerarOfertas()
             ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
                 pepeizq.Tiendas.Voidu.GenerarOfertas()
+                'ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
+                '    pepeizq.Tiendas.GreenManGaming.GenerarOfertas()
+                'ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
+                '    pepeizq.Tiendas.IndieGala.GenerarOfertas()
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 pepeizq.Tiendas.AmazonEs.GenerarOfertas()
             End If

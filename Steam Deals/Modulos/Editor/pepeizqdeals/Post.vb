@@ -1,6 +1,4 @@
-﻿Imports Microsoft.Toolkit.Services.Twitter
-Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Newtonsoft.Json
+﻿Imports Newtonsoft.Json
 Imports Windows.Storage
 Imports Windows.System
 Imports WordPressPCL
@@ -30,12 +28,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not categoria = Nothing Then
                     post.Categories = New Integer() {categoria}
-                End If
-
-                If Not contenido = Nothing Then
-                    If contenido.Trim.Length > 0 Then
-                        post.Content = New Models.Content(contenido.Trim)
-                    End If
                 End If
 
                 Dim postString As String = JsonConvert.SerializeObject(post)
@@ -93,6 +85,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
+                If Not contenido = Nothing Then
+                    If contenido.Trim.Length > 0 Then
+                        postEditor.Contenido = New Models.Content(contenido.Trim)
+                    End If
+                End If
+
                 Dim resultado As Clases.Post = Nothing
 
                 Try
@@ -121,35 +119,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                             enlaceFinal = resultado.Enlace
                         End If
 
-                        Dim helper As New LocalObjectStorageHelper
+                        Try
+                            Steam.Enviar(titulo, enlaceFinal, tituloComplemento)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Steam Error Post", Nothing)
+                        End Try
 
-                        If helper.KeyExists("usuarioTwitter") Then
-                            Dim usuario As TwitterUser = helper.Read(Of TwitterUser)("usuarioTwitter")
-
-                            If Not usuario Is Nothing Then
-                                Dim tituloTwitter As String = titulo.Trim
-                                tituloTwitter = Twitter.ReemplazarTiendaTitulo(tituloTwitter)
-
-                                Twitter.Enviar(usuario, tituloTwitter, enlaceFinal, imagen.Trim)
-                            End If
-                        End If
-
-                        Dim frame As Frame = Window.Current.Content
-                        Dim pagina As Page = frame.Content
-
-                        Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
-
-                        If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
-                            If Not wv.DocumentTitle.Contains("Error") Then
-                                Dim tituloHtml As String = "document.getElementById('headline').value = '" + titulo.Trim + "'"
-                                Await wv.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
-
-                                Dim enlaceHtml As String = "document.getElementById('body').value = '" + enlaceFinal + "'"
-                                Await wv.InvokeScriptAsync("eval", New List(Of String) From {enlaceHtml})
-
-                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
-                            End If
-                        End If
+                        Try
+                            Twitter.Enviar(titulo, enlaceFinal, imagen.Trim)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Twitter Error Post", Nothing)
+                        End Try
                     End If
                 End If
             End If

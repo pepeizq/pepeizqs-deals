@@ -72,6 +72,24 @@ Module Configuracion
 
             columnapepeizqdeals.Width = New GridLength(1, GridUnitType.Auto)
             sppepeizqdeals.Visibility = Visibility.Collapsed
+
+            Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
+            cbFiltrado.Items.Clear()
+
+            cbFiltrado.Items.Add("--")
+            cbFiltrado.Items.Add(">50%")
+            cbFiltrado.Items.Add(">75%")
+            cbFiltrado.Items.Add(">80%")
+            cbFiltrado.Items.Add(">85%")
+            cbFiltrado.Items.Add(">90%")
+
+            If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
+                cbFiltrado.SelectedIndex = ApplicationData.Current.LocalSettings.Values("filtrado")
+            Else
+                cbFiltrado.SelectedIndex = 0
+            End If
+
+            AddHandler cbFiltrado.SelectionChanged, AddressOf FiltradoCambia
         Else
             itemEditor.Visibility = Visibility.Collapsed
             itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
@@ -140,6 +158,14 @@ Module Configuracion
 
         'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
         'toggle.IsChecked = estado
+
+    End Sub
+
+    Private Sub FiltradoCambia(sender As Object, e As SelectionChangedEventArgs)
+
+        Dim cb As ComboBox = sender
+
+        ApplicationData.Current.LocalSettings.Values("filtrado") = cb.SelectedIndex
 
     End Sub
 

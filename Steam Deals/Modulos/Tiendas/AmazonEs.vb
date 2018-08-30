@@ -97,8 +97,14 @@ Namespace pepeizq.Tiendas
                             temp6 = temp5.Remove(int6, temp5.Length - int6)
 
                             temp6 = temp6.Replace("http:", "https:")
+                            temp6 = temp6.Trim
 
-                            Dim enlace As String = temp6.Trim
+                            If temp6.LastIndexOf("/") < temp6.Length Then
+                                Dim intEnlace As Integer = temp6.LastIndexOf("/")
+                                temp6 = temp6.Remove(intEnlace, temp6.Length - intEnlace)
+                            End If
+
+                            Dim enlace As String = temp6
 
                             Dim listaEnlaces As New List(Of String) From {
                                 enlace
