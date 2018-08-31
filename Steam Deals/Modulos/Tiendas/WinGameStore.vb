@@ -50,6 +50,12 @@ Namespace pepeizq.Tiendas
 
                                 Dim enlace As String = juegoWGS.Enlace
 
+                                If enlace = String.Empty Then
+                                    If juegoWGS.Enlace2.Contains("wingamestore.com/") Then
+                                        enlace = juegoWGS.Enlace2
+                                    End If
+                                End If
+
                                 If Not enlace = String.Empty Then
                                     Dim afiliado As String = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + enlace
 
@@ -237,6 +243,9 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("WGSURL")>
         Public Enlace As String
+
+        <JsonProperty("MGSURL")>
+        Public Enlace2 As String
 
         <JsonProperty("Sale")>
         Public PrecioRebajado As String

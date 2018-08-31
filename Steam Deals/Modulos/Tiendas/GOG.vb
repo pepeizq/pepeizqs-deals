@@ -71,22 +71,26 @@ Namespace pepeizq.Tiendas
                             Dim precio As String = juegoGOG.Precio
 
                             Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
+                                enlace
+                            }
 
                             Dim listaAfiliados As New List(Of String) From {
-                                    afiliado
-                                }
+                                afiliado
+                            }
 
                             Dim listaPrecios As New List(Of String) From {
-                                    precio
-                                }
+                                precio
+                            }
 
                             Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
                             Dim descuento As String = juegoGOG.Descuento.Trim + "%"
 
                             If descuento = "0%" Then
+                                descuento = Nothing
+                            End If
+
+                            If titulo.Contains("Soundtrack") Then
                                 descuento = Nothing
                             End If
 

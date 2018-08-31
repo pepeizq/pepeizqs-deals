@@ -82,6 +82,8 @@ Module Configuracion
             cbFiltrado.Items.Add(">80%")
             cbFiltrado.Items.Add(">85%")
             cbFiltrado.Items.Add(">90%")
+            cbFiltrado.Items.Add("+100")
+            cbFiltrado.Items.Add("+1000")
 
             If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
                 cbFiltrado.SelectedIndex = ApplicationData.Current.LocalSettings.Values("filtrado")

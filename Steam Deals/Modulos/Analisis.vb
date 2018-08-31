@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.Storage
 
 Module Analisis
 
@@ -248,32 +249,129 @@ Module Analisis
 
         titulo = WebUtility.HtmlDecode(titulo)
 
-        titulo = titulo.Replace("Early Access", Nothing)
-        titulo = titulo.Replace(" ", Nothing)
-        titulo = titulo.Replace("•", Nothing)
-        titulo = titulo.Replace("?", Nothing)
-        titulo = titulo.Replace("!", Nothing)
-        titulo = titulo.Replace(":", Nothing)
-        titulo = titulo.Replace(".", Nothing)
-        titulo = titulo.Replace("_", Nothing)
-        titulo = titulo.Replace("-", Nothing)
-        titulo = titulo.Replace("–", Nothing)
-        titulo = titulo.Replace(";", Nothing)
-        titulo = titulo.Replace(",", Nothing)
-        titulo = titulo.Replace("™", Nothing)
-        titulo = titulo.Replace("®", Nothing)
-        titulo = titulo.Replace("'", Nothing)
-        titulo = titulo.Replace("(", Nothing)
-        titulo = titulo.Replace(")", Nothing)
-        titulo = titulo.Replace("/", Nothing)
-        titulo = titulo.Replace("\", Nothing)
-        titulo = titulo.Replace("&", Nothing)
-        titulo = titulo.Replace(ChrW(34), Nothing)
+        Dim listaCaracteres As New List(Of String) From {"Early Access", " ", "•", ">", "<", "¿", "?", "!", "¡", ":",
+            ".", "_", "–", "-", ";", ",", "™", "®", "'", "´", "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34),
+            "@", "^", "[", "]", "ª", "«"}
+
+        For Each item In listaCaracteres
+            titulo = titulo.Replace(item, Nothing)
+        Next
 
         titulo = titulo.ToLower
         titulo = titulo.Trim
 
         Return titulo
     End Function
+
+    Public Sub FiltrarSeleccion(itemGrid As Grid)
+
+        If Not itemGrid Is Nothing Then
+            If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
+                If ApplicationData.Current.LocalSettings.Values("filtrado") = 0 Then
+                    Dim sp As StackPanel = itemGrid.Children(0)
+                    Dim cb As CheckBox = sp.Children(0)
+
+                    cb.IsChecked = True
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 1 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Porcentaje > 49 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 2 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Porcentaje > 74 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 3 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Porcentaje > 79 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 4 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Porcentaje > 84 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 5 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Porcentaje > 89 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 6 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Cantidad.Length > 2 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 7 Then
+                    If TypeOf itemGrid.Tag Is Juego Then
+                        Dim juego As Juego = itemGrid.Tag
+
+                        If Not juego.Analisis Is Nothing Then
+                            If juego.Analisis.Cantidad.Length > 4 Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        End If
+                    End If
+                End If
+            Else
+                Dim sp As StackPanel = itemGrid.Children(0)
+                Dim cb As CheckBox = sp.Children(0)
+
+                cb.IsChecked = True
+            End If
+        End If
+
+    End Sub
 
 End Module

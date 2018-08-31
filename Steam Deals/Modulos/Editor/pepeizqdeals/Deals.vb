@@ -103,7 +103,29 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 listaDescuento.Sort()
 
-                tbTitulo.Text = "Sale • Up to " + listaDescuento(0) + " • " + cantidadJuegos + " deals • " + listaFinal(0).Tienda
+                Dim filtrado As String = Nothing
+
+                Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
+
+                If cbFiltrado.SelectedIndex = 0 Then
+                    filtrado = Nothing
+                ElseIf cbFiltrado.SelectedIndex = 1 Then
+                    filtrado = "with at least 50% rating "
+                ElseIf cbFiltrado.SelectedIndex = 2 Then
+                    filtrado = "with at least 75% rating "
+                ElseIf cbFiltrado.SelectedIndex = 3 Then
+                    filtrado = "with at least 80% rating "
+                ElseIf cbFiltrado.SelectedIndex = 4 Then
+                    filtrado = "with at least 85% rating "
+                ElseIf cbFiltrado.SelectedIndex = 5 Then
+                    filtrado = "with at least 90% rating "
+                ElseIf cbFiltrado.SelectedIndex = 6 Then
+                    filtrado = "with at least 100 reviews "
+                ElseIf cbFiltrado.SelectedIndex = 7 Then
+                    filtrado = "with at least 1000 reviews "
+                End If
+
+                tbTitulo.Text = "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda
                 tbEnlace.Text = String.Empty
 
                 listaAnalisis.Sort(Function(x As Juego, y As Juego)
@@ -248,7 +270,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If listaFinal.Count = 1 Then
                 botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, listaFinal(0).Descuento, listaFinal(0).Enlaces.Precios(0))
             Else
-                botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, "Up to " + listaDescuento(0), cantidadJuegos + " deals")
+                botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, "Up to " + listaDescuento(listaDescuento.Count - 1), cantidadJuegos + " deals")
             End If
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
