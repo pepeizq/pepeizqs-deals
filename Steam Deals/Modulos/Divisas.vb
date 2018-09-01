@@ -47,13 +47,19 @@ Module Divisas
 
         Dim htmlD_ As Task(Of String) = Decompiladores.HttpClient(New Uri("http://free.currencyconverterapi.com/api/v5/convert?q=USD_EUR&compact=y"))
         Dim htmlD As String = htmlD_.Result
-        Dim dolarC As Dolar = JsonConvert.DeserializeObject(Of Dolar)(htmlD)
-        dolar = dolarC.Moneda.Valor
+
+        If Not htmlD = Nothing Then
+            Dim dolarC As Dolar = JsonConvert.DeserializeObject(Of Dolar)(htmlD)
+            dolar = dolarC.Moneda.Valor
+        End If
 
         Dim htmlL_ As Task(Of String) = Decompiladores.HttpClient(New Uri("http://free.currencyconverterapi.com/api/v5/convert?q=GBP_EUR&compact=y"))
         Dim htmlL As String = htmlL_.Result
-        Dim libraC As Libra = JsonConvert.DeserializeObject(Of Libra)(htmlL)
-        libra = libraC.Moneda.Valor
+
+        If Not htmlL = Nothing Then
+            Dim libraC As Libra = JsonConvert.DeserializeObject(Of Libra)(htmlL)
+            libra = libraC.Moneda.Valor
+        End If
 
     End Sub
 

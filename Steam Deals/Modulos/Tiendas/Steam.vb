@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Newtonsoft.Json
 
 Namespace pepeizq.Tiendas
     Module Steam
@@ -334,52 +335,81 @@ Namespace pepeizq.Tiendas
 
         Public Async Function SteamMas(juego As Juego) As Task(Of Juego)
 
-            Dim htmlMas As String = Await HttpClient(New Uri(juego.Enlaces.Enlaces(0)))
+            Dim id As String = juego.Enlaces.Enlaces(0)
 
-            If Not htmlMas = Nothing Then
-                If htmlMas.Contains(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34)) Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
+            If id.Contains("https://store.steampowered.com/app/") Then
+                id = id.Replace("https://store.steampowered.com/app/", Nothing)
 
-                    int = htmlMas.IndexOf(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34))
-                    temp = htmlMas.Remove(0, int + 10)
+                If id.Contains("/") Then
+                    Dim int As Integer = id.IndexOf("/")
+                    id = id.Remove(int, id.Length - int)
+                End If
 
-                    int2 = temp.IndexOf("</p>")
-                    temp2 = temp.Remove(int2, temp.Length - int2)
+                Dim htmlMas As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
 
-                    If temp2.Contains("Offer ends") Then
-                        int = temp2.IndexOf("Offer ends")
-                        temp2 = temp2.Remove(0, int + 10)
+                If Not htmlMas = Nothing Then
+                    Dim temp As String
+                    Dim int As Integer
 
-                        temp2 = temp2.Trim
+                    int = htmlMas.IndexOf(":")
+                    temp = htmlMas.Remove(0, int + 1)
+                    temp = temp.Remove(temp.Length - 1, 1)
 
-                        Dim fecha As DateTime = Nothing
+                    Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
 
-                        Try
-                            fecha = DateTime.Parse(temp2)
-                            fecha = fecha.AddHours(19)
-                            juego.FechaTermina = fecha
-                        Catch ex As Exception
-
-                        End Try
-
-                        Dim temp3 As String
-                        Dim int3 As Integer
-
-                        int3 = temp.IndexOf("Offer ends")
-                        temp3 = temp.Remove(int3, temp.Length - int3)
-
-                        int3 = temp3.IndexOf(">")
-                        temp3 = temp3.Remove(0, int3 + 1)
-
-                        temp3 = temp3.Replace("!", Nothing)
-                        temp3 = temp3.Replace("¡", Nothing)
-                        temp3 = temp3.Trim
-                        temp3 = temp3.ToLower
-
-                        juego.Promocion = temp3
+                    If Not datos Is Nothing Then
+                        If Not datos.Datos.Desarrolladores Is Nothing Then
+                            If datos.Datos.Desarrolladores.Count > 0 Then
+                                Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
+                                juego.Desarrolladores = desarrolladores
+                            End If
+                        End If
                     End If
                 End If
+
+                'If htmlMas.Contains(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34)) Then
+                '    Dim temp, temp2 As String
+                '    Dim int, int2 As Integer
+
+                '    int = htmlMas.IndexOf(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34))
+                '    temp = htmlMas.Remove(0, int + 10)
+
+                '    int2 = temp.IndexOf("</p>")
+                '    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                '    If temp2.Contains("Offer ends") Then
+                '        int = temp2.IndexOf("Offer ends")
+                '        temp2 = temp2.Remove(0, int + 10)
+
+                '        temp2 = temp2.Trim
+
+                '        Dim fecha As DateTime = Nothing
+
+                '        Try
+                '            fecha = DateTime.Parse(temp2)
+                '            fecha = fecha.AddHours(19)
+                '            juego.FechaTermina = fecha
+                '        Catch ex As Exception
+
+                '        End Try
+
+                '        Dim temp3 As String
+                '        Dim int3 As Integer
+
+                '        int3 = temp.IndexOf("Offer ends")
+                '        temp3 = temp.Remove(int3, temp.Length - int3)
+
+                '        int3 = temp3.IndexOf(">")
+                '        temp3 = temp3.Remove(0, int3 + 1)
+
+                '        temp3 = temp3.Replace("!", Nothing)
+                '        temp3 = temp3.Replace("¡", Nothing)
+                '        temp3 = temp3.Trim
+                '        temp3 = temp3.ToLower
+
+                '        juego.Promocion = temp3
+                '    End If
+                'End If
             End If
 
             Return juego
@@ -387,4 +417,18 @@ Namespace pepeizq.Tiendas
         End Function
 
     End Module
+
+    Public Class SteamMasDatos
+
+        <JsonProperty("data")>
+        Public Datos As SteamMasDatosAmpliado
+
+    End Class
+
+    Public Class SteamMasDatosAmpliado
+
+        <JsonProperty("developers")>
+        Public Desarrolladores As List(Of String)
+
+    End Class
 End Namespace

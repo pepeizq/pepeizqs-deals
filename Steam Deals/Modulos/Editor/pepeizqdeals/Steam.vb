@@ -52,15 +52,18 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not usuarioGuardado = Nothing Then
                     Dim usuario As String = "document.getElementById('steamAccountName').value = '" + usuarioGuardado + "'"
-                    Await wv.InvokeScriptAsync("eval", New String() {usuario})
 
-                    Dim contraseñaGuardada As String = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
+                    If Not usuario = Nothing Then
+                        Await wv.InvokeScriptAsync("eval", New String() {usuario})
 
-                    If Not contraseñaGuardada = Nothing Then
-                        Dim contraseña As String = "document.getElementById('steamPassword').value = '" + contraseñaGuardada + "'"
-                        Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+                        Dim contraseñaGuardada As String = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
 
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('SteamLogin').click();"})
+                        If Not contraseñaGuardada = Nothing Then
+                            Dim contraseña As String = "document.getElementById('steamPassword').value = '" + contraseñaGuardada + "'"
+                            Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+
+                            Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('SteamLogin').click();"})
+                        End If
                     End If
                 End If
             End If

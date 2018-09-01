@@ -10,6 +10,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Async Sub Enviar(mensaje As String, enlace As String, imagen As String)
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
             Dim helper As New LocalObjectStorageHelper
             Dim usuarioGuardado As TwitterUser = Nothing
 
@@ -20,6 +23,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not mensaje = Nothing Then
                 mensaje = mensaje.Trim
                 mensaje = Twitter.ReemplazarTiendaTitulo(mensaje)
+
+                Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+
+                If Not cb.SelectedIndex = 0 Then
+                    Dim publisher As TextBlock = cb.SelectedItem
+                    mensaje = mensaje + " " + publisher.Tag
+                End If
             End If
 
             If Not usuarioGuardado Is Nothing Then
@@ -57,13 +67,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If stream Is Nothing Then
                         Await servicio.TweetStatusAsync(mensaje + " " + enlace)
                     Else
-                        Await servicio.TweetStatusAsync(mensaje + " • " + enlace, stream.AsStream)
+                        Await servicio.TweetStatusAsync(mensaje + " " + enlace, stream.AsStream)
                     End If
                 Else
                     usuario = Await servicio.GetUserAsync
-
-                    Dim frame As Frame = Window.Current.Content
-                    Dim pagina As Page = frame.Content
 
                     Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
                     imagenAvatar.Source = usuario.ProfileImageUrlHttps

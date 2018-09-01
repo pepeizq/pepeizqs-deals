@@ -5,13 +5,19 @@ Imports WordPressPCL
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
 
-        Public Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
+        Public Async Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
+
+            BloquearControles(False)
+            Publishers.GenerarDatos()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
             Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+
+            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+            cbPublishers.SelectedIndex = 0
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             tbTitulo.Text = String.Empty
@@ -26,6 +32,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaAnalisis As New List(Of Juego)
 
             If listaFinal.Count = 1 Then
+                If listaFinal(0).Tienda = "Steam" Then
+                    listaFinal(0) = Await Tiendas.Steam.SteamMas(listaFinal(0))
+                End If
+
                 Dim precioFinal As String = String.Empty
 
                 If listaFinal(0).Tienda = "GamersGate" Then
@@ -94,12 +104,59 @@ Namespace pepeizq.Editor.pepeizqdeals
                 precioFinal = precioFinal.Trim
                 precioFinal = precioFinal + " €"
 
+                If Not listaFinal(0).Desarrolladores Is Nothing Then
+                    If Not listaFinal(0).Desarrolladores.Desarrolladores(0) = Nothing Then
+                        For Each publisher In cbPublishers.Items
+                            If TypeOf publisher Is TextBlock Then
+                                If Not publisher.Text = Nothing Then
+                                    Dim publisherLimpio As String = Publishers.LimpiarPublisher(publisher.Text)
+
+                                    If publisherLimpio = Publishers.LimpiarPublisher(listaFinal(0).Desarrolladores.Desarrolladores(0)) Then
+                                        cbPublishers.SelectedItem = publisher
+                                    End If
+                                End If
+                            End If
+                        Next
+                    End If
+                End If
+
                 tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda
             Else
+                Dim publisherFinal As String = Nothing
+
                 For Each item In listaFinal
+                    If Not item.Desarrolladores Is Nothing Then
+                        If Not item.Desarrolladores.Desarrolladores(0) = Nothing Then
+                            For Each publisher In cbPublishers.Items
+                                If TypeOf publisher Is TextBlock Then
+                                    If Not publisher.Text = Nothing Then
+                                        Dim publisherLimpio As String = Publishers.LimpiarPublisher(publisher.Text)
+
+                                        If publisherLimpio = Publishers.LimpiarPublisher(item.Desarrolladores.Desarrolladores(0)) Then
+                                            If publisherFinal = Nothing Then
+                                                cbPublishers.SelectedItem = publisher
+                                                publisherFinal = publisher.Text
+                                            Else
+                                                If Not publisherLimpio = Publishers.LimpiarPublisher(publisherFinal) Then
+                                                    publisherFinal = Nothing
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            Next
+                        End If
+                    End If
+
                     listaDescuento.Add(item.Descuento)
                     listaAnalisis.Add(item)
                 Next
+
+                If Not publisherFinal = Nothing Then
+                    tbTitulo.Text = publisherFinal + " "
+                Else
+                    cbPublishers.SelectedIndex = 0
+                End If
 
                 listaDescuento.Sort()
 
@@ -125,7 +182,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     filtrado = "with at least 1000 reviews "
                 End If
 
-                tbTitulo.Text = "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda
+                tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda
                 tbEnlace.Text = String.Empty
 
                 listaAnalisis.Sort(Function(x As Juego, y As Juego)
@@ -279,6 +336,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             listaDescuento.Clear()
             listaAnalisis.Clear()
 
+            BloquearControles(True)
+
         End Sub
 
         Private Async Sub GenerarDatos2(sender As Object, e As RoutedEventArgs)
@@ -286,20 +345,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            BloquearControles(False)
+
+            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
-            tbTitulo.IsEnabled = False
-
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
-            tbEnlace.IsEnabled = False
-
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
-            tbImagen.IsEnabled = False
-
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
-            tbTituloComplemento.IsEnabled = False
-
             Dim boton As Button = sender
-            boton.IsEnabled = False
 
             Dim cosas As Clases.Deals = boton.Tag
 
@@ -625,12 +678,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await Post.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
                               redireccion, imagenPost, tituloComplemento, iconoReview, 0)
 
-            tbTitulo.IsEnabled = True
-            tbEnlace.IsEnabled = True
-            tbImagen.IsEnabled = True
-            tbTituloComplemento.IsEnabled = True
-
-            boton.IsEnabled = True
+            BloquearControles(True)
 
         End Sub
 
@@ -667,6 +715,31 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Return titulo
         End Function
+
+        Private Sub BloquearControles(estado As Boolean)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+            cbPublishers.IsEnabled = estado
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            tbTitulo.IsEnabled = estado
+
+            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+            tbEnlace.IsEnabled = estado
+
+            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+            tbImagen.IsEnabled = estado
+
+            Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+            tbTituloComplemento.IsEnabled = estado
+
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            botonSubir.IsEnabled = estado
+
+        End Sub
 
     End Module
 End Namespace
