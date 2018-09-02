@@ -54,7 +54,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim usuario As String = "document.getElementById('steamAccountName').value = '" + usuarioGuardado + "'"
 
                     If Not usuario = Nothing Then
-                        Await wv.InvokeScriptAsync("eval", New String() {usuario})
+                        Try
+                            Await wv.InvokeScriptAsync("eval", New String() {usuario})
+                        Catch ex As Exception
+
+                        End Try
 
                         Dim contraseñaGuardada As String = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
 

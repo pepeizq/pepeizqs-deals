@@ -279,44 +279,53 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 Dim i As Integer = 0
-                Dim j As Integer = 0
                 While i < 6
-                    If j < listaAnalisis.Count Then
+                    If i < listaAnalisis.Count Then
                         Dim imagenJuego As New ImageEx With {
                             .Stretch = Stretch.Uniform
                         }
 
-                        If Not listaAnalisis(j).Imagenes.Grande = Nothing Then
-                            imagenJuego.Source = listaAnalisis(j).Imagenes.Grande
+                        If Not listaAnalisis(i).Imagenes.Grande = Nothing Then
+                            imagenJuego.Source = listaAnalisis(i).Imagenes.Grande
                         Else
-                            imagenJuego.Source = listaAnalisis(j).Imagenes.Pequeña
+                            imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
                         End If
 
-                        If listaFinal(0).Tienda = "GamersGate" Then
+                        If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Then
                             imagenJuego.MaxWidth = 130
 
                             If Not imagenJuego.Source Is Nothing Then
-                                gvImagenHorizontal.Items.Add(imagenJuego)
-                            End If
-                        ElseIf listaFinal(0).Tienda = "Voidu" Then
-                            imagenJuego.MaxWidth = 130
+                                Dim añadirImagen As Boolean = True
 
-                            If Not imagenJuego.Source Is Nothing Then
-                                gvImagenHorizontal.Items.Add(imagenJuego)
+                                For Each item In gvImagenHorizontal.Items
+                                    If item = imagenJuego Then
+                                        añadirImagen = False
+                                    End If
+                                Next
+
+                                If añadirImagen = True Then
+                                    gvImagenHorizontal.Items.Add(imagenJuego)
+                                End If
                             End If
                         Else
                             imagenJuego.MaxWidth = 200
 
                             If Not imagenJuego.Source Is Nothing Then
-                                gvImagenVertical.Items.Add(imagenJuego)
+                                Dim añadirImagen As Boolean = True
+
+                                For Each item In gvImagenHorizontal.Items
+                                    If item = imagenJuego Then
+                                        añadirImagen = False
+                                    End If
+                                Next
+
+                                If añadirImagen = True Then
+                                    gvImagenVertical.Items.Add(imagenJuego)
+                                End If
                             End If
                         End If
-                    Else
-                        j = -1
                     End If
-
                     i += 1
-                    j += 1
                 End While
             End If
 
