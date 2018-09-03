@@ -445,6 +445,13 @@
                                             <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
                                             <PasswordBox x:Name="tbEditorContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
                                         </StackPanel>
+                                        <TextBlock Text="Reddit"/>
+                                        <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
+                                            <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="tbEditorUsuariopepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
+                                            <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                                            <PasswordBox x:Name="tbEditorContraseñapepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
+                                        </StackPanel>
                                         <TextBlock Text="Twitter"/>
                                         <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
                                             <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushSecundario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">

@@ -396,7 +396,7 @@
         Public Function LimpiarPublisher(publisher As String)
 
             Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd",
-                "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game",
+                "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "´", "`",
                 "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 

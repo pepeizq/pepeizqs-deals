@@ -321,6 +321,38 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbEditorUsuariopepeizqdealsReddit_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsReddit.TextChanged
+
+        If tbEditorUsuariopepeizqdealsReddit.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit") = tbEditorUsuariopepeizqdealsReddit.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorContraseñapepeizqdealsReddit_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsReddit.PasswordChanged
+
+        If tbEditorContraseñapepeizqdealsReddit.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit") = tbEditorContraseñapepeizqdealsReddit.Password.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorUsuariopepeizqdealsSteam_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsSteam.TextChanged
+
+        If tbEditorUsuariopepeizqdealsSteam.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") = tbEditorUsuariopepeizqdealsSteam.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorContraseñapepeizqdealsSteam_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsSteam.PasswordChanged
+
+        If tbEditorContraseñapepeizqdealsSteam.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") = tbEditorContraseñapepeizqdealsSteam.Password.Trim
+        End If
+
+    End Sub
+
     Private Sub BotonEditorpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridDeals.Click
 
         pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
@@ -402,22 +434,6 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
         pepeizq.Editor.pepeizqdeals.Twitter.Enviar(Nothing, Nothing, Nothing)
-
-    End Sub
-
-    Private Sub TbEditorUsuariopepeizqdealsSteam_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsSteam.TextChanged
-
-        If tbEditorUsuariopepeizqdealsSteam.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") = tbEditorUsuariopepeizqdealsSteam.Text.Trim
-        End If
-
-    End Sub
-
-    Private Sub TbEditorContraseñapepeizqdealsSteam_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsSteam.PasswordChanged
-
-        If tbEditorContraseñapepeizqdealsSteam.Password.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") = tbEditorContraseñapepeizqdealsSteam.Password.Trim
-        End If
 
     End Sub
 

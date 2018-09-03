@@ -126,25 +126,27 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 For Each item In listaFinal
                     If Not item.Desarrolladores Is Nothing Then
-                        If Not item.Desarrolladores.Desarrolladores(0) = Nothing Then
-                            For Each publisher In cbPublishers.Items
-                                If TypeOf publisher Is TextBlock Then
-                                    If Not publisher.Text = Nothing Then
-                                        Dim publisherLimpio As String = Publishers.LimpiarPublisher(publisher.Text)
+                        If item.Desarrolladores.Desarrolladores.Count > 0 Then
+                            If Not item.Desarrolladores.Desarrolladores(0) = Nothing Then
+                                For Each publisher In cbPublishers.Items
+                                    If TypeOf publisher Is TextBlock Then
+                                        If Not publisher.Text = Nothing Then
+                                            Dim publisherLimpio As String = Publishers.LimpiarPublisher(publisher.Text)
 
-                                        If publisherLimpio = Publishers.LimpiarPublisher(item.Desarrolladores.Desarrolladores(0)) Then
-                                            If publisherFinal = Nothing Then
-                                                cbPublishers.SelectedItem = publisher
-                                                publisherFinal = publisher.Text
-                                            Else
-                                                If Not publisherLimpio = Publishers.LimpiarPublisher(publisherFinal) Then
-                                                    publisherFinal = Nothing
+                                            If publisherLimpio = Publishers.LimpiarPublisher(item.Desarrolladores.Desarrolladores(0)) Then
+                                                If publisherFinal = Nothing Then
+                                                    cbPublishers.SelectedItem = publisher
+                                                    publisherFinal = publisher.Text
+                                                Else
+                                                    If Not publisherLimpio = Publishers.LimpiarPublisher(publisherFinal) Then
+                                                        publisherFinal = Nothing
+                                                    End If
                                                 End If
                                             End If
                                         End If
                                     End If
-                                End If
-                            Next
+                                Next
+                            End If
                         End If
                     End If
 
@@ -298,7 +300,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Dim añadirImagen As Boolean = True
 
                                 For Each item In gvImagenHorizontal.Items
-                                    If item = imagenJuego Then
+                                    If item Is imagenJuego Then
                                         añadirImagen = False
                                     End If
                                 Next
@@ -314,7 +316,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Dim añadirImagen As Boolean = True
 
                                 For Each item In gvImagenHorizontal.Items
-                                    If item = imagenJuego Then
+                                    If item Is imagenJuego Then
                                         añadirImagen = False
                                     End If
                                 Next
@@ -382,7 +384,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 End If
 
-                contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=1 perpage=25]</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=1 perpage=50]</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
