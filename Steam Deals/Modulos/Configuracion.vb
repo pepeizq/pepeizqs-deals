@@ -55,7 +55,7 @@ Module Configuracion
         Dim itemEditorSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
         Dim itemEditorLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
 
-        Dim columnapepeizqdeals As ColumnDefinition = pagina.FindName("columnapepeizqdeals")
+        Dim filapepeizqdeals As RowDefinition = pagina.FindName("filapepeizqdeals")
         Dim sppepeizqdeals As StackPanel = pagina.FindName("spPresentacionpepeizqdeals")
 
         If estado = True Then
@@ -70,7 +70,7 @@ Module Configuracion
                 cbWebs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorWeb")
             End If
 
-            columnapepeizqdeals.Width = New GridLength(1, GridUnitType.Auto)
+            filapepeizqdeals.Height = New GridLength(1, GridUnitType.Auto)
             sppepeizqdeals.Visibility = Visibility.Collapsed
 
             Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
@@ -97,7 +97,7 @@ Module Configuracion
             itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
             itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
 
-            columnapepeizqdeals.Width = New GridLength(1, GridUnitType.Star)
+            filapepeizqdeals.Height = New GridLength(1, GridUnitType.Star)
             sppepeizqdeals.Visibility = Visibility.Visible
         End If
 

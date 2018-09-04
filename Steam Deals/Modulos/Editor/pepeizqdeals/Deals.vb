@@ -640,6 +640,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cosas.Tienda = "Voidu" Then
                 listaEtiquetas.Add(18)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png"
+            ElseIf cosas.Tienda = "Razer Game Store" Then
+                listaEtiquetas.Add(19)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_razergamestore.png"
             End If
 
             precioFinal = precioFinal.Replace(",", ".")

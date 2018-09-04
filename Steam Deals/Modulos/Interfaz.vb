@@ -21,7 +21,8 @@ Module Interfaz
     Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11)
     'Dim indiegalaT As New Tienda("Indie Gala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12)
     'Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
-    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 14)
+    Dim razerT As New Tienda("Razer Game Store", "RazerGameStore", "Assets/Tiendas/razer.ico", 14)
+    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 15)
 
     Public Sub Generar()
 
@@ -58,6 +59,7 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(voiduT))
         'gvTiendas.Items.Add(AñadirBotonTienda(greenmangamingT))
         'gvTiendas.Items.Add(AñadirBotonTienda(indiegalaT))
+        gvTiendas.Items.Add(AñadirBotonTienda(razerT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
@@ -79,6 +81,7 @@ Module Interfaz
         menuTiendas.Items.Add(AñadirMenuTienda(voiduT))
         'menuTiendas.Items.Add(AñadirMenuTienda(greenmangamingT))
         'menuTiendas.Items.Add(AñadirMenuTienda(indiegalaT))
+        menuTiendas.Items.Add(AñadirMenuTienda(razerT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
@@ -100,6 +103,7 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(voiduT))
         'gridOfertasTiendas.Children.Add(AñadirGridTienda(greenmangamingT))
         'gridOfertasTiendas.Children.Add(AñadirGridTienda(indiegalaT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(razerT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
@@ -193,7 +197,7 @@ Module Interfaz
         Dim boton As New GridViewItem With {
             .Margin = New Thickness(15, 15, 15, 15),
             .Padding = New Thickness(15, 10, 15, 10),
-            .MinWidth = 170,
+            .MinWidth = 180,
             .Content = sp,
             .Background = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
             .HorizontalContentAlignment = HorizontalAlignment.Center
@@ -413,6 +417,8 @@ Module Interfaz
                 '    pepeizq.Tiendas.GreenManGaming.GenerarOfertas()
                 'ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
                 '    pepeizq.Tiendas.IndieGala.GenerarOfertas()
+            ElseIf tienda.Nombreusar = razerT.NombreUsar Then
+                pepeizq.Tiendas.RazerGameStore.GenerarOfertas()
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 pepeizq.Tiendas.AmazonEs.GenerarOfertas()
             End If

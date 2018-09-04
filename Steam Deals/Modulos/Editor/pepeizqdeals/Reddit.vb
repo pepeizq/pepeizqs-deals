@@ -16,7 +16,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tituloFinal = tituloFinal.Remove(int, tituloFinal.Length - int)
                     tituloFinal = tituloFinal.Trim
 
-                    tituloFinal = titulo + " • " + tituloFinal
+                    tituloFinal = "[" + titulo + "] " + tituloFinal
                 End If
             End If
 

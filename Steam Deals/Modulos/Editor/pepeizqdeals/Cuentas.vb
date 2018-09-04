@@ -27,6 +27,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            Dim usuarioReddit As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsReddit")
+
+            If Not usuarioReddit Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit") Is Nothing Then
+                    usuarioReddit.Text = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit")
+                End If
+            End If
+
+            Dim contraseñaReddit As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdealsReddit")
+
+            If Not contraseñaReddit Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit") Is Nothing Then
+                    contraseñaReddit.Password = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit")
+                End If
+            End If
+
             Dim helper As New LocalObjectStorageHelper
 
             If helper.KeyExists("usuarioTwitter") Then

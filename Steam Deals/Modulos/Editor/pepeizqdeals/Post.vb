@@ -131,7 +131,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
 
-                        Reddit.Enviar(titulo, enlaceFinal, tituloComplemento)
+                        Try
+                            Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Reddit Error Post", Nothing)
+                        End Try
                     End If
                 End If
             End If
