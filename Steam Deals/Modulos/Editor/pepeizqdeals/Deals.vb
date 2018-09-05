@@ -140,6 +140,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                 Else
                                                     If Not publisherLimpio = Publishers.LimpiarPublisher(publisherFinal) Then
                                                         publisherFinal = Nothing
+                                                        Exit For
                                                     End If
                                                 End If
                                             End If

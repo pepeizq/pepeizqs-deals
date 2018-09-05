@@ -28,7 +28,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not cb.SelectedIndex = 0 Then
                     Dim publisher As TextBlock = cb.SelectedItem
-                    mensaje = mensaje + " " + publisher.Tag
+
+                    If Not publisher Is Nothing Then
+                        mensaje = mensaje + " " + publisher.Tag
+                    End If
                 End If
             End If
 
