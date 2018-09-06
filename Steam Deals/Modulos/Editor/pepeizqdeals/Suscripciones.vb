@@ -90,7 +90,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing)
 
             If cbTiendas.SelectedIndex = 0 Then
-
+                cosas.Tienda = "Humble Bundle"
+                cosas.Titulo = "Humble Monthly • " + mesElegido + " • " + cosas.Juegos
+                cosas.Enlace = Referidos("https://www.humblebundle.com/monthly")
             ElseIf cbTiendas.SelectedIndex = 1 Then
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos

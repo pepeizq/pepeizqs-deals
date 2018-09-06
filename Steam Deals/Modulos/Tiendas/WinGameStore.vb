@@ -35,7 +35,7 @@ Namespace pepeizq.Tiendas
 
         Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/api.php?p=games&s=wgs"))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -50,14 +50,11 @@ Namespace pepeizq.Tiendas
 
                                 Dim enlace As String = juegoWGS.Enlace
 
-                                If enlace = String.Empty Then
-                                    If juegoWGS.Enlace2.Contains("wingamestore.com/") Then
-                                        enlace = juegoWGS.Enlace2
-                                    End If
-                                End If
-
                                 If Not enlace = String.Empty Then
-                                    Dim afiliado As String = "http://click.linksynergy.com/fs-bin/click?id=15NET1Ktcr4&subid=&offerid=283896.1&type=10&tmpid=11753&RD_PARM1=" + enlace
+                                    If enlace.Contains("?") Then
+                                        Dim int As Integer = enlace.IndexOf("?")
+                                        enlace = enlace.Remove(int, enlace.Length - int)
+                                    End If
 
                                     Dim precio As String = "$" + juegoWGS.PrecioRebajado.Trim
 
@@ -69,23 +66,43 @@ Namespace pepeizq.Tiendas
                                         enlace
                                     }
 
-                                    Dim listaAfiliados As New List(Of String) From {
-                                        afiliado
-                                    }
-
                                     Dim listaPrecios As New List(Of String) From {
                                         precio
                                     }
 
-                                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
+                                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+
+                                    Dim imagenPequeña As String = juegoWGS.Imagen
+
+                                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
                                     Dim descuento As String = Calculadora.GenerarDescuento(juegoWGS.PrecioBase.Trim, precio)
 
-                                    Dim drm As String = Nothing
+                                    Dim drm As String = juegoWGS.DRM
+
+                                    Dim windows As Boolean = False
+
+                                    If juegoWGS.Sistemas.Contains("windows") Then
+                                        windows = True
+                                    End If
+
+                                    Dim mac As Boolean = False
+
+                                    If juegoWGS.Sistemas.Contains("mac") Then
+                                        mac = True
+                                    End If
+
+                                    Dim linux As Boolean = False
+
+                                    If juegoWGS.Sistemas.Contains("linux") Then
+                                        linux = True
+                                    End If
+
+                                    Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
                                     Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                                    Dim juego As New Juego(titulo, Nothing, enlaces, descuento, drm, "WinGameStore", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "WinGameStore", Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0
@@ -117,38 +134,6 @@ Namespace pepeizq.Tiendas
                 Dim htmlJuego As String = htmlJuego_.Result
 
                 If Not htmlJuego = Nothing Then
-                    If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
-                        Dim temp, temp2, temp3 As String
-                        Dim int, int2, int3 As Integer
-
-                        int = htmlJuego.IndexOf("<meta property=" + ChrW(34) + "og:image")
-                        temp = htmlJuego.Remove(0, int + 5)
-
-                        int2 = temp.IndexOf("content=")
-                        temp2 = temp.Remove(0, int2 + 9)
-
-                        int3 = temp2.IndexOf(ChrW(34))
-                        temp3 = temp2.Remove(int3, temp2.Length - int3)
-
-                        juego.Imagenes = New JuegoImagenes(temp3.Trim, Nothing)
-                    End If
-
-                    If htmlJuego.Contains("<div class=" + ChrW(34) + "image-wrap220") Then
-                        Dim temp, temp2, temp3 As String
-                        Dim int, int2, int3 As Integer
-
-                        int = htmlJuego.IndexOf("<div class=" + ChrW(34) + "image-wrap220")
-                        temp = htmlJuego.Remove(0, int + 5)
-
-                        int2 = temp.IndexOf("<img src=")
-                        temp2 = temp.Remove(0, int2 + 10)
-
-                        int3 = temp2.IndexOf(ChrW(34))
-                        temp3 = temp2.Remove(int3, temp2.Length - int3)
-
-                        juego.Imagenes = New JuegoImagenes("https://www.wingamestore.com" + temp3.Trim, Nothing)
-                    End If
-
                     If htmlJuego.Contains("<label>Publisher</label>") Then
                         Dim temp, temp2, temp3 As String
                         Dim int, int2, int3 As Integer
@@ -163,48 +148,6 @@ Namespace pepeizq.Tiendas
                         temp3 = temp2.Remove(0, int3 + 1)
 
                         juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
-                    End If
-
-                    If htmlJuego.Contains("<label>DRM</label><b>Steam</b>") Then
-                        juego.DRM = "steam"
-                    ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam & DRM Free</b>") Then
-                        juego.DRM = "steam"
-                    ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam Key</b>") Then
-                        juego.DRM = "steam"
-                    ElseIf htmlJuego.Contains("<label>DRM</label><b>Steam Key & DRM Free</b>") Then
-                        juego.DRM = "steam"
-                    ElseIf htmlJuego.Contains("<label>DRM</label><b>Ubisoft Uplay Direct Activation</b>") Then
-                        juego.DRM = "uplay"
-                    End If
-
-                    If juego.Enlaces.Enlaces(0).Contains("3861/XCOM-Enemy-Within") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("6613/Criminal-Girls-Invite-Only") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("3817/Borderlands-The-Pre-Sequel") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("3837/Borderlands-2-Season-Pass") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("3840/Borderlands-2-Game-of-the-Year-Edition") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("3830/Borderlands-2") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("3852/Borderlands-Game-of-the-Year-Edition") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("3846/BioShock-Infinite-Season-Pass") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("4309/Grand-Theft-Auto-Collection") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("4799/L-A-Noire-The-Complete-Edition") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("5199/Max-Payne-3-Complete-Pack") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("4274/Grand-Theft-Auto-3") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("4273/Grand-Theft-Auto-San-Andreas") Then
-                        juego.DRM = "steam"
-                    ElseIf juego.Enlaces.Enlaces(0).Contains("4272/Grand-Theft-Auto-Vice-City") Then
-                        juego.DRM = "steam"
                     End If
                 End If
 
@@ -238,23 +181,29 @@ Namespace pepeizq.Tiendas
 
     Public Class WinGameStoreJuego
 
-        <JsonProperty("Title")>
+        <JsonProperty("title")>
         Public Titulo As String
 
-        <JsonProperty("WGSURL")>
+        <JsonProperty("url")>
         Public Enlace As String
 
-        <JsonProperty("MGSURL")>
-        Public Enlace2 As String
-
-        <JsonProperty("Sale")>
+        <JsonProperty("current_price")>
         Public PrecioRebajado As String
 
-        <JsonProperty("Price")>
+        <JsonProperty("retail_price")>
         Public PrecioBase As String
 
-        <JsonProperty("ID")>
+        <JsonProperty("pid")>
         Public ID As String
+
+        <JsonProperty("platforms")>
+        Public Sistemas As List(Of String)
+
+        <JsonProperty("drm")>
+        Public DRM As String
+
+        <JsonProperty("badge")>
+        Public Imagen As String
 
     End Class
 End Namespace

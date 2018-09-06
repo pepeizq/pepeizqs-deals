@@ -73,6 +73,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            Dim usuarioPepeizqAmazon As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsAmazon")
+
+            If Not usuarioPepeizqAmazon Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizqAmazon") Is Nothing Then
+                    usuarioPepeizqAmazon.Text = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqAmazon")
+                End If
+            End If
+
+            Dim contraseñaPepeizqAmazon As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdealsAmazon")
+
+            If Not contraseñaPepeizqAmazon Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon") Is Nothing Then
+                    contraseñaPepeizqAmazon.Password = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon")
+                End If
+            End If
+
         End Sub
 
     End Module

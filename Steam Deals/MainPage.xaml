@@ -356,19 +356,15 @@
                                         <TextBox x:Name="tbEditorImagenpepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                         <TextBlock x:Uid="Title3"/>
                                         <TextBox x:Name="tbEditorTituloComplementopepeizqdealsBundles" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                                        
-                                        <StackPanel Orientation="Horizontal" Margin="0,30">
-                                            <Button x:Name="botonEditorSubirpepeizqdealsBundles" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                                <Button.Content>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <fa:FontAwesome Icon="Upload" Foreground="White"/>
-                                                        <TextBlock x:Uid="Upload" Margin="10,0,0,0" Foreground="White"/>
-                                                    </StackPanel>
-                                                </Button.Content>
-                                            </Button>
 
-                                            <ComboBox x:Name="cbEditorpepeizqdealsBundlesJuegos" Margin="30,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
+                                        <Button x:Name="botonEditorSubirpepeizqdealsBundles" Margin="0,30" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:FontAwesome Icon="Upload" Foreground="White"/>
+                                                    <TextBlock x:Uid="Upload" Margin="10,0,0,0" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
 
                                         <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
                                             <controls:ImageEx x:Name="imagenEditorpepeizqdealsBundles" Stretch="None"/>
@@ -471,6 +467,14 @@
                                             <PasswordBox x:Name="tbEditorContraseñapepeizqdealsSteam" Margin="10,0" MinWidth="150"/>
                                         </StackPanel>
                                         <WebView x:Name="wvEditorSteampepeizqdeals" Margin="0,0,0,30" MinWidth="700" MinHeight="700"/>
+                                        <TextBlock Text="Amazon.com"/>
+                                        <StackPanel Orientation="Horizontal" Padding="0,10,0,10">
+                                            <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                            <TextBox x:Name="tbEditorUsuariopepeizqdealsAmazon" Margin="10,0" MinWidth="150"/>
+                                            <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                                            <PasswordBox x:Name="tbEditorContraseñapepeizqdealsAmazon" Margin="10,0" MinWidth="150"/>
+                                        </StackPanel>
+                                        <WebView x:Name="wvEditorAmazonpepeizqdeals" Margin="0,0,0,30" MinWidth="700" MinHeight="700"/>
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid>

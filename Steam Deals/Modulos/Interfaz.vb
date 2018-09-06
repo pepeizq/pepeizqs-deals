@@ -22,7 +22,8 @@ Module Interfaz
     'Dim indiegalaT As New Tienda("Indie Gala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12)
     'Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
     Dim razerT As New Tienda("Razer Game Store", "RazerGameStore", "Assets/Tiendas/razer.ico", 14)
-    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 15)
+    Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15)
+    Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 16)
 
     Public Sub Generar()
 
@@ -62,6 +63,7 @@ Module Interfaz
         gvTiendas.Items.Add(AñadirBotonTienda(razerT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            gvTiendas.Items.Add(AñadirBotonTienda(amazoncomT))
             gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
         End If
 
@@ -84,6 +86,7 @@ Module Interfaz
         menuTiendas.Items.Add(AñadirMenuTienda(razerT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            menuTiendas.Items.Add(AñadirMenuTienda(amazoncomT))
             menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
         End If
 
@@ -106,6 +109,7 @@ Module Interfaz
         gridOfertasTiendas.Children.Add(AñadirGridTienda(razerT))
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            gridOfertasTiendas.Children.Add(AñadirGridTienda(amazoncomT))
             gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
         End If
 
@@ -280,11 +284,7 @@ Module Interfaz
         Else
             Dim enlace As String = Nothing
 
-            If Not juego.Enlaces.Afiliados Is Nothing Then
-                enlace = juego.Enlaces.Afiliados(0)
-            Else
-                enlace = juego.Enlaces.Enlaces(0)
-            End If
+            enlace = pepeizq.Editor.pepeizqdeals.Deals.Referidos(juego.Enlaces.Enlaces(0))
 
             Await Launcher.LaunchUriAsync(New Uri(enlace))
         End If
@@ -417,8 +417,10 @@ Module Interfaz
                 '    pepeizq.Tiendas.GreenManGaming.GenerarOfertas()
                 'ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
                 '    pepeizq.Tiendas.IndieGala.GenerarOfertas()
-            ElseIf tienda.Nombreusar = razerT.NombreUsar Then
+            ElseIf tienda.NombreUsar = razerT.NombreUsar Then
                 pepeizq.Tiendas.RazerGameStore.GenerarOfertas()
+            ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
+                pepeizq.Tiendas.AmazonCom.GenerarOfertas()
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 pepeizq.Tiendas.AmazonEs.GenerarOfertas()
             End If

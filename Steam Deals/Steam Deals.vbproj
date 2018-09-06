@@ -127,6 +127,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modulos\Configuracion.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Amazon.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Bundles.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
@@ -147,6 +148,7 @@
     <Compile Include="Modulos\Editor.vb" />
     <Compile Include="Modulos\Interfaz.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
+    <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
     <Compile Include="Modulos\Tiendas\Chrono.vb" />

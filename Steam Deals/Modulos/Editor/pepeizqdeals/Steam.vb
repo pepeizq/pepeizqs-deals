@@ -13,13 +13,23 @@ Namespace pepeizq.Editor.pepeizqdeals
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
                 If Not wv.DocumentTitle.Contains("Error") Then
                     Dim tituloHtml As String = "document.getElementById('headline').value = '" + titulo.Trim + "'"
-                    Await wv.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
+
+                    Try
+                        Await wv.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
+                    Catch ex As Exception
+
+                    End Try
 
                     Dim mensajeHtml As String = enlaceFinal
                     mensajeHtml = "document.getElementById('body').value = '" + mensajeHtml + "'"
-                    Await wv.InvokeScriptAsync("eval", New List(Of String) From {mensajeHtml})
 
-                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
+                    Try
+                        Await wv.InvokeScriptAsync("eval", New List(Of String) From {mensajeHtml})
+
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
+                    Catch ex As Exception
+
+                    End Try
                 End If
             End If
 

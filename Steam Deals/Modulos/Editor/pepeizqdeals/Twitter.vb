@@ -109,6 +109,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 titulo = titulo.Replace("• Humble Store", "• @humblestore")
             ElseIf titulo.Contains("• Microsoft Store") Then
                 titulo = titulo.Replace("• Microsoft Store", "• @MicrosoftStore")
+            ElseIf titulo.Contains("• Razer Game Store") Then
+                titulo = titulo.Replace("• Razer Game Store", "• @RazerGameStore")
             ElseIf titulo.Contains("• Sila Games") Then
                 titulo = titulo.Replace("• Sila Games", "• @SilaGames")
             ElseIf titulo.Contains("• Steam") Then

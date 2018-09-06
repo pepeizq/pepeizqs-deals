@@ -353,6 +353,22 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbEditorUsuariopepeizqdealsAmazon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsAmazon.TextChanged
+
+        If tbEditorUsuariopepeizqdealsAmazon.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqAmazon") = tbEditorUsuariopepeizqdealsAmazon.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorContraseñapepeizqdealsAmazon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsAmazon.PasswordChanged
+
+        If tbEditorContraseñapepeizqdealsAmazon.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon") = tbEditorContraseñapepeizqdealsAmazon.Password.Trim
+        End If
+
+    End Sub
+
     Private Sub BotonEditorpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridDeals.Click
 
         pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)

@@ -31,26 +31,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
-            Dim cbJuegos As ComboBox = pagina.FindName("cbEditorpepeizqdealsBundlesJuegos")
-            cbJuegos.Items.Clear()
-
-            Dim i As Integer = 0
-            While i < 50
-                Dim tbItem As New TextBlock With {
-                    .Text = i.ToString
-                }
-
-                Dim cbItem As New ComboBoxItem With {
-                    .Content = tbItem
-                }
-
-                cbJuegos.Items.Add(cbItem)
-
-                i += 1
-            End While
-
-            cbJuegos.SelectedIndex = 0
-
         End Sub
 
         Private Async Sub GenerarDatos(sender As Object, e As TextChangedEventArgs)
@@ -70,9 +50,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTituloComplementario As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdealsBundles")
             tbTituloComplementario.IsEnabled = False
 
-            Dim cbJuegos As ComboBox = pagina.FindName("cbEditorpepeizqdealsBundlesJuegos")
-            cbJuegos.IsEnabled = False
-
             Dim boton As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundles")
             boton.IsEnabled = False
 
@@ -84,11 +61,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Humble(enlace)
                 ElseIf enlace.Contains("https://www.fanatical.com/") Then
                     cosas = Await Fanatical(enlace)
+                ElseIf enlace.Contains("https://www.indiegala.com/") Then
+                    cosas = Await IndieGala(enlace)
                 End If
 
                 If Not cosas Is Nothing Then
                     If Not cosas.Titulo = Nothing Then
-                        tbTitulo.Text = cosas.Titulo + " • " + cbJuegos.SelectedIndex.ToString + " games • " + cosas.Tienda
+                        tbTitulo.Text = cosas.Titulo + " • 0 games • " + cosas.Tienda
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
                     End If
 
@@ -104,7 +83,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbTitulo.IsEnabled = True
             tbImagen.IsEnabled = True
             tbTituloComplementario.IsEnabled = True
-            cbJuegos.IsEnabled = True
             boton.IsEnabled = True
 
         End Sub
@@ -129,9 +107,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTituloComplementario As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdealsBundles")
             tbTituloComplementario.IsEnabled = False
 
-            Dim cbJuegos As ComboBox = pagina.FindName("cbEditorpepeizqdealsBundlesJuegos")
-            cbJuegos.IsEnabled = False
-
             Dim cosas As Clases.Bundles = tbTitulo.Tag
 
             Await Post.Enviar(tbTitulo.Text, tbTituloComplementario.Text, 4, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
@@ -141,7 +116,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbTitulo.IsEnabled = True
             tbImagen.IsEnabled = True
             tbTituloComplementario.IsEnabled = True
-            cbJuegos.IsEnabled = True
 
             boton.IsEnabled = True
 
@@ -248,6 +222,50 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                     j += 1
                 End While
+            End If
+
+            Return cosas
+
+        End Function
+
+        Private Async Function IndieGala(enlace As String) As Task(Of Clases.Bundles)
+
+            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Indie Gala", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png")
+
+            Dim html As String = Await HttpClient(New Uri(enlace))
+
+            If Not html = Nothing Then
+                If html.Contains("<title>") Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<title>")
+                    temp = html.Remove(0, int + 7)
+
+                    int2 = temp.IndexOf("</title>")
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Replace(" of Steam games", Nothing)
+                    temp2 = temp2.Trim
+
+                    cosas.Titulo = temp2
+                End If
+
+                If html.Contains("<meta property=" + ChrW(34) + "og:image") Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<meta property=" + ChrW(34) + "og:image")
+                    temp = html.Remove(0, int + 7)
+
+                    int = temp.IndexOf("content=")
+                    temp = temp.Remove(0, int + 9)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    cosas.Imagen = temp2.Trim
+                End If
             End If
 
             Return cosas
