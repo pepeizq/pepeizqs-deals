@@ -94,6 +94,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 ElseIf listaFinal(0).Tienda = "Chrono" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
                     tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                ElseIf listaFinal(0).Tienda = "Amazon.com" Then
+                    precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
+                    tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
                 Else
                     precioFinal = listaFinal(0).Enlaces.Precios(0)
                     tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
@@ -447,6 +450,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     ElseIf cosas.Tienda = "Chrono" Then
                         Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
+                    ElseIf cosas.Tienda = "Amazon.com" Then
+                        Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                        juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     End If
 
                     Dim tituloFinal As String = juego.Titulo
@@ -615,6 +621,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 ElseIf cosas.Tienda = "Chrono" Then
                     Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                ElseIf cosas.Tienda = "Amazon.com" Then
+                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                    precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
                 Else
                     precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
                 End If
@@ -659,6 +668,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cosas.Tienda = "Razer Game Store" Then
                 listaEtiquetas.Add(19)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_razergamestore.png"
+            ElseIf cosas.Tienda = "Amazon.com" Then
+                listaEtiquetas.Add(20)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png"
             End If
 
             precioFinal = precioFinal.Replace(",", ".")
@@ -779,6 +791,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 enlace = enlace + "?caff=6704538"
             ElseIf enlace.Contains("wingamestore.com") Then
                 enlace = enlace + "?ars=pepeizqdeals8"
+            ElseIf enlace.Contains("amazon.com") Then
+                enlace = enlace + "?tag=ofedeunpan-20"
             ElseIf enlace.Contains("humblebundle.com/monthly") Then
                 enlace = enlace + "?refc=gXsa9X"
             End If

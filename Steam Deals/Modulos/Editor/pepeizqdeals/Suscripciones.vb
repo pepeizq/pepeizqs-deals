@@ -11,6 +11,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
             cbTiendas.Items.Clear()
 
+            cbTiendas.Items.Add("--")
             cbTiendas.Items.Add("Humble Monthly")
             cbTiendas.Items.Add("Twitch Prime")
 
@@ -89,11 +90,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing)
 
-            If cbTiendas.SelectedIndex = 0 Then
+            If cbTiendas.SelectedIndex = 1 Then
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Monthly • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = Referidos("https://www.humblebundle.com/monthly")
-            ElseIf cbTiendas.SelectedIndex = 1 Then
+            ElseIf cbTiendas.SelectedIndex = 2 Then
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.twitch.tv/prime"

@@ -115,6 +115,10 @@ Namespace pepeizq.Tiendas
 
                                     If juego.Descuento = Nothing Then
                                         tituloBool = True
+                                    Else
+                                        If juego.Descuento = "00%" Then
+                                            tituloBool = True
+                                        End If
                                     End If
 
                                     If tituloBool = False Then

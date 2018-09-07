@@ -111,52 +111,114 @@ Namespace pepeizq.Tiendas
                                 temp5 = temp2.Remove(0, int5 + 8)
 
                                 int6 = temp5.IndexOf("</sup>")
-                                temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                temp6 = temp6.Replace("</span>", ".")
+                                If Not int6 = -1 Then
+                                    temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                If temp6.Contains("<") Then
-                                    Dim intTemp As Integer = temp6.IndexOf("<")
-                                    Dim intTemp2 As Integer = temp6.IndexOf(">") + 1
+                                    temp6 = temp6.Replace("</span>", ".")
 
-                                    temp6 = temp6.Remove(intTemp, intTemp2 - intTemp)
-                                    temp6 = temp6.Replace(" ", Nothing)
-                                End If
+                                    If temp6.Contains("<") Then
+                                        Dim intTemp As Integer = temp6.IndexOf("<")
+                                        Dim intTemp2 As Integer = temp6.IndexOf(">") + 1
 
-                                Dim decimalesPrecio As String = "00"
-
-                                If temp6.Contains(">") Then
-                                    Dim intTemp As Integer = temp6.LastIndexOf(">")
-
-                                    decimalesPrecio = temp6.Remove(0, intTemp + 1)
-                                End If
-
-                                If temp6.Contains(".") Then
-                                    Dim intTemp2 As Integer = temp6.IndexOf(".")
-                                    temp6 = temp6.Remove(intTemp2, temp6.Length - intTemp2)
-                                End If
-
-                                Dim precioRebajado As String = "$" + temp6.Trim + "." + decimalesPrecio
-
-                                If temp2.Contains("aria-label=" + ChrW(34) + "Suggested Retail Price:") Then
-                                    Dim temp7, temp8 As String
-                                    Dim int7, int8 As Integer
-
-                                    int7 = temp2.Contains("aria-label=" + ChrW(34) + "Suggested Retail Price:")
-                                    temp7 = temp2.Remove(0, int7 + 1)
-
-                                    int7 = temp7.IndexOf("$")
-                                    temp7 = temp7.Remove(0, int7 + 1)
-
-                                    int8 = temp7.IndexOf(ChrW(34))
-                                    temp8 = temp7.Remove(int8, temp7.Length - int8)
-
-                                    Dim precioBase As String = temp8.Trim
-
-                                    If titulo = "Mad Max" Then
-                                        Notificaciones.Toast(temp7, precioBase)
+                                        temp6 = temp6.Remove(intTemp, intTemp2 - intTemp)
+                                        temp6 = temp6.Replace(" ", Nothing)
                                     End If
 
+                                    Dim decimalesPrecio As String = "00"
+
+                                    If temp6.Contains(">") Then
+                                        Dim intTemp As Integer = temp6.LastIndexOf(">")
+
+                                        decimalesPrecio = temp6.Remove(0, intTemp + 1)
+                                    End If
+
+                                    If temp6.Contains(".") Then
+                                        Dim intTemp2 As Integer = temp6.IndexOf(".")
+                                        temp6 = temp6.Remove(intTemp2, temp6.Length - intTemp2)
+                                    End If
+
+                                    Dim precioRebajado As String = "$" + temp6.Trim + "." + decimalesPrecio
+
+                                    If temp2.Contains("aria-label=" + ChrW(34) + "Suggested Retail Price:") Then
+                                        Dim temp7, temp8 As String
+                                        Dim int7, int8 As Integer
+
+                                        int7 = temp2.IndexOf("aria-label=" + ChrW(34) + "Suggested Retail Price:")
+                                        temp7 = temp2.Remove(0, int7 + 1)
+
+                                        int7 = temp7.IndexOf("$")
+                                        temp7 = temp7.Remove(0, int7 + 1)
+
+                                        int8 = temp7.IndexOf(ChrW(34))
+                                        temp8 = temp7.Remove(int8, temp7.Length - int8)
+
+                                        Dim precioBase As String = temp8.Trim
+
+                                        Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+
+                                        Dim temp9, temp10 As String
+                                        Dim int9, int10 As Integer
+
+                                        int9 = temp2.IndexOf("data-asin=")
+                                        temp9 = temp2.Remove(0, int9 + 11)
+
+                                        int10 = temp9.IndexOf(ChrW(34))
+                                        temp10 = temp9.Remove(int10, temp9.Length - int10)
+
+                                        Dim enlace As String = "https://www.amazon.com/dp/" + temp10.Trim + "/"
+
+                                        Dim listaEnlaces As New List(Of String) From {
+                                            enlace
+                                        }
+
+                                        Dim temp11, temp12 As String
+                                        Dim int11, int12 As Integer
+
+                                        int11 = temp2.IndexOf("<img src=")
+                                        temp11 = temp2.Remove(0, int11 + 10)
+
+                                        int12 = temp11.IndexOf(ChrW(34))
+                                        temp12 = temp11.Remove(int12, temp11.Length - int12)
+
+                                        Dim imagen As String = temp12.Trim
+                                        imagen = imagen.Replace("AC_US218", "AC_SX215")
+
+                                        Dim imagenes As New JuegoImagenes(imagen, Nothing)
+
+                                        Dim listaPrecios As New List(Of String) From {
+                                            precioRebajado
+                                        }
+
+                                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+
+                                        Dim drm As String = "steam"
+
+                                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+
+                                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Amazon.com", Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+
+                                        Dim tituloBool As Boolean = False
+                                        Dim k As Integer = 0
+                                        While k < listaJuegos.Count
+                                            If listaJuegos(k).Titulo = juego.Titulo Then
+                                                tituloBool = True
+                                            End If
+                                            k += 1
+                                        End While
+
+                                        If juego.Descuento = Nothing Then
+                                            tituloBool = True
+                                        Else
+                                            If juego.Descuento = "00%" Then
+                                                tituloBool = True
+                                            End If
+                                        End If
+
+                                        If tituloBool = False Then
+                                            listaJuegos.Add(juego)
+                                        End If
+                                    End If
                                 End If
                             End If
                         End If
