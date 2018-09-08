@@ -131,6 +131,47 @@ Namespace pepeizq.Tiendas
 
         End Sub
 
+        Public Async Function ChronoMas(juego As Juego) As Task(Of Juego)
+
+            Dim html As String = Await HttpClient(New Uri("https://api.chrono.gg/sale"))
+            Dim idSteam As String = Nothing
+
+            If Not html = Nothing Then
+                Dim juegoChrono As ChronoJuego = JsonConvert.DeserializeObject(Of ChronoJuego)(html)
+
+                If Not juegoChrono Is Nothing Then
+                    idSteam = juegoChrono.DRM(0).ID
+                End If
+            End If
+
+            If Not idSteam = Nothing Then
+                Dim htmlMas As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + idSteam))
+
+                If Not htmlMas = Nothing Then
+                    Dim temp As String
+                    Dim int As Integer
+
+                    int = htmlMas.IndexOf(":")
+                    temp = htmlMas.Remove(0, int + 1)
+                    temp = temp.Remove(temp.Length - 1, 1)
+
+                    Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
+
+                    If Not datos Is Nothing Then
+                        If Not datos.Datos.Desarrolladores Is Nothing Then
+                            If datos.Datos.Desarrolladores.Count > 0 Then
+                                Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
+                                juego.Desarrolladores = desarrolladores
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+
+            Return juego
+
+        End Function
+
     End Module
 
     Public Class ChronoJuego

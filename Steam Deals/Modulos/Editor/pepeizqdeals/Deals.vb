@@ -8,7 +8,7 @@ Namespace pepeizq.Editor.pepeizqdeals
         Public Async Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
 
             BloquearControles(False)
-            Publishers.GenerarDatos()
+            Desarrolladores.GenerarDatos()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -34,6 +34,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             If listaFinal.Count = 1 Then
                 If listaFinal(0).Tienda = "Steam" Then
                     listaFinal(0) = Await Tiendas.Steam.SteamMas(listaFinal(0))
+                ElseIf listaFinal(0).Tienda = "Chrono" Then
+                    listaFinal(0) = Await Tiendas.Chrono.ChronoMas(listaFinal(0))
                 End If
 
                 Dim precioFinal As String = String.Empty
@@ -112,9 +114,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         For Each publisher In cbPublishers.Items
                             If TypeOf publisher Is TextBlock Then
                                 If Not publisher.Text = Nothing Then
-                                    Dim publisherLimpio As String = Publishers.LimpiarPublisher(publisher.Text)
+                                    Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
 
-                                    If publisherLimpio = Publishers.LimpiarPublisher(listaFinal(0).Desarrolladores.Desarrolladores(0)) Then
+                                    If publisherLimpio = Desarrolladores.LimpiarPublisher(listaFinal(0).Desarrolladores.Desarrolladores(0)) Then
                                         cbPublishers.SelectedItem = publisher
                                     End If
                                 End If
@@ -134,19 +136,21 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 For Each publisher In cbPublishers.Items
                                     If TypeOf publisher Is TextBlock Then
                                         If Not publisher.Text = Nothing Then
-                                            Dim publisherLimpio As String = Publishers.LimpiarPublisher(publisher.Text)
+                                            Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
 
-                                            If publisherLimpio = Publishers.LimpiarPublisher(item.Desarrolladores.Desarrolladores(0)) Then
+                                            If publisherLimpio = Desarrolladores.LimpiarPublisher(item.Desarrolladores.Desarrolladores(0)) Then
                                                 If publisherFinal = Nothing Then
                                                     cbPublishers.SelectedItem = publisher
                                                     publisherFinal = publisher.Text
                                                 Else
-                                                    If Not publisherLimpio = Publishers.LimpiarPublisher(publisherFinal) Then
+                                                    If Not publisherLimpio = Desarrolladores.LimpiarPublisher(publisherFinal) Then
                                                         publisherFinal = Nothing
                                                         Exit For
                                                     End If
                                                 End If
                                             End If
+                                        Else
+                                            Exit For
                                         End If
                                     End If
                                 Next

@@ -1,5 +1,5 @@
 ﻿Namespace pepeizq.Editor.pepeizqdeals.Clases
-    Public Class Publishers
+    Public Class Desarrolladores
 
         Public Property Publisher As String
         Public Property Twitter As String
