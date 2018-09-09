@@ -7,7 +7,7 @@ Namespace pepeizq.Editor.pepeizqdeals
     Module Post
 
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer), descuento As String, precio As String, iconoTienda As String,
-                                     redireccion As String, imagen As String, tituloComplemento As String, iconoReview As String, estado As Integer) As Task
+                                     redireccion As String, imagen As String, tituloComplemento As String, analisis As JuegoAnalisis, estado As Integer) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -78,10 +78,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not iconoReview = Nothing Then
-                    If iconoReview.Trim.Length > 0 Then
-                        iconoReview = "<img src=" + ChrW(34) + iconoReview.Trim + ChrW(34) + " />"
-                        postEditor.IconoReview = iconoReview
+                If Not analisis Is Nothing Then
+                    Dim iconoReview As String = Nothing
+
+                    If analisis.Porcentaje > 74 Then
+                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_positive.png"
+                    ElseIf analisis.Porcentaje > 49 And analisis.Porcentaje < 75 Then
+                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_mixed.png"
+                    ElseIf analisis.Porcentaje < 50 Then
+                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_negative.png"
+                    End If
+
+                    If Not iconoReview = Nothing Then
+                        If iconoReview.Trim.Length > 0 Then
+                            iconoReview = "<img src=" + ChrW(34) + iconoReview.Trim + ChrW(34) + " />"
+                            postEditor.IconoReview = iconoReview
+                        End If
                     End If
                 End If
 
@@ -120,7 +132,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Steam.Enviar(titulo, enlaceFinal, tituloComplemento)
+                            Steam.Enviar(titulo, enlaceFinal, tituloComplemento, analisis)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try

@@ -92,7 +92,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbImagen.IsEnabled = False
 
             Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
-                              tbEnlace.Text, tbImagen.Text, " ", " ", 0)
+                              tbEnlace.Text, tbImagen.Text, " ", Nothing, 0)
 
             tbEnlace.IsEnabled = True
             tbTitulo.IsEnabled = True

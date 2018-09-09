@@ -145,7 +145,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbJuegos.IsEnabled = False
 
             Await Post.Enviar(tbTitulo.Text, " ", 13, New List(Of Integer) From {9999}, " ", " ", " ",
-                              tbEnlace.Text, tbImagen.Text, tbJuegos.Text, " ", 0)
+                              tbEnlace.Text, tbImagen.Text, tbJuegos.Text, Nothing, 0)
 
             cbTiendas.IsEnabled = True
             cbMeses.IsEnabled = True

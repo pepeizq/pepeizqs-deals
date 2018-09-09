@@ -277,10 +277,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagen.Source = tbImagen.Text
             Else
-                If listaFinal(0).Tienda = "GamersGate" Then
-                    gvImagenVertical.Visibility = Visibility.Collapsed
-                    gvImagenHorizontal.Visibility = Visibility.Visible
-                ElseIf listaFinal(0).Tienda = "Voidu" Then
+                If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Then
                     gvImagenVertical.Visibility = Visibility.Collapsed
                     gvImagenHorizontal.Visibility = Visibility.Visible
                 Else
@@ -707,22 +704,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tituloComplemento = tbTituloComplemento.Text.Trim
             End If
 
-            Dim iconoReview As String = String.Empty
+            Dim analisis As JuegoAnalisis = Nothing
 
             If cosas.ListaJuegos.Count = 1 Then
                 If Not cosas.ListaJuegos(0).Analisis Is Nothing Then
-                    If cosas.ListaJuegos(0).Analisis.Porcentaje > 74 Then
-                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_positive.png"
-                    ElseIf cosas.ListaJuegos(0).Analisis.Porcentaje > 49 And cosas.ListaJuegos(0).Analisis.Porcentaje < 75 Then
-                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_mixed.png"
-                    ElseIf cosas.ListaJuegos(0).Analisis.Porcentaje < 50 Then
-                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_negative.png"
-                    End If
+                    analisis = cosas.ListaJuegos(0).Analisis
                 End If
             End If
 
             Await Post.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
-                              redireccion, imagenPost, tituloComplemento, iconoReview, 0)
+                              redireccion, imagenPost, tituloComplemento, analisis, 0)
 
             BloquearControles(True)
 

@@ -3,7 +3,7 @@
 Namespace pepeizq.Editor.pepeizqdeals
     Module Steam
 
-        Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String)
+        Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, analisis As JuegoAnalisis)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -20,7 +20,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     End Try
 
-                    Dim mensajeHtml As String = enlaceFinal
+                    Dim mensajeHtml As String = Nothing
+
+                    If Not analisis Is Nothing Then
+                        mensajeHtml = "Rating: " + analisis.Porcentaje + "% - Reviews: " + analisis.Cantidad
+                    End If
+
+                    If Not tituloComplemento = Nothing Then
+                        mensajeHtml = tituloComplemento
+                    End If
+
+                    If Not mensajeHtml = Nothing Then
+                        mensajeHtml = Environment.NewLine + Environment.NewLine + enlaceFinal
+                    Else
+                        mensajeHtml = enlaceFinal
+                    End If
+
+                    mensajeHtml = mensajeHtml.Replace(ChrW(34), Nothing)
+
                     mensajeHtml = "document.getElementById('body').value = '" + mensajeHtml + "'"
 
                     Try

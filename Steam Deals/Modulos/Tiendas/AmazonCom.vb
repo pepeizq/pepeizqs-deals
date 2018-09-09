@@ -212,6 +212,8 @@ Namespace pepeizq.Tiendas
                                         Else
                                             If juego.Descuento = "00%" Then
                                                 tituloBool = True
+                                            ElseIf juego.Descuento.Length = 4 Then
+                                                tituloBool = True
                                             End If
                                         End If
 
