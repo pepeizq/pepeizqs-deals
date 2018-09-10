@@ -159,7 +159,7 @@ Namespace pepeizq.Tiendas
                                 tituloBool = True
                             ElseIf juego.Descuento = "null%" Then
                                 tituloBool = True
-                            ElseIf juego.Descuento = "-0%" Then
+                            ElseIf juego.Descuento = "-" Then
                                 tituloBool = True
                             End If
                         End If

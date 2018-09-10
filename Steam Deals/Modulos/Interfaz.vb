@@ -306,6 +306,11 @@ Module Interfaz
             grid.Visibility = Visibility.Collapsed
         Next
 
+        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+            Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
+            spEditor.Visibility = Visibility.Collapsed
+        End If
+
         Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaSeleccionada")
         imagenTienda.Source = tienda.Icono
         imagenTienda.Tag = tienda

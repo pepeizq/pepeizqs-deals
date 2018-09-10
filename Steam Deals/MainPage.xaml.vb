@@ -21,6 +21,7 @@ Public NotInheritable Class MainPage
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                         itemEditorSeleccionarTodo.Visibility = Visibility.Visible
                         itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
+                        spOfertasTiendasEditor.Visibility = Visibility.Visible
                     End If
                 End If
             End If
@@ -51,6 +52,7 @@ Public NotInheritable Class MainPage
                         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                             itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
                             itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
+                            spOfertasTiendasEditor.Visibility = Visibility.Collapsed
 
                             Dim lv As ListView = grid.Children(0)
                             gridEditor.Tag = lv

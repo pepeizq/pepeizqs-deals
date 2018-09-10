@@ -36,6 +36,9 @@ Module Ordenar
         Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
         itemLimpiarSeleccion.IsEnabled = False
 
+        Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
+        spEditor.Visibility = Visibility.Collapsed
+
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
 
@@ -48,12 +51,16 @@ Module Ordenar
         Dim numOfertasCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
         numOfertasCargadas.Text = String.Empty
 
+        Dim numOfertasCargadas2 As TextBlock = pagina.FindName("tbNumOfertasCargadas2")
+        numOfertasCargadas2.Text = String.Empty
+
         If Not lv Is Nothing Then
             lv.IsEnabled = False
 
             Dim helper As New LocalObjectStorageHelper
             Dim listaJuegos As New List(Of Juego)
             Dim listaUltimasOfertas As New List(Of Juego)
+            Dim listaDesarrolladores As New List(Of String)
 
             If buscar = True Then
                 If Await helper.FileExistsAsync("listaOfertas" + tienda) = True Then
@@ -178,7 +185,6 @@ Module Ordenar
                 Dim listaGrids As New List(Of Juego)
 
                 For Each juego In listaJuegos
-
                     Dim tituloGrid As Boolean = False
                     For Each item In lv.Items
                         Dim grid As Grid = item
@@ -262,6 +268,25 @@ Module Ordenar
                     lv.Items.Add(Interfaz.AñadirOfertaListado(juegoGrid))
 
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                        If Not juegoGrid.Desarrolladores Is Nothing Then
+                            If juegoGrid.Desarrolladores.Desarrolladores.Count > 0 Then
+                                If listaDesarrolladores.Count > 0 Then
+                                    Dim añadirDesarrollador As Boolean = True
+                                    For Each desarrollador In listaDesarrolladores
+                                        If desarrollador = juegoGrid.Desarrolladores.Desarrolladores(0) Then
+                                            añadirDesarrollador = False
+                                        End If
+                                    Next
+
+                                    If añadirDesarrollador = True Then
+                                        listaDesarrolladores.Add(juegoGrid.Desarrolladores.Desarrolladores(0))
+                                    End If
+                                Else
+                                    listaDesarrolladores.Add(juegoGrid.Desarrolladores.Desarrolladores(0))
+                                End If
+                            End If
+                        End If
+
                         If Not juegoGrid.Promocion Is Nothing Then
                             If Not juegoGrid.Promocion = Nothing Then
                                 Interfaz.AñadirOpcionSeleccion(juegoGrid.Promocion)
@@ -312,6 +337,7 @@ Module Ordenar
                 If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                     itemSeleccionarTodo.Visibility = Visibility.Collapsed
                     itemLimpiarSeleccion.Visibility = Visibility.Collapsed
+                    spEditor.Visibility = Visibility.Collapsed
 
                     numOfertasCargadas.Visibility = Visibility.Visible
                     numOfertasCargadas.Text = "(" + listaJuegos.Count.ToString + ")"
@@ -324,14 +350,31 @@ Module Ordenar
                 If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                     itemSeleccionarTodo.Visibility = Visibility.Visible
                     itemLimpiarSeleccion.Visibility = Visibility.Visible
+                    spEditor.Visibility = Visibility.Visible
+
+                    Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
+                    cbDesarrolladores.Items.Clear()
+                    cbDesarrolladores.Items.Add("--")
+
+                    If listaDesarrolladores.Count > 0 Then
+                        listaDesarrolladores.Sort()
+
+                        For Each desarrollador In listaDesarrolladores
+                            cbDesarrolladores.Items.Add(desarrollador)
+                        Next
+                    End If
+
+                    cbDesarrolladores.SelectedIndex = 0
+
+                    numOfertasCargadas2.Text = lv.Items.Count.ToString
                 End If
             End If
-
-            lv.IsEnabled = True
 
             For Each item In lv.Items
                 item.Opacity = 1
             Next
+
+            lv.IsEnabled = True
         End If
 
         itemTiendas.IsEnabled = True

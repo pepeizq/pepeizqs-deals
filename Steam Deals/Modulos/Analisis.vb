@@ -250,7 +250,7 @@ Module Analisis
         titulo = WebUtility.HtmlDecode(titulo)
 
         Dim listaCaracteres As New List(Of String) From {"Early Access", " ", "•", ">", "<", "¿", "?", "!", "¡", ":",
-            ".", "_", "–", "-", ";", ",", "™", "®", "'", "´", "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34),
+            ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´", "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34),
             "@", "^", "[", "]", "ª", "«"}
 
         For Each item In listaCaracteres
@@ -267,12 +267,7 @@ Module Analisis
 
         If Not itemGrid Is Nothing Then
             If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("filtrado") = 0 Then
-                    Dim sp As StackPanel = itemGrid.Children(0)
-                    Dim cb As CheckBox = sp.Children(0)
-
-                    cb.IsChecked = True
-                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 1 Then
+                If ApplicationData.Current.LocalSettings.Values("filtrado") = 1 Then
                     If TypeOf itemGrid.Tag Is Juego Then
                         Dim juego As Juego = itemGrid.Tag
 
@@ -362,6 +357,33 @@ Module Analisis
                                 cb.IsChecked = True
                             End If
                         End If
+                    End If
+                ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 0 Then
+                    Dim frame As Frame = Window.Current.Content
+                    Dim pagina As Page = frame.Content
+
+                    Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
+
+                    If Not cbDesarrolladores.SelectedIndex = 0 Then
+                        If TypeOf itemGrid.Tag Is Juego Then
+                            Dim juego As Juego = itemGrid.Tag
+
+                            If Not juego.Desarrolladores Is Nothing Then
+                                If juego.Desarrolladores.Desarrolladores.Count > 0 Then
+                                    If cbDesarrolladores.SelectedItem = juego.Desarrolladores.Desarrolladores(0) Then
+                                        Dim sp As StackPanel = itemGrid.Children(0)
+                                        Dim cb As CheckBox = sp.Children(0)
+
+                                        cb.IsChecked = True
+                                    End If
+                                End If
+                            End If
+                        End If
+                    Else
+                        Dim sp As StackPanel = itemGrid.Children(0)
+                        Dim cb As CheckBox = sp.Children(0)
+
+                        cb.IsChecked = True
                     End If
                 End If
             Else

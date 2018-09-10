@@ -31,12 +31,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     If Not mensajeHtml = Nothing Then
-                        mensajeHtml = Environment.NewLine + Environment.NewLine + enlaceFinal
+                        mensajeHtml = mensajeHtml + "\n\n" + enlaceFinal
                     Else
                         mensajeHtml = enlaceFinal
                     End If
 
                     mensajeHtml = mensajeHtml.Replace(ChrW(34), Nothing)
+                    mensajeHtml = mensajeHtml.Replace("'", Nothing)
 
                     mensajeHtml = "document.getElementById('body').value = '" + mensajeHtml + "'"
 

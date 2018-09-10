@@ -161,7 +161,19 @@
                         </StackPanel>
                     </Grid>
 
-                    <Grid x:Name="gridOfertasTiendas" Visibility="Collapsed"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid x:Name="gridOfertasTiendas" Grid.Row="0" Visibility="Collapsed"/>
+                        <StackPanel x:Name="spOfertasTiendasEditor" Grid.Row="1" Orientation="Horizontal" Padding="20" Visibility="Collapsed">
+                            <ComboBox x:Name="cbFiltradoEditorAnalisis" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbFiltradoEditorDesarrolladores" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            <TextBlock x:Name="tbNumOfertasCargadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        </StackPanel> 
+                    </Grid>
 
                     <Grid x:Name="gridProgreso" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                         <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
@@ -221,8 +233,6 @@
                             <TextBlock x:Name="tbNumOfertasSeleccionadas" Margin="20,0,0,0" VerticalAlignment="Center" Foreground="White"/>
                         </StackPanel>
 
-                        <ComboBox x:Name="cbFiltradoEditorAnalisis" Margin="20,0,0,0" VerticalAlignment="Center"/>
-
                         <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushSecundario}" Margin="30,10,15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
@@ -230,7 +240,7 @@
                                     <TextBlock x:Name="tbEditorAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
                                 </StackPanel>
                             </Button.Content> 
-                        </Button> 
+                        </Button>
 
                         <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                             <Button.Content>
