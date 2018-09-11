@@ -53,6 +53,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Steam(enlace)
                 ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
                     cosas = Await Humble(enlace)
+                Else
+                    Dim cosas2 As New Clases.Free("--", Nothing, "--")
+                    cosas = cosas2
                 End If
 
                 If Not cosas Is Nothing Then

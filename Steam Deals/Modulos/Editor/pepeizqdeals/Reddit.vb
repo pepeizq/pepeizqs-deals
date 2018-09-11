@@ -50,6 +50,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
+            If Not tituloFinal = Nothing Then
+                If tituloFinal.LastIndexOf("•") = tituloFinal.Length - 1 Then
+                    tituloFinal = tituloFinal.Remove(tituloFinal.Length - 1, 1)
+                    tituloFinal = tituloFinal.Trim
+                End If
+            End If
+
             Dim reddit As New RedditSharp.Reddit
             Dim usuario As RedditSharp.Things.AuthenticatedUser = reddit.LogIn(ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit"))
             reddit.InitOrUpdateUser()

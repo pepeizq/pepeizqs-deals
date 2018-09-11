@@ -31,7 +31,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     If Not mensajeHtml = Nothing Then
-                        mensajeHtml = mensajeHtml + "\n\n" + enlaceFinal
+                        If mensajeHtml.Trim.Length > 0 Then
+                            mensajeHtml = mensajeHtml + "\n\n" + enlaceFinal
+                        Else
+                            mensajeHtml = enlaceFinal
+                        End If
                     Else
                         mensajeHtml = enlaceFinal
                     End If
