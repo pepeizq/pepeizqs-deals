@@ -41,14 +41,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim precioFinal As String = String.Empty
 
                 If listaFinal(0).Tienda = "GamersGate" Then
-                    Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)
+                    If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
+                        Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)
 
-                    If precioUK > listaFinal(0).Enlaces.Precios(0) Then
+                        If precioUK > listaFinal(0).Enlaces.Precios(0) Then
+                            precioFinal = listaFinal(0).Enlaces.Precios(0)
+                            tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                        Else
+                            precioFinal = precioUK
+                            tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(1))
+                        End If
+                    Else
                         precioFinal = listaFinal(0).Enlaces.Precios(0)
                         tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
-                    Else
-                        precioFinal = precioUK
-                        tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(1))
                     End If
                 ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
                     Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbLibra.Text)
@@ -400,14 +405,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim claveMejorPrecio As Integer = 0
 
                     If cosas.Tienda = "GamersGate" Then
-                        Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
-                        Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(1), tbLibra.Text)
+                        If Not juego.Enlaces.Precios(1) = Nothing Then
+                            Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                            Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(1), tbLibra.Text)
 
-                        If precioUK > juego.Enlaces.Precios(0) Then
-                            claveMejorPrecio = 0
-                        Else
-                            claveMejorPrecio = 1
-                            juego.Enlaces.Precios(1) = precioUK
+                            If precioUK > juego.Enlaces.Precios(0) Then
+                                claveMejorPrecio = 0
+                            Else
+                                claveMejorPrecio = 1
+                                juego.Enlaces.Precios(1) = precioUK
+                            End If
                         End If
                     ElseIf cosas.Tienda = "GamesPlanet" Then
                         Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
@@ -492,10 +499,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
 
                     Dim precioFinalJuego As String = juego.Enlaces.Precios(claveMejorPrecio)
-                    precioFinalJuego = precioFinalJuego.Replace(",", ".")
-                    precioFinalJuego = precioFinalJuego.Replace("€", Nothing)
-                    precioFinalJuego = precioFinalJuego.Trim
-                    precioFinalJuego = precioFinalJuego + " €"
+
+                    If Not precioFinalJuego = Nothing Then
+                        precioFinalJuego = precioFinalJuego.Replace(",", ".")
+                        precioFinalJuego = precioFinalJuego.Replace("€", Nothing)
+                        precioFinalJuego = precioFinalJuego.Trim
+                        precioFinalJuego = precioFinalJuego + " €"
+                    End If
 
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + precioFinalJuego + "</span></td>" + Environment.NewLine
 
