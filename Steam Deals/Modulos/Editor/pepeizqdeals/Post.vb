@@ -75,6 +75,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
+                        postEditor.SEODescripcion = tituloComplemento.Trim
                     End If
                 End If
 
@@ -94,6 +95,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                             iconoReview = "<img src=" + ChrW(34) + iconoReview.Trim + ChrW(34) + " />"
                             postEditor.IconoReview = iconoReview
                         End If
+                    End If
+                End If
+
+                If Not titulo = Nothing Then
+                    If titulo.Trim.Length > 0 Then
+                        postEditor.SEOClave = titulo.Trim
                     End If
                 End If
 
