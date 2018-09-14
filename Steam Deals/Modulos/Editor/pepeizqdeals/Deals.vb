@@ -795,7 +795,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf enlace.Contains("gamersgate.com") Then
                 enlace = enlace + "?caff=6704538"
             ElseIf enlace.Contains("wingamestore.com") Then
-                enlace = enlace + "?ars=pepeizqdeals8"
+                enlace = enlace + "?ars=pepeizqdeals"
+            ElseIf enlace.Contains("macgamestore.com") Then
+                enlace = enlace + "?ars=pepeizqdeals"
             ElseIf enlace.Contains("amazon.com") Then
                 enlace = enlace + "?tag=ofedeunpan-20"
             ElseIf enlace.Contains("humblebundle.com/monthly") Then
