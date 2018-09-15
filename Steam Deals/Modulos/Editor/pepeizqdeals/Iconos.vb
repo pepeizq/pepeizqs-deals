@@ -31,12 +31,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Icono("Amazon", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32)
             }
 
+            'New Clases.Icono("Windows", "https://www.iconsdb.com/icons/download/white/os-windows8-16.ico", "#0078d7", Nothing, 32, 32),
+            'New Clases.Icono("Xbox", "https://www.iconsdb.com/icons/download/white/consoles-xbox-16.ico", "#008000", Nothing, 32, 32),
+            'New Clases.Icono("Android", "https://www.iconsdb.com/icons/download/white/android-6-16.ico", "#aac148", Nothing, 32, 32)
+
             For Each tienda In listaTiendas
                 tienda.Nombre = "tienda_" + tienda.Nombre.ToLower
 
                 Dim imagenIcono As New ImageEx With {
-                    .Width = 16,
-                    .Height = 16,
+                    .Width = (tienda.ObjetoAncho / 2),
+                    .Height = (tienda.ObjetoAlto / 2),
                     .IsCacheEnabled = True,
                     .Source = tienda.Icono
                 }
