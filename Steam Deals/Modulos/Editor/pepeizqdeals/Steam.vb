@@ -12,6 +12,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
                 If Not wv.DocumentTitle.Contains("Error") Then
+                    titulo = titulo.Replace(ChrW(34), Nothing)
+                    titulo = titulo.Replace("'", Nothing)
+
                     Dim tituloHtml As String = "document.getElementById('headline').value = '" + titulo.Trim + "'"
 
                     Try
