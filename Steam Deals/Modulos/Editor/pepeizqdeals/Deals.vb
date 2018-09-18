@@ -115,18 +115,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                 precioFinal = precioFinal + " €"
 
                 If Not listaFinal(0).Desarrolladores Is Nothing Then
-                    If Not listaFinal(0).Desarrolladores.Desarrolladores(0) = Nothing Then
-                        For Each publisher In cbPublishers.Items
-                            If TypeOf publisher Is TextBlock Then
-                                If Not publisher.Text = Nothing Then
-                                    Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
+                    If listaFinal(0).Desarrolladores.Desarrolladores.Count > 0 Then
+                        If Not listaFinal(0).Desarrolladores.Desarrolladores(0) = Nothing Then
+                            For Each publisher In cbPublishers.Items
+                                If TypeOf publisher Is TextBlock Then
+                                    If Not publisher.Text = Nothing Then
+                                        Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
 
-                                    If publisherLimpio = Desarrolladores.LimpiarPublisher(listaFinal(0).Desarrolladores.Desarrolladores(0)) Then
-                                        cbPublishers.SelectedItem = publisher
+                                        If publisherLimpio = Desarrolladores.LimpiarPublisher(listaFinal(0).Desarrolladores.Desarrolladores(0)) Then
+                                            cbPublishers.SelectedItem = publisher
+                                        End If
                                     End If
                                 End If
-                            End If
-                        Next
+                            Next
+                        End If
                     End If
                 End If
 
@@ -802,6 +804,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 enlace = enlace + "?tag=ofedeunpan-20"
             ElseIf enlace.Contains("humblebundle.com/monthly") Then
                 enlace = enlace + "?refc=gXsa9X"
+            ElseIf enlace.Contains("fanatical.com") Then
+                enlace = "http://www.tkqlhce.com/click-8883540-13398977?url=" + enlace
+            ElseIf enlace.Contains("voidu.com") Then
+                enlace = "http://www.tkqlhce.com/click-8883540-13148757?url=" + enlace
             End If
 
             Return enlace

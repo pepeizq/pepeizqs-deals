@@ -52,6 +52,7 @@ Namespace pepeizq.Tiendas
                     For Each juegoUK In listaJuegosUK.Juegos
                         Dim titulo As String = WebUtility.HtmlDecode(juegoUK.Titulo)
                         titulo = titulo.Replace("â", Nothing)
+                        titulo = titulo.Replace("Â", Nothing)
                         titulo = titulo.Replace("¢", Nothing)
 
                         Dim precio As String = juegoUK.PrecioDescontado

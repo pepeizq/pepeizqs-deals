@@ -338,10 +338,19 @@ Module Analisis
 
                         If Not juego.Analisis Is Nothing Then
                             If juego.Analisis.Cantidad.Length > 2 Then
-                                Dim sp As StackPanel = itemGrid.Children(0)
-                                Dim cb As CheckBox = sp.Children(0)
+                                If juego.Tienda = "Steam" Then
+                                    If Not juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/bundle/") Then
+                                        Dim sp As StackPanel = itemGrid.Children(0)
+                                        Dim cb As CheckBox = sp.Children(0)
 
-                                cb.IsChecked = True
+                                        cb.IsChecked = True
+                                    End If
+                                Else
+                                    Dim sp As StackPanel = itemGrid.Children(0)
+                                    Dim cb As CheckBox = sp.Children(0)
+
+                                    cb.IsChecked = True
+                                End If
                             End If
                         End If
                     End If
@@ -351,10 +360,19 @@ Module Analisis
 
                         If Not juego.Analisis Is Nothing Then
                             If juego.Analisis.Cantidad.Length > 4 Then
-                                Dim sp As StackPanel = itemGrid.Children(0)
-                                Dim cb As CheckBox = sp.Children(0)
+                                If juego.Tienda = "Steam" Then
+                                    If Not juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/bundle/") Then
+                                        Dim sp As StackPanel = itemGrid.Children(0)
+                                        Dim cb As CheckBox = sp.Children(0)
 
-                                cb.IsChecked = True
+                                        cb.IsChecked = True
+                                    End If
+                                Else
+                                    Dim sp As StackPanel = itemGrid.Children(0)
+                                    Dim cb As CheckBox = sp.Children(0)
+
+                                    cb.IsChecked = True
+                                End If
                             End If
                         End If
                     End If

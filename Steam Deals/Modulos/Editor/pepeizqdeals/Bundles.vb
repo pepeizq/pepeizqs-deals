@@ -69,6 +69,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not cosas.Titulo = Nothing Then
                         tbTitulo.Text = cosas.Titulo + " • 0 games • " + cosas.Tienda
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
+                    Else
+                        tbTitulo.Text = "--- • 0 games • " + cosas.Tienda
+                        tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
                     End If
 
                     If Not cosas.Imagen = Nothing Then
@@ -98,6 +101,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
             tbEnlace.IsEnabled = False
 
+            Dim enlaceFinal As String = tbEnlace.Text
+            enlaceFinal = Referidos(enlaceFinal)
+
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             tbTitulo.IsEnabled = False
 
@@ -110,7 +116,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As Clases.Bundles = tbTitulo.Tag
 
             Await Post.Enviar(tbTitulo.Text, tbTituloComplementario.Text, 4, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
-                              tbEnlace.Text, tbImagen.Text, tbTituloComplementario.Text, Nothing, 0)
+                              enlaceFinal, tbImagen.Text, tbTituloComplementario.Text, Nothing, 0)
 
             tbEnlace.IsEnabled = True
             tbTitulo.IsEnabled = True
