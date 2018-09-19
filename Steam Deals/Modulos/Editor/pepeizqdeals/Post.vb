@@ -93,8 +93,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not iconoReview = Nothing Then
                         If iconoReview.Trim.Length > 0 Then
                             iconoReview = "<img src=" + ChrW(34) + iconoReview.Trim + ChrW(34) + " />"
-                            postEditor.IconoReview = iconoReview
+                            postEditor.ReviewIcono = iconoReview
                         End If
+                    End If
+
+                    Dim puntuacionReview As String = "Rating: " + analisis.Porcentaje + "% - Reviews: " + analisis.Cantidad
+
+                    If Not puntuacionReview = Nothing Then
+                        postEditor.ReviewPuntuacion = puntuacionReview
                     End If
                 End If
 

@@ -15,7 +15,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosTiendas")
 
             Dim listaTiendas As New List(Of Clases.Icono) From {
-                New Clases.Icono("Steam", "Assets/Tiendas/steam.ico", "#475166", Nothing, 32, 32),
+                New Clases.Icono("Steam", "Assets/drm_steam.png", "#475166", Nothing, 32, 32),
                 New Clases.Icono("Humble", "Assets/Tiendas/humble.ico", "#ea9192", Nothing, 32, 32),
                 New Clases.Icono("GamersGate", "Assets/Tiendas/gamersgate.ico", "#196176", Nothing, 32, 32),
                 New Clases.Icono("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "#838588", Nothing, 32, 32),

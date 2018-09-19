@@ -81,7 +81,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public TituloComplemento As String
 
         <JsonProperty("review")>
-        Public IconoReview As String
+        Public ReviewIcono As String
+
+        <JsonProperty("review2")>
+        Public ReviewPuntuacion As String
 
         <JsonProperty("_yoast_wpseo_focuskw")>
         Public SEOClave As String

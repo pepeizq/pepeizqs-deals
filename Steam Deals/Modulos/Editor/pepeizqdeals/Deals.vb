@@ -647,7 +647,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If cosas.Tienda = "Steam" Then
                 listaEtiquetas.Add(5)
-                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_steam.png"
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png"
             ElseIf cosas.Tienda = "Humble Store" Then
                 listaEtiquetas.Add(6)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
