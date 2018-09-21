@@ -51,9 +51,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             End While
 
             If Not tituloFinal = Nothing Then
-                If tituloFinal.LastIndexOf("•") = tituloFinal.Length - 1 Then
-                    tituloFinal = tituloFinal.Remove(tituloFinal.Length - 1, 1)
+                If tituloFinal.Trim.Length > 0 Then
                     tituloFinal = tituloFinal.Trim
+                    If tituloFinal.LastIndexOf("•") = tituloFinal.Length - 1 Then
+                        tituloFinal = tituloFinal.Remove(tituloFinal.Length - 1, 1)
+                        tituloFinal = tituloFinal.Trim
+                    End If
                 End If
             End If
 

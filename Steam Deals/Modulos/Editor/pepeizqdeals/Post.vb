@@ -106,7 +106,18 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not titulo = Nothing Then
                     If titulo.Trim.Length > 0 Then
-                        postEditor.SEOClave = titulo.Trim
+                        Dim tituloSEO As String = titulo
+
+                        If tituloSEO.Contains("•") Then
+                            Dim int As Integer = tituloSEO.IndexOf("•")
+                            Dim int2 As Integer = tituloSEO.LastIndexOf("•")
+                            tituloSEO = tituloSEO.Remove(int, int2 - int)
+
+                            tituloSEO = tituloSEO.Replace("•", Nothing)
+                            tituloSEO = tituloSEO.Trim
+                        End If
+
+                        postEditor.SEOClave = tituloSEO.Trim
                     End If
                 End If
 

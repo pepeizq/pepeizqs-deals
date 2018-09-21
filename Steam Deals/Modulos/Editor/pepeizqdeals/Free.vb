@@ -88,6 +88,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             tbEnlace.IsEnabled = False
 
+            Dim enlaceFinal As String = tbEnlace.Text
+            enlaceFinal = Referidos(enlaceFinal)
+
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
             tbTitulo.IsEnabled = False
 
@@ -95,7 +98,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbImagen.IsEnabled = False
 
             Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
-                              tbEnlace.Text, tbImagen.Text, " ", Nothing, 0)
+                              enlaceFinal, tbImagen.Text, " ", Nothing, 0)
 
             tbEnlace.IsEnabled = True
             tbTitulo.IsEnabled = True

@@ -284,7 +284,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagen.Source = tbImagen.Text
             Else
-                If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Then
+                If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Or listaFinal(0).Tienda = "Amazon.com" Then
                     gvImagenVertical.Visibility = Visibility.Collapsed
                     gvImagenHorizontal.Visibility = Visibility.Visible
                 Else
@@ -305,7 +305,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
                         End If
 
-                        If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Then
+                        If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Or listaFinal(0).Tienda = "Amazon.com" Then
                             imagenJuego.MaxWidth = 130
 
                             If Not imagenJuego.Source Is Nothing Then
@@ -388,7 +388,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
 
-                If cosas.Tienda = "GamersGate" Or cosas.Tienda = "Voidu" Then
+                If cosas.Tienda = "GamersGate" Or cosas.Tienda = "Voidu" Or cosas.Tienda = "Amazon.com" Then
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 Else
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
@@ -802,8 +802,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 enlace = enlace + "?ars=pepeizqdeals"
             ElseIf enlace.Contains("amazon.com") Then
                 enlace = enlace + "?tag=ofedeunpan-20"
-            ElseIf enlace.Contains("humblebundle.com/monthly") Then
-                enlace = enlace + "?refc=gXsa9X"
+            ElseIf enlace.Contains("humblebundle.com") Then
+                enlace = enlace + "?partner=pepeizq"
             ElseIf enlace.Contains("fanatical.com") Then
                 enlace = "http://www.tkqlhce.com/click-8883540-13398977?url=" + enlace
             ElseIf enlace.Contains("voidu.com") Then
