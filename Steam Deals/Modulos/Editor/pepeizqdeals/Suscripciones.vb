@@ -88,16 +88,18 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim boton As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
             boton.IsEnabled = False
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing)
+            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Monthly • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = Referidos("https://www.humblebundle.com/monthly")
+                cosas.Enlace = "https://www.humblebundle.com/monthly"
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.twitch.tv/prime"
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
             End If
 
             If Not cosas.Titulo = Nothing Then
@@ -107,6 +109,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not cosas.Enlace = Nothing Then
                 tbEnlace.Text = cosas.Enlace
             End If
+
+            tbTitulo.Tag = cosas
 
             cbTiendas.IsEnabled = True
             cbMeses.IsEnabled = True
@@ -138,14 +142,19 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
             tbEnlace.IsEnabled = False
 
+            Dim enlaceFinal As String = tbEnlace.Text
+            enlaceFinal = Referidos(enlaceFinal)
+
             Dim tbImagen As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsImagen")
             tbImagen.IsEnabled = False
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.IsEnabled = False
 
-            Await Post.Enviar(tbTitulo.Text, " ", 13, New List(Of Integer) From {9999}, " ", " ", " ",
-                              tbEnlace.Text, tbImagen.Text, tbJuegos.Text, Nothing, 0)
+            Dim cosas As Clases.Suscripciones = tbTitulo.Tag
+
+            Await Post.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
+                              enlaceFinal, tbImagen.Text.Trim, tbJuegos.Text.Trim, Nothing, 0)
 
             cbTiendas.IsEnabled = True
             cbMeses.IsEnabled = True

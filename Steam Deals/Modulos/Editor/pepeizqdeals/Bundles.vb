@@ -115,8 +115,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cosas As Clases.Bundles = tbTitulo.Tag
 
-            Await Post.Enviar(tbTitulo.Text, tbTituloComplementario.Text, 4, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
-                              enlaceFinal, tbImagen.Text, tbTituloComplementario.Text, Nothing, 0)
+            Await Post.Enviar(tbTitulo.Text.Trim, tbTituloComplementario.Text.Trim, 4, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
+                              enlaceFinal, tbImagen.Text.Trim, tbTituloComplementario.Text.Trim, Nothing, 0)
 
             tbEnlace.IsEnabled = True
             tbTitulo.IsEnabled = True

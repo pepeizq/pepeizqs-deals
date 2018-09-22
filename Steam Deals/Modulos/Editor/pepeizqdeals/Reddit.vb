@@ -18,10 +18,18 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     tituloFinal = "[" + titulo + "] " + tituloFinal
                 End If
-            End If
 
-            If Not tituloComplemento = Nothing Then
-                tituloFinal = tituloFinal + " • " + tituloComplemento
+                If Not tituloComplemento = Nothing Then
+                    tituloFinal = tituloFinal + " • " + tituloComplemento
+                End If
+            Else
+                If titulo.Contains("•") Then
+                    Dim int As Integer = titulo.IndexOf("•")
+                    titulo = titulo.Insert(0, "[")
+                    titulo = titulo.Insert(int - 1, "]")
+                    titulo = titulo.Replace("] •", "] ")
+                    tituloFinal = titulo
+                End If
             End If
 
             Dim i As Integer = 0
