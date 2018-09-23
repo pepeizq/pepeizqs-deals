@@ -25,16 +25,16 @@ Module Divisas
         Dim pagina As Page = frame.Content
 
         If Not tempDolar = Nothing Then
-            Dim itemEuro As MenuFlyoutItem = pagina.FindName("itemDivisasEuro")
-            itemEuro.Text = "1 €"
+            Dim tbEuro As TextBlock = pagina.FindName("tbDivisasEuro")
+            tbEuro.Text = "1 €"
 
-            Dim itemDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
-            itemDolar.Text = "$" + tempDolar
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+            tbDolar.Text = "$" + tempDolar
         End If
 
         If Not tempLibra = Nothing Then
-            Dim itemLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
-            itemLibra.Text = tempLibra
+            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+            tbLibra.Text = tempLibra
         End If
 
         If bw.IsBusy = False Then
@@ -68,11 +68,11 @@ Module Divisas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim itemDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
-        itemDolar.Text = "$" + dolar
+        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+        tbDolar.Text = "$" + dolar
 
-        Dim itemLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
-        itemLibra.Text = "£" + libra
+        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+        tbLibra.Text = "£" + libra
 
         Dim helper As New LocalObjectStorageHelper
         Await helper.SaveFileAsync(Of String)("divisaDolar", dolar)

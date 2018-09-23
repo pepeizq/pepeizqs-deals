@@ -312,4 +312,34 @@
   <data name="Month.Text" xml:space="preserve">
     <value>Month</value>
   </data>
+  <data name="Search.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ActiveTime" xml:space="preserve">
+    <value>Active time:</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="FollowLastDeals.Text" xml:space="preserve">
+    <value>Follow the lastest deals</value>
+  </data>
+  <data name="NoResults.Text" xml:space="preserve">
+    <value>No Results Found</value>
+  </data>
 </root>

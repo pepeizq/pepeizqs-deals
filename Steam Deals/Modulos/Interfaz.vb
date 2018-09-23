@@ -61,11 +61,8 @@ Module Interfaz
         'gvTiendas.Items.Add(AñadirBotonTienda(greenmangamingT))
         'gvTiendas.Items.Add(AñadirBotonTienda(indiegalaT))
         gvTiendas.Items.Add(AñadirBotonTienda(razerT))
-
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            gvTiendas.Items.Add(AñadirBotonTienda(amazoncomT))
-            gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
-        End If
+        gvTiendas.Items.Add(AñadirBotonTienda(amazoncomT))
+        gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
 
         Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
 
@@ -84,11 +81,8 @@ Module Interfaz
         'menuTiendas.Items.Add(AñadirMenuTienda(greenmangamingT))
         'menuTiendas.Items.Add(AñadirMenuTienda(indiegalaT))
         menuTiendas.Items.Add(AñadirMenuTienda(razerT))
-
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            menuTiendas.Items.Add(AñadirMenuTienda(amazoncomT))
-            menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
-        End If
+        menuTiendas.Items.Add(AñadirMenuTienda(amazoncomT))
+        menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
 
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
 
@@ -107,11 +101,8 @@ Module Interfaz
         'gridOfertasTiendas.Children.Add(AñadirGridTienda(greenmangamingT))
         'gridOfertasTiendas.Children.Add(AñadirGridTienda(indiegalaT))
         gridOfertasTiendas.Children.Add(AñadirGridTienda(razerT))
-
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            gridOfertasTiendas.Children.Add(AñadirGridTienda(amazoncomT))
-            gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
-        End If
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(amazoncomT))
+        gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
 
     End Sub
 
@@ -863,10 +854,10 @@ Module Interfaz
 
             If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                 If precio.Contains("£") Then
-                    Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                     precio = Divisas.CambioMoneda(precio, tbLibra.Text)
                 ElseIf precio.Contains("$") Then
-                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precio = Divisas.CambioMoneda(precio, tbDolar.Text)
                 End If
 
@@ -936,10 +927,10 @@ Module Interfaz
                 If Not precio = Nothing Then
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                         If precio.Contains("£") Then
-                            Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                             precio = Divisas.CambioMoneda(precio, tbLibra.Text)
                         ElseIf precio.Contains("$") Then
-                            Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                             precio = Divisas.CambioMoneda(precio, tbDolar.Text)
                         End If
 
@@ -1104,6 +1095,11 @@ Module Interfaz
                         Dim imagen As ImageEx = borde.Child
                         imagen.Saturation(0).Start()
                     End If
+
+                    If TypeOf subitem Is ImageEx Then
+                        Dim imagen As ImageEx = subitem
+                        imagen.Saturation(0).Start()
+                    End If
                 Next
             End If
         Next
@@ -1124,6 +1120,11 @@ Module Interfaz
                     If TypeOf subitem Is Border Then
                         Dim borde As Border = subitem
                         Dim imagen As ImageEx = borde.Child
+                        imagen.Saturation(1).Start()
+                    End If
+
+                    If TypeOf subitem Is ImageEx Then
+                        Dim imagen As ImageEx = subitem
                         imagen.Saturation(1).Start()
                     End If
                 Next

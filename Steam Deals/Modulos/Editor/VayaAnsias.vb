@@ -8,8 +8,8 @@
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
-            Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
 
             Dim contenidoEnlaces As String = Nothing
 

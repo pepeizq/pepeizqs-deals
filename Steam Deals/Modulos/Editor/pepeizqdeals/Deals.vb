@@ -13,8 +13,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
-            Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
 
             Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             cbPublishers.SelectedIndex = 0
@@ -408,7 +408,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If cosas.Tienda = "GamersGate" Then
                         If Not juego.Enlaces.Precios(1) = Nothing Then
-                            Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                             Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(1), tbLibra.Text)
 
                             If precioUK > juego.Enlaces.Precios(0) Then
@@ -419,7 +419,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
                         End If
                     ElseIf cosas.Tienda = "GamesPlanet" Then
-                        Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                         Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text)
                         Dim precioFR As String = juego.Enlaces.Precios(1)
                         Dim precioDE As String = juego.Enlaces.Precios(2)
@@ -455,13 +455,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     ElseIf cosas.Tienda = "Fanatical" Then
                         claveMejorPrecio = 1
                     ElseIf cosas.Tienda = "WinGameStore" Then
-                        Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     ElseIf cosas.Tienda = "Chrono" Then
-                        Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     ElseIf cosas.Tienda = "Amazon.com" Then
-                        Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     End If
 
@@ -587,7 +587,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             Else
                 If cosas.Tienda = "GamersGate" Then
-                    Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                     Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(1), tbLibra.Text)
 
                     If precioUK > cosas.ListaJuegos(0).Enlaces.Precios(0) Then
@@ -596,7 +596,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         precioFinal = precioUK
                     End If
                 ElseIf cosas.Tienda = "GamesPlanet" Then
-                    Dim tbLibra As MenuFlyoutItem = pagina.FindName("itemDivisasLibra")
+                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                     Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbLibra.Text)
                     Dim precioFR As String = cosas.ListaJuegos(0).Enlaces.Precios(1)
                     Dim precioDE As String = cosas.ListaJuegos(0).Enlaces.Precios(2)
@@ -629,13 +629,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 ElseIf cosas.Tienda = "Fanatical" Then
                     precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(1)
                 ElseIf cosas.Tienda = "WinGameStore" Then
-                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
                 ElseIf cosas.Tienda = "Chrono" Then
-                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
                 ElseIf cosas.Tienda = "Amazon.com" Then
-                    Dim tbDolar As MenuFlyoutItem = pagina.FindName("itemDivisasDolar")
+                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
                 Else
                     precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)

@@ -159,6 +159,66 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Async Sub BotonPresentacionpepeizqdealsSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsSteam.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://steamcommunity.com/groups/pepeizqdeals/"))
+
+    End Sub
+
+    Private Async Sub BotonPresentacionpepeizqdealsTwitter_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsTwitter.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://twitter.com/pepeizqdeals"))
+
+    End Sub
+
+    Private Async Sub BotonPresentacionpepeizqdealsReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsReddit.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://new.reddit.com/r/pepeizqdeals/new/"))
+
+    End Sub
+
+    Private Async Sub BotonPresentacionpepeizqdealsTelegram_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsTelegram.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://t.me/pepeizqdeals"))
+
+    End Sub
+
+    Private Async Sub BotonPresentacionpepeizqdealsEmail_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsEmail.Click
+
+        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/emails/"))
+
+    End Sub
+
+    Private Sub BotonPresentacionpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridDeals.Click
+
+        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridDeals, gridPresentacionpepeizqdealsDeals, 0)
+
+    End Sub
+
+    Private Sub BotonPresentacionpepeizqdealsGridBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridBundles.Click
+
+        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridBundles, gridPresentacionpepeizqdealsBundles, 1)
+
+    End Sub
+
+    Private Sub BotonPresentacionpepeizqdealsGridFree_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridFree.Click
+
+        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridFree, gridPresentacionpepeizqdealsFree, 2)
+
+    End Sub
+
+    Private Sub BotonPresentacionpepeizqdealsGridSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridSubscriptions.Click
+
+        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridSubscriptions, gridPresentacionpepeizqdealsSubscriptions, 3)
+
+    End Sub
+
+    Private Sub BotonPresentacionpepeizqdealsGridBuscador_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridBuscador.Click
+
+        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridBuscador, gridPresentacionpepeizqdealsBuscador, 4)
+
+    End Sub
+
     Private Sub GridVisibilidad(grid As Grid, tag As String)
 
         tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - " + tag
@@ -178,12 +238,6 @@ Public NotInheritable Class MainPage
     Private Sub UsuarioSaleBoton(sender As Object, e As PointerRoutedEventArgs)
 
         Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
-
-    End Sub
-
-    Private Async Sub BotonAbrirpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonAbrirpepeizqdeals.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/"))
 
     End Sub
 

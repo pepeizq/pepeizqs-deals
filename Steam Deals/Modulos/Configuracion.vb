@@ -51,15 +51,31 @@ Module Configuracion
         Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigEditor")
         toggle.IsChecked = estado
 
+        Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
+        Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
+        Dim itemActualizar As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
+        Dim itemOrdenar As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
+
+        Dim itemUltimaVisita As ToggleMenuFlyoutItem = pagina.FindName("itemConfigUltimaVisita")
         Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
         Dim itemEditorSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
         Dim itemEditorLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
 
-        Dim filapepeizqdeals As RowDefinition = pagina.FindName("filapepeizqdeals")
-        Dim sppepeizqdeals As StackPanel = pagina.FindName("spPresentacionpepeizqdeals")
+        Dim spEditor As StackPanel = pagina.FindName("spPresentacionEditor")
+        Dim gridpepeizqdeals As Grid = pagina.FindName("gridPresentacionpepeizqdeals")
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
 
         If estado = True Then
+            itemTiendas.Visibility = Visibility.Visible
+            spTiendaSeleccionada.Visibility = Visibility.Visible
+            itemActualizar.Visibility = Visibility.Visible
+            itemOrdenar.Visibility = Visibility.Visible
+
+            itemUltimaVisita.Visibility = Visibility.Visible
             itemEditor.Visibility = Visibility.Visible
+            'itemEditorSeleccionarTodo.Visibility = Visibility.Visible
+            'itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
+            gridOfertas.Visibility = Visibility.Visible
 
             Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
 
@@ -70,8 +86,8 @@ Module Configuracion
                 cbWebs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorWeb")
             End If
 
-            filapepeizqdeals.Height = New GridLength(1, GridUnitType.Auto)
-            sppepeizqdeals.Visibility = Visibility.Collapsed
+            spEditor.Visibility = Visibility.Visible
+            gridpepeizqdeals.Visibility = Visibility.Collapsed
 
             Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
             cbFiltrado.Items.Clear()
@@ -93,12 +109,27 @@ Module Configuracion
 
             AddHandler cbFiltrado.SelectionChanged, AddressOf FiltradoCambia
         Else
+            itemTiendas.Visibility = Visibility.Collapsed
+            spTiendaSeleccionada.Visibility = Visibility.Collapsed
+            itemActualizar.Visibility = Visibility.Collapsed
+            itemOrdenar.Visibility = Visibility.Collapsed
+
+            itemUltimaVisita.Visibility = Visibility.Collapsed
             itemEditor.Visibility = Visibility.Collapsed
             itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
             itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
+            gridOfertas.Visibility = Visibility.Collapsed
 
-            filapepeizqdeals.Height = New GridLength(1, GridUnitType.Star)
-            sppepeizqdeals.Visibility = Visibility.Visible
+            spEditor.Visibility = Visibility.Collapsed
+            gridpepeizqdeals.Visibility = Visibility.Visible
+
+            Dim botonPresentacion As Button = pagina.FindName("botonPresentacionpepeizqdealsGridDeals")
+            Dim gridPresentacion As Grid = pagina.FindName("gridPresentacionpepeizqdealsDeals")
+
+            Dim gridSeleccionar As Grid = pagina.FindName("gridSeleccionarOfertasTiendas")
+            gridSeleccionar.Visibility = Visibility.Visible
+
+            pepeizq.Interfaz.Presentacion.Generar(botonPresentacion, gridPresentacion, 0)
         End If
 
     End Sub
