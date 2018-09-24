@@ -123,6 +123,12 @@ Module Configuracion
             spEditor.Visibility = Visibility.Collapsed
             gridpepeizqdeals.Visibility = Visibility.Visible
 
+            Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
+            gridNoOfertas.Visibility = Visibility.Collapsed
+
+            Dim gridEditor As Grid = pagina.FindName("gridEditor")
+            gridEditor.Visibility = Visibility.Collapsed
+
             Dim botonPresentacion As Button = pagina.FindName("botonPresentacionpepeizqdealsGridDeals")
             Dim gridPresentacion As Grid = pagina.FindName("gridPresentacionpepeizqdealsDeals")
 
