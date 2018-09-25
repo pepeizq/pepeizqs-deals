@@ -67,6 +67,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
+                    If Not enlace = Nothing Then
+                        enlace = enlace + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "twitter"
+                    End If
+
                     If stream Is Nothing Then
                         Await servicio.TweetStatusAsync(mensaje + " " + enlace)
                     Else

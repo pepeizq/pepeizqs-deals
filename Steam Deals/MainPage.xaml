@@ -144,34 +144,43 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,20,20,0">
-                                <TextBlock x:Uid="FollowLastDeals" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                <Button x:Name="botonPresentacionpepeizqdealsSteam" Background="#333333" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <fa:FontAwesome Icon="Steam" Foreground="White" FontSize="18"/>
-                                    </Button.Content>
-                                </Button>
-                                <Button x:Name="botonPresentacionpepeizqdealsTwitter" Background="#55acee" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <fa:FontAwesome Icon="Twitter" Foreground="White" FontSize="18"/>
-                                    </Button.Content>
-                                </Button>
-                                <Button x:Name="botonPresentacionpepeizqdealsReddit" Background="#ff4500" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <fa:FontAwesome Icon="Reddit" Foreground="White" FontSize="18"/>
-                                    </Button.Content>
-                                </Button>
-                                <Button x:Name="botonPresentacionpepeizqdealsTelegram" Background="#2ba2db" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <fa:FontAwesome Icon="Telegram" Foreground="White" FontSize="18"/>
-                                    </Button.Content>
-                                </Button>
-                                <Button x:Name="botonPresentacionpepeizqdealsEmail" Background="#96a2a8" BorderThickness="0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <fa:FontAwesome Icon="Envelope" Foreground="White" FontSize="18"/>
-                                    </Button.Content>
-                                </Button>
-                            </StackPanel>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <HyperlinkButton x:Name="hbAbrirPremios" Grid.Column="0" x:Uid="WinGames" Margin="40,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,20,20,0">
+                                    <TextBlock x:Uid="FollowLastDeals" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                    <Button x:Name="botonPresentacionpepeizqdealsSteam" Background="#333333" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Steam" Foreground="White" FontSize="18"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="botonPresentacionpepeizqdealsTwitter" Background="#55acee" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Twitter" Foreground="White" FontSize="18"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="botonPresentacionpepeizqdealsReddit" Background="#ff4500" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Reddit" Foreground="White" FontSize="18"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="botonPresentacionpepeizqdealsTelegram" Background="#2ba2db" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Telegram" Foreground="White" FontSize="18"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="botonPresentacionpepeizqdealsEmail" Background="#96a2a8" BorderThickness="0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <fa:FontAwesome Icon="Envelope" Foreground="White" FontSize="18"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
 
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Padding="20,0" Margin="20,5,20,0">
                                 <Button x:Name="botonPresentacionpepeizqdealsGridDeals" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
@@ -404,8 +413,10 @@
 
                                 <TextBlock x:Name="tbNumOfertasSeleccionadas" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White"/>
                             </StackPanel>
+                        </StackPanel>
 
-                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushSecundario}" Margin="30,0,15,0" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushSecundario}" Margin="15,0" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Rating" Foreground="White"/>
@@ -414,17 +425,15 @@
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15,0,30,0" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Globe" Foreground="White"/>
                                 </Button.Content>
                             </Button>
-                        </StackPanel>
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock x:Name="tbDivisasEuro"/>
-                            <TextBlock x:Name="tbDivisasDolar" Margin="10,0"/>
-                            <TextBlock x:Name="tbDivisasLibra"/>
+                            <TextBlock x:Name="tbDivisasEuro" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="tbDivisasDolar" Margin="10,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 
@@ -682,6 +691,8 @@
                                         <GridView x:Name="gvEditorpepeizqdealsIconosTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
                                         <GridView x:Name="gvEditorpepeizqdealsIconosReviews" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+
+                                        <GridView x:Name="gvEditorpepeizqdealsIconosDRMs" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid> 

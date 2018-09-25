@@ -5,6 +5,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer)
 
+            Dim listaAdornos As New List(Of String) From {
+                "Amazon", "Chrono", "Fanatical", "GamersGate", "GamesPlanet", "GOG", "Humble", "Microsoft",
+                "Steam", "Voidu", "WinGameStore"
+            }
+
+            Dim adorno As String = Nothing
             Dim tituloFinal As String = titulo
 
             If Not categoria = 13 Then
@@ -17,6 +23,23 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tituloFinal = tituloFinal.Trim
 
                     tituloFinal = "[" + titulo + "] " + tituloFinal
+
+                    Dim encontradoAdorno As Boolean = False
+
+                    If titulo.Contains("Humble") Then
+                        titulo = "Humble"
+                    ElseIf titulo.Contains("Amazon") Then
+                        titulo = "Amazon"
+                    ElseIf titulo.Contains("Microsoft") Then
+                        titulo = "Microsoft"
+                    End If
+
+                    For Each subadorno In listaAdornos
+                        If titulo = subadorno Then
+                            encontradoAdorno = True
+                            Exit For
+                        End If
+                    Next
                 End If
 
                 If Not tituloComplemento = Nothing Then
@@ -68,13 +91,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            If Not enlaceFinal = Nothing Then
+                enlaceFinal = enlaceFinal + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "reddit"
+            End If
+
             Dim reddit As New RedditSharp.Reddit
             Dim usuario As RedditSharp.Things.AuthenticatedUser = reddit.LogIn(ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit"))
             reddit.InitOrUpdateUser()
 
             If Not reddit.User Is Nothing Then
                 Dim subreddit As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
-                subreddit.SubmitPost(tituloFinal, enlaceFinal)
+
+                If adorno = Nothing Then
+                    subreddit.SubmitPost(tituloFinal, enlaceFinal)
+                Else
+                    Dim post As RedditSharp.Things.Post = subreddit.SubmitPost(tituloFinal, enlaceFinal)
+                    post.SubredditName = subreddit.Name
+                    post.SetFlair(adorno, Nothing)
+                End If
             End If
         End Sub
 

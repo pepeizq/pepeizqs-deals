@@ -342,4 +342,7 @@
   <data name="NoResults.Text" xml:space="preserve">
     <value>No Results Found</value>
   </data>
+  <data name="WinGames.Content" xml:space="preserve">
+    <value>Win Games</value>
+  </data>
 </root>

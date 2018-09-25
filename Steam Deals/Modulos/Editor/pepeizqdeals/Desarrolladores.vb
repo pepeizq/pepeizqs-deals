@@ -227,7 +227,7 @@
                 New Clases.Desarrolladores("EQ Studios", "@EQSLV"),
                 New Clases.Desarrolladores("Eugen Systems", "@EugenSystems"),
                 New Clases.Desarrolladores("Ertal Games", "@ertal77"),
-                New Clases.Desarrolladores("Event Horizon", "@Tower_of_Time"),
+                New Clases.Desarrolladores("Event Horizon", "@EventHorizonDev"),
                 New Clases.Desarrolladores("EvilCoGames", "@EvilCoGames"),
                 New Clases.Desarrolladores("Excalibur Games", "@Excalpublishing"),
                 New Clases.Desarrolladores("Exor Studios", "@EXORStudios"),

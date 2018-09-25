@@ -483,13 +483,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not juego.DRM = Nothing Then
                         If juego.DRM.ToLower.Contains("steam") Then
-                            drmFinal = "<span class=" + ChrW(34) + "span-drm-steam" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_steam.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm" + ChrW(34) + "/></span></td>"
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_steam.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         ElseIf juego.DRM.ToLower.Contains("origin") Then
-                            drmFinal = "<span class=" + ChrW(34) + "span-drm-origin" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_origin.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm" + ChrW(34) + "/></span></td>"
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         ElseIf juego.DRM.ToLower.Contains("uplay") Then
-                            drmFinal = "<span class=" + ChrW(34) + "span-drm-uplay" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_uplay.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm" + ChrW(34) + "/></span></td>"
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_uplay.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         ElseIf juego.DRM.ToLower.Contains("gog") Then
-                            drmFinal = "<span class=" + ChrW(34) + "span-drm-gog" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/drm_gog.ico" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm" + ChrW(34) + "/></span></td>"
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_gog.ico" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         End If
                     End If
 

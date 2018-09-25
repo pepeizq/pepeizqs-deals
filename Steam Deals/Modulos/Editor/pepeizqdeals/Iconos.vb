@@ -125,6 +125,66 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Public Sub GenerarDRMs()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosDRMs")
+
+            Dim i As Integer = 0
+            While i < 4
+                Dim imagenIcono As New ImageEx With {
+                    .Width = 16,
+                    .Height = 16,
+                    .IsCacheEnabled = True,
+                    .VerticalAlignment = VerticalAlignment.Center
+                }
+
+                Dim sp As New StackPanel With {
+                    .Padding = New Thickness(6, 6, 6, 6),
+                    .Orientation = Orientation.Horizontal
+                }
+
+                Dim titulo As String = Nothing
+
+                If i = 0 Then
+                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_steam.png"))
+                    sp.Background = New SolidColorBrush("#a6a6a6".ToColor)
+                    titulo = "drm_steam"
+                ElseIf i = 1 Then
+                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_origin.png"))
+                    sp.Background = New SolidColorBrush("#ffc680".ToColor)
+                    titulo = "drm_origin"
+                ElseIf i = 2 Then
+                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_uplay.png"))
+                    sp.Background = New SolidColorBrush("#2088e3".ToColor)
+                    titulo = "drm_uplay"
+                ElseIf i = 3 Then
+                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_gog.ico"))
+                    sp.Background = New SolidColorBrush("#DA8BF0".ToColor)
+                    titulo = "drm_gog"
+                End If
+
+                sp.Children.Add(imagenIcono)
+
+                Dim boton As New Button With {
+                    .BorderThickness = New Thickness(0, 0, 0, 0),
+                    .Background = New SolidColorBrush(Colors.Transparent)
+                }
+
+                boton.Content = sp
+                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 28, 28)
+
+                AddHandler boton.Click, AddressOf GenerarFicheroImagen
+
+                gv.Items.Add(boton)
+
+                i += 1
+            End While
+
+        End Sub
+
         Private Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
