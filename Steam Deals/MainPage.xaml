@@ -416,7 +416,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushSecundario}" Margin="15,0" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushSecundario}" Margin="15,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Rating" Foreground="White"/>
@@ -425,11 +425,17 @@
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15,0,30,0" Padding="15,10" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Globe" Foreground="White"/>
                                 </Button.Content>
                             </Button>
+
+                            <!--<Button x:Name="botonEditortest" Background="{StaticResource BrushSecundario}" Margin="15,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button.Content>
+                                    <fa:FontAwesome Icon="Globe" Foreground="White"/>
+                                </Button.Content>
+                            </Button>-->
 
                             <TextBlock x:Name="tbDivisasEuro" VerticalAlignment="Center"/>
                             <TextBlock x:Name="tbDivisasDolar" Margin="10,0" VerticalAlignment="Center"/>

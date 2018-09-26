@@ -5,11 +5,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer)
 
-            Dim listaAdornos As New List(Of String) From {
-                "Amazon", "Chrono", "Fanatical", "GamersGate", "GamesPlanet", "GOG", "Humble", "Microsoft",
-                "Steam", "Voidu", "WinGameStore"
-            }
-
             Dim adorno As String = Nothing
             Dim tituloFinal As String = titulo
 
@@ -24,22 +19,31 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     tituloFinal = "[" + titulo + "] " + tituloFinal
 
-                    Dim encontradoAdorno As Boolean = False
+                    'If titulo.Contains("Amazon") Then
+                    '    adorno = ":amazon: Amazon"
+                    '    'ElseIf titulo.Contains("Humble") Then
+                    '    '    adorno = ":humble: Humble"
+                    'ElseIf titulo.Contains("Microsoft") Then
+                    '    adorno = ":microsoftstore: Microsoft"
+                    'End If
 
-                    If titulo.Contains("Humble") Then
-                        titulo = "Humble"
-                    ElseIf titulo.Contains("Amazon") Then
-                        titulo = "Amazon"
-                    ElseIf titulo.Contains("Microsoft") Then
-                        titulo = "Microsoft"
-                    End If
-
-                    For Each subadorno In listaAdornos
-                        If titulo = subadorno Then
-                            encontradoAdorno = True
-                            Exit For
-                        End If
-                    Next
+                    'If titulo = "Chrono" Then
+                    '    adorno = ":chrono: Chrono"
+                    'ElseIf titulo = "Fanatical" Then
+                    '    adorno = ":fanatical: Fanatical"
+                    'ElseIf titulo = "GamersGate" Then
+                    '    adorno = ":gamersgate: GamersGate"
+                    'ElseIf titulo = "GamesPlanet" Then
+                    '    adorno = ":gamesplanet: GamesPlanet"
+                    'ElseIf titulo = "GOG" Then
+                    '    adorno = ":gog: GOG"
+                    'ElseIf titulo = "Steam" Then
+                    '    adorno = ":steam: Steam"
+                    'ElseIf titulo = "WinGameStore" Then
+                    '    adorno = ":wingamestore: WinGameStore"
+                    'ElseIf titulo = "Voidu" Then
+                    '    adorno = ":voidu: Voidu"
+                    'End If
                 End If
 
                 If Not tituloComplemento = Nothing Then

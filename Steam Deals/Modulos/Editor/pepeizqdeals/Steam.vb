@@ -33,6 +33,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                         mensajeHtml = tituloComplemento
                     End If
 
+                    If Not enlaceFinal = Nothing Then
+                        enlaceFinal = enlaceFinal + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "steam"
+                    End If
+
                     If Not mensajeHtml = Nothing Then
                         If mensajeHtml.Trim.Length > 0 Then
                             mensajeHtml = mensajeHtml + "\n\n" + enlaceFinal
