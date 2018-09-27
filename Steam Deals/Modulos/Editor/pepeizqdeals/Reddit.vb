@@ -18,32 +18,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tituloFinal = tituloFinal.Trim
 
                     tituloFinal = "[" + titulo + "] " + tituloFinal
-
-                    'If titulo.Contains("Amazon") Then
-                    '    adorno = ":amazon: Amazon"
-                    '    'ElseIf titulo.Contains("Humble") Then
-                    '    '    adorno = ":humble: Humble"
-                    'ElseIf titulo.Contains("Microsoft") Then
-                    '    adorno = ":microsoftstore: Microsoft"
-                    'End If
-
-                    'If titulo = "Chrono" Then
-                    '    adorno = ":chrono: Chrono"
-                    'ElseIf titulo = "Fanatical" Then
-                    '    adorno = ":fanatical: Fanatical"
-                    'ElseIf titulo = "GamersGate" Then
-                    '    adorno = ":gamersgate: GamersGate"
-                    'ElseIf titulo = "GamesPlanet" Then
-                    '    adorno = ":gamesplanet: GamesPlanet"
-                    'ElseIf titulo = "GOG" Then
-                    '    adorno = ":gog: GOG"
-                    'ElseIf titulo = "Steam" Then
-                    '    adorno = ":steam: Steam"
-                    'ElseIf titulo = "WinGameStore" Then
-                    '    adorno = ":wingamestore: WinGameStore"
-                    'ElseIf titulo = "Voidu" Then
-                    '    adorno = ":voidu: Voidu"
-                    'End If
                 End If
 
                 If Not tituloComplemento = Nothing Then
