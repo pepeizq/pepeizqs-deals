@@ -117,6 +117,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tituloSEO = tituloSEO.Trim
                         End If
 
+                        If Not tituloSEO.Contains("Sale") Then
+                            tituloSEO = tituloSEO + " Sale"
+                        End If
+
                         postEditor.SEOClave = tituloSEO.Trim
                     End If
                 End If

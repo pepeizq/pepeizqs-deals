@@ -144,7 +144,7 @@
                 New Clases.Desarrolladores("Cellar Door Games", "@CellarDoorGames"),
                 New Clases.Desarrolladores("Chasing Carrots", "@Chasing_Carrots"),
                 New Clases.Desarrolladores("Choice of Games", "@choiceofgames"),
-                New Clases.Desarrolladores("Chucklefish", "@ChucklefishLTDs"),
+                New Clases.Desarrolladores("Chucklefish", "@ChucklefishLTD"),
                 New Clases.Desarrolladores("CI Games", "@CIGamesOfficial"),
                 New Clases.Desarrolladores("CINEMAX GAMES", "@CINEMAXGAMES"),
                 New Clases.Desarrolladores("Clapfoot", "@foxholegame"),
