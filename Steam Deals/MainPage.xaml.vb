@@ -159,12 +159,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub HbAbrirPremios_Click(sender As Object, e As RoutedEventArgs) Handles hbAbrirPremios.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/#1537792713698-961e71de-e006"))
-
-    End Sub
-
     Private Async Sub BotonPresentacionpepeizqdealsSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsSteam.Click
 
         Await Launcher.LaunchUriAsync(New Uri("https://steamcommunity.com/groups/pepeizqdeals/"))
