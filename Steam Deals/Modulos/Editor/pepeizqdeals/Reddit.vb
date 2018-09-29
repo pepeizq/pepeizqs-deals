@@ -26,8 +26,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             Else
                 If titulo.Contains("•") Then
-                    Dim int As Integer = titulo.IndexOf("•")
                     titulo = titulo.Insert(0, "[")
+
+                    Dim int As Integer = titulo.IndexOf("•")
                     titulo = titulo.Insert(int - 1, "]")
                     titulo = titulo.Replace("] •", "] ")
                     tituloFinal = titulo
