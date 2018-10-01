@@ -140,7 +140,9 @@ Namespace pepeizq.Tiendas
                 Dim juegoChrono As ChronoJuego = JsonConvert.DeserializeObject(Of ChronoJuego)(html)
 
                 If Not juegoChrono Is Nothing Then
-                    idSteam = juegoChrono.DRM(0).ID
+                    If Not juegoChrono.DRM(0).Tipo = "steam_bundle" Then
+                        idSteam = juegoChrono.DRM(0).ID
+                    End If
                 End If
             End If
 

@@ -225,32 +225,43 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim complementoTitulo As String = LimpiarTitulo(listaAnalisis(0).Titulo) + " (" + listaAnalisis(0).Descuento + ")"
 
-                If listaFinal.Count > 1 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ")"
-                End If
-
-                If listaFinal.Count > 2 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ")"
-                End If
-
-                If listaFinal.Count > 3 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ")"
-                End If
-
-                If listaFinal.Count > 4 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ")"
-                End If
-
-                If listaFinal.Count > 5 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + ")"
-                End If
-
-                If listaFinal.Count > 6 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(6).Titulo) + " (" + listaAnalisis(6).Descuento + ")"
+                If listaFinal.Count = 1 Then
+                    complementoTitulo = complementoTitulo + " and " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ")"
+                ElseIf listaFinal.Count = 2 Then
+                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ") and " +
+                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ")"
+                ElseIf listaFinal.Count = 3 Then
+                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ") and " +
+                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ")"
+                ElseIf listaFinal.Count = 4 Then
+                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ") and " +
+                        LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ")"
+                ElseIf listaFinal.Count = 5 Then
+                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ") and " +
+                        LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + ")"
+                ElseIf listaFinal.Count = 6 Then
+                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + ") and " +
+                        LimpiarTitulo(listaAnalisis(6).Titulo) + " (" + listaAnalisis(6).Descuento + ")"
+                ElseIf listaFinal.Count > 6 Then
+                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + "), " +
+                        LimpiarTitulo(listaAnalisis(6).Titulo) + " (" + listaAnalisis(6).Descuento + ") and more"
                 End If
 
                 If Not complementoTitulo = Nothing Then
-                    complementoTitulo = complementoTitulo + " and more"
                     tbTituloComplemento.Text = complementoTitulo
                 End If
             End If
