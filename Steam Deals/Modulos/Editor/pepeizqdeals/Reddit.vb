@@ -81,11 +81,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                               reddit.InitOrUpdateUser()
 
                                                                                                               If Not reddit.User Is Nothing Then
-                                                                                                                  Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
-                                                                                                                  subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                  Try
+                                                                                                                      Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
+                                                                                                                      subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                  Catch ex As Exception
+                                                                                                                      Notificaciones.Toast("Reddit Error /r/pepeizqdeals", Nothing)
+                                                                                                                  End Try
 
                                                                                                                   Try
-                                                                                                                      Await Task.Delay(601000)
                                                                                                                       Dim subreddit2 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GamingDeals")
                                                                                                                       subreddit2.SubmitPost(tituloFinal, enlaceFinal)
                                                                                                                   Catch ex As Exception
