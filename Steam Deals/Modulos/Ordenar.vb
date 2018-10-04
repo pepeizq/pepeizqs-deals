@@ -15,8 +15,8 @@ Module Ordenar
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
         itemTiendas.IsEnabled = False
 
-        Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
-        spTiendaSeleccionada.IsHitTestVisible = False
+        Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
+        botonTiendaSeleccionada.IsEnabled = False
 
         Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
         itemActualizarOfertas.IsEnabled = False
@@ -312,7 +312,7 @@ Module Ordenar
                                 End If
 
                                 Dim fechaComparar As DateTime = juegoAntiguo.FechaAñadido
-                                fechaComparar = fechaComparar.AddDays(5)
+                                fechaComparar = fechaComparar.AddDays(2)
 
                                 If fechaComparar < DateTime.Today Then
                                     listaJuegosAntigua.Remove(juegoAntiguo)
@@ -378,7 +378,7 @@ Module Ordenar
         End If
 
         itemTiendas.IsEnabled = True
-        spTiendaSeleccionada.IsHitTestVisible = True
+        botonTiendaSeleccionada.IsEnabled = True
         itemActualizarOfertas.IsEnabled = True
         itemOrdenarOfertas.IsEnabled = True
         itemConfig.IsEnabled = True

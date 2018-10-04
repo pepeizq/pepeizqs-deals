@@ -94,7 +94,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub SpTiendaSeleccionada_PointerPressed(sender As Object, e As PointerRoutedEventArgs) Handles spTiendaSeleccionada.PointerPressed
+    Private Sub BotonTiendaSeleccionada_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSeleccionada.Click
 
         If Not imagenTiendaSeleccionada.Tag Is Nothing Then
             itemActualizarOfertas.Visibility = Visibility.Visible

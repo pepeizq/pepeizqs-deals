@@ -52,7 +52,7 @@ Module Configuracion
         toggle.IsChecked = estado
 
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
-        Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
+        Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
         Dim itemActualizar As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
         Dim itemOrdenar As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
 
@@ -67,7 +67,7 @@ Module Configuracion
 
         If estado = True Then
             itemTiendas.Visibility = Visibility.Visible
-            spTiendaSeleccionada.Visibility = Visibility.Visible
+            botonTiendaSeleccionada.Visibility = Visibility.Visible
             itemActualizar.Visibility = Visibility.Visible
             itemOrdenar.Visibility = Visibility.Visible
 
@@ -110,7 +110,7 @@ Module Configuracion
             AddHandler cbFiltrado.SelectionChanged, AddressOf FiltradoCambia
         Else
             itemTiendas.Visibility = Visibility.Collapsed
-            spTiendaSeleccionada.Visibility = Visibility.Collapsed
+            botonTiendaSeleccionada.Visibility = Visibility.Collapsed
             itemActualizar.Visibility = Visibility.Collapsed
             itemOrdenar.Visibility = Visibility.Collapsed
 

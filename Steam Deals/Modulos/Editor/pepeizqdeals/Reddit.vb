@@ -88,20 +88,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                                       Notificaciones.Toast("Reddit Error /r/pepeizqdeals", Nothing)
                                                                                                                   End Try
 
-                                                                                                                  Try
-                                                                                                                      Dim subreddit2 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GamingDeals")
-                                                                                                                      subreddit2.SubmitPost(tituloFinal, enlaceFinal)
-                                                                                                                  Catch ex As Exception
-                                                                                                                      Notificaciones.Toast("Reddit Error /r/GamingDeals", Nothing)
-                                                                                                                  End Try
+                                                                                                                  'Try
+                                                                                                                  '    Dim subreddit2 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GamingDeals")
+                                                                                                                  '    subreddit2.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                  'Catch ex As Exception
+                                                                                                                  '    Notificaciones.Toast("Reddit Error /r/GamingDeals", Nothing)
+                                                                                                                  'End Try
 
-                                                                                                                  Try
-                                                                                                                      Await Task.Delay(601000)
-                                                                                                                      Dim subreddit3 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GameDealsForPC")
-                                                                                                                      subreddit3.SubmitPost(tituloFinal, enlaceFinal)
-                                                                                                                  Catch ex As Exception
-                                                                                                                      Notificaciones.Toast("Reddit Error /r/GameDealsForPC", Nothing)
-                                                                                                                  End Try
+                                                                                                                  'Try
+                                                                                                                  '    Await Task.Delay(601000)
+                                                                                                                  '    Dim subreddit3 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GameDealsForPC")
+                                                                                                                  '    subreddit3.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                  'Catch ex As Exception
+                                                                                                                  '    Notificaciones.Toast("Reddit Error /r/GameDealsForPC", Nothing)
+                                                                                                                  'End Try
                                                                                                               End If
                                                                                                           End Sub))
         End Sub

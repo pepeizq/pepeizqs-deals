@@ -370,8 +370,8 @@ Module Interfaz
             Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
             gridProgreso.Visibility = Visibility.Visible
 
-            Dim spTiendaSeleccionada As StackPanel = pagina.FindName("spTiendaSeleccionada")
-            spTiendaSeleccionada.IsHitTestVisible = False
+            Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
+            botonTiendaSeleccionada.IsEnabled = False
 
             itemSeleccionarTodo.IsEnabled = False
             itemLimpiarSeleccion.IsEnabled = False
