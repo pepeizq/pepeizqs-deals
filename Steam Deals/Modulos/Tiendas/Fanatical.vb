@@ -36,17 +36,17 @@ Namespace pepeizq.Tiendas
             If Not html = Nothing Then
                 Dim j As Integer = 0
                 While j < 10000
-                    If html.Contains("{" + ChrW(34) + "sku" + ChrW(34) + ":") Then
+                    If html.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
                         Dim temp, temp2 As String
                         Dim int, int2 As Integer
 
-                        int = html.IndexOf("{" + ChrW(34) + "sku" + ChrW(34) + ":")
+                        int = html.IndexOf("{" + ChrW(34) + "features" + ChrW(34) + ":")
                         temp = html.Remove(0, int + 1)
 
                         html = temp
 
-                        If temp.Contains("{" + ChrW(34) + "sku" + ChrW(34) + ":") Then
-                            int2 = temp.IndexOf("{" + ChrW(34) + "sku" + ChrW(34) + ":")
+                        If temp.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
+                            int2 = temp.IndexOf("{" + ChrW(34) + "features" + ChrW(34) + ":")
                             temp2 = temp.Remove(int2, temp.Length - int2)
                         Else
                             temp2 = temp
