@@ -67,6 +67,22 @@ Namespace pepeizq.Tiendas
                 i += 1
             End While
 
+            Dim numPaginasOrigin As Integer = 0
+
+            numPaginasOrigin = GenerarNumPaginas(New Uri("https://www.amazon.com/s/ref=sr_pg_1?fst=as%3Aoff&rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990458011&bbn=979455011&ie=UTF8&qid=1539283410"))
+
+            i = 1
+            While i < numPaginasOrigin
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s/ref=sr_pg_1?fst=as%3Aoff&rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990458011&bbn=979455011&ie=UTF8&qid=1539283410&page=" + i.ToString))
+                Dim html As String = html_.Result
+
+                If Not html = Nothing Then
+                    ExtraerHtml(html, "origin")
+                End If
+                Bw.ReportProgress(CInt((100 / numPaginasOrigin) * i))
+                i += 1
+            End While
+
         End Sub
 
         Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
