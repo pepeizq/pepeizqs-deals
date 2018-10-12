@@ -59,9 +59,11 @@ Namespace pepeizq.Tiendas
                     Dim drm As String = Nothing
 
                     If Not juegoChrono.DRM Is Nothing Then
-                        If juegoChrono.DRM(0).Tipo = "steam_app" Then
-                            imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
-                            drm = "steam"
+                        If juegoChrono.DRM.Count > 0 Then
+                            If juegoChrono.DRM(0).Tipo = "steam_app" Then
+                                imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
+                                drm = "steam"
+                            End If
                         End If
                     End If
 
@@ -140,9 +142,13 @@ Namespace pepeizq.Tiendas
                 Dim juegoChrono As ChronoJuego = JsonConvert.DeserializeObject(Of ChronoJuego)(html)
 
                 If Not juegoChrono Is Nothing Then
-                    If Not juegoChrono.DRM(0).Tipo = "steam_bundle" Then
-                        idSteam = juegoChrono.DRM(0).ID
-                    End If
+                    Try
+                        If Not juegoChrono.DRM(0).Tipo = "steam_bundle" Then
+                            idSteam = juegoChrono.DRM(0).ID
+                        End If
+                    Catch ex As Exception
+
+                    End Try
                 End If
             End If
 

@@ -63,6 +63,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Fanatical(enlace)
                 ElseIf enlace.Contains("https://www.indiegala.com/") Then
                     cosas = Await IndieGala(enlace)
+                ElseIf enlace.Contains("https://www.chrono.gg/") Then
+                    cosas = Await Chrono(enlace)
                 End If
 
                 If Not cosas Is Nothing Then
@@ -271,6 +273,43 @@ Namespace pepeizq.Editor.pepeizqdeals
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     cosas.Imagen = temp2.Trim
+                End If
+            End If
+
+            Return cosas
+
+        End Function
+
+        Private Async Function Chrono(enlace As String) As Task(Of Clases.Bundles)
+
+            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Chrono", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png")
+
+            Dim html As String = Await HttpClient(New Uri("https://api.chrono.gg/sale"))
+
+            If Not html = Nothing Then
+                Dim juegoChrono As Tiendas.ChronoJuego = JsonConvert.DeserializeObject(Of Tiendas.ChronoJuego)(html)
+
+                If Not juegoChrono Is Nothing Then
+                    Dim titulo As String = juegoChrono.Titulo.Trim
+                    titulo = WebUtility.HtmlDecode(titulo)
+
+                    cosas.Titulo = titulo
+
+                    Dim imagen As String = Nothing
+
+                    Dim drm As String = Nothing
+
+                    If Not juegoChrono.DRM Is Nothing Then
+                        If juegoChrono.DRM.Count > 0 Then
+                            If juegoChrono.DRM(0).Tipo = "steam_app" Then
+                                cosas.Imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
+                            End If
+                        End If
+                    End If
+
+                    If imagen = Nothing Then
+                        cosas.Imagen = juegoChrono.Imagen
+                    End If
                 End If
             End If
 
