@@ -54,6 +54,7 @@ Namespace pepeizq.Tiendas
                         titulo = titulo.Replace("â", Nothing)
                         titulo = titulo.Replace("Â", Nothing)
                         titulo = titulo.Replace("¢", Nothing)
+                        titulo = titulo.Trim
 
                         Dim precio As String = juegoUK.PrecioDescontado
 
