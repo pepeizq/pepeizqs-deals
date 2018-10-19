@@ -8,8 +8,11 @@ Namespace pepeizq.Tiendas
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas()
+        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+
+            Tienda = tienda_
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -222,7 +225,7 @@ Namespace pepeizq.Tiendas
 
                                     Dim tipo As String = temp14.Trim
 
-                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, "Steam", Nothing, tipo, DateTime.Today, Nothing, analisis, sistemas, Nothing)
+                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, Tienda, Nothing, tipo, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0
@@ -265,9 +268,9 @@ Namespace pepeizq.Tiendas
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
             Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasSteam", listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas("Steam", True, False)
+            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
         End Sub
 

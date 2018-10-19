@@ -23,84 +23,45 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="gridTitulo" Grid.Row="0" Background="{StaticResource GridTituloBackground}">
-            <TextBlock x:Name="tbTitulo" Margin="50,0,0,0" FontSize="13" Foreground="White" VerticalAlignment="Center"/>
+            <TextBlock x:Name="tbTitulo" Margin="15,0,0,0" FontSize="13" Foreground="White" VerticalAlignment="Center"/>
         </Grid>
 
-        <NavigationView x:Name="nvPrincipal" Grid.Row="1" ItemInvoked="Nv_ItemInvoked"
-                        OpenPaneLength="200" AlwaysShowHeader="False" IsSettingsVisible="False">
+        <NavigationView x:Name="nvPrincipal" Grid.Row="1" Loaded="Nv_Loaded" ItemInvoked="Nv_ItemInvoked"
+                        AlwaysShowHeader="False" IsSettingsVisible="False" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="itemTiendas" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                     <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="CaretDown" Foreground="White"/>
+                        <fa:FontAwesome Icon="CaretDown" Foreground="{StaticResource BrushPrimario}"/>
                     </NavigationViewItem.Icon>
                     <NavigationViewItem.Content>
-                        <TextBlock x:Uid="Stores" Foreground="White"/>
+                        <TextBlock x:Uid="Stores" Foreground="{StaticResource BrushPrimario}"/>
                     </NavigationViewItem.Content>
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout x:Name="botonTiendasMenu"/>
                     </FlyoutBase.AttachedFlyout>
                 </NavigationViewItem>
-                <Button x:Name="botonTiendaSeleccionada" Margin="-10,0,0,0" Background="Transparent" BorderBrush="Transparent" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                <Button x:Name="botonTiendaSeleccionada" Margin="-10,0,0,0" Background="Transparent" BorderBrush="Transparent" Visibility="Collapsed" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                     <StackPanel Orientation="Horizontal" Padding="0">
-                        <controls:ImageEx x:Name="imagenTiendaSeleccionada" Height="16" Width="16" IsCacheEnabled="True"/>
-                        <TextBlock x:Name="tbTiendaSeleccionada" Margin="16,0,0,0" Foreground="White"/>
+                        <controls:ImageEx x:Name="imagenTiendaSeleccionada" Height="16" Width="16" IsCacheEnabled="True" MinWidth="0"/>
+                        <TextBlock x:Name="tbTiendaSeleccionada" Margin="16,0,0,0" Foreground="{StaticResource BrushPrimario}"/>
                     </StackPanel>
                 </Button>
                 <NavigationViewItemSeparator/>
-                <NavigationViewItem x:Name="itemActualizarOfertas" IsEnabled="False" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                <NavigationViewItem x:Name="itemEditor" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                     <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Refresh" Foreground="White"/>
+                        <fa:FontAwesome Icon="Pencil" Foreground="{StaticResource BrushPrimario}"/>
                     </NavigationViewItem.Icon>
                     <NavigationViewItem.Content>
-                        <TextBlock x:Uid="Refresh" Foreground="White"/>
-                    </NavigationViewItem.Content>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="itemOrdenarOfertas" IsEnabled="False" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                    <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Sort" Foreground="White"/>
-                    </NavigationViewItem.Icon>
-                    <NavigationViewItem.Content>
-                        <TextBlock x:Uid="OrderDeals" Foreground="White"/>
-                    </NavigationViewItem.Content>
-                    <FlyoutBase.AttachedFlyout>
-                        <MenuFlyout x:Name="botonOrdenarMenu"/>
-                    </FlyoutBase.AttachedFlyout>
-                </NavigationViewItem>
-                <NavigationViewItemSeparator/>
-                <NavigationViewItem x:Name="itemEditorSeleccionarTodo" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                    <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="CheckSquare" Foreground="White"/>
-                    </NavigationViewItem.Icon>
-                    <NavigationViewItem.Content>
-                        <TextBlock x:Uid="SelectAll" Foreground="White"/>
-                    </NavigationViewItem.Content>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="itemEditorLimpiarSeleccion" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                    <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Square" Foreground="White"/>
-                    </NavigationViewItem.Icon>
-                    <NavigationViewItem.Content>
-                        <TextBlock x:Uid="SelectClear" Foreground="White"/>
-                    </NavigationViewItem.Content>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="itemEditor" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed" Margin="0,20,0,0">
-                    <NavigationViewItem.Icon>
-                        <fa:FontAwesome Icon="Pencil" Foreground="White"/>
-                    </NavigationViewItem.Icon>
-                    <NavigationViewItem.Content>
-                        <TextBlock x:Uid="Editor2" Foreground="White"/>
+                        <TextBlock x:Uid="Editor2" Foreground="{StaticResource BrushPrimario}"/>
                     </NavigationViewItem.Content>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
                     <NavigationViewItem x:Name="itemConfig" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                         <NavigationViewItem.Icon>
-                            <fa:FontAwesome Icon="Cog" Foreground="White"/>
+                            <fa:FontAwesome Icon="Cog" Foreground="{StaticResource BrushPrimario}"/>
                         </NavigationViewItem.Icon>
-                        <NavigationViewItem.Content>
-                            <TextBlock x:Uid="Config" Foreground="White"/>
-                        </NavigationViewItem.Content>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigUltimaVisita" x:Uid="ConfigLastVisit"/>
@@ -109,7 +70,7 @@
                         </FlyoutBase.AttachedFlyout>
                     </NavigationViewItem>
                     <NavigationViewItemSeparator/>
-                    <NavigationViewItem x:Name="itemMasCosas" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                    <NavigationViewItem x:Name="itemMasCosas" MinWidth="0" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout x:Name="botonMasCosasMenu"/>
                         </FlyoutBase.AttachedFlyout>
@@ -139,200 +100,101 @@
                             <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,10"/>
                         </StackPanel>
 
-                        <Grid x:Name="gridPresentacionpepeizqdeals">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                        <Grid x:Name="gridPresentacionpepeizqdeals" Padding="10">
+                            <Grid x:Name="gridPresentacionpepeizqdealsDeals" Visibility="Collapsed">
+                                <ScrollViewer x:Name="svPresentacionpepeizqdealsDeals">
+                                    <Grid>
+                                        <ProgressRing x:Name="prPresentacionpepeizqdealsDeals" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        <ListView x:Name="lvPresentacionpepeizqdealsDeals" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
 
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                                        <Grid x:Name="gridPresentacionpepeizqdealsDealsNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                            <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
+                                        </Grid>
+                                    </Grid>
+                                </ScrollViewer>
 
-                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20,20,20,0">
-                                    <TextBlock x:Uid="FollowLastDeals" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                    <Button x:Name="botonPresentacionpepeizqdealsSteam" Background="#333333" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="Steam" Foreground="White" FontSize="18"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonPresentacionpepeizqdealsTwitter" Background="#55acee" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="Twitter" Foreground="White" FontSize="18"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonPresentacionpepeizqdealsReddit" Background="#ff4500" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="Reddit" Foreground="White" FontSize="18"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonPresentacionpepeizqdealsTelegram" Background="#2ba2db" BorderThickness="0" Margin="0,0,5,0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="Telegram" Foreground="White" FontSize="18"/>
-                                        </Button.Content>
-                                    </Button>
-                                    <Button x:Name="botonPresentacionpepeizqdealsEmail" Background="#96a2a8" BorderThickness="0" Padding="10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="Envelope" Foreground="White" FontSize="18"/>
-                                        </Button.Content>
-                                    </Button>
-                                </StackPanel>
+                                <Button x:Name="botonSubirPresentacionpepeizqdealsDeals" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
+                                    <Button.Content>
+                                        <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
+                                    </Button.Content>
+                                </Button>
                             </Grid>
 
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" Padding="20,0" Margin="20,5,20,0">
-                                <Button x:Name="botonPresentacionpepeizqdealsGridDeals" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Grid x:Name="gridPresentacionpepeizqdealsBundles" Visibility="Collapsed">
+                                <ScrollViewer x:Name="svPresentacionpepeizqdealsBundles">
+                                    <Grid>
+                                        <ProgressRing x:Name="prPresentacionpepeizqdealsBundles" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        <ListView x:Name="lvPresentacionpepeizqdealsBundles" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
+
+                                        <Grid x:Name="gridPresentacionpepeizqdealsBundlesNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                            <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
+                                        </Grid>
+                                    </Grid>
+                                </ScrollViewer>
+
+                                <Button x:Name="botonSubirPresentacionpepeizqdealsBundles" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                                     <Button.Content>
-                                        <TextBlock x:Uid="Deals2" Foreground="White" FontSize="17"/>
+                                        <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
                                     </Button.Content>
                                 </Button>
+                            </Grid>
 
-                                <Button x:Name="botonPresentacionpepeizqdealsGridBundles" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Grid x:Name="gridPresentacionpepeizqdealsFree" Visibility="Collapsed">
+                                <ScrollViewer x:Name="svPresentacionpepeizqdealsFree">
+                                    <Grid>
+                                        <ProgressRing x:Name="prPresentacionpepeizqdealsFree" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        <ListView x:Name="lvPresentacionpepeizqdealsFree" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
+
+                                        <Grid x:Name="gridPresentacionpepeizqdealsFreeNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                            <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
+                                        </Grid>
+                                    </Grid>
+                                </ScrollViewer>
+
+                                <Button x:Name="botonSubirPresentacionpepeizqdealsFree" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                                     <Button.Content>
-                                        <TextBlock x:Uid="Bundles" Foreground="White" FontSize="17"/>
+                                        <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
                                     </Button.Content>
                                 </Button>
+                            </Grid>
 
-                                <Button x:Name="botonPresentacionpepeizqdealsGridFree" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Grid x:Name="gridPresentacionpepeizqdealsSubscriptions" Visibility="Collapsed">
+                                <ScrollViewer x:Name="svPresentacionpepeizqdealsSubscriptions">
+                                    <Grid>
+                                        <ProgressRing x:Name="prPresentacionpepeizqdealsSubscriptions" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        <ListView x:Name="lvPresentacionpepeizqdealsSubscriptions" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
+
+                                        <Grid x:Name="gridPresentacionpepeizqdealsSubscriptionsNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                            <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
+                                        </Grid>
+                                    </Grid>
+                                </ScrollViewer>
+
+                                <Button x:Name="botonSubirPresentacionpepeizqdealsSubscriptions" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                                     <Button.Content>
-                                        <TextBlock x:Uid="Free" Foreground="White" FontSize="17"/>
+                                        <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
                                     </Button.Content>
                                 </Button>
+                            </Grid>
 
-                                <Button x:Name="botonPresentacionpepeizqdealsGridSubscriptions" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Grid x:Name="gridPresentacionpepeizqdealsBuscador" Visibility="Collapsed">
+                                <ScrollViewer x:Name="svPresentacionpepeizqdealsBuscador">
+                                    <Grid>
+                                        <ProgressRing x:Name="prPresentacionpepeizqdealsBuscador" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+                                        <ListView x:Name="lvPresentacionpepeizqdealsBuscador" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
+
+                                        <Grid x:Name="gridPresentacionpepeizqdealsBuscadorNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                            <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
+                                        </Grid>
+                                    </Grid>
+                                </ScrollViewer>
+
+                                <Button x:Name="botonSubirPresentacionpepeizqdealsBuscador" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
                                     <Button.Content>
-                                        <TextBlock x:Uid="Subscriptions" Foreground="White" FontSize="17"/>
+                                        <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
                                     </Button.Content>
                                 </Button>
-
-                                <Button x:Name="botonPresentacionpepeizqdealsGridBuscador" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <TextBlock x:Uid="Search" Foreground="White" FontSize="17"/>
-                                    </Button.Content>
-                                </Button>
-                            </StackPanel>
-
-                            <Grid Grid.Row="2" Margin="20,0,20,20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="0,3,0,0">
-                                <Grid x:Name="gridPresentacionpepeizqdealsDeals" Visibility="Collapsed">
-                                    <ScrollViewer x:Name="svPresentacionpepeizqdealsDeals">
-                                        <Grid>
-                                            <ProgressRing x:Name="prPresentacionpepeizqdealsDeals" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                            <ListView x:Name="lvPresentacionpepeizqdealsDeals" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
-
-                                            <Grid x:Name="gridPresentacionpepeizqdealsDealsNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
-                                            </Grid>
-                                        </Grid>
-                                    </ScrollViewer>
-
-                                    <Button x:Name="botonSubirPresentacionpepeizqdealsDeals" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-
-                                <Grid x:Name="gridPresentacionpepeizqdealsBundles" Visibility="Collapsed">
-                                    <ScrollViewer x:Name="svPresentacionpepeizqdealsBundles">
-                                        <Grid>
-                                            <ProgressRing x:Name="prPresentacionpepeizqdealsBundles" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                            <ListView x:Name="lvPresentacionpepeizqdealsBundles" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
-
-                                            <Grid x:Name="gridPresentacionpepeizqdealsBundlesNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
-                                            </Grid>
-                                        </Grid>
-                                    </ScrollViewer>
-
-                                    <Button x:Name="botonSubirPresentacionpepeizqdealsBundles" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-
-                                <Grid x:Name="gridPresentacionpepeizqdealsFree" Visibility="Collapsed">
-                                    <ScrollViewer x:Name="svPresentacionpepeizqdealsFree">
-                                        <Grid>
-                                            <ProgressRing x:Name="prPresentacionpepeizqdealsFree" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                            <ListView x:Name="lvPresentacionpepeizqdealsFree" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
-
-                                            <Grid x:Name="gridPresentacionpepeizqdealsFreeNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
-                                            </Grid>
-                                        </Grid>
-                                    </ScrollViewer>
-
-                                    <Button x:Name="botonSubirPresentacionpepeizqdealsFree" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-
-                                <Grid x:Name="gridPresentacionpepeizqdealsSubscriptions" Visibility="Collapsed">
-                                    <ScrollViewer x:Name="svPresentacionpepeizqdealsSubscriptions">
-                                        <Grid>
-                                            <ProgressRing x:Name="prPresentacionpepeizqdealsSubscriptions" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                            <ListView x:Name="lvPresentacionpepeizqdealsSubscriptions" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
-
-                                            <Grid x:Name="gridPresentacionpepeizqdealsSubscriptionsNoResultados" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
-                                            </Grid>
-                                        </Grid>
-                                    </ScrollViewer>
-
-                                    <Button x:Name="botonSubirPresentacionpepeizqdealsSubscriptions" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-
-                                <Grid x:Name="gridPresentacionpepeizqdealsBuscador" Visibility="Collapsed">
-                                    <ScrollViewer x:Name="svPresentacionpepeizqdealsBuscador">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            
-                                            <Grid Grid.Row="0" Margin="0,20">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <Button x:Name="botonPresentacionpepeizqdealsBuscador" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                                    <Button.Content>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <fa:FontAwesome Icon="Search" Foreground="White" Margin="0,0,10,0"/>
-                                                            <TextBlock x:Uid="Search" Foreground="White"/>
-                                                        </StackPanel>
-                                                    </Button.Content>
-                                                </Button>
-
-                                                <TextBox x:Name="tbPresentacionpepeizqdealsBuscador" Grid.Column="1" VerticalAlignment="Center"/>
-                                            </Grid>
-
-                                            <ProgressRing x:Name="prPresentacionpepeizqdealsBuscador" Grid.Row="1" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
-                                            <ListView x:Name="lvPresentacionpepeizqdealsBuscador" Grid.Row="1" ItemContainerStyle="{StaticResource ListViewEstilo3}" IsItemClickEnabled="True"/>
-
-                                            <Grid x:Name="gridPresentacionpepeizqdealsBuscadorNoResultados" Grid.Row="1" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                                                <TextBlock x:Uid="NoResults" TextWrapping="Wrap" Foreground="White"/>
-                                            </Grid>
-                                        </Grid>
-                                    </ScrollViewer>
-
-                                    <Button x:Name="botonSubirPresentacionpepeizqdealsBuscador" Background="{StaticResource BrushSecundario}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Padding="10" BorderThickness="1" BorderBrush="White" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
-                                        <Button.Content>
-                                            <fa:FontAwesome Icon="ArrowCircleUp" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-                            </Grid> 
+                            </Grid>
                         </Grid>
                     </Grid>
 
@@ -343,8 +205,45 @@
                         </Grid.RowDefinitions>
 
                         <Grid x:Name="gridOfertasTiendas" Grid.Row="0" Visibility="Collapsed"/>
-                        <StackPanel x:Name="spOfertasTiendasEditor" Grid.Row="1" Orientation="Horizontal" Padding="20" Visibility="Collapsed">
-                            <ComboBox x:Name="cbFiltradoEditorAnalisis" VerticalAlignment="Center"/>
+                        <StackPanel x:Name="spOfertasTiendasEditor" Grid.Row="1" Orientation="Horizontal" Padding="10" Visibility="Collapsed">
+                            <Button x:Name="botonActualizarOfertas" Background="Transparent" BorderBrush="Transparent" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Refresh" Foreground="{StaticResource BrushPrimario}"/>
+                                        <TextBlock x:Uid="Refresh" Foreground="{StaticResource BrushPrimario}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonOrdenarOfertas" Background="Transparent" BorderBrush="Transparent" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}" Margin="5,0,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Sort" Foreground="{StaticResource BrushPrimario}"/>
+                                        <TextBlock x:Uid="OrderDeals" Foreground="{StaticResource BrushPrimario}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </Button.Content>
+                                <Button.Flyout>
+                                    <MenuFlyout x:Name="botonOrdenarMenu"/>
+                                </Button.Flyout>
+                            </Button>
+                            <Grid Margin="8,3" BorderBrush="{StaticResource BrushPrimario}" BorderThickness="1,0,0,0"/>
+                            <Button x:Name="botonSeleccionarTodo" Background="Transparent" BorderBrush="Transparent" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="CheckSquare" Foreground="{StaticResource BrushPrimario}"/>
+                                        <TextBlock x:Uid="SelectAll" Foreground="{StaticResource BrushPrimario}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button x:Name="botonLimpiarSeleccion" Background="Transparent" BorderBrush="Transparent" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}" Margin="5,0,0,0">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Square" Foreground="{StaticResource BrushPrimario}"/>
+                                        <TextBlock x:Uid="SelectClear" Foreground="{StaticResource BrushPrimario}" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Grid Margin="8,3" BorderBrush="{StaticResource BrushPrimario}" BorderThickness="1,0,0,0"/>
+                            <ComboBox x:Name="cbFiltradoEditorAnalisis" VerticalAlignment="Center" Margin="10,0,0,0"/>
                             <ComboBox x:Name="cbFiltradoEditorDesarrolladores" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <TextBlock x:Name="tbNumOfertasCargadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
                         </StackPanel> 
@@ -485,6 +384,12 @@
                                     <TextBlock x:Uid="Icons" Foreground="White"/>
                                 </Button.Content>
                             </Button>
+
+                            <Button x:Name="botonEditorpepeizqdealsGridCodigos" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button.Content>
+                                    <TextBlock x:Uid="Codes" Foreground="White"/>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
 
                         <Grid Grid.Row="1" Padding="20" Margin="20,0,20,20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="1">
@@ -509,7 +414,9 @@
                                         <TextBlock x:Uid="Image"/>
                                         <TextBox x:Name="tbEditorImagenpepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                         <TextBlock x:Uid="Title3"/>
-                                        <TextBox x:Name="tbEditorTituloComplementopepeizqdeals" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                                        <TextBox x:Name="tbEditorTituloComplementopepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                        <TextBlock x:Uid="Comment"/>
+                                        <TextBox x:Name="tbEditorComentariopepeizqdeals" Margin="0,10,0,0" TextWrapping="Wrap"/>
 
                                         <Button x:Name="botonEditorSubirpepeizqdeals" Margin="0,30" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
@@ -701,6 +608,12 @@
                                         <GridView x:Name="gvEditorpepeizqdealsIconosDRMs" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
                                     </StackPanel>
                                 </ScrollViewer>
+                            </Grid>
+
+                            <Grid x:Name="gridEditorpepeizqdealsCodigos" Visibility="Collapsed">
+                                <ScrollViewer>
+                                    <StackPanel x:Name="spEditorCodigos" Orientation="Vertical"/>
+                                </ScrollViewer> 
                             </Grid> 
                         </Grid>
                     </Grid>

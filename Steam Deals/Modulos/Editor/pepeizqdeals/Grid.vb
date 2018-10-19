@@ -24,6 +24,9 @@
             Dim botonIconos As Button = pagina.FindName("botonEditorpepeizqdealsGridIconos")
             botonIconos.Opacity = 0.7
 
+            Dim botonCodigos As Button = pagina.FindName("botonEditorpepeizqdealsGridCodigos")
+            botonCodigos.Opacity = 0.7
+
             Dim gridDeals As Controls.Grid = pagina.FindName("gridEditorpepeizqdealsDeals")
             gridDeals.Visibility = Visibility.Collapsed
 
@@ -41,6 +44,9 @@
 
             Dim gridIconos As Controls.Grid = pagina.FindName("gridEditorpepeizqdealsIconos")
             gridIconos.Visibility = Visibility.Collapsed
+
+            Dim gridCodigos As Controls.Grid = pagina.FindName("gridEditorpepeizqdealsCodigos")
+            gridCodigos.Visibility = Visibility.Collapsed
 
             boton.Opacity = 1
             grid.Visibility = Visibility.Visible

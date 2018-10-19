@@ -345,4 +345,19 @@
   <data name="WinGames.Content" xml:space="preserve">
     <value>Win Games</value>
   </data>
+  <data name="Bundles2" xml:space="preserve">
+    <value>Bundles</value>
+  </data>
+  <data name="Free2" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="Subscriptions2" xml:space="preserve">
+    <value>Subscriptions</value>
+  </data>
+  <data name="Comment.Text" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Codes.Text" xml:space="preserve">
+    <value>Codes</value>
+  </data>
 </root>

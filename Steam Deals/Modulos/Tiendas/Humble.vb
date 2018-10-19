@@ -10,8 +10,11 @@ Namespace pepeizq.Tiendas
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas()
+        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+
+            Tienda = tienda_
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -72,15 +75,17 @@ Namespace pepeizq.Tiendas
                         Dim precio As String = String.Empty
 
                         If Not juegoHumble.PrecioDescontado Is Nothing Then
-                            Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado(0), CultureInfo.InvariantCulture).ToString
+                            If juegoHumble.PrecioDescontado(0).Trim.Length > 0 Then
+                                Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado(0), CultureInfo.InvariantCulture).ToString
 
-                            Dim moneda As String = GlobalizationPreferences.Currencies(0)
+                                Dim moneda As String = GlobalizationPreferences.Currencies(0)
 
-                            Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
-                                .Mode = CurrencyFormatterMode.UseSymbol
-                            }
+                                Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
+                                    .Mode = CurrencyFormatterMode.UseSymbol
+                                }
 
-                            precio = formateador.Format(tempDouble)
+                                precio = formateador.Format(tempDouble)
+                            End If
                         End If
 
                         Dim listaEnlaces As New List(Of String) From {
@@ -100,9 +105,15 @@ Namespace pepeizq.Tiendas
                         Dim descuento As String = String.Empty
 
                         If Not juegoHumble.PrecioBase Is Nothing Then
-                            Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase(0), CultureInfo.InvariantCulture).ToString
+                            If juegoHumble.PrecioBase(0).Trim.Length > 0 Then
+                                Try
+                                    Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase(0), CultureInfo.InvariantCulture).ToString
 
-                            descuento = Calculadora.GenerarDescuento(tempDescuento, precio)
+                                    descuento = Calculadora.GenerarDescuento(tempDescuento, precio)
+                                Catch ex As Exception
+
+                                End Try
+                            End If
                         End If
 
                         Dim drm As String = String.Empty
@@ -137,7 +148,7 @@ Namespace pepeizq.Tiendas
 
                         Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, "Humble Store", Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
@@ -185,9 +196,9 @@ Namespace pepeizq.Tiendas
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
             Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasHumble", listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas("Humble", True, False)
+            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
         End Sub
 

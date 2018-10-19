@@ -51,30 +51,34 @@ Module Configuracion
         Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigEditor")
         toggle.IsChecked = estado
 
-        Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
-        Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
-        Dim itemActualizar As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
-        Dim itemOrdenar As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
-
+        Dim nvPrincipal As NavigationView = pagina.FindName("nvPrincipal")
         Dim itemUltimaVisita As ToggleMenuFlyoutItem = pagina.FindName("itemConfigUltimaVisita")
         Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
-        Dim itemEditorSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
-        Dim itemEditorLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
+        Dim itemMasCosas As NavigationViewItem = pagina.FindName("itemMasCosas")
 
         Dim spEditor As StackPanel = pagina.FindName("spPresentacionEditor")
         Dim gridpepeizqdeals As Grid = pagina.FindName("gridPresentacionpepeizqdeals")
         Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
 
         If estado = True Then
-            itemTiendas.Visibility = Visibility.Visible
-            botonTiendaSeleccionada.Visibility = Visibility.Visible
-            itemActualizar.Visibility = Visibility.Visible
-            itemOrdenar.Visibility = Visibility.Visible
+            Dim i As Integer = 0
+            While i < nvPrincipal.MenuItems.Count
+                If i < (nvPrincipal.MenuItems.Count - 11) Then
+                    If i = 1 Then
+                        nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
+                    Else
+                        nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
+                    End If
+                Else
+                    nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
+                End If
+                i += 1
+            End While
+
+            itemMasCosas.Visibility = Visibility.Collapsed
 
             itemUltimaVisita.Visibility = Visibility.Visible
             itemEditor.Visibility = Visibility.Visible
-            'itemEditorSeleccionarTodo.Visibility = Visibility.Visible
-            'itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
             gridOfertas.Visibility = Visibility.Visible
 
             Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
@@ -109,15 +113,20 @@ Module Configuracion
 
             AddHandler cbFiltrado.SelectionChanged, AddressOf FiltradoCambia
         Else
-            itemTiendas.Visibility = Visibility.Collapsed
-            botonTiendaSeleccionada.Visibility = Visibility.Collapsed
-            itemActualizar.Visibility = Visibility.Collapsed
-            itemOrdenar.Visibility = Visibility.Collapsed
+            Dim i As Integer = 0
+            While i < nvPrincipal.MenuItems.Count
+                If i >= (nvPrincipal.MenuItems.Count - 11) Then
+                    nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
+                Else
+                    nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
+                End If
+                i += 1
+            End While
+
+            itemMasCosas.Visibility = Visibility.Visible
 
             itemUltimaVisita.Visibility = Visibility.Collapsed
             itemEditor.Visibility = Visibility.Collapsed
-            itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
-            itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
             gridOfertas.Visibility = Visibility.Collapsed
 
             spEditor.Visibility = Visibility.Collapsed
@@ -129,13 +138,12 @@ Module Configuracion
             Dim gridEditor As Grid = pagina.FindName("gridEditor")
             gridEditor.Visibility = Visibility.Collapsed
 
-            Dim botonPresentacion As Button = pagina.FindName("botonPresentacionpepeizqdealsGridDeals")
             Dim gridPresentacion As Grid = pagina.FindName("gridPresentacionpepeizqdealsDeals")
 
             Dim gridSeleccionar As Grid = pagina.FindName("gridSeleccionarOfertasTiendas")
             gridSeleccionar.Visibility = Visibility.Visible
 
-            pepeizq.Interfaz.Presentacion.Generar(botonPresentacion, gridPresentacion, 0)
+            pepeizq.Interfaz.Presentacion.Generar(gridPresentacion, 0)
         End If
 
     End Sub

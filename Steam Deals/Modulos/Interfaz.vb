@@ -27,6 +27,11 @@ Module Interfaz
 
     Public Sub Generar()
 
+        Dim listaTiendas As New List(Of Tienda) From {
+            steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
+            microsoftstoreT, chronoT, voiduT, razerT, amazoncomT, amazonesT
+        }
+
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
@@ -37,8 +42,8 @@ Module Interfaz
 
         Dim botonOrdenarMenu As MenuFlyout = pagina.FindName("botonOrdenarMenu")
         botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Discount"), 0))
-        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Title"), 2))
-        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Reviews"), 3))
+        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Title"), 1))
+        botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Reviews"), 2))
 
         Dim gridOfertas As Grid = pagina.FindName("gridOfertas")
         gridOfertas.Visibility = Visibility.Visible
@@ -46,63 +51,16 @@ Module Interfaz
         Dim gvTiendas As GridView = pagina.FindName("gvOfertasTiendas")
         AddHandler gvTiendas.ItemClick, AddressOf UsuarioClickeaTienda
 
-        gvTiendas.Items.Add(AñadirBotonTienda(steamT))
-        gvTiendas.Items.Add(AñadirBotonTienda(gamersgateT))
-        gvTiendas.Items.Add(AñadirBotonTienda(humbleT))
-        gvTiendas.Items.Add(AñadirBotonTienda(gamesplanetT))
-        gvTiendas.Items.Add(AñadirBotonTienda(fanaticalT))
-        gvTiendas.Items.Add(AñadirBotonTienda(gogT))
-        gvTiendas.Items.Add(AñadirBotonTienda(wingamestoreT))
-        gvTiendas.Items.Add(AñadirBotonTienda(silagamesT))
-        gvTiendas.Items.Add(AñadirBotonTienda(nuuvemT))
-        gvTiendas.Items.Add(AñadirBotonTienda(microsoftstoreT))
-        gvTiendas.Items.Add(AñadirBotonTienda(chronoT))
-        gvTiendas.Items.Add(AñadirBotonTienda(voiduT))
-        'gvTiendas.Items.Add(AñadirBotonTienda(greenmangamingT))
-        'gvTiendas.Items.Add(AñadirBotonTienda(indiegalaT))
-        gvTiendas.Items.Add(AñadirBotonTienda(razerT))
-        gvTiendas.Items.Add(AñadirBotonTienda(amazoncomT))
-        gvTiendas.Items.Add(AñadirBotonTienda(amazonesT))
-
         Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
-
-        menuTiendas.Items.Add(AñadirMenuTienda(steamT))
-        menuTiendas.Items.Add(AñadirMenuTienda(gamersgateT))
-        menuTiendas.Items.Add(AñadirMenuTienda(humbleT))
-        menuTiendas.Items.Add(AñadirMenuTienda(gamesplanetT))
-        menuTiendas.Items.Add(AñadirMenuTienda(fanaticalT))
-        menuTiendas.Items.Add(AñadirMenuTienda(gogT))
-        menuTiendas.Items.Add(AñadirMenuTienda(wingamestoreT))
-        menuTiendas.Items.Add(AñadirMenuTienda(silagamesT))
-        menuTiendas.Items.Add(AñadirMenuTienda(nuuvemT))
-        menuTiendas.Items.Add(AñadirMenuTienda(microsoftstoreT))
-        menuTiendas.Items.Add(AñadirMenuTienda(chronoT))
-        menuTiendas.Items.Add(AñadirMenuTienda(voiduT))
-        'menuTiendas.Items.Add(AñadirMenuTienda(greenmangamingT))
-        'menuTiendas.Items.Add(AñadirMenuTienda(indiegalaT))
-        menuTiendas.Items.Add(AñadirMenuTienda(razerT))
-        menuTiendas.Items.Add(AñadirMenuTienda(amazoncomT))
-        menuTiendas.Items.Add(AñadirMenuTienda(amazonesT))
-
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        Dim spCodigos As StackPanel = pagina.FindName("spEditorCodigos")
 
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(steamT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(gamersgateT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(humbleT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(gamesplanetT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(fanaticalT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(gogT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(wingamestoreT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(silagamesT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(nuuvemT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(microsoftstoreT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(chronoT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(voiduT))
-        'gridOfertasTiendas.Children.Add(AñadirGridTienda(greenmangamingT))
-        'gridOfertasTiendas.Children.Add(AñadirGridTienda(indiegalaT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(razerT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(amazoncomT))
-        gridOfertasTiendas.Children.Add(AñadirGridTienda(amazonesT))
+        For Each tienda In listaTiendas
+            gvTiendas.Items.Add(AñadirBotonTienda(tienda))
+            menuTiendas.Items.Add(AñadirMenuTienda(tienda))
+            gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
+            spCodigos.Children.Add(AñadirCodigoTienda(tienda))
+        Next
 
     End Sub
 
@@ -157,9 +115,50 @@ Module Interfaz
 
         For Each grid As Grid In gridOfertasTiendas.Children
             If grid.Visibility = Visibility.Visible Then
-                Dim tienda As Tienda = grid.Tag
+                Dim listaJuegos As New List(Of Juego)
+                Dim lvTienda As ListView = grid.Children(0)
 
-                Ordenar.Ofertas(tienda.NombreUsar, False, False)
+                For Each item As Grid In lvTienda.Items
+                    listaJuegos.Add(item.Tag)
+                Next
+
+                lvTienda.Items.Clear()
+
+                If menuItem.Tag = 0 Then
+                    listaJuegos.Sort(Function(x As Juego, y As Juego)
+                                         Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                         If resultado = 0 Then
+                                             resultado = x.Titulo.CompareTo(y.Titulo)
+                                         End If
+                                         Return resultado
+                                     End Function)
+                ElseIf menuItem.Tag = 1 Then
+                    listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
+                ElseIf menuItem.Tag = 2 Then
+                    listaJuegos.Sort(Function(x As Juego, y As Juego)
+                                         Dim analisisX As Integer = 0
+
+                                         If Not x.Analisis Is Nothing Then
+                                             analisisX = x.Analisis.Porcentaje
+                                         End If
+
+                                         Dim analisisY As Integer = 0
+
+                                         If Not y.Analisis Is Nothing Then
+                                             analisisY = y.Analisis.Porcentaje
+                                         End If
+
+                                         Dim resultado As Integer = analisisY.CompareTo(analisisX)
+                                         If resultado = 0 Then
+                                             resultado = x.Titulo.CompareTo(y.Titulo)
+                                         End If
+                                         Return resultado
+                                     End Function)
+                End If
+
+                For Each juego In listaJuegos
+                    lvTienda.Items.Add(AñadirOfertaListado(juego))
+                Next
             End If
         Next
 
@@ -184,7 +183,8 @@ Module Interfaz
 
         Dim tb As New TextBlock With {
             .Text = tienda.NombreMostrar,
-            .Foreground = New SolidColorBrush(Colors.White)
+            .Foreground = New SolidColorBrush(Colors.White),
+            .VerticalAlignment = VerticalAlignment.Center
         }
 
         sp.Children.Add(tb)
@@ -243,6 +243,63 @@ Module Interfaz
 
     End Function
 
+    Private Function AñadirCodigoTienda(tienda As Tienda)
+
+        Dim gridTienda As New Grid With {
+            .Name = "gridCodigoTienda" + tienda.NombreUsar,
+            .Tag = tienda,
+            .Padding = New Thickness(0, 5, 0, 5)
+        }
+
+        Dim col1 As New ColumnDefinition
+        Dim col2 As New ColumnDefinition
+
+        col1.Width = New GridLength(1, GridUnitType.Auto)
+        col2.Width = New GridLength(1, GridUnitType.Star)
+
+        gridTienda.ColumnDefinitions.Add(col1)
+        gridTienda.ColumnDefinitions.Add(col2)
+
+        Dim imagenIcono As New ImageEx With {
+            .Source = tienda.Icono,
+            .IsCacheEnabled = True,
+            .VerticalAlignment = VerticalAlignment.Center,
+            .Width = 16,
+            .Height = 16
+        }
+        imagenIcono.SetValue(Grid.ColumnProperty, 0)
+
+        gridTienda.Children.Add(imagenIcono)
+
+        Dim tbCodigo As New TextBox With {
+            .Margin = New Thickness(15, 0, 0, 0),
+            .TextWrapping = TextWrapping.Wrap,
+            .Tag = tienda
+        }
+        tbCodigo.SetValue(Grid.ColumnProperty, 1)
+
+        If Not ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar) Is Nothing Then
+            tbCodigo.Text = ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar)
+        End If
+
+        AddHandler tbCodigo.TextChanged, AddressOf CodigoTiendaTextoCambia
+        gridTienda.Children.Add(tbCodigo)
+
+        Return gridTienda
+
+    End Function
+
+    Private Sub CodigoTiendaTextoCambia(sender As Object, e As TextChangedEventArgs)
+
+        Dim tb As TextBox = sender
+        Dim tienda As Tienda = tb.Tag
+
+        If tb.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar) = tb.Text.Trim
+        End If
+
+    End Sub
+
     Private Function AñadirMenuOrdenar(ordenar As String, numero As Integer)
 
         Dim menuItem As New MenuFlyoutItem With {
@@ -297,10 +354,11 @@ Module Interfaz
             grid.Visibility = Visibility.Collapsed
         Next
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
-            spEditor.Visibility = Visibility.Collapsed
-        End If
+        Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
+        spEditor.Visibility = Visibility.Collapsed
+
+        Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
+        botonTiendaSeleccionada.Visibility = Visibility.Visible
 
         Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaSeleccionada")
         imagenTienda.Source = tienda.Icono
@@ -310,10 +368,6 @@ Module Interfaz
         tbTienda.Text = tienda.NombreMostrar
 
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
-        Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
-        Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
-        Dim itemSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
-        Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
         Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
         Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
 
@@ -360,8 +414,6 @@ Module Interfaz
 
         If iniciar = True Then
             itemTiendas.IsEnabled = False
-            itemActualizarOfertas.IsEnabled = False
-            itemOrdenarOfertas.IsEnabled = False
             itemConfig.IsEnabled = False
             itemEditor.IsEnabled = False
 
@@ -370,11 +422,7 @@ Module Interfaz
             Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
             gridProgreso.Visibility = Visibility.Visible
 
-            Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
             botonTiendaSeleccionada.IsEnabled = False
-
-            itemSeleccionarTodo.IsEnabled = False
-            itemLimpiarSeleccion.IsEnabled = False
 
             Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
             tbSeleccionadas.Text = String.Empty
@@ -382,48 +430,39 @@ Module Interfaz
             Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
             tbCargadas.Text = String.Empty
 
-            'Dim tbMostradas As TextBlock = pagina.FindName("tbNumOfertasMostradas")
-            'tbMostradas.Text = String.Empty
-
             If tienda.NombreUsar = steamT.NombreUsar Then
-                pepeizq.Tiendas.Steam.GenerarOfertas()
+                pepeizq.Tiendas.Steam.GenerarOfertas(steamT)
             ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-                pepeizq.Tiendas.GamersGate.GenerarOfertas()
+                pepeizq.Tiendas.GamersGate.GenerarOfertas(gamersgateT)
             ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
-                pepeizq.Tiendas.Humble.GenerarOfertas()
+                pepeizq.Tiendas.Humble.GenerarOfertas(humbleT)
             ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
-                pepeizq.Tiendas.GamesPlanet.GenerarOfertas()
+                pepeizq.Tiendas.GamesPlanet.GenerarOfertas(gamesplanetT)
             ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
-                pepeizq.Tiendas.Fanatical.GenerarOfertas()
+                pepeizq.Tiendas.Fanatical.GenerarOfertas(fanaticalT)
             ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                pepeizq.Tiendas.GOG.GenerarOfertas()
+                pepeizq.Tiendas.GOG.GenerarOfertas(gogT)
             ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
-                pepeizq.Tiendas.WinGameStore.GenerarOfertas()
+                pepeizq.Tiendas.WinGameStore.GenerarOfertas(wingamestoreT)
             ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
-                pepeizq.Tiendas.SilaGames.GenerarOfertas()
+                pepeizq.Tiendas.SilaGames.GenerarOfertas(silagamesT)
             ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
-                pepeizq.Tiendas.Nuuvem.GenerarOfertas()
+                pepeizq.Tiendas.Nuuvem.GenerarOfertas(nuuvemT)
             ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
-                pepeizq.Tiendas.MicrosoftStore.GenerarOfertas()
+                pepeizq.Tiendas.MicrosoftStore.GenerarOfertas(microsoftstoreT)
             ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                pepeizq.Tiendas.Chrono.GenerarOfertas()
+                pepeizq.Tiendas.Chrono.GenerarOfertas(chronoT)
             ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
-                pepeizq.Tiendas.Voidu.GenerarOfertas()
-                'ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
-                '    pepeizq.Tiendas.GreenManGaming.GenerarOfertas()
-                'ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
-                '    pepeizq.Tiendas.IndieGala.GenerarOfertas()
+                pepeizq.Tiendas.Voidu.GenerarOfertas(voiduT)
             ElseIf tienda.NombreUsar = razerT.NombreUsar Then
-                pepeizq.Tiendas.RazerGameStore.GenerarOfertas()
+                pepeizq.Tiendas.RazerGameStore.GenerarOfertas(razerT)
             ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
-                pepeizq.Tiendas.AmazonCom.GenerarOfertas()
+                pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                pepeizq.Tiendas.AmazonEs.GenerarOfertas()
+                pepeizq.Tiendas.AmazonEs.GenerarOfertas(amazonesT)
             End If
         Else
             itemTiendas.IsEnabled = True
-            itemActualizarOfertas.IsEnabled = True
-            itemOrdenarOfertas.IsEnabled = True
             itemConfig.IsEnabled = True
             itemEditor.IsEnabled = True
 
@@ -434,10 +473,7 @@ Module Interfaz
                     item.Opacity = 1
                 Next
 
-                itemSeleccionarTodo.IsEnabled = True
-                itemSeleccionarTodo.Visibility = Visibility.Visible
-                itemLimpiarSeleccion.IsEnabled = True
-                itemLimpiarSeleccion.Visibility = Visibility.Visible
+                spEditor.Visibility = Visibility.Visible
             End If
         End If
 

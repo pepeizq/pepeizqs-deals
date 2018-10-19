@@ -65,6 +65,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await IndieGala(enlace)
                 ElseIf enlace.Contains("https://www.chrono.gg/") Then
                     cosas = Await Chrono(enlace)
+                ElseIf enlace.Contains("https://www.greenmangaming.com") Then
+                    cosas = Await GreenManGaming(enlace)
                 End If
 
                 If Not cosas Is Nothing Then
@@ -315,6 +317,53 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Return cosas
 
+        End Function
+
+        Private Async Function GreenManGaming(enlace As String) As Task(Of Clases.Bundles)
+
+            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Green Man Gaming", "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png")
+
+            Dim html As String = Await HttpClient(New Uri(enlace))
+
+            If Not html = Nothing Then
+                If html.Contains(ChrW(34) + "GameName" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf(ChrW(34) + "GameName" + ChrW(34))
+                    temp = html.Remove(0, int + 1)
+
+                    int = temp.IndexOf(":")
+                    temp = temp.Remove(0, int + 2)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Trim
+                    temp2 = WebUtility.HtmlDecode(temp2)
+                    cosas.Titulo = temp2
+                End If
+
+                If html.Contains(ChrW(34) + "PrePurchaseRedemptionImage" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf(ChrW(34) + "PrePurchaseRedemptionImage" + ChrW(34))
+                    temp = html.Remove(0, int + 1)
+
+                    int = temp.IndexOf(":")
+                    temp = temp.Remove(0, int + 2)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Trim
+                    temp2 = WebUtility.HtmlDecode(temp2)
+                    cosas.Imagen = temp2
+                End If
+            End If
+
+            Return cosas
         End Function
 
     End Module

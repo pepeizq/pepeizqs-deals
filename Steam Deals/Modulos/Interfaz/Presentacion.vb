@@ -11,25 +11,10 @@ Imports Windows.UI.Core
 Namespace pepeizq.Interfaz
     Module Presentacion
 
-        Public Async Sub Generar(boton As Button, grid As Grid, opcion As Integer)
+        Public Async Sub Generar(grid As Grid, opcion As Integer)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
-
-            Dim botonDeals As Button = pagina.FindName("botonPresentacionpepeizqdealsGridDeals")
-            botonDeals.Opacity = 0.7
-
-            Dim botonBundles As Button = pagina.FindName("botonPresentacionpepeizqdealsGridBundles")
-            botonBundles.Opacity = 0.7
-
-            Dim botonFree As Button = pagina.FindName("botonPresentacionpepeizqdealsGridFree")
-            botonFree.Opacity = 0.7
-
-            Dim botonSubscriptions As Button = pagina.FindName("botonPresentacionpepeizqdealsGridSubscriptions")
-            botonSubscriptions.Opacity = 0.7
-
-            Dim botonBuscar As Button = pagina.FindName("botonPresentacionpepeizqdealsGridBuscador")
-            botonBuscar.Opacity = 0.7
 
             Dim gridDeals As Grid = pagina.FindName("gridPresentacionpepeizqdealsDeals")
             gridDeals.Visibility = Visibility.Collapsed
@@ -46,7 +31,6 @@ Namespace pepeizq.Interfaz
             Dim gridBuscar As Grid = pagina.FindName("gridPresentacionpepeizqdealsBuscador")
             gridBuscar.Visibility = Visibility.Collapsed
 
-            boton.Opacity = 1
             grid.Visibility = Visibility.Visible
 
             If opcion = 0 Then
@@ -219,15 +203,7 @@ Namespace pepeizq.Interfaz
                 RemoveHandler sv.ViewChanging, AddressOf Sv_ViewChanging
                 AddHandler sv.ViewChanging, AddressOf Sv_ViewChanging
 
-                Dim tbBuscador As TextBox = pagina.FindName("tbPresentacionpepeizqdealsBuscador")
-                tbBuscador.Text = String.Empty
-                RemoveHandler tbBuscador.TextChanged, AddressOf BuscadorCajaTexto
-                AddHandler tbBuscador.TextChanged, AddressOf BuscadorCajaTexto
-
-                Dim botonBuscador As Button = pagina.FindName("botonPresentacionpepeizqdealsBuscador")
-                botonBuscador.IsEnabled = False
-                RemoveHandler botonBuscador.Click, AddressOf BuscadorBusca
-                AddHandler botonBuscador.Click, AddressOf BuscadorBusca
+                BuscadorBusca()
             End If
 
         End Sub
@@ -466,15 +442,12 @@ Namespace pepeizq.Interfaz
 
         End Sub
 
-        Private Async Sub BuscadorBusca(sender As Object, e As RoutedEventArgs)
+        Private Async Sub BuscadorBusca()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tb As TextBox = pagina.FindName("tbPresentacionpepeizqdealsBuscador")
-
-            Dim boton As Button = sender
-            boton.IsEnabled = False
 
             Dim pr As ProgressRing = pagina.FindName("prPresentacionpepeizqdealsBuscador")
             pr.Visibility = Visibility.Visible
@@ -490,14 +463,26 @@ Namespace pepeizq.Interfaz
             Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (Async Sub()
                                                                                                               Dim html As String = Await HttpClient(New Uri("https://pepeizqdeals.com/wp-json/wp/v2/posts?search=" + tb.Text.Trim + "&per_page=100"))
                                                                                                               pr.Visibility = Visibility.Collapsed
-                                                                                                              boton.IsEnabled = True
 
                                                                                                               If Not html = Nothing Then
-                                                                                                                  Dim listaOfertas As List(Of Editor.pepeizqdeals.Clases.Post) = JsonConvert.DeserializeObject(Of List(Of pepeizq.Editor.pepeizqdeals.Clases.Post))(html)
+                                                                                                                  Dim listaOfertas As List(Of Editor.pepeizqdeals.Clases.Post) = JsonConvert.DeserializeObject(Of List(Of Editor.pepeizqdeals.Clases.Post))(html)
 
                                                                                                                   If listaOfertas.Count > 0 Then
                                                                                                                       For Each oferta In listaOfertas
-                                                                                                                          lv.Items.Add(AñadirPromocionListado(oferta))
+                                                                                                                          Dim postRepetido As Boolean = False
+
+                                                                                                                          For Each item In lv.Items
+                                                                                                                              Dim grid As Grid = item
+                                                                                                                              Dim post As Editor.pepeizqdeals.Clases.Post = grid.Tag
+
+                                                                                                                              If oferta.Enlace = post.Enlace Then
+                                                                                                                                  postRepetido = True
+                                                                                                                              End If
+                                                                                                                          Next
+
+                                                                                                                          If postRepetido = False Then
+                                                                                                                              lv.Items.Add(AñadirPromocionListado(oferta))
+                                                                                                                          End If
                                                                                                                       Next
                                                                                                                   Else
                                                                                                                       gridNoResultados.Visibility = Visibility.Visible

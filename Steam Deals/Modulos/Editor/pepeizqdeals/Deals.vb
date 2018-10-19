@@ -28,19 +28,25 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.Text = String.Empty
 
+            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
+
+            If Not ApplicationData.Current.LocalSettings.Values("codigo" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
+                tbComentario.Text = ApplicationData.Current.LocalSettings.Values("codigo" + listaFinal(0).Tienda.NombreUsar)
+            End If
+
             Dim listaDescuento As New List(Of String)
             Dim listaAnalisis As New List(Of Juego)
 
             If listaFinal.Count = 1 Then
-                If listaFinal(0).Tienda = "Steam" Then
+                If listaFinal(0).Tienda.NombreUsar = "Steam" Then
                     listaFinal(0) = Await Tiendas.Steam.SteamMas(listaFinal(0))
-                ElseIf listaFinal(0).Tienda = "Chrono" Then
+                ElseIf listaFinal(0).Tienda.NombreUsar = "Chrono" Then
                     listaFinal(0) = Await Tiendas.Chrono.ChronoMas(listaFinal(0))
                 End If
 
                 Dim precioFinal As String = String.Empty
 
-                If listaFinal(0).Tienda = "GamersGate" Then
+                If listaFinal(0).Tienda.NombreUsar = "GamersGate" Then
                     If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
                         Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)
 
@@ -55,7 +61,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         precioFinal = listaFinal(0).Enlaces.Precios(0)
                         tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
                     End If
-                ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
+                ElseIf listaFinal(0).Tienda.NombreUsar = "GamesPlanet" Then
                     Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbLibra.Text)
                     Dim precioFR As String = listaFinal(0).Enlaces.Precios(1)
                     Dim precioDE As String = listaFinal(0).Enlaces.Precios(2)
@@ -92,16 +98,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
                         End If
                     End If
-                ElseIf listaFinal(0).Tienda = "Fanatical" Then
+                ElseIf listaFinal(0).Tienda.NombreUsar = "Fanatical" Then
                     precioFinal = listaFinal(0).Enlaces.Precios(1)
                     tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
-                ElseIf listaFinal(0).Tienda = "WinGameStore" Then
+                ElseIf listaFinal(0).Tienda.NombreUsar = "WinGameStore" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
                     tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
-                ElseIf listaFinal(0).Tienda = "Chrono" Then
+                ElseIf listaFinal(0).Tienda.NombreUsar = "Chrono" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
                     tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
-                ElseIf listaFinal(0).Tienda = "Amazon.com" Then
+                ElseIf listaFinal(0).Tienda.NombreUsar = "AmazonCom" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
                     tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
                 Else
@@ -132,7 +138,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda
+                tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda.NombreMostrar
             Else
                 Dim publisherFinal As String = Nothing
 
@@ -199,7 +205,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     filtrado = "with at least 1000 reviews "
                 End If
 
-                tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda
+                tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda.NombreMostrar
                 tbEnlace.Text = String.Empty
 
                 listaAnalisis.Sort(Function(x As Juego, y As Juego)
@@ -282,7 +288,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If listaFinal.Count = 1 Then
                 If Not listaFinal(0).Imagenes.Grande = String.Empty Then
-                    If listaFinal(0).Tienda = "Humble Store" Then
+                    If listaFinal(0).Tienda.NombreUsar = "Humble" Then
                         tbImagen.Text = listaFinal(0).Imagenes.Pequeña
                     Else
                         tbImagen.Text = listaFinal(0).Imagenes.Grande
@@ -295,7 +301,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagen.Source = tbImagen.Text
             Else
-                If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Or listaFinal(0).Tienda = "Amazon.com" Then
+                If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Then
                     gvImagenVertical.Visibility = Visibility.Collapsed
                     gvImagenHorizontal.Visibility = Visibility.Visible
                 Else
@@ -316,7 +322,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
                         End If
 
-                        If listaFinal(0).Tienda = "GamersGate" Or listaFinal(0).Tienda = "Voidu" Or listaFinal(0).Tienda = "Amazon.com" Then
+                        If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Then
                             imagenJuego.MaxWidth = 130
 
                             If Not imagenJuego.Source Is Nothing Then
@@ -386,6 +392,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
             Dim boton As Button = sender
 
             Dim cosas As Clases.Deals = boton.Tag
@@ -395,11 +402,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim precioFinal As String = String.Empty
 
             If cosas.ListaJuegos.Count > 1 Then
+                If tbComentario.Text.Trim.Length > 0 Then
+                    contenidoEnlaces = contenidoEnlaces + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + "]" + tbComentario.Text.Trim + "[/us_message]"
+                End If
+
                 contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
 
-                If cosas.Tienda = "GamersGate" Or cosas.Tienda = "Voidu" Or cosas.Tienda = "Amazon.com" Then
+                If cosas.Tienda.NombreUsar = "GamersGate" Or cosas.Tienda.NombreUsar = "Voidu" Or cosas.Tienda.NombreUsar = "AmazonCom" Then
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 Else
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
@@ -417,7 +428,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim contenidoJuego As String = Nothing
                     Dim claveMejorPrecio As Integer = 0
 
-                    If cosas.Tienda = "GamersGate" Then
+                    If cosas.Tienda.NombreUsar = "GamersGate" Then
                         If Not juego.Enlaces.Precios(1) = Nothing Then
                             Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                             Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(1), tbLibra.Text)
@@ -429,7 +440,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 juego.Enlaces.Precios(1) = precioUK
                             End If
                         End If
-                    ElseIf cosas.Tienda = "GamesPlanet" Then
+                    ElseIf cosas.Tienda.NombreUsar = "GamesPlanet" Then
                         Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                         Dim precioUK As String = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text)
                         Dim precioFR As String = juego.Enlaces.Precios(1)
@@ -463,15 +474,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
                             End If
                         End If
-                    ElseIf cosas.Tienda = "Fanatical" Then
+                    ElseIf cosas.Tienda.NombreUsar = "Fanatical" Then
                         claveMejorPrecio = 1
-                    ElseIf cosas.Tienda = "WinGameStore" Then
+                    ElseIf cosas.Tienda.NombreUsar = "WinGameStore" Then
                         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
-                    ElseIf cosas.Tienda = "Chrono" Then
+                    ElseIf cosas.Tienda.NombreUsar = "Chrono" Then
                         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
-                    ElseIf cosas.Tienda = "Amazon.com" Then
+                    ElseIf cosas.Tienda.NombreUsar = "AmazonCom" Then
                         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                         juego.Enlaces.Precios(0) = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     End If
@@ -557,6 +568,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
                     Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
                     Dim botonGV As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+                    botonGV.IsEnabled = True
 
                     Dim gvFinal As GridView = Nothing
 
@@ -597,7 +609,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cliente.Logout()
                 End If
             Else
-                If cosas.Tienda = "GamersGate" Then
+                If cosas.Tienda.NombreUsar = "GamersGate" Then
                     Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                     Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(1), tbLibra.Text)
 
@@ -606,7 +618,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Else
                         precioFinal = precioUK
                     End If
-                ElseIf cosas.Tienda = "GamesPlanet" Then
+                ElseIf cosas.Tienda.NombreUsar = "GamesPlanet" Then
                     Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                     Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbLibra.Text)
                     Dim precioFR As String = cosas.ListaJuegos(0).Enlaces.Precios(1)
@@ -637,15 +649,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
                         End If
                     End If
-                ElseIf cosas.Tienda = "Fanatical" Then
+                ElseIf cosas.Tienda.NombreUsar = "Fanatical" Then
                     precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(1)
-                ElseIf cosas.Tienda = "WinGameStore" Then
+                ElseIf cosas.Tienda.NombreUsar = "WinGameStore" Then
                     Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
-                ElseIf cosas.Tienda = "Chrono" Then
+                ElseIf cosas.Tienda.NombreUsar = "Chrono" Then
                     Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
-                ElseIf cosas.Tienda = "Amazon.com" Then
+                ElseIf cosas.Tienda.NombreUsar = "AmazonCom" Then
                     Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
                 Else
@@ -656,43 +668,43 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaEtiquetas As New List(Of Integer)
             Dim iconoTienda As String = String.Empty
 
-            If cosas.Tienda = "Steam" Then
+            If cosas.Tienda.NombreMostrar = "Steam" Then
                 listaEtiquetas.Add(5)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png"
-            ElseIf cosas.Tienda = "Humble Store" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Humble Store" Then
                 listaEtiquetas.Add(6)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
-            ElseIf cosas.Tienda = "GamersGate" Then
+            ElseIf cosas.Tienda.NombreMostrar = "GamersGate" Then
                 listaEtiquetas.Add(7)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamersgate.png"
-            ElseIf cosas.Tienda = "GamesPlanet" Then
+            ElseIf cosas.Tienda.NombreMostrar = "GamesPlanet" Then
                 listaEtiquetas.Add(8)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamesplanet.png"
-            ElseIf cosas.Tienda = "GOG" Then
+            ElseIf cosas.Tienda.NombreMostrar = "GOG" Then
                 listaEtiquetas.Add(9)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png"
-            ElseIf cosas.Tienda = "Fanatical" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Fanatical" Then
                 listaEtiquetas.Add(10)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png"
-            ElseIf cosas.Tienda = "WinGameStore" Then
+            ElseIf cosas.Tienda.NombreMostrar = "WinGameStore" Then
                 listaEtiquetas.Add(14)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png"
-            ElseIf cosas.Tienda = "Chrono" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Chrono" Then
                 listaEtiquetas.Add(15)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png"
-            ElseIf cosas.Tienda = "Microsoft Store" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Microsoft Store" Then
                 listaEtiquetas.Add(16)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png"
-            ElseIf cosas.Tienda = "Sila Games" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Sila Games" Then
                 listaEtiquetas.Add(17)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png"
-            ElseIf cosas.Tienda = "Voidu" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Voidu" Then
                 listaEtiquetas.Add(18)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png"
-            ElseIf cosas.Tienda = "Razer Game Store" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Razer Game Store" Then
                 listaEtiquetas.Add(19)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_razergamestore.png"
-            ElseIf cosas.Tienda = "Amazon.com" Then
+            ElseIf cosas.Tienda.NombreMostrar = "Amazon.com" Then
                 listaEtiquetas.Add(20)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png"
             End If
@@ -796,8 +808,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.IsEnabled = estado
 
+            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
+            tbComentario.IsEnabled = estado
+
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
             botonSubir.IsEnabled = estado
+
+            Dim imagenEntrada As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+            imagenEntrada.IsEnabled = estado
 
         End Sub
 
@@ -819,6 +837,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 enlace = "http://www.tkqlhce.com/click-8883540-13398977?url=" + enlace
             ElseIf enlace.Contains("voidu.com") Then
                 enlace = "http://www.tkqlhce.com/click-8883540-13148757?url=" + enlace
+            ElseIf enlace.Contains("greenmangaming.com") Then
+                enlace = "http://www.tkqlhce.com/click-8883540-10912384?url=" + enlace
             End If
 
             Return enlace

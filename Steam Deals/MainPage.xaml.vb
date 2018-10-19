@@ -8,10 +8,36 @@ Imports Windows.UI.Core
 Public NotInheritable Class MainPage
     Inherits Page
 
-    Private Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
+    Private Sub Nv_Loaded(sender As Object, e As RoutedEventArgs)
 
-        itemActualizarOfertas.Visibility = Visibility.Visible
-        itemOrdenarOfertas.Visibility = Visibility.Visible
+        Dim recursos As New Resources.ResourceLoader()
+
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Deals"), 0))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Bundles2"), 1))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Free2"), 2))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Subscriptions2"), 3))
+        nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
+
+        Dim iconoBuscar As New FontAwesome.UWP.FontAwesome With {
+            .Icon = FontAwesome.UWP.FontAwesomeIcon.Search,
+            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+        }
+        nvPrincipal.MenuItems.Add(iconoBuscar)
+
+        Dim tbBuscar As New TextBox With {
+            .Name = "tbPresentacionpepeizqdealsBuscador"
+        }
+        AddHandler tbBuscar.TextChanged, AddressOf TBBuscadorTextoCambia
+        nvPrincipal.MenuItems.Add(tbBuscar)
+
+        nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, "#333333", 4))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, "#55acee", 5))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, "#ff4500", 6))
+
+    End Sub
+
+    Private Async Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
 
         For Each grid As Grid In gridOfertasTiendas.Children
             If grid.Visibility = Visibility.Visible Then
@@ -19,8 +45,6 @@ Public NotInheritable Class MainPage
 
                 If lv.Items.Count > 0 Then
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                        itemEditorSeleccionarTodo.Visibility = Visibility.Visible
-                        itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
                         spOfertasTiendasEditor.Visibility = Visibility.Visible
                     End If
                 End If
@@ -32,27 +56,28 @@ Public NotInheritable Class MainPage
         If TypeOf e.InvokedItem Is TextBlock Then
             Dim item As TextBlock = e.InvokedItem
 
-            If item.Text = recursos.GetString("Refresh2") Then
-                gridEditor.Visibility = Visibility.Collapsed
+            If item.Text = recursos.GetString("Deals") Then
 
-                For Each grid As Grid In gridOfertasTiendas.Children
-                    If grid.Visibility = Visibility.Visible Then
-                        Dim tienda As Tienda = grid.Tag
+                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsDeals, 0)
 
-                        Interfaz.IniciarTienda(tienda, True, True)
-                    End If
-                Next
+            ElseIf item.Text = recursos.GetString("Bundles2") Then
+
+                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsBundles, 1)
+
+            ElseIf item.Text = recursos.GetString("Free2") Then
+
+                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsFree, 2)
+
+            ElseIf item.Text = recursos.GetString("Subscriptions2") Then
+
+                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsSubscriptions, 3)
 
             ElseIf item.Text = recursos.GetString("Editor") Then
                 For Each grid As Grid In gridOfertasTiendas.Children
                     If grid.Visibility = Visibility.Visible Then
-                        itemActualizarOfertas.Visibility = Visibility.Collapsed
-                        itemOrdenarOfertas.Visibility = Visibility.Collapsed
 
                         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                            itemEditorSeleccionarTodo.Visibility = Visibility.Collapsed
-                            itemEditorLimpiarSeleccion.Visibility = Visibility.Collapsed
-                            spOfertasTiendasEditor.Visibility = Visibility.Collapsed
+                            spOfertasTiendasEditor.Visibility = Visibility.Visible
 
                             Dim lv As ListView = grid.Children(0)
                             gridEditor.Tag = lv
@@ -64,52 +89,19 @@ Public NotInheritable Class MainPage
                 Next
 
                 GridVisibilidad(gridEditor, item.Text)
-            ElseIf item.Text = recursos.GetString("SelectAll2") Then
-                For Each grid As Grid In gridOfertasTiendas.Children
-                    If grid.Visibility = Visibility.Visible Then
-                        Dim lv As ListView = grid.Children(0)
 
-                        For Each itemlv In lv.Items
-                            Dim itemGrid As Grid = itemlv
-                            Analisis.FiltrarSeleccion(itemGrid)
-                        Next
-                    End If
-                Next
-            ElseIf item.Text = recursos.GetString("SelectClear2") Then
-                For Each grid As Grid In gridOfertasTiendas.Children
-                    If grid.Visibility = Visibility.Visible Then
-                        Dim lv As ListView = grid.Children(0)
+            ElseIf item.Text = "Steam" Then
 
-                        For Each itemlv In lv.Items
-                            Dim itemGrid As Grid = itemlv
-                            Dim sp As StackPanel = itemGrid.Children(0)
-                            Dim cb As CheckBox = sp.Children(0)
+                Await Launcher.LaunchUriAsync(New Uri("https://steamcommunity.com/groups/pepeizqdeals/"))
 
-                            cb.IsChecked = False
-                        Next
-                    End If
-                Next
-            End If
-        End If
+            ElseIf item.Text = "Twitter" Then
 
-    End Sub
+                Await Launcher.LaunchUriAsync(New Uri("https://twitter.com/pepeizqdeals"))
 
-    Private Sub BotonTiendaSeleccionada_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSeleccionada.Click
+            ElseIf item.Text = "Reddit" Then
 
-        If Not imagenTiendaSeleccionada.Tag Is Nothing Then
-            itemActualizarOfertas.Visibility = Visibility.Visible
-            itemOrdenarOfertas.Visibility = Visibility.Visible
+                Await Launcher.LaunchUriAsync(New Uri("https://new.reddit.com/r/pepeizqdeals/new/"))
 
-            gridEditor.Visibility = Visibility.Collapsed
-
-            Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-
-            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                itemEditorSeleccionarTodo.Visibility = Visibility.Visible
-                itemEditorLimpiarSeleccion.Visibility = Visibility.Visible
-                Interfaz.IniciarTienda(tienda, True, False)
-            Else
-                Interfaz.IniciarTienda(tienda, False, True)
             End If
         End If
 
@@ -130,8 +122,6 @@ Public NotInheritable Class MainPage
         MasCosas.Generar()
         Interfaz.Generar()
         Divisas.Generar()
-
-        nvPrincipal.IsPaneOpen = False
 
         '--------------------------------------------------------
 
@@ -159,66 +149,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub BotonPresentacionpepeizqdealsSteam_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsSteam.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://steamcommunity.com/groups/pepeizqdeals/"))
-
-    End Sub
-
-    Private Async Sub BotonPresentacionpepeizqdealsTwitter_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsTwitter.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://twitter.com/pepeizqdeals"))
-
-    End Sub
-
-    Private Async Sub BotonPresentacionpepeizqdealsReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsReddit.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://new.reddit.com/r/pepeizqdeals/new/"))
-
-    End Sub
-
-    Private Async Sub BotonPresentacionpepeizqdealsTelegram_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsTelegram.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://t.me/pepeizqdeals"))
-
-    End Sub
-
-    Private Async Sub BotonPresentacionpepeizqdealsEmail_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsEmail.Click
-
-        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/emails/"))
-
-    End Sub
-
-    Private Sub BotonPresentacionpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridDeals.Click
-
-        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridDeals, gridPresentacionpepeizqdealsDeals, 0)
-
-    End Sub
-
-    Private Sub BotonPresentacionpepeizqdealsGridBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridBundles.Click
-
-        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridBundles, gridPresentacionpepeizqdealsBundles, 1)
-
-    End Sub
-
-    Private Sub BotonPresentacionpepeizqdealsGridFree_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridFree.Click
-
-        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridFree, gridPresentacionpepeizqdealsFree, 2)
-
-    End Sub
-
-    Private Sub BotonPresentacionpepeizqdealsGridSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridSubscriptions.Click
-
-        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridSubscriptions, gridPresentacionpepeizqdealsSubscriptions, 3)
-
-    End Sub
-
-    Private Sub BotonPresentacionpepeizqdealsGridBuscador_Click(sender As Object, e As RoutedEventArgs) Handles botonPresentacionpepeizqdealsGridBuscador.Click
-
-        pepeizq.Interfaz.Presentacion.Generar(botonPresentacionpepeizqdealsGridBuscador, gridPresentacionpepeizqdealsBuscador, 4)
-
-    End Sub
-
     Private Sub GridVisibilidad(grid As Grid, tag As String)
 
         tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - " + tag
@@ -241,6 +171,16 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TBBuscadorTextoCambia(sender As Object, e As TextChangedEventArgs)
+
+        Dim tb As TextBox = sender
+
+        If tb.Text.Trim.Length > 2 Then
+            pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsBuscador, 4)
+        End If
+
+    End Sub
+
     'CONFIG---------------------------------------------------------------------------------
 
     Private Sub ItemConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigUltimaVisita.Click
@@ -255,14 +195,70 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    'Private Sub ToggleConfigSteamMas_Click(sender As Object, e As RoutedEventArgs) Handles toggleConfigSteamMas.Click
-
-    '    Configuracion.SteamMasActivar(toggleConfigSteamMas.IsChecked)
-
-    'End Sub
-
-
     'EDITOR---------------------------------------------------------------------------------
+
+    Private Sub BotonTiendaSeleccionada_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSeleccionada.Click
+
+        If Not imagenTiendaSeleccionada.Tag Is Nothing Then
+            gridEditor.Visibility = Visibility.Collapsed
+
+            Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
+
+            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
+                Interfaz.IniciarTienda(tienda, True, False)
+            Else
+                Interfaz.IniciarTienda(tienda, False, True)
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BotonActualizarOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarOfertas.Click
+
+        gridEditor.Visibility = Visibility.Collapsed
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim tienda As Tienda = grid.Tag
+
+                Interfaz.IniciarTienda(tienda, True, True)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub BotonSeleccionarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonSeleccionarTodo.Click
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim lv As ListView = grid.Children(0)
+
+                For Each itemlv In lv.Items
+                    Dim itemGrid As Grid = itemlv
+                    Analisis.FiltrarSeleccion(itemGrid)
+                Next
+            End If
+        Next
+
+    End Sub
+
+    Private Sub BotonLimpiarSeleccion_Click(sender As Object, e As RoutedEventArgs) Handles botonLimpiarSeleccion.Click
+
+        For Each grid As Grid In gridOfertasTiendas.Children
+            If grid.Visibility = Visibility.Visible Then
+                Dim lv As ListView = grid.Children(0)
+
+                For Each itemlv In lv.Items
+                    Dim itemGrid As Grid = itemlv
+                    Dim sp As StackPanel = itemGrid.Children(0)
+                    Dim cb As CheckBox = sp.Children(0)
+
+                    cb.IsChecked = False
+                Next
+            End If
+        Next
+
+    End Sub
 
     Private Sub CbEditorWebs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorWebs.SelectionChanged
 
@@ -458,6 +454,12 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorpepeizqdealsGridIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridIconos.Click
 
         pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGridCodigos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCodigos.Click
+
+        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridCodigos, gridEditorpepeizqdealsCodigos)
 
     End Sub
 

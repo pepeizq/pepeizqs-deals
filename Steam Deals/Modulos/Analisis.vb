@@ -338,7 +338,7 @@ Module Analisis
 
                         If Not juego.Analisis Is Nothing Then
                             If juego.Analisis.Cantidad.Length > 2 Then
-                                If juego.Tienda = "Steam" Then
+                                If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
                                     If juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/bundle/") Then
@@ -368,7 +368,7 @@ Module Analisis
 
                         If Not juego.Analisis Is Nothing Then
                             If juego.Analisis.Cantidad.Length > 4 Then
-                                If juego.Tienda = "Steam" Then
+                                If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
                                     If juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/bundle/") Then

@@ -18,27 +18,27 @@
             If listaFinal.Count = 0 Then
                 tbTitulo.Text = String.Empty
             ElseIf listaFinal.Count = 1 Then
-                tbTitulo.Text = "[" + listaFinal(0).Tienda + "] " + listaFinal(0).Titulo + " (" + listaFinal(0).Enlaces.Precios(0) + "/" + listaFinal(0).Descuento + " off)"
+                tbTitulo.Text = "[" + listaFinal(0).Tienda.NombreMostrar + "] " + listaFinal(0).Titulo + " (" + listaFinal(0).Enlaces.Precios(0) + "/" + listaFinal(0).Descuento + " off)"
             Else
-                tbTitulo.Text = "[" + listaFinal(0).Tienda + "] Sale | Up to " + listaFinal(0).Descuento + " off (" + cantidadJuegos + " deals)"
+                tbTitulo.Text = "[" + listaFinal(0).Tienda.NombreMostrar + "] Sale | Up to " + listaFinal(0).Descuento + " off (" + cantidadJuegos + " deals)"
             End If
 
-            If listaFinal(0).Tienda = "Steam" Then
+            If listaFinal(0).Tienda.NombreMostrar = "Steam" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda = "GOG" Then
+            ElseIf listaFinal(0).Tienda.NombreMostrar = "GOG" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
+            ElseIf listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda = "GamersGate" Then
+            ElseIf listaFinal(0).Tienda.NombreMostrar = "GamersGate" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price UK** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
+            ElseIf listaFinal(0).Tienda.NombreMostrar = "GamesPlanet" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price UK** | **Price FR** | **Price DE** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda = "Fanatical" Then
+            ElseIf listaFinal(0).Tienda.NombreMostrar = "Fanatical" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price US** | **Price UK** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
             Else
@@ -74,17 +74,17 @@
 
                 Dim linea As String = Nothing
 
-                If listaFinal(0).Tienda = "Steam" Then
+                If listaFinal(0).Tienda.NombreMostrar = "Steam" Then
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlaces.Enlaces(0) + ") | " + juego.Descuento + " | " + juego.Enlaces.Precios(0) + " | " + analisis
-                ElseIf listaFinal(0).Tienda = "GOG" Then
+                ElseIf listaFinal(0).Tienda.NombreMostrar = "GOG" Then
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlaces.Enlaces(0) + ") | " + juego.Descuento + " | " + juego.Enlaces.Precios(0) + " | " + analisis
-                ElseIf listaFinal(0).Tienda = "Microsoft Store" Then
+                ElseIf listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Then
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlaces.Enlaces(0) + ") | " + juego.Descuento + " | " + juego.Enlaces.Precios(0) + " | " + analisis
-                ElseIf listaFinal(0).Tienda = "GamersGate" Then
+                ElseIf listaFinal(0).Tienda.NombreMostrar = "GamersGate" Then
                     linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Enlaces.Precios(0) + "](" + juego.Enlaces.Enlaces(0) + ") | [" + juego.Enlaces.Precios(1) + "](" + juego.Enlaces.Enlaces(1) + ") | " + analisis
-                ElseIf listaFinal(0).Tienda = "GamesPlanet" Then
+                ElseIf listaFinal(0).Tienda.NombreMostrar = "GamesPlanet" Then
                     linea = linea + juego.Titulo + " | " + drm + " | " + juego.Descuento + " | [" + juego.Enlaces.Precios(0) + " (" + Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text) + ")](" + juego.Enlaces.Enlaces(0) + ") | [" + juego.Enlaces.Precios(1) + "](" + juego.Enlaces.Enlaces(1) + ") | [" + juego.Enlaces.Precios(2) + "](" + juego.Enlaces.Enlaces(2) + ")" + " | " + analisis
-                ElseIf listaFinal(0).Tienda = "Fanatical" Then
+                ElseIf listaFinal(0).Tienda.NombreMostrar = "Fanatical" Then
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlaces.Enlaces(0) + ") | " + drm + " | " + juego.Descuento + " | " + juego.Enlaces.Precios(1) + " | " + juego.Enlaces.Precios(0) + " | " + juego.Enlaces.Precios(2) + " | " + analisis
                 Else
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlaces.Enlaces(0) + ") | " + drm + " | " + juego.Descuento + " | " + juego.Enlaces.Precios(0) + " | " + analisis

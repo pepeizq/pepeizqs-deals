@@ -10,31 +10,17 @@ Module Ordenar
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda)
 
-        Dim ordenar As Integer = ApplicationData.Current.LocalSettings.Values("ordenar")
-
         Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
         itemTiendas.IsEnabled = False
 
         Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
         botonTiendaSeleccionada.IsEnabled = False
 
-        Dim itemActualizarOfertas As NavigationViewItem = pagina.FindName("itemActualizarOfertas")
-        itemActualizarOfertas.IsEnabled = False
-
-        Dim itemOrdenarOfertas As NavigationViewItem = pagina.FindName("itemOrdenarOfertas")
-        itemOrdenarOfertas.IsEnabled = False
-
         Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
         itemConfig.IsEnabled = False
 
         Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
         itemEditor.IsEnabled = False
-
-        Dim itemSeleccionarTodo As NavigationViewItem = pagina.FindName("itemEditorSeleccionarTodo")
-        itemSeleccionarTodo.IsEnabled = False
-
-        Dim itemLimpiarSeleccion As NavigationViewItem = pagina.FindName("itemEditorLimpiarSeleccion")
-        itemLimpiarSeleccion.IsEnabled = False
 
         Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
         spEditor.Visibility = Visibility.Collapsed
@@ -84,93 +70,13 @@ Module Ordenar
                     lv.Items.Clear()
                 End If
 
-                If ordenar = 0 Then
-                    listaJuegos.Sort(Function(x As Juego, y As Juego)
-                                         Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
-                                         If resultado = 0 Then
-                                             resultado = x.Titulo.CompareTo(y.Titulo)
-                                         End If
-                                         Return resultado
-                                     End Function)
-                ElseIf ordenar = 1 Then
-                    listaJuegos.Sort(Function(x As Juego, y As Juego)
-                                         Dim precioX As String = x.Enlaces.Precios(0)
-                                         Dim precioY As String = y.Enlaces.Precios(0)
-
-                                         precioX = precioX.Replace("$", Nothing)
-                                         precioY = precioY.Replace("$", Nothing)
-                                         precioX = precioX.Replace("£", Nothing)
-                                         precioY = precioY.Replace("£", Nothing)
-
-                                         If Not precioX.Contains(".") Then
-                                             precioX = precioX + ".00"
-                                         End If
-
-                                         If Not precioY.Contains(".") Then
-                                             precioY = precioY + ".00"
-                                         End If
-
-                                         If precioX.IndexOf(".") = 1 Then
-                                             precioX = "00" + precioX
-                                         End If
-
-                                         If precioY.IndexOf(".") = 1 Then
-                                             precioY = "00" + precioY
-                                         End If
-
-                                         If precioX.IndexOf(",") = 1 Then
-                                             precioX = "00" + precioX
-                                         End If
-
-                                         If precioY.IndexOf(",") = 1 Then
-                                             precioY = "00" + precioY
-                                         End If
-
-                                         If precioX.IndexOf(".") = 2 Then
-                                             precioX = "0" + precioX
-                                         End If
-
-                                         If precioY.IndexOf(".") = 2 Then
-                                             precioY = "0" + precioY
-                                         End If
-
-                                         If precioX.IndexOf(",") = 2 Then
-                                             precioX = "0" + precioX
-                                         End If
-
-                                         If precioY.IndexOf(",") = 2 Then
-                                             precioY = "0" + precioY
-                                         End If
-
-                                         Dim resultado As Integer = precioX.CompareTo(precioY)
-                                         If resultado = 0 Then
-                                             resultado = x.Titulo.CompareTo(y.Titulo)
-                                         End If
-                                         Return resultado
-                                     End Function)
-                ElseIf ordenar = 2 Then
-                    listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
-                ElseIf ordenar = 3 Then
-                    listaJuegos.Sort(Function(x As Juego, y As Juego)
-                                         Dim analisisX As Integer = 0
-
-                                         If Not x.Analisis Is Nothing Then
-                                             analisisX = x.Analisis.Porcentaje
-                                         End If
-
-                                         Dim analisisY As Integer = 0
-
-                                         If Not y.Analisis Is Nothing Then
-                                             analisisY = y.Analisis.Porcentaje
-                                         End If
-
-                                         Dim resultado As Integer = analisisY.CompareTo(analisisX)
-                                         If resultado = 0 Then
-                                             resultado = x.Titulo.CompareTo(y.Titulo)
-                                         End If
-                                         Return resultado
-                                     End Function)
-                End If
+                listaJuegos.Sort(Function(x As Juego, y As Juego)
+                                     Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                     If resultado = 0 Then
+                                         resultado = x.Titulo.CompareTo(y.Titulo)
+                                     End If
+                                     Return resultado
+                                 End Function)
 
                 Dim listaJuegosAntigua As New List(Of Juego)
 
@@ -335,8 +241,6 @@ Module Ordenar
                 gridNoOfertas.Visibility = Visibility.Visible
 
                 If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                    itemSeleccionarTodo.Visibility = Visibility.Collapsed
-                    itemLimpiarSeleccion.Visibility = Visibility.Collapsed
                     spEditor.Visibility = Visibility.Collapsed
 
                     numOfertasCargadas.Visibility = Visibility.Visible
@@ -348,9 +252,10 @@ Module Ordenar
                 gridNoOfertas.Visibility = Visibility.Collapsed
 
                 If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                    itemSeleccionarTodo.Visibility = Visibility.Visible
-                    itemLimpiarSeleccion.Visibility = Visibility.Visible
                     spEditor.Visibility = Visibility.Visible
+
+                    Dim cbAnalisis As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
+                    cbAnalisis.SelectedIndex = 0
 
                     Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
                     cbDesarrolladores.Items.Clear()
@@ -379,12 +284,8 @@ Module Ordenar
 
         itemTiendas.IsEnabled = True
         botonTiendaSeleccionada.IsEnabled = True
-        itemActualizarOfertas.IsEnabled = True
-        itemOrdenarOfertas.IsEnabled = True
         itemConfig.IsEnabled = True
         itemEditor.IsEnabled = True
-        itemSeleccionarTodo.IsEnabled = True
-        itemLimpiarSeleccion.IsEnabled = True
         gridProgreso.Visibility = Visibility.Collapsed
 
     End Sub
