@@ -38,6 +38,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+
             Dim tbEnlace As TextBox = sender
             tbEnlace.IsEnabled = False
 
@@ -67,14 +69,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Chrono(enlace)
                 ElseIf enlace.Contains("https://www.greenmangaming.com") Then
                     cosas = Await GreenManGaming(enlace)
+                ElseIf enlace.Contains("https://www.wingamestore.com") Then
+                    cosas = Await WinGameStore(enlace)
                 End If
 
                 If Not cosas Is Nothing Then
+                    If Not cosas.Precio = "--- €" Then
+                        If cosas.Precio.Contains("$") Then
+                            cosas.Precio = Divisas.CambioMoneda(cosas.Precio, tbDolar.Text)
+                        End If
+                    End If
+
                     If Not cosas.Titulo = Nothing Then
-                        tbTitulo.Text = cosas.Titulo + " • 0 games • " + cosas.Tienda
+                        tbTitulo.Text = cosas.Titulo + " • " + cosas.Precio + " • " + cosas.Tienda
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
                     Else
-                        tbTitulo.Text = "--- • 0 games • " + cosas.Tienda
+                        tbTitulo.Text = "--- • --- € • " + cosas.Tienda
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
                     End If
 
@@ -145,7 +155,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Humble(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Humble Bundle", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Humble Bundle", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png")
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -192,7 +202,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Fanatical(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Fanatical", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Fanatical", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png")
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
 
@@ -225,6 +235,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                             cosas.Titulo = titulo
+                            cosas.Precio = juegoFanatical.Precio.EUR
                             cosas.Imagen = juegoFanatical.Imagen
                         End If
                     Else
@@ -240,7 +251,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function IndieGala(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Indie Gala", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Indie Gala", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png")
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -284,7 +295,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Chrono(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Chrono", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Chrono", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png")
 
             Dim html As String = Await HttpClient(New Uri("https://api.chrono.gg/sale"))
 
@@ -312,6 +323,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If imagen = Nothing Then
                         cosas.Imagen = juegoChrono.Imagen
                     End If
+
+                    cosas.Precio = "$" + juegoChrono.Precio
                 End If
             End If
 
@@ -321,7 +334,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function GreenManGaming(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, Nothing, "Green Man Gaming", "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Green Man Gaming", "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png")
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -360,6 +373,52 @@ Namespace pepeizq.Editor.pepeizqdeals
                     temp2 = temp2.Trim
                     temp2 = WebUtility.HtmlDecode(temp2)
                     cosas.Imagen = temp2
+                End If
+            End If
+
+            Return cosas
+        End Function
+
+        Private Async Function WinGameStore(enlace As String) As Task(Of Clases.Bundles)
+
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "WinGameStore", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png")
+
+            Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
+
+            If Not html = Nothing Then
+                Dim listaJuegosWGS As List(Of Tiendas.WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of Tiendas.WinGameStoreJuego))(html)
+
+                Dim id As String = enlace
+                id = id.Replace("https://www.wingamestore.com/product/", Nothing)
+
+                If id.Contains("/") Then
+                    Dim int As Integer = id.IndexOf("/")
+                    Dim int2 As Integer = id.LastIndexOf("/")
+                    id = id.Remove(int, int2 - int)
+                    id = id.Replace("/", Nothing)
+                End If
+
+                Notificaciones.Toast(id, Nothing)
+
+                If Not listaJuegosWGS Is Nothing Then
+                    If listaJuegosWGS.Count > 0 Then
+                        For Each juegoWGS In listaJuegosWGS
+                            If juegoWGS.ID = id Then
+                                cosas.Titulo = juegoWGS.Titulo.Trim
+                                cosas.Titulo = Text.RegularExpressions.Regex.Unescape(cosas.Titulo)
+
+                                cosas.Precio = "$" + juegoWGS.PrecioRebajado.Trim
+
+                                If Not cosas.Precio.Contains(".") Then
+                                    cosas.Precio = cosas.Precio + ".00"
+                                End If
+
+                                cosas.Imagen = juegoWGS.Imagen
+
+                                Exit For
+                            End If
+                        Next
+                    End If
                 End If
             End If
 
