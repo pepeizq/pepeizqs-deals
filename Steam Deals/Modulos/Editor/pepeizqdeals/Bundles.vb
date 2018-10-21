@@ -59,7 +59,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim cosas As Clases.Bundles = Nothing
                 Dim enlace As String = tbEnlace.Text.Trim
 
-                If enlace.Contains("https://www.humblebundle.com/") Then
+                If enlace.Contains("https://store.steampowered.com/bundle/") Then
+                    cosas = Await Steam(enlace)
+                ElseIf enlace.Contains("https://www.humblebundle.com/") Then
                     cosas = Await Humble(enlace)
                 ElseIf enlace.Contains("https://www.fanatical.com/") Then
                     cosas = Await Fanatical(enlace)
@@ -77,6 +79,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not cosas.Precio = "--- €" Then
                         If cosas.Precio.Contains("$") Then
                             cosas.Precio = Divisas.CambioMoneda(cosas.Precio, tbDolar.Text)
+                        ElseIf cosas.Precio.Contains("€") Then
+                            cosas.Precio = cosas.Precio.Replace("€", Nothing)
+                            cosas.Precio = cosas.Precio.Replace(",", ".")
+                            cosas.Precio = cosas.Precio + " €"
                         End If
                     End If
 
@@ -152,6 +158,74 @@ Namespace pepeizq.Editor.pepeizqdeals
             imagen.Source = tbImagen.Text
 
         End Sub
+
+        Private Async Function Steam(enlace As String) As Task(Of Clases.Bundles)
+
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Steam", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png")
+
+            If Not enlace.Contains("?l=english") Then
+                enlace = enlace + "?l=english"
+            End If
+
+            Dim html As String = Await HttpClient(New Uri(enlace))
+
+            If Not html = Nothing Then
+                If html.Contains("<meta property=" + ChrW(34) + "og:title" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<meta property=" + ChrW(34) + "og:title" + ChrW(34))
+                    temp = html.Remove(0, int + 1)
+
+                    int = temp.IndexOf("content=")
+                    temp = temp.Remove(0, int + 9)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Replace("on Steam", Nothing)
+
+                    temp2 = temp2.Trim
+                    temp2 = WebUtility.HtmlDecode(temp2)
+
+                    cosas.Titulo = temp2
+                End If
+
+                If html.Contains("<link rel=" + ChrW(34) + "image_src" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<link rel=" + ChrW(34) + "image_src" + ChrW(34))
+                    temp = html.Remove(0, int + 1)
+
+                    int = temp.IndexOf("href=")
+                    temp = temp.Remove(0, int + 6)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    cosas.Imagen = temp2.Trim
+                End If
+
+                If html.Contains("<div class=" + ChrW(34) + "discount_final_price" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<div class=" + ChrW(34) + "discount_final_price" + ChrW(34))
+                    temp = html.Remove(0, int + 1)
+
+                    int = temp.IndexOf(">")
+                    temp = temp.Remove(0, int + 1)
+
+                    int2 = temp.IndexOf("</div>")
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    cosas.Precio = temp2.Trim
+                End If
+            End If
+
+            Return cosas
+        End Function
 
         Private Async Function Humble(enlace As String) As Task(Of Clases.Bundles)
 
@@ -397,8 +471,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     id = id.Remove(int, int2 - int)
                     id = id.Replace("/", Nothing)
                 End If
-
-                Notificaciones.Toast(id, Nothing)
 
                 If Not listaJuegosWGS Is Nothing Then
                     If listaJuegosWGS.Count > 0 Then
