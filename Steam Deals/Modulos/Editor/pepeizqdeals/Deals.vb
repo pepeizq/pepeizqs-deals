@@ -32,6 +32,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not ApplicationData.Current.LocalSettings.Values("codigo" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
                 tbComentario.Text = ApplicationData.Current.LocalSettings.Values("codigo" + listaFinal(0).Tienda.NombreUsar)
+            Else
+                tbComentario.Text = String.Empty
             End If
 
             Dim listaDescuento As New List(Of String)
@@ -402,11 +404,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim precioFinal As String = String.Empty
 
             If cosas.ListaJuegos.Count > 1 Then
+                contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
+
                 If tbComentario.Text.Trim.Length > 0 Then
-                    contenidoEnlaces = contenidoEnlaces + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + "]" + tbComentario.Text.Trim + "[/us_message]"
+                    contenidoEnlaces = contenidoEnlaces + "[vc_row_inner css=" + ChrW(34) + ".vc_custom_1540186905826{margin-right: 20px !important;margin-left: 20px !important;margin-bottom: 20px !important;}" +
+                        ChrW(34) + "][vc_column_inner][us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + "]" + tbComentario.Text.Trim + "[/us_message][/vc_column_inner][/vc_row_inner]"
                 End If
 
-                contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
 
