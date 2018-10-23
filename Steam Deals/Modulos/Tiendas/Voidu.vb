@@ -46,6 +46,7 @@ Namespace pepeizq.Tiendas
                         For Each juegoVoidu In listaJuegosVoidu.Juegos
                             Dim titulo As String = juegoVoidu.Titulo.Trim
                             titulo = WebUtility.HtmlDecode(titulo)
+                            titulo = titulo.Replace("(Mac/Pc)", Nothing)
 
                             Dim enlace As String = juegoVoidu.Enlace
 

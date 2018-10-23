@@ -188,6 +188,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     temp2 = temp2.Trim
                     temp2 = WebUtility.HtmlDecode(temp2)
 
+                    If temp2.Contains("%") Then
+                        Dim int3 As Integer = temp2.IndexOf("%")
+                        temp2 = temp2.Remove(0, int3 + 4)
+                        temp2 = temp2.Trim
+                    End If
+
                     cosas.Titulo = temp2
                 End If
 
@@ -309,7 +315,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                             cosas.Titulo = titulo
-                            cosas.Precio = juegoFanatical.Precio.EUR
+                            cosas.Precio = juegoFanatical.Precio.EUR + " €"
                             cosas.Imagen = juegoFanatical.Imagen
                         End If
                     Else
