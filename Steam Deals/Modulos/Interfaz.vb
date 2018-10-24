@@ -20,7 +20,7 @@ Module Interfaz
     Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10)
     Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11)
     'Dim indiegalaT As New Tienda("Indie Gala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12)
-    'Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
+    Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
     Dim razerT As New Tienda("Razer Game Store", "RazerGameStore", "Assets/Tiendas/razer.ico", 14)
     Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15)
     Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 16)
@@ -29,7 +29,7 @@ Module Interfaz
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
-            microsoftstoreT, chronoT, voiduT, razerT, amazoncomT, amazonesT
+            microsoftstoreT, chronoT, voiduT, greenmangamingT, razerT, amazoncomT, amazonesT
         }
 
         Dim frame As Frame = Window.Current.Content
@@ -454,6 +454,8 @@ Module Interfaz
                 pepeizq.Tiendas.Chrono.GenerarOfertas(chronoT)
             ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
                 pepeizq.Tiendas.Voidu.GenerarOfertas(voiduT)
+            ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
+                pepeizq.Tiendas.GreenManGaming.GenerarOfertas(greenmangamingT)
             ElseIf tienda.NombreUsar = razerT.NombreUsar Then
                 pepeizq.Tiendas.RazerGameStore.GenerarOfertas(razerT)
             ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then

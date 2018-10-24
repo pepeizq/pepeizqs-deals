@@ -49,6 +49,7 @@ Namespace pepeizq.Tiendas
                 If listaJuegosES.Juegos.Count > 0 Then
                     For Each juego In listaJuegosES.Juegos
                         Dim titulo As String = WebUtility.HtmlDecode(juego.Titulo)
+                        titulo = titulo.Trim
 
                         Dim enlace As String = juego.Enlace
                         Dim intEnlace As Integer = enlace.IndexOf("gamersgate.com")

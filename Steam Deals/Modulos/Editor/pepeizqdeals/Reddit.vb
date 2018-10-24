@@ -75,7 +75,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 enlaceFinal = enlaceFinal + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "reddit"
             End If
 
-            Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (Async Sub()
+            Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (Sub()
                                                                                                               Dim reddit As New RedditSharp.Reddit
                                                                                                               Dim usuario As RedditSharp.Things.AuthenticatedUser = reddit.LogIn(ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit"))
                                                                                                               reddit.InitOrUpdateUser()
@@ -87,21 +87,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                                   Catch ex As Exception
                                                                                                                       Notificaciones.Toast("Reddit Error /r/pepeizqdeals", Nothing)
                                                                                                                   End Try
-
-                                                                                                                  'Try
-                                                                                                                  '    Dim subreddit2 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GamingDeals")
-                                                                                                                  '    subreddit2.SubmitPost(tituloFinal, enlaceFinal)
-                                                                                                                  'Catch ex As Exception
-                                                                                                                  '    Notificaciones.Toast("Reddit Error /r/GamingDeals", Nothing)
-                                                                                                                  'End Try
-
-                                                                                                                  'Try
-                                                                                                                  '    Await Task.Delay(601000)
-                                                                                                                  '    Dim subreddit3 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/GameDealsForPC")
-                                                                                                                  '    subreddit3.SubmitPost(tituloFinal, enlaceFinal)
-                                                                                                                  'Catch ex As Exception
-                                                                                                                  '    Notificaciones.Toast("Reddit Error /r/GameDealsForPC", Nothing)
-                                                                                                                  'End Try
                                                                                                               End If
                                                                                                           End Sub))
         End Sub

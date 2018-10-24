@@ -712,6 +712,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cosas.Tienda.NombreMostrar = "Amazon.com" Then
                 listaEtiquetas.Add(20)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png"
+            ElseIf cosas.Tienda.NombreMostrar = "Green Man Gaming" Then
+                listaEtiquetas.Add(1205)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png"
             End If
 
             precioFinal = precioFinal.Replace(",", ".")

@@ -82,7 +82,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         ElseIf cosas.Precio.Contains("€") Then
                             cosas.Precio = cosas.Precio.Replace("€", Nothing)
                             cosas.Precio = cosas.Precio.Replace(",", ".")
-                            cosas.Precio = cosas.Precio + " €"
+                            cosas.Precio = cosas.Precio.Trim + " €"
                         End If
                     End If
 
@@ -315,7 +315,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                             cosas.Titulo = titulo
-                            cosas.Precio = juegoFanatical.Precio.EUR + " €"
+                            cosas.Precio = juegoFanatical.Precio.EUR.Trim + " €"
                             cosas.Imagen = juegoFanatical.Imagen
                         End If
                     Else

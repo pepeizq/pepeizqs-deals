@@ -39,19 +39,20 @@ Module NavigationViewItems
 
         Dim tb As New TextBlock With {
             .Text = titulo,
-            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario")),
+            .Foreground = New SolidColorBrush(Colors.White),
             .Margin = New Thickness(5, 0, 0, 0)
         }
 
         Dim iconoFinal As New FontAwesome.UWP.FontAwesome With {
             .Icon = icono,
-            .Foreground = New SolidColorBrush(color.ToColor)
+            .Foreground = New SolidColorBrush(Colors.White)
         }
 
         Dim item As New NavigationViewItem With {
             .Content = tb,
             .Icon = iconoFinal,
-            .Foreground = New SolidColorBrush(Colors.White),
+            .Background = New SolidColorBrush(color.ToColor),
+            .Margin = New Thickness(3, 2, 3, 2),
             .Tag = tag
         }
 
