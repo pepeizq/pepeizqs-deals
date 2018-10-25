@@ -53,7 +53,10 @@ Namespace pepeizq.Tiendas
                         Dim imagenes As New JuegoImagenes(juegoGMG.Imagen, Nothing)
 
                         Dim precioRebajado As String = juegoGMG.PrecioRebajado
-                        Dim precioBase As String = juegoGMG.PrecioBase
+
+                        If Not precioRebajado.Contains(".") Then
+                            precioRebajado = precioRebajado + ".00"
+                        End If
 
                         Dim listaPrecios As New List(Of String) From {
                             precioRebajado + " €"
@@ -61,7 +64,7 @@ Namespace pepeizq.Tiendas
 
                         Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
-                        Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                        Dim descuento As String = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, juegoGMG.PrecioRebajado)
 
                         If descuento = "00%" Then
                             descuento = Nothing

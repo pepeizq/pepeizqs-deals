@@ -303,7 +303,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagen.Source = tbImagen.Text
             Else
-                If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Then
+                If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
                     gvImagenVertical.Visibility = Visibility.Collapsed
                     gvImagenHorizontal.Visibility = Visibility.Visible
                 Else
@@ -324,7 +324,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
                         End If
 
-                        If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Then
+                        If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
                             imagenJuego.MaxWidth = 130
 
                             If Not imagenJuego.Source Is Nothing Then
