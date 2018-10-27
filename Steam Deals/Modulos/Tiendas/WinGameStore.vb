@@ -135,6 +135,7 @@ Namespace pepeizq.Tiendas
                                         For Each desarrollador In listaDesarrolladores
                                             If desarrollador.ID = juegoWGS.ID Then
                                                 juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                Exit For
                                             End If
                                         Next
 

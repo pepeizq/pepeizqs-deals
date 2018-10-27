@@ -7,14 +7,8 @@ Imports Windows.UI
 Namespace pepeizq.Editor.pepeizqdeals
     Module Iconos
 
-        Public Sub GenerarTiendas()
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosTiendas")
-
-            Dim listaTiendas As New List(Of Clases.Icono) From {
+        Public Function ListaTiendas()
+            Dim lista As New List(Of Clases.Icono) From {
                 New Clases.Icono("Steam", "Assets/drm_steam.png", "#475166", Nothing, 32, 32),
                 New Clases.Icono("Humble", "Assets/Tiendas/humble.ico", "#ea9192", Nothing, 32, 32),
                 New Clases.Icono("GamersGate", "Assets/Tiendas/gamersgate.ico", "#196176", Nothing, 32, 32),
@@ -33,11 +27,23 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32)
             }
 
+            Return lista
+        End Function
+
+        Public Sub GenerarTiendas()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosTiendas")
+
+            Dim lista As List(Of Clases.Icono) = ListaTiendas()
+
             'New Clases.Icono("Windows", "https://www.iconsdb.com/icons/download/white/os-windows8-16.ico", "#0078d7", Nothing, 32, 32),
             'New Clases.Icono("Xbox", "https://www.iconsdb.com/icons/download/white/consoles-xbox-16.ico", "#008000", Nothing, 32, 32),
             'New Clases.Icono("Android", "https://www.iconsdb.com/icons/download/white/android-6-16.ico", "#aac148", Nothing, 32, 32)
 
-            For Each tienda In listaTiendas
+            For Each tienda In lista
                 tienda.Nombre = "tienda_" + tienda.Nombre.ToLower
 
                 Dim imagenIcono As New ImageEx With {
@@ -47,7 +53,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .Source = tienda.Icono
                 }
 
-                Dim grid As New Controls.Grid With {
+                Dim grid As New Grid With {
                     .Padding = New Thickness(8, 8, 8, 8),
                     .Background = New SolidColorBrush(tienda.Fondo.ToColor)
                 }

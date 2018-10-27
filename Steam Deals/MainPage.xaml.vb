@@ -423,43 +423,43 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridDeals.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridBundles.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridBundles, gridEditorpepeizqdealsBundles)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridBundles, gridEditorpepeizqdealsBundles)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridFree_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridFree.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridFree, gridEditorpepeizqdealsFree)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridFree, gridEditorpepeizqdealsFree)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridSubscriptions.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridSubscriptions, gridEditorpepeizqdealsSubscriptions)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridSubscriptions, gridEditorpepeizqdealsSubscriptions)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridCuentas_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCuentas.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridIconos.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGridCodigos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCodigos.Click
 
-        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonEditorpepeizqdealsGridCodigos, gridEditorpepeizqdealsCodigos)
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridCodigos, gridEditorpepeizqdealsCodigos)
 
     End Sub
 
@@ -474,18 +474,6 @@ Public NotInheritable Class MainPage
     Private Async Sub BotonEditorpepeizqdealsGenerarImagenEntrada_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenEntrada.Click
 
         Dim boton As Button = sender
-        Dim sp As StackPanel = boton.Content
-
-        Dim gv1 As GridView = sp.Children(0)
-        Dim gv2 As GridView = sp.Children(1)
-
-        Dim gvFinal As GridView = Nothing
-
-        If gv1.Items.Count > gv2.Items.Count Then
-            gvFinal = gv1
-        Else
-            gvFinal = gv2
-        End If
 
         Dim ficheroImagen As New List(Of String) From {
             ".png"
@@ -501,7 +489,7 @@ Public NotInheritable Class MainPage
         Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
         If Not ficheroResultado Is Nothing Then
-            Await pepeizq.Editor.ImagenFichero.Generar(ficheroResultado, gvFinal, gvFinal.ActualWidth, gvFinal.ActualHeight, 0)
+            Await pepeizq.Editor.ImagenFichero.Generar(ficheroResultado, boton, boton.ActualWidth, boton.ActualHeight, 0)
         End If
 
     End Sub

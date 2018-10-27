@@ -132,8 +132,9 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Free.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\Grid.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\GridEditor.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Iconos.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\ImagenesEntrada.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Post.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
@@ -187,6 +188,9 @@
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Analisis\mixed2.png" />
+    <Content Include="Assets\Analisis\negative2.png" />
+    <Content Include="Assets\Analisis\positive2.png" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\steam_logo.png" />
@@ -274,6 +278,7 @@
     <Content Include="Assets\Sistemas\linux.png" />
     <Content Include="Assets\Sistemas\mac.png" />
     <Content Include="Assets\Sistemas\win.png" />
+    <Content Include="Assets\Webs\pepeizq\fondo_hexagono.png" />
     <Content Include="Assets\Webs\web_pepeizq.png" />
     <Content Include="Assets\Webs\web_reddit.ico" />
     <Content Include="Assets\Webs\web_vayaansias.ico" />

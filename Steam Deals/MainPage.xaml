@@ -431,7 +431,7 @@
                                             <controls:ImageEx x:Name="imagenEditorpepeizqdeals" Stretch="None"/>
 
                                             <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada" Background="Transparent" Padding="0">
-                                                <Button.Content>
+                                                <!--<Button.Content>
                                                     <StackPanel>
                                                         <GridView x:Name="gvEditorpepeizqdealsVertical" Padding="-5,-5,-5,-15" MaxWidth="420" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
                                                             <GridView.ItemsPanel>
@@ -449,7 +449,7 @@
                                                             </GridView.ItemsPanel>
                                                         </GridView>
                                                     </StackPanel>
-                                                </Button.Content>
+                                                </Button.Content>-->
                                             </Button>
                                         </Grid>
                                     </StackPanel>

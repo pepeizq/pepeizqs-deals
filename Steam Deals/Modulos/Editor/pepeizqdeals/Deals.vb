@@ -39,14 +39,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaDescuento As New List(Of String)
             Dim listaAnalisis As New List(Of Juego)
 
+            Dim precioFinal As String = String.Empty
+
             If listaFinal.Count = 1 Then
-                If listaFinal(0).Tienda.NombreUsar = "Steam" Then
-                    listaFinal(0) = Await Tiendas.Steam.SteamMas(listaFinal(0))
-                ElseIf listaFinal(0).Tienda.NombreUsar = "Chrono" Then
+                If listaFinal(0).Tienda.NombreUsar = "Chrono" Then
                     listaFinal(0) = Await Tiendas.Chrono.ChronoMas(listaFinal(0))
                 End If
-
-                Dim precioFinal As String = String.Empty
 
                 If listaFinal(0).Tienda.NombreUsar = "GamersGate" Then
                     If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
@@ -121,6 +119,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 precioFinal = precioFinal.Replace("€", Nothing)
                 precioFinal = precioFinal.Trim
                 precioFinal = precioFinal + " €"
+                tbEnlace.Tag = precioFinal
 
                 If Not listaFinal(0).Desarrolladores Is Nothing Then
                     If listaFinal(0).Desarrolladores.Desarrolladores.Count > 0 Then
@@ -277,16 +276,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagen.Text = String.Empty
 
-            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
-            imagen.Source = Nothing
+            'Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
+            'imagen.Source = Nothing
 
-            Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
-            gvImagenVertical.Items.Clear()
-            gvImagenVertical.Visibility = Visibility.Collapsed
+            'Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
+            'gvImagenVertical.Items.Clear()
+            'gvImagenVertical.Visibility = Visibility.Collapsed
 
-            Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
-            gvImagenHorizontal.Items.Clear()
-            gvImagenHorizontal.Visibility = Visibility.Collapsed
+            'Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
+            'gvImagenHorizontal.Items.Clear()
+            'gvImagenHorizontal.Visibility = Visibility.Collapsed
 
             If listaFinal.Count = 1 Then
                 If Not listaFinal(0).Imagenes.Grande = String.Empty Then
@@ -301,65 +300,67 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                imagen.Source = tbImagen.Text
+                ImagenesEntrada.UnJuegoGenerar(tbImagen.Text, listaFinal(0), precioFinal)
             Else
-                If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
-                    gvImagenVertical.Visibility = Visibility.Collapsed
-                    gvImagenHorizontal.Visibility = Visibility.Visible
-                Else
-                    gvImagenVertical.Visibility = Visibility.Visible
-                    gvImagenHorizontal.Visibility = Visibility.Collapsed
-                End If
 
-                Dim i As Integer = 0
-                While i < 6
-                    If i < listaAnalisis.Count Then
-                        Dim imagenJuego As New ImageEx With {
-                            .Stretch = Stretch.Uniform
-                        }
 
-                        If Not listaAnalisis(i).Imagenes.Grande = Nothing Then
-                            imagenJuego.Source = listaAnalisis(i).Imagenes.Grande
-                        Else
-                            imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
-                        End If
+                'If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
+                '    gvImagenVertical.Visibility = Visibility.Collapsed
+                '    gvImagenHorizontal.Visibility = Visibility.Visible
+                'Else
+                '    gvImagenVertical.Visibility = Visibility.Visible
+                '    gvImagenHorizontal.Visibility = Visibility.Collapsed
+                'End If
 
-                        If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
-                            imagenJuego.MaxWidth = 130
+                'Dim i As Integer = 0
+                'While i < 6
+                '    If i < listaAnalisis.Count Then
+                '        Dim imagenJuego As New ImageEx With {
+                '            .Stretch = Stretch.Uniform
+                '        }
 
-                            If Not imagenJuego.Source Is Nothing Then
-                                Dim añadirImagen As Boolean = True
+                '        If Not listaAnalisis(i).Imagenes.Grande = Nothing Then
+                '            imagenJuego.Source = listaAnalisis(i).Imagenes.Grande
+                '        Else
+                '            imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
+                '        End If
 
-                                For Each item In gvImagenHorizontal.Items
-                                    If item Is imagenJuego Then
-                                        añadirImagen = False
-                                    End If
-                                Next
+                '        If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
+                '            imagenJuego.MaxWidth = 130
 
-                                If añadirImagen = True Then
-                                    gvImagenHorizontal.Items.Add(imagenJuego)
-                                End If
-                            End If
-                        Else
-                            imagenJuego.MaxWidth = 200
+                '            If Not imagenJuego.Source Is Nothing Then
+                '                Dim añadirImagen As Boolean = True
 
-                            If Not imagenJuego.Source Is Nothing Then
-                                Dim añadirImagen As Boolean = True
+                '                For Each item In gvImagenHorizontal.Items
+                '                    If item Is imagenJuego Then
+                '                        añadirImagen = False
+                '                    End If
+                '                Next
 
-                                For Each item In gvImagenHorizontal.Items
-                                    If item Is imagenJuego Then
-                                        añadirImagen = False
-                                    End If
-                                Next
+                '                If añadirImagen = True Then
+                '                    gvImagenHorizontal.Items.Add(imagenJuego)
+                '                End If
+                '            End If
+                '        Else
+                '            imagenJuego.MaxWidth = 200
 
-                                If añadirImagen = True Then
-                                    gvImagenVertical.Items.Add(imagenJuego)
-                                End If
-                            End If
-                        End If
-                    End If
-                    i += 1
-                End While
+                '            If Not imagenJuego.Source Is Nothing Then
+                '                Dim añadirImagen As Boolean = True
+
+                '                For Each item In gvImagenHorizontal.Items
+                '                    If item Is imagenJuego Then
+                '                        añadirImagen = False
+                '                    End If
+                '                Next
+
+                '                If añadirImagen = True Then
+                '                    gvImagenVertical.Items.Add(imagenJuego)
+                '                End If
+                '            End If
+                '        End If
+                '    End If
+                '    i += 1
+                'End While
             End If
 
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
@@ -769,16 +770,23 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
-            Dim boton As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim cosas As Clases.Deals = botonSubir.Tag
 
-            If tbImagen.Text.Trim.Length > 0 Then
-                imagen.Source = tbImagen.Text
-                imagen.Visibility = Visibility.Visible
-                boton.Visibility = Visibility.Collapsed
+            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+            Dim precioFinal As String = tbEnlace.Tag
+
+            If cosas.ListaJuegos.Count = 1 Then
+                ImagenesEntrada.UnJuegoGenerar(tbImagen.Text, cosas.ListaJuegos(0), precioFinal)
             Else
-                imagen.Visibility = Visibility.Collapsed
-                boton.Visibility = Visibility.Visible
+                Dim imagenFondo As New ImageEx With {
+                    .Stretch = Stretch.None,
+                    .IsCacheEnabled = True,
+                    .Source = tbImagen.Text
+                }
+
+                Dim boton As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+                boton.Content = imagenFondo
             End If
 
         End Sub

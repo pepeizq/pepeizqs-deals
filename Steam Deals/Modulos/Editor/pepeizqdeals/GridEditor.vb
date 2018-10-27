@@ -1,5 +1,5 @@
 ﻿Namespace pepeizq.Editor.pepeizqdeals
-    Module Grid
+    Module GridEditor
 
         Public Sub Mostrar(boton As Button, grid As Controls.Grid)
 

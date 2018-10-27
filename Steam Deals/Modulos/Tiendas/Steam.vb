@@ -8,6 +8,7 @@ Namespace pepeizq.Tiendas
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim listaDesarrolladores As New List(Of SteamDesarrolladores)
         Dim Tienda As Tienda = Nothing
 
         Public Async Sub GenerarOfertas(tienda_ As Tienda)
@@ -18,6 +19,12 @@ Namespace pepeizq.Tiendas
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
+
+            If Await helper.FileExistsAsync("listaDesarrolladoresSteam") Then
+                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam")
+            Else
+                listaDesarrolladores = New List(Of SteamDesarrolladores)
             End If
 
             Dim frame As Frame = Window.Current.Content
@@ -241,6 +248,20 @@ Namespace pepeizq.Tiendas
                                     End If
 
                                     If tituloBool = False Then
+                                        Dim buscarDesarrollador As Boolean = True
+
+                                        For Each desarrollador In listaDesarrolladores
+                                            If desarrollador.Enlace = juego.Enlaces.Enlaces(0) Then
+                                                juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                buscarDesarrollador = False
+                                                Exit For
+                                            End If
+                                        Next
+
+                                        If buscarDesarrollador = True Then
+                                            juego = SteamMas(juego).Result
+                                        End If
+
                                         listaJuegos.Add(juego)
                                     End If
                                 End If
@@ -269,6 +290,7 @@ Namespace pepeizq.Tiendas
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam", listaDesarrolladores)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
@@ -365,54 +387,12 @@ Namespace pepeizq.Tiendas
                             If datos.Datos.Desarrolladores.Count > 0 Then
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
                                 juego.Desarrolladores = desarrolladores
+                                listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlaces.Enlaces(0), datos.Datos.Desarrolladores(0)))
                             End If
                         End If
                     End If
                 End If
 
-                'If htmlMas.Contains(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34)) Then
-                '    Dim temp, temp2 As String
-                '    Dim int, int2 As Integer
-
-                '    int = htmlMas.IndexOf(ChrW(34) + "game_purchase_discount_countdown" + ChrW(34))
-                '    temp = htmlMas.Remove(0, int + 10)
-
-                '    int2 = temp.IndexOf("</p>")
-                '    temp2 = temp.Remove(int2, temp.Length - int2)
-
-                '    If temp2.Contains("Offer ends") Then
-                '        int = temp2.IndexOf("Offer ends")
-                '        temp2 = temp2.Remove(0, int + 10)
-
-                '        temp2 = temp2.Trim
-
-                '        Dim fecha As DateTime = Nothing
-
-                '        Try
-                '            fecha = DateTime.Parse(temp2)
-                '            fecha = fecha.AddHours(19)
-                '            juego.FechaTermina = fecha
-                '        Catch ex As Exception
-
-                '        End Try
-
-                '        Dim temp3 As String
-                '        Dim int3 As Integer
-
-                '        int3 = temp.IndexOf("Offer ends")
-                '        temp3 = temp.Remove(int3, temp.Length - int3)
-
-                '        int3 = temp3.IndexOf(">")
-                '        temp3 = temp3.Remove(0, int3 + 1)
-
-                '        temp3 = temp3.Replace("!", Nothing)
-                '        temp3 = temp3.Replace("¡", Nothing)
-                '        temp3 = temp3.Trim
-                '        temp3 = temp3.ToLower
-
-                '        juego.Promocion = temp3
-                '    End If
-                'End If
             End If
 
             Return juego
@@ -432,6 +412,18 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("developers")>
         Public Desarrolladores As List(Of String)
+
+    End Class
+
+    Public Class SteamDesarrolladores
+
+        Public Property Enlace As String
+        Public Property Desarrollador As String
+
+        Public Sub New(ByVal enlace As String, ByVal desarrollador As String)
+            Me.Enlace = enlace
+            Me.Desarrollador = desarrollador
+        End Sub
 
     End Class
 End Namespace

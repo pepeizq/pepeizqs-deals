@@ -25,7 +25,7 @@ Module Editor
                 Dim botonBundles As Button = pagina.FindName("botonEditorpepeizqdealsGridBundles")
                 Dim gridBundles As Grid = pagina.FindName("gridEditorpepeizqdealsBundles")
 
-                pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonBundles, gridBundles)
+                pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonBundles, gridBundles)
                 pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                 pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                 pepeizq.Editor.pepeizqdeals.Free.Cargar()
@@ -92,7 +92,7 @@ Module Editor
                         Dim botonDeals As Button = pagina.FindName("botonEditorpepeizqdealsGridDeals")
                         Dim gridDeals As Grid = pagina.FindName("gridEditorpepeizqdealsDeals")
 
-                        pepeizq.Editor.pepeizqdeals.Grid.Mostrar(botonDeals, gridDeals)
+                        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonDeals, gridDeals)
                         pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                         pepeizq.Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, cantidadJuegos)
                         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
