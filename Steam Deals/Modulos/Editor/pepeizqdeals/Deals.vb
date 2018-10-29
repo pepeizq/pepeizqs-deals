@@ -276,17 +276,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagen.Text = String.Empty
 
-            'Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
-            'imagen.Source = Nothing
-
-            'Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
-            'gvImagenVertical.Items.Clear()
-            'gvImagenVertical.Visibility = Visibility.Collapsed
-
-            'Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
-            'gvImagenHorizontal.Items.Clear()
-            'gvImagenHorizontal.Visibility = Visibility.Collapsed
-
             If listaFinal.Count = 1 Then
                 If Not listaFinal(0).Imagenes.Grande = String.Empty Then
                     If listaFinal(0).Tienda.NombreUsar = "Humble" Then
@@ -302,65 +291,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ImagenesEntrada.UnJuegoGenerar(tbImagen.Text, listaFinal(0), precioFinal)
             Else
-
-
-                'If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
-                '    gvImagenVertical.Visibility = Visibility.Collapsed
-                '    gvImagenHorizontal.Visibility = Visibility.Visible
-                'Else
-                '    gvImagenVertical.Visibility = Visibility.Visible
-                '    gvImagenHorizontal.Visibility = Visibility.Collapsed
-                'End If
-
-                'Dim i As Integer = 0
-                'While i < 6
-                '    If i < listaAnalisis.Count Then
-                '        Dim imagenJuego As New ImageEx With {
-                '            .Stretch = Stretch.Uniform
-                '        }
-
-                '        If Not listaAnalisis(i).Imagenes.Grande = Nothing Then
-                '            imagenJuego.Source = listaAnalisis(i).Imagenes.Grande
-                '        Else
-                '            imagenJuego.Source = listaAnalisis(i).Imagenes.Pequeña
-                '        End If
-
-                '        If listaFinal(0).Tienda.NombreUsar = "GamersGate" Or listaFinal(0).Tienda.NombreUsar = "Voidu" Or listaFinal(0).Tienda.NombreUsar = "AmazonCom" Or listaFinal(0).Tienda.NombreUsar = "GreenManGaming" Then
-                '            imagenJuego.MaxWidth = 130
-
-                '            If Not imagenJuego.Source Is Nothing Then
-                '                Dim añadirImagen As Boolean = True
-
-                '                For Each item In gvImagenHorizontal.Items
-                '                    If item Is imagenJuego Then
-                '                        añadirImagen = False
-                '                    End If
-                '                Next
-
-                '                If añadirImagen = True Then
-                '                    gvImagenHorizontal.Items.Add(imagenJuego)
-                '                End If
-                '            End If
-                '        Else
-                '            imagenJuego.MaxWidth = 200
-
-                '            If Not imagenJuego.Source Is Nothing Then
-                '                Dim añadirImagen As Boolean = True
-
-                '                For Each item In gvImagenHorizontal.Items
-                '                    If item Is imagenJuego Then
-                '                        añadirImagen = False
-                '                    End If
-                '                Next
-
-                '                If añadirImagen = True Then
-                '                    gvImagenVertical.Items.Add(imagenJuego)
-                '                End If
-                '            End If
-                '        End If
-                '    End If
-                '    i += 1
-                'End While
+                ImagenesEntrada.DosJuegosGenerar(listaAnalisis)
             End If
 
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
@@ -567,53 +498,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenidoEnlaces = contenidoEnlaces + "</table>[/vc_column][/vc_row]" + Environment.NewLine
 
                 precioFinal = cosas.Precio
-
-                Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
-
-                If Not ficheroImagen Is Nothing Then
-                    Dim gvImagenVertical As GridView = pagina.FindName("gvEditorpepeizqdealsVertical")
-                    Dim gvImagenHorizontal As GridView = pagina.FindName("gvEditorpepeizqdealsHorizontal")
-                    Dim botonGV As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-                    botonGV.IsEnabled = True
-
-                    Dim gvFinal As GridView = Nothing
-
-                    If gvImagenVertical.Items.Count > gvImagenHorizontal.Items.Count Then
-                        If botonGV.Visibility = Visibility.Visible Then
-                            gvFinal = gvImagenVertical
-                        Else
-                            gvFinal = Nothing
-                        End If
-                    Else
-                        If botonGV.Visibility = Visibility.Visible Then
-                            gvFinal = gvImagenHorizontal
-                        Else
-                            gvFinal = Nothing
-                        End If
-                    End If
-
-                    If Not gvFinal Is Nothing Then
-                        Await ImagenFichero.Generar(ficheroImagen, gvFinal, gvFinal.ActualWidth, gvFinal.ActualHeight, 0)
-                    Else
-                        Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdeals")
-
-                        If Not imagen Is Nothing Then
-                            Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight, 0)
-                        End If
-                    End If
-
-                    Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
-                        .AuthMethod = Models.AuthMethod.JWT
-                    }
-
-                    Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
-
-                    If Await cliente.IsValidJWToken = True Then
-                        imagenFinalGrid = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-                    End If
-
-                    cliente.Logout()
-                End If
             Else
                 If cosas.Tienda.NombreUsar = "GamersGate" Then
                     Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
@@ -669,6 +553,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Else
                     precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
                 End If
+            End If
+
+            Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+
+            If Not ficheroImagen Is Nothing Then
+                Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+                botonImagen.IsEnabled = True
+
+                Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
+
+                Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                    .AuthMethod = Models.AuthMethod.JWT
+                }
+
+                Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                If Await cliente.IsValidJWToken = True Then
+                    imagenFinalGrid = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                End If
+
+                cliente.Logout()
             End If
 
             Dim listaEtiquetas As New List(Of Integer)
@@ -734,11 +639,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagenPost As String = String.Empty
 
-            If tbImagen.Text.Trim.Length > 0 Then
-                imagenPost = tbImagen.Text.Trim
+            If Not imagenFinalGrid Is Nothing Then
+                imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
             Else
-                If Not imagenFinalGrid Is Nothing Then
-                    imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
+                If tbImagen.Text.Trim.Length > 0 Then
+                    imagenPost = tbImagen.Text.Trim
                 End If
             End If
 

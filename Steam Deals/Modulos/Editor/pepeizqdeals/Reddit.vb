@@ -77,8 +77,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (Sub()
                                                                                                               Dim reddit As New RedditSharp.Reddit
-                                                                                                              Dim usuario As RedditSharp.Things.AuthenticatedUser = reddit.LogIn(ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit"))
-                                                                                                              reddit.InitOrUpdateUser()
+
+                                                                                                              Try
+                                                                                                                  Dim usuario As RedditSharp.Things.AuthenticatedUser = reddit.LogIn(ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit"))
+                                                                                                                  reddit.InitOrUpdateUser()
+                                                                                                              Catch ex As Exception
+
+                                                                                                              End Try
 
                                                                                                               If Not reddit.User Is Nothing Then
                                                                                                                   Try

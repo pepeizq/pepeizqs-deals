@@ -49,5 +49,4 @@
         <SolidColorBrush x:Key="BrushPrimario" Color="{StaticResource ColorPrimario}"/>
         <SolidColorBrush x:Key="BrushSecundario" Color="{StaticResource ColorSecundario}"/>
     </Application.Resources>
- 
 </Application>
