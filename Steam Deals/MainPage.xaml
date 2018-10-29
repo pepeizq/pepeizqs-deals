@@ -429,6 +429,16 @@
 
                                         <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
                                             <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                                <Button.Resources>
+                                                    <ResourceDictionary>
+                                                        <ResourceDictionary.ThemeDictionaries>
+                                                            <ResourceDictionary x:Key="Light">
+                                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                            </ResourceDictionary>
+                                                        </ResourceDictionary.ThemeDictionaries>
+                                                    </ResourceDictionary>
+                                                </Button.Resources>
+
                                                 <Button.Content>
                                                     <StackPanel>
                                                         <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuego" Visibility="Collapsed"/>

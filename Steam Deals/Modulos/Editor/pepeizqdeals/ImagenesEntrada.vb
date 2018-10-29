@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module ImagenesEntrada
@@ -17,21 +18,45 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim lista As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
-            gridUnJuego.Padding = New Thickness(3, 3, 3, 3)
+            Dim fila1 As New RowDefinition
+            Dim fila2 As New RowDefinition
+
+            fila1.Height = New GridLength(1, GridUnitType.Auto)
+            fila2.Height = New GridLength(1, GridUnitType.Auto)
+
+            gridUnJuego.RowDefinitions.Add(fila1)
+            gridUnJuego.RowDefinitions.Add(fila2)
 
             Dim imagenJuego As New ImageEx With {
                 .Source = enlace,
                 .IsCacheEnabled = True,
-                .Stretch = Stretch.None
+                .Stretch = Stretch.None,
+                .BorderThickness = New Thickness(3, 3, 3, 3)
             }
 
+            imagenJuego.SetValue(Grid.RowProperty, 0)
             gridUnJuego.Children.Add(imagenJuego)
+
+            'Dim gridAbajo As New Grid
+            'gridAbajo.SetValue(Grid.RowProperty, 1)
+
+            'Dim col1 As New ColumnDefinition
+            'Dim col2 As New ColumnDefinition
+            'Dim col3 As New ColumnDefinition
+
+            'col1.Width = New GridLength(1, GridUnitType.Star)
+            'col2.Width = New GridLength(1, GridUnitType.Auto)
+            'col3.Width = New GridLength(1, GridUnitType.Auto)
+
+            'gridAbajo.ColumnDefinitions.Add(col1)
+            'gridAbajo.ColumnDefinitions.Add(col2)
+            'gridAbajo.ColumnDefinitions.Add(col3)
 
             'Dim spTienda As New StackPanel With {
             '    .HorizontalAlignment = HorizontalAlignment.Left,
-            '    .VerticalAlignment = VerticalAlignment.Top,
             '    .Padding = New Thickness(8, 8, 8, 8)
             '}
+            'spTienda.SetValue(Grid.ColumnProperty, 0)
 
             'Dim imagenTienda As New ImageEx With {
             '    .IsCacheEnabled = True,
@@ -44,13 +69,34 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If tienda.Nombre = juego.Tienda.NombreUsar Then
                     'spTienda.Background = New SolidColorBrush(tienda.Fondo.ToColor)
                     'imagenTienda.Source = tienda.Icono
-                    gridUnJuego.Background = New SolidColorBrush(tienda.Fondo.ToColor)
+                    imagenJuego.BorderBrush = New SolidColorBrush(tienda.Fondo.ToColor)
                 End If
             Next
 
             'spTienda.Children.Add(imagenTienda)
 
-            'gridFondo.Children.Add(spTienda)
+            'gridAbajo.Children.Add(spTienda)
+
+            'Dim gridDescuento As New Grid With {
+            '    .Background = New SolidColorBrush(Colors.ForestGreen),
+            '    .Height = 32,
+            '    .Padding = New Thickness(5, 0, 5, 0)
+            '}
+            'gridDescuento.SetValue(Grid.ColumnProperty, 1)
+
+            'Dim tbDescuento As New TextBlock With {
+            '    .Text = juego.Descuento,
+            '    .Foreground = New SolidColorBrush(Colors.White),
+            '    .FontWeight = Text.FontWeights.Bold,
+            '    .FontSize = 18,
+            '    .VerticalAlignment = VerticalAlignment.Center
+            '}
+
+            'gridDescuento.Children.Add(tbDescuento)
+
+            'gridAbajo.Children.Add(gridDescuento)
+
+            'gridUnJuego.Children.Add(gridAbajo)
 
             'If Not juego.Analisis Is Nothing Then
             '    If Not juego.Analisis.Porcentaje = Nothing Then

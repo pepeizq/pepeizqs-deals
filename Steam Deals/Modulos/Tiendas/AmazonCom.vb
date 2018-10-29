@@ -40,11 +40,11 @@ Namespace pepeizq.Tiendas
 
             Dim numPaginasSteam As Integer = 0
 
-            numPaginasSteam = GenerarNumPaginas(New Uri("https://www.amazon.com/s/ref=sr_pg_12?fst=as%3Aoff&rh=n%3A468642%2Cn%3A!11846801%2Cn%3A979455011%2Cn%3A2445220011%2Cp_n_feature_seven_browse-bin%3A7990461011&page=2&bbn=2445220011&ie=UTF8&qid=1536244577"))
+            numPaginasSteam = GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=2&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
 
             Dim i As Integer = 1
             While i < numPaginasSteam
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s/ref=sr_pg_12?fst=as%3Aoff&rh=n%3A468642%2Cn%3A!11846801%2Cn%3A979455011%2Cn%3A2445220011%2Cp_n_feature_seven_browse-bin%3A7990461011&page=" + i.ToString + "&bbn=2445220011&ie=UTF8&qid=1536244577"))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=" + i.ToString + "&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
@@ -113,16 +113,16 @@ Namespace pepeizq.Tiendas
 
             Dim j As Integer = 0
             While j < 16
-                If html.Contains("<li id=" + ChrW(34) + "result_") Then
+                If html.Contains("data-index=" + ChrW(34)) Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = html.IndexOf("<li id=" + ChrW(34) + "result_")
+                    int = html.IndexOf("data-index=" + ChrW(34))
                     temp = html.Remove(0, int + 5)
 
                     html = temp
 
-                    int2 = temp.IndexOf("</div></div></div></li>")
+                    int2 = temp.IndexOf("</div></div></div></div>")
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     Dim temp3, temp4 As String
@@ -144,6 +144,8 @@ Namespace pepeizq.Tiendas
                     temp4 = WebUtility.HtmlDecode(temp4)
 
                     Dim titulo As String = temp4.Trim
+
+                    Notificaciones.Toast(titulo, Nothing)
 
                     Dim boolPc As Boolean = False
 
@@ -300,17 +302,17 @@ Namespace pepeizq.Tiendas
             Dim htmlPaginas As String = htmlPaginas_.Result
 
             If Not htmlPaginas = Nothing Then
-                If htmlPaginas.Contains("<span class=" + ChrW(34) + "pagnDisabled") Then
+                If htmlPaginas.Contains("<li class=" + ChrW(34) + "a-disabled") Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = htmlPaginas.IndexOf("<span class=" + ChrW(34) + "pagnDisabled")
+                    int = htmlPaginas.IndexOf("<li class=" + ChrW(34) + "a-disabled")
                     temp = htmlPaginas.Remove(0, int)
 
                     int = temp.IndexOf(">")
                     temp = temp.Remove(0, int + 1)
 
-                    int2 = temp.IndexOf("</span>")
+                    int2 = temp.IndexOf("</li>")
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     numPaginas = temp2.Trim
@@ -318,7 +320,7 @@ Namespace pepeizq.Tiendas
             Else
                 numPaginas = 300
             End If
-
+            Notificaciones.Toast(numPaginas, Nothing)
             numPaginas = numPaginas + 1
 
             Return numPaginas

@@ -1,7 +1,7 @@
 ﻿Namespace pepeizq.Editor.pepeizqdeals
     Module GridEditor
 
-        Public Sub Mostrar(boton As Button, grid As Controls.Grid)
+        Public Sub Mostrar(boton As Button, grid As Grid)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content

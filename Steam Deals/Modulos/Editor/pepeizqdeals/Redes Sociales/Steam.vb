@@ -1,6 +1,6 @@
 ﻿Imports Windows.Storage
 
-Namespace pepeizq.Editor.pepeizqdeals
+Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Steam
 
         Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, analisis As JuegoAnalisis)

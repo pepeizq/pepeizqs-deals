@@ -30,7 +30,7 @@ Module Editor
                 pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                 pepeizq.Editor.pepeizqdeals.Free.Cargar()
                 pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
-                pepeizq.Editor.pepeizqdeals.Steam.Comprobar()
+                pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
                 pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
             Else
                 gridpepeizq.Visibility = Visibility.Collapsed
@@ -98,7 +98,7 @@ Module Editor
                         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                         pepeizq.Editor.pepeizqdeals.Free.Cargar()
                         pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
-                        pepeizq.Editor.pepeizqdeals.Steam.Comprobar()
+                        pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
                         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
 
                     ElseIf cbWebs.SelectedIndex = 1 Then

@@ -154,19 +154,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Steam.Enviar(titulo, enlaceFinal, tituloComplemento, analisis)
+                            RedesSociales.Steam.Enviar(titulo, enlaceFinal, tituloComplemento, analisis)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try
 
                         Try
-                            Twitter.Enviar(titulo, enlaceFinal, imagen.Trim)
+                            RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagen.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
 
                         Try
-                            Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria)
+                            RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Reddit Error Post", Nothing)
                         End Try

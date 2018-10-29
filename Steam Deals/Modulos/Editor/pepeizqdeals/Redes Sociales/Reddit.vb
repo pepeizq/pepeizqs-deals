@@ -2,7 +2,7 @@
 Imports Windows.Storage
 Imports Windows.UI.Core
 
-Namespace pepeizq.Editor.pepeizqdeals
+Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Reddit
 
         Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer)

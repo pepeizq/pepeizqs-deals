@@ -5,7 +5,7 @@ Imports Windows.Networking.BackgroundTransfer
 Imports Windows.Storage
 Imports Windows.Storage.Streams
 
-Namespace pepeizq.Editor.pepeizqdeals
+Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Twitter
 
         Public Async Sub Enviar(mensaje As String, enlace As String, imagen As String)

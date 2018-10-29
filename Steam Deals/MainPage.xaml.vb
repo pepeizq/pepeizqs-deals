@@ -496,7 +496,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
-        pepeizq.Editor.pepeizqdeals.Twitter.Enviar(Nothing, Nothing, Nothing)
+        pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Enviar(Nothing, Nothing, Nothing)
 
     End Sub
 

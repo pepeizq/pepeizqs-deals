@@ -681,17 +681,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim precioFinal As String = tbEnlace.Tag
 
-            If cosas.ListaJuegos.Count = 1 Then
+            If tbImagen.Text.Trim.Length > 0 Then
                 ImagenesEntrada.UnJuegoGenerar(tbImagen.Text, cosas.ListaJuegos(0), precioFinal)
-            Else
-                Dim imagenFondo As New ImageEx With {
-                    .Stretch = Stretch.None,
-                    .IsCacheEnabled = True,
-                    .Source = tbImagen.Text
-                }
-
-                Dim boton As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-                boton.Content = imagenFondo
             End If
 
         End Sub
