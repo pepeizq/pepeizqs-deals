@@ -112,12 +112,12 @@ Namespace pepeizq.Tiendas
         Private Sub ExtraerHtml(html As String, drm As String)
 
             Dim j As Integer = 0
-            While j < 16
-                If html.Contains("data-index=" + ChrW(34)) Then
+            While j < 20
+                If html.Contains("<li id=" + ChrW(34) + "result_") Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = html.IndexOf("data-index=" + ChrW(34))
+                    int = html.IndexOf("<li id=" + ChrW(34) + "result_")
                     temp = html.Remove(0, int + 5)
 
                     html = temp
@@ -145,8 +145,6 @@ Namespace pepeizq.Tiendas
 
                     Dim titulo As String = temp4.Trim
 
-                    Notificaciones.Toast(titulo, Nothing)
-
                     Dim boolPc As Boolean = False
 
                     If temp2.Contains(">PC<") Then
@@ -168,6 +166,8 @@ Namespace pepeizq.Tiendas
                     ElseIf temp2.Contains(">PC Download - Steam DRM<") Then
                         boolPc = True
                     ElseIf temp2.Contains(">Standard<") Then
+                        boolPc = True
+                    ElseIf temp2.Contains(">Online Game Code<") Then
                         boolPc = True
                     End If
 
@@ -302,17 +302,17 @@ Namespace pepeizq.Tiendas
             Dim htmlPaginas As String = htmlPaginas_.Result
 
             If Not htmlPaginas = Nothing Then
-                If htmlPaginas.Contains("<li class=" + ChrW(34) + "a-disabled") Then
+                If htmlPaginas.Contains("<span class=" + ChrW(34) + "pagnDisabled") Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = htmlPaginas.IndexOf("<li class=" + ChrW(34) + "a-disabled")
+                    int = htmlPaginas.IndexOf("<span class=" + ChrW(34) + "pagnDisabled")
                     temp = htmlPaginas.Remove(0, int)
 
                     int = temp.IndexOf(">")
                     temp = temp.Remove(0, int + 1)
 
-                    int2 = temp.IndexOf("</li>")
+                    int2 = temp.IndexOf("</span>")
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     numPaginas = temp2.Trim
@@ -320,7 +320,7 @@ Namespace pepeizq.Tiendas
             Else
                 numPaginas = 300
             End If
-            Notificaciones.Toast(numPaginas, Nothing)
+
             numPaginas = numPaginas + 1
 
             Return numPaginas

@@ -18,6 +18,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim lista As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
+            If gridUnJuego.Children.Count > 0 Then
+                gridUnJuego.Children.Clear()
+            End If
+
             Dim fila1 As New RowDefinition
             Dim fila2 As New RowDefinition
 

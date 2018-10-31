@@ -42,10 +42,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim precioFinal As String = String.Empty
 
             If listaFinal.Count = 1 Then
-                If listaFinal(0).Tienda.NombreUsar = "Chrono" Then
-                    listaFinal(0) = Await Tiendas.Chrono.ChronoMas(listaFinal(0))
-                End If
-
                 If listaFinal(0).Tienda.NombreUsar = "GamersGate" Then
                     If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
                         Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)

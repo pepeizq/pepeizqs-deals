@@ -57,7 +57,7 @@ Namespace pepeizq.Tiendas
 
                 If Not html = Nothing Then
                     If Not html.Contains("<!-- List Items -->") Then
-                        Exit While
+                        i -= 1
                     Else
                         Dim int0 As Integer
 
