@@ -294,9 +294,7 @@ Module Interfaz
         Dim tb As TextBox = sender
         Dim tienda As Tienda = tb.Tag
 
-        If tb.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar) = tb.Text.Trim
-        End If
+        ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar) = tb.Text.Trim
 
     End Sub
 

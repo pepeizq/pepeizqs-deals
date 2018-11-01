@@ -395,7 +395,7 @@
                         <Grid Grid.Row="1" Padding="20" Margin="20,0,20,20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="1">
 
                             <Grid x:Name="gridEditorpepeizqdealsDeals" Visibility="Collapsed">
-                                <ScrollViewer>
+                                <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
                                     <StackPanel Orientation="Vertical">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
@@ -441,24 +441,100 @@
 
                                                 <Button.Content>
                                                     <StackPanel>
-                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuego" Visibility="Collapsed"/>
+                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuego" Width="500" Visibility="Collapsed">
+                                                            <Grid.Background>
+                                                                <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                            </Grid.Background>
 
-                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegos" Visibility="Collapsed">
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntrada1" Padding="-5,-5,-5,-15" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
-                                                                <GridView.ItemsPanel>
-                                                                    <ItemsPanelTemplate>
-                                                                        <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Vertical"/>
-                                                                    </ItemsPanelTemplate>
-                                                                </GridView.ItemsPanel>
-                                                            </GridView>
+                                                            <controls:DropShadowPanel Color="Black" Padding="2" Margin="30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <Grid>
+                                                                    <Grid.Background>
+                                                                        <SolidColorBrush Color="#004e7a" Opacity="0.8"/>
+                                                                    </Grid.Background>
 
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntrada2" Padding="-5,-5,-5,-15" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False">
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="Auto"/>
+                                                                        <RowDefinition Height="Auto"/>
+                                                                    </Grid.RowDefinitions>
+
+                                                                    <controls:ImageEx x:Name="imagenEditorpepeizqdealsImagenEntradaUnJuego" Grid.Row="0" Stretch="Uniform" MaxWidth="450" MaxHeight="250" IsCacheEnabled="True"/>
+
+                                                                    <controls:ImageEx x:Name="imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego" IsCacheEnabled="True" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                                                                    
+                                                                    <Grid Grid.Row="1">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="*"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                        </Grid.ColumnDefinitions>
+
+                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego" Grid.Column="0" IsCacheEnabled="True" MaxHeight="25" MaxWidth="180" VerticalAlignment="Center" Margin="15" Stretch="Uniform"/>
+
+                                                                        <StackPanel x:Name="spDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Grid.Column="2" Background="ForestGreen" Visibility="Collapsed">
+                                                                            <TextBlock x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,8,12,8" Text="50%"/>
+                                                                        </StackPanel>
+
+                                                                        <StackPanel Grid.Column="3" Background="Black">
+                                                                            <TextBlock x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,8,12,8" Text="14.99€"/>
+                                                                        </StackPanel>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </controls:DropShadowPanel>
+                                                        </Grid>
+
+                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegos" Width="1595" Visibility="Collapsed">
+                                                            <Grid.Background>
+                                                                <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                            </Grid.Background>
+
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                            </Grid.RowDefinitions>
+
+                                                            <Grid Grid.Row="0" Padding="50">
+                                                                <Grid.Background>
+                                                                    <SolidColorBrush Color="#004e7a" Opacity="0.8"/>
+                                                                </Grid.Background>
+
+                                                                <Grid VerticalAlignment="Center">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <controls:ImageEx Grid.Column="0" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,0" MaxHeight="100"/>
+
+                                                                    <TextBlock Grid.Column="0" Foreground="White" FontWeight="SemiBold" FontSize="90" HorizontalAlignment="Center" Margin="20,0" TextWrapping="Wrap" TextAlignment="Center" Text="New Games Added to Weekly Sale"/>
+                                                                    <controls:ImageEx Grid.Column="1" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,0" MaxHeight="70" Source="https://gpstatic.com/assets/gamesplanet_com-37626ddfb0509d9f3a9df670658eb6b466fe0f80a881e7c12fc7f116d5049174.png"/>
+                                                                </Grid>
+                                                            </Grid>
+
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntrada1" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30">
                                                                 <GridView.ItemsPanel>
                                                                     <ItemsPanelTemplate>
                                                                         <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
                                                                     </ItemsPanelTemplate>
                                                                 </GridView.ItemsPanel>
                                                             </GridView>
+
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntrada2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30">
+                                                                <GridView.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
+                                                                    </ItemsPanelTemplate>
+                                                                </GridView.ItemsPanel>
+                                                            </GridView>
+
+                                                            <Grid Grid.Row="2" Padding="30">
+                                                                <Grid.Background>
+                                                                    <SolidColorBrush Color="#004e7a" Opacity="0.8"/>
+                                                                </Grid.Background>
+
+                                                                <TextBlock Foreground="White" FontWeight="SemiBold" FontSize="60" HorizontalAlignment="Center" Margin="20,0" Text="And Other 23 Deals"/>
+                                                            </Grid>
                                                         </Grid>
                                                     </StackPanel>
                                                 </Button.Content>

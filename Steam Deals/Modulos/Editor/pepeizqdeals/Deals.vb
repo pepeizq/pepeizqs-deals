@@ -114,7 +114,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 precioFinal = precioFinal.Replace(",", ".")
                 precioFinal = precioFinal.Replace("€", Nothing)
                 precioFinal = precioFinal.Trim
-                precioFinal = precioFinal + " €"
+                precioFinal = precioFinal + "€"
                 tbEnlace.Tag = precioFinal
 
                 If Not listaFinal(0).Desarrolladores Is Nothing Then
@@ -551,7 +551,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+            Dim ficheroImagen As StorageFile = Nothing
+
+            Await Task.Run(Async Function() As Task
+                               ficheroImagen = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+                           End Function)
 
             If Not ficheroImagen Is Nothing Then
                 Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")

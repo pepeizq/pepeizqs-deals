@@ -9,22 +9,22 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Function ListaTiendas()
             Dim lista As New List(Of Clases.Icono) From {
-                New Clases.Icono("Steam", "Assets/drm_steam.png", "#475166", Nothing, 32, 32),
-                New Clases.Icono("Humble", "Assets/Tiendas/humble.ico", "#ea9192", Nothing, 32, 32),
-                New Clases.Icono("GamersGate", "Assets/Tiendas/gamersgate.ico", "#196176", Nothing, 32, 32),
-                New Clases.Icono("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "#838588", Nothing, 32, 32),
-                New Clases.Icono("GOG", "Assets/Tiendas/gog.ico", "#c957e9", Nothing, 32, 32),
-                New Clases.Icono("Fanatical", "Assets/Tiendas/fanatical.ico", "#ffcf89", Nothing, 32, 32),
-                New Clases.Icono("WinGameStore", "Assets/Tiendas/wingamestore.png", "#4a92d7", Nothing, 32, 32),
-                New Clases.Icono("Chrono", "Assets/Tiendas/chrono.png", "#855baa", Nothing, 32, 32),
-                New Clases.Icono("MicrosoftStore", "Assets/Tiendas/microsoft.ico", "#333333", Nothing, 32, 32),
-                New Clases.Icono("SilaGames", "Assets/Tiendas/silagames.ico", "#929cac", Nothing, 32, 32),
-                New Clases.Icono("Voidu", "Assets/Tiendas/voidu.ico", "#fbd3b6", Nothing, 32, 32),
-                New Clases.Icono("RazerGameStore", "Assets/Tiendas/razer.ico", "#44d62c", Nothing, 32, 32),
-                New Clases.Icono("IndieGala", "Assets/Tiendas/indiegala.ico", "#ffccd4", Nothing, 32, 32),
-                New Clases.Icono("Amazon", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32),
-                New Clases.Icono("Twitch", "Assets/Tiendas/twitch.png", "#6441a4", Nothing, 32, 32),
-                New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32)
+                New Clases.Icono("Steam", "Assets/drm_steam.png", "#475166", Nothing, 32, 32, "Assets/Tiendas/steam2.png"),
+                New Clases.Icono("Humble", "Assets/Tiendas/humble.ico", "#ea9192", Nothing, 32, 32, "Assets/Tiendas/humble2.png"),
+                New Clases.Icono("GamersGate", "Assets/Tiendas/gamersgate.ico", "#196176", Nothing, 32, 32, "Assets/Tiendas/gamersgate2.png"),
+                New Clases.Icono("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "#838588", Nothing, 32, 32, "Assets/Tiendas/gamesplanet2.png"),
+                New Clases.Icono("GOG", "Assets/Tiendas/gog.ico", "#c957e9", Nothing, 32, 32, "Assets/Tiendas/gog2.png"),
+                New Clases.Icono("Fanatical", "Assets/Tiendas/fanatical.ico", "#ffcf89", Nothing, 32, 32, "Assets/Tiendas/fanatical2.png"),
+                New Clases.Icono("WinGameStore", "Assets/Tiendas/wingamestore.png", "#4a92d7", Nothing, 32, 32, "Assets/Tiendas/wingamestore2.png"),
+                New Clases.Icono("Chrono", "Assets/Tiendas/chrono.png", "#855baa", Nothing, 32, 32, "Assets/Tiendas/chrono2.png"),
+                New Clases.Icono("MicrosoftStore", "Assets/Tiendas/microsoft.ico", "#333333", Nothing, 32, 32, Nothing),
+                New Clases.Icono("SilaGames", "Assets/Tiendas/silagames.ico", "#929cac", Nothing, 32, 32, "Assets/Tiendas/silagames2.png"),
+                New Clases.Icono("Voidu", "Assets/Tiendas/voidu.ico", "#fbd3b6", Nothing, 32, 32, "Assets/Tiendas/voidu2.png"),
+                New Clases.Icono("RazerGameStore", "Assets/Tiendas/razer.ico", "#44d62c", Nothing, 32, 32, "Assets/Tiendas/razer2.png"),
+                New Clases.Icono("IndieGala", "Assets/Tiendas/indiegala.ico", "#ffccd4", Nothing, 32, 32, Nothing),
+                New Clases.Icono("AmazonCom", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32, "Assets/Tiendas/amazon2.png"),
+                New Clases.Icono("Twitch", "Assets/Tiendas/twitch.png", "#6441a4", Nothing, 32, 32, Nothing),
+                New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32, "Assets/Tiendas/gmg2.png")
             }
 
             Return lista
@@ -121,7 +121,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 boton.Content = sp
-                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 32, 32)
+                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 32, 32, Nothing)
 
                 AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
@@ -181,7 +181,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 boton.Content = sp
-                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 28, 28)
+                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 28, 28, Nothing)
 
                 AddHandler boton.Click, AddressOf GenerarFicheroImagen
 

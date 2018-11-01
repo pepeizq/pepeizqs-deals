@@ -193,6 +193,18 @@
     <Content Include="Assets\Analisis\positive2.png" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
+    <Content Include="Assets\Tiendas\amazon2.png" />
+    <Content Include="Assets\Tiendas\chrono2.png" />
+    <Content Include="Assets\Tiendas\fanatical2.png" />
+    <Content Include="Assets\Tiendas\gamersgate2.png" />
+    <Content Include="Assets\Tiendas\gamesplanet2.png" />
+    <Content Include="Assets\Tiendas\gmg2.png" />
+    <Content Include="Assets\Tiendas\gog2.png" />
+    <Content Include="Assets\Tiendas\humble2.png" />
+    <Content Include="Assets\Tiendas\razer2.png" />
+    <Content Include="Assets\Tiendas\silagames2.png" />
+    <Content Include="Assets\Tiendas\steam2.png" />
     <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\chrono.png" />
     <Content Include="Assets\Tiendas\fanatical.ico" />
@@ -215,6 +227,7 @@
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
     <Content Include="Assets\Tiendas\voidu.ico" />
+    <Content Include="Assets\Tiendas\voidu2.png" />
     <Content Include="Assets\Tiendas\wingamestore.png" />
     <Content Include="Assets\Logos\AppList.altform-unplated_targetsize-16.png" />
     <Content Include="Assets\Logos\AppList.altform-unplated_targetsize-24.png" />
@@ -278,6 +291,7 @@
     <Content Include="Assets\Sistemas\linux.png" />
     <Content Include="Assets\Sistemas\mac.png" />
     <Content Include="Assets\Sistemas\win.png" />
+    <Content Include="Assets\Tiendas\wingamestore2.png" />
     <Content Include="Assets\Webs\pepeizq\fondo_hexagono.png" />
     <Content Include="Assets\Webs\web_pepeizq.png" />
     <Content Include="Assets\Webs\web_reddit.ico" />

@@ -21,8 +21,8 @@ Namespace pepeizq.Tiendas
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
             End If
 
-            If Await helper.FileExistsAsync("listaDesarrolladoresSteam") Then
-                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam")
+            If Await helper.FileExistsAsync("listaDesarrolladoresSteam2") Then
+                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam2")
             Else
                 listaDesarrolladores = New List(Of SteamDesarrolladores)
             End If
@@ -57,7 +57,11 @@ Namespace pepeizq.Tiendas
 
                 If Not html = Nothing Then
                     If Not html.Contains("<!-- List Items -->") Then
-                        i -= 1
+                        If i < numPaginas - 10 Then
+                            i -= 1
+                        Else
+                            Exit While
+                        End If
                     Else
                         Dim int0 As Integer
 
@@ -290,7 +294,7 @@ Namespace pepeizq.Tiendas
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
-            Await helper.SaveFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam", listaDesarrolladores)
+            Await helper.SaveFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam2", listaDesarrolladores)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
@@ -388,6 +392,12 @@ Namespace pepeizq.Tiendas
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
                                 juego.Desarrolladores = desarrolladores
                                 listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlaces.Enlaces(0), datos.Datos.Desarrolladores(0)))
+                            ElseIf datos.Datos.Desarrolladores.Count = 0 Then
+                                If datos.Datos.Desarrolladores2.Count > 0 Then
+                                    Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores2(0)}, Nothing)
+                                    juego.Desarrolladores = desarrolladores
+                                    listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlaces.Enlaces(0), datos.Datos.Desarrolladores2(0)))
+                                End If
                             End If
                         End If
                     End If
@@ -410,8 +420,11 @@ Namespace pepeizq.Tiendas
 
     Public Class SteamMasDatosAmpliado
 
-        <JsonProperty("developers")>
+        <JsonProperty("publishers")>
         Public Desarrolladores As List(Of String)
+
+        <JsonProperty("developers")>
+        Public Desarrolladores2 As List(Of String)
 
     End Class
 
