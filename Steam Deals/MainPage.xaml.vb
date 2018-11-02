@@ -494,6 +494,29 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Async Sub BotonEditorpepeizqdealsGenerarImagenSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenSubscriptions.Click
+
+        Dim boton As Button = sender
+
+        Dim ficheroImagen As New List(Of String) From {
+            ".png"
+        }
+
+        Dim guardarPicker As New FileSavePicker With {
+            .SuggestedStartLocation = PickerLocationId.PicturesLibrary
+        }
+
+        guardarPicker.SuggestedFileName = "imagenbase"
+        guardarPicker.FileTypeChoices.Add("Imagen", ficheroImagen)
+
+        Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
+
+        If Not ficheroResultado Is Nothing Then
+            Await pepeizq.Editor.ImagenFichero.Generar(ficheroResultado, boton, boton.ActualWidth, boton.ActualHeight, 0)
+        End If
+
+    End Sub
+
     Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
         pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Enviar(Nothing, Nothing, Nothing)

@@ -194,6 +194,10 @@
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
+    <Content Include="Assets\Publishers\bandainamco.png" />
+    <Content Include="Assets\Publishers\curvedigital.png" />
+    <Content Include="Assets\Publishers\deepsilver.png" />
+    <Content Include="Assets\Publishers\warnerbros.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\fanatical2.png" />
@@ -202,6 +206,7 @@
     <Content Include="Assets\Tiendas\gmg2.png" />
     <Content Include="Assets\Tiendas\gog2.png" />
     <Content Include="Assets\Tiendas\humble2.png" />
+    <Content Include="Assets\Tiendas\humblemonthly.png" />
     <Content Include="Assets\Tiendas\razer2.png" />
     <Content Include="Assets\Tiendas\silagames2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
@@ -226,6 +231,7 @@
     <Content Include="Assets\Tiendas\steam.ico" />
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
+    <Content Include="Assets\Tiendas\twitchprime.png" />
     <Content Include="Assets\Tiendas\voidu.ico" />
     <Content Include="Assets\Tiendas\voidu2.png" />
     <Content Include="Assets\Tiendas\wingamestore.png" />

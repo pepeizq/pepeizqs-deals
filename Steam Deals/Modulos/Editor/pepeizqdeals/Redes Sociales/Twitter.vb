@@ -30,7 +30,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     Dim publisher As TextBlock = cb.SelectedItem
 
                     If Not publisher Is Nothing Then
-                        mensaje = mensaje + " " + publisher.Tag
+                        Dim publisher2 As Clases.Desarrolladores = publisher.Tag
+
+                        If Not publisher2 Is Nothing Then
+                            mensaje = mensaje + " " + publisher2.Twitter
+                        End If
                     End If
                 End If
             End If

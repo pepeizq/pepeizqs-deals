@@ -1,9 +1,21 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Newtonsoft.Json
+Imports Windows.Storage
+Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Suscripciones
 
-        Public Sub Cargar()
+        Public Async Sub Cargar()
+
+            BloquearControles(False)
+
+            Dim helper As New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaIDsSuscripciones") Then
+                Await helper.SaveFileAsync(Of List(Of String))("listaIDsSuscripciones", Nothing)
+            End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -44,22 +56,26 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
             tbEnlace.Text = String.Empty
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsImagen")
-            tbImagen.Text = String.Empty
-
-            AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
-
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.Text = String.Empty
+
+            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptionsIDs")
+
+            RemoveHandler botonIDs.Click, AddressOf GenerarJuegos
+            AddHandler botonIDs.Click, AddressOf GenerarJuegos
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
+            BloquearControles(True)
+
         End Sub
 
         Private Sub GenerarDatos(sender As Object, e As SelectionChangedEventArgs)
+
+            BloquearControles(False)
 
             Dim mesElegido As String = Nothing
 
@@ -70,35 +86,29 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.IsEnabled = False
 
             Dim cbMeses As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsMeses")
-            cbMeses.IsEnabled = False
             mesElegido = cbMeses.SelectedItem.ToString
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-            tbTitulo.IsEnabled = False
-
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
-            tbEnlace.IsEnabled = False
-
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsImagen")
-            tbImagen.IsEnabled = False
-
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
-            tbJuegos.IsEnabled = False
 
-            Dim boton As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
-            boton.IsEnabled = False
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
+                imagenTienda.Source = "Assets\Tiendas\humblemonthly.png"
+
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Monthly • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.humblebundle.com/monthly"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
             ElseIf cbTiendas.SelectedIndex = 2 Then
+                imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
+
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://www.twitch.tv/prime"
+                cosas.Enlace = "https://www.amazon.com/b?ie=UTF8&node=15195001011"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
             End If
 
@@ -112,69 +122,176 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             tbTitulo.Tag = cosas
 
-            cbTiendas.IsEnabled = True
-            cbMeses.IsEnabled = True
-            tbTitulo.IsEnabled = True
-            tbEnlace.IsEnabled = True
-            tbImagen.IsEnabled = True
-            tbJuegos.IsEnabled = True
-            boton.IsEnabled = True
+            BloquearControles(True)
 
         End Sub
 
         Private Async Sub GenerarDatos2(sender As Object, e As RoutedEventArgs)
 
-            Dim boton As Button = sender
-            boton.IsEnabled = False
+            BloquearControles(False)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+
+            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
+            Dim enlaceFinal As String = tbEnlace.Text
+            enlaceFinal = Referidos(enlaceFinal)
+
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
+
+            Dim ficheroImagen As StorageFile = Nothing
+            Dim imagenPost As String = Nothing
+
+            Await Task.Run(Async Function() As Task
+                               ficheroImagen = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+                           End Function)
+
+            If Not ficheroImagen Is Nothing Then
+                Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
+
+                Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                    .AuthMethod = Models.AuthMethod.JWT
+                }
+
+                Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                If Await cliente.IsValidJWToken = True Then
+                    Dim imagenFinalGrid As Models.MediaItem = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                    imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
+                End If
+
+                cliente.Logout()
+            End If
+
+            Dim cosas As Clases.Suscripciones = tbTitulo.Tag
+
+            If Not imagenPost = Nothing Then
+                Await Post.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
+                                  enlaceFinal, imagenPost, tbJuegos.Text.Trim, Nothing, 0)
+            End If
+
+            BloquearControles(True)
+
+        End Sub
+
+        Private Async Sub GenerarJuegos(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            Dim textoIDs As String = tbIDs.Text.Trim
+
+            Dim listaIDs As New List(Of String)
+
+            Dim helper As New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaIDsSuscripciones") Then
+                listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaIDsSuscripciones")
+            End If
+
+            Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+
+            Dim i As Integer = 0
+            While i < 100
+                If textoIDs.Length > 0 Then
+                    Dim clave As String = String.Empty
+
+                    If textoIDs.Contains(",") Then
+                        Dim int As Integer = textoIDs.IndexOf(",")
+                        clave = textoIDs.Remove(int, textoIDs.Length - int)
+
+                        textoIDs = textoIDs.Remove(0, int + 1)
+                    Else
+                        clave = textoIDs
+                    End If
+
+                    clave = clave.Trim
+
+                    Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+
+                    If Not htmlID = Nothing Then
+                        Dim temp As String
+                        Dim int As Integer
+
+                        int = htmlID.IndexOf(":")
+                        temp = htmlID.Remove(0, int + 1)
+                        temp = temp.Remove(temp.Length - 1, 1)
+
+                        Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                        Dim idBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Datos.ID = datos.Datos.ID Then
+                                idBool = True
+                                Exit While
+                            End If
+                            k += 1
+                        End While
+
+                        If idBool = False Then
+                            listaJuegos.Add(datos)
+                        Else
+                            Exit While
+                        End If
+                    End If
+                End If
+                i += 1
+            End While
+
+            i = 0
+            For Each juego In listaJuegos
+                If i = 0 Then
+                    tbJuegos.Text = juego.Datos.Titulo.Trim
+                ElseIf i = (listaJuegos.Count - 1) Then
+                    tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
+                Else
+                    tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
+                End If
+                i += 1
+            Next
+
+            BloquearControles(True)
+
+        End Sub
+
+        Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
-            cbTiendas.IsEnabled = False
+            cbTiendas.IsEnabled = estado
 
             Dim cbMeses As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsMeses")
-            cbMeses.IsEnabled = False
+            cbMeses.IsEnabled = estado
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-            tbTitulo.IsEnabled = False
+            tbTitulo.IsEnabled = estado
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
-            tbEnlace.IsEnabled = False
-
-            Dim enlaceFinal As String = tbEnlace.Text
-            enlaceFinal = Referidos(enlaceFinal)
-
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsImagen")
-            tbImagen.IsEnabled = False
+            tbEnlace.IsEnabled = estado
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
-            tbJuegos.IsEnabled = False
+            tbJuegos.IsEnabled = estado
 
-            Dim cosas As Clases.Suscripciones = tbTitulo.Tag
+            Dim botonIDs As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
+            botonIDs.IsEnabled = estado
 
-            Await Post.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
-                              enlaceFinal, tbImagen.Text.Trim, tbJuegos.Text.Trim, Nothing, 0)
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            tbIDs.IsEnabled = estado
 
-            cbTiendas.IsEnabled = True
-            cbMeses.IsEnabled = True
-            tbTitulo.IsEnabled = True
-            tbEnlace.IsEnabled = True
-            tbImagen.IsEnabled = True
-            tbJuegos.IsEnabled = True
-            boton.IsEnabled = True
-
-        End Sub
-
-        Private Sub MostrarImagen(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbImagen As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsSubscriptions")
-            imagen.Source = tbImagen.Text
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
+            botonSubir.IsEnabled = estado
 
         End Sub
 

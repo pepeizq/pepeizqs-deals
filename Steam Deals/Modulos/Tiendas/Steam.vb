@@ -420,6 +420,15 @@ Namespace pepeizq.Tiendas
 
     Public Class SteamMasDatosAmpliado
 
+        <JsonProperty("name")>
+        Public Titulo As String
+
+        <JsonProperty("header_image")>
+        Public Imagen As String
+
+        <JsonProperty("steam_appid")>
+        Public ID As String
+
         <JsonProperty("publishers")>
         Public Desarrolladores As List(Of String)
 

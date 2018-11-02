@@ -65,6 +65,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Sub DosJuegosGenerar(juegos As List(Of Juego))
 
+            Dim listaFinal As New List(Of Juego)
+
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
@@ -73,6 +75,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Visible
+
+            Dim lista As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             Dim tiendasHorizontal As New List(Of String) From {
                 "GamersGate", "Voidu", "AmazonCom", "GreenManGaming"
@@ -104,8 +108,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gv2.Visibility = Visibility.Visible
             End If
 
+            If limite > juegos.Count Then
+                limite = juegos.Count
+            End If
+
             Dim i As Integer = 0
             While i < limite
+                listaFinal.Add(juegos(i))
+
                 Dim panel As New DropShadowPanel With {
                     .BlurRadius = 20,
                     .ShadowOpacity = 0.9,
@@ -134,15 +144,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim imagenJuego As New ImageEx With {
                     .Stretch = Stretch.Uniform,
-                    .MaxWidth = 450,
+                    .MaxWidth = 420,
                     .MaxHeight = 250,
                     .IsCacheEnabled = True
                 }
 
-                If Not juegos(i).Imagenes.Grande = Nothing Then
-                    imagenJuego.Source = juegos(i).Imagenes.Grande
+                If Not listaFinal(i).Imagenes.Grande = Nothing Then
+                    imagenJuego.Source = listaFinal(i).Imagenes.Grande
                 Else
-                    imagenJuego.Source = juegos(i).Imagenes.Pequeña
+                    imagenJuego.Source = listaFinal(i).Imagenes.Pequeña
                 End If
 
                 imagenJuego.SetValue(Grid.RowProperty, 0)
@@ -158,7 +168,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 Dim tbDescuento As New TextBlock With {
-                    .Text = juegos(i).Descuento,
+                    .Text = listaFinal(i).Descuento,
                     .Foreground = New SolidColorBrush(Colors.White),
                     .FontSize = 36,
                     .FontWeight = Text.FontWeights.SemiBold,
@@ -176,7 +186,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 Dim tbPrecio As New TextBlock With {
-                    .Text = "14.99€",
+                    .Text = listaFinal(i).Enlaces.Precios(0),
                     .Foreground = New SolidColorBrush(Colors.White),
                     .FontSize = 36,
                     .FontWeight = Text.FontWeights.SemiBold,
@@ -200,6 +210,94 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 i += 1
             End While
+
+            For Each tienda In lista
+                If tienda.Nombre = listaFinal(0).Tienda.NombreUsar Then
+                    Dim imagenEntrada As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos")
+
+                    If Not tienda.Logo = Nothing Then
+                        imagenEntrada.Source = tienda.Logo
+                    Else
+                        imagenEntrada.Source = Nothing
+                    End If
+                End If
+            Next
+
+            Dim tbImagenDesarrollador As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+            RemoveHandler tbImagenDesarrollador.TextChanged, AddressOf CambiarImagen
+            AddHandler tbImagenDesarrollador.TextChanged, AddressOf CambiarImagen
+            Dim imagenDesarrollador As ImageEx = pagina.FindName("imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos")
+
+            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            RemoveHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
+            AddHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
+
+            If tbImagenDesarrollador.Text.Trim.Length > 0 Then
+                imagenDesarrollador.Visibility = Visibility.Visible
+                tbTitulo.Visibility = Visibility.Collapsed
+
+                imagenDesarrollador.Source = tbImagenDesarrollador.Text.Trim
+            Else
+                imagenDesarrollador.Visibility = Visibility.Collapsed
+                tbTitulo.Visibility = Visibility.Visible
+
+                If tbTituloMaestro.Text.Contains("•") Then
+                    Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
+                    tbTitulo.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+                End If
+            End If
+
+            Dim gridJuegosRestantes As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos")
+
+            Dim juegosRestantes As Integer = juegos.Count
+
+            If (juegosRestantes - 6) > 0 Then
+                gridJuegosRestantes.Visibility = Visibility.Visible
+
+                Dim tbJuegosRestantes As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos")
+                tbJuegosRestantes.Text = "And Other " + (juegosRestantes - 6).ToString + " Deals"
+            Else
+                gridJuegosRestantes.Visibility = Visibility.Collapsed
+            End If
+
+        End Sub
+
+        Private Sub CambiarTitulo(sender As Object, e As TextChangedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+
+            If tbTituloMaestro.Text.Contains("•") Then
+                Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
+                tbTitulo.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+            End If
+
+        End Sub
+
+        Private Sub CambiarImagen(sender As Object, e As TextChangedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbImagenDesarrollador As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+            Dim imagenDesarrollador As ImageEx = pagina.FindName("imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos")
+
+            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
+
+            If tbImagenDesarrollador.Text.Trim.Length > 0 Then
+                imagenDesarrollador.Visibility = Visibility.Visible
+                tbTitulo.Visibility = Visibility.Collapsed
+
+                imagenDesarrollador.Source = tbImagenDesarrollador.Text.Trim
+            Else
+                imagenDesarrollador.Visibility = Visibility.Collapsed
+                tbTitulo.Visibility = Visibility.Visible
+            End If
+
         End Sub
 
     End Module
