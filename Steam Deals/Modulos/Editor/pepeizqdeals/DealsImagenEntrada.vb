@@ -3,7 +3,7 @@ Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
-    Module ImagenesEntrada
+    Module DealsImagenEntrada
 
         Public Sub UnJuegoGenerar(enlace As String, juego As Juego, precio As String)
 

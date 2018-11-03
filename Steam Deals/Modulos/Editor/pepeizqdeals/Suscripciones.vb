@@ -2,6 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Windows.Storage
+Imports Windows.UI
 Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -185,8 +186,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
-
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             Dim textoIDs As String = tbIDs.Text.Trim
 
@@ -248,15 +247,50 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+
+            Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
+            gvImagen.Items.Clear()
+
             i = 0
             For Each juego In listaJuegos
                 If i = 0 Then
+                    tbTitulo.Text = tbTitulo.Text + juego.Datos.Titulo.Trim
                     tbJuegos.Text = juego.Datos.Titulo.Trim
                 ElseIf i = (listaJuegos.Count - 1) Then
+                    tbTitulo.Text = tbTitulo.Text + " and " + juego.Datos.Titulo.Trim
                     tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
                 Else
+                    tbTitulo.Text = tbTitulo.Text + ", " + juego.Datos.Titulo.Trim
                     tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
                 End If
+
+                Dim panel As New DropShadowPanel With {
+                    .BlurRadius = 20,
+                    .ShadowOpacity = 0.9,
+                    .Color = Colors.Black,
+                    .Margin = New Thickness(10, 10, 10, 0)
+                }
+
+                Dim colorFondo2 As New SolidColorBrush With {
+                    .Color = "#004e7a".ToColor
+                }
+
+                Dim gridContenido As New Grid With {
+                    .Background = colorFondo2
+                }
+
+                Dim imagenJuego As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .Source = juego.Datos.Imagen
+                }
+
+                gridContenido.Children.Add(imagenJuego)
+                panel.Content = gridContenido
+                gvImagen.Items.Add(panel)
+
                 i += 1
             Next
 
@@ -284,7 +318,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.IsEnabled = estado
 
-            Dim botonIDs As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
+            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptionsIDs")
             botonIDs.IsEnabled = estado
 
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")

@@ -234,6 +234,7 @@
                 New Clases.Desarrolladores("Ellada Games", "@ElladaGames", Nothing),
                 New Clases.Desarrolladores("Endless Loop Studios", "@EndlessLoopStd", Nothing),
                 New Clases.Desarrolladores("EnsenaSoft", "@ensenasoft", Nothing),
+                New Clases.Desarrolladores("Epic Games", "@EpicGames", "Assets\Publishers\epicgames.png"),
                 New Clases.Desarrolladores("Epopeia Games", "@epopeiagames", Nothing),
                 New Clases.Desarrolladores("EQ Studios", "@EQSLV", Nothing),
                 New Clases.Desarrolladores("Eugen Systems", "@EugenSystems", Nothing),

@@ -1,9 +1,13 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.Storage
+Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Free
 
         Public Sub Cargar()
+
+            BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -11,39 +15,50 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
             tbTitulo.Text = String.Empty
 
+            RemoveHandler tbTitulo.TextChanged, AddressOf MostrarImagenTitulo
+            AddHandler tbTitulo.TextChanged, AddressOf MostrarImagenTitulo
+
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             tbEnlace.Text = String.Empty
 
+            RemoveHandler tbEnlace.TextChanged, AddressOf GenerarDatos
             AddHandler tbEnlace.TextChanged, AddressOf GenerarDatos
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsFree")
-            tbImagen.Text = String.Empty
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
+            tbImagenJuego.Text = String.Empty
 
-            AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
+            RemoveHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
+            AddHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
+
+            Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
+            tbImagenTienda.Text = String.Empty
+
+            RemoveHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
+            AddHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
+            BloquearControles(True)
+
         End Sub
 
         Private Async Sub GenerarDatos(sender As Object, e As TextChangedEventArgs)
+
+            BloquearControles(False)
+
+            Dim listaTiendas As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = sender
-            tbEnlace.IsEnabled = False
-
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
-            tbTitulo.IsEnabled = False
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsFree")
-            tbImagen.IsEnabled = False
-
-            Dim boton As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
-            boton.IsEnabled = False
+            Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Free = Nothing
@@ -51,8 +66,22 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If enlace.Contains("https://store.steampowered.com/") Then
                     cosas = Await Steam(enlace)
+
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "Steam" Then
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+
                 ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
                     cosas = Await Humble(enlace)
+
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "Humble" Then
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+
                 Else
                     Dim cosas2 As New Clases.Free("--", Nothing, "--")
                     cosas = cosas2
@@ -65,57 +94,102 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     If Not cosas.Imagen = Nothing Then
-                        tbImagen.Text = cosas.Imagen
+                        tbImagenJuego.Text = cosas.Imagen
                     End If
                 End If
             End If
 
-            tbEnlace.IsEnabled = True
-            tbTitulo.IsEnabled = True
-            tbImagen.IsEnabled = True
-            boton.IsEnabled = True
+            BloquearControles(True)
 
         End Sub
 
         Private Async Sub GenerarDatos2(sender As Object, e As RoutedEventArgs)
 
-            Dim boton As Button = sender
-            boton.IsEnabled = False
+            BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
-            tbEnlace.IsEnabled = False
-
             Dim enlaceFinal As String = tbEnlace.Text
             enlaceFinal = Referidos(enlaceFinal)
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
-            tbTitulo.IsEnabled = False
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsFree")
-            tbImagen.IsEnabled = False
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFree")
 
-            Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
-                              enlaceFinal, tbImagen.Text, " ", Nothing, 0)
+            Dim ficheroImagen As StorageFile = Nothing
+            Dim imagenPost As String = Nothing
 
-            tbEnlace.IsEnabled = True
-            tbTitulo.IsEnabled = True
-            tbImagen.IsEnabled = True
+            Await Task.Run(Async Function() As Task
+                               ficheroImagen = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+                           End Function)
 
-            boton.IsEnabled = True
+            If Not ficheroImagen Is Nothing Then
+                Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
+
+                Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                    .AuthMethod = Models.AuthMethod.JWT
+                }
+
+                Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                If Await cliente.IsValidJWToken = True Then
+                    Dim imagenFinalGrid As Models.MediaItem = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                    imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
+                End If
+
+                cliente.Logout()
+            End If
+
+            If Not imagenPost = Nothing Then
+                Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
+                                  enlaceFinal, imagenPost, " ", Nothing, 0)
+            End If
+
+            BloquearControles(True)
 
         End Sub
 
-        Private Sub MostrarImagen(sender As Object, e As TextChangedEventArgs)
+        Private Sub MostrarImagenTitulo(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTitulo As TextBox = sender
+            Dim limpiarTitulo As String = tbTitulo.Text.Trim
+
+            If limpiarTitulo.Contains("•") Then
+                Dim int As Integer = limpiarTitulo.LastIndexOf("•")
+                limpiarTitulo = limpiarTitulo.Remove(int, limpiarTitulo.Length - int)
+                limpiarTitulo = limpiarTitulo.Trim
+            End If
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim titulo As TextBlock = pagina.FindName("tbJuegoEditorpepeizqdealsGenerarImagenFree")
+            titulo.Text = limpiarTitulo
+
+        End Sub
+
+        Private Sub MostrarImagenJuego(sender As Object, e As TextChangedEventArgs)
 
             Dim tbImagen As TextBox = sender
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsFree")
+            Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFree")
+            imagen.Source = tbImagen.Text
+
+        End Sub
+
+        Private Sub MostrarImagenTienda(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbImagen As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFree")
             imagen.Source = tbImagen.Text
 
         End Sub
@@ -217,6 +291,28 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Return cosas
         End Function
+
+        Private Sub BloquearControles(estado As Boolean)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
+            tbTitulo.IsEnabled = estado
+
+            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
+            tbEnlace.IsEnabled = estado
+
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
+            tbImagenJuego.IsEnabled = estado
+
+            Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
+            tbImagenTienda.IsEnabled = estado
+
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
+            botonSubir.IsEnabled = estado
+
+        End Sub
 
     End Module
 End Namespace

@@ -376,9 +376,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                ImagenesEntrada.UnJuegoGenerar(tbImagen.Text, listaFinal(0), precioFinal)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagen.Text, listaFinal(0), precioFinal)
             Else
-                ImagenesEntrada.DosJuegosGenerar(listaAnalisis)
+                DealsImagenEntrada.DosJuegosGenerar(listaAnalisis)
             End If
 
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
@@ -703,7 +703,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim precioFinal As String = tbEnlace.Tag
 
             If tbImagen.Text.Trim.Length > 0 Then
-                ImagenesEntrada.UnJuegoGenerar(tbImagen.Text, cosas.ListaJuegos(0), precioFinal)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagen.Text, cosas.ListaJuegos(0), precioFinal)
             End If
 
         End Sub
