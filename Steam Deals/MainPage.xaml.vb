@@ -13,27 +13,10 @@ Public NotInheritable Class MainPage
         Dim recursos As New Resources.ResourceLoader()
 
         nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Deals"), 0))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Bundles2"), 1))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Free2"), 2))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Subscriptions2"), 3))
         nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
-
-        Dim iconoBuscar As New FontAwesome.UWP.FontAwesome With {
-            .Icon = FontAwesome.UWP.FontAwesomeIcon.Search,
-            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-        }
-        nvPrincipal.MenuItems.Add(iconoBuscar)
-
-        Dim tbBuscar As New TextBox With {
-            .Name = "tbPresentacionpepeizqdealsBuscador"
-        }
-        AddHandler tbBuscar.TextChanged, AddressOf TBBuscadorTextoCambia
-        nvPrincipal.MenuItems.Add(tbBuscar)
-
-        nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, "#333333", 4))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, "#55acee", 5))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, "#ff4500", 6))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, "#333333", 1))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, "#55acee", 2))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, "#ff4500", 3))
 
     End Sub
 
@@ -58,19 +41,7 @@ Public NotInheritable Class MainPage
 
             If item.Text = recursos.GetString("Deals") Then
 
-                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsDeals, 0)
-
-            ElseIf item.Text = recursos.GetString("Bundles2") Then
-
-                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsBundles, 1)
-
-            ElseIf item.Text = recursos.GetString("Free2") Then
-
-                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsFree, 2)
-
-            ElseIf item.Text = recursos.GetString("Subscriptions2") Then
-
-                pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsSubscriptions, 3)
+                pepeizq.Interfaz.Presentacion.Generar()
 
             ElseIf item.Text = recursos.GetString("Editor") Then
                 For Each grid As Grid In gridOfertasTiendas.Children
@@ -168,16 +139,6 @@ Public NotInheritable Class MainPage
     Private Sub UsuarioSaleBoton(sender As Object, e As PointerRoutedEventArgs)
 
         Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
-
-    End Sub
-
-    Private Sub TBBuscadorTextoCambia(sender As Object, e As TextChangedEventArgs)
-
-        Dim tb As TextBox = sender
-
-        If tb.Text.Trim.Length > 2 Then
-            pepeizq.Interfaz.Presentacion.Generar(gridPresentacionpepeizqdealsBuscador, 4)
-        End If
 
     End Sub
 
@@ -472,6 +433,29 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Async Sub BotonEditorpepeizqdealsGenerarImagenEntrada_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenEntrada.Click
+
+        Dim boton As Button = sender
+
+        Dim ficheroImagen As New List(Of String) From {
+            ".png"
+        }
+
+        Dim guardarPicker As New FileSavePicker With {
+            .SuggestedStartLocation = PickerLocationId.PicturesLibrary
+        }
+
+        guardarPicker.SuggestedFileName = "imagenbase"
+        guardarPicker.FileTypeChoices.Add("Imagen", ficheroImagen)
+
+        Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
+
+        If Not ficheroResultado Is Nothing Then
+            Await pepeizq.Editor.ImagenFichero.Generar(ficheroResultado, boton, boton.ActualWidth, boton.ActualHeight, 0)
+        End If
+
+    End Sub
+
+    Private Async Sub BotonEditorpepeizqdealsGenerarImagenBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenBundles.Click
 
         Dim boton As Button = sender
 

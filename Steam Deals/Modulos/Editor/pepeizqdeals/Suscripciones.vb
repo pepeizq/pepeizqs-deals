@@ -8,15 +8,9 @@ Imports WordPressPCL
 Namespace pepeizq.Editor.pepeizqdeals
     Module Suscripciones
 
-        Public Async Sub Cargar()
+        Public Sub Cargar()
 
             BloquearControles(False)
-
-            Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaIDsSuscripciones") Then
-                Await helper.SaveFileAsync(Of List(Of String))("listaIDsSuscripciones", Nothing)
-            End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -64,6 +58,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             RemoveHandler botonIDs.Click, AddressOf GenerarJuegos
             AddHandler botonIDs.Click, AddressOf GenerarJuegos
+
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            tbIDs.Text = String.Empty
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
 
@@ -189,14 +186,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             Dim textoIDs As String = tbIDs.Text.Trim
 
-            Dim listaIDs As New List(Of String)
-
-            Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaIDsSuscripciones") Then
-                listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaIDsSuscripciones")
-            End If
-
             Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
 
             Dim i As Integer = 0
@@ -255,6 +244,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             i = 0
             For Each juego In listaJuegos
+                juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
+
                 If i = 0 Then
                     tbTitulo.Text = tbTitulo.Text + juego.Datos.Titulo.Trim
                     tbJuegos.Text = juego.Datos.Titulo.Trim

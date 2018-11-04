@@ -63,7 +63,7 @@ Module Configuracion
         If estado = True Then
             Dim i As Integer = 0
             While i < nvPrincipal.MenuItems.Count
-                If i < (nvPrincipal.MenuItems.Count - 11) Then
+                If i < (nvPrincipal.MenuItems.Count - 6) Then
                     If i = 1 Then
                         nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
                     Else
@@ -115,7 +115,7 @@ Module Configuracion
         Else
             Dim i As Integer = 0
             While i < nvPrincipal.MenuItems.Count
-                If i >= (nvPrincipal.MenuItems.Count - 11) Then
+                If i >= (nvPrincipal.MenuItems.Count - 6) Then
                     nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
                 Else
                     nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
@@ -143,7 +143,7 @@ Module Configuracion
             Dim gridSeleccionar As Grid = pagina.FindName("gridSeleccionarOfertasTiendas")
             gridSeleccionar.Visibility = Visibility.Visible
 
-            pepeizq.Interfaz.Presentacion.Generar(gridPresentacion, 0)
+            pepeizq.Interfaz.Presentacion.Generar()
         End If
 
     End Sub

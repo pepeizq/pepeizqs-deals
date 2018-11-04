@@ -103,7 +103,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gv1.Visibility = Visibility.Visible
                 gv2.Visibility = Visibility.Collapsed
             Else
-                limite = 8
+                limite = 6
                 gv1.Visibility = Visibility.Collapsed
                 gv2.Visibility = Visibility.Visible
             End If
@@ -145,7 +145,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim imagenJuego As New ImageEx With {
                     .Stretch = Stretch.Uniform,
                     .MaxWidth = 420,
-                    .MaxHeight = 250,
+                    .MaxHeight = 340,
                     .IsCacheEnabled = True
                 }
 

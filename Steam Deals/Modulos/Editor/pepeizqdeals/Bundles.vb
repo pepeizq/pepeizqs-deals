@@ -1,11 +1,16 @@
 ﻿Imports System.Net
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Windows.Storage
+Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Bundles
 
         Public Sub Cargar()
+
+            BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -23,17 +28,29 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
 
-            Dim tbTituloComplementario As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdealsBundles")
-            tbTituloComplementario.Text = String.Empty
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+            tbJuegos.Text = String.Empty
+
+            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundlesIDs")
+
+            RemoveHandler botonIDs.Click, AddressOf GenerarJuegos
+            AddHandler botonIDs.Click, AddressOf GenerarJuegos
+
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+            tbIDs.Text = String.Empty
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundles")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
+            BloquearControles(True)
+
         End Sub
 
         Private Async Sub GenerarDatos(sender As Object, e As TextChangedEventArgs)
+
+            BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -41,19 +58,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
 
             Dim tbEnlace As TextBox = sender
-            tbEnlace.IsEnabled = False
-
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
-            tbTitulo.IsEnabled = False
-
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
-            tbImagen.IsEnabled = False
-
-            Dim tbTituloComplementario As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdealsBundles")
-            tbTituloComplementario.IsEnabled = False
-
-            Dim boton As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundles")
-            boton.IsEnabled = False
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Bundles = Nothing
@@ -102,48 +108,58 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            tbEnlace.IsEnabled = True
-            tbTitulo.IsEnabled = True
-            tbImagen.IsEnabled = True
-            tbTituloComplementario.IsEnabled = True
-            boton.IsEnabled = True
+            BloquearControles(True)
 
         End Sub
 
         Private Async Sub GenerarDatos2(sender As Object, e As RoutedEventArgs)
 
-            Dim boton As Button = sender
-            boton.IsEnabled = False
+            BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
-            tbEnlace.IsEnabled = False
-
             Dim enlaceFinal As String = tbEnlace.Text
             enlaceFinal = Referidos(enlaceFinal)
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
-            tbTitulo.IsEnabled = False
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
-            tbImagen.IsEnabled = False
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundles")
 
-            Dim tbTituloComplementario As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdealsBundles")
-            tbTituloComplementario.IsEnabled = False
+            Dim ficheroImagen As StorageFile = Nothing
+            Dim imagenPost As String = Nothing
+
+            Await Task.Run(Async Function() As Task
+                               ficheroImagen = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
+                           End Function)
+
+            If Not ficheroImagen Is Nothing Then
+                Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
+
+                Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                    .AuthMethod = Models.AuthMethod.JWT
+                }
+
+                Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                If Await cliente.IsValidJWToken = True Then
+                    Dim imagenFinalGrid As Models.MediaItem = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                    imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
+                End If
+
+                cliente.Logout()
+            End If
 
             Dim cosas As Clases.Bundles = tbTitulo.Tag
 
-            Await Post.Enviar(tbTitulo.Text.Trim, tbTituloComplementario.Text.Trim, 4, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
-                              enlaceFinal, tbImagen.Text.Trim, tbTituloComplementario.Text.Trim, Nothing, 0)
+            If Not imagenPost = Nothing Then
+                Await Post.Enviar(tbTitulo.Text.Trim, tbJuegos.Text.Trim, 4, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
+                                  enlaceFinal, imagenPost, tbJuegos.Text.Trim, Nothing, 0)
+            End If
 
-            tbEnlace.IsEnabled = True
-            tbTitulo.IsEnabled = True
-            tbImagen.IsEnabled = True
-            tbTituloComplementario.IsEnabled = True
-
-            boton.IsEnabled = True
+            BloquearControles(True)
 
         End Sub
 
@@ -154,8 +170,118 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsBundles")
+            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundles")
             imagen.Source = tbImagen.Text
+
+        End Sub
+
+        Private Async Sub GenerarJuegos(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+            Dim textoIDs As String = tbIDs.Text.Trim
+
+            Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+
+            Dim i As Integer = 0
+            While i < 100
+                If textoIDs.Length > 0 Then
+                    Dim clave As String = String.Empty
+
+                    If textoIDs.Contains(",") Then
+                        Dim int As Integer = textoIDs.IndexOf(",")
+                        clave = textoIDs.Remove(int, textoIDs.Length - int)
+
+                        textoIDs = textoIDs.Remove(0, int + 1)
+                    Else
+                        clave = textoIDs
+                    End If
+
+                    clave = clave.Trim
+
+                    Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+
+                    If Not htmlID = Nothing Then
+                        Dim temp As String
+                        Dim int As Integer
+
+                        int = htmlID.IndexOf(":")
+                        temp = htmlID.Remove(0, int + 1)
+                        temp = temp.Remove(temp.Length - 1, 1)
+
+                        Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                        Dim idBool As Boolean = False
+                        Dim k As Integer = 0
+                        While k < listaJuegos.Count
+                            If listaJuegos(k).Datos.ID = datos.Datos.ID Then
+                                idBool = True
+                                Exit While
+                            End If
+                            k += 1
+                        End While
+
+                        If idBool = False Then
+                            listaJuegos.Add(datos)
+                        Else
+                            Exit While
+                        End If
+                    End If
+                End If
+                i += 1
+            End While
+
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+
+            Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundles")
+            gvImagen.Items.Clear()
+
+            i = 0
+            For Each juego In listaJuegos
+                juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
+
+                If i = 0 Then
+                    tbJuegos.Text = juego.Datos.Titulo.Trim
+                ElseIf i = (listaJuegos.Count - 1) Then
+                    tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
+                Else
+                    tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
+                End If
+
+                Dim panel As New DropShadowPanel With {
+                    .BlurRadius = 20,
+                    .ShadowOpacity = 0.9,
+                    .Color = Windows.UI.Colors.Black,
+                    .Margin = New Thickness(10, 10, 10, 10)
+                }
+
+                Dim colorFondo2 As New SolidColorBrush With {
+                    .Color = "#004e7a".ToColor
+                }
+
+                Dim gridContenido As New Grid With {
+                    .Background = colorFondo2
+                }
+
+                Dim imagenJuego As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .Source = juego.Datos.Imagen,
+                    .MaxWidth = 450
+                }
+
+                gridContenido.Children.Add(imagenJuego)
+                panel.Content = gridContenido
+                gvImagen.Items.Add(panel)
+
+                i += 1
+            Next
+
+            BloquearControles(True)
 
         End Sub
 
@@ -502,6 +628,34 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Return cosas
         End Function
+
+        Private Sub BloquearControles(estado As Boolean)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
+            tbTitulo.IsEnabled = estado
+
+            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
+            tbEnlace.IsEnabled = estado
+
+            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
+            tbImagen.IsEnabled = estado
+
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+            tbJuegos.IsEnabled = estado
+
+            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundlesIDs")
+            botonIDs.IsEnabled = estado
+
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+            tbIDs.IsEnabled = estado
+
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundles")
+            botonSubir.IsEnabled = estado
+
+        End Sub
 
     End Module
 End Namespace
