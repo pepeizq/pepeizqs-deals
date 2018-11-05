@@ -198,6 +198,7 @@
     <Content Include="Assets\Publishers\curvedigital.png" />
     <Content Include="Assets\Publishers\deepsilver.png" />
     <Content Include="Assets\Publishers\epicgames.png" />
+    <Content Include="Assets\Publishers\fruitbatfactory.png" />
     <Content Include="Assets\Publishers\warnerbros.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />

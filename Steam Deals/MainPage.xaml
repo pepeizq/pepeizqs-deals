@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:controls2="using:CompositionProToolkit.Controls"
     xmlns:fa="using:FontAwesome.UWP"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -423,7 +422,7 @@
                                                                     <controls:ImageEx x:Name="imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,0" MaxHeight="250"/>
                                                                     <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Foreground="White" FontWeight="SemiBold" FontSize="90" HorizontalAlignment="Center" Margin="20,0" TextWrapping="Wrap" TextAlignment="Center"/>
                                                                     
-                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="250" HorizontalAlignment="Center" Margin="20,60,20,0"/>
+                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="250" MaxHeight="175" HorizontalAlignment="Center" Margin="20,60,20,0"/>
                                                                 </Grid>
                                                             </Grid>
 

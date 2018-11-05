@@ -45,6 +45,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.Text = String.Empty
 
+            Dim tbPublisherImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+            tbPublisherImagen.Text = String.Empty
+
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.Text = String.Empty
 
@@ -726,12 +729,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
-            cbPublishers.IsEnabled = estado
-
-            Dim tbImagenPublisher As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
-            tbImagenPublisher.IsEnabled = estado
-
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             tbTitulo.IsEnabled = estado
 
@@ -740,6 +737,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagen.IsEnabled = estado
+
+            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+            cbPublishers.IsEnabled = estado
+
+            Dim tbImagenPublisher As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+            tbImagenPublisher.IsEnabled = estado
 
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.IsEnabled = estado
