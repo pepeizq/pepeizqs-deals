@@ -102,8 +102,14 @@ Module Divisas
                     dou = CDbl(moneda)
                     dou2 = CDbl(precio)
 
-                    temporalEuros = (Math.Round(dou * dou2, 2)).ToString + " €"
+                    temporalEuros = (Math.Round(dou * dou2, 2)).ToString
                     temporalEuros = temporalEuros.Replace(",", ".")
+
+                    If Not temporalEuros.Contains(".") Then
+                        temporalEuros = temporalEuros + ".00"
+                    End If
+
+                    temporalEuros = temporalEuros + " €"
                 Catch ex As Exception
 
                 End Try
