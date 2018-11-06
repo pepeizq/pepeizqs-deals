@@ -1,9 +1,5 @@
-﻿Imports System.Net
-Imports Microsoft.Toolkit.Uwp.UI.Animations
-Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Newtonsoft.Json
-Imports Windows.ApplicationModel.Core
-Imports Windows.System
+﻿Imports Windows.System
+
 Namespace pepeizq.Interfaz
     Module Presentacion
 
