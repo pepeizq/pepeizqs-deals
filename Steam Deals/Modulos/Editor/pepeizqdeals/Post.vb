@@ -160,7 +160,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Try
 
                         Try
-                            RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagen.Trim)
+                            RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagen.Trim, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try

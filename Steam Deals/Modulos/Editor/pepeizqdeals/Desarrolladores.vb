@@ -55,9 +55,12 @@
                         End If
                     End If
 
+                    Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+
                     If Not publisher2.Logo = Nothing Then
-                        Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
                         tbImagen.Text = publisher2.Logo
+                    Else
+                        tbImagen.Text = String.Empty
                     End If
                 End If
             End If
@@ -166,7 +169,7 @@
                 New Clases.Desarrolladores("Cloudhead Games", "@CloudheadGames", Nothing),
                 New Clases.Desarrolladores("CoaguCo Industries", "@CoaguCo", Nothing),
                 New Clases.Desarrolladores("Cockroach Inc", "@theDreamGame", Nothing),
-                New Clases.Desarrolladores("Codemasters", "@Codemasters", Nothing),
+                New Clases.Desarrolladores("Codemasters", "@Codemasters", "Assets\Publishers\codemasters.png"),
                 New Clases.Desarrolladores("Codename Entertainment", "@CodenameEnt", Nothing),
                 New Clases.Desarrolladores("Coffee Stain", "@Coffee_Stain", Nothing),
                 New Clases.Desarrolladores("Cold Beam Games", "@ColdBeamGames", Nothing),

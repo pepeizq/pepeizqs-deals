@@ -8,7 +8,7 @@ Imports Windows.Storage.Streams
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Twitter
 
-        Public Async Sub Enviar(mensaje As String, enlace As String, imagen As String)
+        Public Async Sub Enviar(mensaje As String, enlace As String, imagen As String, categoria As Integer)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -24,16 +24,18 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 mensaje = mensaje.Trim
                 mensaje = Twitter.ReemplazarTiendaTitulo(mensaje)
 
-                Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+                If categoria = 3 Then
+                    Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
 
-                If Not cb.SelectedIndex = 0 Then
-                    Dim publisher As TextBlock = cb.SelectedItem
+                    If Not cb.SelectedIndex = 0 Then
+                        Dim publisher As TextBlock = cb.SelectedItem
 
-                    If Not publisher Is Nothing Then
-                        Dim publisher2 As Clases.Desarrolladores = publisher.Tag
+                        If Not publisher Is Nothing Then
+                            Dim publisher2 As Clases.Desarrolladores = publisher.Tag
 
-                        If Not publisher2 Is Nothing Then
-                            mensaje = mensaje + " " + publisher2.Twitter
+                            If Not publisher2 Is Nothing Then
+                                mensaje = mensaje + " " + publisher2.Twitter
+                            End If
                         End If
                     End If
                 End If

@@ -195,6 +195,7 @@
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
     <Content Include="Assets\Publishers\bandainamco.png" />
+    <Content Include="Assets\Publishers\codemasters.png" />
     <Content Include="Assets\Publishers\curvedigital.png" />
     <Content Include="Assets\Publishers\deepsilver.png" />
     <Content Include="Assets\Publishers\epicgames.png" />
