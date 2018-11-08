@@ -69,60 +69,62 @@ Namespace pepeizq.Tiendas
                                 int2 = temp.IndexOf("</section>")
                                 temp2 = temp.Remove(int2, temp.Length - int2)
 
-                                If temp2.Contains("<s aria-label=") Then
-                                    Dim temp3, temp4 As String
-                                    Dim int3, int4 As Integer
+                                Dim temp3, temp4 As String
+                                Dim int3, int4 As Integer
 
-                                    int3 = temp2.IndexOf("<h3 class=" + ChrW(34) + "c-heading")
-                                    temp3 = temp2.Remove(0, int3)
+                                int3 = temp2.IndexOf("<h3 class=" + ChrW(34) + "c-heading")
+                                temp3 = temp2.Remove(0, int3)
 
-                                    int3 = temp3.IndexOf(">")
-                                    temp3 = temp3.Remove(0, int3 + 1)
+                                int3 = temp3.IndexOf(">")
+                                temp3 = temp3.Remove(0, int3 + 1)
 
-                                    int4 = temp3.IndexOf("</h3>")
-                                    temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                int4 = temp3.IndexOf("</h3>")
+                                temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                    temp4 = temp4.Trim
-                                    temp4 = WebUtility.HtmlDecode(temp4)
+                                temp4 = temp4.Trim
+                                temp4 = WebUtility.HtmlDecode(temp4)
 
-                                    Dim titulo As String = temp4
+                                Dim titulo As String = temp4
 
-                                    Dim temp5, temp6 As String
-                                    Dim int5, int6 As Integer
+                                Dim temp5, temp6 As String
+                                Dim int5, int6 As Integer
 
-                                    int5 = temp2.IndexOf("<a href=")
-                                    temp5 = temp2.Remove(0, int5 + 9)
+                                int5 = temp2.IndexOf("<a href=")
+                                temp5 = temp2.Remove(0, int5 + 9)
 
-                                    int6 = temp5.IndexOf(ChrW(34))
-                                    temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                int6 = temp5.IndexOf(ChrW(34))
+                                temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                    If Not temp6.Contains("https://www.microsoft.com") Then
-                                        temp6 = "https://www.microsoft.com" + temp6
-                                    End If
+                                If Not temp6.Contains("https://www.microsoft.com") Then
+                                    temp6 = "https://www.microsoft.com" + temp6
+                                End If
 
-                                    Dim enlace As String = temp6.Trim
+                                Dim enlace As String = temp6.Trim
 
-                                    Dim temp7, temp8 As String
-                                    Dim int7, int8 As Integer
+                                enlace = enlace.Replace("?cid=msft_web_chart", Nothing)
 
-                                    int7 = temp2.IndexOf("<img")
-                                    temp7 = temp2.Remove(0, int7)
+                                Dim temp7, temp8 As String
+                                Dim int7, int8 As Integer
 
-                                    int7 = temp7.IndexOf("data-src=")
-                                    temp7 = temp7.Remove(0, int7 + 10)
+                                int7 = temp2.IndexOf("<source")
+                                temp7 = temp2.Remove(0, int7)
 
-                                    int8 = temp7.IndexOf(ChrW(34))
-                                    temp8 = temp7.Remove(int8, temp7.Length - int8)
+                                int7 = temp7.IndexOf("data-srcset=")
+                                temp7 = temp7.Remove(0, int7 + 13)
 
-                                    If temp8.Contains("?") Then
-                                        int8 = temp8.IndexOf("?")
-                                        temp8 = temp8.Remove(int8, temp8.Length - int8)
-                                    End If
+                                int8 = temp7.IndexOf(ChrW(34))
+                                temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                    Dim imagenPequeña As String = temp8.Trim
+                                If temp8.Contains("?") Then
+                                    int8 = temp8.IndexOf("?")
+                                    temp8 = temp8.Remove(int8, temp8.Length - int8)
+                                End If
 
-                                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
+                                Dim imagenPequeña As String = temp8.Trim
 
+                                Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
+
+                                If temp2.Contains("<span itemprop=" + ChrW(34) + "price") Then
                                     Dim temp9, temp10 As String
                                     Dim int9, int10 As Integer
 
@@ -147,19 +149,23 @@ Namespace pepeizq.Tiendas
 
                                     Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
-                                    Dim temp11, temp12 As String
-                                    Dim int11, int12 As Integer
+                                    Dim descuento As String = String.Empty
 
-                                    int11 = temp2.IndexOf("<s aria-label=")
-                                    temp11 = temp2.Remove(0, int11)
+                                    If temp2.Contains("<s aria-label=") Then
+                                        Dim temp11, temp12 As String
+                                        Dim int11, int12 As Integer
 
-                                    int11 = temp11.IndexOf(">")
-                                    temp11 = temp11.Remove(0, int11 + 1)
+                                        int11 = temp2.IndexOf("<s aria-label=")
+                                        temp11 = temp2.Remove(0, int11)
 
-                                    int12 = temp11.IndexOf("</s>")
-                                    temp12 = temp11.Remove(int12, temp11.Length - int12)
+                                        int11 = temp11.IndexOf(">")
+                                        temp11 = temp11.Remove(0, int11 + 1)
 
-                                    Dim descuento As String = Calculadora.GenerarDescuento(temp12.Trim, precio)
+                                        int12 = temp11.IndexOf("</s>")
+                                        temp12 = temp11.Remove(int12, temp11.Length - int12)
+
+                                        descuento = Calculadora.GenerarDescuento(temp12.Trim, precio)
+                                    End If
 
                                     Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 

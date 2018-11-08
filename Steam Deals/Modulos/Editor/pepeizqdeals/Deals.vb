@@ -437,7 +437,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
 
-                If cosas.Tienda.NombreUsar = "GamersGate" Or cosas.Tienda.NombreUsar = "Voidu" Or cosas.Tienda.NombreUsar = "AmazonCom" Then
+                If cosas.Tienda.NombreUsar = "GamersGate" Or cosas.Tienda.NombreUsar = "Voidu" Or cosas.Tienda.NombreUsar = "AmazonCom" Or cosas.Tienda.NombreUsar = "GreenManGaming" Then
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 Else
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
