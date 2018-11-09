@@ -47,10 +47,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             Next
 
+            Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego")
+
             If Not juego.Analisis Is Nothing Then
                 If Not juego.Analisis.Porcentaje = Nothing Then
-                    Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego")
-
                     If juego.Analisis.Porcentaje > 74 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive2.png"))
                     ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
@@ -58,7 +58,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     ElseIf juego.Analisis.Porcentaje < 50 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative2.png"))
                     End If
+                Else
+                    imagenAnalisis.Source = Nothing
                 End If
+            Else
+                imagenAnalisis.Source = Nothing
             End If
 
         End Sub

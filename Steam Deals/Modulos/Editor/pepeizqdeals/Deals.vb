@@ -753,9 +753,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
             botonSubir.IsEnabled = estado
 
-            Dim imagenEntrada As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-            imagenEntrada.IsEnabled = estado
-
         End Sub
 
         Public Function Referidos(enlace As String)
