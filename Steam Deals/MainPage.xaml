@@ -159,7 +159,7 @@
                     </Grid>
 
                     <Grid x:Name="gridProgreso" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                        <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushSecundario}"/>
+                        <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushPrimario}"/>
                         <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
 

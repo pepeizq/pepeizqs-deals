@@ -194,7 +194,7 @@ Module Interfaz
             .Padding = New Thickness(15, 10, 15, 10),
             .MinWidth = 180,
             .Content = sp,
-            .Background = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
+            .Background = New SolidColorBrush(App.Current.Resources("ColorPrimario")),
             .HorizontalContentAlignment = HorizontalAlignment.Center
         }
 
