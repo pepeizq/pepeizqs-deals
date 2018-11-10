@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.UI
+﻿Imports Windows.UI
 Imports Windows.UI.Core
 
 Module NavigationViewItems
@@ -35,24 +34,24 @@ Module NavigationViewItems
 
     End Function
 
-    Public Function GenerarIcono(titulo As String, icono As FontAwesome.UWP.FontAwesomeIcon, color As String, tag As String)
+    Public Function GenerarIcono(titulo As String, icono As FontAwesome.UWP.FontAwesomeIcon, tag As String)
 
         Dim tb As New TextBlock With {
             .Text = titulo,
-            .Foreground = New SolidColorBrush(Colors.White),
+            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario")),
             .Margin = New Thickness(5, 0, 0, 0)
         }
 
         Dim iconoFinal As New FontAwesome.UWP.FontAwesome With {
             .Icon = icono,
-            .Foreground = New SolidColorBrush(Colors.White)
+            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
         }
 
         Dim item As New NavigationViewItem With {
             .Content = tb,
             .Icon = iconoFinal,
-            .Background = New SolidColorBrush(color.ToColor),
-            .Margin = New Thickness(3, 2, 3, 2),
+            .Background = New SolidColorBrush(Colors.Transparent),
+            .Margin = New Thickness(0, 2, 0, 2),
             .Tag = tag
         }
 

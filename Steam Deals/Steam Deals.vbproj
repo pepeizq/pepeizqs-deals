@@ -203,6 +203,7 @@
     <Content Include="Assets\Publishers\paradox.png" />
     <Content Include="Assets\Publishers\ubisoft.png" />
     <Content Include="Assets\Publishers\warnerbros.png" />
+    <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\fanatical2.png" />
@@ -216,7 +217,6 @@
     <Content Include="Assets\Tiendas\razer2.png" />
     <Content Include="Assets\Tiendas\silagames2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
-    <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\chrono.png" />
     <Content Include="Assets\Tiendas\fanatical.ico" />
     <Content Include="Assets\Analisis\mixed.png" />

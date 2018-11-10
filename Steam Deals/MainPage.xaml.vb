@@ -14,9 +14,9 @@ Public NotInheritable Class MainPage
 
         nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Deals"), 0))
         nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, "#333333", 1))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, "#55acee", 2))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, "#ff4500", 3))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, 1))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, 2))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, 3))
 
     End Sub
 
