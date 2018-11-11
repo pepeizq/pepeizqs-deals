@@ -178,6 +178,10 @@ Namespace pepeizq.Tiendas
                                     temp12 = temp11.Remove(int12, temp11.Length - int12)
                                 End If
 
+                                If temp12.Contains("--") Then
+                                    temp12 = temp12.Replace("--", "00")
+                                End If
+
                                 Dim precio As String = temp12.Trim
                                 Dim boolPrecio As Boolean = False
 
