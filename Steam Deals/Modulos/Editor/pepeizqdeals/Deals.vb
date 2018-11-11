@@ -757,7 +757,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Function Referidos(enlace As String)
 
-            If enlace.Contains("gamesplanet.com") Then
+            If enlace.Contains("store.steampowered.com") Then
+                If Not enlace.Contains("?") Then
+                    enlace = enlace + "?curator_clanid=33500256"
+                End If
+            ElseIf enlace.Contains("gamesplanet.com") Then
                 enlace = enlace + "?ref=pepeizq"
             ElseIf enlace.Contains("gamersgate.com") Then
                 enlace = enlace + "?caff=6704538"

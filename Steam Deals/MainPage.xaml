@@ -224,7 +224,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushSecundario}" Margin="15,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushPrimario}" Margin="15,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Rating" Foreground="White"/>
@@ -233,17 +233,11 @@
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushSecundario}" Margin="15,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushPrimario}" Margin="15,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Globe" Foreground="White"/>
                                 </Button.Content>
                             </Button>
-
-                            <!--<Button x:Name="botonEditortest" Background="{StaticResource BrushSecundario}" Margin="15,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                <Button.Content>
-                                    <fa:FontAwesome Icon="Globe" Foreground="White"/>
-                                </Button.Content>
-                            </Button>-->
 
                             <TextBlock x:Name="tbDivisasEuro" VerticalAlignment="Center"/>
                             <TextBlock x:Name="tbDivisasDolar" Margin="10,0" VerticalAlignment="Center"/>
@@ -258,50 +252,50 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Grid.Row="0" Orientation="Horizontal" Padding="20,0" Margin="20,20,20,0">
-                            <Button x:Name="botonEditorpepeizqdealsGridDeals" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridDeals" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Deals2" Foreground="White"/>
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorpepeizqdealsGridBundles" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridBundles" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Bundles" Foreground="White"/>
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorpepeizqdealsGridFree" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridFree" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Free" Foreground="White"/>
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorpepeizqdealsGridSubscriptions" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridSubscriptions" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Subscriptions" Foreground="White"/>
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorpepeizqdealsGridCuentas" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridCuentas" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Accounts" Foreground="White"/>
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorpepeizqdealsGridIconos" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridIconos" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Icons" Foreground="White"/>
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorpepeizqdealsGridCodigos" Background="{StaticResource BrushSecundario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorpepeizqdealsGridCodigos" Background="{StaticResource BrushPrimario}" BorderThickness="0" Margin="0,0,10,0" Padding="15,10" Opacity="0.7" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <TextBlock x:Uid="Codes" Foreground="White"/>
                                 </Button.Content>
                             </Button>
                         </StackPanel>
 
-                        <Grid Grid.Row="1" Padding="20" Margin="20,0,20,20" BorderBrush="{StaticResource BrushSecundario}" BorderThickness="1">
+                        <Grid Grid.Row="1" Padding="20" Margin="20,0,20,20" BorderBrush="{StaticResource BrushPrimario}" BorderThickness="1">
 
                             <Grid x:Name="gridEditorpepeizqdealsDeals" Visibility="Collapsed">
                                 <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
@@ -330,9 +324,9 @@
                                             <TextBox x:Name="tbEditorTituloComplementopepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                             <TextBlock x:Uid="Comment"/>
                                             <TextBox x:Name="tbEditorComentariopepeizqdeals" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                                        </StackPanel> 
-                                        
-                                        <Button x:Name="botonEditorSubirpepeizqdeals" Margin="0,30" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        </StackPanel>
+
+                                        <Button x:Name="botonEditorSubirpepeizqdeals" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -476,7 +470,7 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Button x:Name="botonEditorSubirpepeizqdealsBundlesIDs" Grid.Column="0" Background="{StaticResource BrushSecundario}" Padding="10,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button x:Name="botonEditorSubirpepeizqdealsBundlesIDs" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="10,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                                 <Button.Content>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="IDs" Foreground="White"/>
@@ -487,7 +481,7 @@
                                             <TextBox x:Name="tbEditorpepeizqdealsBundlesIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                         </Grid>
 
-                                        <Button x:Name="botonEditorSubirpepeizqdealsBundles" Margin="0,30" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button x:Name="botonEditorSubirpepeizqdealsBundles" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -555,7 +549,7 @@
                                         <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,0" TextWrapping="Wrap"/>
                                         <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
-                                        <Button x:Name="botonEditorSubirpepeizqdealsFree" Margin="0,30" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button x:Name="botonEditorSubirpepeizqdealsFree" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -645,7 +639,7 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Button x:Name="botonEditorSubirpepeizqdealsSubscriptionsIDs" Grid.Column="0" Background="{StaticResource BrushSecundario}" Padding="10,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button x:Name="botonEditorSubirpepeizqdealsSubscriptionsIDs" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="10,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                                 <Button.Content>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="IDs" Foreground="White"/>
@@ -655,8 +649,8 @@
 
                                             <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                         </Grid>
-                                                                                                                                                             
-                                        <Button x:Name="botonEditorSubirpepeizqdealsSubscriptions" Margin="0,30" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+
+                                        <Button x:Name="botonEditorSubirpepeizqdealsSubscriptions" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -732,7 +726,7 @@
                                         </StackPanel>
                                         <TextBlock Text="Twitter"/>
                                         <StackPanel Orientation="Horizontal" Padding="0,10,0,30">
-                                            <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushSecundario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                                 <Button.Content>
                                                     <TextBlock x:Uid="Login" Foreground="White"/>
                                                 </Button.Content>
@@ -764,7 +758,7 @@
                             <Grid x:Name="gridEditorpepeizqdealsIconos" Visibility="Collapsed">
                                 <ScrollViewer>
                                     <StackPanel Orientation="Vertical">
-                                        <Button x:Name="botonEditorpepeizqdealsGenerarIconos" Background="{StaticResource BrushSecundario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarIconos" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Refresh" Foreground="White"/> 
@@ -804,12 +798,12 @@
 
                             <TextBox x:Name="tbEditorTituloReddit" Grid.Column="0" VerticalAlignment="Center"/>
 
-                            <Button x:Name="botonEditorTituloCopiarReddit" Grid.Column="1" Margin="10,0,5,0" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorTituloCopiarReddit" Grid.Column="1" Margin="10,0,5,0" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Copy" Foreground="White" Margin="5"/>
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="botonEditorTituloCortarReddit" Grid.Column="2" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorTituloCortarReddit" Grid.Column="2" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Cut" Foreground="White" Margin="5"/>
                                 </Button.Content>
@@ -822,12 +816,12 @@
                             </Grid.RowDefinitions>
 
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                                <Button x:Name="botonEditorEnlacesCopiarReddit" Grid.Column="1" Margin="0,0,5,0" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonEditorEnlacesCopiarReddit" Grid.Column="1" Margin="0,0,5,0" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <fa:FontAwesome Icon="Copy" Foreground="White" Margin="5"/>
                                     </Button.Content>
                                 </Button>
-                                <Button x:Name="botonEditorEnlacesCortarReddit" Grid.Column="2" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonEditorEnlacesCortarReddit" Grid.Column="2" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <fa:FontAwesome Icon="Cut" Foreground="White" Margin="5"/>
                                     </Button.Content>
@@ -853,12 +847,12 @@
 
                             <TextBox x:Name="tbEditorTituloVayaAnsias" Grid.Column="0" VerticalAlignment="Center"/>
 
-                            <Button x:Name="botonEditorTituloCopiarVayaAnsias" Grid.Column="1" Margin="10,0,5,0" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorTituloCopiarVayaAnsias" Grid.Column="1" Margin="10,0,5,0" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Copy" Foreground="White" Margin="5"/>
                                 </Button.Content>
                             </Button>
-                            <Button x:Name="botonEditorTituloCortarVayaAnsias" Grid.Column="2" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorTituloCortarVayaAnsias" Grid.Column="2" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Cut" Foreground="White" Margin="5"/>
                                 </Button.Content>
@@ -878,12 +872,12 @@
                                 </Grid.RowDefinitions>
 
                                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                                    <Button x:Name="botonEditorEnlacesCopiarVayaAnsias" Grid.Column="1" Margin="0,0,5,0" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonEditorEnlacesCopiarVayaAnsias" Grid.Column="1" Margin="0,0,5,0" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <fa:FontAwesome Icon="Copy" Foreground="White" Margin="5"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="botonEditorEnlacesCortarVayaAnsias" Grid.Column="2" Background="{StaticResource BrushSecundario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonEditorEnlacesCortarVayaAnsias" Grid.Column="2" Background="{StaticResource BrushPrimario}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <fa:FontAwesome Icon="Cut" Foreground="White" Margin="5"/>
                                         </Button.Content>
