@@ -128,12 +128,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundles")
 
-            Dim ficheroImagen As StorageFile = Nothing
             Dim imagenPost As String = Nothing
 
-            Await Task.Run(Async Function() As Task
-                               ficheroImagen = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
-                           End Function)
+            Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + Date.Now.Hour.ToString + Date.Now.Minute.ToString + Date.Now.Millisecond.ToString + ".jpg"
+            Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
 
             If Not ficheroImagen Is Nothing Then
                 Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)

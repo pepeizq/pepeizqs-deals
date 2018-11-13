@@ -106,7 +106,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://www.amazon.com/b?ie=UTF8&node=15195001011"
+                cosas.Enlace = "https://www.twitch.tv/prime"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
             End If
 
@@ -141,12 +141,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
 
-            Dim ficheroImagen As StorageFile = Nothing
             Dim imagenPost As String = Nothing
 
-            Await Task.Run(Async Function() As Task
-                               ficheroImagen = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagenbase.jpg", CreationCollisionOption.ReplaceExisting)
-                           End Function)
+            Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + Date.Now.Hour.ToString + Date.Now.Minute.ToString + Date.Now.Millisecond.ToString + ".jpg"
+            Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
 
             If Not ficheroImagen Is Nothing Then
                 Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
