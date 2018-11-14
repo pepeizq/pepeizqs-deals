@@ -330,7 +330,7 @@ Module Interfaz
         Else
             Dim enlace As String = Nothing
 
-            enlace = pepeizq.Editor.pepeizqdeals.Deals.Referidos(juego.Enlaces.Enlaces(0))
+            enlace = pepeizq.Editor.pepeizqdeals.Referidos.Generar(juego.Enlaces.Enlaces(0))
 
             Await Launcher.LaunchUriAsync(New Uri(enlace))
         End If

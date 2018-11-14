@@ -121,7 +121,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
             Dim enlaceFinal As String = tbEnlace.Text
-            enlaceFinal = Referidos(enlaceFinal)
+            enlaceFinal = Referidos.Generar(enlaceFinal)
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")

@@ -71,14 +71,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         If precioUK > listaFinal(0).Enlaces.Precios(0) Then
                             precioFinal = listaFinal(0).Enlaces.Precios(0)
-                            tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                            tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                         Else
                             precioFinal = precioUK
-                            tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(1))
+                            tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(1))
                         End If
                     Else
                         precioFinal = listaFinal(0).Enlaces.Precios(0)
-                        tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                        tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                     End If
                 ElseIf listaFinal(0).Tienda.NombreUsar = "GamesPlanet" Then
                     Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbLibra.Text)
@@ -87,51 +87,51 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If precioUK < precioFR And precioUK < precioDE Then
                         precioFinal = precioUK
-                        tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                        tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                     Else
                         If precioDE < precioFR Then
                             precioFinal = precioDE
-                            tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(2))
+                            tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(2))
                         Else
                             precioFinal = precioFR
-                            tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(1))
+                            tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(1))
                         End If
 
                         If precioFR = Nothing Then
                             If precioDE < precioUK Then
                                 precioFinal = precioDE
-                                tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(2))
+                                tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(2))
                             Else
                                 precioFinal = precioUK
-                                tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                                tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                             End If
                         End If
 
                         If precioDE = Nothing Then
                             If precioFR < precioUK Then
                                 precioFinal = precioFR
-                                tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(1))
+                                tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(1))
                             Else
                                 precioFinal = precioUK
-                                tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                                tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                             End If
                         End If
                     End If
                 ElseIf listaFinal(0).Tienda.NombreUsar = "Fanatical" Then
                     precioFinal = listaFinal(0).Enlaces.Precios(1)
-                    tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                    tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                 ElseIf listaFinal(0).Tienda.NombreUsar = "WinGameStore" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
-                    tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                    tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                 ElseIf listaFinal(0).Tienda.NombreUsar = "Chrono" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
-                    tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                    tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                 ElseIf listaFinal(0).Tienda.NombreUsar = "AmazonCom" Then
                     precioFinal = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbDolar.Text)
-                    tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                    tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                 Else
                     precioFinal = listaFinal(0).Enlaces.Precios(0)
-                    tbEnlace.Text = Referidos(listaFinal(0).Enlaces.Enlaces(0))
+                    tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                 End If
 
                 precioFinal = precioFinal.Replace(",", ".")
@@ -465,7 +465,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         imagenFinal = juego.Imagenes.Grande
                     End If
 
-                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + Referidos(juego.Enlaces.Enlaces(0)) + "'>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + Referidos.Generar(juego.Enlaces.Enlaces(0)) + "'>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-juego" + ChrW(34) + " /></td>" + Environment.NewLine
 
                     Dim drmFinal As String = Nothing
@@ -751,37 +751,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             botonSubir.IsEnabled = estado
 
         End Sub
-
-        Public Function Referidos(enlace As String)
-
-            If enlace.Contains("store.steampowered.com") Then
-                If Not enlace.Contains("?") Then
-                    enlace = enlace + "?curator_clanid=33500256"
-                End If
-            ElseIf enlace.Contains("gamesplanet.com") Then
-                enlace = enlace + "?ref=pepeizq"
-            ElseIf enlace.Contains("gamersgate.com") Then
-                enlace = enlace + "?caff=6704538"
-            ElseIf enlace.Contains("wingamestore.com") Then
-                enlace = enlace + "?ars=pepeizqdeals"
-            ElseIf enlace.Contains("macgamestore.com") Then
-                enlace = enlace + "?ars=pepeizqdeals"
-            ElseIf enlace.Contains("amazon.com") Then
-                If Not enlace.Contains("?") Then
-                    enlace = enlace + "?tag=ofedeunpan-20"
-                Else
-                    enlace = enlace + "&tag=ofedeunpan-20"
-                End If
-            ElseIf enlace.Contains("humblebundle.com") Then
-                enlace = enlace + "?partner=pepeizq"
-            ElseIf enlace.Contains("fanatical.com") Then
-                enlace = "http://www.tkqlhce.com/click-8883540-13398977?url=" + enlace
-            ElseIf enlace.Contains("greenmangaming.com") Then
-                enlace = "http://www.tkqlhce.com/click-8883540-10912384?url=" + enlace
-            End If
-
-            Return enlace
-        End Function
 
     End Module
 End Namespace
