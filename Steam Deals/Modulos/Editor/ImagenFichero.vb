@@ -18,6 +18,8 @@ Namespace pepeizq.Editor
 
                 If formato = 1 Then
                     encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
+                ElseIf formato = 0 Then
+                    encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegXREncoderId, stream)
                 Else
                     encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
                 End If
