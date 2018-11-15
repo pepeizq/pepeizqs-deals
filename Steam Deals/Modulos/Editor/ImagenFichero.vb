@@ -14,14 +14,16 @@ Namespace pepeizq.Editor
             Dim rawdpi As DisplayInformation = DisplayInformation.GetForCurrentView()
 
             Using stream As IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
+                Dim propiedades As New BitmapPropertySet
+                Dim calidad As New BitmapTypedValue(6, PropertyType.UInt8)
+                propiedades.Add("FilterOption", calidad)
+
                 Dim encoder As BitmapEncoder = Nothing
 
                 If formato = 1 Then
                     encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
-                ElseIf formato = 0 Then
-                    encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegXREncoderId, stream)
                 Else
-                    encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
+                    encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream, propiedades)
                 End If
 
                 encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
