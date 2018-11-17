@@ -572,35 +572,38 @@
 
                                                 <Button.Content>
                                                     <StackPanel>
-                                                        <Grid Width="1500" Height="150">
+                                                        <Grid Width="1500" Height="400">
                                                             <Grid.Background>
-                                                                <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                                <SolidColorBrush Color="#004e7a"/>
                                                             </Grid.Background>
 
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
                                                                 <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Grid Grid.Column="0" Padding="40,20">
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#004e7a"/>
-                                                                </Grid.Background>
+                                                            <Grid Grid.Column="0" Padding="50,20">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
 
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="250" MaxHeight="60" VerticalAlignment="Center"/>
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Grid.Row="0" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="220" MaxHeight="90" VerticalAlignment="Center"/>
+
+                                                                <StackPanel Grid.Row="1" Background="Black" Padding="30,20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <TextBlock Text="Free" FontSize="50" Foreground="White"/>
+                                                                </StackPanel>
                                                             </Grid>
 
-                                                            <Grid Grid.Column="1" Padding="40,20">
-                                                                <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center"/>
-                                                            </Grid>
-
-                                                            <Grid Grid.Column="2" Padding="20">
+                                                            <Grid Grid.Column="1" Padding="40">
                                                                 <Grid.Background>
-                                                                    <SolidColorBrush Color="#004e7a"/>
+                                                                    <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
                                                                 </Grid.Background>
 
-                                                                <TextBlock x:Name="tbJuegoEditorpepeizqdealsGenerarImagenFree" FontWeight="SemiBold" FontSize="45" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                                                                <controls:DropShadowPanel Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                    <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                                </controls:DropShadowPanel>                                                                    
                                                             </Grid>
                                                         </Grid> 
                                                     </StackPanel>

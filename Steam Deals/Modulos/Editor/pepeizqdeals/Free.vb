@@ -15,9 +15,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
             tbTitulo.Text = String.Empty
 
-            RemoveHandler tbTitulo.TextChanged, AddressOf MostrarImagenTitulo
-            AddHandler tbTitulo.TextChanged, AddressOf MostrarImagenTitulo
-
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             tbEnlace.Text = String.Empty
 
@@ -146,25 +143,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             BloquearControles(True)
-
-        End Sub
-
-        Private Sub MostrarImagenTitulo(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTitulo As TextBox = sender
-            Dim limpiarTitulo As String = tbTitulo.Text.Trim
-
-            If limpiarTitulo.Contains("•") Then
-                Dim int As Integer = limpiarTitulo.LastIndexOf("•")
-                limpiarTitulo = limpiarTitulo.Remove(int, limpiarTitulo.Length - int)
-                limpiarTitulo = limpiarTitulo.Trim
-            End If
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim titulo As TextBlock = pagina.FindName("tbJuegoEditorpepeizqdealsGenerarImagenFree")
-            titulo.Text = limpiarTitulo
 
         End Sub
 
