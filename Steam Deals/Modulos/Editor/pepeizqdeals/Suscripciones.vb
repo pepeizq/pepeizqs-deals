@@ -91,11 +91,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
+            Dim precio As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
                 imagenTienda.Source = "Assets\Tiendas\humblemonthly.png"
+
+                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                precio.Text = Divisas.CambioMoneda("$12.00", tbDolar.Text)
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Monthly • " + mesElegido + " • " + cosas.Juegos
@@ -103,6 +107,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
+
+                precio.Text = "3.00 € (*)"
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
@@ -275,6 +281,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .IsCacheEnabled = True,
                     .Source = juego.Datos.Imagen
                 }
+
+                If listaJuegos.Count > 1 Then
+                    imagenJuego.MaxHeight = 140
+                End If
 
                 gridContenido.Children.Add(imagenJuego)
                 panel.Content = gridContenido

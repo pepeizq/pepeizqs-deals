@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Modulos\Configuracion.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Amazon.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Anuncios.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Bundles.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />

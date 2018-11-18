@@ -360,4 +360,7 @@
   <data name="Codes.Text" xml:space="preserve">
     <value>Códigos</value>
   </data>
+  <data name="Announcements.Text" xml:space="preserve">
+    <value>Anuncios</value>
+  </data>
 </root>

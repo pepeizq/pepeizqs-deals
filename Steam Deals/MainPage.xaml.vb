@@ -406,6 +406,12 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorpepeizqdealsGridAnuncios_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridAnuncios.Click
+
+        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridAnuncios, gridEditorpepeizqdealsAnuncios)
+
+    End Sub
+
     Private Sub BotonEditorpepeizqdealsGridCuentas_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCuentas.Click
 
         pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
@@ -454,6 +460,13 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGenerarImagenSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenSubscriptions.Click
+
+        Dim boton As Button = sender
+        pepeizq.Editor.ImagenFichero.Exportar(boton)
+
+    End Sub
+
+    Private Sub BotonEditorpepeizqdealsGenerarImagenAnuncios_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenAnuncios.Click
 
         Dim boton As Button = sender
         pepeizq.Editor.ImagenFichero.Exportar(boton)
