@@ -405,10 +405,17 @@ Module Analisis
                             If Not juego.Desarrolladores Is Nothing Then
                                 If juego.Desarrolladores.Desarrolladores.Count > 0 Then
                                     If cbDesarrolladores.SelectedItem = juego.Desarrolladores.Desarrolladores(0) Then
-                                        Dim sp As StackPanel = itemGrid.Children(0)
-                                        Dim cb As CheckBox = sp.Children(0)
+                                        If Not juego.Descuento = String.Empty Then
+                                            Dim descuento As String = juego.Descuento
+                                            descuento = descuento.Replace("%", Nothing)
 
-                                        cb.IsChecked = True
+                                            If Int32.Parse(descuento) > 19 Then
+                                                Dim sp As StackPanel = itemGrid.Children(0)
+                                                Dim cb As CheckBox = sp.Children(0)
+
+                                                cb.IsChecked = True
+                                            End If
+                                        End If
                                     End If
                                 End If
                             End If

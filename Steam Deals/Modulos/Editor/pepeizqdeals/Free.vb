@@ -115,32 +115,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFree")
 
-            Dim imagenPost As String = Nothing
-
-            Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + Date.Now.Hour.ToString + Date.Now.Minute.ToString + Date.Now.Millisecond.ToString + ".jpg"
-            Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
-
-            If Not ficheroImagen Is Nothing Then
-                Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
-
-                Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
-                    .AuthMethod = Models.AuthMethod.JWT
-                }
-
-                Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
-
-                If Await cliente.IsValidJWToken = True Then
-                    Dim imagenFinalGrid As Models.MediaItem = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-                    imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
-                End If
-
-                cliente.Logout()
-            End If
-
-            If Not imagenPost = Nothing Then
-                Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
-                                  enlaceFinal, imagenPost, " ", Nothing, 0)
-            End If
+            Await Post.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
+                              enlaceFinal, botonImagen, " ", Nothing, 0)
 
             BloquearControles(True)
 

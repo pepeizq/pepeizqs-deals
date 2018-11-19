@@ -422,7 +422,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As Clases.Deals = boton.Tag
 
             Dim contenidoEnlaces As String = String.Empty
-            Dim imagenFinalGrid As Models.MediaItem = Nothing
             Dim precioFinal As String = String.Empty
 
             If cosas.ListaJuegos.Count > 1 Then
@@ -575,28 +574,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + Date.Now.Hour.ToString + Date.Now.Minute.ToString + Date.Now.Millisecond.ToString + ".jpg"
-            Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
-
-            If Not ficheroImagen Is Nothing Then
-                Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-                botonImagen.IsEnabled = True
-
-                Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
-
-                Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
-                    .AuthMethod = Models.AuthMethod.JWT
-                }
-
-                Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
-
-                If Await cliente.IsValidJWToken = True Then
-                    imagenFinalGrid = Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-                End If
-
-                cliente.Logout()
-            End If
-
             Dim listaEtiquetas As New List(Of Integer)
             Dim iconoTienda As String = String.Empty
 
@@ -658,16 +635,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 redireccion = tbEnlace.Text.Trim
             End If
 
-            Dim imagenPost As String = String.Empty
-
-            If Not imagenFinalGrid Is Nothing Then
-                imagenPost = "https://pepeizqdeals.com/wp-content/uploads/" + imagenFinalGrid.MediaDetails.File
-            Else
-                If tbImagen.Text.Trim.Length > 0 Then
-                    imagenPost = tbImagen.Text.Trim
-                End If
-            End If
-
             Dim tituloComplemento As String = String.Empty
 
             If tbTituloComplemento.Text.Trim.Length > 0 Then
@@ -682,8 +649,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+
             Await Post.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
-                              redireccion, imagenPost, tituloComplemento, analisis, 0)
+                              redireccion, botonImagen, tituloComplemento, analisis, 0)
 
             BloquearControles(True)
 

@@ -7,7 +7,7 @@ Namespace pepeizq.Editor.pepeizqdeals
     Module Post
 
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer), descuento As String, precio As String, iconoTienda As String,
-                                     redireccion As String, imagen As String, tituloComplemento As String, analisis As JuegoAnalisis, estado As Integer) As Task
+                                     redireccion As String, botonImagen As Button, tituloComplemento As String, analisis As JuegoAnalisis, estado As Integer) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -16,6 +16,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
+                Dim imagenUrl As String = String.Empty
+
+                Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + Date.Now.Hour.ToString + Date.Now.Minute.ToString + Date.Now.Millisecond.ToString + ".jpg"
+                Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
+
+                If Not ficheroImagen Is Nothing Then
+                    Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
+                    Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                    imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + Date.Today.Month.ToString + "/" + ficheroImagen.Name
+                End If
+
                 Dim post As New Models.Post With {
                     .Title = New Models.Title(titulo.Trim)
                 }
@@ -66,9 +77,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not imagen = Nothing Then
-                    If imagen.Trim.Length > 0 Then
-                        postEditor.Imagen = imagen.Trim
+                If Not imagenUrl = Nothing Then
+                    If imagenUrl.Trim.Length > 0 Then
+                        postEditor.Imagen = imagenUrl.Trim
                     End If
                 End If
 
@@ -160,7 +171,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Try
 
                         Try
-                            RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagen.Trim, categoria)
+                            RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagenUrl.Trim, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
