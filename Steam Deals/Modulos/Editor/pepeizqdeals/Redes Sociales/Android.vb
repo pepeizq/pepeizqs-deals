@@ -1,12 +1,13 @@
 ﻿Imports FireSharp
 Imports FireSharp.Config
 Imports FireSharp.Response
-Imports Windows.ApplicationModel.Chat
+Imports Windows.ApplicationModel.Core
+Imports Windows.UI.Core
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Android
 
-        Public Async Function Enviar(titulo As String, enlace As String) As Task
+        Private Function Conectar()
 
             Dim config As New FirebaseConfig With {
                 .AuthSecret = "HtabeaAa9uFa0BN0uBQkBjy82MGcnhlVYVXjs1JM",
@@ -15,16 +16,37 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim cliente As New FirebaseClient(config)
 
-            Dim mensaje As New MensajeAndroid(titulo, enlace)
-
-            Dim push As PushResponse = Await cliente.PushAsync(Of MensajeAndroid)("mensajes/", mensaje)
-            Notificaciones.Toast(push.Result.name, Nothing)
+            Return cliente
 
         End Function
+
+        Public Async Function Enviar(titulo As String, enlace As String) As Task
+
+            Dim cliente As FirebaseClient = Conectar()
+
+            Dim mensaje As New MensajeAndroid(titulo, enlace)
+
+            Await cliente.PushAsync(Of MensajeAndroid)("mensajes/", mensaje)
+
+        End Function
+
+        Public Async Sub Escuchar()
+
+            Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, Async Sub()
+
+                                                                                                             Dim cliente As FirebaseClient = Conectar()
+
+                                                                                                             Dim respuesta As EventStreamResponse = Await cliente.OnAsync("mensajes/", Sub(sender, args, contexto)
+                                                                                                                                                                                           Notificaciones.Toast(args.Data, args.Path)
+                                                                                                                                                                                       End Sub)
+
+                                                                                                         End Sub)
+        End Sub
 
     End Module
 
     Public Class MensajeAndroid
+        Inherits EventArgs
 
         Public Titulo As String
         Public Enlace As String

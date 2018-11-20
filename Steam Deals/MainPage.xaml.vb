@@ -1,6 +1,5 @@
 ﻿Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
-Imports Windows.Storage.Pickers
 Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
@@ -93,6 +92,8 @@ Public NotInheritable Class MainPage
         MasCosas.Generar()
         Interfaz.Generar()
         Divisas.Generar()
+
+        pepeizq.Editor.pepeizqdeals.RedesSociales.Android.Escuchar()
 
         '--------------------------------------------------------
 
@@ -473,9 +474,9 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
+    Private Async Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
-        pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Enviar(Nothing, Nothing, Nothing, Nothing)
+        Await pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Enviar(Nothing, Nothing, Nothing, Nothing)
 
     End Sub
 
