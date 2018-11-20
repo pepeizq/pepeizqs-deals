@@ -139,6 +139,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Post.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Android.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Reddit.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Steam.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Referidos.vb" />
@@ -363,6 +364,9 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FireSharp">
+      <Version>2.0.4</Version>
+    </PackageReference>
     <PackageReference Include="FontAwesome.UWP">
       <Version>4.7.0.9</Version>
     </PackageReference>

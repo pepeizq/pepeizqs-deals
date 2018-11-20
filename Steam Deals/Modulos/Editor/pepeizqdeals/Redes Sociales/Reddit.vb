@@ -5,7 +5,7 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Reddit
 
-        Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer)
+        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer) As Task
 
             Dim tituloFinal As String = titulo
 
@@ -94,7 +94,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                   End Try
                                                                                                               End If
                                                                                                           End Sub))
-        End Sub
+        End Function
 
     End Module
 End Namespace

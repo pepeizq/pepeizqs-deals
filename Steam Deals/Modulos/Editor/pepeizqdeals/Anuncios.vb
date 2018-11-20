@@ -77,7 +77,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
-                If enlace.Contains("https://www.humblebundle.com/store") Then
+                If enlace.Contains("https://store.steampowered.com/") Then
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "Steam" Then
+                            tbTitulo.Text = "--- • Steam"
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+                ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "Humble" Then
                             tbTitulo.Text = "--- • Humble Store"

@@ -8,7 +8,7 @@ Imports Windows.Storage.Streams
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Twitter
 
-        Public Async Sub Enviar(mensaje As String, enlace As String, imagen As String, categoria As Integer)
+        Public Async Function Enviar(mensaje As String, enlace As String, imagen As String, categoria As Integer) As Task
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -95,7 +95,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 End If
             End If
 
-        End Sub
+        End Function
 
         Public Function ReemplazarTiendaTitulo(titulo As String)
 

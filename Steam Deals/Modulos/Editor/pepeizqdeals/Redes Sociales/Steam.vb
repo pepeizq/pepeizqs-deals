@@ -3,7 +3,7 @@
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Steam
 
-        Public Async Sub Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, analisis As JuegoAnalisis)
+        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, analisis As JuegoAnalisis) As Task
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -62,7 +62,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 End If
             End If
 
-        End Sub
+        End Function
 
         Public Sub Comprobar()
 
