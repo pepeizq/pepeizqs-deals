@@ -77,7 +77,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
-                If enlace.Contains("https://store.steampowered.com/") Then
+                If enlace.Contains("https://store.steampowered.com") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "Steam" Then
                             tbTitulo.Text = "--- • Steam"
@@ -91,7 +91,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tbImagenTienda.Text = tienda.Logo
                         End If
                     Next
-                ElseIf enlace.Contains("https://uk.gamersgate.com/") Then
+                ElseIf enlace.Contains("https://uk.gamersgate.com") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "GamersGate" Then
                             tbTitulo.Text = "--- • GamersGate"
@@ -105,10 +105,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tbImagenTienda.Text = tienda.Logo
                         End If
                     Next
-                ElseIf enlace.Contains("https://www.fanatical.com/") Then
+                ElseIf enlace.Contains("https://www.fanatical.com") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "Fanatical" Then
                             tbTitulo.Text = "--- • Fanatical"
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+                ElseIf enlace.Contains("https://www.greenmangaming.com") Then
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "Green Man Gaming" Then
+                            tbTitulo.Text = "--- • Green Man Gaming"
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+                ElseIf enlace.Contains("https://www.wingamestore.com/") Then
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "WinGameStore" Then
+                            tbTitulo.Text = "--- • WinGameStore"
                             tbImagenTienda.Text = tienda.Logo
                         End If
                     Next

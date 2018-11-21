@@ -72,11 +72,11 @@ Namespace pepeizq.Tiendas
 
             Dim numPaginasOrigin As Integer = 0
 
-            numPaginasOrigin = GenerarNumPaginas(New Uri("https://www.amazon.com/s/ref=sr_pg_1?fst=as%3Aoff&rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990458011&bbn=979455011&ie=UTF8&qid=1539283410"))
+            numPaginasOrigin = GenerarNumPaginas(New Uri("https://www.amazon.com/s/ref=sr_pg_2?rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cn%3A2445220011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&page=2&bbn=2445220011&ie=UTF8&qid=1542799915"))
 
             i = 1
             While i < numPaginasOrigin
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s/ref=sr_pg_1?fst=as%3Aoff&rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990458011&bbn=979455011&ie=UTF8&qid=1539283410&page=" + i.ToString))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s/ref=sr_pg_2?rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cn%3A2445220011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&page=" + i.ToString + "&bbn=2445220011&ie=UTF8&qid=1542799915"))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
@@ -122,7 +122,7 @@ Namespace pepeizq.Tiendas
 
                     html = temp
 
-                    int2 = temp.IndexOf("</div></div></div></div>")
+                    int2 = temp.IndexOf("</div></div></div></div></li>")
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     Dim temp3, temp4 As String
@@ -208,6 +208,8 @@ Namespace pepeizq.Tiendas
 
                             Dim precioRebajado As String = "$" + temp6.Trim + "." + decimalesPrecio
 
+                            Dim descuento As String = Nothing
+
                             If temp2.Contains("aria-label=" + ChrW(34) + "Suggested Retail Price:") Then
                                 Dim temp7, temp8 As String
                                 Dim int7, int8 As Integer
@@ -223,69 +225,69 @@ Namespace pepeizq.Tiendas
 
                                 Dim precioBase As String = temp8.Trim
 
-                                Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                                descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                            End If
 
-                                Dim temp9, temp10 As String
-                                Dim int9, int10 As Integer
+                            Dim temp9, temp10 As String
+                            Dim int9, int10 As Integer
 
-                                int9 = temp2.IndexOf("data-asin=")
-                                temp9 = temp2.Remove(0, int9 + 11)
+                            int9 = temp2.IndexOf("data-asin=")
+                            temp9 = temp2.Remove(0, int9 + 11)
 
-                                int10 = temp9.IndexOf(ChrW(34))
-                                temp10 = temp9.Remove(int10, temp9.Length - int10)
+                            int10 = temp9.IndexOf(ChrW(34))
+                            temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                                Dim enlace As String = "https://www.amazon.com/dp/" + temp10.Trim + "/"
+                            Dim enlace As String = "https://www.amazon.com/dp/" + temp10.Trim + "/"
 
-                                Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
+                            Dim listaEnlaces As New List(Of String) From {
+                                enlace
+                            }
 
-                                Dim temp11, temp12 As String
-                                Dim int11, int12 As Integer
+                            Dim temp11, temp12 As String
+                            Dim int11, int12 As Integer
 
-                                int11 = temp2.IndexOf("<img src=")
-                                temp11 = temp2.Remove(0, int11 + 10)
+                            int11 = temp2.IndexOf("<img src=")
+                            temp11 = temp2.Remove(0, int11 + 10)
 
-                                int12 = temp11.IndexOf(ChrW(34))
-                                temp12 = temp11.Remove(int12, temp11.Length - int12)
+                            int12 = temp11.IndexOf(ChrW(34))
+                            temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                                Dim imagen As String = temp12.Trim
-                                imagen = imagen.Replace("AC_US218", "AC_SX215")
+                            Dim imagen As String = temp12.Trim
+                            imagen = imagen.Replace("AC_US218", "AC_SX215")
 
-                                Dim imagenes As New JuegoImagenes(imagen, Nothing)
+                            Dim imagenes As New JuegoImagenes(imagen, Nothing)
 
-                                Dim listaPrecios As New List(Of String) From {
-                                    precioRebajado
-                                }
+                            Dim listaPrecios As New List(Of String) From {
+                                precioRebajado
+                            }
 
-                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                Dim tituloBool As Boolean = False
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
-                                        tituloBool = True
-                                    End If
-                                    k += 1
-                                End While
-
-                                If juego.Descuento = Nothing Then
+                            Dim tituloBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Titulo = juego.Titulo Then
                                     tituloBool = True
-                                Else
-                                    If juego.Descuento = "00%" Then
-                                        tituloBool = True
-                                    ElseIf juego.Descuento.Length = 4 Then
-                                        tituloBool = True
-                                    End If
                                 End If
+                                k += 1
+                            End While
 
-                                If tituloBool = False Then
-                                    listaJuegos.Add(juego)
+                            If juego.Descuento = Nothing Then
+                                tituloBool = True
+                            Else
+                                If juego.Descuento = "00%" Then
+                                    tituloBool = True
+                                ElseIf juego.Descuento.Length = 4 Then
+                                    tituloBool = True
                                 End If
+                            End If
+
+                            If tituloBool = False Then
+                                listaJuegos.Add(juego)
                             End If
                         End If
                     End If

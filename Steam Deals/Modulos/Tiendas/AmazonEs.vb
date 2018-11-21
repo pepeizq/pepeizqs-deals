@@ -34,7 +34,7 @@ Namespace pepeizq.Tiendas
 
             Dim listaJuegosAntigua As New List(Of Juego)
 
-            Dim helper As LocalObjectStorageHelper = New LocalObjectStorageHelper
+            Dim helper As New LocalObjectStorageHelper
             If helper.FileExistsAsync("listaOfertasAntiguaAmazonEs").Result = True Then
                 listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaAmazonEs").Result
             End If

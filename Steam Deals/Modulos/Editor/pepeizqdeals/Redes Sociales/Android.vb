@@ -1,6 +1,8 @@
 ﻿Imports FireSharp
 Imports FireSharp.Config
 Imports FireSharp.Response
+Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Newtonsoft.Json
 Imports Windows.ApplicationModel.Core
 Imports Windows.UI.Core
 
@@ -34,11 +36,24 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, Async Sub()
 
-                                                                                                             Dim cliente As FirebaseClient = Conectar()
+                                                                                                             'Dim cliente As FirebaseClient = Conectar()
 
-                                                                                                             Dim respuesta As EventStreamResponse = Await cliente.OnAsync("mensajes/", Sub(sender, args, contexto)
-                                                                                                                                                                                           Notificaciones.Toast(args.Data, args.Path)
-                                                                                                                                                                                       End Sub)
+                                                                                                             'Dim listaNotificaciones As New List(Of String)
+                                                                                                             'Dim helper As New LocalObjectStorageHelper
+
+                                                                                                             'If Await helper.FileExistsAsync("listaNotificaciones") Then
+                                                                                                             '    listaNotificaciones = Await helper.ReadFileAsync(Of List(Of String))("listaNotificaciones")
+                                                                                                             'End If
+
+                                                                                                             'Dim respuestaGet As FirebaseResponse = Await cliente.GetAsync("mensajes/")
+                                                                                                             'listaNotificaciones = respuestaGet.ResultAs(Of MensajesAndroidJSON).Mensajes
+
+                                                                                                             'Notificaciones.Toast(listaNotificaciones.Count.ToString, Nothing)
+
+                                                                                                             'Dim respuestaStream As EventStreamResponse = Await cliente.OnAsync("mensajes/", Sub(sender, args, contexto)
+
+                                                                                                             '                                                                                    'Notificaciones.Toast(args.Data, Nothing)
+                                                                                                             '                                                                                End Sub)
 
                                                                                                          End Sub)
         End Sub
@@ -46,7 +61,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     End Module
 
     Public Class MensajeAndroid
-        Inherits EventArgs
 
         Public Titulo As String
         Public Enlace As String
@@ -57,5 +71,13 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
         End Sub
 
     End Class
+
+    Public Class MensajesAndroidJSON
+
+        <JsonProperty("mensajes")>
+        Public Mensajes As List(Of String)
+
+    End Class
+
 End Namespace
 
