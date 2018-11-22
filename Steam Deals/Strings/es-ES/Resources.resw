@@ -363,4 +363,7 @@
   <data name="Announcements.Text" xml:space="preserve">
     <value>Anuncios</value>
   </data>
+  <data name="Open" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
 </root>

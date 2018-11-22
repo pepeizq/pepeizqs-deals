@@ -182,10 +182,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Notificaciones.Toast("Reddit Error Post", Nothing)
                         End Try
 
-                        Await RedesSociales.Android.Enviar(titulo, enlaceFinal)
-
                         Try
-
+                            Await RedesSociales.Android.Enviar(titulo, enlaceFinal)
                         Catch ex As Exception
                             Notificaciones.Toast("Android Error Post", Nothing)
                         End Try

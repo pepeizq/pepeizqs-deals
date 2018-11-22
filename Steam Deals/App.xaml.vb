@@ -1,4 +1,6 @@
-﻿''' <summary>
+﻿Imports Windows.ApplicationModel.Background
+Imports Windows.UI.Notifications
+''' <summary>
 ''' Proporciona un comportamiento específico de la aplicación para complementar la clase Application predeterminada.
 ''' </summary>
 NotInheritable Class App
@@ -10,10 +12,10 @@ NotInheritable Class App
     ''' resultados de la búsqueda, etc.
     ''' </summary>
     ''' <param name="e">Información detallada acerca de la solicitud y el proceso de inicio.</param>
-    Protected Overrides Sub OnLaunched(e As Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)
+    Protected Overrides Sub OnLaunched(e As LaunchActivatedEventArgs)
 #If DEBUG Then
         ' Mostrar información de generación de perfiles de gráficos durante la depuración.
-        If System.Diagnostics.Debugger.IsAttached Then
+        If Debugger.IsAttached Then
             ' Mostrar los contadores de velocidad de marcos actual
             Me.DebugSettings.EnableFrameRateCounter = True
         End If

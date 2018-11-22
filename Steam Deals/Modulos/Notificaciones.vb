@@ -1,4 +1,5 @@
-﻿Imports Windows.UI.Notifications
+﻿Imports Microsoft.Toolkit.Uwp.Notifications
+Imports Windows.UI.Notifications
 Imports Windows.UI.Popups
 
 Module Notificaciones
@@ -41,6 +42,48 @@ Module Notificaciones
         }
 
         notificador.Show(toast)
+
+    End Sub
+
+    Public Sub ToastOferta(titulo As String, enlace As String)
+
+        Dim textoTitulo As New AdaptiveText With {
+            .Text = titulo,
+            .HintMaxLines = 4
+        }
+
+        Dim contenido As New ToastBindingGeneric
+        contenido.Children.Add(textoTitulo)
+
+        Dim tostadaVisual As New ToastVisual With {
+            .BindingGeneric = contenido
+        }
+
+        Dim recursos As New Resources.ResourceLoader
+
+        Dim botonAbrir As ToastButton = New ToastButton(recursos.GetString("Open"), enlace) With {
+            .ActivationType = ToastActivationType.Protocol
+        }
+
+        Dim tostadaAcciones As New ToastActionsCustom
+
+        If Not botonAbrir Is Nothing Then
+            tostadaAcciones.Buttons.Add(botonAbrir)
+        End If
+
+        Dim tostada As New ToastContent With {
+            .Visual = tostadaVisual,
+            .Actions = tostadaAcciones
+        }
+
+        Try
+            Dim notificacion As New ToastNotification(tostada.GetXml)
+
+            Dim notificador As ToastNotifier = ToastNotificationManager.CreateToastNotifier()
+            notificador.Show(notificacion)
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
