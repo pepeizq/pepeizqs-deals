@@ -5,6 +5,12 @@ Module Configuracion
 
     Public Sub Iniciar()
 
+        If ApplicationData.Current.LocalSettings.Values("notificacionespush") Is Nothing Then
+            NotificacionesActivar(True)
+        Else
+            NotificacionesActivar(ApplicationData.Current.LocalSettings.Values("notificacionespush"))
+        End If
+
         If ApplicationData.Current.LocalSettings.Values("ordenar") Is Nothing Then
             ApplicationData.Current.LocalSettings.Values("ordenar") = 0
         End If
@@ -37,6 +43,22 @@ Module Configuracion
             SteamMasActivar(False)
         Else
             SteamMasActivar(ApplicationData.Current.LocalSettings.Values("steam+"))
+        End If
+
+    End Sub
+
+    Public Sub NotificacionesActivar(estado As Boolean)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        ApplicationData.Current.LocalSettings.Values("notificacionespush") = estado
+
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigNotificaciones")
+        toggle.IsChecked = estado
+
+        If estado = True Then
+            pepeizq.Editor.pepeizqdeals.RedesSociales.Push.Escuchar()
         End If
 
     End Sub

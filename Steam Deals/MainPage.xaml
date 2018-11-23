@@ -64,6 +64,8 @@
                         </NavigationViewItem.Icon>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
+                                <ToggleMenuFlyoutItem x:Name="itemConfigNotificaciones" x:Uid="ConfigNotifications"/>
+                                <MenuFlyoutSeparator/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigUltimaVisita" x:Uid="ConfigLastVisit"/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigEditor" x:Uid="Editor2"/>
                             </MenuFlyout>
@@ -102,7 +104,7 @@
 
                         <Grid x:Name="gridPresentacionpepeizqdeals">
                             <ScrollViewer>
-                                <WebView x:Name="wvPresentacion" Margin="0,-35,0,-10"/>
+                                <WebView x:Name="wvPresentacion" Margin="0,-45,0,-10"/>
                             </ScrollViewer>
                         </Grid>
                     </Grid>

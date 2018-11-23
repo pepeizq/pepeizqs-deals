@@ -1,5 +1,4 @@
 ﻿Imports Windows.Storage
-Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
@@ -69,7 +68,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
                         Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)
 
-                        If precioUK > listaFinal(0).Enlaces.Precios(0) Then
+                        If Double.Parse(precioUK.Replace("€", Nothing).Trim) > Double.Parse(listaFinal(0).Enlaces.Precios(0).Replace("€", Nothing).Trim) Then
                             precioFinal = listaFinal(0).Enlaces.Precios(0)
                             tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                         Else
@@ -85,11 +84,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim precioFR As String = listaFinal(0).Enlaces.Precios(1)
                     Dim precioDE As String = listaFinal(0).Enlaces.Precios(2)
 
-                    If precioUK < precioFR And precioUK < precioDE Then
+                    If Double.Parse(precioUK.Replace("€", Nothing).Trim) < Double.Parse(precioFR.Replace("€", Nothing).Trim) And Double.Parse(precioUK.Replace("€", Nothing).Trim) < Double.Parse(precioDE.Replace("€", Nothing).Trim) Then
                         precioFinal = precioUK
                         tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                     Else
-                        If precioDE < precioFR Then
+                        If Double.Parse(precioDE.Replace("€", Nothing).Trim) < Double.Parse(precioFR.Replace("€", Nothing).Trim) Then
                             precioFinal = precioDE
                             tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(2))
                         Else
@@ -98,7 +97,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         If precioFR = Nothing Then
-                            If precioDE < precioUK Then
+                            If Double.Parse(precioDE.Replace("€", Nothing).Trim) < Double.Parse(precioUK.Replace("€", Nothing).Trim) Then
                                 precioFinal = precioDE
                                 tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(2))
                             Else
@@ -108,7 +107,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         If precioDE = Nothing Then
-                            If precioFR < precioUK Then
+                            If Double.Parse(precioFR.Replace("€", Nothing).Trim) < Double.Parse(precioUK.Replace("€", Nothing).Trim) Then
                                 precioFinal = precioFR
                                 tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(1))
                             Else
@@ -199,7 +198,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             If item.Enlaces.Precios(1).Contains("£") Then
                                 Dim precioUK As String = Divisas.CambioMoneda(item.Enlaces.Precios(1), tbLibra.Text)
 
-                                If precioUK < item.Enlaces.Precios(0) Then
+                                If Double.Parse(precioUK.Replace("€", Nothing).Trim) < Double.Parse(item.Enlaces.Precios(0).Replace("€", Nothing).Trim) Then
                                     item.Enlaces.Precios(0) = precioUK
                                     item.Enlaces.Enlaces(0) = item.Enlaces.Enlaces(1)
                                 End If
@@ -211,10 +210,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Dim precioFR As String = item.Enlaces.Precios(1)
                             Dim precioDE As String = item.Enlaces.Precios(2)
 
-                            If precioUK < precioFR And precioUK < precioDE Then
+                            If Double.Parse(precioUK.Replace("€", Nothing).Trim) < Double.Parse(precioFR.Replace("€", Nothing).Trim) And Double.Parse(precioUK.Replace("€", Nothing).Trim) < Double.Parse(precioDE.Replace("€", Nothing).Trim) Then
                                 item.Enlaces.Precios(0) = Divisas.CambioMoneda(item.Enlaces.Precios(0), tbLibra.Text)
                             Else
-                                If precioDE < precioFR Then
+                                If Double.Parse(precioDE.Replace("€", Nothing).Trim) < Double.Parse(precioFR.Replace("€", Nothing).Trim) Then
                                     item.Enlaces.Precios(0) = item.Enlaces.Precios(2)
                                     item.Enlaces.Enlaces(0) = item.Enlaces.Enlaces(2)
                                 Else
@@ -223,7 +222,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 If precioFR = Nothing Then
-                                    If precioDE < precioUK Then
+                                    If Double.Parse(precioDE.Replace("€", Nothing).Trim) < Double.Parse(precioUK.Replace("€", Nothing).Trim) Then
                                         item.Enlaces.Precios(0) = item.Enlaces.Precios(2)
                                         item.Enlaces.Enlaces(0) = item.Enlaces.Enlaces(2)
                                     Else
@@ -232,7 +231,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 If precioDE = Nothing Then
-                                    If precioFR < precioUK Then
+                                    If Double.Parse(precioFR.Replace("€", Nothing).Trim) < Double.Parse(precioUK.Replace("€", Nothing).Trim) Then
                                         item.Enlaces.Precios(0) = item.Enlaces.Precios(1)
                                         item.Enlaces.Enlaces(0) = item.Enlaces.Enlaces(1)
                                     Else

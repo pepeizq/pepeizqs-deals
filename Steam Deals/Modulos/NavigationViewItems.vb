@@ -1,4 +1,5 @@
-﻿Imports Windows.UI
+﻿Imports Windows.System
+Imports Windows.UI
 Imports Windows.UI.Core
 
 Module NavigationViewItems
@@ -34,7 +35,19 @@ Module NavigationViewItems
 
     End Function
 
-    Public Function GenerarIcono(titulo As String, icono As FontAwesome.UWP.FontAwesomeIcon, tag As String)
+    Public Function GenerarIcono(titulo As String, icono As FontAwesome.UWP.FontAwesomeIcon, enlace As String)
+
+        Dim sp As New StackPanel With {
+            .Orientation = Orientation.Horizontal
+        }
+
+        Dim iconoFinal As New FontAwesome.UWP.FontAwesome With {
+            .Icon = icono,
+            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario")),
+            .Margin = New Thickness(0, 0, 10, 0)
+        }
+
+        sp.Children.Add(iconoFinal)
 
         Dim tb As New TextBlock With {
             .Text = titulo,
@@ -42,17 +55,13 @@ Module NavigationViewItems
             .Margin = New Thickness(5, 0, 0, 0)
         }
 
-        Dim iconoFinal As New FontAwesome.UWP.FontAwesome With {
-            .Icon = icono,
-            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
-        }
+        sp.Children.Add(tb)
 
-        Dim item As New NavigationViewItem With {
-            .Content = tb,
-            .Icon = iconoFinal,
+        Dim item As New Button With {
+            .Content = sp,
             .Background = New SolidColorBrush(Colors.Transparent),
-            .Margin = New Thickness(0, 2, 0, 2),
-            .Tag = tag
+            .Tag = enlace,
+            .Style = App.Current.Resources("ButtonRevealStyle")
         }
 
         Dim tbToolTip As TextBlock = New TextBlock With {
@@ -62,12 +71,25 @@ Module NavigationViewItems
         ToolTipService.SetToolTip(item, tbToolTip)
         ToolTipService.SetPlacement(item, PlacementMode.Mouse)
 
+        AddHandler item.Click, AddressOf ItemClick_Click
         AddHandler item.PointerEntered, AddressOf UsuarioEntraBoton
         AddHandler item.PointerExited, AddressOf UsuarioSaleBoton
 
         Return item
 
     End Function
+
+    Private Async Sub ItemClick_Click(sender As Object, e As RoutedEventArgs)
+
+        Dim boton As Button = sender
+
+        Try
+            Await Launcher.LaunchUriAsync(New Uri(boton.Tag))
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 
     Private Sub UsuarioEntraBoton(sender As Object, e As PointerRoutedEventArgs)
 

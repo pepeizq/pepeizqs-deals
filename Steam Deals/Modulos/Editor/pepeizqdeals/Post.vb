@@ -183,7 +183,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Try
 
                         Try
-                            Await RedesSociales.Android.Enviar(titulo, enlaceFinal)
+                            Await RedesSociales.Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Android Error Post", Nothing)
                         End Try

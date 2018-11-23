@@ -13,9 +13,9 @@ Public NotInheritable Class MainPage
 
         nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Deals"), 0))
         nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, 1))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, 2))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, 3))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, "https://steamcommunity.com/groups/pepeizqdeals/"))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, "https://twitter.com/pepeizqdeals"))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, "https://new.reddit.com/r/pepeizqdeals/new/"))
 
     End Sub
 
@@ -60,18 +60,6 @@ Public NotInheritable Class MainPage
 
                 GridVisibilidad(gridEditor, item.Text)
 
-            ElseIf item.Text = "Steam" Then
-
-                Await Launcher.LaunchUriAsync(New Uri("https://steamcommunity.com/groups/pepeizqdeals/"))
-
-            ElseIf item.Text = "Twitter" Then
-
-                Await Launcher.LaunchUriAsync(New Uri("https://twitter.com/pepeizqdeals"))
-
-            ElseIf item.Text = "Reddit" Then
-
-                Await Launcher.LaunchUriAsync(New Uri("https://new.reddit.com/r/pepeizqdeals/new/"))
-
             End If
         End If
 
@@ -92,8 +80,6 @@ Public NotInheritable Class MainPage
         MasCosas.Generar()
         Interfaz.Generar()
         Divisas.Generar()
-
-        pepeizq.Editor.pepeizqdeals.RedesSociales.Android.Escuchar()
 
         '--------------------------------------------------------
 
@@ -144,6 +130,12 @@ Public NotInheritable Class MainPage
     End Sub
 
     'CONFIG---------------------------------------------------------------------------------
+
+    Private Sub ItemConfigNotificaciones_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigNotificaciones.Click
+
+        Configuracion.NotificacionesActivar(itemConfigNotificaciones.IsChecked)
+
+    End Sub
 
     Private Sub ItemConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigUltimaVisita.Click
 
