@@ -91,6 +91,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tbImagenTienda.Text = tienda.Logo
                         End If
                     Next
+                ElseIf enlace.Contains("https://www.humblebundle.com/monthly") Then
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "Humble" Then
+                            tbTitulo.Text = "--- • Humble Monthly"
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
                 ElseIf enlace.Contains("https://uk.gamersgate.com") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "GamersGate" Then
