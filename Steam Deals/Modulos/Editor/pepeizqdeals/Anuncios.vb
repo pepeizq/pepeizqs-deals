@@ -1,6 +1,4 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Windows.Storage
-Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Anuncios
@@ -38,6 +36,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             RemoveHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
             AddHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
+
+            Dim fechaDefecto As DateTime = DateTime.Now
+            fechaDefecto = fechaDefecto.AddDays(2)
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+            fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
+            horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
 
@@ -155,10 +162,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
 
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
+
+            Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
+            fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
+
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
 
-            Await Post.Enviar(tbTitulo.Text, " ", 1208, New List(Of Integer) From {9999}, " ", " ", " ",
-                              enlaceFinal, botonImagen, " ", Nothing, 0)
+            Await Posts.Enviar(tbTitulo.Text, " ", 1208, New List(Of Integer) From {9999}, " ", " ", " ",
+                              enlaceFinal, botonImagen, " ", Nothing, True, fechaFinal.ToString)
 
             BloquearControles(True)
 
@@ -207,6 +220,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsAnuncios")
             tbImagenTienda.IsEnabled = estado
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+            fechaPicker.IsEnabled = estado
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
+            horaPicker.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
             botonSubir.IsEnabled = estado

@@ -149,7 +149,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 Dim sp As New StackPanel With {
-                    .Padding = New Thickness(6, 6, 6, 6),
+                    .Padding = New Thickness(8, 8, 8, 8),
                     .Orientation = Orientation.Horizontal
                 }
 
@@ -181,7 +181,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 boton.Content = sp
-                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 28, 28, Nothing)
+                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 32, 32, Nothing)
 
                 AddHandler boton.Click, AddressOf GenerarFicheroImagen
 

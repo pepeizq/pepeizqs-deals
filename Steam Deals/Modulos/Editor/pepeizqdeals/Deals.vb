@@ -385,6 +385,25 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
 
+            '----------------------------------------------------
+
+            Dim fechaDefecto As DateTime = Nothing
+
+            If Not listaFinal(0).FechaTermina = Nothing Then
+                fechaDefecto = listaFinal(0).FechaTermina
+            Else
+                fechaDefecto = DateTime.Now
+                fechaDefecto = fechaDefecto.AddDays(2)
+            End If
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+            fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+            horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
+
+            '----------------------------------------------------
+
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
 
             If listaFinal.Count = 1 Then
@@ -650,8 +669,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
 
-            Await Post.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
-                              redireccion, botonImagen, tituloComplemento, analisis, 0)
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+
+            Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
+            fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
+
+            Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
+                              redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString)
 
             BloquearControles(True)
 
@@ -714,6 +739,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
             tbComentario.IsEnabled = estado
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+            fechaPicker.IsEnabled = estado
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+            horaPicker.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
             botonSubir.IsEnabled = estado

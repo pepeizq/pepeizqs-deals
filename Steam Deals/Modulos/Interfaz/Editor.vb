@@ -33,6 +33,7 @@ Module Editor
                 pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
                 pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
                 pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
+                pepeizq.Editor.pepeizqdeals.Posts.Borrar()
             Else
                 gridpepeizq.Visibility = Visibility.Collapsed
                 gridReddit.Visibility = Visibility.Collapsed
@@ -102,6 +103,7 @@ Module Editor
                         pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
                         pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
                         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
+                        pepeizq.Editor.pepeizqdeals.Posts.Borrar()
 
                     ElseIf cbWebs.SelectedIndex = 1 Then
                         gridpepeizq.Visibility = Visibility.Collapsed

@@ -331,7 +331,12 @@
                                             <TextBlock x:Uid="Title3"/>
                                             <TextBox x:Name="tbEditorTituloComplementopepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                             <TextBlock x:Uid="Comment"/>
-                                            <TextBox x:Name="tbEditorComentariopepeizqdeals" Margin="0,10,0,0" TextWrapping="Wrap"/>
+                                            <TextBox x:Name="tbEditorComentariopepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
+                                            <DatePicker x:Name="fechaEditorpepeizqdealsDeals" Margin="0,0,20,0"/>
+                                            <TimePicker x:Name="horaEditorpepeizqdealsDeals"/>
                                         </StackPanel>
 
                                         <Button x:Name="botonEditorSubirpepeizqdeals" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
@@ -374,9 +379,12 @@
                                                                     </Grid.RowDefinitions>
 
                                                                     <controls:ImageEx x:Name="imagenEditorpepeizqdealsImagenEntradaUnJuego" Grid.Row="0" Stretch="Uniform" MaxWidth="450" MaxHeight="250" IsCacheEnabled="True"/>
-
-                                                                    <controls:ImageEx x:Name="imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego" IsCacheEnabled="True" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top"/>
                                                                     
+                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                                                        <controls:ImageEx x:Name="imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego" IsCacheEnabled="True" Stretch="None"/>
+                                                                        <controls:ImageEx x:Name="imagenDRMEditorpepeizqdealsImagenEntradaUnJuego" IsCacheEnabled="True" Stretch="None"/>
+                                                                    </StackPanel>
+                                                                                                                                        
                                                                     <Grid Grid.Row="1">
                                                                         <Grid.ColumnDefinitions>
                                                                             <ColumnDefinition Width="Auto"/>
@@ -472,7 +480,7 @@
                                         <TextBlock x:Uid="Title3"/>
                                         <TextBox x:Name="tbEditorJuegospepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                         
-                                        <Grid Margin="0,10,0,0">
+                                        <Grid Margin="0,10,0,15">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
@@ -488,6 +496,11 @@
 
                                             <TextBox x:Name="tbEditorpepeizqdealsBundlesIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                         </Grid>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
+                                            <DatePicker x:Name="fechaEditorpepeizqdealsBundles" Margin="0,0,20,0"/>
+                                            <TimePicker x:Name="horaEditorpepeizqdealsBundles"/>
+                                        </StackPanel>
 
                                         <Button x:Name="botonEditorSubirpepeizqdealsBundles" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
@@ -556,6 +569,11 @@
                                         <TextBlock x:Uid="Image"/>
                                         <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,0" TextWrapping="Wrap"/>
                                         <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
+                                            <DatePicker x:Name="fechaEditorpepeizqdealsFree" Margin="0,0,20,0"/>
+                                            <TimePicker x:Name="horaEditorpepeizqdealsFree"/>
+                                        </StackPanel>
 
                                         <Button x:Name="botonEditorSubirpepeizqdealsFree" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
@@ -648,7 +666,7 @@
                                         <TextBlock x:Uid="Title3"/>
                                         <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsJuegos" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                         
-                                        <Grid Margin="0,10,0,0">
+                                        <Grid Margin="0,10,0,15">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
@@ -664,6 +682,11 @@
 
                                             <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                         </Grid>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
+                                            <DatePicker x:Name="fechaEditorpepeizqdealsSubscriptions" Margin="0,0,20,0"/>
+                                            <TimePicker x:Name="horaEditorpepeizqdealsSubscriptions"/>
+                                        </StackPanel>
 
                                         <Button x:Name="botonEditorSubirpepeizqdealsSubscriptions" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
@@ -750,6 +773,11 @@
                                         <TextBox x:Name="tbEditorImagenJuegopepeizqdealsAnuncios" Margin="0,10,0,0" TextWrapping="Wrap"/>
                                         <TextBox x:Name="tbEditorImagenTiendapepeizqdealsAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
+                                            <DatePicker x:Name="fechaEditorpepeizqdealsAnuncios" Margin="0,0,20,0"/>
+                                            <TimePicker x:Name="horaEditorpepeizqdealsAnuncios"/>
+                                        </StackPanel>
+                                       
                                         <Button x:Name="botonEditorSubirpepeizqdealsAnuncios" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">

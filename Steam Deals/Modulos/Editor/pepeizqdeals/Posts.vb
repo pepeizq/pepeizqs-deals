@@ -1,13 +1,15 @@
 ﻿Imports Newtonsoft.Json
+Imports Windows.ApplicationModel.Core
 Imports Windows.Storage
 Imports Windows.System
+Imports Windows.UI.Core
 Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
-    Module Post
+    Module Posts
 
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer), descuento As String, precio As String, iconoTienda As String,
-                                     redireccion As String, botonImagen As Button, tituloComplemento As String, analisis As JuegoAnalisis, estado As Integer) As Task
+                                     redireccion As String, botonImagen As Button, tituloComplemento As String, analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -31,7 +33,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .Title = New Models.Title(titulo.Trim)
                 }
 
-                If estado = 0 Then
+                If redesSociales = True Then
                     post.Status = Models.Status.Publish
                 Else
                     post.Status = Models.Status.Draft
@@ -87,6 +89,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
                         postEditor.SEODescripcion = tituloComplemento.Trim
+                    End If
+                End If
+
+                If Not fechaTermina = Nothing Then
+                    If fechaTermina.Trim.Length > 0 Then
+                        postEditor.FechaTermina = fechaTermina.Trim
                     End If
                 End If
 
@@ -147,7 +155,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not resultado Is Nothing Then
                     Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
-                    If estado = 0 Then
+                    If redesSociales = True Then
                         Dim enlaceFinal As String = Nothing
 
                         Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + resultado.Enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
@@ -165,27 +173,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await RedesSociales.Steam.Enviar(titulo, enlaceFinal, tituloComplemento, analisis)
+                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, enlaceFinal, tituloComplemento, analisis)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try
 
                         Try
-                            Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagenUrl.Trim, categoria)
+                            Await pepeizqdeals.RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagenUrl.Trim, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
 
                         Try
-                            Await RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria)
+                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Reddit Error Post", Nothing)
                         End Try
 
                         Try
-                            Await RedesSociales.Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
+                            Await pepeizqdeals.RedesSociales.Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
                         Catch ex As Exception
-                            Notificaciones.Toast("Android Error Post", Nothing)
+                            Notificaciones.Toast("Push Error Post", Nothing)
                         End Try
                     End If
                 End If
@@ -194,6 +202,36 @@ Namespace pepeizq.Editor.pepeizqdeals
             cliente.Logout()
 
         End Function
+
+        Public Async Sub Borrar()
+
+            Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, Async Sub()
+                                                                                                             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                                                                                                                 .AuthMethod = Models.AuthMethod.JWT
+                                                                                                             }
+
+                                                                                                             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                                                                                                             If Await cliente.IsValidJWToken = True Then
+                                                                                                                 Dim posts As List(Of Clases.Post) = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/posts?per_page=100")
+
+                                                                                                                 For Each post In posts
+                                                                                                                     If Not post.FechaTermina = Nothing Then
+                                                                                                                         Dim fechaTermina As Date = Date.Parse(post.FechaTermina)
+                                                                                                                         Dim fechaAhora As Date = Date.Now
+                                                                                                                         fechaAhora = fechaAhora.AddHours(4)
+
+                                                                                                                         If fechaTermina < fechaAhora Then
+                                                                                                                             Notificaciones.Toast(post.Titulo.Raw, Nothing)
+
+                                                                                                                             'Await cliente.Posts.Delete(post.Id)
+                                                                                                                         End If
+                                                                                                                     End If
+                                                                                                                 Next
+                                                                                                             End If
+                                                                                                         End Sub)
+
+        End Sub
 
     End Module
 

@@ -92,5 +92,8 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("_yoast_wpseo_metadesc")>
         Public SEODescripcion As String
 
+        <JsonProperty("dateends")>
+        Public FechaTermina As String
+
     End Class
 End Namespace

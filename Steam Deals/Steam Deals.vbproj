@@ -136,7 +136,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\GridEditor.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Iconos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\DealsImagenEntrada.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\Post.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Push.vb" />
@@ -149,8 +149,8 @@
     <Compile Include="Modulos\Editor\VayaAnsias.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
-    <Compile Include="Modulos\Editor.vb" />
-    <Compile Include="Modulos\Interfaz.vb" />
+    <Compile Include="Modulos\Interfaz\Editor.vb" />
+    <Compile Include="Modulos\Interfaz\Interfaz.vb" />
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
@@ -194,6 +194,10 @@
     <Content Include="Assets\Analisis\mixed2.png" />
     <Content Include="Assets\Analisis\negative2.png" />
     <Content Include="Assets\Analisis\positive2.png" />
+    <Content Include="Assets\DRMs\drm_gog2.png" />
+    <Content Include="Assets\DRMs\drm_origin2.png" />
+    <Content Include="Assets\DRMs\drm_steam2.png" />
+    <Content Include="Assets\DRMs\drm_uplay2.png" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\avatar_notificaciones.png" />

@@ -65,6 +65,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenAnalisis.Source = Nothing
             End If
 
+            Dim imagenDRM As ImageEx = pagina.FindName("imagenDRMEditorpepeizqdealsImagenEntradaUnJuego")
+
+            If Not juego.DRM = Nothing Then
+                If juego.DRM.ToLower.Contains("steam") Then
+                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_steam2.png"))
+                ElseIf juego.DRM.ToLower.Contains("uplay") Then
+                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_uplay2.png"))
+                ElseIf juego.DRM.ToLower.Contains("origin") Then
+                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_origin2.png"))
+                ElseIf juego.DRM.ToLower.Contains("gog") Then
+                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_gog2.png"))
+                Else
+                    imagenDRM.Source = Nothing
+                End If
+            Else
+                imagenDRM.Source = Nothing
+            End If
+
         End Sub
 
         Public Sub DosJuegosGenerar(juegos As List(Of Juego))

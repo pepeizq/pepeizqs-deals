@@ -1,9 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
-Imports Windows.Storage
 Imports Windows.UI
-Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Suscripciones
@@ -61,6 +59,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             tbIDs.Text = String.Empty
+
+            Dim fechaDefecto As DateTime = DateTime.Now
+            fechaDefecto = fechaDefecto.AddMonths(1)
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+            fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
+            horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
 
@@ -149,8 +156,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cosas As Clases.Suscripciones = tbTitulo.Tag
 
-            Await Post.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
-                              enlaceFinal, botonImagen, tbJuegos.Text.Trim, Nothing, 0)
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
+
+            Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
+            fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
+
+            Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Icono,
+                              enlaceFinal, botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString)
 
             BloquearControles(True)
 
@@ -298,6 +311,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             tbIDs.IsEnabled = estado
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+            fechaPicker.IsEnabled = estado
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
+            horaPicker.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
             botonSubir.IsEnabled = estado
