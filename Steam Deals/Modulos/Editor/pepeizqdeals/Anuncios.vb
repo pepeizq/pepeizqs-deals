@@ -84,7 +84,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
-                If enlace.Contains("https://store.steampowered.com") Then
+                If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
+                    tbTitulo.Text = "--- • Giveaway"
+                    tbImagenTienda.Text = "Assets\ImagenesEntradapepeizq\avatar_notificaciones.png"
+                ElseIf enlace.Contains("https://store.steampowered.com") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "Steam" Then
                             tbTitulo.Text = "--- • Steam"

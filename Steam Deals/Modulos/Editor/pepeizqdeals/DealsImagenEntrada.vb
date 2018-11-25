@@ -101,7 +101,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim lista As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             Dim tiendasHorizontal As New List(Of String) From {
-                "GamersGate", "Voidu", "AmazonCom", "GreenManGaming"
+                "GamersGate", "Voidu", "AmazonCom", "GreenManGaming", "MicrosoftStore"
             }
 
             Dim boolVertical As Boolean = True

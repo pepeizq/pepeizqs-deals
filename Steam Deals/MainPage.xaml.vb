@@ -19,7 +19,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
+    Private Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
 
         For Each grid As Grid In gridOfertasTiendas.Children
             If grid.Visibility = Visibility.Visible Then
