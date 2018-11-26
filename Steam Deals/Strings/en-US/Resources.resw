@@ -366,4 +366,7 @@
   <data name="ConfigNotifications.Text" xml:space="preserve">
     <value>Notifications</value>
   </data>
+  <data name="ConfigFolderData.Text" xml:space="preserve">
+    <value>Open Folder Data</value>
+  </data>
 </root>

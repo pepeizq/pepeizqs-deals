@@ -213,21 +213,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                              Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
                                                                                                              If Await cliente.IsValidJWToken = True Then
-                                                                                                                 Dim posts As List(Of Clases.Post) = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/posts?per_page=100")
+                                                                                                                 Dim posts As New List(Of Clases.Post)
 
-                                                                                                                 For Each post In posts
-                                                                                                                     If Not post.FechaTermina = Nothing Then
-                                                                                                                         Dim fechaTermina As Date = Date.Parse(post.FechaTermina)
-                                                                                                                         Dim fechaAhora As Date = Date.Now
-                                                                                                                         fechaAhora = fechaAhora.AddHours(4)
+                                                                                                                 Try
+                                                                                                                     posts = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/posts?per_page=100")
+                                                                                                                 Catch ex As Exception
+                                                                                                                     Notificaciones.Toast("Error Posts Delete", Nothing)
+                                                                                                                 End Try
 
-                                                                                                                         If fechaTermina < fechaAhora Then
-                                                                                                                             Notificaciones.Toast(post.Titulo.Raw, Nothing)
+                                                                                                                 If posts.Count > 0 Then
+                                                                                                                     For Each post In posts
+                                                                                                                         If Not post.FechaTermina = Nothing Then
+                                                                                                                             Dim fechaTermina As Date = Date.Parse(post.FechaTermina)
+                                                                                                                             Dim fechaAhora As Date = Date.Now
+                                                                                                                             fechaAhora = fechaAhora.AddHours(4)
 
-                                                                                                                             'Await cliente.Posts.Delete(post.Id)
+                                                                                                                             If fechaTermina < fechaAhora Then
+                                                                                                                                 Await cliente.Posts.Delete(post.Id)
+                                                                                                                             End If
                                                                                                                          End If
-                                                                                                                     End If
-                                                                                                                 Next
+                                                                                                                     Next
+                                                                                                                 End If
                                                                                                              End If
                                                                                                          End Sub)
 

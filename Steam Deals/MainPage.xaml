@@ -226,7 +226,15 @@
                         </StackPanel>
 
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushPrimario}" Margin="15,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorAbrirCarpetaDatos" Background="{StaticResource BrushPrimario}" Margin="10,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Uid="ConfigFolderData" Foreground="White"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            
+                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushPrimario}" Margin="10,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Rating" Foreground="White"/>
@@ -235,7 +243,7 @@
                                 </Button.Content>
                             </Button>
 
-                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushPrimario}" Margin="15,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushPrimario}" Margin="10,0,30,0" Padding="10,5" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                 <Button.Content>
                                     <fa:FontAwesome Icon="Globe" Foreground="White"/>
                                 </Button.Content>

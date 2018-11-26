@@ -256,7 +256,7 @@
     <value>Abrir pepeizqdeals.com</value>
   </data>
   <data name="Rating.Text" xml:space="preserve">
-    <value>Valoración</value>
+    <value>Análisis</value>
   </data>
   <data name="Refresh.Text" xml:space="preserve">
     <value>Actualizar</value>
@@ -365,5 +365,8 @@
   </data>
   <data name="ConfigNotifications.Text" xml:space="preserve">
     <value>Notificaciones</value>
+  </data>
+  <data name="ConfigFolderData.Text" xml:space="preserve">
+    <value>Abrir Carpeta Datos</value>
   </data>
 </root>

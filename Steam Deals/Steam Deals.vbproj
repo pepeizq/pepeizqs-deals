@@ -207,11 +207,16 @@
     <Content Include="Assets\Publishers\bethesda.png" />
     <Content Include="Assets\Publishers\codemasters.png" />
     <Content Include="Assets\Publishers\curvedigital.png" />
+    <Content Include="Assets\Publishers\daedalic.png" />
     <Content Include="Assets\Publishers\deepsilver.png" />
     <Content Include="Assets\Publishers\epicgames.png" />
     <Content Include="Assets\Publishers\fruitbatfactory.png" />
+    <Content Include="Assets\Publishers\gearbox.png" />
+    <Content Include="Assets\Publishers\kalypso.png" />
     <Content Include="Assets\Publishers\paradox.png" />
     <Content Include="Assets\Publishers\rockstar.png" />
+    <Content Include="Assets\Publishers\team17.png" />
+    <Content Include="Assets\Publishers\thqnordic.png" />
     <Content Include="Assets\Publishers\ubisoft.png" />
     <Content Include="Assets\Publishers\warnerbros.png" />
     <Content Include="Assets\steam_logo.png" />
