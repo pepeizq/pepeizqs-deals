@@ -412,6 +412,7 @@
                 New Clases.Desarrolladores("narayana games", "@jashan", Nothing),
                 New Clases.Desarrolladores("Ndemic Creations", "@NdemicCreations", Nothing),
                 New Clases.Desarrolladores("neko.works", "@bakanekofr", Nothing),
+                New Clases.Desarrolladores("NeocoreGames", "@NeocoreGames", "Assets\Publishers\neocore.png"),
                 New Clases.Desarrolladores("NetherRealm Studios", "@NetherRealm", Nothing),
                 New Clases.Desarrolladores("New Blood Interactive", "@TheNewBloods", Nothing),
                 New Clases.Desarrolladores("NewWestGames", "@NewWestGames", Nothing),
