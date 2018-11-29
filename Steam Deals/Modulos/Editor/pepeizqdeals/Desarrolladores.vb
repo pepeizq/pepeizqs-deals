@@ -615,7 +615,7 @@
                 New Clases.Desarrolladores("VaragtP", "@VaragtP", Nothing),
                 New Clases.Desarrolladores("Variable State", "@VariableState", Nothing),
                 New Clases.Desarrolladores("VDOGMS", "@CallysCaves", Nothing),
-                New Clases.Desarrolladores("Versus Evil", "@vs_evil", Nothing),
+                New Clases.Desarrolladores("Versus Evil", "@vs_evil", "Assets\Publishers\versusevil.png"),
                 New Clases.Desarrolladores("Vertigo Gaming", "@hubigans", Nothing),
                 New Clases.Desarrolladores("Vile Monarch", "@VileMonarch", Nothing),
                 New Clases.Desarrolladores("Villa Gorilla", "@YokuGame", Nothing),
