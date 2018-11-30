@@ -51,7 +51,7 @@ Public NotInheritable Class MainPage
 
                             Dim lv As ListView = grid.Children(0)
                             gridEditor.Tag = lv
-                            Editor.Generar(lv)
+                            pepeizq.Interfaz.Editor.Generar(lv)
                         End If
                     End If
 
@@ -218,7 +218,7 @@ Public NotInheritable Class MainPage
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             Dim lv As ListView = gridEditor.Tag
-            Editor.Generar(lv)
+            pepeizq.Interfaz.Editor.Generar(lv)
         End If
 
     End Sub
