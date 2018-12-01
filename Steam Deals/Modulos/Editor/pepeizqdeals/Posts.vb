@@ -226,7 +226,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                                          If Not post.FechaTermina = Nothing Then
                                                                                                                              Dim fechaTermina As Date = Date.Parse(post.FechaTermina)
                                                                                                                              Dim fechaAhora As Date = Date.Now
-                                                                                                                             fechaAhora = fechaAhora.AddHours(4)
+                                                                                                                             fechaAhora = fechaAhora.AddHours(2)
 
                                                                                                                              If fechaTermina < fechaAhora Then
                                                                                                                                  Await cliente.Posts.Delete(post.Id)
