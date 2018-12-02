@@ -43,6 +43,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
             fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
 
+            RemoveHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
+            AddHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
+
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
@@ -201,6 +204,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenAnuncios")
             imagen.Source = tbImagen.Text
+
+        End Sub
+
+        Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
+
+            Dim fechaPicker As DatePicker = sender
+
+            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
+                Notificaciones.Toast("Same Day", Nothing)
+            End If
 
         End Sub
 
