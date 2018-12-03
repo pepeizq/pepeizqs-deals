@@ -39,7 +39,9 @@ Namespace pepeizq.Tiendas
             If Not html = Nothing Then
                 Dim j As Integer = 0
                 While j < 10000
-                    If html.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
+                    If Not html.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
+                        Exit While
+                    Else
                         Dim temp, temp2 As String
                         Dim int, int2 As Integer
 
@@ -170,8 +172,6 @@ Namespace pepeizq.Tiendas
                         If tituloBool = False Then
                             listaJuegos.Add(juego)
                         End If
-                    Else
-                        Exit While
                     End If
                     j += 1
                 End While

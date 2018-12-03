@@ -433,6 +433,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             cosas.Titulo = titulo
                             cosas.Precio = juegoFanatical.Precio.EUR.Trim + " €"
                             cosas.Imagen = juegoFanatical.Imagen
+                            Exit While
                         End If
                     Else
                         Exit While

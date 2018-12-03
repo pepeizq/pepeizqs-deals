@@ -262,7 +262,7 @@
                 New Clases.Desarrolladores("Fishing Cactus", "@FishingCactus", Nothing),
                 New Clases.Desarrolladores("Flashbulb", "@flashbulbgames", Nothing),
                 New Clases.Desarrolladores("Flying Interactive", "@FlyingInt", Nothing),
-                New Clases.Desarrolladores("Focus Home", "@FocusHome", Nothing),
+                New Clases.Desarrolladores("Focus Home", "@FocusHome", "Assets\Publishers\focushome.png"),
                 New Clases.Desarrolladores("Forgotten Empires", "@ForgottenEmp", Nothing),
                 New Clases.Desarrolladores("Freebird Games", "@Reives_Freebird", Nothing),
                 New Clases.Desarrolladores("Freejam", "@Freejamgames", Nothing),
