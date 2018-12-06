@@ -205,10 +205,12 @@
     <Content Include="Assets\Publishers\2k.png" />
     <Content Include="Assets\Publishers\bandainamco.png" />
     <Content Include="Assets\Publishers\bethesda.png" />
+    <Content Include="Assets\Publishers\capcom.png" />
     <Content Include="Assets\Publishers\codemasters.png" />
     <Content Include="Assets\Publishers\curvedigital.png" />
     <Content Include="Assets\Publishers\daedalic.png" />
     <Content Include="Assets\Publishers\deepsilver.png" />
+    <Content Include="Assets\Publishers\disney.png" />
     <Content Include="Assets\Publishers\epicgames.png" />
     <Content Include="Assets\Publishers\focushome.png" />
     <Content Include="Assets\Publishers\fruitbatfactory.png" />

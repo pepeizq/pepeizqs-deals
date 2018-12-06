@@ -194,6 +194,22 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     cosas.Titulo = temp2.Trim
                 End If
+
+                If Not cosas.Titulo = Nothing Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<title>")
+                    temp = html.Remove(0, int + 7)
+
+                    int2 = temp.IndexOf("</title>")
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Replace("en Steam", Nothing)
+                    temp2 = temp2.Trim
+
+                    cosas.Titulo = temp2
+                End If
             End If
 
             If Not enlace = Nothing Then
