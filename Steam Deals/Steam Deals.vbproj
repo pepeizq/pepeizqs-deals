@@ -227,6 +227,8 @@
     <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />
+    <Content Include="Assets\Tiendas\epicgames.ico" />
+    <Content Include="Assets\Tiendas\epicgames2.png" />
     <Content Include="Assets\Tiendas\fanatical2.png" />
     <Content Include="Assets\Tiendas\gamersgate2.png" />
     <Content Include="Assets\Tiendas\gamesplanet2.png" />

@@ -24,7 +24,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Icono("IndieGala", "Assets/Tiendas/indiegala.ico", "#ffccd4", Nothing, 32, 32, Nothing),
                 New Clases.Icono("AmazonCom", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32, "Assets/Tiendas/amazon2.png"),
                 New Clases.Icono("Twitch", "Assets/Tiendas/twitch.png", "#6441a4", Nothing, 32, 32, Nothing),
-                New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32, "Assets/Tiendas/gmg2.png")
+                New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32, "Assets/Tiendas/gmg2.png"),
+                New Clases.Icono("EpicGamesStore", "Assets/Tiendas/epicgames.ico", "#E7E7E7", Nothing, 32, 32, "Assets/Tiendas/epicgames2.png")
             }
 
             Return lista

@@ -89,6 +89,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     Next
 
+                ElseIf enlace.Contains("https://www.epicgames.com/store/") Then
+                    cosas = Await EpicGames(enlace)
+
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "EpicGamesStore" Then
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+
                 Else
                     Dim cosas2 As New Clases.Free("--", Nothing, "--")
                     cosas = cosas2
@@ -206,6 +215,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     temp2 = temp2.Replace("en Steam", Nothing)
+                    temp2 = temp2.Replace("on Steam", Nothing)
                     temp2 = temp2.Trim
 
                     cosas.Titulo = temp2
@@ -270,6 +280,39 @@ Namespace pepeizq.Editor.pepeizqdeals
                     temp2 = temp2.Trim
 
                     cosas.Imagen = temp2
+                End If
+            End If
+
+            Return cosas
+        End Function
+
+        Private Async Function EpicGames(enlace As String) As Task(Of Clases.Free)
+
+            Dim cosas As New Clases.Free(Nothing, Nothing, "Epic Games Store")
+
+            Dim html As String = Await HttpClient(New Uri(enlace))
+
+            If Not html = Nothing Then
+                If html.Contains("<title") Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf("<title")
+                    temp = html.Remove(0, int + 1)
+
+                    int = temp.IndexOf(">")
+                    temp = temp.Remove(0, int + 1)
+
+                    int2 = temp.IndexOf("</title>")
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    If temp2.Contains(" - ") Then
+                        int2 = temp2.LastIndexOf(" - ")
+                        temp2 = temp2.Remove(int2, temp2.Length - int2)
+                    End If
+
+                    temp2 = temp2.Trim
+                    cosas.Titulo = temp2
                 End If
             End If
 
