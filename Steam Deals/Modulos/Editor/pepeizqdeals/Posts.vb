@@ -229,7 +229,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                                              fechaAhora = fechaAhora.AddHours(2)
 
                                                                                                                              If fechaTermina < fechaAhora Then
-                                                                                                                                 Await cliente.Posts.Delete(post.Id)
+                                                                                                                                 Try
+                                                                                                                                     Await cliente.Posts.Delete(post.Id)
+                                                                                                                                 Catch ex As Exception
+
+                                                                                                                                 End Try
                                                                                                                              End If
                                                                                                                          End If
                                                                                                                      Next
