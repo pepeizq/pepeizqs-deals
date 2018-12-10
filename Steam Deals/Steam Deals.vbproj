@@ -216,6 +216,7 @@
     <Content Include="Assets\Publishers\fruitbatfactory.png" />
     <Content Include="Assets\Publishers\gearbox.png" />
     <Content Include="Assets\Publishers\kalypso.png" />
+    <Content Include="Assets\Publishers\mergegames.png" />
     <Content Include="Assets\Publishers\neocore.png" />
     <Content Include="Assets\Publishers\paradox.png" />
     <Content Include="Assets\Publishers\rockstar.png" />

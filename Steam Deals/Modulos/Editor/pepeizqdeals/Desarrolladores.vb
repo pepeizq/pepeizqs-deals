@@ -389,6 +389,7 @@
                 New Clases.Desarrolladores("Matt Glanville", "@crowbarska", Nothing),
                 New Clases.Desarrolladores("Mechanical Boss", "@MechanicalBoss", Nothing),
                 New Clases.Desarrolladores("Meridian4", "@Meridian4", Nothing),
+                New Clases.Desarrolladores("Merge Games", "@MergeGamesLtd", "Assets\Publishers\mergegames.png"),
                 New Clases.Desarrolladores("messhof", "@messhof", Nothing),
                 New Clases.Desarrolladores("Mi-Clos Studio", "@Mi_Clos", Nothing),
                 New Clases.Desarrolladores("Micropsia Games", "@micropsiagames", Nothing),
