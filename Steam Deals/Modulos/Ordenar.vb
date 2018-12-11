@@ -85,6 +85,29 @@ Module Ordenar
                         If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda) = True Then
                             listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda)
                         End If
+
+                        Dim boolBorrar As Boolean = False
+
+                        If tienda = "AmazonEs" Then
+                            boolBorrar = True
+                        ElseIf tienda = "AmazonUk" Then
+                            boolBorrar = True
+                        End If
+
+                        If boolBorrar = False Then
+                            For Each juegoAntiguo In listaJuegosAntigua.ToList
+                                If juegoAntiguo.FechaAñadido = Nothing Then
+                                    juegoAntiguo.FechaAñadido = DateTime.Today
+                                End If
+
+                                Dim fechaComparar As DateTime = juegoAntiguo.FechaAñadido
+                                fechaComparar = fechaComparar.AddDays(1)
+
+                                If fechaComparar < DateTime.Today Then
+                                    listaJuegosAntigua.Remove(juegoAntiguo)
+                                End If
+                            Next
+                        End If
                     End If
                 End If
 
@@ -203,29 +226,6 @@ Module Ordenar
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
-                        Dim boolBorrar As Boolean = False
-
-                        If tienda = "AmazonEs" Then
-                            boolBorrar = True
-                        ElseIf tienda = "AmazonUk" Then
-                            boolBorrar = True
-                        End If
-
-                        If boolBorrar = False Then
-                            For Each juegoAntiguo In listaJuegosAntigua.ToList
-                                If juegoAntiguo.FechaAñadido = Nothing Then
-                                    juegoAntiguo.FechaAñadido = DateTime.Today
-                                End If
-
-                                Dim fechaComparar As DateTime = juegoAntiguo.FechaAñadido
-                                fechaComparar = fechaComparar.AddDays(2)
-
-                                If fechaComparar < DateTime.Today Then
-                                    listaJuegosAntigua.Remove(juegoAntiguo)
-                                End If
-                            Next
-                        End If
-
                         Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegosAntigua)
 
                         If ultimas = False Then
@@ -258,8 +258,6 @@ Module Ordenar
                     cbAnalisis.SelectedIndex = 0
 
                     Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
-                    cbDesarrolladores.Items.Clear()
-                    cbDesarrolladores.Items.Add("--")
 
                     If listaDesarrolladores.Count > 0 Then
                         listaDesarrolladores.Sort()

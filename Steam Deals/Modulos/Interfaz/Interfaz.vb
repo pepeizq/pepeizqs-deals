@@ -396,6 +396,46 @@ Module Interfaz
             End If
         End If
 
+        Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
+        cbDesarrolladores.Items.Clear()
+        cbDesarrolladores.Items.Add("--")
+
+        Dim listaDesarrolladores As New List(Of String)
+
+        For Each item In lv.Items
+            Dim itemGrid As Grid = item
+            Dim juego As Juego = itemGrid.Tag
+
+            If Not juego.Desarrolladores Is Nothing Then
+                If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
+                    If juego.Desarrolladores.Desarrolladores.Count > 0 Then
+                        Dim desarrolladorJuego As String = juego.Desarrolladores.Desarrolladores(0)
+
+                        Dim añadirDesarrollador As Boolean = True
+                        For Each desarrollador In listaDesarrolladores
+                            If desarrollador = desarrolladorJuego Then
+                                añadirDesarrollador = False
+                            End If
+                        Next
+
+                        If añadirDesarrollador = True Then
+                            listaDesarrolladores.Add(desarrolladorJuego)
+                        End If
+                    End If
+                End If
+            End If
+        Next
+
+        If listaDesarrolladores.Count > 0 Then
+            listaDesarrolladores.Sort()
+
+            For Each desarrollador In listaDesarrolladores
+                cbDesarrolladores.Items.Add(desarrollador)
+            Next
+        End If
+
+        cbDesarrolladores.SelectedIndex = 0
+
         Dim iniciar As Boolean = False
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
