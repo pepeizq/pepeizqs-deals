@@ -147,7 +147,7 @@ Module Ordenar
                                                         If tempJuegoDescuento > tempJuegoAntiguoDescuento Then
                                                             boolAntiguo = False
                                                         ElseIf tempJuegoDescuento = tempJuegoAntiguoDescuento Then
-                                                            juegoAntiguo.FechaAñadido = juegoAntiguo.FechaAñadido.AddDays(1)
+                                                            juegoAntiguo.FechaAñadido = DateTime.Today
                                                             boolAntiguo = True
                                                         Else
                                                             boolAntiguo = True
@@ -184,16 +184,6 @@ Module Ordenar
                 Next
 
                 For Each juegoGrid In listaGrids
-                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                        If tienda = "Steam" Then
-                            If ApplicationData.Current.LocalSettings.Values("steam+") = True Then
-                                If juegoGrid.Promocion = Nothing Then
-                                    juegoGrid = Await pepeizq.Tiendas.Steam.SteamMas(juegoGrid)
-                                End If
-                            End If
-                        End If
-                    End If
-
                     lv.Items.Add(Interfaz.AñadirOfertaListado(juegoGrid))
 
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
