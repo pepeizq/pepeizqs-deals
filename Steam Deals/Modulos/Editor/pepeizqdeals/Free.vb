@@ -1,4 +1,6 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports System.Net
+Imports System.Xml.Serialization
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Free
@@ -85,6 +87,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "Humble" Then
+                            tbImagenTienda.Text = tienda.Logo
+                        End If
+                    Next
+
+                ElseIf enlace.Contains("https://www.gog.com/game/") Then
+                    cosas = Await GOG(enlace)
+
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = "GOG" Then
                             tbImagenTienda.Text = tienda.Logo
                         End If
                     Next
@@ -282,6 +293,48 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas.Imagen = temp2
                 End If
             End If
+
+            Return cosas
+        End Function
+
+        Private Async Function GOG(enlace As String) As Task(Of Clases.Free)
+
+            Dim cosas As New Clases.Free(Nothing, Nothing, "GOG")
+
+            Dim i As Integer = 1
+            While i < 100
+                Dim html As String = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
+
+                If Not html = Nothing Then
+                    Dim stream As New StringReader(html)
+                    Dim xml As New XmlSerializer(GetType(Tiendas.GOGCatalogo))
+                    Dim listaJuegosGOG As Tiendas.GOGCatalogo = xml.Deserialize(stream)
+
+                    If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
+                        Exit While
+                    Else
+                        For Each juegoGOG In listaJuegosGOG.Juegos.Juegos
+                            If enlace = juegoGOG.Enlace Then
+                                Dim titulo As String = juegoGOG.Titulo
+                                titulo = titulo.Trim
+                                titulo = WebUtility.HtmlDecode(titulo)
+
+                                If titulo.Contains(", The") Then
+                                    titulo = titulo.Replace(", The", Nothing)
+                                    titulo = "The " + titulo
+                                End If
+
+                                cosas.Titulo = titulo
+
+                                cosas.Imagen = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_392.")
+
+                                Exit While
+                            End If
+                        Next
+                    End If
+                End If
+                i += 1
+            End While
 
             Return cosas
         End Function

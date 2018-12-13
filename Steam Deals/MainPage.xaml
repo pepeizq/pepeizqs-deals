@@ -622,14 +622,14 @@
                                                                             <RowDefinition Height="*"/>
                                                                             <RowDefinition Height="*"/>
                                                                         </Grid.RowDefinitions>
-                                                                        
-                                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20">
+
+                                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
                                                                             <Grid>
                                                                                 <Grid.Background>
                                                                                     <SolidColorBrush Color="#004e7a"/>
                                                                                 </Grid.Background>
 
-                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="220" MaxHeight="90" Margin="40"/>
+                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="220" MaxHeight="120" Margin="40"/>
                                                                             </Grid>
                                                                         </controls:DropShadowPanel>
 
