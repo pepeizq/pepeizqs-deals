@@ -210,7 +210,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                                  .AuthMethod = Models.AuthMethod.JWT
                                                                                                              }
 
-                                                                                                             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+                                                                                                             Try
+                                                                                                                 Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+                                                                                                             Catch ex As Exception
+
+                                                                                                             End Try
 
                                                                                                              If Await cliente.IsValidJWToken = True Then
                                                                                                                  Dim posts As New List(Of Clases.Post)
