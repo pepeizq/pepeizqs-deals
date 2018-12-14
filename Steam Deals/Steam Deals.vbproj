@@ -198,11 +198,13 @@
     <Content Include="Assets\DRMs\drm_origin2.png" />
     <Content Include="Assets\DRMs\drm_steam2.png" />
     <Content Include="Assets\DRMs\drm_uplay2.png" />
+    <Content Include="Assets\drm_bethesda.ico" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\avatar_notificaciones.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
     <Content Include="Assets\Publishers\2k.png" />
+    <Content Include="Assets\Publishers\505games.png" />
     <Content Include="Assets\Publishers\bandainamco.png" />
     <Content Include="Assets\Publishers\bethesda.png" />
     <Content Include="Assets\Publishers\capcom.png" />
@@ -390,6 +392,9 @@
     </PackageReference>
     <PackageReference Include="FontAwesome.UWP">
       <Version>4.7.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="Imgur.API">
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.9</Version>

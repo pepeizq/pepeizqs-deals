@@ -1,6 +1,10 @@
-﻿Imports Newtonsoft.Json
+﻿Imports Imgur.API.Authentication.Impl
+Imports Imgur.API.Endpoints.Impl
+Imports Imgur.API.Models
+Imports Newtonsoft.Json
 Imports Windows.ApplicationModel.Core
 Imports Windows.Storage
+Imports Windows.Storage.Streams
 Imports Windows.System
 Imports Windows.UI.Core
 Imports WordPressPCL
@@ -25,8 +29,25 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not ficheroImagen Is Nothing Then
                     Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
-                    Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-                    imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + Date.Today.Month.ToString + "/" + ficheroImagen.Name
+
+                    Try
+                        Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
+                        Dim endPoint As New ImageEndpoint(clienteImgur)
+                        Dim imagenImgur As IImage
+
+                        Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
+                            imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
+                        End Using
+
+                        imagenUrl = imagenImgur.Link
+                    Catch ex As Exception
+
+                    End Try
+
+                    If imagenUrl = Nothing Then
+                        Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + Date.Today.Month.ToString + "/" + ficheroImagen.Name
+                    End If
                 End If
 
                 Dim post As New Models.Post With {
