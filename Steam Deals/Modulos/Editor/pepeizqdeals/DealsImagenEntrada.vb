@@ -76,6 +76,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_origin2.png"))
                 ElseIf juego.DRM.ToLower.Contains("gog") Then
                     imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_gog2.png"))
+                ElseIf juego.DRM.ToLower.Contains("bethesda") Then
+                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_bethesda2.jpg"))
+                ElseIf juego.DRM.ToLower.Contains("epic") Then
+                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_epic2.jpg"))
                 Else
                     imagenDRM.Source = Nothing
                 End If

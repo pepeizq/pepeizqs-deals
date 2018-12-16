@@ -194,6 +194,8 @@
     <Content Include="Assets\Analisis\mixed2.png" />
     <Content Include="Assets\Analisis\negative2.png" />
     <Content Include="Assets\Analisis\positive2.png" />
+    <Content Include="Assets\DRMs\drm_bethesda2.jpg" />
+    <Content Include="Assets\DRMs\drm_epic2.jpg" />
     <Content Include="Assets\DRMs\drm_gog2.png" />
     <Content Include="Assets\DRMs\drm_origin2.png" />
     <Content Include="Assets\DRMs\drm_steam2.png" />
