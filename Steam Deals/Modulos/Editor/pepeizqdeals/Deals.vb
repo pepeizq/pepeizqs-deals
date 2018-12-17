@@ -571,9 +571,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 ElseIf cosas.Tienda.NombreUsar = "GamesPlanet" Then
                     Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+
                     Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbLibra.Text)
+
+                    If Not precioUK = Nothing Then
+                        precioUK = precioUK.Replace(".", ",")
+                        precioUK = Double.Parse(precioUK.Replace("€", Nothing).Trim)
+                    End If
+
                     Dim precioFR As String = cosas.ListaJuegos(0).Enlaces.Precios(1)
+
+                    If Not precioFR = Nothing Then
+                        precioFR = precioFR.Replace(".", ",")
+                        precioFR = Double.Parse(precioFR.Replace("€", Nothing).Trim)
+                    End If
+
                     Dim precioDE As String = cosas.ListaJuegos(0).Enlaces.Precios(2)
+
+                    If Not precioDE = Nothing Then
+                        precioDE = precioDE.Replace(".", ",")
+                        precioDE = Double.Parse(precioDE.Replace("€", Nothing).Trim)
+                    End If
 
                     If precioUK < precioFR And precioUK < precioDE Then
                         precioFinal = precioUK
