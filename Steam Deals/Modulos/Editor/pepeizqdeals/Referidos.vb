@@ -24,7 +24,7 @@
             ElseIf enlace.Contains("humblebundle.com") Then
                 enlace = enlace + "?partner=pepeizq"
             ElseIf enlace.Contains("fanatical.com") Then
-                enlace = "http://www.tkqlhce.com/click-8883540-13398977?url=" + enlace
+                enlace = enlace + "?ref=pepeizq"
             ElseIf enlace.Contains("greenmangaming.com") Then
                 enlace = "http://www.tkqlhce.com/click-8883540-10912384?url=" + enlace
             ElseIf enlace.Contains("voidu.com") Then
