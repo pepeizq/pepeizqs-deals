@@ -436,6 +436,9 @@ Module Interfaz
 
         cbDesarrolladores.SelectedIndex = 0
 
+        Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas2")
+        tbCargadas.Text = lv.Items.Count
+
         Dim iniciar As Boolean = False
 
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
@@ -464,9 +467,6 @@ Module Interfaz
 
             Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
             tbSeleccionadas.Text = String.Empty
-
-            Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas")
-            tbCargadas.Text = String.Empty
 
             If tienda.NombreUsar = steamT.NombreUsar Then
                 pepeizq.Tiendas.Steam.GenerarOfertas(steamT)

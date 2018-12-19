@@ -205,6 +205,7 @@
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\avatar_notificaciones.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
+    <Content Include="Assets\Publishers\scssoftware.png" />
     <Content Include="Assets\Publishers\2k.png" />
     <Content Include="Assets\Publishers\505games.png" />
     <Content Include="Assets\Publishers\bandainamco.png" />
