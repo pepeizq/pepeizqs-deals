@@ -67,8 +67,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If listaFinal(0).Tienda.NombreUsar = "GamersGate" Then
                     If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
                         Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)
+                        Dim precioEU As String = listaFinal(0).Enlaces.Precios(0)
 
-                        If Double.Parse(precioUK.Replace("€", Nothing).Trim) > Double.Parse(listaFinal(0).Enlaces.Precios(0).Replace("€", Nothing).Trim) Then
+                        If precioUK > precioEU Then
                             precioFinal = listaFinal(0).Enlaces.Precios(0)
                             tbEnlace.Text = Referidos.Generar(listaFinal(0).Enlaces.Enlaces(0))
                         Else
@@ -205,8 +206,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If Not item.Enlaces.Precios(1) = Nothing Then
                             If item.Enlaces.Precios(1).Contains("£") Then
                                 Dim precioUK As String = Divisas.CambioMoneda(item.Enlaces.Precios(1), tbLibra.Text)
+                                precioUK = precioUK.Replace("€", Nothing).Trim
 
-                                If Double.Parse(precioUK.Replace("€", Nothing).Trim) < Double.Parse(item.Enlaces.Precios(0).Replace("€", Nothing).Trim) Then
+                                Dim precioEU As String = item.Enlaces.Precios(0)
+                                precioEU = precioEU.Replace("€", Nothing).Trim
+
+                                If precioUK < precioEU Then
                                     item.Enlaces.Precios(0) = precioUK
                                     item.Enlaces.Enlaces(0) = item.Enlaces.Enlaces(1)
                                 End If
