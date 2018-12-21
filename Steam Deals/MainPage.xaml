@@ -460,12 +460,16 @@
                                                                 </GridView.ItemsPanel>
                                                             </GridView>
 
-                                                            <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="2" Padding="30">
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#004e7a"/>
-                                                                </Grid.Background>
+                                                            <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="2" Padding="30,0,30,50">
+                                                                <controls:DropShadowPanel Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                    <Grid>
+                                                                        <Grid.Background>
+                                                                            <SolidColorBrush Color="#004e7a" Opacity="0.8"/>
+                                                                        </Grid.Background>
 
-                                                                <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Foreground="White" FontWeight="SemiBold" FontSize="80" HorizontalAlignment="Center" Margin="20,0"/>
+                                                                        <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Foreground="White" FontWeight="SemiBold" FontSize="80" HorizontalAlignment="Center" Margin="30,10,30,20"/>
+                                                                    </Grid>
+                                                                </controls:DropShadowPanel>     
                                                             </Grid>
                                                         </Grid>
                                                     </StackPanel>
