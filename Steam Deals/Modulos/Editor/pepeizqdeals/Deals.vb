@@ -223,7 +223,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Dim precioEU As String = item.Enlaces.Precios(0)
                                 Dim dprecioEU As Double = Double.Parse(precioEU.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
 
-                                If precioUK < precioEU Then
+                                If dprecioUK < dprecioEU Then
                                     item.Enlaces.Precios(0) = precioUK
                                     item.Enlaces.Enlaces(0) = item.Enlaces.Enlaces(1)
                                 End If

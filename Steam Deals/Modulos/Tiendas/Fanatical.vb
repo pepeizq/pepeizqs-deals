@@ -34,148 +34,129 @@ Namespace pepeizq.Tiendas
         Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
             Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
-            Dim html As String = html_.Result
+            Dim html As String = "[" + html_.Result + "]"
+            html = html.Replace("{" + ChrW(34) + "features", ",{" + ChrW(34) + "features")
 
-            If Not html = Nothing Then
-                Dim j As Integer = 0
-                While j < 10000
-                    If Not html.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
-                        Exit While
-                    Else
-                        Dim temp, temp2 As String
-                        Dim int, int2 As Integer
+            Dim int3 As Integer = html.IndexOf(",")
+            html = html.Remove(int3, 1)
 
-                        int = html.IndexOf("{" + ChrW(34) + "features" + ChrW(34) + ":")
-                        temp = html.Remove(0, int + 1)
+            Dim juegosFanatical As List(Of FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of FanaticalJuego))(html)
 
-                        html = temp
+            For Each juegoFanatical In juegosFanatical
+                Dim titulo As String = juegoFanatical.Titulo
+                titulo = WebUtility.HtmlDecode(titulo)
+                titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
-                        If temp.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
-                            int2 = temp.IndexOf("{" + ChrW(34) + "features" + ChrW(34) + ":")
-                            temp2 = temp.Remove(int2, temp.Length - int2)
-                        Else
-                            temp2 = temp
-                        End If
+                Dim enlace As String = juegoFanatical.Enlace
+                Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
 
-                        Dim juegoFanatical As FanaticalJuego = JsonConvert.DeserializeObject(Of FanaticalJuego)("{" + temp2)
+                Dim listaEnlaces As New List(Of String) From {
+                    enlace, enlace, enlace
+                }
 
-                        Dim titulo As String = juegoFanatical.Titulo
-                        titulo = WebUtility.HtmlDecode(titulo)
-                        titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+                Dim listaAfiliados As New List(Of String) From {
+                    afiliado, afiliado, afiliado
+                }
 
-                        Dim enlace As String = juegoFanatical.Enlace
-                        Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
+                Dim imagenPequeña As String = juegoFanatical.Imagen
+                Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
-                        Dim listaEnlaces As New List(Of String) From {
-                            enlace, enlace, enlace
-                        }
+                Dim descuento As String = juegoFanatical.Descuento
 
-                        Dim listaAfiliados As New List(Of String) From {
-                            afiliado, afiliado, afiliado
-                        }
-
-                        Dim imagenPequeña As String = juegoFanatical.Imagen
-                        Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
-
-                        Dim descuento As String = juegoFanatical.Descuento
-
-                        If Not descuento = Nothing Then
-                            If descuento.Contains(".") Then
-                                Dim intDescuento As Integer = descuento.IndexOf(".")
-                                descuento = descuento.Remove(intDescuento, descuento.Length - intDescuento)
-                            End If
-
-                            If descuento.Length = 1 Then
-                                descuento = "0" + descuento
-                            End If
-
-                            descuento = descuento.Trim + "%"
-                        End If
-
-                        Dim listaPaises As New List(Of String) From {
-                            "US", "EU", "UK"
-                        }
-
-                        Dim precioUS As String = "$" + juegoFanatical.Precio.USD
-                        Dim precioEU As String = juegoFanatical.Precio.EUR + " €"
-                        Dim precioUK As String = "£" + juegoFanatical.Precio.GBP
-
-                        Dim listaPrecios As New List(Of String) From {
-                            precioUS, precioEU, precioUK
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
-
-                        Dim drm As String = Nothing
-
-                        If Not juegoFanatical.DRM Is Nothing Then
-                            If juegoFanatical.DRM.Count > 0 Then
-                                drm = juegoFanatical.DRM(0)
-                            End If
-                        End If
-
-                        Dim windows As Boolean = False
-                        Dim mac As Boolean = False
-                        Dim linux As Boolean = False
-
-                        For Each sistema In juegoFanatical.Sistemas
-                            If sistema = "windows" Then
-                                windows = True
-                            End If
-
-                            If sistema = "mac" Then
-                                mac = True
-                            End If
-
-                            If sistema = "linux" Then
-                                linux = True
-                            End If
-                        Next
-
-                        Dim sistemas As New JuegoSistemas(windows, mac, linux)
-
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
-
-                        Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-                        Try
-                            fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
-                            fechaTermina = fechaTermina.ToLocalTime
-                        Catch ex As Exception
-
-                        End Try
-
-                        Dim desarrolladores As New JuegoDesarrolladores(juegoFanatical.Publishers, Nothing)
-
-                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
-
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
-                            End If
-                            k += 1
-                        End While
-
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        Else
-                            If juego.Descuento = "00%" Then
-                                tituloBool = True
-                            ElseIf juego.Descuento = "null%" Then
-                                tituloBool = True
-                            ElseIf juego.Descuento = "-" Then
-                                tituloBool = True
-                            End If
-                        End If
-
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
-                        End If
+                If Not descuento = Nothing Then
+                    If descuento.Contains(".") Then
+                        Dim intDescuento As Integer = descuento.IndexOf(".")
+                        descuento = descuento.Remove(intDescuento, descuento.Length - intDescuento)
                     End If
-                    j += 1
+
+                    If descuento.Length = 1 Then
+                        descuento = "0" + descuento
+                    End If
+
+                    descuento = descuento.Trim + "%"
+                End If
+
+                Dim listaPaises As New List(Of String) From {
+                    "US", "EU", "UK"
+                }
+
+                Dim precioUS As String = "$" + juegoFanatical.Precio.USD
+                Dim precioEU As String = juegoFanatical.Precio.EUR + " €"
+                Dim precioUK As String = "£" + juegoFanatical.Precio.GBP
+
+                Dim listaPrecios As New List(Of String) From {
+                    precioUS, precioEU, precioUK
+                }
+
+                Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
+
+                Dim drm As String = Nothing
+
+                If Not juegoFanatical.DRM Is Nothing Then
+                    If juegoFanatical.DRM.Count > 0 Then
+                        drm = juegoFanatical.DRM(0)
+                    End If
+                End If
+
+                Dim windows As Boolean = False
+                Dim mac As Boolean = False
+                Dim linux As Boolean = False
+
+                For Each sistema In juegoFanatical.Sistemas
+                    If sistema = "windows" Then
+                        windows = True
+                    End If
+
+                    If sistema = "mac" Then
+                        mac = True
+                    End If
+
+                    If sistema = "linux" Then
+                        linux = True
+                    End If
+                Next
+
+                Dim sistemas As New JuegoSistemas(windows, mac, linux)
+
+                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+
+                Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                Try
+                    fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
+                    fechaTermina = fechaTermina.ToLocalTime
+                Catch ex As Exception
+
+                End Try
+
+                Dim desarrolladores As New JuegoDesarrolladores(juegoFanatical.Publishers, Nothing)
+
+                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+
+                Dim tituloBool As Boolean = False
+                Dim k As Integer = 0
+                While k < listaJuegos.Count
+                    If listaJuegos(k).Titulo = juego.Titulo Then
+                        tituloBool = True
+                    End If
+                    k += 1
                 End While
-            End If
+
+                If juego.Descuento = Nothing Then
+                    tituloBool = True
+                Else
+                    If juego.Descuento = "00%" Then
+                        tituloBool = True
+                    ElseIf juego.Descuento = "null%" Then
+                        tituloBool = True
+                    ElseIf juego.Descuento.Contains("-") Then
+                        tituloBool = True
+                    End If
+                End If
+
+                If tituloBool = False Then
+                    listaJuegos.Add(juego)
+                End If
+            Next
 
         End Sub
 
