@@ -16,14 +16,19 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             tbTitulo.Text = String.Empty
 
+            RemoveHandler tbTitulo.TextChanged, AddressOf GenerarPrecio
+            AddHandler tbTitulo.TextChanged, AddressOf GenerarPrecio
+
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
             tbEnlace.Text = String.Empty
 
+            RemoveHandler tbEnlace.TextChanged, AddressOf GenerarDatos
             AddHandler tbEnlace.TextChanged, AddressOf GenerarDatos
 
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
             tbImagen.Text = String.Empty
 
+            RemoveHandler tbImagen.TextChanged, AddressOf MostrarImagen
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
@@ -70,6 +75,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = sender
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
+            Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Bundles = Nothing
@@ -114,6 +121,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                         tbImagen.Text = cosas.Imagen
                     End If
 
+                    If Not cosas.FechaTermina = Nothing Then
+                        fechaPicker.SelectedDate = New DateTime(cosas.FechaTermina.Year, cosas.FechaTermina.Month, cosas.FechaTermina.Day)
+                    End If
+
+                    If Not cosas.IDsJuegos Is Nothing Then
+                        If cosas.IDsJuegos.Count > 0 Then
+                            Dim ids As String = String.Empty
+
+                            For Each juego In cosas.IDsJuegos
+                                ids = ids + juego + ","
+                            Next
+
+                            Dim int As Integer = ids.LastIndexOf(",")
+                            ids = ids.Remove(int, 1)
+                            tbIDsJuegos.Text = ids
+                        End If
+                    End If
+
                     tbTitulo.Tag = cosas
                 End If
             End If
@@ -150,6 +175,34 @@ Namespace pepeizq.Editor.pepeizqdeals
                               enlaceFinal, botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString)
 
             BloquearControles(True)
+
+        End Sub
+
+        Private Sub GenerarPrecio(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTitulo As TextBox = sender
+            Dim precio As String = tbTitulo.Text
+
+            If precio.Contains("•") Then
+                Dim temp As String
+                Dim int As Integer
+
+                int = precio.IndexOf("•")
+                temp = precio.Remove(0, int + 1)
+
+                If temp.Contains("•") Then
+                    int = temp.IndexOf("•")
+                    temp = temp.Remove(int, temp.Length - int)
+                End If
+
+                precio = temp.Trim
+            End If
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundles")
+            tbPrecio.Text = precio
 
         End Sub
 
@@ -205,20 +258,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
 
-                        Dim idBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Datos.ID = datos.Datos.ID Then
-                                idBool = True
-                                Exit While
-                            End If
-                            k += 1
-                        End While
+                        If Not datos Is Nothing Then
+                            If Not datos.Datos Is Nothing Then
+                                Dim idBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Datos.ID = datos.Datos.ID Then
+                                        idBool = True
+                                        Exit While
+                                    End If
+                                    k += 1
+                                End While
 
-                        If idBool = False Then
-                            listaJuegos.Add(datos)
-                        Else
-                            Exit While
+                                If idBool = False Then
+                                    listaJuegos.Add(datos)
+                                Else
+                                    Exit While
+                                End If
+                            End If
                         End If
                     End If
                 End If
@@ -277,7 +334,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Steam(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Steam", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Steam", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", Nothing, Nothing)
 
             If Not enlace.Contains("?l=english") Then
                 enlace = enlace + "?l=english"
@@ -351,7 +408,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Humble(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Humble Bundle", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Humble Bundle", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -398,48 +455,74 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Fanatical(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Fanatical", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Fanatical", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", Nothing, Nothing)
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
 
             If Not html = Nothing Then
-                Dim j As Integer = 0
-                While j < 10000
-                    If html.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
-                        Dim temp, temp2 As String
-                        Dim int, int2 As Integer
+                html = "[" + html + "]"
+                html = html.Replace("{" + ChrW(34) + "features", ",{" + ChrW(34) + "features")
 
-                        int = html.IndexOf("{" + ChrW(34) + "features" + ChrW(34) + ":")
-                        temp = html.Remove(0, int + 1)
+                Dim int3 As Integer = html.IndexOf(",")
+                html = html.Remove(int3, 1)
 
-                        html = temp
+                Dim juegosFanatical As List(Of Tiendas.FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of Tiendas.FanaticalJuego))(html)
 
-                        If temp.Contains("{" + ChrW(34) + "features" + ChrW(34) + ":") Then
-                            int2 = temp.IndexOf("{" + ChrW(34) + "features" + ChrW(34) + ":")
-                            temp2 = temp.Remove(int2, temp.Length - int2)
-                        Else
-                            temp2 = temp
+                For Each juegoFanatical In juegosFanatical
+                    Dim enlaceJuego As String = juegoFanatical.Enlace
+
+                    enlace = enlace.Replace("/es/", "/en/")
+
+                    If enlaceJuego = enlace.Trim Then
+                        Dim titulo As String = juegoFanatical.Titulo
+                        titulo = WebUtility.HtmlDecode(titulo)
+                        titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+
+                        cosas.Titulo = titulo
+                        cosas.Precio = juegoFanatical.Precio.EUR.Trim + " €"
+                        cosas.Imagen = juegoFanatical.Imagen
+
+                        Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                        Try
+                            fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
+                            fechaTermina = fechaTermina.ToLocalTime
+                        Catch ex As Exception
+
+                        End Try
+
+                        cosas.FechaTermina = fechaTermina
+
+                        Dim listaIDs As New List(Of String)
+
+                        If Not juegoFanatical.Bundle.Tier1 Is Nothing Then
+                            If juegoFanatical.Bundle.Tier1.Juegos.Count > 0 Then
+                                For Each juego In juegoFanatical.Bundle.Tier1.Juegos
+                                    listaIDs.Add(juego.IDSteam)
+                                Next
+                            End If
                         End If
 
-                        Dim juegoFanatical As Tiendas.FanaticalJuego = JsonConvert.DeserializeObject(Of Tiendas.FanaticalJuego)("{" + temp2)
-
-                        Dim enlaceJuego As String = juegoFanatical.Enlace
-
-                        If enlaceJuego = enlace.Trim Then
-                            Dim titulo As String = juegoFanatical.Titulo
-                            titulo = WebUtility.HtmlDecode(titulo)
-                            titulo = Text.RegularExpressions.Regex.Unescape(titulo)
-
-                            cosas.Titulo = titulo
-                            cosas.Precio = juegoFanatical.Precio.EUR.Trim + " €"
-                            cosas.Imagen = juegoFanatical.Imagen
-                            Exit While
+                        If Not juegoFanatical.Bundle.Tier2 Is Nothing Then
+                            If juegoFanatical.Bundle.Tier2.Juegos.Count > 0 Then
+                                For Each juego In juegoFanatical.Bundle.Tier2.Juegos
+                                    listaIDs.Add(juego.IDSteam)
+                                Next
+                            End If
                         End If
-                    Else
-                        Exit While
+
+                        If Not juegoFanatical.Bundle.Tier3 Is Nothing Then
+                            If juegoFanatical.Bundle.Tier3.Juegos.Count > 0 Then
+                                For Each juego In juegoFanatical.Bundle.Tier3.Juegos
+                                    listaIDs.Add(juego.IDSteam)
+                                Next
+                            End If
+                        End If
+
+                        cosas.IDsJuegos = listaIDs
+
+                        Exit For
                     End If
-                    j += 1
-                End While
+                Next
             End If
 
             Return cosas
@@ -448,7 +531,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function IndieGala(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Indie Gala", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Indie Gala", "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -492,7 +575,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Chrono(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Chrono", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Chrono", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri("https://api.chrono.gg/sale"))
 
@@ -531,7 +614,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function GreenManGaming(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Green Man Gaming", "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Green Man Gaming", "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -578,7 +661,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function WinGameStore(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "WinGameStore", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png")
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "WinGameStore", "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 

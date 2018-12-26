@@ -219,6 +219,9 @@ Namespace pepeizq.Tiendas
         <JsonProperty("current_price")>
         Public Precio As FanaticalJuegoPrecio
 
+        <JsonProperty("bundle_games")>
+        Public Bundle As FanaticalJuegoBundle
+
     End Class
 
     Public Class FanaticalJuegoPrecio
@@ -231,6 +234,33 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("EUR")>
         Public EUR As String
+
+    End Class
+
+    Public Class FanaticalJuegoBundle
+
+        <JsonProperty("1")>
+        Public Tier1 As FanaticalJuegoBundleTier
+
+        <JsonProperty("2")>
+        Public Tier2 As FanaticalJuegoBundleTier
+
+        <JsonProperty("3")>
+        Public Tier3 As FanaticalJuegoBundleTier
+
+    End Class
+
+    Public Class FanaticalJuegoBundleTier
+
+        <JsonProperty("items")>
+        Public Juegos As List(Of FanaticalJuegoBundleJuego)
+
+    End Class
+
+    Public Class FanaticalJuegoBundleJuego
+
+        <JsonProperty("steam_id")>
+        Public IDSteam As String
 
     End Class
 End Namespace

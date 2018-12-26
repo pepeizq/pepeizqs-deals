@@ -96,9 +96,12 @@ Namespace pepeizq.Tiendas
 
                     Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
+                    Dim fechaTermina As DateTime = DateTime.Today
+                    fechaTermina = fechaTermina.AddHours(42)
+
                     Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                     Dim tituloBool As Boolean = False
                     Dim k As Integer = 0

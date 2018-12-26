@@ -404,11 +404,11 @@
                                                                         <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego" Grid.Column="0" IsCacheEnabled="True" MaxHeight="23" MaxWidth="180" VerticalAlignment="Center" Margin="15" Stretch="Uniform"/>
 
                                                                         <StackPanel x:Name="spDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Grid.Column="2" Background="ForestGreen" Visibility="Collapsed">
-                                                                            <TextBlock x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,8,12,8" Text="50%"/>
+                                                                            <TextBlock x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,8,12,8"/>
                                                                         </StackPanel>
 
                                                                         <StackPanel Grid.Column="3" Background="Black">
-                                                                            <TextBlock x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,8,12,8" Text="14.99€"/>
+                                                                            <TextBlock x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,8,12,8"/>
                                                                         </StackPanel>
                                                                     </Grid>
                                                                 </Grid>
@@ -545,6 +545,7 @@
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition Height="Auto"/>
                                                                 <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
 
                                                             <Grid Grid.Row="0" Padding="20">
@@ -555,7 +556,13 @@
                                                                 <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundles" Stretch="Uniform" IsCacheEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                             </Grid>
 
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaBundles" Grid.Row="1" Padding="20" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <Grid Grid.Row="1" Padding="20">
+                                                                <StackPanel Background="Black" HorizontalAlignment="Center">
+                                                                    <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundles" Foreground="White" FontSize="50" FontWeight="SemiBold" VerticalAlignment="Center" Margin="14,10,14,10"/>
+                                                                </StackPanel>
+                                                            </Grid>
+
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaBundles" Grid.Row="2" Padding="20" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                                 <GridView.ItemsPanel>
                                                                     <ItemsPanelTemplate>
                                                                         <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
