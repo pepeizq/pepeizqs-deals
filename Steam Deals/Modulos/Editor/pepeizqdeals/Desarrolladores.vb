@@ -71,7 +71,7 @@
 
             Dim lista As New List(Of Clases.Desarrolladores) From {
                 New Clases.Desarrolladores("10tons", "@10tonsLtd", Nothing),
-                New Clases.Desarrolladores("11 bit studios", "@11bitstudios", Nothing),
+                New Clases.Desarrolladores("11 bit studios", "@11bitstudios", "Assets\Publishers\11bitstudios.png"),
                 New Clases.Desarrolladores("1C Company", "@1C_Company", Nothing),
                 New Clases.Desarrolladores("1CC Games", "@1CCGames", Nothing),
                 New Clases.Desarrolladores("2K", "@2K", "Assets\Publishers\2k.png"),
@@ -319,7 +319,7 @@
                 New Clases.Desarrolladores("Humble Bundle", "@humble", Nothing),
                 New Clases.Desarrolladores("HypeTrain Digital", "@HypeTrainD", Nothing),
                 New Clases.Desarrolladores("Ice-Pick Lodge", "@IcePickLodge", Nothing),
-                New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", Nothing),
+                New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\Publishers\iceberg.png"),
                 New Clases.Desarrolladores("IDALGAME", "@IDALGAME", Nothing),
                 New Clases.Desarrolladores("Idea Factory", "@IdeaFactoryIntl", Nothing),
                 New Clases.Desarrolladores("Igloo Studio", "@bountybrawlgame", Nothing),

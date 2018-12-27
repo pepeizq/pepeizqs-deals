@@ -206,6 +206,8 @@
     <Content Include="Assets\ImagenesEntradapepeizq\avatar_notificaciones.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
     <Content Include="Assets\ImagenesEntradapepeizq\gogconnect.jpg" />
+    <Content Include="Assets\Publishers\11bitstudios.png" />
+    <Content Include="Assets\Publishers\iceberg.png" />
     <Content Include="Assets\Publishers\scssoftware.png" />
     <Content Include="Assets\Publishers\2k.png" />
     <Content Include="Assets\Publishers\505games.png" />
