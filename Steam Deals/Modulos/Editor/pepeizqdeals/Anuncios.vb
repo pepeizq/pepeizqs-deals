@@ -83,13 +83,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsAnuncios")
+            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdealsAnuncios")
 
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
                 If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
-                    tbTitulo.Text = "--- • Giveaway"
+                    tbTitulo.Text = "--- • Giveaways"
                     tbImagenTienda.Text = "Assets\ImagenesEntradapepeizq\avatar_notificaciones.png"
+                    tbComentario.Text = "Giveaways"
                 ElseIf enlace.Contains("https://store.steampowered.com") Then
                     For Each tienda In listaTiendas
                         If tienda.Nombre = "Steam" Then
@@ -146,6 +148,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tbImagenTienda.Text = tienda.Logo
                         End If
                     Next
+                ElseIf enlace.Contains("https://www.gog.com/connect") Then
+                    tbTitulo.Text = "New Games Added • GOG Connect"
+                    tbImagenTienda.Text = "Assets\ImagenesEntradapepeizq\gogconnect.jpg"
+                    tbComentario.Text = "Free (*)"
                 Else
                     tbTitulo.Text = "--- • Announcement"
                 End If

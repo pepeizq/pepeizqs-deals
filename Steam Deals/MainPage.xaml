@@ -747,13 +747,13 @@
                                                                             <RowDefinition Height="*"/>
                                                                         </Grid.RowDefinitions>
 
-                                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" >
+                                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
                                                                             <Grid>
                                                                                 <Grid.Background>
                                                                                     <SolidColorBrush Color="#004e7a"/>
                                                                                 </Grid.Background>
 
-                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="300" MaxHeight="90" Margin="40"/>
+                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="320" MaxHeight="120" Margin="20"/>
                                                                             </Grid>
                                                                         </controls:DropShadowPanel>
 
@@ -830,23 +830,32 @@
                                                                     <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
                                                                 </Grid.Background>
 
-                                                                <controls:DropShadowPanel Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                    <controls:ImageEx x:Name="imagenAnuncioEditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                                </controls:DropShadowPanel>
+                                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <Grid Margin="0,0,60,0" VerticalAlignment="Center" Padding="20">
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition Height="*"/>
+                                                                            <RowDefinition Height="*"/>
+                                                                        </Grid.RowDefinitions>
 
-                                                                <controls:DropShadowPanel Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                                                                    <Grid>
-                                                                        <Grid.Background>
-                                                                            <SolidColorBrush Color="#004e7a"/>
-                                                                        </Grid.Background>
+                                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
+                                                                            <Grid>
+                                                                                <Grid.Background>
+                                                                                    <SolidColorBrush Color="#004e7a"/>
+                                                                                </Grid.Background>
 
-                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="220" MaxHeight="90" Margin="40"/>
+                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="120" Margin="20"/>
+                                                                            </Grid>
+                                                                        </controls:DropShadowPanel>
+
+                                                                        <StackPanel Grid.Row="1" Background="Black" Padding="30,20" HorizontalAlignment="Center" Margin="0,30,0,0">
+                                                                            <TextBlock x:Name="tbComentarioEditorpepeizqdealsGenerarImagenAnuncios" FontSize="50" Foreground="White" FontWeight="SemiBold"/>
+                                                                        </StackPanel>
                                                                     </Grid>
-                                                                </controls:DropShadowPanel>
 
-                                                                <StackPanel Background="Black" Padding="30,20" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                                                    <TextBlock x:Name="tbComentarioEditorpepeizqdealsGenerarImagenAnuncios" FontSize="50" Foreground="White" FontWeight="SemiBold"/>
-                                                                </StackPanel>
+                                                                    <controls:DropShadowPanel Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
+                                                                        <controls:ImageEx x:Name="imagenAnuncioEditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                                    </controls:DropShadowPanel>
+                                                                </StackPanel> 
                                                             </Grid> 
                                                         </Grid> 
                                                     </StackPanel>
