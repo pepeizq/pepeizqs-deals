@@ -77,6 +77,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda")
+
+            Dim listaTiendas As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Bundles = Nothing
@@ -138,6 +141,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tbIDsJuegos.Text = ids
                         End If
                     End If
+
+                    For Each tienda In listaTiendas
+                        If tienda.Nombre = cosas.Tienda Then
+                            imagenTienda.Source = tienda.Logo
+                        End If
+                    Next
 
                     tbTitulo.Tag = cosas
                 End If

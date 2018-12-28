@@ -372,7 +372,7 @@
                                                     <StackPanel>
                                                         <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuego" Width="500" Visibility="Collapsed">
                                                             <Grid.Background>
-                                                                <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                                <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono1.png" Stretch="UniformToFill"/>
                                                             </Grid.Background>
 
                                                             <controls:DropShadowPanel Color="Black" Padding="2" Margin="30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -539,7 +539,7 @@
                                                     <StackPanel>
                                                         <Grid Width="1000">
                                                             <Grid.Background>
-                                                                <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                                <SolidColorBrush Color="#004e7a"/>
                                                             </Grid.Background>
 
                                                             <Grid.RowDefinitions>
@@ -549,26 +549,30 @@
                                                             </Grid.RowDefinitions>
 
                                                             <Grid Grid.Row="0" Padding="20">
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#004e7a"/>
-                                                                </Grid.Background>
-
                                                                 <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundles" Stretch="Uniform" IsCacheEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                             </Grid>
 
-                                                            <Grid Grid.Row="1" Padding="20">
-                                                                <StackPanel Background="Black" HorizontalAlignment="Center">
+                                                            <StackPanel Grid.Row="1" Padding="20,0,20,20" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="100" Margin="20" VerticalAlignment="Center"/>
+
+                                                                <StackPanel Background="Black" Margin="30,0,0,0" VerticalAlignment="Center">
                                                                     <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundles" Foreground="White" FontSize="50" FontWeight="SemiBold" VerticalAlignment="Center" Margin="14,10,14,10"/>
                                                                 </StackPanel>
-                                                            </Grid>
+                                                            </StackPanel>
 
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaBundles" Grid.Row="2" Padding="20" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                <GridView.ItemsPanel>
-                                                                    <ItemsPanelTemplate>
-                                                                        <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
-                                                                    </ItemsPanelTemplate>
-                                                                </GridView.ItemsPanel>
-                                                            </GridView>
+                                                            <Grid Grid.Row="2" Padding="20">
+                                                                <Grid.Background>
+                                                                    <ImageBrush ImageSource="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                                </Grid.Background>
+
+                                                                <GridView x:Name="gvEditorpepeizqdealsImagenEntradaBundles" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <GridView.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </GridView.ItemsPanel>
+                                                                </GridView>
+                                                            </Grid>
                                                         </Grid> 
                                                     </StackPanel>
                                                 </Button.Content> 
