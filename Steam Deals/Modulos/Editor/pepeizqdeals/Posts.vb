@@ -4,7 +4,6 @@ Imports Imgur.API.Models
 Imports Newtonsoft.Json
 Imports Windows.ApplicationModel.Core
 Imports Windows.Storage
-Imports Windows.Storage.Streams
 Imports Windows.System
 Imports Windows.UI.Core
 Imports WordPressPCL
@@ -96,7 +95,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not redireccion = Nothing Then
                     If redireccion.Trim.Length > 0 Then
-                        postEditor.Redireccion = redireccion.Trim
+                        Dim redireccionFinal As String = redireccion.Trim
+                        redireccionFinal = Referidos.Generar(redireccionFinal)
+                        postEditor.Redireccion = redireccionFinal
                     End If
                 End If
 

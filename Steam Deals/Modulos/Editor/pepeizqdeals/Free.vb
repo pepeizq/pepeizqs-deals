@@ -138,9 +138,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
-            Dim enlaceFinal As String = tbEnlace.Text
-            enlaceFinal = Referidos.Generar(enlaceFinal)
-
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFree")
@@ -151,8 +148,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
-                              enlaceFinal, botonImagen, " ", Nothing, True, fechaFinal.ToString)
+            Await Posts.Enviar(tbTitulo.Text.Trim, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ",
+                               tbEnlace.Text.Trim, botonImagen, " ", Nothing, True, fechaFinal.ToString)
 
             BloquearControles(True)
 
