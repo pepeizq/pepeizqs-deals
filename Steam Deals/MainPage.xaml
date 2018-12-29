@@ -644,7 +644,7 @@
                                                                                     <SolidColorBrush Color="#004e7a"/>
                                                                                 </Grid.Background>
 
-                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="220" MaxHeight="120" Margin="40"/>
+                                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="220" MaxHeight="120" Margin="20"/>
                                                                             </Grid>
                                                                         </controls:DropShadowPanel>
 
