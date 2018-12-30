@@ -133,7 +133,6 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Free.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\GridEditor.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Iconos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\DealsImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />

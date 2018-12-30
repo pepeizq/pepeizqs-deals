@@ -105,9 +105,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                         If Not contraseñaGuardada = Nothing Then
                             Dim contraseña As String = "document.getElementById('steamPassword').value = '" + contraseñaGuardada + "'"
-                            Await wv.InvokeScriptAsync("eval", New String() {contraseña})
 
-                            Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('SteamLogin').click();"})
+                            Try
+                                Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+
+                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('SteamLogin').click();"})
+                            Catch ex As Exception
+
+                            End Try
                         End If
                     End If
                 End If

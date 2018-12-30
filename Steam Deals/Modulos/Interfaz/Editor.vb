@@ -1,4 +1,5 @@
-﻿Imports Windows.Storage
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.Storage
 
 Namespace pepeizq.Interfaz
     Module Editor
@@ -23,10 +24,12 @@ Namespace pepeizq.Interfaz
                     gridReddit.Visibility = Visibility.Collapsed
                     gridVayaAnsias.Visibility = Visibility.Collapsed
 
-                    Dim botonBundles As Button = pagina.FindName("botonEditorpepeizqdealsGridBundles")
-                    Dim gridBundles As Grid = pagina.FindName("gridEditorpepeizqdealsBundles")
+                    Dim pestañas As TabView = pagina.FindName("pestañasEditorpepeizqdeals")
+                    pestañas.SelectedIndex = 1
 
-                    pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonBundles, gridBundles)
+                    Dim pestaña As TabViewItem = pagina.FindName("pestañaEditorpepeizqdealsDeals")
+                    pestaña.Visibility = Visibility.Collapsed
+
                     pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                     pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                     pepeizq.Editor.pepeizqdeals.Free.Cargar()
@@ -92,10 +95,12 @@ Namespace pepeizq.Interfaz
                             gridReddit.Visibility = Visibility.Collapsed
                             gridVayaAnsias.Visibility = Visibility.Collapsed
 
-                            Dim botonDeals As Button = pagina.FindName("botonEditorpepeizqdealsGridDeals")
-                            Dim gridDeals As Grid = pagina.FindName("gridEditorpepeizqdealsDeals")
+                            Dim pestañas As TabView = pagina.FindName("pestañasEditorpepeizqdeals")
+                            pestañas.SelectedIndex = 0
 
-                            pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonDeals, gridDeals)
+                            Dim pestaña As TabViewItem = pagina.FindName("pestañaEditorpepeizqdealsDeals")
+                            pestaña.Visibility = Visibility.Visible
+
                             pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                             pepeizq.Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, cantidadJuegos)
                             pepeizq.Editor.pepeizqdeals.Bundles.Cargar()

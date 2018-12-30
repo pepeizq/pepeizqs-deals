@@ -381,54 +381,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsGridDeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridDeals.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridDeals, gridEditorpepeizqdealsDeals)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridBundles.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridBundles, gridEditorpepeizqdealsBundles)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridFree_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridFree.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridFree, gridEditorpepeizqdealsFree)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridSubscriptions.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridSubscriptions, gridEditorpepeizqdealsSubscriptions)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridAnuncios_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridAnuncios.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridAnuncios, gridEditorpepeizqdealsAnuncios)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridCuentas_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCuentas.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridCuentas, gridEditorpepeizqdealsCuentas)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridIconos.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridIconos, gridEditorpepeizqdealsIconos)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGridCodigos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGridCodigos.Click
-
-        pepeizq.Editor.pepeizqdeals.GridEditor.Mostrar(botonEditorpepeizqdealsGridCodigos, gridEditorpepeizqdealsCodigos)
-
-    End Sub
-
     Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
 
         pepeizq.Editor.pepeizqdeals.Iconos.GenerarTiendas()
