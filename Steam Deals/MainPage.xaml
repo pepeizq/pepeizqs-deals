@@ -897,12 +897,6 @@
                                                 <WebView x:Name="wvEditorAmazonpepeizqdeals" MinWidth="700" MinHeight="700"/>
                                             </StackPanel>
                                         </controls:Expander>
-
-                                        <controls:Expander Header="ElOtroLado.net" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
-                                            <StackPanel Orientation="Vertical" Padding="20">
-                                                <WebView x:Name="wvEditorEOLpepeizqdeals" MinWidth="700" MinHeight="700"/>
-                                            </StackPanel> 
-                                        </controls:Expander> 
                                     </StackPanel>
                                 </ScrollViewer>
                             </controls:TabViewItem>

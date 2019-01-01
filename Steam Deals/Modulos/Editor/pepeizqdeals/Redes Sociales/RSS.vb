@@ -40,18 +40,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 sp.Children.Add(botonSteam)
 
-                Dim botonEOL As New Button With {
-                    .Tag = post,
-                    .Content = "EOL",
-                    .Margin = New Thickness(30, 0, 0, 0)
-                }
-
-                AddHandler botonEOL.Click, AddressOf EOL
-                AddHandler botonEOL.PointerEntered, AddressOf UsuarioEntraBoton
-                AddHandler botonEOL.PointerExited, AddressOf UsuarioSaleBoton
-
-                sp.Children.Add(botonEOL)
-
                 lv.Items.Add(sp)
             Next
         End Sub
@@ -78,15 +66,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim analisis As String = post.ReviewPuntuacion
 
             Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, analisis)
-
-        End Sub
-
-        Private Async Sub EOL(sender As Object, e As RoutedEventArgs)
-
-            Dim boton As Button = sender
-            Dim post As Clases.Post = boton.Tag
-
-            Await ElOtroLado.Enviar(post.Titulo.Rendered, post.Enlace, post.TituloComplemento, post.ReviewPuntuacion)
 
         End Sub
 

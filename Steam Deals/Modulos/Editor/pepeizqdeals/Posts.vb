@@ -219,16 +219,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Catch ex As Exception
                             Notificaciones.Toast("Push Error Post", Nothing)
                         End Try
-
-                        If categoria = 3 Then
-                            If Not redireccion = Nothing Then
-                                Try
-                                    Await pepeizqdeals.RedesSociales.ElOtroLado.Enviar(titulo, redireccion.Trim, tituloComplemento, puntuacionReview)
-                                Catch ex As Exception
-                                    Notificaciones.Toast("EOL Error Post", Nothing)
-                                End Try
-                            End If
-                        End If
                     End If
                 End If
             End If
