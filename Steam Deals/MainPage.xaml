@@ -350,11 +350,11 @@
                                                                         <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego" Grid.Column="0" IsCacheEnabled="True" MaxHeight="23" MaxWidth="180" VerticalAlignment="Center" Margin="15" Stretch="Uniform"/>
 
                                                                         <StackPanel x:Name="spDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Grid.Column="2" Background="ForestGreen" Visibility="Collapsed">
-                                                                            <TextBlock x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="30" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,6,12,8"/>
+                                                                            <TextBlock x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,6,12,8"/>
                                                                         </StackPanel>
 
                                                                         <StackPanel Grid.Column="3" Background="Black">
-                                                                            <TextBlock x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="30" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,6,12,8"/>
+                                                                            <TextBlock x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuego" Foreground="White" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" Margin="12,6,12,8"/>
                                                                         </StackPanel>
                                                                     </Grid>
                                                                 </Grid>
@@ -897,6 +897,12 @@
                                                 <WebView x:Name="wvEditorAmazonpepeizqdeals" MinWidth="700" MinHeight="700"/>
                                             </StackPanel>
                                         </controls:Expander>
+
+                                        <controls:Expander Header="ElOtroLado.net" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
+                                            <StackPanel Orientation="Vertical" Padding="20">
+                                                <WebView x:Name="wvEditorEOLpepeizqdeals" MinWidth="700" MinHeight="700"/>
+                                            </StackPanel> 
+                                        </controls:Expander> 
                                     </StackPanel>
                                 </ScrollViewer>
                             </controls:TabViewItem>
@@ -934,6 +940,26 @@
                                     <StackPanel x:Name="spEditorCodigos" Orientation="Vertical"/>
                                 </ScrollViewer>
                             </controls:TabViewItem>
+
+                            <controls:TabViewItem>
+                                <controls:TabViewItem.Header>
+                                    <fa:FontAwesome Icon="Rss" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                                </controls:TabViewItem.Header>
+
+                                <ScrollViewer Padding="20" BorderBrush="{StaticResource BrushPrimario}" BorderThickness="1">
+                                    <StackPanel Orientation="Vertical">
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarRSS" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:FontAwesome Icon="Refresh" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <ListView x:Name="lvEditorpepeizqdealsRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}"/>
+                                    </StackPanel> 
+                                </ScrollViewer> 
+                            </controls:TabViewItem> 
                         </controls:TabView>
                     </Grid>
 

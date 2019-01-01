@@ -37,6 +37,7 @@ Namespace pepeizq.Interfaz
                     pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
                     pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
                     pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
+                    pepeizq.Editor.pepeizqdeals.RedesSociales.ElOtroLado.Comprobar()
                     pepeizq.Editor.pepeizqdeals.Posts.Borrar()
                 Else
                     gridpepeizq.Visibility = Visibility.Collapsed
@@ -109,6 +110,7 @@ Namespace pepeizq.Interfaz
                             pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
                             pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
                             pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
+                            pepeizq.Editor.pepeizqdeals.RedesSociales.ElOtroLado.Comprobar()
                             pepeizq.Editor.pepeizqdeals.Posts.Borrar()
 
                         ElseIf cbWebs.SelectedIndex = 1 Then

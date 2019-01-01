@@ -120,6 +120,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
+                Dim puntuacionReview As String = String.Empty
+
                 If Not analisis Is Nothing Then
                     Dim iconoReview As String = Nothing
 
@@ -138,7 +140,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    Dim puntuacionReview As String = "Rating: " + analisis.Porcentaje + "% - Reviews: " + analisis.Cantidad
+                    puntuacionReview = "Rating: " + analisis.Porcentaje + "% - Reviews: " + analisis.Cantidad
 
                     If Not puntuacionReview = Nothing Then
                         postEditor.ReviewPuntuacion = puntuacionReview
@@ -195,7 +197,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, enlaceFinal, tituloComplemento, analisis)
+                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, enlaceFinal, tituloComplemento, puntuacionReview)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try
@@ -217,6 +219,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Catch ex As Exception
                             Notificaciones.Toast("Push Error Post", Nothing)
                         End Try
+
+                        If categoria = 3 Then
+                            If Not redireccion = Nothing Then
+                                Try
+                                    Await pepeizqdeals.RedesSociales.ElOtroLado.Enviar(titulo, redireccion.Trim, tituloComplemento, puntuacionReview)
+                                Catch ex As Exception
+                                    Notificaciones.Toast("EOL Error Post", Nothing)
+                                End Try
+                            End If
+                        End If
                     End If
                 End If
             End If

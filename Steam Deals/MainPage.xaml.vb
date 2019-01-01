@@ -430,4 +430,10 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Async Sub BotonEditorpepeizqdealsGenerarRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarRSS.Click
+
+        pepeizq.Editor.pepeizqdeals.RedesSociales.RSS.Generar()
+
+    End Sub
+
 End Class

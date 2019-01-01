@@ -138,8 +138,10 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\ElOtroLado.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Push.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Reddit.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\RSS.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Steam.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Referidos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Suscripciones.vb" />
