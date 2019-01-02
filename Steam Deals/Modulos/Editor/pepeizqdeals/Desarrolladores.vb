@@ -575,7 +575,7 @@
                 New Clases.Desarrolladores("Team17", "@Team17Ltd", "Assets\Publishers\team17.png"),
                 New Clases.Desarrolladores("Team Reptile", "@ReptileGames", Nothing),
                 New Clases.Desarrolladores("teamCOIL GAMES", "@teamCOIL", Nothing),
-                New Clases.Desarrolladores("Techland", "@TechlandGames", Nothing),
+                New Clases.Desarrolladores("Techland", "@TechlandGames", "Assets\Publishers\techland.png"),
                 New Clases.Desarrolladores("Telltale Games", "@telltalegames", Nothing),
                 New Clases.Desarrolladores("Tequilabyte Studio", "@StanislavZagniy", Nothing),
                 New Clases.Desarrolladores("Tero Lunkka games", "@TerhoTero", Nothing),
@@ -667,7 +667,7 @@
 
             Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd",
                 "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital",
-                "Interactive", "Developments",
+                "Interactive", "Developments", "Publishing",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                 "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 

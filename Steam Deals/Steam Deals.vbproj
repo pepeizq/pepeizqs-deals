@@ -232,6 +232,7 @@
     <Content Include="Assets\Publishers\rockstar.png" />
     <Content Include="Assets\Publishers\squareenix.png" />
     <Content Include="Assets\Publishers\team17.png" />
+    <Content Include="Assets\Publishers\techland.png" />
     <Content Include="Assets\Publishers\thqnordic.png" />
     <Content Include="Assets\Publishers\ubisoft.png" />
     <Content Include="Assets\Publishers\versusevil.png" />
