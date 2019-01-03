@@ -210,6 +210,7 @@
     <Content Include="Assets\ImagenesEntradapepeizq\gogconnect.jpg" />
     <Content Include="Assets\Publishers\11bitstudios.png" />
     <Content Include="Assets\Publishers\iceberg.png" />
+    <Content Include="Assets\Publishers\plugin.png" />
     <Content Include="Assets\Publishers\scssoftware.png" />
     <Content Include="Assets\Publishers\2k.png" />
     <Content Include="Assets\Publishers\505games.png" />
