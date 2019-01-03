@@ -95,18 +95,22 @@ Module Ordenar
                         End If
 
                         If boolBorrar = False Then
-                            For Each juegoAntiguo In listaJuegosAntigua.ToList
-                                If juegoAntiguo.FechaAñadido = Nothing Then
-                                    juegoAntiguo.FechaAñadido = DateTime.Today
-                                End If
+                            If Not listaJuegosAntigua Is Nothing Then
+                                If listaJuegosAntigua.Count > 0 Then
+                                    For Each juegoAntiguo In listaJuegosAntigua.ToList
+                                        If juegoAntiguo.FechaAñadido = Nothing Then
+                                            juegoAntiguo.FechaAñadido = DateTime.Today
+                                        End If
 
-                                Dim fechaComparar As DateTime = juegoAntiguo.FechaAñadido
-                                fechaComparar = fechaComparar.AddDays(1)
+                                        Dim fechaComparar As DateTime = juegoAntiguo.FechaAñadido
+                                        fechaComparar = fechaComparar.AddDays(1)
 
-                                If fechaComparar < DateTime.Today Then
-                                    listaJuegosAntigua.Remove(juegoAntiguo)
+                                        If fechaComparar < DateTime.Today Then
+                                            listaJuegosAntigua.Remove(juegoAntiguo)
+                                        End If
+                                    Next
                                 End If
-                            Next
+                            End If
                         End If
                     End If
                 End If
