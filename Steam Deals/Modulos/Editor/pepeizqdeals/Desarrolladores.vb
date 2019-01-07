@@ -269,7 +269,7 @@
                 New Clases.Desarrolladores("Freejam", "@Freejamgames", Nothing),
                 New Clases.Desarrolladores("FreezeNova Games", "@FreezeNova", Nothing),
                 New Clases.Desarrolladores("Frictional Games", "@frictionalgames", Nothing),
-                New Clases.Desarrolladores("Frogwares", "@Frogwares", Nothing),
+                New Clases.Desarrolladores("Frogwares", "@Frogwares", "Assets\Publishers\frogwares.png"),
                 New Clases.Desarrolladores("Frontier Developments", "@frontierdev", Nothing),
                 New Clases.Desarrolladores("Frontwing USA", "@FrontwingInt", Nothing),
                 New Clases.Desarrolladores("Frozenbyte", "@Frozenbyte", Nothing),
