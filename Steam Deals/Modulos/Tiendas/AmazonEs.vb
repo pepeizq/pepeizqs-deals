@@ -64,6 +64,8 @@ Namespace pepeizq.Tiendas
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
+                    html = WebUtility.HtmlDecode(html)
+
                     Dim j As Integer = 0
                     While j < 12
                         Dim temp, temp2 As String

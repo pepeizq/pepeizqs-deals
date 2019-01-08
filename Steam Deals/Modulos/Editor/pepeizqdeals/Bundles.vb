@@ -724,32 +724,34 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
-            tbTitulo.IsEnabled = estado
+            If Not pagina.FindName("tbEditorTitulopepeizqdealsBundles") Is Nothing Then
+                Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
+                tbTitulo.IsEnabled = estado
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
-            tbEnlace.IsEnabled = estado
+                Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
+                tbEnlace.IsEnabled = estado
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
-            tbImagen.IsEnabled = estado
+                Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
+                tbImagen.IsEnabled = estado
 
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
-            tbJuegos.IsEnabled = estado
+                Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+                tbJuegos.IsEnabled = estado
 
-            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundlesIDs")
-            botonIDs.IsEnabled = estado
+                Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundlesIDs")
+                botonIDs.IsEnabled = estado
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
-            tbIDs.IsEnabled = estado
+                Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+                tbIDs.IsEnabled = estado
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
-            fechaPicker.IsEnabled = estado
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
+                fechaPicker.IsEnabled = estado
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsBundles")
-            horaPicker.IsEnabled = estado
+                Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsBundles")
+                horaPicker.IsEnabled = estado
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundles")
-            botonSubir.IsEnabled = estado
+                Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsBundles")
+                botonSubir.IsEnabled = estado
+            End If
 
         End Sub
 
