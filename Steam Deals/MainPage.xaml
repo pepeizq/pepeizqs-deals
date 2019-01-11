@@ -425,7 +425,7 @@
                                     </StackPanel>
                                 </ScrollViewer>
                             </controls:TabViewItem>
-                            <controls:TabViewItem>
+                            <controls:TabViewItem x:Name="pestañaEditorpepeizqdealsBundles">
                                 <controls:TabViewItem.Header>
                                     <TextBlock x:Uid="Bundles" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                                 </controls:TabViewItem.Header>
@@ -530,7 +530,7 @@
                                     </StackPanel>
                                 </ScrollViewer>
                             </controls:TabViewItem>
-                            <controls:TabViewItem>
+                            <controls:TabViewItem x:Name="pestañaEditorpepeizqdealsFree">
                                 <controls:TabViewItem.Header>
                                     <TextBlock x:Uid="Free" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                                 </controls:TabViewItem.Header>

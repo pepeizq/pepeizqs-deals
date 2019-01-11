@@ -157,12 +157,7 @@ Public NotInheritable Class MainPage
             gridEditor.Visibility = Visibility.Collapsed
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-
-            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                Interfaz.IniciarTienda(tienda, True, False)
-            Else
-                Interfaz.IniciarTienda(tienda, False, True)
-            End If
+            Interfaz.IniciarTienda(tienda, True, False)
         End If
 
     End Sub
