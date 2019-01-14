@@ -177,6 +177,7 @@
     <Compile Include="Modulos\Tiendas\Voidu.vb" />
     <Compile Include="Modulos\Tiendas\WinGameStore.vb" />
     <Compile Include="Modulos\Analisis.vb" />
+    <Compile Include="Modulos\Tiendas\Yuplay.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -343,6 +344,7 @@
     <Content Include="Assets\Sistemas\mac.png" />
     <Content Include="Assets\Sistemas\win.png" />
     <Content Include="Assets\Tiendas\wingamestore2.png" />
+    <Content Include="Assets\Tiendas\yuplay.ico" />
     <Content Include="Assets\Webs\pepeizq\fondo_hexagono.png" />
     <Content Include="Assets\Webs\web_pepeizq.png" />
     <Content Include="Assets\Webs\web_reddit.ico" />

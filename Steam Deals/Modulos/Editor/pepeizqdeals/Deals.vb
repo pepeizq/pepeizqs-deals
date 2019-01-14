@@ -1,4 +1,5 @@
-﻿Imports Windows.Storage
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.Storage
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
@@ -301,6 +302,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If item.Enlaces.Precios(0).Contains("$") Then
                             item.Enlaces.Precios(0) = Divisas.CambioMoneda(item.Enlaces.Precios(0), tbDolar.Text)
                         End If
+                    ElseIf item.Tienda.NombreUsar = "Yuplay" Then
+                        Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+                        precioFinal = Divisas.CambioMoneda(item.Enlaces.Precios(0), tbRublo.Text)
                     End If
 
                     item.Enlaces.Precios(0) = item.Enlaces.Precios(0).Replace(",", ".")
@@ -655,6 +659,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 ElseIf cosas.Tienda.NombreUsar = "AmazonCom" Then
                     Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                     precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                ElseIf cosas.Tienda.NombreUsar = "Yuplay" Then
+                    Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+                    precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbRublo.Text)
                 Else
                     precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
                 End If

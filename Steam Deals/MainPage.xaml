@@ -247,9 +247,9 @@
                                 </Button.Content>
                             </Button>
 
-                            <TextBlock x:Name="tbDivisasEuro" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="tbDivisasDolar" Margin="10,0" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="tbDivisasLibra" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="tbDivisasLibra" Margin="10,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="tbDivisasRublo" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 

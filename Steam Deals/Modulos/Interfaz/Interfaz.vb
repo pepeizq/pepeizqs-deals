@@ -24,12 +24,13 @@ Module Interfaz
     Dim razerT As New Tienda("Razer Game Store", "RazerGameStore", "Assets/Tiendas/razer.ico", 14)
     Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15)
     Dim amazonesT As New Tienda("Amazon.es", "AmazonEs", "Assets/Tiendas/amazon.png", 16)
+    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 17)
 
     Public Sub Generar()
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
-            microsoftstoreT, chronoT, voiduT, greenmangamingT, razerT, amazoncomT, amazonesT
+            microsoftstoreT, chronoT, voiduT, greenmangamingT, razerT, amazoncomT, amazonesT, yuplayT
         }
 
         Dim frame As Frame = Window.Current.Content
@@ -500,6 +501,8 @@ Module Interfaz
                 pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 pepeizq.Tiendas.AmazonEs.GenerarOfertas(amazonesT)
+            ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
+                pepeizq.Tiendas.Yuplay.GenerarOfertas(yuplayT)
             End If
         Else
             itemTiendas.IsEnabled = True
@@ -928,34 +931,37 @@ Module Interfaz
 
             Dim precio As String = juego.Enlaces.Precios(0)
 
-            If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                If precio.Contains("£") Then
-                    Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                    precio = Divisas.CambioMoneda(precio, tbLibra.Text)
-                ElseIf precio.Contains("$") Then
-                    Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                    precio = Divisas.CambioMoneda(precio, tbDolar.Text)
-                End If
-
-                If Not precio = String.Empty Then
-                    If precio.Contains("€") Then
-                        precio = precio.Replace("€", Nothing)
-                        precio = precio.Replace(",", ".")
-                        precio = precio.Trim
-                        precio = precio + " €"
-                    End If
-                End If
+            If precio.Contains("£") Then
+                Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                precio = Divisas.CambioMoneda(precio, tbLibra.Text)
+            ElseIf precio.Contains("$") Then
+                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                precio = Divisas.CambioMoneda(precio, tbDolar.Text)
             End If
 
-            Dim textoPrecio As New TextBlock With {
-                .Text = precio,
-                .VerticalAlignment = VerticalAlignment.Center,
-                .HorizontalAlignment = HorizontalAlignment.Center,
-                .Foreground = New SolidColorBrush(Colors.White)
-            }
+            If juego.Tienda.NombreUsar = "Yuplay" Then
+                Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+                precio = Divisas.CambioMoneda(precio, tbRublo.Text)
+            End If
 
-            fondoPrecio.Children.Add(textoPrecio)
-            sp4.Children.Add(fondoPrecio)
+            If Not precio = String.Empty Then
+                If precio.Contains("€") Then
+                    precio = precio.Replace("€", Nothing)
+                    precio = precio.Replace(",", ".")
+                    precio = precio.Trim
+                    precio = precio + " €"
+                End If
+
+                Dim textoPrecio As New TextBlock With {
+                    .Text = precio,
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White)
+                }
+
+                fondoPrecio.Children.Add(textoPrecio)
+                sp4.Children.Add(fondoPrecio)
+            End If
 
         ElseIf juego.Enlaces.Precios.Count > 1 Then
 

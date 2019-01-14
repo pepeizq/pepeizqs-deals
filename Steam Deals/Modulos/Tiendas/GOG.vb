@@ -20,12 +20,6 @@ Namespace pepeizq.Tiendas
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
             End If
 
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-            tb.Text = "0%"
-
             listaJuegos.Clear()
 
             Bw.WorkerReportsProgress = True

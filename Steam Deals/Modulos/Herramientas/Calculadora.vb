@@ -11,6 +11,7 @@ Public Module Calculadora
             precioBase = precioBase.Replace("€", Nothing)
             precioBase = precioBase.Replace("$", Nothing)
             precioBase = precioBase.Replace("£", Nothing)
+            precioBase = precioBase.Replace("py6", Nothing)
             precioBase = precioBase.Replace("-", Nothing)
             precioBase = precioBase.Trim
 
@@ -35,6 +36,7 @@ Public Module Calculadora
             precioRebajado = precioRebajado.Replace("€", Nothing)
             precioRebajado = precioRebajado.Replace("$", Nothing)
             precioRebajado = precioRebajado.Replace("£", Nothing)
+            precioRebajado = precioRebajado.Replace("py6", Nothing)
             precioRebajado = precioRebajado.Replace("-", Nothing)
             precioRebajado = precioRebajado.Trim
 

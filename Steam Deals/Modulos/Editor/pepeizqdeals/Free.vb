@@ -10,8 +10,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsFree")
+            Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
             tbTitulo.Text = String.Empty
@@ -62,8 +61,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaTiendas As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsFree")
+            Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = sender
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
@@ -137,8 +135,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsFree")
+            Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
@@ -385,8 +382,7 @@ Namespace pepeizq.Editor.pepeizqdeals
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsFree")
+            Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
             tbTitulo.IsEnabled = estado

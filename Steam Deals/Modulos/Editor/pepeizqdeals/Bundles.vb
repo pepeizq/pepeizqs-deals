@@ -11,8 +11,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsBundles")
+            Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             tbTitulo.Text = String.Empty
@@ -69,8 +68,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsBundles")
+            Dim pagina As Page = frame.Content
 
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
 
@@ -163,8 +161,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsBundles")
+            Dim pagina As Page = frame.Content
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsBundles")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
@@ -725,8 +722,7 @@ Namespace pepeizq.Editor.pepeizqdeals
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
-            Dim paginaPrincipal As Page = frame.Content
-            Dim pagina As TabViewItem = paginaPrincipal.FindName("pestañaEditorpepeizqdealsBundles")
+            Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             tbTitulo.IsEnabled = estado
