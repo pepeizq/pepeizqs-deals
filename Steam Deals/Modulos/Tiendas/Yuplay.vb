@@ -7,6 +7,8 @@ Namespace pepeizq.Tiendas
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim listaBloqueo As New List(Of YuplayBloqueo)
+        Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
         Dim Tienda As Tienda = Nothing
 
         Public Async Sub GenerarOfertas(tienda_ As Tienda)
@@ -17,6 +19,18 @@ Namespace pepeizq.Tiendas
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
+
+            If Await helper.FileExistsAsync("listaBloqueoYuplay") Then
+                listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay")
+            Else
+                listaBloqueo = New List(Of YuplayBloqueo)
+            End If
+
+            If Await helper.FileExistsAsync("listaDesarrolladoresYuplay") Then
+                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay")
+            Else
+                listaDesarrolladores = New List(Of YuplayDesarrolladores)
             End If
 
             listaJuegos.Clear()
@@ -167,7 +181,68 @@ Namespace pepeizq.Tiendas
                                     End If
 
                                     If tituloBool = False Then
-                                        listaJuegos.Add(juego)
+                                        Dim buscar As Boolean = True
+                                        Dim añadir As Boolean = False
+
+                                        If Not listaBloqueo Is Nothing Then
+                                            For Each juegoBloqueo In listaBloqueo
+                                                If juegoBloqueo.ID = juego.Enlaces.Enlaces(0) Then
+                                                    If Not juegoBloqueo.Bloqueo = Nothing Then
+                                                        buscar = False
+
+                                                        If juegoBloqueo.Bloqueo = False Then
+                                                            añadir = True
+                                                        End If
+                                                    End If
+                                                End If
+                                            Next
+                                        End If
+
+                                        If buscar = True Then
+                                            Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(enlace))
+                                            Dim htmlJuego As String = htmlJuego_.Result
+
+                                            If Not htmlJuego = Nothing Then
+                                                If htmlJuego.Contains("Steam SUB_ID:") Then
+                                                    Dim temp15, temp16 As String
+                                                    Dim int15, int16 As Integer
+
+                                                    int15 = htmlJuego.IndexOf("Steam SUB_ID:")
+                                                    temp15 = htmlJuego.Remove(0, int15)
+
+                                                    int15 = temp15.IndexOf("<span>")
+                                                    temp15 = temp15.Remove(0, int15 + 6)
+
+                                                    int16 = temp15.IndexOf("</span>")
+                                                    temp16 = temp15.Remove(int16, temp15.Length - int16)
+
+                                                    Dim htmlSteamDB_ As Task(Of String) = HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
+                                                    Dim htmlSteamDB As String = htmlSteamDB_.Result
+
+                                                    If Not htmlSteamDB = Nothing Then
+                                                        Dim bloqueo As New YuplayBloqueo(enlace, False)
+
+                                                        If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
+                                                            bloqueo.Bloqueo = True
+                                                        End If
+
+                                                        If htmlSteamDB.Contains("This package can only be run in specified countries") Then
+                                                            bloqueo.Bloqueo = True
+                                                        End If
+
+                                                        listaBloqueo.Add(bloqueo)
+
+                                                        If bloqueo.Bloqueo = False Then
+                                                            añadir = True
+                                                        End If
+                                                    End If
+                                                End If
+                                            End If
+                                        End If
+
+                                        If añadir = True Then
+                                            listaJuegos.Add(juego)
+                                        End If
                                     End If
                                 End If
                             End If
@@ -195,11 +270,37 @@ Namespace pepeizq.Tiendas
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
+            Await helper.SaveFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay", listaDesarrolladores)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
         End Sub
 
     End Module
+
+    Public Class YuplayBloqueo
+
+        Public Property ID As String
+        Public Property Bloqueo As Boolean
+
+        Public Sub New(ByVal id As String, ByVal bloqueo As Boolean)
+            Me.ID = id
+            Me.Bloqueo = bloqueo
+        End Sub
+
+    End Class
+
+    Public Class YuplayDesarrolladores
+
+        Public Property ID As String
+        Public Property Desarrollador As String
+
+        Public Sub New(ByVal id As String, ByVal desarrollador As String)
+            Me.ID = id
+            Me.Desarrollador = desarrollador
+        End Sub
+
+    End Class
 End Namespace
 
