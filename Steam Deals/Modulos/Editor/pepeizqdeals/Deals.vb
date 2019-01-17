@@ -307,7 +307,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     ElseIf item.Tienda.NombreUsar = "Yuplay" Then
                         Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                        precioFinal = Divisas.CambioMoneda(item.Enlaces.Precios(0), tbRublo.Text)
+                        item.Enlaces.Precios(0) = Divisas.CambioMoneda(item.Enlaces.Precios(0), tbRublo.Text)
                     End If
 
                     item.Enlaces.Precios(0) = item.Enlaces.Precios(0).Replace(",", ".")
