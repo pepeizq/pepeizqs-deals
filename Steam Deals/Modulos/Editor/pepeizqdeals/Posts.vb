@@ -45,7 +45,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If imagenUrl = Nothing Then
                         Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + Date.Today.Month.ToString + "/" + ficheroImagen.Name
+
+                        Dim mes As String = Date.Today.Month.ToString
+
+                        If mes.Length = 1 Then
+                            mes = "0" + mes
+                        End If
+
+                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
                     End If
                 End If
 
