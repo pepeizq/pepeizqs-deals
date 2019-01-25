@@ -253,7 +253,7 @@
                 New Clases.Desarrolladores("Farom Studio", "@StudioFarom", Nothing),
                 New Clases.Desarrolladores("Farsky Interactive", "@FarskyInt", Nothing),
                 New Clases.Desarrolladores("Faster Time Games", "@FasterTimeGames", Nothing),
-                New Clases.Desarrolladores("Fatshark", "@fatsharkgames", Nothing),
+                New Clases.Desarrolladores("Fatshark", "@fatsharkgames", "Assets\Publishers\fatshark.png"),
                 New Clases.Desarrolladores("Fellow Traveller", "@FellowTravellr", Nothing),
                 New Clases.Desarrolladores("FIFTYTWO", "@wefiftytwo", Nothing),
                 New Clases.Desarrolladores("Finji", "@FinjiCo", Nothing),
