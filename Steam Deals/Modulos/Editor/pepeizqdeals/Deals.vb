@@ -1,4 +1,5 @@
-﻿Imports Windows.Storage
+﻿Imports Windows.ApplicationModel.DataTransfer
+Imports Windows.Storage
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
@@ -469,6 +470,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
+            Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
+
+            RemoveHandler botonCopiarForo.Click, AddressOf CopiarForo
+            AddHandler botonCopiarForo.Click, AddressOf CopiarForo
+
             listaDescuento.Clear()
             listaAnalisis.Clear()
 
@@ -805,6 +811,115 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub CopiarForo(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            BloquearControles(False)
+
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim cosas As Clases.Deals = botonSubir.Tag
+            Dim textoClipboard As String = String.Empty
+
+            If cosas.ListaJuegos.Count > 1 Then
+                For Each juego In cosas.ListaJuegos
+                    Dim tituloFinal As String = juego.Titulo
+                    tituloFinal = LimpiarTitulo(tituloFinal)
+
+                    Dim precioFinal As String = String.Empty
+
+                    If cosas.Tienda.NombreUsar = "GamersGate" Then
+                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                        Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(1), tbLibra.Text)
+
+                        If precioUK > cosas.ListaJuegos(0).Enlaces.Precios(0) Then
+                            precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
+                        Else
+                            precioFinal = precioUK
+                        End If
+                    ElseIf cosas.Tienda.NombreUsar = "GamesPlanet" Then
+                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+
+                        Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbLibra.Text)
+
+                        If Not precioUK = Nothing Then
+                            precioUK = precioUK.Replace(".", ",")
+                            precioUK = Double.Parse(precioUK.Replace("€", Nothing).Trim)
+                        End If
+
+                        Dim precioFR As String = cosas.ListaJuegos(0).Enlaces.Precios(1)
+
+                        If Not precioFR = Nothing Then
+                            precioFR = precioFR.Replace(".", ",")
+                            precioFR = Double.Parse(precioFR.Replace("€", Nothing).Trim)
+                        End If
+
+                        Dim precioDE As String = cosas.ListaJuegos(0).Enlaces.Precios(2)
+
+                        If Not precioDE = Nothing Then
+                            precioDE = precioDE.Replace(".", ",")
+                            precioDE = Double.Parse(precioDE.Replace("€", Nothing).Trim)
+                        End If
+
+                        If precioUK < precioFR And precioUK < precioDE Then
+                            precioFinal = precioUK
+                        Else
+                            If precioDE < precioFR Then
+                                precioFinal = precioDE
+                            Else
+                                precioFinal = precioFR
+                            End If
+
+                            If precioFR = Nothing Then
+                                If precioDE < precioUK Then
+                                    precioFinal = precioDE
+                                Else
+                                    precioFinal = precioUK
+                                End If
+                            End If
+
+                            If precioDE = Nothing Then
+                                If precioFR < precioUK Then
+                                    precioFinal = precioFR
+                                Else
+                                    precioFinal = precioUK
+                                End If
+                            End If
+                        End If
+                    ElseIf cosas.Tienda.NombreUsar = "Fanatical" Then
+                        precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(1)
+                    ElseIf cosas.Tienda.NombreUsar = "WinGameStore" Then
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                    ElseIf cosas.Tienda.NombreUsar = "Chrono" Then
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                    ElseIf cosas.Tienda.NombreUsar = "AmazonCom" Then
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                    ElseIf cosas.Tienda.NombreUsar = "Yuplay" Then
+                        Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbRublo.Text)
+                    Else
+                        precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
+                    End If
+
+                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + precioFinal + Environment.NewLine
+                    textoClipboard = textoClipboard + "[code]" + juego.Enlaces.Enlaces(0) + "[/code]" + Environment.NewLine
+                Next
+            End If
+
+            If Not textoClipboard = String.Empty Then
+                Dim datos As New DataPackage
+                datos.SetText(textoClipboard)
+                Clipboard.SetContent(datos)
+            End If
+
+            BloquearControles(True)
+
+        End Sub
+
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -839,6 +954,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
             botonSubir.IsEnabled = estado
+
+            Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
+            botonCopiarForo.IsEnabled = estado
 
         End Sub
 
