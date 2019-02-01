@@ -888,21 +888,21 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
                         End If
                     ElseIf cosas.Tienda.NombreUsar = "Fanatical" Then
-                        precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(1)
+                        precioFinal = juego.Enlaces.Precios(1)
                     ElseIf cosas.Tienda.NombreUsar = "WinGameStore" Then
                         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                        precioFinal = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     ElseIf cosas.Tienda.NombreUsar = "Chrono" Then
                         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                        precioFinal = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     ElseIf cosas.Tienda.NombreUsar = "AmazonCom" Then
                         Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbDolar.Text)
+                        precioFinal = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text)
                     ElseIf cosas.Tienda.NombreUsar = "Yuplay" Then
                         Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                        precioFinal = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbRublo.Text)
+                        precioFinal = Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbRublo.Text)
                     Else
-                        precioFinal = cosas.ListaJuegos(0).Enlaces.Precios(0)
+                        precioFinal = juego.Enlaces.Precios(0)
                     End If
 
                     textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + precioFinal + Environment.NewLine

@@ -237,6 +237,7 @@
     <Content Include="Assets\Publishers\neocore.png" />
     <Content Include="Assets\Publishers\paradox.png" />
     <Content Include="Assets\Publishers\rockstar.png" />
+    <Content Include="Assets\Publishers\sega.png" />
     <Content Include="Assets\Publishers\squareenix.png" />
     <Content Include="Assets\Publishers\team17.png" />
     <Content Include="Assets\Publishers\techland.png" />

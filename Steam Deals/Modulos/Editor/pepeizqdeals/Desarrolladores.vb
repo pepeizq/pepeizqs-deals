@@ -512,7 +512,7 @@
                 New Clases.Desarrolladores("Sauropod Studio", "@SauropodStudio", Nothing),
                 New Clases.Desarrolladores("Say Again Studio", "@manfightdragon", Nothing),
                 New Clases.Desarrolladores("SCS Software", "@SCSsoftware", "Assets\Publishers\scssoftware.png"),
-                New Clases.Desarrolladores("SEGA", "@SEGA", Nothing),
+                New Clases.Desarrolladores("SEGA", "@SEGA", "Assets\Publishers\sega.png"),
                 New Clases.Desarrolladores("Sekai Project", "@sekaiproject", Nothing),
                 New Clases.Desarrolladores("Senscape", "@Senscape", Nothing),
                 New Clases.Desarrolladores("Serenity Forge", "@SerenityForge", Nothing),
