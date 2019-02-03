@@ -906,7 +906,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + precioFinal + Environment.NewLine
-                    textoClipboard = textoClipboard + "[code]" + juego.Enlaces.Enlaces(0) + "[/code]" + Environment.NewLine
+                    textoClipboard = textoClipboard + juego.Enlaces.Enlaces(0) + Environment.NewLine
                 Next
             End If
 
