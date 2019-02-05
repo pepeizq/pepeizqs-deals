@@ -822,7 +822,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As Clases.Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
-            If cosas.ListaJuegos.Count > 1 Then
+            If cosas.ListaJuegos.Count > 0 Then
                 For Each juego In cosas.ListaJuegos
                     Dim tituloFinal As String = juego.Titulo
                     tituloFinal = LimpiarTitulo(tituloFinal)
