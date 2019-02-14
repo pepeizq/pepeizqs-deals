@@ -827,6 +827,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tituloFinal As String = juego.Titulo
                     tituloFinal = LimpiarTitulo(tituloFinal)
 
+                    If Not juego.Imagenes.Pequeña = Nothing Then
+                        textoClipboard = textoClipboard + "[url=" + juego.Enlaces.Enlaces(0) + "][img]" + juego.Imagenes.Pequeña + "[/img][/url]" + Environment.NewLine + Environment.NewLine
+                    Else
+                        textoClipboard = textoClipboard + "[url=" + juego.Enlaces.Enlaces(0) + "][img]" + juego.Imagenes.Grande + "[/img][/url]" + Environment.NewLine + Environment.NewLine
+                    End If
+
                     textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Enlaces.Precios(0) + Environment.NewLine
                     textoClipboard = textoClipboard + juego.Enlaces.Enlaces(0) + Environment.NewLine + Environment.NewLine
                 Next
