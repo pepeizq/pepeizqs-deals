@@ -181,14 +181,15 @@ Namespace pepeizq.Tiendas
                                     End If
 
                                     If tituloBool = False Then
-                                        Dim buscar As Boolean = True
+                                        Dim buscarBloqueo As Boolean = True
+                                        Dim buscarDesarrollador As Boolean = True
                                         Dim añadir As Boolean = False
 
                                         If Not listaBloqueo Is Nothing Then
                                             For Each juegoBloqueo In listaBloqueo
                                                 If juegoBloqueo.ID = juego.Enlaces.Enlaces(0) Then
                                                     If Not juegoBloqueo.Bloqueo = Nothing Then
-                                                        buscar = False
+                                                        buscarBloqueo = False
 
                                                         If juegoBloqueo.Bloqueo = False Then
                                                             añadir = True
@@ -198,44 +199,86 @@ Namespace pepeizq.Tiendas
                                             Next
                                         End If
 
-                                        If buscar = True Then
+                                        If Not listaDesarrolladores Is Nothing Then
+                                            For Each juegoDesarrollador In listaDesarrolladores
+                                                If juegoDesarrollador.ID = juego.Enlaces.Enlaces(0) Then
+                                                    If Not juegoDesarrollador.Desarrollador = Nothing Then
+                                                        buscarDesarrollador = False
+                                                    End If
+
+                                                    If juegoDesarrollador.Buscado = True Then
+                                                        buscarDesarrollador = False
+                                                    End If
+                                                End If
+                                            Next
+                                        End If
+
+                                        If buscarBloqueo = True Or buscarDesarrollador = True Then
                                             Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(enlace))
                                             Dim htmlJuego As String = htmlJuego_.Result
 
                                             If Not htmlJuego = Nothing Then
-                                                If htmlJuego.Contains("Steam SUB_ID:") Then
-                                                    Dim temp15, temp16 As String
-                                                    Dim int15, int16 As Integer
+                                                If buscarBloqueo = True Then
+                                                    If htmlJuego.Contains("Steam SUB_ID:") Then
+                                                        Dim temp15, temp16 As String
+                                                        Dim int15, int16 As Integer
 
-                                                    int15 = htmlJuego.IndexOf("Steam SUB_ID:")
-                                                    temp15 = htmlJuego.Remove(0, int15)
+                                                        int15 = htmlJuego.IndexOf("Steam SUB_ID:")
+                                                        temp15 = htmlJuego.Remove(0, int15)
 
-                                                    int15 = temp15.IndexOf("<span>")
-                                                    temp15 = temp15.Remove(0, int15 + 6)
+                                                        int15 = temp15.IndexOf("<span>")
+                                                        temp15 = temp15.Remove(0, int15 + 6)
 
-                                                    int16 = temp15.IndexOf("</span>")
-                                                    temp16 = temp15.Remove(int16, temp15.Length - int16)
+                                                        int16 = temp15.IndexOf("</span>")
+                                                        temp16 = temp15.Remove(int16, temp15.Length - int16)
 
-                                                    Dim htmlSteamDB_ As Task(Of String) = HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
-                                                    Dim htmlSteamDB As String = htmlSteamDB_.Result
+                                                        Dim htmlSteamDB_ As Task(Of String) = HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
+                                                        Dim htmlSteamDB As String = htmlSteamDB_.Result
 
-                                                    If Not htmlSteamDB = Nothing Then
-                                                        Dim bloqueo As New YuplayBloqueo(enlace, False)
+                                                        If Not htmlSteamDB = Nothing Then
+                                                            Dim bloqueo As New YuplayBloqueo(enlace, False)
 
-                                                        If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
-                                                            bloqueo.Bloqueo = True
-                                                        End If
+                                                            If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
+                                                                bloqueo.Bloqueo = True
+                                                            End If
 
-                                                        If htmlSteamDB.Contains("This package can only be run in specified countries") Then
-                                                            bloqueo.Bloqueo = True
-                                                        End If
+                                                            If htmlSteamDB.Contains("This package can only be run in specified countries") Then
+                                                                bloqueo.Bloqueo = True
+                                                            End If
 
-                                                        listaBloqueo.Add(bloqueo)
+                                                            listaBloqueo.Add(bloqueo)
 
-                                                        If bloqueo.Bloqueo = False Then
-                                                            añadir = True
+                                                            If bloqueo.Bloqueo = False Then
+                                                                añadir = True
+                                                            End If
                                                         End If
                                                     End If
+                                                End If
+
+                                                If buscarDesarrollador = True Then
+                                                    Dim desarrollador As New YuplayDesarrolladores(enlace, Nothing, False)
+
+                                                    If htmlJuego.Contains("Издатели") Then
+                                                        Dim temp17, temp18 As String
+                                                        Dim int17, int18 As Integer
+
+                                                        int17 = htmlJuego.IndexOf("Издатели")
+                                                        temp17 = htmlJuego.Remove(0, int17)
+
+                                                        int17 = temp17.IndexOf("<span>")
+                                                        temp17 = temp17.Remove(0, int17 + 6)
+
+                                                        int18 = temp17.IndexOf("</span>")
+                                                        temp18 = temp17.Remove(int18, temp17.Length - int18)
+
+                                                        juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp18.Trim}, Nothing)
+
+                                                        desarrollador.Desarrollador = temp18.Trim
+
+                                                        listaDesarrolladores.Add(desarrollador)
+                                                    End If
+
+                                                    desarrollador.Buscado = True
                                                 End If
                                             End If
                                         End If
@@ -295,10 +338,12 @@ Namespace pepeizq.Tiendas
 
         Public Property ID As String
         Public Property Desarrollador As String
+        Public Property Buscado As Boolean
 
-        Public Sub New(ByVal id As String, ByVal desarrollador As String)
+        Public Sub New(ByVal id As String, ByVal desarrollador As String, ByVal buscado As Boolean)
             Me.ID = id
             Me.Desarrollador = desarrollador
+            Me.Buscado = buscado
         End Sub
 
     End Class
