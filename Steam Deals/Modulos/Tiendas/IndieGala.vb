@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
 
 Namespace pepeizq.Tiendas
@@ -40,137 +41,101 @@ Namespace pepeizq.Tiendas
 
             Dim numPaginas As Integer = 0
 
-            numPaginas = GenerarNumPaginas(New Uri("https://www.indiegala.com/store/search?type=games&filter=discounted&page=1"))
+            numPaginas = GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?page=1&sale=true"))
 
             Dim i As Integer = 1
             While i < numPaginas
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.indiegala.com/store/search?type=games&filter=discounted&page=" + i.ToString))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.indiegala.com/store_games_rss?page=" + i.ToString + "&sale=true"))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
-                    Dim j As Integer = 0
-                    While j < 20
-                        If html.Contains("<div class=" + ChrW(34) + "game-row") Then
-                            Dim temp, temp2 As String
-                            Dim int, int2 As Integer
+                    Dim stream As New StringReader(html)
+                    Dim xml As New XmlSerializer(GetType(IndieGalaRSS))
+                    Dim rss As IndieGalaRSS = xml.Deserialize(stream)
+                    Dim listaJuegosIG As IndieGalaJuegos = rss.Canal.Juegos
 
-                            int = html.IndexOf("<div class=" + ChrW(34) + "game-row")
-                            temp = html.Remove(0, int + 5)
+                    If Not listaJuegosIG Is Nothing Then
+                        If listaJuegosIG.Juegos.Count > 0 Then
+                            For Each juegoIG In listaJuegosIG.Juegos
+                                Dim titulo As String = WebUtility.HtmlDecode(juegoIG.Titulo)
+                                titulo = titulo.Trim
 
-                            html = temp
+                                Dim enlace As String = juegoIG.Enlace
 
-                            int2 = temp.IndexOf("<div class=" + ChrW(34) + "spacer-v-5")
-                            temp2 = temp.Remove(int2, temp.Length - int2)
+                                Dim listaEnlaces As New List(Of String) From {
+                                    enlace
+                                }
 
-                            Dim temp3, temp4 As String
-                            Dim int3, int4 As Integer
+                                Dim imagen As String = juegoIG.ImagenGrande
 
-                            int3 = temp2.IndexOf("title=")
-                            temp3 = temp2.Remove(0, int3 + 7)
+                                If Not imagen.Contains("https://www.indiegalacdn.com/get_store_img?img=") Then
+                                    imagen = "https://www.indiegalacdn.com/get_store_img?img=" + imagen
+                                End If
 
-                            int4 = temp3.IndexOf(ChrW(34))
-                            temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                If Not imagen.Contains("&s=medium") Then
+                                    imagen = imagen + "&s=medium"
+                                End If
 
-                            temp4 = temp4.Trim
-                            temp4 = WebUtility.HtmlDecode(temp4)
+                                Dim imagenes As New JuegoImagenes(imagen, imagen)
 
-                            Dim titulo As String = temp4
+                                Dim precio As String = juegoIG.PrecioDescontado
 
-                            Dim temp5, temp6 As String
-                            Dim int5, int6 As Integer
+                                If Not precio.Contains(".") Then
+                                    precio = precio + ".00"
+                                End If
 
-                            int5 = temp2.IndexOf("<a href=")
-                            temp5 = temp2.Remove(0, int5 + 9)
+                                precio = precio + "€"
 
-                            int6 = temp5.IndexOf(ChrW(34))
-                            temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                Dim listaPrecios As New List(Of String) From {
+                                    precio
+                                }
 
-                            Dim enlace As String = "https://www.indiegala.com" + temp6.Trim
+                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
-                            Dim temp7, temp8 As String
-                            Dim int7, int8 As Integer
+                                Dim descuento As String = juegoIG.Descuento
 
-                            int7 = temp2.IndexOf("<img src=")
-                            temp7 = temp2.Remove(0, int7 + 10)
+                                If descuento.Contains(".") Then
+                                    Dim int As Integer = descuento.IndexOf(".")
+                                    descuento = descuento.Remove(int, descuento.Length - int)
+                                End If
 
-                            int8 = temp7.IndexOf(ChrW(34))
-                            temp8 = temp7.Remove(int8, temp7.Length - int8)
+                                If Not descuento = Nothing Then
+                                    descuento = descuento + "%"
+                                End If
 
-                            temp8 = temp8.Trim
+                                Dim drm As String = juegoIG.DRM
 
-                            Dim imagenPequeña As String = temp8.Replace("/small/", "/medium/")
+                                Dim fechaTermina As DateTime = Nothing
 
-                            Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
+                                If Not juegoIG.Fecha = Nothing Then
+                                    fechaTermina = DateTime.Parse(juegoIG.Fecha)
+                                End If
 
-                            Dim temp9, temp10 As String
-                            Dim int9, int10 As Integer
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
 
-                            int9 = temp2.IndexOf("%</div>")
-                            temp9 = temp2.Remove(int9, temp2.Length - int9)
+                                Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoIG.Desarrollador}, Nothing)
 
-                            int10 = temp9.LastIndexOf(">")
-                            temp10 = temp9.Remove(0, int10 + 1)
+                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
-                            temp10 = temp10.Trim
-                            temp10 = temp10.Replace("-", Nothing)
-                            temp10 = temp10 + "%"
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
+                                    End If
+                                    k += 1
+                                End While
 
-                            Dim descuento As String = temp10
-
-                            Dim temp11, temp12 As String
-                            Dim int11, int12 As Integer
-
-                            int11 = temp2.LastIndexOf(">$")
-                            temp11 = temp2.Remove(0, int11 + 1)
-
-                            int12 = temp11.IndexOf("</div>")
-                            temp12 = temp11.Remove(int12, temp11.Length - int12)
-
-                            Dim precio As String = temp12.Trim
-
-                            Dim listaEnlaces As New List(Of String) From {
-                                enlace
-                            }
-
-                            Dim listaPrecios As New List(Of String) From {
-                                precio
-                            }
-
-                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
-
-                            Dim drm As String = Nothing
-
-                            If temp2.Contains("steam-icon.png") Then
-                                drm = "steam"
-                            ElseIf temp2.Contains("uplay-icon.png") Then
-                                drm = "uplay"
-                            End If
-
-                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
-
-                            Dim juegoFinal As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                            Dim tituloBool As Boolean = False
-                            Dim k As Integer = 0
-                            While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juegoFinal.Titulo Then
+                                If juego.Descuento = Nothing Then
                                     tituloBool = True
                                 End If
-                                k += 1
-                            End While
 
-                            If juegoFinal.Descuento = Nothing Then
-                                tituloBool = True
-                            End If
-
-                            If tituloBool = False Then
-                                listaJuegos.Add(juegoFinal)
-                            End If
-                        Else
-                            Exit While
+                                If tituloBool = False Then
+                                    listaJuegos.Add(juego)
+                                End If
+                            Next
                         End If
-                        j += 1
-                    End While
+                    End If
                 End If
                 Bw.ReportProgress(CInt((100 / numPaginas) * i))
                 i += 1
@@ -200,35 +165,78 @@ Namespace pepeizq.Tiendas
         Private Function GenerarNumPaginas(url As Uri)
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(url)
-            Dim htmlPaginas As String = htmlPaginas_.Result
 
-            If Not htmlPaginas = Nothing Then
-                Notificaciones.Toast(htmlPaginas, Nothing)
-                If htmlPaginas.Contains(">Last</a>") Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
+            Dim html_ As Task(Of String) = HttpClient(url)
+            Dim html As String = html_.Result
+            Dim stream As New StringReader(html)
+            Dim xml As New XmlSerializer(GetType(IndieGalaRSS))
+            Dim rss As IndieGalaRSS = xml.Deserialize(stream)
 
-                    int = htmlPaginas.IndexOf(">Last</a>")
-                    temp = htmlPaginas.Remove(int, htmlPaginas.Length - int)
-
-                    int2 = temp.LastIndexOf("page=")
-                    temp2 = temp.Remove(0, int2 + 5)
-
-                    temp2 = temp2.Replace(ChrW(34), Nothing)
-                    temp2 = temp2.Trim
-
-                    numPaginas = temp2
-                Else
-                    numPaginas = 10
-                End If
-            End If
-
+            numPaginas = rss.Canal.Paginas
             numPaginas = numPaginas + 1
 
             Return numPaginas
         End Function
 
     End Module
+
+    <XmlRoot("rss")>
+    Public Class IndieGalaRSS
+
+        <XmlElement("channel")>
+        Public Canal As IndieGalaCanal
+
+    End Class
+
+    Public Class IndieGalaCanal
+
+        <XmlElement("totalPages")>
+        Public Paginas As Integer
+
+        <XmlElement("totalGames")>
+        Public TotalJuegos As Integer
+
+        <XmlElement("browse")>
+        Public Juegos As IndieGalaJuegos
+
+    End Class
+
+    Public Class IndieGalaJuegos
+
+        <XmlElement("item")>
+        Public Juegos As List(Of IndieGalaJuego)
+
+    End Class
+
+    Public Class IndieGalaJuego
+
+        <XmlElement("title")>
+        Public Titulo As String
+
+        <XmlElement("link")>
+        Public Enlace As String
+
+        <XmlElement("discountPriceEUR")>
+        Public PrecioDescontado As String
+
+        <XmlElement("discountPercentEUR")>
+        Public Descuento As String
+
+        <XmlElement("publisher")>
+        Public Desarrollador As String
+
+        <XmlElement("drminfo")>
+        Public DRM As String
+
+        <XmlElement("boximg_small")>
+        Public ImagenPequeña As String
+
+        <XmlElement("boximg")>
+        Public ImagenGrande As String
+
+        <XmlElement("discountEnd")>
+        Public Fecha As String
+
+    End Class
 End Namespace
 

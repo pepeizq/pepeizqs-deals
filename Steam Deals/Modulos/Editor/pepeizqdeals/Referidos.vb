@@ -25,10 +25,11 @@
                 enlace = enlace + "?partner=pepeizq"
             ElseIf enlace.Contains("fanatical.com") Then
                 enlace = enlace + "?ref=pepeizq"
+            ElseIf enlace.Contains("indiegala.com") Then
+                enlace = enlace + "?ref=pepeizq"
             ElseIf enlace.Contains("greenmangaming.com") Then
                 enlace = "http://www.tkqlhce.com/click-8883540-10912384?url=" + enlace
             ElseIf enlace.Contains("voidu.com") Then
-                'enlace = "http://www.tkqlhce.com/click-8883540-13159373?url=" + enlace
                 enlace = enlace + "?ref=e8f2c4e5-81e9"
             ElseIf enlace.Contains("yuplay.ru") Then
                 enlace = enlace + "?partner=19b1d908fe49e597"

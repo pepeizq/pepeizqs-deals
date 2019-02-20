@@ -21,7 +21,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Icono("SilaGames", "Assets/Tiendas/silagames.ico", "#929cac", Nothing, 32, 32, "Assets/Tiendas/silagames2.png"),
                 New Clases.Icono("Voidu", "Assets/Tiendas/voidu.ico", "#fbd3b6", Nothing, 32, 32, "Assets/Tiendas/voidu2.png"),
                 New Clases.Icono("RazerGameStore", "Assets/Tiendas/razer.ico", "#44d62c", Nothing, 32, 32, "Assets/Tiendas/razer2.png"),
-                New Clases.Icono("IndieGala", "Assets/Tiendas/indiegala.ico", "#ffccd4", Nothing, 32, 32, Nothing),
+                New Clases.Icono("IndieGala", "Assets/Tiendas/indiegala.ico", "#ffccd4", Nothing, 32, 32, "Assets/Tiendas/indiegala2.png"),
                 New Clases.Icono("AmazonCom", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32, "Assets/Tiendas/amazon2.png"),
                 New Clases.Icono("Twitch", "Assets/Tiendas/twitch.png", "#6441a4", Nothing, 32, 32, Nothing),
                 New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32, "Assets/Tiendas/gmg2.png"),

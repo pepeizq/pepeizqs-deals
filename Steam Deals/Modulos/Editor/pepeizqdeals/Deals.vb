@@ -724,6 +724,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cosas.Tienda.NombreMostrar = "Yuplay" Then
                 listaEtiquetas.Add(1209)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg"
+            ElseIf cosas.Tienda.NombreMostrar = "IndieGala" Then
+                listaEtiquetas.Add(1210)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png"
             End If
 
             precioFinal = precioFinal.Replace(",", ".")

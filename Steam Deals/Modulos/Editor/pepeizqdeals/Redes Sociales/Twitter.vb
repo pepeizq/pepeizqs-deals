@@ -119,6 +119,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• Humble Bundle", "• @humble")
             ElseIf titulo.Contains("• Humble Store") Then
                 titulo = titulo.Replace("• Humble Store", "• @humblestore")
+            ElseIf titulo.Contains("• IndieGala") Then
+                titulo = titulo.Replace("• IndieGala", "• @IndieGala")
             ElseIf titulo.Contains("• Microsoft Store") Then
                 titulo = titulo.Replace("• Microsoft Store", "• @MicrosoftStore")
             ElseIf titulo.Contains("• Razer Game Store") Then
@@ -129,6 +131,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• Steam", "• @steam_games")
             ElseIf titulo.Contains("• Voidu") Then
                 titulo = titulo.Replace("• Voidu", "• @voiduplay")
+            ElseIf titulo.Contains("• Yuplay") Then
+                titulo = titulo.Replace("• Yuplay", "• @yuPlay_ru")
             ElseIf titulo.Contains("• WinGameStore") Then
                 titulo = titulo.Replace("• WinGameStore", "• @wingamestore")
             End If
