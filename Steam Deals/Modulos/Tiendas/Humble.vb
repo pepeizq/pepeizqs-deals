@@ -177,7 +177,9 @@ Namespace pepeizq.Tiendas
                     Next
                 End If
 
-                Bw.ReportProgress(CInt((100 / numPaginas) * i))
+                If numPaginas > 0 Then
+                    Bw.ReportProgress(CInt((100 / numPaginas) * i))
+                End If
                 i += 1
             End While
 
