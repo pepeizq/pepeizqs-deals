@@ -245,7 +245,7 @@
                 New Clases.Desarrolladores("Ertal Games", "@ertal77", Nothing),
                 New Clases.Desarrolladores("Event Horizon", "@EventHorizonDev", Nothing),
                 New Clases.Desarrolladores("EvilCoGames", "@EvilCoGames", Nothing),
-                New Clases.Desarrolladores("Excalibur Games", "@Excalpublishing", Nothing),
+                New Clases.Desarrolladores("Excalibur Games", "@Excalpublishing", "Assets\Publishers\excalibur.png"),
                 New Clases.Desarrolladores("Exor Studios", "@EXORStudios", Nothing),
                 New Clases.Desarrolladores("Fabraz", "@Fabrazz", Nothing),
                 New Clases.Desarrolladores("Failbetter Games", "@failbettergames", Nothing),
