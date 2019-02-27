@@ -271,6 +271,7 @@
     <Content Include="Assets\Tiendas\amazon.png" />
     <Content Include="Assets\Tiendas\gamersgate.ico" />
     <Content Include="Assets\Tiendas\gamesplanet.png" />
+    <Content Include="Assets\Tiendas\steam3.png" />
     <Content Include="Assets\Tiendas\twitch.png" />
     <Content Include="Assets\Tiendas\gmg.ico" />
     <Content Include="Assets\Tiendas\gog.ico" />
