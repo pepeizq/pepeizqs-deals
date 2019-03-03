@@ -204,7 +204,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, tituloComplemento, puntuacionReview)
+                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try

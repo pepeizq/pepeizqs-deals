@@ -65,7 +65,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim analisis As String = post.ReviewPuntuacion
 
-            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.Imagen, enlaceFinal, tituloComplemento, analisis)
+            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.Imagen, enlaceFinal)
 
         End Sub
 

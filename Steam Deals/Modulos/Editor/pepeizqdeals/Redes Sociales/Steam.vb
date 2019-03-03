@@ -3,7 +3,7 @@
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Steam
 
-        Public Async Function Enviar(titulo As String, imagen As String, enlaceFinal As String, tituloComplemento As String, analisis As String) As Task
+        Public Async Function Enviar(titulo As String, imagen As String, enlaceFinal As String) As Task
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -31,14 +31,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                     If Not imagen = Nothing Then
                         mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n"
-                    End If
-
-                    If Not analisis Is Nothing Then
-                        mensajeHtml = mensajeHtml + analisis
-                    End If
-
-                    If Not tituloComplemento = Nothing Then
-                        mensajeHtml = mensajeHtml + tituloComplemento
                     End If
 
                     If Not mensajeHtml = Nothing Then
