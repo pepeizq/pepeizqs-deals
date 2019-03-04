@@ -35,7 +35,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                     If Not mensajeHtml = Nothing Then
                         If mensajeHtml.Trim.Length > 0 Then
-                            mensajeHtml = mensajeHtml + "\n\n" + enlaceFinal
+                            mensajeHtml = mensajeHtml + enlaceFinal
                         Else
                             mensajeHtml = enlaceFinal
                         End If
