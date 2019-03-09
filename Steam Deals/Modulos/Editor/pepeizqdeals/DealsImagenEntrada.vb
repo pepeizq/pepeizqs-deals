@@ -21,15 +21,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenJuego As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuego")
             imagenJuego.Source = enlace
 
-            Dim spDescuento As StackPanel = pagina.FindName("spDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
+            Dim gridDescuento As Grid = pagina.FindName("gridDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
 
             If Not juego.Descuento = Nothing Then
-                spDescuento.Visibility = Visibility.Visible
+                gridDescuento.Visibility = Visibility.Visible
 
                 Dim tbDescuento As TextBlock = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
                 tbDescuento.Text = juego.Descuento.Trim
             Else
-                spDescuento.Visibility = Visibility.Collapsed
+                gridDescuento.Visibility = Visibility.Collapsed
             End If
 
             Dim tbPrecio As TextBlock = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
