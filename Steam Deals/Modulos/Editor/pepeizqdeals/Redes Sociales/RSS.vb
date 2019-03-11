@@ -40,6 +40,18 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 sp.Children.Add(botonSteam)
 
+                Dim botonReddit As New Button With {
+                    .Tag = post,
+                    .Content = "Reddit",
+                    .Margin = New Thickness(30, 0, 0, 0)
+                }
+
+                AddHandler botonReddit.Click, AddressOf Reddit
+                AddHandler botonReddit.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonReddit.PointerExited, AddressOf UsuarioSaleBoton
+
+                sp.Children.Add(botonReddit)
+
                 lv.Items.Add(sp)
             Next
         End Sub
@@ -63,9 +75,32 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim tituloComplemento As String = post.TituloComplemento
 
-            Dim analisis As String = post.ReviewPuntuacion
-
             Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.Imagen, enlaceFinal)
+
+        End Sub
+
+        Private Async Sub Reddit(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim enlaceFinal As String = Nothing
+
+            Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + post.Enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
+
+            If Not htmlAcortador = String.Empty Then
+                Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
+
+                If Not acortador Is Nothing Then
+                    enlaceFinal = acortador.EnlaceAcortado
+                End If
+            End If
+
+            Dim tituloComplemento As String = post.TituloComplemento
+
+            Dim categoria As Integer = post.Categorias(0)
+
+            Await RedesSociales.Reddit.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, categoria)
 
         End Sub
 
