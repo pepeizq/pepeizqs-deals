@@ -91,6 +91,12 @@ Namespace pepeizq.Tiendas
                                 Dim titulo As String = temp6.Trim
                                 titulo = WebUtility.HtmlDecode(titulo)
 
+                                titulo = titulo.Replace("(для Mac)", Nothing)
+                                titulo = titulo.Replace("(Mac & Linux)", Nothing)
+                                titulo = titulo.Replace("(для Mac & Linux)", Nothing)
+
+                                titulo = titulo.Trim
+
                                 Dim temp7, temp8 As String
                                 Dim int7, int8 As Integer
 
