@@ -65,6 +65,9 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("redirect")>
         Public Redireccion As String
 
+        <JsonProperty("us_tile_link")>
+        Public Redireccion2 As String
+
         <JsonProperty("fifu_image_url")>
         Public Imagen As String
 

@@ -105,6 +105,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Dim redireccionFinal As String = redireccion.Trim
                         redireccionFinal = Referidos.Generar(redireccionFinal)
                         postEditor.Redireccion = redireccionFinal
+
+                        postEditor.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + redireccionFinal + ChrW(34) +
+                            "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
                     End If
                 End If
 
