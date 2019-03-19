@@ -23,10 +23,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         Public Async Function Enviar(titulo As String, enlace As String, imagen As String) As Task
 
-            If Not enlace = Nothing Then
-                enlace = enlace + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "push"
-            End If
-
             Dim cliente As FirebaseClient = Conectar()
 
             Dim mensaje As New MensajePush(titulo + "••" + enlace + "••" + imagen)

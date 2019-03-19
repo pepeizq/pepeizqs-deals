@@ -190,21 +190,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
                     If redesSociales = True Then
-                        Dim enlaceFinal As String = Nothing
-
-                        Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + resultado.Enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
-
-                        If Not htmlAcortador = String.Empty Then
-                            Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
-
-                            If Not acortador Is Nothing Then
-                                enlaceFinal = acortador.EnlaceAcortado
-                            End If
-                        End If
-
-                        If enlaceFinal = Nothing Then
-                            enlaceFinal = resultado.Enlace
-                        End If
+                        Dim enlaceFinal As String = resultado.Enlace
 
                         Try
                             Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal)
@@ -282,14 +268,4 @@ Namespace pepeizq.Editor.pepeizqdeals
         End Sub
 
     End Module
-
-    Public Class AcortadorPoSt
-
-        <JsonProperty("long_url")>
-        Public EnlaceOriginal As String
-
-        <JsonProperty("short_url")>
-        Public EnlaceAcortado As String
-
-    End Class
 End Namespace

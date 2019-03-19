@@ -61,17 +61,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag
 
-            Dim enlaceFinal As String = Nothing
-
-            Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + post.Enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
-
-            If Not htmlAcortador = String.Empty Then
-                Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
-
-                If Not acortador Is Nothing Then
-                    enlaceFinal = acortador.EnlaceAcortado
-                End If
-            End If
+            Dim enlaceFinal As String = post.Enlace
 
             Dim tituloComplemento As String = post.TituloComplemento
 
@@ -84,17 +74,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag
 
-            Dim enlaceFinal As String = Nothing
-
-            Dim htmlAcortador As String = Await HttpClient(New Uri("http://po.st/api/shorten?longUrl=" + post.Enlace + "&apiKey=B940A930-9635-4EF3-B738-A8DD37AF8110"))
-
-            If Not htmlAcortador = String.Empty Then
-                Dim acortador As AcortadorPoSt = JsonConvert.DeserializeObject(Of AcortadorPoSt)(htmlAcortador)
-
-                If Not acortador Is Nothing Then
-                    enlaceFinal = acortador.EnlaceAcortado
-                End If
-            End If
+            Dim enlaceFinal As String = post.Enlace
 
             Dim tituloComplemento As String = post.TituloComplemento
 

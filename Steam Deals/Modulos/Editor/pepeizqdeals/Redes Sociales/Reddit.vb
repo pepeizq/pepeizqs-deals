@@ -71,10 +71,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 End If
             End If
 
-            If Not enlaceFinal = Nothing Then
-                enlaceFinal = enlaceFinal + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "reddit"
-            End If
-
             Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (Sub()
                                                                                                               Dim reddit As New RedditSharp.Reddit
 

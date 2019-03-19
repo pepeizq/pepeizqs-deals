@@ -25,10 +25,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                     Dim mensajeHtml As String = Nothing
 
-                    If Not enlaceFinal = Nothing Then
-                        enlaceFinal = enlaceFinal + "?=" + DateTime.Now.DayOfYear.ToString + DateTime.Now.Year.ToString + "steam"
-                    End If
-
                     If Not imagen = Nothing Then
                         mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n"
                     End If
