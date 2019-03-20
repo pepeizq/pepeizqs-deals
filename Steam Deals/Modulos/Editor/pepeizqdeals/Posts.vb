@@ -190,7 +190,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
                     If redesSociales = True Then
-                        Dim enlaceFinal As String = resultado.Enlace
+                        Dim enlaceFinal As String = String.Empty
+
+                        If resultado.Redireccion = Nothing Then
+                            enlaceFinal = resultado.Enlace
+                        Else
+                            enlaceFinal = resultado.Redireccion
+                        End If
 
                         Try
                             Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal)
