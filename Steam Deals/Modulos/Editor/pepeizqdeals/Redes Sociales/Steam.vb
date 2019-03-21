@@ -25,8 +25,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                     Dim mensajeHtml As String = Nothing
 
-                    If Not imagen = Nothing Then
-                        mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n"
+                    If Not enlaceFinal.Contains("store.steampowered.com") Then
+                        If Not imagen = Nothing Then
+                            mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n"
+                        End If
                     End If
 
                     If Not mensajeHtml = Nothing Then
