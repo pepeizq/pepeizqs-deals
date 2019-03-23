@@ -42,6 +42,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             tbTitulo.Text = String.Empty
 
+            RemoveHandler tbTitulo.TextChanged, AddressOf ModificarTitulo
+            AddHandler tbTitulo.TextChanged, AddressOf ModificarTitulo
+
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.Text = String.Empty
 
@@ -852,6 +855,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             BloquearControles(True)
+
+        End Sub
+
+        Private Sub ModificarTitulo(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTitulo As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuego")
+
+            If gridUnJuego.Visibility = Visibility.Visible Then
+                Dim tbPrecio As TextBlock = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
+
+                Dim temp, temp2 As String
+                Dim int, int2 As Integer
+
+                int = tbTitulo.Text.LastIndexOf("•")
+                temp = tbTitulo.Text.Remove(int, tbTitulo.Text.Length - int)
+
+                int2 = temp.LastIndexOf("•")
+                temp2 = temp.Remove(0, int2 + 1)
+
+                tbPrecio.Text = temp2.Trim
+            End If
 
         End Sub
 
