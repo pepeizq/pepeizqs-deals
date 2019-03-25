@@ -101,7 +101,7 @@
                 New Clases.Desarrolladores("Applava", "@Applava", Nothing),
                 New Clases.Desarrolladores("Auroch Digital", "@AurochDigital", Nothing),
                 New Clases.Desarrolladores("Autarca", "@AutarcaDev", Nothing),
-                New Clases.Desarrolladores("Arc System Works", "@ArcSystemWorksU", Nothing),
+                New Clases.Desarrolladores("Arc System Works", "@ArcSystemWorksU", "Assets\Publishers\arcsystemworks.png"),
                 New Clases.Desarrolladores("Arcen Games", "@ArcenGames", Nothing),
                 New Clases.Desarrolladores("Argent Games", "@argent_games", Nothing),
                 New Clases.Desarrolladores("Artifex Mundi", "@ArtifexMundi", Nothing),
