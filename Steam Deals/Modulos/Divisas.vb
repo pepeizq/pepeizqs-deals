@@ -103,37 +103,35 @@ Module Divisas
 
         If Not moneda = Nothing Then
             If Not precio = Nothing Then
-                moneda = moneda.Replace("$", Nothing)
-                moneda = moneda.Replace("£", Nothing)
-                moneda = moneda.Replace(".", ",")
-                moneda = moneda.Trim
+                If moneda.Length > 0 And precio.Length > 0 Then
+                    moneda = moneda.Replace("$", Nothing)
+                    moneda = moneda.Replace("£", Nothing)
+                    moneda = moneda.Replace(".", ",")
+                    moneda = moneda.Trim
 
-                precio = precio.Replace("$", Nothing)
-                precio = precio.Replace("£", Nothing)
-                precio = precio.Replace(".", ",")
-                precio = precio.Trim
+                    precio = precio.Replace("$", Nothing)
+                    precio = precio.Replace("£", Nothing)
+                    precio = precio.Replace(".", ",")
+                    precio = precio.Trim
 
-                Dim dou, dou2, resultado As Double
+                    Dim dou, dou2, resultado As Double
 
-                Try
+                    If moneda.Length > 0 And precio.Length > 0 Then
+                        dou = CDbl(moneda)
+                        dou2 = CDbl(precio)
 
-                Catch ex As Exception
+                        resultado = dou2 / dou
 
-                End Try
+                        temporalEuros = Math.Round(resultado, 2).ToString
+                        temporalEuros = temporalEuros.Replace(",", ".")
 
-                dou = CDbl(moneda)
-                dou2 = CDbl(precio)
+                        If Not temporalEuros.Contains(".") Then
+                            temporalEuros = temporalEuros + ".00"
+                        End If
 
-                resultado = dou2 / dou
-
-                temporalEuros = Math.Round(resultado, 2).ToString
-                temporalEuros = temporalEuros.Replace(",", ".")
-
-                If Not temporalEuros.Contains(".") Then
-                    temporalEuros = temporalEuros + ".00"
+                        temporalEuros = temporalEuros + " €"
+                    End If
                 End If
-
-                temporalEuros = temporalEuros + " €"
             End If
         End If
 
