@@ -214,6 +214,7 @@ Namespace pepeizq.Tiendas
 
                                                     If juegoDesarrollador.Buscado = True Then
                                                         buscarDesarrollador = False
+                                                        juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {juegoDesarrollador.Desarrollador}, Nothing)
                                                     End If
                                                 End If
                                             Next
