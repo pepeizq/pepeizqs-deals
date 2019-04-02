@@ -171,7 +171,6 @@
     <Compile Include="Modulos\Tiendas\IndieGala.vb" />
     <Compile Include="Modulos\Tiendas\MicrosoftStore.vb" />
     <Compile Include="Modulos\Tiendas\Nuuvem.vb" />
-    <Compile Include="Modulos\Tiendas\RazerGameStore.vb" />
     <Compile Include="Modulos\Tiendas\SilaGames.vb" />
     <Compile Include="Modulos\Tiendas\Steam.vb" />
     <Compile Include="Modulos\Tiendas\Voidu.vb" />
@@ -262,7 +261,6 @@
     <Content Include="Assets\Tiendas\humblemonthly.png" />
     <Content Include="Assets\Tiendas\indiegala2.png" />
     <Content Include="Assets\Tiendas\microsoftstore2.png" />
-    <Content Include="Assets\Tiendas\razer2.png" />
     <Content Include="Assets\Tiendas\silagames2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
     <Content Include="Assets\Tiendas\chrono.png" />
@@ -281,7 +279,6 @@
     <Content Include="Assets\Tiendas\indiegala.ico" />
     <Content Include="Assets\Tiendas\microsoft.ico" />
     <Content Include="Assets\Tiendas\nuuvem.ico" />
-    <Content Include="Assets\Tiendas\razer.ico" />
     <Content Include="Assets\Tiendas\silagames.ico" />
     <Content Include="Assets\Tiendas\steam.ico" />
     <Content Include="Assets\drm_steam.png" />

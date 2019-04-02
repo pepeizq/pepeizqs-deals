@@ -3,7 +3,7 @@
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Steam
 
-        Public Async Function Enviar(titulo As String, imagen As String, enlaceFinal As String) As Task
+        Public Async Function Enviar(titulo As String, imagen As String, enlaceFinal As String, redireccion As String) As Task
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -25,7 +25,13 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                     Dim mensajeHtml As String = Nothing
 
-                    If Not enlaceFinal.Contains("store.steampowered.com") Then
+                    If Not redireccion = Nothing Then
+                        If Not redireccion.Contains("store.steampowered.com") Then
+                            If Not imagen = Nothing Then
+                                mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n"
+                            End If
+                        End If
+                    Else
                         If Not imagen = Nothing Then
                             mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n"
                         End If

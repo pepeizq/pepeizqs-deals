@@ -61,17 +61,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag
 
-            Dim enlaceFinal As String = String.Empty
-
-            If post.Redireccion = Nothing Then
-                enlaceFinal = post.Enlace
-            Else
-                enlaceFinal = post.Redireccion
-            End If
+            Dim enlaceFinal As String = post.Enlace
 
             Dim tituloComplemento As String = post.TituloComplemento
 
-            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.Imagen, enlaceFinal)
+            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.Imagen, enlaceFinal, post.Redireccion)
 
         End Sub
 
@@ -80,13 +74,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag
 
-            Dim enlaceFinal As String = String.Empty
-
-            If post.Redireccion = Nothing Then
-                enlaceFinal = post.Enlace
-            Else
-                enlaceFinal = post.Redireccion
-            End If
+            Dim enlaceFinal As String = post.Enlace
 
             Dim tituloComplemento As String = post.TituloComplemento
 

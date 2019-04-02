@@ -192,14 +192,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If redesSociales = True Then
                         Dim enlaceFinal As String = String.Empty
 
-                        If resultado.Redireccion = Nothing Then
+                        If Not resultado.Enlace = Nothing Then
                             enlaceFinal = resultado.Enlace
-                        Else
-                            enlaceFinal = resultado.Redireccion
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal)
+                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try
