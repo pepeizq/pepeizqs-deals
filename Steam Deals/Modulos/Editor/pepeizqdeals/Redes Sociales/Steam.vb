@@ -37,14 +37,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         End If
                     End If
 
-                    If Not mensajeHtml = Nothing Then
-                        If mensajeHtml.Trim.Length > 0 Then
-                            mensajeHtml = mensajeHtml + enlaceFinal
-                        Else
-                            mensajeHtml = enlaceFinal
-                        End If
+                    If redireccion.Contains("store.steampowered.com") Then
+                        mensajeHtml = mensajeHtml + redireccion
                     Else
-                        mensajeHtml = enlaceFinal
+                        mensajeHtml = mensajeHtml + enlaceFinal
                     End If
 
                     mensajeHtml = mensajeHtml.Replace(ChrW(34), Nothing)
