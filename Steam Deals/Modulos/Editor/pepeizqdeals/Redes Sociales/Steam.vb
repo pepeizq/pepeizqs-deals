@@ -37,8 +37,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         End If
                     End If
 
-                    If redireccion.Contains("store.steampowered.com") Then
-                        mensajeHtml = mensajeHtml + redireccion
+                    If Not redireccion = Nothing Then
+                        If redireccion.Contains("store.steampowered.com") Then
+                            mensajeHtml = mensajeHtml + redireccion
+                        Else
+                            mensajeHtml = mensajeHtml + enlaceFinal
+                        End If
                     Else
                         mensajeHtml = mensajeHtml + enlaceFinal
                     End If
