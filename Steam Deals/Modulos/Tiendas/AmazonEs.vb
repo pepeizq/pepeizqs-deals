@@ -39,19 +39,22 @@ Namespace pepeizq.Tiendas
                 listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaAmazonEs").Result
             End If
 
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s/ref=sr_pg_2?fst=as%3Aoff&rh=n%3A599382031%2Cn%3A%21599383031%2Cn%3A665498031%2Cp_6%3AA1AT7YVPFBWXBL%2Cn%3A665499031&page=2&bbn=665498031&ie=UTF8&qid=1491219810"))
+            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=665499031&rh=n%3A599382031%2Cn%3A599383031%2Cn%3A665498031%2Cn%3A665499031%2Cp_6%3AA1AT7YVPFBWXBL%2Cp_n_availability%3A831278031&dc&page=2&fst=as%3Aoff&qid=1554550884&rnid=831270031&ref=sr_pg_2"))
             Dim htmlPaginas As String = htmlPaginas_.Result
             Dim numPaginas As Integer = 100
 
             If Not htmlPaginas = Nothing Then
-                If htmlPaginas.Contains("<span class=" + ChrW(34) + "pagnDisabled") Then
+                If htmlPaginas.Contains("<li class=" + ChrW(34) + "a-disabled") Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = htmlPaginas.IndexOf("<span class=" + ChrW(34) + "pagnDisabled")
-                    temp = htmlPaginas.Remove(0, int + 27)
+                    int = htmlPaginas.LastIndexOf("<li class=" + ChrW(34) + "a-disabled")
+                    temp = htmlPaginas.Remove(0, int + 2)
 
-                    int2 = temp.IndexOf("</span>")
+                    int = temp.IndexOf(">")
+                    temp = temp.Remove(0, int + 1)
+
+                    int2 = temp.IndexOf("</li>")
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
                     numPaginas = temp2.Trim
@@ -60,121 +63,84 @@ Namespace pepeizq.Tiendas
 
             Dim i As Integer = 1
             While i < numPaginas + 1
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s/ref=sr_pg_2?fst=as%3Aoff&rh=n%3A599382031%2Cn%3A%21599383031%2Cn%3A665498031%2Cp_6%3AA1AT7YVPFBWXBL%2Cn%3A665499031&page=" + i.ToString + "&bbn=665498031&ie=UTF8&qid=1491219810"))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=665499031&rh=n%3A599382031%2Cn%3A599383031%2Cn%3A665498031%2Cn%3A665499031%2Cp_6%3AA1AT7YVPFBWXBL%2Cp_n_availability%3A831278031&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1554550884&rnid=831270031&ref=sr_pg_2"))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
-                    html = WebUtility.HtmlDecode(html)
-
                     Dim j As Integer = 0
-                    While j < 12
-                        Dim temp, temp2 As String
-                        Dim int, int2 As Integer
+                    While j < 16
+                        If html.Contains("<div data-asin=") Then
+                            Dim temp As String
+                            Dim int As Integer
 
-                        int = html.IndexOf(ChrW(34) + "result_")
-                        temp = html.Remove(0, int + 10)
+                            int = html.IndexOf("<div data-asin=")
+                            temp = html.Remove(0, int + 5)
 
-                        html = temp
-
-                        int2 = temp.IndexOf("</div></div></li>")
-
-                        If Not int2 = -1 Then
-                            temp2 = temp.Remove(int2, temp.Length - int2)
+                            html = temp
 
                             Dim temp3, temp4 As String
                             Dim int3, int4 As Integer
 
-                            int3 = temp2.IndexOf("title=")
-                            temp3 = temp2.Remove(0, int3 + 7)
+                            int3 = temp.IndexOf("alt=")
+                            temp3 = temp.Remove(0, int3 + 5)
 
                             int4 = temp3.IndexOf(ChrW(34))
                             temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                            Dim titulo As String = LimpiarTitulo(temp4.Trim)
+                            temp4 = WebUtility.HtmlDecode(temp4)
+
+                            Dim titulo As String = temp4.Trim
 
                             Dim temp5, temp6 As String
                             Dim int5, int6 As Integer
 
-                            int5 = temp2.IndexOf("href=")
-                            temp5 = temp2.Remove(0, int5 + 6)
+                            int5 = temp.IndexOf("<span class=" + ChrW(34) + "a-offscreen")
+                            temp5 = temp.Remove(0, int5)
 
-                            int6 = temp5.IndexOf(ChrW(34))
+                            int5 = temp5.IndexOf(">")
+                            temp5 = temp5.Remove(0, int5 + 1)
+
+                            int6 = temp5.IndexOf("</span>")
                             temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                            temp6 = temp6.Replace("http:", "https:")
-                            temp6 = temp6.Trim
-
-                            If temp6.LastIndexOf("/") < temp6.Length Then
-                                Dim intEnlace As Integer = temp6.LastIndexOf("/")
-                                temp6 = temp6.Remove(intEnlace, temp6.Length - intEnlace)
-                            End If
-
-                            Dim enlace As String = temp6
-
-                            Dim listaEnlaces As New List(Of String) From {
-                                enlace
-                            }
-
-                            Dim listaAfiliados As New List(Of String) From {
-                                enlace + "/?tag=vayaa-21"
-                            }
-
-                            Dim temp7, temp8 As String
-                            Dim int7, int8 As Integer
-
-                            int7 = temp2.IndexOf("<img src=")
-                            temp7 = temp2.Remove(0, int7 + 10)
-
-                            int8 = temp7.IndexOf(ChrW(34))
-                            temp8 = temp7.Remove(int8, temp7.Length - int8)
-
-                            Dim imagenPequeña As String = temp8.Trim
-
-                            Dim imagenGrande As String = imagenPequeña
-
-                            imagenGrande = imagenGrande.Replace("_AC_US160_", "_SY445_")
-                            imagenGrande = imagenGrande.Replace("_AC_US218_", "_SY445_")
-
-                            Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
-
-                            Dim temp9, temp10 As String
-                            Dim int9, int10 As Integer
-
-                            If temp2.Contains(">EUR") Then
-                                int9 = temp2.IndexOf(">EUR")
-                                temp9 = temp2.Remove(0, int9 + 5)
-
-                                int10 = temp9.IndexOf("</")
-                                temp10 = temp9.Remove(int10, temp9.Length - int10)
-                            ElseIf temp2.Contains("€<") Then
-                                int9 = temp2.IndexOf("€<")
-                                temp9 = temp2.Remove(int9, temp2.Length - int9)
-
-                                int10 = temp9.LastIndexOf(">")
-                                temp10 = temp9.Remove(0, int10 + 1)
-                            Else
-                                temp9 = String.Empty
-                                temp10 = String.Empty
-                            End If
-
-                            Dim precio As String = String.Empty
-
-                            If Not temp9 = String.Empty Then
-                                If temp10.Trim.Length = 4 Then
-                                    temp10 = "0" + temp10
-                                End If
-
-                                precio = temp10.Trim + " €"
-                            End If
+                            Dim precio As String = temp6.Trim
 
                             Dim listaPrecios As New List(Of String) From {
                                 precio
                             }
 
-                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
+                            Dim temp9, temp10 As String
+                            Dim int9, int10 As Integer
+
+                            int9 = temp.IndexOf("data-asin=")
+                            temp9 = temp.Remove(0, int9 + 11)
+
+                            int10 = temp9.IndexOf(ChrW(34))
+                            temp10 = temp9.Remove(int10, temp9.Length - int10)
+
+                            Dim enlace As String = "https://www.amazon.es/dp/" + temp10.Trim + "/"
+
+                            Dim listaEnlaces As New List(Of String) From {
+                                enlace
+                            }
+
+                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+
+                            Dim temp11, temp12 As String
+                            Dim int11, int12 As Integer
+
+                            int11 = temp.IndexOf("<img src=")
+                            temp11 = temp.Remove(0, int11 + 10)
+
+                            int12 = temp11.IndexOf(ChrW(34))
+                            temp12 = temp11.Remove(int12, temp11.Length - int12)
+
+                            Dim imagen As String = temp12.Trim
+                            imagen = imagen.Replace("AC_US218", "AC_SX215")
+
+                            Dim imagenes As New JuegoImagenes(imagen, Nothing)
 
                             Dim descuento As String = Nothing
-
                             Dim encontrado As Boolean = False
 
                             If listaJuegosAntigua.Count > 0 Then
@@ -244,6 +210,7 @@ Namespace pepeizq.Tiendas
                                 listaJuegos.Add(juego)
                             End If
                         End If
+
                         j += 1
                     End While
                 End If
