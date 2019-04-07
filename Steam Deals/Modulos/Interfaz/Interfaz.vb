@@ -23,13 +23,14 @@ Module Interfaz
     Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
     Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15)
     Dim amazonesT As New Tienda("Amazon.es (Físico)", "AmazonEs", "Assets/Tiendas/amazon.png", 16)
-    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 17)
+    Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17)
+    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18)
 
     Public Sub Generar()
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
-            microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, yuplayT
+            microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT
         }
 
         Dim frame As Frame = Window.Current.Content
@@ -500,6 +501,8 @@ Module Interfaz
                 pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
                 pepeizq.Tiendas.AmazonEsFisico.GenerarOfertas(amazonesT)
+            ElseIf tienda.NombreUsar = amazonesT2.NombreUsar Then
+                pepeizq.Tiendas.AmazonEsDigital.GenerarOfertas(amazonesT2)
             ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
                 pepeizq.Tiendas.Yuplay.GenerarOfertas(yuplayT)
             End If

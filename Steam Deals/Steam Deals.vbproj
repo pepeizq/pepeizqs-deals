@@ -155,6 +155,7 @@
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
+    <Compile Include="Modulos\Tiendas\AmazonEsDigital.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEsFisico.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
     <Compile Include="Modulos\Tiendas\Chrono.vb" />
@@ -183,6 +184,10 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\DRMs\drm_battlenet2.png" />
+    <Content Include="Assets\DRMs\drm_microsoft2.png" />
+    <Content Include="Assets\drm_battlenet.ico" />
+    <Content Include="Assets\drm_microsoft.png" />
     <Content Include="Assets\Fuentes\OpenSans-Bold.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-BoldItalic.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-ExtraBold.ttf" />

@@ -559,9 +559,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                         ElseIf juego.DRM.ToLower.Contains("gog") Then
                             drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_gog.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_bethesda.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_bethesda.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         ElseIf juego.DRM.ToLower.Contains("epic") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_epic.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_epic.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
+                        ElseIf juego.DRM.ToLower.Contains("battlenet") Then
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2019/04/drm_battlenet.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
+                        ElseIf juego.DRM.ToLower.Contains("microsoft") Then
+                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2019/04/drm_microsoft.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                         End If
                     End If
 
@@ -730,6 +734,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cosas.Tienda.NombreMostrar = "IndieGala" Then
                 listaEtiquetas.Add(1210)
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png"
+            ElseIf cosas.Tienda.NombreMostrar = "Amazon.es (Digital)" Then
+                listaEtiquetas.Add(1211)
+                iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png"
             End If
 
             precioFinal = precioFinal.Replace(".", ",")

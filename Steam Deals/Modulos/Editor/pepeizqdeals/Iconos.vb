@@ -142,7 +142,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosDRMs")
 
             Dim i As Integer = 0
-            While i < 6
+            While i < 8
                 Dim imagenIcono As New ImageEx With {
                     .Width = 16,
                     .Height = 16,
@@ -181,6 +181,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/epicgames.ico"))
                     sp.Background = New SolidColorBrush("#E7E7E7".ToColor)
                     titulo = "drm_epic"
+                ElseIf i = 6 Then
+                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_battlenet.ico"))
+                    sp.Background = New SolidColorBrush("#5b729a".ToColor)
+                    titulo = "drm_battlenet"
+                ElseIf i = 7 Then
+                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_microsoft.png"))
+                    sp.Background = New SolidColorBrush("#0177d7".ToColor)
+                    titulo = "drm_microsoft"
                 End If
 
                 sp.Children.Add(imagenIcono)

@@ -21,6 +21,12 @@
                 Else
                     enlace = enlace + "&tag=ofedeunpan-20"
                 End If
+            ElseIf enlace.Contains("amazon.es") Then
+                If Not enlace.Contains("?") Then
+                    enlace = enlace + "?tag=ofedeunpan-21"
+                Else
+                    enlace = enlace + "&tag=ofedeunpan-21"
+                End If
             ElseIf enlace.Contains("humblebundle.com") Then
                 enlace = enlace + "?partner=pepeizq"
             ElseIf enlace.Contains("fanatical.com") Then

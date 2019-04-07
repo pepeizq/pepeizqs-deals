@@ -90,6 +90,8 @@ Module Ordenar
 
                         If tienda = "AmazonEs" Then
                             boolBorrar = True
+                        ElseIf tienda = "AmazonEs2" Then
+                            boolBorrar = True
                         ElseIf tienda = "AmazonUk" Then
                             boolBorrar = True
                         End If
@@ -134,6 +136,8 @@ Module Ordenar
                                 Dim boolAntiguo As Boolean = False
 
                                 If tienda = "AmazonEs" Then
+                                    boolAntiguo = False
+                                ElseIf tienda = "AmazonEs2" Then
                                     boolAntiguo = False
                                 ElseIf tienda = "AmazonUk" Then
                                     boolAntiguo = False
