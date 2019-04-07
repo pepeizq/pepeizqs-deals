@@ -2,7 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 
 Namespace pepeizq.Tiendas
-    Module AmazonEs
+    Module AmazonEsFisico
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
@@ -95,119 +95,122 @@ Namespace pepeizq.Tiendas
                             Dim int5, int6 As Integer
 
                             int5 = temp.IndexOf("<span class=" + ChrW(34) + "a-offscreen")
-                            temp5 = temp.Remove(0, int5)
 
-                            int5 = temp5.IndexOf(">")
-                            temp5 = temp5.Remove(0, int5 + 1)
+                            If Not int5 = -1 Then
+                                temp5 = temp.Remove(0, int5)
 
-                            int6 = temp5.IndexOf("</span>")
-                            temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                int5 = temp5.IndexOf(">")
+                                temp5 = temp5.Remove(0, int5 + 1)
 
-                            Dim precio As String = temp6.Trim
+                                int6 = temp5.IndexOf("</span>")
+                                temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                            Dim listaPrecios As New List(Of String) From {
-                                precio
-                            }
+                                Dim precio As String = temp6.Trim
 
-                            Dim temp9, temp10 As String
-                            Dim int9, int10 As Integer
+                                Dim listaPrecios As New List(Of String) From {
+                                    precio
+                                }
 
-                            int9 = temp.IndexOf("data-asin=")
-                            temp9 = temp.Remove(0, int9 + 11)
+                                Dim temp9, temp10 As String
+                                Dim int9, int10 As Integer
 
-                            int10 = temp9.IndexOf(ChrW(34))
-                            temp10 = temp9.Remove(int10, temp9.Length - int10)
+                                int9 = temp.IndexOf("data-asin=")
+                                temp9 = temp.Remove(0, int9 + 11)
 
-                            Dim enlace As String = "https://www.amazon.es/dp/" + temp10.Trim + "/"
+                                int10 = temp9.IndexOf(ChrW(34))
+                                temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                            Dim listaEnlaces As New List(Of String) From {
-                                enlace
-                            }
+                                Dim enlace As String = "https://www.amazon.es/dp/" + temp10.Trim + "/"
 
-                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+                                Dim listaEnlaces As New List(Of String) From {
+                                    enlace
+                                }
 
-                            Dim temp11, temp12 As String
-                            Dim int11, int12 As Integer
+                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
-                            int11 = temp.IndexOf("<img src=")
-                            temp11 = temp.Remove(0, int11 + 10)
+                                Dim temp11, temp12 As String
+                                Dim int11, int12 As Integer
 
-                            int12 = temp11.IndexOf(ChrW(34))
-                            temp12 = temp11.Remove(int12, temp11.Length - int12)
+                                int11 = temp.IndexOf("<img src=")
+                                temp11 = temp.Remove(0, int11 + 10)
 
-                            Dim imagen As String = temp12.Trim
-                            imagen = imagen.Replace("AC_US218", "AC_SX215")
+                                int12 = temp11.IndexOf(ChrW(34))
+                                temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                            Dim imagenes As New JuegoImagenes(imagen, Nothing)
+                                Dim imagen As String = temp12.Trim
+                                imagen = imagen.Replace("AC_US218", "AC_SX215")
 
-                            Dim descuento As String = Nothing
-                            Dim encontrado As Boolean = False
+                                Dim imagenes As New JuegoImagenes(imagen, Nothing)
 
-                            If listaJuegosAntigua.Count > 0 Then
-                                For Each juegoAntiguo In listaJuegosAntigua
-                                    If juegoAntiguo.Enlaces.Enlaces(0) = enlace Then
-                                        Dim tempAntiguoPrecio As String = juegoAntiguo.Enlaces.Precios(0).Replace("€", Nothing)
-                                        tempAntiguoPrecio = tempAntiguoPrecio.Trim
+                                Dim descuento As String = Nothing
+                                Dim encontrado As Boolean = False
 
-                                        Dim tempPrecio As String = precio.Replace("€", Nothing)
-                                        tempPrecio = tempPrecio.Trim
+                                If listaJuegosAntigua.Count > 0 Then
+                                    For Each juegoAntiguo In listaJuegosAntigua
+                                        If juegoAntiguo.Enlaces.Enlaces(0) = enlace Then
+                                            Dim tempAntiguoPrecio As String = juegoAntiguo.Enlaces.Precios(0).Replace("€", Nothing)
+                                            tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
-                                        Try
-                                            If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
-                                                descuento = Calculadora.GenerarDescuento(juegoAntiguo.Enlaces.Precios(0), precio)
-                                            Else
+                                            Dim tempPrecio As String = precio.Replace("€", Nothing)
+                                            tempPrecio = tempPrecio.Trim
+
+                                            Try
+                                                If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
+                                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Enlaces.Precios(0), precio)
+                                                Else
+                                                    descuento = Nothing
+                                                End If
+                                            Catch ex As Exception
                                                 descuento = Nothing
-                                            End If
-                                        Catch ex As Exception
-                                            descuento = Nothing
-                                        End Try
+                                            End Try
 
-                                        If Not descuento = Nothing Then
-                                            If descuento = "00%" Then
-                                                descuento = Nothing
+                                            If Not descuento = Nothing Then
+                                                If descuento = "00%" Then
+                                                    descuento = Nothing
+                                                End If
                                             End If
+
+                                            If Not descuento = Nothing Then
+                                                If descuento.Contains("-") Then
+                                                    descuento = Nothing
+                                                End If
+                                            End If
+
+                                            If Not descuento = Nothing Then
+                                                If Not descuento.Contains("%") Then
+                                                    descuento = Nothing
+                                                End If
+                                            End If
+
+                                            juegoAntiguo.Enlaces.Precios(0) = precio
+                                            encontrado = True
                                         End If
+                                    Next
+                                End If
 
-                                        If Not descuento = Nothing Then
-                                            If descuento.Contains("-") Then
-                                                descuento = Nothing
-                                            End If
-                                        End If
+                                If encontrado = False Then
+                                    descuento = "00%"
+                                End If
 
-                                        If Not descuento = Nothing Then
-                                            If Not descuento.Contains("%") Then
-                                                descuento = Nothing
-                                            End If
-                                        End If
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                        juegoAntiguo.Enlaces.Precios(0) = precio
-                                        encontrado = True
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
                                     End If
-                                Next
-                            End If
+                                    k += 1
+                                End While
 
-                            If encontrado = False Then
-                                descuento = "00%"
-                            End If
-
-                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
-                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                            Dim tituloBool As Boolean = False
-                            Dim k As Integer = 0
-                            While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                If juego.Descuento = Nothing Then
                                     tituloBool = True
                                 End If
-                                k += 1
-                            End While
 
-                            If juego.Descuento = Nothing Then
-                                tituloBool = True
-                            End If
-
-                            If tituloBool = False Then
-                                listaJuegos.Add(juego)
+                                If tituloBool = False Then
+                                    listaJuegos.Add(juego)
+                                End If
                             End If
                         End If
 

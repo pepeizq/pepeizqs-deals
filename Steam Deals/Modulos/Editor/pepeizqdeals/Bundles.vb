@@ -107,7 +107,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             cosas.Precio = Divisas.CambioMoneda(cosas.Precio, tbDolar.Text)
                         ElseIf cosas.Precio.Contains("€") Then
                             cosas.Precio = cosas.Precio.Replace("€", Nothing)
-                            cosas.Precio = cosas.Precio.Replace(",", ".")
+                            cosas.Precio = cosas.Precio.Replace(".", ",")
                             cosas.Precio = cosas.Precio.Trim + " €"
                         End If
                     End If

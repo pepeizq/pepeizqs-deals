@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Newtonsoft.Json
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Anuncios
@@ -13,29 +14,59 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
             tbTitulo.Text = String.Empty
 
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdealsAnuncios")
-            tbComentario.Text = String.Empty
-
-            RemoveHandler tbComentario.TextChanged, AddressOf MostrarComentarioAnuncio
-            AddHandler tbComentario.TextChanged, AddressOf MostrarComentarioAnuncio
-
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsAnuncios")
             tbEnlace.Text = String.Empty
 
             RemoveHandler tbEnlace.TextChanged, AddressOf GenerarDatos
             AddHandler tbEnlace.TextChanged, AddressOf GenerarDatos
 
-            Dim tbImagenAnuncio As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsAnuncios")
-            tbImagenAnuncio.Text = String.Empty
+            Dim tbComentario1 As TextBox = pagina.FindName("tbEditorComentario1pepeizqdealsAnuncios")
+            tbComentario1.Text = String.Empty
 
-            RemoveHandler tbImagenAnuncio.TextChanged, AddressOf MostrarImagenAnuncio
-            AddHandler tbImagenAnuncio.TextChanged, AddressOf MostrarImagenAnuncio
+            RemoveHandler tbComentario1.TextChanged, AddressOf MostrarComentario1Anuncio
+            AddHandler tbComentario1.TextChanged, AddressOf MostrarComentario1Anuncio
 
-            Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsAnuncios")
-            tbImagenTienda.Text = String.Empty
+            Dim tbComentario2 As TextBox = pagina.FindName("tbEditorComentario2pepeizqdealsAnuncios")
+            tbComentario2.Text = String.Empty
 
-            RemoveHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
-            AddHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
+            RemoveHandler tbComentario2.TextChanged, AddressOf MostrarComentario2Anuncio
+            AddHandler tbComentario2.TextChanged, AddressOf MostrarComentario2Anuncio
+
+            Dim tbID1 As TextBox = pagina.FindName("tbEditorIDJuego1pepeizqdealsAnuncios")
+            tbID1.Text = String.Empty
+
+            RemoveHandler tbID1.TextChanged, AddressOf CargarID1Anuncio
+            AddHandler tbID1.TextChanged, AddressOf CargarID1Anuncio
+
+            Dim tbImagen1 As TextBox = pagina.FindName("tbEditorImagenJuego1pepeizqdealsAnuncios")
+            tbImagen1.Text = String.Empty
+
+            RemoveHandler tbImagen1.TextChanged, AddressOf MostrarImagen1Anuncio
+            AddHandler tbImagen1.TextChanged, AddressOf MostrarImagen1Anuncio
+
+            Dim cb1 As ComboBox = pagina.FindName("cbEditorRedJuego1pepeizqdealsAnuncios")
+            cb1.SelectedIndex = 0
+
+            RemoveHandler cb1.SelectionChanged, AddressOf MostrarRed1Anuncio
+            AddHandler cb1.SelectionChanged, AddressOf MostrarRed1Anuncio
+
+            Dim tbID2 As TextBox = pagina.FindName("tbEditorIDJuego2pepeizqdealsAnuncios")
+            tbID2.Text = String.Empty
+
+            RemoveHandler tbID2.TextChanged, AddressOf CargarID2Anuncio
+            AddHandler tbID2.TextChanged, AddressOf CargarID2Anuncio
+
+            Dim tbImagen2 As TextBox = pagina.FindName("tbEditorImagenJuego2pepeizqdealsAnuncios")
+            tbImagen2.Text = String.Empty
+
+            RemoveHandler tbImagen2.TextChanged, AddressOf MostrarImagen2Anuncio
+            AddHandler tbImagen2.TextChanged, AddressOf MostrarImagen2Anuncio
+
+            Dim cb2 As ComboBox = pagina.FindName("cbEditorRedJuego2pepeizqdealsAnuncios")
+            cb2.SelectedIndex = 0
+
+            RemoveHandler cb2.SelectionChanged, AddressOf MostrarRed2Anuncio
+            AddHandler cb2.SelectionChanged, AddressOf MostrarRed2Anuncio
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
@@ -58,23 +89,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub MostrarComentarioAnuncio(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTexto As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tbComentario As TextBlock = pagina.FindName("tbComentarioEditorpepeizqdealsGenerarImagenAnuncios")
-            tbComentario.Text = tbTexto.Text.Trim
-
-        End Sub
-
         Private Sub GenerarDatos(sender As Object, e As TextChangedEventArgs)
 
             BloquearControles(False)
-
-            Dim listaTiendas As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             Dim tbTexto As TextBox = sender
 
@@ -82,78 +99,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
-            Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsAnuncios")
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdealsAnuncios")
+            Dim tbComentario1 As TextBox = pagina.FindName("tbEditorComentario1pepeizqdealsAnuncios")
+            Dim tbComentario2 As TextBox = pagina.FindName("tbEditorComentario2pepeizqdealsAnuncios")
 
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
                 If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
                     tbTitulo.Text = "--- • Giveaways"
-                    tbImagenTienda.Text = "Assets\ImagenesEntradapepeizq\avatar_notificaciones.png"
-                    tbComentario.Text = "Giveaways"
-                ElseIf enlace.Contains("https://store.steampowered.com") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "Steam" Then
-                            tbTitulo.Text = "--- • Steam"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "Humble" Then
-                            tbTitulo.Text = "--- • Humble Store"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://www.humblebundle.com/monthly") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "Humble" Then
-                            tbTitulo.Text = "--- • Humble Monthly"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://uk.gamersgate.com") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "GamersGate" Then
-                            tbTitulo.Text = "--- • GamersGate"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://uk.gamesplanet.com") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "GamesPlanet" Then
-                            tbTitulo.Text = "--- • GamesPlanet"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://www.fanatical.com") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "Fanatical" Then
-                            tbTitulo.Text = "--- • Fanatical"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://www.greenmangaming.com") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "Green Man Gaming" Then
-                            tbTitulo.Text = "--- • Green Man Gaming"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://www.wingamestore.com/") Then
-                    For Each tienda In listaTiendas
-                        If tienda.Nombre = "WinGameStore" Then
-                            tbTitulo.Text = "--- • WinGameStore"
-                            tbImagenTienda.Text = tienda.Logo
-                        End If
-                    Next
-                ElseIf enlace.Contains("https://www.gog.com/connect") Then
-                    tbTitulo.Text = "New Games Added • GOG Connect"
-                    tbImagenTienda.Text = "Assets\ImagenesEntradapepeizq\gogconnect.jpg"
-                    tbComentario.Text = "Free (*)"
+                    tbComentario1.Text = "Giveaways"
+                    tbComentario2.Text = String.Empty
                 Else
                     tbTitulo.Text = "--- • Announcement"
+                    tbComentario1.Text = String.Empty
+                    tbComentario2.Text = String.Empty
                 End If
             End If
 
@@ -186,27 +145,217 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub MostrarImagenAnuncio(sender As Object, e As TextChangedEventArgs)
+        Private Sub MostrarComentario1Anuncio(sender As Object, e As TextChangedEventArgs)
 
-            Dim tbImagen As TextBox = sender
+            Dim tbTexto As TextBox = sender
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenAnuncioEditorpepeizqdealsGenerarImagenAnuncios")
-            imagen.Source = tbImagen.Text
+            Dim caja As DropShadowPanel = pagina.FindName("cajaComentario1EditorpepeizqdealsGenerarImagenAnuncios")
+            Dim tbComentario As TextBlock = pagina.FindName("tbComentario1EditorpepeizqdealsGenerarImagenAnuncios")
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                caja.Visibility = Visibility.Visible
+                tbComentario.Text = tbTexto.Text.Trim
+            Else
+                caja.Visibility = Visibility.Collapsed
+                tbComentario.Text = String.Empty
+            End If
 
         End Sub
 
-        Private Sub MostrarImagenTienda(sender As Object, e As TextChangedEventArgs)
+        Private Sub MostrarComentario2Anuncio(sender As Object, e As TextChangedEventArgs)
 
-            Dim tbImagen As TextBox = sender
+            Dim tbTexto As TextBox = sender
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenAnuncios")
-            imagen.Source = tbImagen.Text
+            Dim caja As DropShadowPanel = pagina.FindName("cajaComentario2EditorpepeizqdealsGenerarImagenAnuncios")
+            Dim tbComentario As TextBlock = pagina.FindName("tbComentario2EditorpepeizqdealsGenerarImagenAnuncios")
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                caja.Visibility = Visibility.Visible
+                tbComentario.Text = tbTexto.Text.Trim
+            Else
+                caja.Visibility = Visibility.Collapsed
+                tbComentario.Text = String.Empty
+            End If
+
+        End Sub
+
+        Private Async Sub CargarID1Anuncio(sender As Object, e As TextChangedEventArgs)
+
+            BloquearControles(False)
+
+            Dim tbTexto As TextBox = sender
+            Dim textoID As String = tbTexto.Text.Trim
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaAnuncios")
+            Dim fondoUrl As String = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
+
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuego1pepeizqdealsAnuncios")
+            Dim tbImagenJuegoUrl As String = String.Empty
+
+            If Not textoID = Nothing Then
+                Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
+
+                If Not htmlID = Nothing Then
+                    Dim temp As String
+                    Dim int As Integer
+
+                    int = htmlID.IndexOf(":")
+                    temp = htmlID.Remove(0, int + 1)
+                    temp = temp.Remove(temp.Length - 1, 1)
+
+                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                    If Not datos Is Nothing Then
+                        If Not datos.Datos.Fondo = Nothing Then
+                            fondoUrl = datos.Datos.Fondo
+                        End If
+
+                        tbImagenJuegoUrl = datos.Datos.Imagen
+                    End If
+                End If
+            End If
+
+            fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
+            tbImagenJuego.Text = tbImagenJuegoUrl
+
+            BloquearControles(True)
+
+        End Sub
+
+        Private Sub MostrarImagen1Anuncio(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTexto As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim caja As DropShadowPanel = pagina.FindName("cajaImagenJuego1EditorpepeizqdealsGenerarImagenAnuncios")
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                caja.Visibility = Visibility.Visible
+
+                Dim imagen As ImageEx = pagina.FindName("imagenJuego1EditorpepeizqdealsGenerarImagenAnuncios")
+                imagen.Source = tbTexto.Text.Trim
+            Else
+                caja.Visibility = Visibility.Collapsed
+            End If
+
+        End Sub
+
+        Private Sub MostrarRed1Anuncio(sender As Object, e As SelectionChangedEventArgs)
+
+            Dim cb As ComboBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim caja As DropShadowPanel = pagina.FindName("cajaRedJuego1EditorpepeizqdealsGenerarImagenAnuncios")
+
+            If cb.SelectedIndex = 0 Then
+                caja.Visibility = Visibility.Collapsed
+            Else
+                caja.Visibility = Visibility.Visible
+
+                Dim imagen As ImageEx = pagina.FindName("imagenRedJuego1EditorpepeizqdealsGenerarImagenAnuncios")
+
+                If cb.SelectedIndex = 1 Then
+                    imagen.Source = "ms-appx:///Assets/pepeizq/steam.png"
+                ElseIf cb.SelectedIndex = 2 Then
+                    imagen.Source = "ms-appx:///Assets/pepeizq/twitter.png"
+                End If
+            End If
+
+        End Sub
+
+        Private Async Sub CargarID2Anuncio(sender As Object, e As TextChangedEventArgs)
+
+            BloquearControles(False)
+
+            Dim tbTexto As TextBox = sender
+            Dim textoID As String = tbTexto.Text.Trim
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuego2pepeizqdealsAnuncios")
+            Dim tbImagenJuegoUrl As String = String.Empty
+
+            If Not textoID = Nothing Then
+                Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
+
+                If Not htmlID = Nothing Then
+                    Dim temp As String
+                    Dim int As Integer
+
+                    int = htmlID.IndexOf(":")
+                    temp = htmlID.Remove(0, int + 1)
+                    temp = temp.Remove(temp.Length - 1, 1)
+
+                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                    If Not datos Is Nothing Then
+                        tbImagenJuegoUrl = datos.Datos.Imagen
+                    End If
+                End If
+            End If
+
+            tbImagenJuego.Text = tbImagenJuegoUrl
+
+            BloquearControles(True)
+
+        End Sub
+
+        Private Sub MostrarImagen2Anuncio(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTexto As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim caja As DropShadowPanel = pagina.FindName("cajaImagenJuego2EditorpepeizqdealsGenerarImagenAnuncios")
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                caja.Visibility = Visibility.Visible
+
+                Dim imagen As ImageEx = pagina.FindName("imagenJuego2EditorpepeizqdealsGenerarImagenAnuncios")
+                imagen.Source = tbTexto.Text.Trim
+            Else
+                caja.Visibility = Visibility.Collapsed
+            End If
+
+        End Sub
+
+        Private Sub MostrarRed2Anuncio(sender As Object, e As SelectionChangedEventArgs)
+
+            Dim cb As ComboBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim caja As DropShadowPanel = pagina.FindName("cajaRedJuego2EditorpepeizqdealsGenerarImagenAnuncios")
+
+            If cb.SelectedIndex = 0 Then
+                caja.Visibility = Visibility.Collapsed
+            Else
+                caja.Visibility = Visibility.Visible
+
+                Dim imagen As ImageEx = pagina.FindName("imagenRedJuego2EditorpepeizqdealsGenerarImagenAnuncios")
+
+                If cb.SelectedIndex = 1 Then
+                    imagen.Source = "ms-appx:///Assets/pepeizq/steam.png"
+                ElseIf cb.SelectedIndex = 2 Then
+                    imagen.Source = "ms-appx:///Assets/pepeizq/twitter.png"
+                End If
+            End If
 
         End Sub
 
@@ -228,17 +377,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
             tbTitulo.IsEnabled = estado
 
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdealsAnuncios")
-            tbComentario.IsEnabled = estado
-
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsAnuncios")
             tbEnlace.IsEnabled = estado
 
-            Dim tbImagenAnuncio As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsAnuncios")
-            tbImagenAnuncio.IsEnabled = estado
+            Dim tbComentario1 As TextBox = pagina.FindName("tbEditorComentario1pepeizqdealsAnuncios")
+            tbComentario1.IsEnabled = estado
 
-            Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsAnuncios")
-            tbImagenTienda.IsEnabled = estado
+            Dim tbComentario2 As TextBox = pagina.FindName("tbEditorComentario2pepeizqdealsAnuncios")
+            tbComentario2.IsEnabled = estado
+
+            Dim tbID1 As TextBox = pagina.FindName("tbEditorIDJuego1pepeizqdealsAnuncios")
+            tbID1.IsEnabled = estado
+
+            Dim tbImagen1 As TextBox = pagina.FindName("tbEditorImagenJuego1pepeizqdealsAnuncios")
+            tbImagen1.IsEnabled = estado
+
+            Dim cb1 As ComboBox = pagina.FindName("cbEditorRedJuego1pepeizqdealsAnuncios")
+            cb1.IsEnabled = estado
+
+            Dim tbID2 As TextBox = pagina.FindName("tbEditorIDJuego2pepeizqdealsAnuncios")
+            tbID2.IsEnabled = estado
+
+            Dim tbImagen2 As TextBox = pagina.FindName("tbEditorImagenJuego2pepeizqdealsAnuncios")
+            tbImagen2.IsEnabled = estado
+
+            Dim cb2 As ComboBox = pagina.FindName("cbEditorRedJuego2pepeizqdealsAnuncios")
+            cb2.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
             fechaPicker.IsEnabled = estado

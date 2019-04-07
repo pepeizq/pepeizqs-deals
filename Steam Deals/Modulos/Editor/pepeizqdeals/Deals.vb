@@ -162,7 +162,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbEnlace.Text = listaFinal(0).Enlaces.Enlaces(0)
                 End If
 
-                precioFinal = precioFinal.Replace(",", ".")
+                precioFinal = precioFinal.Replace(".", ",")
                 precioFinal = precioFinal.Replace("€", Nothing)
                 precioFinal = precioFinal.Trim
                 precioFinal = precioFinal + " €"
@@ -314,7 +314,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         item.Enlaces.Precios(0) = Divisas.CambioMoneda(item.Enlaces.Precios(0), tbRublo.Text)
                     End If
 
-                    item.Enlaces.Precios(0) = item.Enlaces.Precios(0).Replace(",", ".")
+                    item.Enlaces.Precios(0) = item.Enlaces.Precios(0).Replace(".", ",")
                     item.Enlaces.Precios(0) = item.Enlaces.Precios(0).Replace("€", Nothing)
                     item.Enlaces.Precios(0) = item.Enlaces.Precios(0).Trim
                     item.Enlaces.Precios(0) = item.Enlaces.Precios(0) + " €"
@@ -571,7 +571,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
-                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Enlaces.Precios(0) + "</span></td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Enlaces.Precios(0).Replace(".", ",") + "</span></td>" + Environment.NewLine
 
                     If Not juego.Analisis Is Nothing Then
                         Dim contenidoAnalisis As String = Nothing
@@ -732,7 +732,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 iconoTienda = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png"
             End If
 
-            precioFinal = precioFinal.Replace(",", ".")
+            precioFinal = precioFinal.Replace(".", ",")
             precioFinal = precioFinal.Replace("€", Nothing)
             precioFinal = precioFinal.Trim
 
@@ -868,7 +868,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuego")
 
             If gridUnJuego.Visibility = Visibility.Visible Then
-                Dim tbPrecio As TextBlock = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
+                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
 
                 Dim temp, temp2 As String
                 Dim int, int2 As Integer

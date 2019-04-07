@@ -118,7 +118,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
 
-                precio.Text = "3.00 € (*)"
+                precio.Text = "3,00 € (*)"
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
@@ -228,6 +228,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
+            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaSubscriptions")
+            Dim fondoUrl As String = String.Empty
+
+            If Not listaJuegos(0).Datos.Fondo = Nothing Then
+                fondoUrl = listaJuegos(0).Datos.Fondo
+            Else
+                fondoUrl = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
+            End If
+
+            fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
+
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
@@ -249,11 +260,23 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
                 End If
 
+                Dim margin As Integer = 0
+
+                If listaJuegos.Count = 1 Then
+                    margin = 10
+                ElseIf listaJuegos.Count = 2 Then
+                    margin = 10
+                ElseIf listaJuegos.Count = 3 Then
+                    margin = 5
+                Else
+                    margin = 2
+                End If
+
                 Dim panel As New DropShadowPanel With {
                     .BlurRadius = 20,
                     .ShadowOpacity = 0.9,
                     .Color = Colors.Black,
-                    .Margin = New Thickness(10, 10, 10, 0)
+                    .Margin = New Thickness(margin, margin, margin, margin)
                 }
 
                 Dim colorFondo2 As New SolidColorBrush With {
@@ -270,8 +293,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .Source = juego.Datos.Imagen
                 }
 
-                If listaJuegos.Count > 1 Then
-                    imagenJuego.MaxHeight = 140
+                If listaJuegos.Count = 1 Then
+                    imagenJuego.MaxHeight = 160
+                ElseIf listaJuegos.Count = 2 Then
+                    imagenJuego.MaxHeight = 160
+                ElseIf listaJuegos.Count = 3 Then
+                    imagenJuego.MaxHeight = 130
+                ElseIf listaJuegos.Count = 4 Then
+                    imagenJuego.MaxHeight = 100
+                Else
+                    imagenJuego.MaxHeight = 75
                 End If
 
                 gridContenido.Children.Add(imagenJuego)

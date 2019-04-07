@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Newtonsoft.Json
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Free
@@ -44,6 +45,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsFree")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
+
+            Dim botonID As Button = pagina.FindName("botonEditorSubirpepeizqdealsFreeID")
+
+            RemoveHandler botonID.Click, AddressOf GenerarImagenes
+            AddHandler botonID.Click, AddressOf GenerarImagenes
+
+            Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
+            tbID.Text = String.Empty
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
 
@@ -379,6 +388,52 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Async Sub GenerarImagenes(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
+            Dim textoID As String = tbID.Text.Trim
+
+            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaFree")
+            Dim fondoUrl As String = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
+
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
+            Dim tbImagenJuegoUrl As String = String.Empty
+
+            If Not textoID = Nothing Then
+                Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
+
+                If Not htmlID = Nothing Then
+                    Dim temp As String
+                    Dim int As Integer
+
+                    int = htmlID.IndexOf(":")
+                    temp = htmlID.Remove(0, int + 1)
+                    temp = temp.Remove(temp.Length - 1, 1)
+
+                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                    If Not datos Is Nothing Then
+                        If Not datos.Datos.Fondo = Nothing Then
+                            fondoUrl = datos.Datos.Fondo
+                        End If
+
+                        tbImagenJuegoUrl = datos.Datos.Imagen
+                    End If
+                End If
+            End If
+
+            fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
+            tbImagenJuego.Text = tbImagenJuegoUrl
+
+            BloquearControles(True)
+
+        End Sub
+
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -401,6 +456,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsFree")
             horaPicker.IsEnabled = estado
+
+            Dim botonID As Button = pagina.FindName("botonEditorSubirpepeizqdealsFreeID")
+            botonID.IsEnabled = estado
+
+            Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
+            tbID.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
             botonSubir.IsEnabled = estado

@@ -439,6 +439,9 @@ Namespace pepeizq.Tiendas
         <JsonProperty("developers")>
         Public Desarrolladores2 As List(Of String)
 
+        <JsonProperty("background")>
+        Public Fondo As String
+
     End Class
 
     Public Class SteamDesarrolladores

@@ -155,7 +155,7 @@
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
-    <Compile Include="Modulos\Tiendas\AmazonEs.vb" />
+    <Compile Include="Modulos\Tiendas\AmazonEsFisico.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
     <Compile Include="Modulos\Tiendas\Chrono.vb" />
     <Compile Include="Modulos\Tiendas\Fanatical.vb" />
@@ -183,6 +183,16 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Fuentes\OpenSans-Bold.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-BoldItalic.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-ExtraBold.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-Italic.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-Light.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-LightItalic.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-Regular.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-SemiBold.ttf" />
+    <Content Include="Assets\Fuentes\OpenSans-SemiBoldItalic.ttf" />
     <None Include="Steam Deals_StoreKey.pfx" />
     <None Include="Steam Deals_TemporaryKey.pfx" />
     <PRIResource Include="Strings\pl-PL\Resources.resw" />
@@ -203,11 +213,13 @@
     <Content Include="Assets\drm_bethesda.ico" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
-    <Content Include="Assets\ImagenesEntradapepeizq\avatar_notificaciones.png" />
-    <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono1.png" />
-    <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono2.png" />
-    <Content Include="Assets\ImagenesEntradapepeizq\fondo_hexagono0.png" />
-    <Content Include="Assets\ImagenesEntradapepeizq\gogconnect.jpg" />
+    <Content Include="Assets\pepeizq\avatar_notificaciones.png" />
+    <Content Include="Assets\pepeizq\fondo_hexagono1.png" />
+    <Content Include="Assets\pepeizq\fondo_hexagono2.png" />
+    <Content Include="Assets\pepeizq\fondo_hexagono0.png" />
+    <Content Include="Assets\pepeizq\gogconnect.jpg" />
+    <Content Include="Assets\pepeizq\steam.png" />
+    <Content Include="Assets\pepeizq\twitter.png" />
     <Content Include="Assets\Publishers\11bitstudios.png" />
     <Content Include="Assets\Publishers\arcsystemworks.png" />
     <Content Include="Assets\Publishers\devolver.png" />
@@ -352,7 +364,7 @@
     <Content Include="Assets\Tiendas\wingamestore2.png" />
     <Content Include="Assets\Tiendas\yuplay.ico" />
     <Content Include="Assets\Tiendas\yuplay2.png" />
-    <Content Include="Assets\Webs\pepeizq\fondo_hexagono.png" />
+    <Content Include="Assets\pepeizq\fondo_hexagono.png" />
     <Content Include="Assets\Webs\web_pepeizq.png" />
     <Content Include="Assets\Webs\web_reddit.ico" />
     <Content Include="Assets\Webs\web_vayaansias.ico" />

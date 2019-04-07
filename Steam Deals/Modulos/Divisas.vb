@@ -123,10 +123,9 @@ Module Divisas
                         resultado = dou2 / dou
 
                         temporalEuros = Math.Round(resultado, 2).ToString
-                        temporalEuros = temporalEuros.Replace(",", ".")
 
-                        If Not temporalEuros.Contains(".") Then
-                            temporalEuros = temporalEuros + ".00"
+                        If Not temporalEuros.Contains(",") Then
+                            temporalEuros = temporalEuros + ",00"
                         End If
 
                         temporalEuros = temporalEuros + " €"

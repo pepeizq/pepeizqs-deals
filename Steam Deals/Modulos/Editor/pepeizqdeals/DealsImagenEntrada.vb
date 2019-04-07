@@ -26,13 +26,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not juego.Descuento = Nothing Then
                 gridDescuento.Visibility = Visibility.Visible
 
-                Dim tbDescuento As TextBlock = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
+                Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
                 tbDescuento.Text = juego.Descuento.Trim
             Else
                 gridDescuento.Visibility = Visibility.Collapsed
             End If
 
-            Dim tbPrecio As TextBlock = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
+            Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
             tbPrecio.Text = precio
 
             For Each tienda In lista
@@ -199,7 +199,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .FontSize = 36,
                     .FontWeight = Text.FontWeights.SemiBold,
                     .Margin = New Thickness(12, 6, 12, 8),
-                    .VerticalAlignment = VerticalAlignment.Center
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
                 }
 
                 spDescuento.Children.Add(tbDescuento)
@@ -217,7 +218,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .FontSize = 36,
                     .FontWeight = Text.FontWeights.SemiBold,
                     .Margin = New Thickness(12, 6, 12, 8),
-                    .VerticalAlignment = VerticalAlignment.Center
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
                 }
 
                 spPrecio.Children.Add(tbPrecio)

@@ -499,7 +499,7 @@ Module Interfaz
             ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
                 pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
             ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                pepeizq.Tiendas.AmazonEs.GenerarOfertas(amazonesT)
+                pepeizq.Tiendas.AmazonEsFisico.GenerarOfertas(amazonesT)
             ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
                 pepeizq.Tiendas.Yuplay.GenerarOfertas(yuplayT)
             End If
