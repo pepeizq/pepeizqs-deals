@@ -394,7 +394,7 @@
                                                                         <RowDefinition Height="Auto"/>
                                                                     </Grid.RowDefinitions>
 
-                                                                    <controls:ImageEx x:Name="imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,0" MaxHeight="250"/>
+                                                                    <controls:ImageEx x:Name="imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,0" MaxHeight="250" MaxWidth="600"/>
                                                                     <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Foreground="White" FontSize="90" HorizontalAlignment="Center" Margin="20,0" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
 
                                                                     <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="350" MaxHeight="155" HorizontalAlignment="Center" Margin="20,60,20,0"/>
