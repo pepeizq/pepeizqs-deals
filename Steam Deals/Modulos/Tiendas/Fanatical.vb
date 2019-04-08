@@ -48,14 +48,9 @@ Namespace pepeizq.Tiendas
                 titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                 Dim enlace As String = juegoFanatical.Enlace
-                Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
 
                 Dim listaEnlaces As New List(Of String) From {
                     enlace, enlace, enlace
-                }
-
-                Dim listaAfiliados As New List(Of String) From {
-                    afiliado, afiliado, afiliado
                 }
 
                 Dim imagenPequeña As String = juegoFanatical.Imagen
@@ -88,7 +83,7 @@ Namespace pepeizq.Tiendas
                     precioUS, precioEU, precioUK
                 }
 
-                Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
+                Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, Nothing, listaPrecios)
 
                 Dim drm As String = Nothing
 
