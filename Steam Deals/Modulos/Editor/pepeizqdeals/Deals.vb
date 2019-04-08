@@ -71,6 +71,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If listaFinal(0).Tienda.NombreUsar = "GamersGate" Then
                     If Not listaFinal(0).Enlaces.Precios(1) = Nothing Then
                         Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(1), tbLibra.Text)
+                        precioUK = precioUK.Replace(",", ".")
                         Dim dprecioUK As Double = Double.Parse(precioUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
 
                         Dim precioEU As String = listaFinal(0).Enlaces.Precios(0)
@@ -89,6 +90,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 ElseIf listaFinal(0).Tienda.NombreUsar = "GamesPlanet" Then
                     Dim precioUK As String = Divisas.CambioMoneda(listaFinal(0).Enlaces.Precios(0), tbLibra.Text)
+                    precioUK = precioUK.Replace(",", ".")
                     Dim dprecioUK As Double = 1000000
 
                     If Not precioUK = Nothing Then
@@ -226,6 +228,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If Not item.Enlaces.Precios(1) = Nothing Then
                             If item.Enlaces.Precios(1).Contains("£") Then
                                 Dim precioUK As String = Divisas.CambioMoneda(item.Enlaces.Precios(1), tbLibra.Text)
+                                precioUK = precioUK.Replace(",", ".")
                                 Dim dprecioUK As Double = Double.Parse(precioUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
 
                                 Dim precioEU As String = item.Enlaces.Precios(0)
@@ -243,6 +246,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Dim dprecioUK As Double = 1000000
 
                             If Not precioUK = Nothing Then
+                                precioUK = precioUK.Replace(",", ".")
                                 dprecioUK = Double.Parse(precioUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                             End If
 
@@ -621,21 +625,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim precioUK As String = Divisas.CambioMoneda(cosas.ListaJuegos(0).Enlaces.Precios(0), tbLibra.Text)
 
                     If Not precioUK = Nothing Then
-                        precioUK = precioUK.Replace(".", ",")
+                        precioUK = precioUK.Replace(",", ".")
                         precioUK = Double.Parse(precioUK.Replace("€", Nothing).Trim)
                     End If
 
                     Dim precioFR As String = cosas.ListaJuegos(0).Enlaces.Precios(1)
 
                     If Not precioFR = Nothing Then
-                        precioFR = precioFR.Replace(".", ",")
                         precioFR = Double.Parse(precioFR.Replace("€", Nothing).Trim)
                     End If
 
                     Dim precioDE As String = cosas.ListaJuegos(0).Enlaces.Precios(2)
 
                     If Not precioDE = Nothing Then
-                        precioDE = precioDE.Replace(".", ",")
                         precioDE = Double.Parse(precioDE.Replace("€", Nothing).Trim)
                     End If
 

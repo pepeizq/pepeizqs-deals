@@ -18,7 +18,7 @@
             If listaFinal.Count = 0 Then
                 tbTitulo.Text = String.Empty
             ElseIf listaFinal.Count = 1 Then
-                If listaFinal(0).Tienda.NombreMostrar = "Amazon.es" Then
+                If listaFinal(0).Tienda.NombreMostrar = "Amazon.es (Físico)" Then
                     tbTitulo.Text = listaFinal(0).Titulo + " a " + listaFinal(0).Enlaces.Precios(0).Replace(" ", Nothing) + " en " + TituloTwitter(listaFinal(0).Tienda.NombreMostrar) + " (para #Steam) - Formato Físico"
                 Else
                     Dim drm As String = Nothing
@@ -56,7 +56,7 @@
 
             Dim imagen As String = Nothing
 
-            If listaFinal(0).Tienda.NombreMostrar = "Amazon.es" Then
+            If listaFinal(0).Tienda.NombreMostrar = "Amazon.es (Físico)" Then
                 imagen = listaFinal(0).Imagenes.Grande
 
                 imagen = imagen + ChrW(34) + " Width=" + ChrW(34) + "20%"
@@ -102,7 +102,7 @@
                     End If
                 End If
 
-                If juego.Tienda.NombreMostrar = "Amazon.es" Then
+                If juego.Tienda.NombreMostrar = "Amazon.es (Físico)" Then
                     drm = " (<font color=" + ChrW(34) + "#E56717" + ChrW(34) + ">Steam</font>)"
                 End If
 
@@ -131,8 +131,8 @@
                     contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(0) + ChrW(34) + ">" +
                        descuento + juego.Titulo + "</a> - " + juego.Enlaces.Precios(1) + drm +
                        "</li>" + Environment.NewLine
-                ElseIf juego.Tienda.NombreMostrar = "Amazon.es" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(0) + ChrW(34) + ">" +
+                ElseIf juego.Tienda.NombreMostrar = "Amazon.es (Físico)" Then
+                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Enlaces(0) + "?tag=vayaa-21" + ChrW(34) + ">" +
                        juego.Titulo + "</a> - " + juego.Enlaces.Precios(0) + drm + "</li>" + Environment.NewLine
                 Else
                     Dim enlace As String = Nothing
@@ -161,7 +161,7 @@
 
             Dim tbEtiquetas As TextBox = pagina.FindName("tbEditorEtiquetasVayaAnsias")
 
-            If listaFinal(0).Tienda.NombreMostrar = "Amazon.es" Then
+            If listaFinal(0).Tienda.NombreMostrar = "Amazon.es (Físico)" Then
                 tbEtiquetas.Text = "Amazon, oferta, Formato Físico,"
             ElseIf listaFinal(0).Tienda.NombreMostrar = "GOG" Then
                 tbEtiquetas.Text = "GOG, oferta, DRM-Free, "
