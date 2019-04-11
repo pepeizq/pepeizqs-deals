@@ -116,7 +116,7 @@
                 New Clases.Desarrolladores("B Negative Games", "@BNegativeGames", Nothing),
                 New Clases.Desarrolladores("Bandai Namco", "@BandaiNamcoEU", "Assets\Publishers\bandainamco.png"),
                 New Clases.Desarrolladores("BattleGoat Studios", "@BattleGoat", Nothing),
-                New Clases.Desarrolladores("Beamdog", "@BeamdogInc", Nothing),
+                New Clases.Desarrolladores("Beamdog", "@BeamdogInc", "Assets\Publishers\beamdog.png"),
                 New Clases.Desarrolladores("BeautiFun Games", "@BeautiFunGames", Nothing),
                 New Clases.Desarrolladores("Bedtime Digital Games", "@BedtimeDG", Nothing),
                 New Clases.Desarrolladores("Benerot", "@BenerotCompany", Nothing),

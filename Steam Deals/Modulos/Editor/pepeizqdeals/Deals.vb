@@ -1,4 +1,5 @@
-﻿Imports Windows.ApplicationModel.DataTransfer
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -18,17 +19,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim spEnlace As StackPanel = pagina.FindName("spEditorEnlacepepeizqdeals")
             Dim spImagen As StackPanel = pagina.FindName("spEditorImagenpepeizqdeals")
             Dim spComplemento As StackPanel = pagina.FindName("spEditorComplementopepeizqdeals")
+            Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
 
             If listaFinal.Count = 1 Then
                 tbImagenPublisher.Visibility = Visibility.Collapsed
                 spEnlace.Visibility = Visibility.Visible
                 spImagen.Visibility = Visibility.Visible
                 spComplemento.Visibility = Visibility.Collapsed
+                cbError.Visibility = Visibility.Visible
             ElseIf listaFinal.Count > 1 Then
                 tbImagenPublisher.Visibility = Visibility.Visible
                 spEnlace.Visibility = Visibility.Collapsed
                 spImagen.Visibility = Visibility.Collapsed
                 spComplemento.Visibility = Visibility.Visible
+                cbError.Visibility = Visibility.Collapsed
             End If
 
             '----------------------------------------------------
@@ -464,6 +468,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
+            cbError.IsChecked = False
+
+            RemoveHandler cbError.Checked, AddressOf ActivarErrorPrecio
+            AddHandler cbError.Checked, AddressOf ActivarErrorPrecio
+
             '----------------------------------------------------
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
@@ -893,6 +902,26 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub ActivarErrorPrecio(sender As Object, e As RoutedEventArgs)
+
+            Dim cbError As CheckBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim panelJuego As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsUnJuego")
+            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeErrorPrecio")
+
+            If cbError.IsChecked = True Then
+                panelJuego.Margin = New Thickness(30, 30, 30, 0)
+                panelMensaje.Visibility = Visibility.Visible
+            Else
+                panelJuego.Margin = New Thickness(30, 30, 30, 30)
+                panelMensaje.Visibility = Visibility.Collapsed
+            End If
+
+        End Sub
+
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -930,6 +959,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
             botonCopiarForo.IsEnabled = estado
+
+            Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
+            cbError.IsEnabled = estado
 
         End Sub
 
