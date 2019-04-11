@@ -200,10 +200,10 @@ Namespace pepeizq.Tiendas
         <XmlElement("sku")>
         Public ID As String
 
-        <XmlElement("boximg_small")>
+        <XmlElement("boximg")>
         Public ImagenPequeña As String
 
-        <XmlElement("boximg")>
+        <XmlElement("boximg_medium")>
         Public ImagenGrande As String
 
         <XmlElement("drm")>
