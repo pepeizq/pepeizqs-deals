@@ -473,6 +473,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbError.Checked, AddressOf ActivarErrorPrecio
             AddHandler cbError.Checked, AddressOf ActivarErrorPrecio
 
+            RemoveHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
+            AddHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
+
             '----------------------------------------------------
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
