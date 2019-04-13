@@ -57,7 +57,7 @@
             Dim imagen As String = Nothing
 
             If listaFinal(0).Tienda.NombreMostrar = "Amazon.es (Físico)" Then
-                imagen = listaFinal(0).Imagenes.Grande
+                imagen = listaFinal(0).Imagenes.Pequeña
 
                 imagen = imagen + ChrW(34) + " Width=" + ChrW(34) + "20%"
             Else
@@ -186,7 +186,7 @@
 
         Private Function TituloTwitter(tienda As String)
 
-            If tienda = "Amazon.es" Then
+            If tienda = "Amazon.es (Físico)" Then
                 tienda = "@AmazonESP"
             ElseIf tienda = "Chrono" Then
                 tienda = "@chronodeals"

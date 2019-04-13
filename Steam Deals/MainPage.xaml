@@ -377,7 +377,7 @@
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelMensajeErrorPrecio" Grid.Row="1" Color="Black" Margin="30,5,30,30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Collapsed">
+                                                            <controls:DropShadowPanel x:Name="panelMensajeErrorPrecio" Grid.Row="1" Color="Black" Margin="30,0,30,30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Collapsed">
                                                                 <Grid Padding="10" Background="IndianRed">
                                                                     <TextBlock Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </Grid>
