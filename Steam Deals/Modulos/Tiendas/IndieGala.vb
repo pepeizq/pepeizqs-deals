@@ -66,17 +66,25 @@ Namespace pepeizq.Tiendas
                                     enlace
                                 }
 
-                                Dim imagen As String = juegoIG.ImagenGrande
+                                Dim imagenPequeña As String = juegoIG.ImagenGrande
 
-                                If Not imagen.Contains("https://www.indiegalacdn.com/get_store_img?img=") Then
-                                    imagen = "https://www.indiegalacdn.com/get_store_img?img=" + imagen
+                                If Not imagenPequeña.Contains("https://www.indiegalacdn.com/get_store_img?img=") Then
+                                    imagenPequeña = "https://www.indiegalacdn.com/get_store_img?img=" + imagenPequeña
                                 End If
 
-                                If Not imagen.Contains("&s=medium") Then
-                                    imagen = imagen + "&s=medium"
+                                If Not imagenPequeña.Contains("&s=medium") Then
+                                    imagenPequeña = imagenPequeña + "&s=medium"
                                 End If
 
-                                Dim imagenes As New JuegoImagenes(imagen, imagen)
+                                Dim imagenGrande As String = juegoIG.ImagenGrande
+
+                                If Not imagenGrande.Contains("https://www.indiegalacdn.com/") Then
+                                    imagenGrande = "https://www.indiegalacdn.com/" + imagenGrande
+                                End If
+
+                                imagenGrande = imagenGrande.Replace("/medium/", "/big/")
+
+                                Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                                 Dim precio As String = juegoIG.PrecioDescontado
 
