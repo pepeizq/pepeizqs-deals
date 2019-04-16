@@ -234,6 +234,7 @@
     <Content Include="Assets\Publishers\frogwares.png" />
     <Content Include="Assets\Publishers\frontier.png" />
     <Content Include="Assets\Publishers\iceberg.png" />
+    <Content Include="Assets\Publishers\imgnpro.png" />
     <Content Include="Assets\Publishers\konami.png" />
     <Content Include="Assets\Publishers\plugin.png" />
     <Content Include="Assets\Publishers\rebellion.png" />
