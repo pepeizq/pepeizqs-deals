@@ -112,6 +112,7 @@
     <Compile Include="Clases\Editor\pepeizqdeals\Bundles.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Deals.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Icono.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\Pestañas.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Post.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Free.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Desarrolladores.vb" />
@@ -151,6 +152,7 @@
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Interfaz\Editor.vb" />
     <Compile Include="Modulos\Interfaz\Interfaz.vb" />
+    <Compile Include="Modulos\Interfaz\Pestañaspepeizq.vb" />
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />

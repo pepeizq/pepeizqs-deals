@@ -24,12 +24,7 @@ Namespace pepeizq.Interfaz
                     gridReddit.Visibility = Visibility.Collapsed
                     gridVayaAnsias.Visibility = Visibility.Collapsed
 
-                    Dim pestañas As TabView = pagina.FindName("pestañasEditorpepeizqdeals")
-                    pestañas.SelectedIndex = 1
-
-                    Dim pestaña As TabViewItem = pagina.FindName("pestañaEditorpepeizqdealsDeals")
-                    pestaña.Visibility = Visibility.Collapsed
-
+                    Pestañaspepeizq.Generar()
                     pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                     pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                     pepeizq.Editor.pepeizqdeals.Free.Cargar()
@@ -95,12 +90,7 @@ Namespace pepeizq.Interfaz
                             gridReddit.Visibility = Visibility.Collapsed
                             gridVayaAnsias.Visibility = Visibility.Collapsed
 
-                            Dim pestañas As TabView = pagina.FindName("pestañasEditorpepeizqdeals")
-                            pestañas.SelectedIndex = 0
-
-                            Dim pestaña As TabViewItem = pagina.FindName("pestañaEditorpepeizqdealsDeals")
-                            pestaña.Visibility = Visibility.Visible
-
+                            Pestañaspepeizq.Generar()
                             pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
                             pepeizq.Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, cantidadJuegos)
                             pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
