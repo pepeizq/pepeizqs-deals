@@ -538,7 +538,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 End If
 
-                contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table pagination=1 perpage=50]</td>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=1 perpage=2000 showsearch=1]</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine

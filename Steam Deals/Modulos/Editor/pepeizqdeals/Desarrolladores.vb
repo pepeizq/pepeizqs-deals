@@ -276,7 +276,7 @@
                 New Clases.Desarrolladores("Fruitbat Factory", "@FruitbatFactory", "Assets\Publishers\fruitbatfactory.png"),
                 New Clases.Desarrolladores("Fun Bits Interactive", "@SquidsFromSpace", Nothing),
                 New Clases.Desarrolladores("Funbox Media", "@FunboxMediaLtd", Nothing),
-                New Clases.Desarrolladores("Funcom", "@funcom", Nothing),
+                New Clases.Desarrolladores("Funcom", "@funcom", "Assets\Publishers\funcom.png"),
                 New Clases.Desarrolladores("Funktronic Labs", "@funktroniclabs", Nothing),
                 New Clases.Desarrolladores("Gambrinous", "@gambrinous", Nothing),
                 New Clases.Desarrolladores("Gameconnect", "@gameconnectnet", Nothing),
