@@ -238,6 +238,7 @@
     <Content Include="Assets\Publishers\funcom.png" />
     <Content Include="Assets\Publishers\iceberg.png" />
     <Content Include="Assets\Publishers\imgnpro.png" />
+    <Content Include="Assets\Publishers\jackboxgames.png" />
     <Content Include="Assets\Publishers\konami.png" />
     <Content Include="Assets\Publishers\plugin.png" />
     <Content Include="Assets\Publishers\rebellion.png" />
@@ -468,7 +469,7 @@
       <Version>1.1.14</Version>
     </PackageReference>
     <PackageReference Include="WordPressPCL">
-      <Version>1.6.1</Version>
+      <Version>1.6.2</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
