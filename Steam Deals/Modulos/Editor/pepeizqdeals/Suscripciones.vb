@@ -118,7 +118,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
 
-                precio.Text = "3,00 € (*)"
+                precio.Text = "4,00 € (*)"
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
