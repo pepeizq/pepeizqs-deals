@@ -418,7 +418,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
 
                     If Not datos Is Nothing Then
-                        If Not datos.Datos.Fondo = Nothing Then
+                        If Not datos.Datos.Fondo Is Nothing Then
                             fondoUrl = datos.Datos.Fondo
                         End If
 
