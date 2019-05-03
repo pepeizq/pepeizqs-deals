@@ -175,28 +175,69 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaSubscriptions")
+            Dim fondoUrl As String = String.Empty
+
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             Dim textoIDs As String = tbIDs.Text.Trim
 
             Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
 
             Dim i As Integer = 0
-            While i < 100
-                If textoIDs.Length > 0 Then
-                    Dim clave As String = String.Empty
+            If Not textoIDs.Contains("http") Then
+                While i < 100
+                    If textoIDs.Length > 0 Then
+                        Dim clave As String = String.Empty
 
-                    If textoIDs.Contains(",") Then
-                        Dim int As Integer = textoIDs.IndexOf(",")
-                        clave = textoIDs.Remove(int, textoIDs.Length - int)
+                        If textoIDs.Contains(",") Then
+                            Dim int As Integer = textoIDs.IndexOf(",")
+                            clave = textoIDs.Remove(int, textoIDs.Length - int)
 
-                        textoIDs = textoIDs.Remove(0, int + 1)
-                    Else
-                        clave = textoIDs
+                            textoIDs = textoIDs.Remove(0, int + 1)
+                        Else
+                            clave = textoIDs
+                        End If
+
+                        clave = clave.Trim
+
+                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+
+                        If Not htmlID = Nothing Then
+                            Dim temp As String
+                            Dim int As Integer
+
+                            int = htmlID.IndexOf(":")
+                            temp = htmlID.Remove(0, int + 1)
+                            temp = temp.Remove(temp.Length - 1, 1)
+
+                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                            Dim idBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Datos.ID = datos.Datos.ID Then
+                                    idBool = True
+                                    Exit While
+                                End If
+                                k += 1
+                            End While
+
+                            If idBool = False Then
+                                listaJuegos.Add(datos)
+                            Else
+                                Exit While
+                            End If
+                        End If
                     End If
+                    i += 1
+                End While
 
-                    clave = clave.Trim
-
-                    Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+                If Not listaJuegos(0).Datos.Fondo Is Nothing Then
+                    fondoUrl = listaJuegos(0).Datos.Fondo
+                End If
+            Else
+                If textoIDs.Length > 0 Then
+                    Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=220"))
 
                     If Not htmlID = Nothing Then
                         Dim temp As String
@@ -208,32 +249,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
 
-                        Dim idBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Datos.ID = datos.Datos.ID Then
-                                idBool = True
-                                Exit While
-                            End If
-                            k += 1
-                        End While
+                        datos.Datos.Imagen = textoIDs
 
-                        If idBool = False Then
-                            listaJuegos.Add(datos)
-                        Else
-                            Exit While
-                        End If
+                        listaJuegos.Add(datos)
                     End If
                 End If
-                i += 1
-            End While
+            End If
 
-            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaSubscriptions")
-            Dim fondoUrl As String = String.Empty
-
-            If Not listaJuegos(0).Datos.Fondo = Nothing Then
-                fondoUrl = listaJuegos(0).Datos.Fondo
-            Else
+            If fondoUrl = String.Empty Then
                 fondoUrl = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
             End If
 
