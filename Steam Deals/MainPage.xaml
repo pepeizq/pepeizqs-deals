@@ -375,7 +375,9 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                         <DatePicker x:Name="fechaEditorpepeizqdealsDeals" Margin="0,0,20,0"/>
                                         <TimePicker x:Name="horaEditorpepeizqdealsDeals" Margin="0,0,40,0"/>
-                                        <CheckBox x:Name="cbEditorErrorPreciopepeizqdealsDeals" Content="Error Precio"/>
+                                        <CheckBox x:Name="cbEditorErrorPreciopepeizqdealsDeals" Content="Error Precio" Margin="0,0,40,0"/>
+                                        <TextBlock x:Name="tbDescuentoMensajepepeizqdealsDeals" Text="Codigo Descuento" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbDescuentoCodigopepeizqdealsDeals" MinWidth="80"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Margin="0,30">
@@ -420,6 +422,7 @@
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="*"/>
                                                             <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
                                                         </Grid.RowDefinitions>
 
                                                         <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsUnJuego" Grid.Row="0" Color="Black" Margin="30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -461,9 +464,19 @@
                                                             </Grid>
                                                         </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelMensajeErrorPrecio" Grid.Row="1" Color="Black" Margin="30,0,30,30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Collapsed">
+                                                        <controls:DropShadowPanel x:Name="panelMensajeErrorPrecio" Grid.Row="1" Color="Black" Margin="30,10,30,30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                                                             <Grid Padding="10" Background="IndianRed">
                                                                 <TextBlock Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </Grid>
+                                                        </controls:DropShadowPanel>
+
+                                                        <controls:DropShadowPanel x:Name="panelDescuentoEditorpepeizqdealsImagenEntradaUnJuego" Grid.Row="2" Color="Black" Margin="30,10,30,30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                                            <Grid Padding="10">
+                                                                <Grid.Background>
+                                                                    <SolidColorBrush Color="#004e7a"/>
+                                                                </Grid.Background>
+
+                                                                <TextBlock x:Name="tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuego" TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </Grid>
                                                         </controls:DropShadowPanel>
                                                     </Grid>

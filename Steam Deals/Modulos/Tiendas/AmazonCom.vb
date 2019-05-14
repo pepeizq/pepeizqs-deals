@@ -275,7 +275,7 @@ Namespace pepeizq.Tiendas
                     numPaginas = temp2.Trim
                 End If
             Else
-                numPaginas = 300
+                numPaginas = 100
             End If
 
             numPaginas = numPaginas + 1

@@ -485,7 +485,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                         cosas.Titulo = titulo
-                        cosas.Precio = juegoFanatical.Precio.EUR.Trim + " €"
+                        cosas.Precio = juegoFanatical.PrecioRebajado.EUR.Trim + " €"
                         cosas.Imagen = juegoFanatical.Imagen
 
                         Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)

@@ -140,100 +140,107 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim i As Integer = 0
             While i < limite
-                listaFinal.Add(juegos(i))
+                Dim imagenUrl As String = String.Empty
 
-                Dim panel As New DropShadowPanel With {
-                    .BlurRadius = 20,
-                    .ShadowOpacity = 0.9,
-                    .Color = Colors.Black,
-                    .Margin = New Thickness(30, 30, 30, 30),
-                    .Padding = New Thickness(6, 6, 6, 6)
-                }
-
-                Dim colorFondo2 As New SolidColorBrush With {
-                    .Color = "#004e7a".ToColor,
-                    .Opacity = 0.8
-                }
-
-                Dim gridContenido As New Grid With {
-                    .Background = colorFondo2
-                }
-
-                Dim fila1 As New RowDefinition
-                Dim fila2 As New RowDefinition
-
-                fila1.Height = New GridLength(1, GridUnitType.Auto)
-                fila2.Height = New GridLength(1, GridUnitType.Auto)
-
-                gridContenido.RowDefinitions.Add(fila1)
-                gridContenido.RowDefinitions.Add(fila2)
-
-                Dim imagenJuego As New ImageEx With {
-                    .Stretch = Stretch.Uniform,
-                    .MaxWidth = 420,
-                    .MaxHeight = 340,
-                    .IsCacheEnabled = True
-                }
-
-                If Not listaFinal(i).Imagenes.Grande = Nothing Then
-                    imagenJuego.Source = listaFinal(i).Imagenes.Grande
+                If Not juegos(i).Imagenes.Grande = Nothing Then
+                    imagenUrl = juegos(i).Imagenes.Grande
                 Else
-                    imagenJuego.Source = listaFinal(i).Imagenes.Pequeña
+                    imagenUrl = juegos(i).Imagenes.Pequeña
                 End If
 
-                imagenJuego.SetValue(Grid.RowProperty, 0)
-                gridContenido.Children.Add(imagenJuego)
+                If imagenUrl.Length = 0 Then
+                    limite = limite + 1
+                ElseIf imagenUrl.Length > 0 Then
+                    listaFinal.Add(juegos(i))
 
-                Dim spDatos As New StackPanel With {
-                    .HorizontalAlignment = HorizontalAlignment.Right,
-                    .Orientation = Orientation.Horizontal
-                }
+                    Dim panel As New DropShadowPanel With {
+                        .BlurRadius = 20,
+                        .ShadowOpacity = 0.9,
+                        .Color = Colors.Black,
+                        .Margin = New Thickness(30, 30, 30, 30),
+                        .Padding = New Thickness(6, 6, 6, 6)
+                    }
 
-                Dim spDescuento As New StackPanel With {
-                    .Background = New SolidColorBrush(Colors.ForestGreen)
-                }
+                    Dim colorFondo2 As New SolidColorBrush With {
+                        .Color = "#004e7a".ToColor,
+                        .Opacity = 0.8
+                    }
 
-                Dim tbDescuento As New TextBlock With {
-                    .Text = listaFinal(i).Descuento,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 36,
-                    .FontWeight = Text.FontWeights.SemiBold,
-                    .Margin = New Thickness(12, 6, 12, 8),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
-                }
+                    Dim gridContenido As New Grid With {
+                        .Background = colorFondo2
+                    }
 
-                spDescuento.Children.Add(tbDescuento)
+                    Dim fila1 As New RowDefinition
+                    Dim fila2 As New RowDefinition
 
-                spDatos.SetValue(Grid.RowProperty, 1)
-                spDatos.Children.Add(spDescuento)
+                    fila1.Height = New GridLength(1, GridUnitType.Auto)
+                    fila2.Height = New GridLength(1, GridUnitType.Auto)
 
-                Dim spPrecio As New StackPanel With {
-                    .Background = New SolidColorBrush(Colors.Black)
-                }
+                    gridContenido.RowDefinitions.Add(fila1)
+                    gridContenido.RowDefinitions.Add(fila2)
 
-                Dim tbPrecio As New TextBlock With {
-                    .Text = listaFinal(i).Enlaces.Precios(0),
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 36,
-                    .FontWeight = Text.FontWeights.SemiBold,
-                    .Margin = New Thickness(12, 6, 12, 8),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
-                }
+                    Dim imagenJuego As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .MaxWidth = 420,
+                        .MaxHeight = 340,
+                        .IsCacheEnabled = True,
+                        .Source = imagenUrl
+                    }
 
-                spPrecio.Children.Add(tbPrecio)
+                    imagenJuego.SetValue(Grid.RowProperty, 0)
+                    gridContenido.Children.Add(imagenJuego)
 
-                spDatos.Children.Add(spPrecio)
+                    Dim spDatos As New StackPanel With {
+                        .HorizontalAlignment = HorizontalAlignment.Right,
+                        .Orientation = Orientation.Horizontal
+                    }
 
-                gridContenido.Children.Add(spDatos)
+                    Dim spDescuento As New StackPanel With {
+                        .Background = New SolidColorBrush(Colors.ForestGreen)
+                    }
 
-                panel.Content = gridContenido
+                    Dim tbDescuento As New TextBlock With {
+                        .Text = listaFinal(i).Descuento,
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 36,
+                        .FontWeight = Text.FontWeights.SemiBold,
+                        .Margin = New Thickness(12, 6, 12, 8),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
+                    }
 
-                If boolVertical = True Then
-                    gv1.Items.Add(panel)
-                Else
-                    gv2.Items.Add(panel)
+                    spDescuento.Children.Add(tbDescuento)
+
+                    spDatos.SetValue(Grid.RowProperty, 1)
+                    spDatos.Children.Add(spDescuento)
+
+                    Dim spPrecio As New StackPanel With {
+                        .Background = New SolidColorBrush(Colors.Black)
+                    }
+
+                    Dim tbPrecio As New TextBlock With {
+                        .Text = listaFinal(i).Enlaces.Precios(0),
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 36,
+                        .FontWeight = Text.FontWeights.SemiBold,
+                        .Margin = New Thickness(12, 6, 12, 8),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
+                    }
+
+                    spPrecio.Children.Add(tbPrecio)
+
+                    spDatos.Children.Add(spPrecio)
+
+                    gridContenido.Children.Add(spDatos)
+
+                    panel.Content = gridContenido
+
+                    If boolVertical = True Then
+                        gv1.Items.Add(panel)
+                    Else
+                        gv2.Items.Add(panel)
+                    End If
                 End If
 
                 i += 1

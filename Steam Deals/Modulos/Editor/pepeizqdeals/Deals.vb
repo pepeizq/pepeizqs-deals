@@ -20,6 +20,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim spImagen As StackPanel = pagina.FindName("spEditorImagenpepeizqdeals")
             Dim spComplemento As StackPanel = pagina.FindName("spEditorComplementopepeizqdeals")
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
+            Dim tbDescuentoMensaje As TextBlock = pagina.FindName("tbDescuentoMensajepepeizqdealsDeals")
+            Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
 
             If listaFinal.Count = 1 Then
                 tbImagenPublisher.Visibility = Visibility.Collapsed
@@ -27,12 +29,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 spImagen.Visibility = Visibility.Visible
                 spComplemento.Visibility = Visibility.Collapsed
                 cbError.Visibility = Visibility.Visible
+                tbDescuentoMensaje.Visibility = Visibility.Visible
+                tbDescuentoCodigo.Visibility = Visibility.Visible
             ElseIf listaFinal.Count > 1 Then
                 tbImagenPublisher.Visibility = Visibility.Visible
                 spEnlace.Visibility = Visibility.Collapsed
                 spImagen.Visibility = Visibility.Collapsed
                 spComplemento.Visibility = Visibility.Visible
                 cbError.Visibility = Visibility.Collapsed
+                tbDescuentoMensaje.Visibility = Visibility.Collapsed
+                tbDescuentoCodigo.Visibility = Visibility.Collapsed
             End If
 
             '----------------------------------------------------
@@ -476,6 +482,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
             AddHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
 
+            tbDescuentoCodigo.Text = String.Empty
+
+            RemoveHandler tbDescuentoCodigo.TextChanged, AddressOf ModificarDescuento
+            AddHandler tbDescuentoCodigo.TextChanged, AddressOf ModificarDescuento
+
             '----------------------------------------------------
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
@@ -889,18 +900,31 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuego")
 
             If gridUnJuego.Visibility = Visibility.Visible Then
-                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
+                Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
 
                 Dim temp, temp2 As String
                 Dim int, int2 As Integer
 
-                int = tbTitulo.Text.LastIndexOf("•")
-                temp = tbTitulo.Text.Remove(int, tbTitulo.Text.Length - int)
+                int = tbTitulo.Text.IndexOf("•")
+                temp = tbTitulo.Text.Remove(0, int + 1)
 
-                int2 = temp.LastIndexOf("•")
-                temp2 = temp.Remove(0, int2 + 1)
+                int2 = temp.IndexOf("•")
+                temp2 = temp.Remove(int2, temp.Length - int2)
 
-                tbPrecio.Text = temp2.Trim
+                tbDescuento.Text = temp2.Trim
+
+                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
+
+                Dim temp3, temp4 As String
+                Dim int3, int4 As Integer
+
+                int3 = tbTitulo.Text.LastIndexOf("•")
+                temp3 = tbTitulo.Text.Remove(int3, tbTitulo.Text.Length - int3)
+
+                int4 = temp3.LastIndexOf("•")
+                temp4 = temp3.Remove(0, int4 + 1)
+
+                tbPrecio.Text = temp4.Trim
             End If
 
         End Sub
@@ -921,6 +945,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             Else
                 panelJuego.Margin = New Thickness(30, 30, 30, 30)
                 panelMensaje.Visibility = Visibility.Collapsed
+            End If
+
+        End Sub
+
+        Private Sub ModificarDescuento(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbDescuento As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim panelJuego As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsUnJuego")
+            Dim panelDescuento As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
+
+            If tbDescuento.Text.Trim.Length > 0 Then
+                panelJuego.Margin = New Thickness(30, 30, 30, 0)
+                panelDescuento.Visibility = Visibility.Visible
+
+                Dim tbDescuento2 As TextBlock = pagina.FindName("tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuego")
+
+                If Not tbDescuento2 Is Nothing Then
+                    tbDescuento2.Text = "Discount Code: " + tbDescuento.Text
+                End If
+            Else
+                panelJuego.Margin = New Thickness(30, 30, 30, 30)
+                panelDescuento.Visibility = Visibility.Collapsed
             End If
 
         End Sub
@@ -965,6 +1015,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
             cbError.IsEnabled = estado
+
+            Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
+            tbDescuentoCodigo.IsEnabled = estado
 
         End Sub
 

@@ -72,7 +72,7 @@
             Dim lista As New List(Of Clases.Desarrolladores) From {
                 New Clases.Desarrolladores("10tons", "@10tonsLtd", Nothing),
                 New Clases.Desarrolladores("11 bit Studios", "@11bitstudios", "Assets\Publishers\11bitstudios.png"),
-                New Clases.Desarrolladores("1C Company", "@1C_Company", Nothing),
+                New Clases.Desarrolladores("1C Company", "@1C_Company", "Assets\Publishers\1c.png"),
                 New Clases.Desarrolladores("1CC Games", "@1CCGames", Nothing),
                 New Clases.Desarrolladores("2K", "@2K", "Assets\Publishers\2k.png"),
                 New Clases.Desarrolladores("2 Zombie Games", "@2zombiegames", Nothing),

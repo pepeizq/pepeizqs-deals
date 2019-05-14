@@ -75,9 +75,35 @@ Namespace pepeizq.Tiendas
                     "US", "EU", "UK"
                 }
 
-                Dim precioUS As String = "$" + juegoFanatical.Precio.USD
-                Dim precioEU As String = juegoFanatical.Precio.EUR + " €"
-                Dim precioUK As String = "£" + juegoFanatical.Precio.GBP
+                Dim precioUS As String = juegoFanatical.PrecioRebajado.USD
+
+                If precioUS = Nothing Then
+                    If Not juegoFanatical.PrecioBase.USD = Nothing Then
+                        precioUS = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.USD, descuento)
+                    End If
+                End If
+
+                precioUS = "$" + precioUS
+
+                Dim precioEU As String = juegoFanatical.PrecioRebajado.EUR
+
+                If precioEU = Nothing Then
+                    If Not juegoFanatical.PrecioBase.EUR = Nothing Then
+                        precioEU = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.EUR, descuento)
+                    End If
+                End If
+
+                precioEU = precioEU + " €"
+
+                Dim precioUK As String = juegoFanatical.PrecioRebajado.GBP
+
+                If precioUK = Nothing Then
+                    If Not juegoFanatical.PrecioBase.GBP = Nothing Then
+                        precioUK = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.GBP, descuento)
+                    End If
+                End If
+
+                precioUK = "£" + precioUK
 
                 Dim listaPrecios As New List(Of String) From {
                     precioUS, precioEU, precioUK
@@ -127,28 +153,39 @@ Namespace pepeizq.Tiendas
 
                 Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
-                Dim tituloBool As Boolean = False
+                Dim añadir As Boolean = True
                 Dim k As Integer = 0
                 While k < listaJuegos.Count
                     If listaJuegos(k).Titulo = juego.Titulo Then
-                        tituloBool = True
+                        añadir = False
                     End If
                     k += 1
                 End While
 
                 If juego.Descuento = Nothing Then
-                    tituloBool = True
+                    añadir = False
                 Else
+                    If Not juegoFanatical.Regiones Is Nothing Then
+                        If juegoFanatical.Regiones.Count > 0 Then
+                            añadir = False
+                            For Each region In juegoFanatical.Regiones
+                                If region = "ES" Then
+                                    añadir = True
+                                End If
+                            Next
+                        End If
+                    End If
+
                     If juego.Descuento = "00%" Then
-                        tituloBool = True
+                        añadir = False
                     ElseIf juego.Descuento = "null%" Then
-                        tituloBool = True
+                        añadir = False
                     ElseIf juego.Descuento.Contains("-") Then
-                        tituloBool = True
+                        añadir = False
                     End If
                 End If
 
-                If tituloBool = False Then
+                If añadir = True Then
                     listaJuegos.Add(juego)
                 End If
             Next
@@ -212,7 +249,13 @@ Namespace pepeizq.Tiendas
         Public SteamID As String
 
         <JsonProperty("current_price")>
-        Public Precio As FanaticalJuegoPrecio
+        Public PrecioRebajado As FanaticalJuegoPrecio
+
+        <JsonProperty("regular_price")>
+        Public PrecioBase As FanaticalJuegoPrecio
+
+        <JsonProperty("regions")>
+        Public Regiones As List(Of String)
 
         <JsonProperty("bundle_games")>
         Public Bundle As FanaticalJuegoBundle
