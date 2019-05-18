@@ -176,11 +176,15 @@ Namespace pepeizq.Tiendas
 
             Dim html_ As Task(Of String) = HttpClient(url)
             Dim html As String = html_.Result
-            Dim stream As New StringReader(html)
-            Dim xml As New XmlSerializer(GetType(IndieGalaRSS))
-            Dim rss As IndieGalaRSS = xml.Deserialize(stream)
 
-            numPaginas = rss.Canal.Paginas
+            If Not html = Nothing Then
+                Dim stream As New StringReader(html)
+                Dim xml As New XmlSerializer(GetType(IndieGalaRSS))
+                Dim rss As IndieGalaRSS = xml.Deserialize(stream)
+
+                numPaginas = rss.Canal.Paginas
+            End If
+
             numPaginas = numPaginas + 1
 
             Return numPaginas
