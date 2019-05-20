@@ -233,6 +233,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     temp2 = temp2.Replace("en Steam", Nothing)
                     temp2 = temp2.Replace("on Steam", Nothing)
+                    temp2 = temp2.Replace("Save 100% on", Nothing)
                     temp2 = temp2.Trim
 
                     cosas.Titulo = temp2
