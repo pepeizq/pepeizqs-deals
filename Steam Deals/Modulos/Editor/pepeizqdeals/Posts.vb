@@ -23,7 +23,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Await cliente.IsValidJWToken = True Then
                 Dim imagenUrl As String = String.Empty
 
-                Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + Date.Now.Hour.ToString + Date.Now.Minute.ToString + Date.Now.Millisecond.ToString + ".jpg"
+                Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.jpg"
                 Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
 
                 If Not ficheroImagen Is Nothing Then

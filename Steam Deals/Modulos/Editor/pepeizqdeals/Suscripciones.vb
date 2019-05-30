@@ -122,7 +122,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://www.twitch.tv/prime"
+                cosas.Enlace = "https://twitch.amazon.com/tp"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
             End If
 
