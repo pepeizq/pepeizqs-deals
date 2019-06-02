@@ -104,11 +104,13 @@ Module Divisas
         If Not moneda = Nothing Then
             If Not precio = Nothing Then
                 If moneda.Length > 0 And precio.Length > 0 Then
+                    precio = precio.Replace("₽", Nothing)
                     moneda = moneda.Replace("$", Nothing)
                     moneda = moneda.Replace("£", Nothing)
                     moneda = moneda.Replace(".", ",")
                     moneda = moneda.Trim
 
+                    precio = precio.Replace("₽", Nothing)
                     precio = precio.Replace("$", Nothing)
                     precio = precio.Replace("£", Nothing)
                     precio = precio.Replace(".", ",")

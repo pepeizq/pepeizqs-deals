@@ -99,7 +99,8 @@
                     <Grid x:Name="gridSeleccionarOfertasTiendas">
                         <StackPanel x:Name="spPresentacionEditor" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock x:Uid="SelectStore2" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                            <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,10"/>
+                            <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,20"/>
+                            <CheckBox x:Name="cbOfertasTiendasUltimosResultados" Content="Mostrar Últimos Resultados" HorizontalAlignment="Center"/>
                         </StackPanel>
 
                         <Grid x:Name="gridPresentacionpepeizqdeals">

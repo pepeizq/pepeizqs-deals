@@ -9,10 +9,20 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
+        Dim modoRuso As Boolean = False
+        Dim rublo As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub GenerarOfertas(tienda_ As Tienda, modoRuso_ As Boolean)
 
             Tienda = tienda_
+
+            If modoRuso_ = True Then
+                Dim frame As Frame = Window.Current.Content
+                Dim pagina As Page = frame.Content
+                Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+                rublo = tbRublo.Text
+                modoRuso = modoRuso_
+            End If
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -35,7 +45,14 @@ Namespace pepeizq.Tiendas
 
             Dim i As Integer = 1
             While i < 100
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
+                Dim html_ As Task(Of String) = Nothing
+
+                If modoRuso = False Then
+                    html_ = HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
+                Else
+                    html_ = HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
+                End If
+
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
@@ -66,6 +83,10 @@ Namespace pepeizq.Tiendas
                             Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
 
                             Dim precio As String = juegoGOG.Precio
+
+                            If modoRuso = True Then
+                                precio = Divisas.CambioMoneda(precio, rublo)
+                            End If
 
                             Dim listaEnlaces As New List(Of String) From {
                                 enlace

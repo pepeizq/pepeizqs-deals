@@ -26,6 +26,8 @@ Module Interfaz
     Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17)
     Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18)
 
+    Dim ultimosResultados As Boolean = False
+
     Public Sub Generar()
 
         Dim listaTiendas As New List(Of Tienda) From {
@@ -63,6 +65,13 @@ Module Interfaz
             spCodigos.Children.Add(AñadirCodigoTienda(tienda))
         Next
 
+        Dim cbUltimosResultados As CheckBox = pagina.FindName("cbOfertasTiendasUltimosResultados")
+        RemoveHandler cbUltimosResultados.Checked, AddressOf CbUltimosResultadosChecked
+        AddHandler cbUltimosResultados.Checked, AddressOf CbUltimosResultadosChecked
+
+        RemoveHandler cbUltimosResultados.Unchecked, AddressOf CbUltimosResultadosUnChecked
+        AddHandler cbUltimosResultados.Unchecked, AddressOf CbUltimosResultadosUnChecked
+
     End Sub
 
     Private Sub UsuarioClickeaTienda(sender As Object, e As ItemClickEventArgs)
@@ -70,7 +79,12 @@ Module Interfaz
         Dim sp As StackPanel = e.ClickedItem
         Dim tienda As Tienda = sp.Tag
 
-        IniciarTienda(tienda, False, True)
+        If ultimosResultados = False Then
+            IniciarTienda(tienda, False, True, False)
+        Else
+            IniciarTienda(tienda, False, True, ultimosResultados)
+            ultimosResultados = False
+        End If
 
     End Sub
 
@@ -94,12 +108,12 @@ Module Interfaz
             End If
 
             If actualizar = True Then
-                IniciarTienda(tienda, True, True)
+                IniciarTienda(tienda, True, True, False)
             Else
-                IniciarTienda(tienda, True, False)
+                IniciarTienda(tienda, True, False, False)
             End If
         Else
-            IniciarTienda(tienda, False, True)
+            IniciarTienda(tienda, False, True, False)
         End If
 
     End Sub
@@ -338,7 +352,7 @@ Module Interfaz
 
     End Sub
 
-    Public Sub IniciarTienda(tienda As Tienda, actualizar As Boolean, cambiar As Boolean)
+    Public Sub IniciarTienda(tienda As Tienda, actualizar As Boolean, cambiar As Boolean, ultimosResultados As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -469,42 +483,46 @@ Module Interfaz
             Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
             tbSeleccionadas.Text = String.Empty
 
-            If tienda.NombreUsar = steamT.NombreUsar Then
-                pepeizq.Tiendas.Steam.GenerarOfertas(steamT)
-            ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-                pepeizq.Tiendas.GamersGate.GenerarOfertas(gamersgateT)
-            ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
-                pepeizq.Tiendas.Humble.GenerarOfertas(humbleT)
-            ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
-                pepeizq.Tiendas.GamesPlanet.GenerarOfertas(gamesplanetT)
-            ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
-                pepeizq.Tiendas.Fanatical.GenerarOfertas(fanaticalT)
-            ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                pepeizq.Tiendas.GOG.GenerarOfertas(gogT)
-            ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
-                pepeizq.Tiendas.WinGameStore.GenerarOfertas(wingamestoreT)
-            ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
-                pepeizq.Tiendas.SilaGames.GenerarOfertas(silagamesT)
-            ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
-                pepeizq.Tiendas.Nuuvem.GenerarOfertas(nuuvemT)
-            ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
-                pepeizq.Tiendas.MicrosoftStore.GenerarOfertas(microsoftstoreT)
-            ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                pepeizq.Tiendas.Chrono.GenerarOfertas(chronoT)
-            ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
-                pepeizq.Tiendas.Voidu.GenerarOfertas(voiduT)
-            ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
-                pepeizq.Tiendas.IndieGala.GenerarOfertas(indiegalaT)
-            ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
-                pepeizq.Tiendas.GreenManGaming.GenerarOfertas(greenmangamingT)
-            ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
-                pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
-            ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                pepeizq.Tiendas.AmazonEsFisico.GenerarOfertas(amazonesT)
-            ElseIf tienda.NombreUsar = amazonesT2.NombreUsar Then
-                pepeizq.Tiendas.AmazonEsDigital.GenerarOfertas(amazonesT2)
-            ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
-                pepeizq.Tiendas.Yuplay.GenerarOfertas(yuplayT)
+            If ultimosResultados = False Then
+                If tienda.NombreUsar = steamT.NombreUsar Then
+                    pepeizq.Tiendas.Steam.GenerarOfertas(steamT)
+                ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
+                    pepeizq.Tiendas.GamersGate.GenerarOfertas(gamersgateT)
+                ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
+                    pepeizq.Tiendas.Humble.GenerarOfertas(humbleT)
+                ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
+                    pepeizq.Tiendas.GamesPlanet.GenerarOfertas(gamesplanetT)
+                ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
+                    pepeizq.Tiendas.Fanatical.GenerarOfertas(fanaticalT)
+                ElseIf tienda.NombreUsar = gogT.NombreUsar Then
+                    pepeizq.Tiendas.GOG.GenerarOfertas(gogT, False)
+                ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
+                    pepeizq.Tiendas.WinGameStore.GenerarOfertas(wingamestoreT)
+                ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
+                    pepeizq.Tiendas.SilaGames.GenerarOfertas(silagamesT)
+                ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
+                    pepeizq.Tiendas.Nuuvem.GenerarOfertas(nuuvemT)
+                ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
+                    pepeizq.Tiendas.MicrosoftStore.GenerarOfertas(microsoftstoreT)
+                ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
+                    pepeizq.Tiendas.Chrono.GenerarOfertas(chronoT)
+                ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
+                    pepeizq.Tiendas.Voidu.GenerarOfertas(voiduT)
+                ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
+                    pepeizq.Tiendas.IndieGala.GenerarOfertas(indiegalaT)
+                ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
+                    pepeizq.Tiendas.GreenManGaming.GenerarOfertas(greenmangamingT)
+                ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
+                    pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
+                ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
+                    pepeizq.Tiendas.AmazonEsFisico.GenerarOfertas(amazonesT)
+                ElseIf tienda.NombreUsar = amazonesT2.NombreUsar Then
+                    pepeizq.Tiendas.AmazonEsDigital.GenerarOfertas(amazonesT2)
+                ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
+                    pepeizq.Tiendas.Yuplay.GenerarOfertas(yuplayT)
+                End If
+            Else
+                Ordenar.Ofertas(tienda.NombreUsar, False, True)
             End If
         Else
             itemTiendas.IsEnabled = True
@@ -1216,6 +1234,18 @@ Module Interfaz
         Next
 
         Window.Current.CoreWindow.PointerCursor = New CoreCursor(CoreCursorType.Arrow, 1)
+
+    End Sub
+
+    Private Sub CbUltimosResultadosChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        ultimosResultados = True
+
+    End Sub
+
+    Private Sub CbUltimosResultadosUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        ultimosResultados = False
 
     End Sub
 

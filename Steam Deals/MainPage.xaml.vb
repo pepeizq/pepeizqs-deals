@@ -157,7 +157,7 @@ Public NotInheritable Class MainPage
             gridEditor.Visibility = Visibility.Collapsed
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-            Interfaz.IniciarTienda(tienda, True, False)
+            Interfaz.IniciarTienda(tienda, True, False, False)
         End If
 
     End Sub
@@ -170,7 +170,7 @@ Public NotInheritable Class MainPage
             If grid.Visibility = Visibility.Visible Then
                 Dim tienda As Tienda = grid.Tag
 
-                Interfaz.IniciarTienda(tienda, True, True)
+                Interfaz.IniciarTienda(tienda, True, True, False)
             End If
         Next
 
