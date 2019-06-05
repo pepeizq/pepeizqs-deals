@@ -695,12 +695,15 @@
                                                 <StackPanel>
                                                     <Grid Width="1000" Height="400">
                                                         <Grid.Background>
-                                                            <SolidColorBrush Color="#004e7a"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#2e4460" Offset="0.5" />
+                                                                <GradientStop Color="#1b2838" Offset="1.0" />
+                                                            </LinearGradientBrush>
                                                         </Grid.Background>
 
                                                         <Grid Padding="40">
                                                             <Grid.Background>
-                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaFree" ImageSource="Assets\pepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaFree" Stretch="UniformToFill"/>
                                                             </Grid.Background>
 
                                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -806,7 +809,10 @@
                                                 <StackPanel>
                                                     <Grid Width="1000" Height="400">
                                                         <Grid.Background>
-                                                            <SolidColorBrush Color="#004e7a"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#2e4460" Offset="0.5" />
+                                                                <GradientStop Color="#1b2838" Offset="1.0" />
+                                                            </LinearGradientBrush>
                                                         </Grid.Background>
 
                                                         <Grid Padding="40">
@@ -928,12 +934,15 @@
                                                 <StackPanel>
                                                     <Grid Width="472" Height="400">
                                                         <Grid.Background>
-                                                            <SolidColorBrush Color="#004e7a"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#2e4460" Offset="0.5" />
+                                                                <GradientStop Color="#1b2838" Offset="1.0" />
+                                                            </LinearGradientBrush>
                                                         </Grid.Background>
 
                                                         <Grid Padding="40">
                                                             <Grid.Background>
-                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaAnuncios" ImageSource="Assets\pepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaAnuncios" Stretch="UniformToFill"/>
                                                             </Grid.Background>
 
                                                             <Grid.RowDefinitions>

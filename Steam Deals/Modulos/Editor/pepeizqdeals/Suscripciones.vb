@@ -256,11 +256,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            If fondoUrl = String.Empty Then
-                fondoUrl = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
+            If Not fondoUrl = String.Empty Then
+                fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
             End If
-
-            fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
