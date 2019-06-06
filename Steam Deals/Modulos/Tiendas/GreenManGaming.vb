@@ -11,7 +11,7 @@ Namespace pepeizq.Tiendas
         Dim listaDesarrolladores As New List(Of GreenManGamingDesarrolladores)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -59,9 +59,7 @@ Namespace pepeizq.Tiendas
                         Dim titulo As String = WebUtility.HtmlDecode(juegoGMG.Titulo)
                         titulo = titulo.Trim
 
-                        Dim listaEnlaces As New List(Of String) From {
-                            juegoGMG.Enlace.Trim
-                        }
+                        Dim enlace As String = juegoGMG.Enlace.Trim
 
                         Dim imagenes As New JuegoImagenes(juegoGMG.Imagen, Nothing)
 
@@ -71,11 +69,7 @@ Namespace pepeizq.Tiendas
                             precioRebajado = precioRebajado + ".00"
                         End If
 
-                        Dim listaPrecios As New List(Of String) From {
-                            precioRebajado + " €"
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
+                        precioRebajado = precioRebajado + " €"
 
                         Dim descuento As String = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, juegoGMG.PrecioRebajado)
 
@@ -86,9 +80,9 @@ Namespace pepeizq.Tiendas
                         If Not descuento = Nothing Then
                             Dim drm As String = juegoGMG.DRM
 
-                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
 
-                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -109,7 +103,7 @@ Namespace pepeizq.Tiendas
 
                             If tituloBool = False Then
                                 For Each desarrollador In listaDesarrolladores
-                                    If desarrollador.Enlace = juego.Enlaces.Enlaces(0) Then
+                                    If desarrollador.Enlace = juego.Enlace Then
                                         juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
                                         Exit For
                                     End If
@@ -125,7 +119,7 @@ Namespace pepeizq.Tiendas
             Dim i As Integer = 0
             For Each juego In listaJuegos
                 If juego.Desarrolladores Is Nothing Then
-                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlaces.Enlaces(0)))
+                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
                     Dim htmlJuego As String = htmlJuego_.Result
 
                     If Not htmlJuego = Nothing Then
@@ -144,7 +138,7 @@ Namespace pepeizq.Tiendas
 
                             juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
 
-                            listaDesarrolladores.Add(New GreenManGamingDesarrolladores(juego.Enlaces.Enlaces(0), temp3.Trim))
+                            listaDesarrolladores.Add(New GreenManGamingDesarrolladores(juego.Enlace, temp3.Trim))
                         End If
                     End If
                 End If
@@ -210,7 +204,7 @@ Namespace pepeizq.Tiendas
         Public Publisher As String
 
         <XmlElement("steamapp_id")>
-        Public IDSteam As String
+        Public SteamID As String
 
     End Class
 

@@ -9,8 +9,15 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
+        Dim dolar As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+            dolar = tbDolar.Text
 
             Tienda = tienda_
 
@@ -47,26 +54,19 @@ Namespace pepeizq.Tiendas
 
                     Dim enlace As String = juegoChrono.Enlace
 
-                    Dim listaEnlaces As New List(Of String) From {
-                        enlace
-                    }
-
                     Dim precio As String = "$" + juegoChrono.Precio
-
-                    Dim listaPrecios As New List(Of String) From {
-                        precio
-                    }
-
-                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
                     Dim imagen As String = Nothing
 
                     Dim drm As String = Nothing
 
+                    Dim idSteam As String = Nothing
+
                     If Not juegoChrono.DRM Is Nothing Then
                         If juegoChrono.DRM.Count > 0 Then
                             If juegoChrono.DRM(0).Tipo = "steam_app" Then
-                                imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
+                                idSteam = juegoChrono.DRM(0).ID
+                                imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + idSteam + "/header.jpg"
                                 drm = "steam"
                             End If
                         End If
@@ -99,9 +99,9 @@ Namespace pepeizq.Tiendas
                     Dim fechaTermina As DateTime = DateTime.Today
                     fechaTermina = fechaTermina.AddHours(42)
 
-                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, idSteam)
 
-                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                     Dim tituloBool As Boolean = False
                     Dim k As Integer = 0
@@ -121,6 +121,8 @@ Namespace pepeizq.Tiendas
                     End If
 
                     If tituloBool = False Then
+                        juego.Precio = CambioMoneda(juego.Precio, dolar)
+
                         listaJuegos.Add(juego)
                     End If
                 End If

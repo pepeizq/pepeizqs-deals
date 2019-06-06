@@ -11,7 +11,7 @@ Namespace pepeizq.Tiendas
         Dim listaDesarrolladores As New List(Of SteamDesarrolladores)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -194,16 +194,6 @@ Namespace pepeizq.Tiendas
                                 If boolPrecio = False Then
                                     precio = precio.Replace(",", ".")
 
-                                    Dim listaEnlaces As New List(Of String) From {
-                                        enlace
-                                    }
-
-                                    Dim listaPrecios As New List(Of String) From {
-                                        precio
-                                    }
-
-                                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
-
                                     Dim windows As Boolean = False
 
                                     If temp2.Contains(ChrW(34) + "platform_img win" + ChrW(34)) Then
@@ -240,7 +230,7 @@ Namespace pepeizq.Tiendas
 
                                     Dim tipo As String = temp14.Trim
 
-                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, Tienda, Nothing, tipo, DateTime.Today, Nothing, analisis, sistemas, Nothing)
+                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, tipo, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0
@@ -259,7 +249,7 @@ Namespace pepeizq.Tiendas
                                         Dim buscarDesarrollador As Boolean = True
 
                                         For Each desarrollador In listaDesarrolladores
-                                            If desarrollador.Enlace = juego.Enlaces.Enlaces(0) Then
+                                            If desarrollador.Enlace = juego.Enlace Then
                                                 juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
                                                 buscarDesarrollador = False
                                                 Exit For
@@ -368,7 +358,7 @@ Namespace pepeizq.Tiendas
 
         Public Async Function SteamMas(juego As Juego) As Task(Of Juego)
 
-            Dim id As String = juego.Enlaces.Enlaces(0)
+            Dim id As String = juego.Enlace
 
             If id.Contains("https://store.steampowered.com/app/") Then
                 id = id.Replace("https://store.steampowered.com/app/", Nothing)
@@ -395,12 +385,12 @@ Namespace pepeizq.Tiendas
                             If datos.Datos.Desarrolladores.Count > 0 Then
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
                                 juego.Desarrolladores = desarrolladores
-                                listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlaces.Enlaces(0), datos.Datos.Desarrolladores(0)))
+                                listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlace, datos.Datos.Desarrolladores(0)))
                             ElseIf datos.Datos.Desarrolladores.Count = 0 Then
                                 If datos.Datos.Desarrolladores2.Count > 0 Then
                                     Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores2(0)}, Nothing)
                                     juego.Desarrolladores = desarrolladores
-                                    listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlaces.Enlaces(0), datos.Datos.Desarrolladores2(0)))
+                                    listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlace, datos.Datos.Desarrolladores2(0)))
                                 End If
                             End If
                         End If

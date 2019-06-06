@@ -1,9 +1,10 @@
 ﻿Public Class Juego
 
     Public Property Titulo As String
-    Public Property Imagenes As JuegoImagenes
-    Public Property Enlaces As JuegoEnlaces
     Public Property Descuento As String
+    Public Property Precio As String
+    Public Property Enlace As String
+    Public Property Imagenes As JuegoImagenes
     Public Property DRM As String
     Public Property Tienda As Tienda
     Public Property Tipo As String
@@ -14,14 +15,15 @@
     Public Property Sistemas As JuegoSistemas
     Public Property Desarrolladores As JuegoDesarrolladores
 
-    Public Sub New(ByVal titulo As String, ByVal imagenes As JuegoImagenes, ByVal enlaces As JuegoEnlaces,
-                   ByVal descuento As String, ByVal drm As String, ByVal tienda As Tienda, ByVal promocion As String,
+    Public Sub New(ByVal titulo As String, ByVal descuento As String, ByVal precio As String, ByVal enlace As String,
+                   ByVal imagenes As JuegoImagenes, ByVal drm As String, ByVal tienda As Tienda, ByVal promocion As String,
                    ByVal tipo As String, ByVal fechaAñadido As DateTime, ByVal fechaTermina As DateTime,
                    ByVal analisis As JuegoAnalisis, ByVal sistemas As JuegoSistemas, ByVal desarrolladores As JuegoDesarrolladores)
         Me.Titulo = titulo
-        Me.Imagenes = imagenes
-        Me.Enlaces = enlaces
         Me.Descuento = descuento
+        Me.Precio = precio
+        Me.Enlace = enlace
+        Me.Imagenes = imagenes
         Me.DRM = drm
         Me.Tienda = tienda
         Me.Promocion = promocion

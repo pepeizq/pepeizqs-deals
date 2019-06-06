@@ -125,7 +125,7 @@ Module Ordenar
                         Dim grid As Grid = item
                         Dim juegoComparar As Juego = grid.Tag
 
-                        If juegoComparar.Enlaces.Enlaces(0) = juego.Enlaces.Enlaces(0) Then
+                        If juegoComparar.Enlace = juego.Enlace Then
                             juegoEncontrado = True
                         End If
                     Next
@@ -144,7 +144,7 @@ Module Ordenar
                                 Else
                                     If Not listaJuegosAntigua Is Nothing Then
                                         For Each juegoAntiguo In listaJuegosAntigua
-                                            If juegoAntiguo.Enlaces.Enlaces(0) = juego.Enlaces.Enlaces(0) Then
+                                            If juegoAntiguo.Enlace = juego.Enlace Then
                                                 Dim juegoAntiguoDescuentoString As String = juegoAntiguo.Descuento.Replace("%", Nothing)
                                                 If Not juegoAntiguoDescuentoString = Nothing Then
                                                     Dim juegoDescuentoString As String = juego.Descuento.Replace("%", Nothing)

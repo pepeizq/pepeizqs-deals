@@ -9,7 +9,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -136,16 +136,6 @@ Namespace pepeizq.Tiendas
 
                                     Dim precio As String = temp10.Trim
 
-                                    Dim listaEnlaces As New List(Of String) From {
-                                        enlace
-                                    }
-
-                                    Dim listaPrecios As New List(Of String) From {
-                                        precio
-                                    }
-
-                                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
-
                                     Dim descuento As String = String.Empty
 
                                     If temp2.Contains("<s aria-label=") Then
@@ -164,9 +154,9 @@ Namespace pepeizq.Tiendas
                                         descuento = Calculadora.GenerarDescuento(temp12.Trim, precio)
                                     End If
 
-                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0

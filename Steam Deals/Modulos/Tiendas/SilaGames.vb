@@ -10,7 +10,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -53,8 +53,6 @@ Namespace pepeizq.Tiendas
                                 enlace = enlace.Remove(intEnlace, enlace.Length - intEnlace)
                             End If
 
-                            Dim afiliado As String = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
-
                             Dim imagenPequeña As String = juegoSila.Imagen.Trim
                             imagenPequeña = imagenPequeña.Replace("@2x", Nothing)
                             Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
@@ -78,20 +76,6 @@ Namespace pepeizq.Tiendas
                             precioBase = precioBase + " €"
 
                             If Not precioRebajado = precioBase Then
-                                Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
-
-                                Dim listaAfiliados As New List(Of String) From {
-                                    afiliado
-                                }
-
-                                Dim listaPrecios As New List(Of String) From {
-                                    precioRebajado
-                                }
-
-                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
-
                                 Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoSila.Publisher}, Nothing)
@@ -104,9 +88,9 @@ Namespace pepeizq.Tiendas
                                     drm = "uplay"
                                 End If
 
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrolladores)
+                                Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrolladores)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

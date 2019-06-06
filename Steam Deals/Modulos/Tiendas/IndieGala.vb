@@ -10,7 +10,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -62,10 +62,6 @@ Namespace pepeizq.Tiendas
 
                                 Dim enlace As String = juegoIG.Enlace
 
-                                Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
-
                                 Dim imagenPequeña As String = juegoIG.ImagenGrande
 
                                 If Not imagenPequeña.Contains("https://www.indiegalacdn.com/get_store_img?img=") Then
@@ -94,12 +90,6 @@ Namespace pepeizq.Tiendas
 
                                 precio = precio + "€"
 
-                                Dim listaPrecios As New List(Of String) From {
-                                    precio
-                                }
-
-                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
-
                                 Dim descuento As String = juegoIG.Descuento
 
                                 If descuento.Contains(".") Then
@@ -119,11 +109,11 @@ Namespace pepeizq.Tiendas
                                     fechaTermina = DateTime.Parse(juegoIG.Fecha)
                                 End If
 
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoIG.Desarrollador}, Nothing)
 
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
+                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

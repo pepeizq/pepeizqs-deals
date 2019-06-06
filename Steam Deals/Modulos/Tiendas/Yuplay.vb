@@ -10,8 +10,15 @@ Namespace pepeizq.Tiendas
         Dim listaBloqueo As New List(Of YuplayBloqueo)
         Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
         Dim Tienda As Tienda = Nothing
+        Dim rublo As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+            rublo = tbRublo.Text
 
             Tienda = tienda_
 
@@ -111,10 +118,6 @@ Namespace pepeizq.Tiendas
 
                                 Dim enlace As String = "https://yuplay.ru" + temp8.Trim
 
-                                Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
-
                                 Dim temp9, temp10 As String
                                 Dim int9, int10 As Integer
 
@@ -170,15 +173,9 @@ Namespace pepeizq.Tiendas
                                     descuento = "00%"
                                 End If
 
-                                Dim listaPrecios As New List(Of String) From {
-                                    precio
-                                }
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
-
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
-
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, "steam", Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, "steam", Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0
@@ -296,6 +293,8 @@ Namespace pepeizq.Tiendas
                                     End If
 
                                     If añadir = True Then
+                                        juego.Precio = CambioMoneda(juego.Precio, rublo)
+
                                         listaJuegos.Add(juego)
                                     End If
                                 End If

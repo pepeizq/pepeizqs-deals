@@ -216,7 +216,7 @@ Module Analisis
 
     End Function
 
-    Public Function BuscarJuego(titulo As String, lista As List(Of JuegoAnalisis))
+    Public Function BuscarJuego(titulo As String, lista As List(Of JuegoAnalisis), idSteam As String)
 
         Dim analisis As JuegoAnalisis = Nothing
 
@@ -225,8 +225,28 @@ Module Analisis
         If Not lista Is Nothing Then
             If lista.Count > 0 Then
                 For Each juego In lista
-                    If titulo = juego.Titulo Then
-                        analisis = juego
+                    If Not idSteam = Nothing Then
+                        If Not juego.Enlace Is Nothing Then
+                            If juego.Enlace.Contains("/app/" + idSteam + "/") Then
+                                analisis = juego
+                            End If
+                        End If
+                    Else
+                        If titulo = juego.Titulo Then
+                            Dim añadir As Boolean = True
+
+                            If Not juego.Enlace Is Nothing Then
+                                If juego.Enlace.Contains("/sub/") Then
+                                    añadir = False
+                                ElseIf juego.Enlace.Contains("/bundle/") Then
+                                    añadir = False
+                                End If
+                            End If
+
+                            If añadir = True Then
+                                analisis = juego
+                            End If
+                        End If
                     End If
                 Next
             End If
@@ -341,9 +361,9 @@ Module Analisis
                                 If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
-                                    If juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/bundle/") Then
+                                    If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
                                         añadirCheck = False
-                                    ElseIf juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/sub/") Then
+                                    ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
                                         añadirCheck = False
                                     End If
 
@@ -371,9 +391,9 @@ Module Analisis
                                 If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
-                                    If juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/bundle/") Then
+                                    If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
                                         añadirCheck = False
-                                    ElseIf juego.Enlaces.Enlaces(0).Contains("store.steampowered.com/sub/") Then
+                                    ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
                                         añadirCheck = False
                                     End If
 

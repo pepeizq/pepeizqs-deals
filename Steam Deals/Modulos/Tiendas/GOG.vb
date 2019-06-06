@@ -12,7 +12,7 @@ Namespace pepeizq.Tiendas
         Dim modoRuso As Boolean = False
         Dim rublo As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda, modoRuso_ As Boolean)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda, modoRuso_ As Boolean)
 
             Tienda = tienda_
 
@@ -75,8 +75,6 @@ Namespace pepeizq.Tiendas
 
                             Dim enlace As String = juegoGOG.Enlace
 
-                            Dim afiliado As String = enlace + "?pp=81110df80ca4086e306c4c52ab485a35cf761acc"
-
                             Dim imagenPequeña As String = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_196.")
                             Dim imagenGrande As String = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_392.")
 
@@ -87,20 +85,6 @@ Namespace pepeizq.Tiendas
                             If modoRuso = True Then
                                 precio = Divisas.CambioMoneda(precio, rublo)
                             End If
-
-                            Dim listaEnlaces As New List(Of String) From {
-                                enlace
-                            }
-
-                            Dim listaAfiliados As New List(Of String) From {
-                                afiliado
-                            }
-
-                            Dim listaPrecios As New List(Of String) From {
-                                precio
-                            }
-
-                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
                             Dim descuento As String = juegoGOG.Descuento.Trim + "%"
 
@@ -137,11 +121,11 @@ Namespace pepeizq.Tiendas
 
                                 Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoGOG.Publisher}, Nothing)
 
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

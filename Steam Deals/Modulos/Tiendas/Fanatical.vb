@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
+Imports Windows.Storage
 
 Namespace pepeizq.Tiendas
     Module Fanatical
@@ -9,8 +10,9 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
+        Dim cuponPorcentaje As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -18,6 +20,13 @@ Namespace pepeizq.Tiendas
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
+
+            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
+                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                cuponPorcentaje = cuponPorcentaje.Trim
+                cuponPorcentaje = "0," + cuponPorcentaje
             End If
 
             listaJuegos.Clear()
@@ -49,10 +58,6 @@ Namespace pepeizq.Tiendas
 
                 Dim enlace As String = juegoFanatical.Enlace
 
-                Dim listaEnlaces As New List(Of String) From {
-                    enlace, enlace, enlace
-                }
-
                 Dim imagenPequeña As String = juegoFanatical.Imagen
                 Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
@@ -71,45 +76,15 @@ Namespace pepeizq.Tiendas
                     descuento = descuento.Trim + "%"
                 End If
 
-                Dim listaPaises As New List(Of String) From {
-                    "US", "EU", "UK"
-                }
+                Dim precio As String = juegoFanatical.PrecioRebajado.EUR
 
-                Dim precioUS As String = juegoFanatical.PrecioRebajado.USD
-
-                If precioUS = Nothing Then
-                    If Not juegoFanatical.PrecioBase.USD = Nothing Then
-                        precioUS = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.USD, descuento)
-                    End If
-                End If
-
-                precioUS = "$" + precioUS
-
-                Dim precioEU As String = juegoFanatical.PrecioRebajado.EUR
-
-                If precioEU = Nothing Then
+                If precio = Nothing Then
                     If Not juegoFanatical.PrecioBase.EUR = Nothing Then
-                        precioEU = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.EUR, descuento)
+                        precio = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.EUR, descuento)
                     End If
                 End If
 
-                precioEU = precioEU + " €"
-
-                Dim precioUK As String = juegoFanatical.PrecioRebajado.GBP
-
-                If precioUK = Nothing Then
-                    If Not juegoFanatical.PrecioBase.GBP = Nothing Then
-                        precioUK = Calculadora.GenerarPrecioRebajado(juegoFanatical.PrecioBase.GBP, descuento)
-                    End If
-                End If
-
-                precioUK = "£" + precioUK
-
-                Dim listaPrecios As New List(Of String) From {
-                    precioUS, precioEU, precioUK
-                }
-
-                Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, Nothing, listaPrecios)
+                precio = precio + " €"
 
                 Dim drm As String = Nothing
 
@@ -139,7 +114,7 @@ Namespace pepeizq.Tiendas
 
                 Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoFanatical.SteamID)
 
                 Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 Try
@@ -151,7 +126,7 @@ Namespace pepeizq.Tiendas
 
                 Dim desarrolladores As New JuegoDesarrolladores(juegoFanatical.Publishers, Nothing)
 
-                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
                 Dim añadir As Boolean = True
                 Dim k As Integer = 0
@@ -245,7 +220,7 @@ Namespace pepeizq.Tiendas
         <JsonProperty("expiry")>
         Public Fecha As String
 
-        <JsonProperty("steam_sub_id")>
+        <JsonProperty("steam_app_id")>
         Public SteamID As String
 
         <JsonProperty("current_price")>

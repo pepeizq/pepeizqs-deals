@@ -181,8 +181,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     Dim imagenJuego As New ImageEx With {
                         .Stretch = Stretch.Uniform,
-                        .MaxWidth = 420,
-                        .MaxHeight = 340,
+                        .MaxWidth = 450,
+                        .MaxHeight = 360,
                         .IsCacheEnabled = True,
                         .Source = imagenUrl
                     }
@@ -219,7 +219,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     Dim tbPrecio As New TextBlock With {
-                        .Text = listaFinal(i).Enlaces.Precios(0),
+                        .Text = listaFinal(i).Precio,
                         .Foreground = New SolidColorBrush(Colors.White),
                         .FontSize = 36,
                         .FontWeight = Text.FontWeights.SemiBold,

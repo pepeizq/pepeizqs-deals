@@ -19,7 +19,7 @@
                 tbTitulo.Text = String.Empty
             ElseIf listaFinal.Count = 1 Then
                 If listaFinal(0).Tienda.NombreMostrar = "Amazon.es (Físico)" Then
-                    tbTitulo.Text = listaFinal(0).Titulo + " a " + listaFinal(0).Enlaces.Precios(0).Replace(" ", Nothing) + " en " + TituloTwitter(listaFinal(0).Tienda.NombreMostrar) + " (para #Steam) - Formato Físico"
+                    tbTitulo.Text = listaFinal(0).Titulo + " a " + listaFinal(0).Precio.Replace(" ", Nothing) + " en " + TituloTwitter(listaFinal(0).Tienda.NombreMostrar) + " (para #Steam) - Formato Físico"
                 Else
                     Dim drm As String = Nothing
 
@@ -46,13 +46,7 @@
 
             contenidoEnlaces = contenidoEnlaces + "<br/><div style=" + ChrW(34) + "text-align:center;" + ChrW(34) + ">" + Environment.NewLine
 
-            Dim enlaceImagen As String = Nothing
-
-            If Not listaFinal(0).Enlaces.Afiliados Is Nothing Then
-                enlaceImagen = listaFinal(0).Enlaces.Afiliados(0)
-            Else
-                enlaceImagen = listaFinal(0).Enlaces.Enlaces(0)
-            End If
+            Dim enlaceImagen As String = listaFinal(0).Enlace
 
             Dim imagen As String = Nothing
 
@@ -106,44 +100,12 @@
                     drm = " (<font color=" + ChrW(34) + "#E56717" + ChrW(34) + ">Steam</font>)"
                 End If
 
-                If juego.Tienda.NombreMostrar = "GamersGate" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(1) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + " {UK}</a> - " + juego.Enlaces.Precios(1) + " (o " + Divisas.CambioMoneda(juego.Enlaces.Precios(1), tbLibra.Text) + ")" + drm +
-                       "</li>" + Environment.NewLine
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(0) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + "</a> - " + juego.Enlaces.Precios(0) + drm +
-                       "</li>" + Environment.NewLine
-                ElseIf juego.Tienda.NombreMostrar = "GamesPlanet" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(0) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + " {UK}</a> - " + juego.Enlaces.Precios(0) + " (o " + Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbLibra.Text) + ")" + drm +
-                       "</li>" + Environment.NewLine
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(1) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + " {FR}</a> - " + juego.Enlaces.Precios(1) + drm +
-                       "</li>" + Environment.NewLine
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(2) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + " {DE}</a> - " + juego.Enlaces.Precios(2) + drm +
-                       "</li>" + Environment.NewLine
-                ElseIf juego.Tienda.NombreMostrar = "WinGameStore" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(0) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + "</a> - " + juego.Enlaces.Precios(0) + " (o " + Divisas.CambioMoneda(juego.Enlaces.Precios(0), tbDolar.Text) + ")" + drm +
-                       "</li>" + Environment.NewLine
-                ElseIf juego.Tienda.NombreMostrar = "Fanatical" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Afiliados(0) + ChrW(34) + ">" +
-                       descuento + juego.Titulo + "</a> - " + juego.Enlaces.Precios(1) + drm +
-                       "</li>" + Environment.NewLine
-                ElseIf juego.Tienda.NombreMostrar = "Amazon.es (Físico)" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlaces.Enlaces(0) + "?tag=vayaa-21" + ChrW(34) + ">" +
-                       juego.Titulo + "</a> - " + juego.Enlaces.Precios(0) + drm + "</li>" + Environment.NewLine
+                If juego.Tienda.NombreMostrar = "Amazon.es (Físico)" Then
+                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlace + "?tag=vayaa-21" + ChrW(34) + ">" +
+                       juego.Titulo + "</a> - " + juego.Precio + drm + "</li>" + Environment.NewLine
                 Else
-                    Dim enlace As String = Nothing
-                    If Not juego.Enlaces.Afiliados Is Nothing Then
-                        enlace = juego.Enlaces.Afiliados(0)
-                    Else
-                        enlace = juego.Enlaces.Enlaces(0)
-                    End If
-
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + enlace + ChrW(34) + ">" +
-                       descuento + juego.Titulo + "</a> - " + juego.Enlaces.Precios(0) + drm +
+                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlace + ChrW(34) + ">" +
+                       descuento + juego.Titulo + "</a> - " + juego.Precio + drm +
                        "</li>" + Environment.NewLine
                 End If
             Next

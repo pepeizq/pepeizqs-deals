@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.Storage
 
 Namespace pepeizq.Tiendas
     Module GamersGate
@@ -9,8 +10,16 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
+        Dim cuponPorcentaje As String = String.Empty
+        Dim libra As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+            libra = tbLibra.Text
 
             Tienda = tienda_
 
@@ -18,6 +27,13 @@ Namespace pepeizq.Tiendas
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
+
+            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
+                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                cuponPorcentaje = cuponPorcentaje.Trim
+                cuponPorcentaje = "0," + cuponPorcentaje
             End If
 
             listaJuegos.Clear()
@@ -51,18 +67,10 @@ Namespace pepeizq.Tiendas
                         Dim titulo As String = WebUtility.HtmlDecode(juego.Titulo)
                         titulo = titulo.Trim
 
-                        Dim enlace As String = juego.Enlace
-                        Dim intEnlace As Integer = enlace.IndexOf("gamersgate.com")
-                        Dim enlaceEU As String = "https://www." + enlace.Remove(0, intEnlace)
-                        Dim enlaceUK As String = "https://uk." + enlace.Remove(0, intEnlace)
-
-                        Dim listaEnlaces As New List(Of String) From {
-                            enlaceEU, enlaceUK
-                        }
-
-                        Dim listaPaises As New List(Of String) From {
-                            "EU", "UK"
-                        }
+                        Dim enlaceTemp As String = juego.Enlace
+                        Dim intEnlace As Integer = enlaceTemp.IndexOf("gamersgate.com")
+                        Dim enlace As String = "https://www." + enlaceTemp.Remove(0, intEnlace)
+                        Dim enlaceUK As String = "https://uk." + enlaceTemp.Remove(0, intEnlace)
 
                         Dim imagenPequeña As String = juego.ImagenPequeña
                         Dim imagenGrande As String = juego.ImagenGrande
@@ -89,22 +97,6 @@ Namespace pepeizq.Tiendas
                                 precioUK = "£" + precioUK.Trim
                             End If
                         Next
-
-                        Dim listaAfiliados As New List(Of String) From {
-                            enlace + "?caff=2385601", enlaceUK + "?caff=2385601"
-                        }
-
-                        Dim listaPrecios As New List(Of String) From {
-                            precio, precioUK
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
-
-                        Dim descuento As String = Calculadora.GenerarDescuento(juego.PrecioBase, juego.PrecioDescontado)
-
-                        If descuento = "00%" Then
-                            descuento = Nothing
-                        End If
 
                         Dim drm As String = juego.DRM
 
@@ -136,11 +128,57 @@ Namespace pepeizq.Tiendas
                             fechaTermina = DateTime.Parse(juego.Fecha)
                         End If
 
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
                         Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juego.Desarrollador}, Nothing)
 
-                        Dim juegoFinal As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+                        If Not precioUK = Nothing Then
+                            If precioUK.Contains("£") Then
+                                precioUK = Divisas.CambioMoneda(precioUK, libra)
+
+                                precio = precio.Replace(",", ".")
+                                precioUK = precioUK.Replace(",", ".")
+
+                                Dim dprecioEU As Double = 0
+                                Dim dprecioUK As Double = 0
+
+                                If Not cuponPorcentaje = Nothing Then
+                                    dprecioEU = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                    dprecioUK = Double.Parse(precioUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                Else
+                                    dprecioEU = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                                    dprecioUK = Double.Parse(precioUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                                End If
+
+                                If dprecioUK < dprecioEU Then
+                                    precio = Math.Round(dprecioUK, 2).ToString + " €"
+                                    enlace = enlaceUK
+                                Else
+                                    precio = Math.Round(dprecioEU, 2).ToString + " €"
+                                    enlace = enlace
+                                End If
+                            End If
+                        Else
+                            Dim dprecioEU As Double = 0
+
+                            If Not cuponPorcentaje = Nothing Then
+                                dprecioEU = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                            Else
+                                dprecioEU = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                            End If
+
+                            precio = Math.Round(dprecioEU, 2).ToString + " €"
+                        End If
+
+
+
+                        Dim descuento As String = Calculadora.GenerarDescuento(juego.PrecioBase, precio)
+
+                        If descuento = "00%" Then
+                            descuento = Nothing
+                        End If
+
+                        Dim juegoFinal As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

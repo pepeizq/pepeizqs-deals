@@ -76,15 +76,15 @@
             RemoveHandler botonIconos.Click, AddressOf MostrarGrid
             AddHandler botonIconos.Click, AddressOf MostrarGrid
 
-            Dim bordeCodigos As Grid = pagina.FindName("bordeEditorpepeizqdealsCodigos")
-            bordeCodigos.Visibility = Visibility.Collapsed
-            Dim svCodigos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCodigos")
-            svCodigos.Visibility = Visibility.Collapsed
-            Dim botonCodigos As Button = pagina.FindName("botonEditorpepeizqdealsCodigos")
-            botonCodigos.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeCodigos, svCodigos)
+            Dim bordeCupones As Grid = pagina.FindName("bordeEditorpepeizqdealsCupones")
+            bordeCupones.Visibility = Visibility.Collapsed
+            Dim svCupones As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
+            svCupones.Visibility = Visibility.Collapsed
+            Dim botonCupones As Button = pagina.FindName("botonEditorpepeizqdealsCupones")
+            botonCupones.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeCupones, svCupones)
 
-            RemoveHandler botonCodigos.Click, AddressOf MostrarGrid
-            AddHandler botonCodigos.Click, AddressOf MostrarGrid
+            RemoveHandler botonCupones.Click, AddressOf MostrarGrid
+            AddHandler botonCupones.Click, AddressOf MostrarGrid
 
             Dim bordeRss As Grid = pagina.FindName("bordeEditorpepeizqdealsRss")
             bordeRss.Visibility = Visibility.Collapsed
@@ -145,11 +145,11 @@
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
 
-            Dim bordeCodigos As Grid = pagina.FindName("bordeEditorpepeizqdealsCodigos")
-            bordeCodigos.Visibility = Visibility.Collapsed
+            Dim bordeCupones As Grid = pagina.FindName("bordeEditorpepeizqdealsCupones")
+            bordeCupones.Visibility = Visibility.Collapsed
 
-            Dim svCodigos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCodigos")
-            svCodigos.Visibility = Visibility.Collapsed
+            Dim svCupones As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
+            svCupones.Visibility = Visibility.Collapsed
 
             Dim bordeRss As Grid = pagina.FindName("bordeEditorpepeizqdealsRss")
             bordeRss.Visibility = Visibility.Collapsed

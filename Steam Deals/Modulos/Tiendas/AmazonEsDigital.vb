@@ -9,7 +9,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -128,10 +128,6 @@ Namespace pepeizq.Tiendas
 
                                 Dim precio As String = temp6.Trim
 
-                                Dim listaPrecios As New List(Of String) From {
-                                    precio
-                                }
-
                                 Dim temp9, temp10 As String
                                 Dim int9, int10 As Integer
 
@@ -142,12 +138,6 @@ Namespace pepeizq.Tiendas
                                 temp10 = temp9.Remove(int10, temp9.Length - int10)
 
                                 Dim enlace As String = "https://www.amazon.es/dp/" + temp10.Trim + "/"
-
-                                Dim listaEnlaces As New List(Of String) From {
-                                    enlace
-                                }
-
-                                Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
 
                                 Dim temp11, temp12 As String
                                 Dim int11, int12 As Integer
@@ -168,8 +158,8 @@ Namespace pepeizq.Tiendas
 
                                 If listaJuegosAntigua.Count > 0 Then
                                     For Each juegoAntiguo In listaJuegosAntigua
-                                        If juegoAntiguo.Enlaces.Enlaces(0) = enlace Then
-                                            Dim tempAntiguoPrecio As String = juegoAntiguo.Enlaces.Precios(0).Replace("€", Nothing)
+                                        If juegoAntiguo.Enlace = enlace Then
+                                            Dim tempAntiguoPrecio As String = juegoAntiguo.Precio.Replace("€", Nothing)
                                             tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
                                             Dim tempPrecio As String = precio.Replace("€", Nothing)
@@ -177,7 +167,7 @@ Namespace pepeizq.Tiendas
 
                                             Try
                                                 If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
-                                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Enlaces.Precios(0), precio)
+                                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio, precio)
                                                 Else
                                                     descuento = Nothing
                                                 End If
@@ -203,7 +193,7 @@ Namespace pepeizq.Tiendas
                                                 End If
                                             End If
 
-                                            juegoAntiguo.Enlaces.Precios(0) = precio
+                                            juegoAntiguo.Precio = precio
                                             encontrado = True
                                         End If
                                     Next
@@ -213,8 +203,9 @@ Namespace pepeizq.Tiendas
                                     descuento = "00%"
                                 End If
 
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
-                                Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+
+                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim tituloBool As Boolean = False
                                 Dim k As Integer = 0

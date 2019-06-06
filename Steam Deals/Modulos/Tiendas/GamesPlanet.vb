@@ -9,8 +9,15 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
+        Dim libra As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+            libra = tbLibra.Text
 
             Tienda = tienda_
 
@@ -59,6 +66,8 @@ Namespace pepeizq.Tiendas
                         titulo = titulo.Replace("¢", Nothing)
                         titulo = titulo.Trim
 
+                        Dim enlace As String = juegoUK.Enlace
+
                         Dim precio As String = juegoUK.PrecioDescontado
 
                         If Not precio.Contains(".") Then
@@ -95,24 +104,6 @@ Namespace pepeizq.Tiendas
                             End If
                         Next
 
-                        Dim listaEnlaces As New List(Of String) From {
-                            juegoUK.Enlace, enlaceFR, enlaceDE
-                        }
-
-                        Dim listaAfiliados As New List(Of String) From {
-                            juegoUK.Enlace + "?ref=pepeizq", enlaceFR + "?ref=pepeizq", enlaceDE + "?ref=pepeizq"
-                        }
-
-                        Dim listaPaises As New List(Of String) From {
-                            "UK", "FR", "DE"
-                        }
-
-                        Dim listaPrecios As New List(Of String) From {
-                            precio, precioFR, precioDE
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(listaPaises, listaEnlaces, listaAfiliados, listaPrecios)
-
                         Dim imagenPequeña As String = juegoUK.ImagenPequeña
                         Dim imagenGrande As String = juegoUK.ImagenGrande
                         Dim imagenes As New JuegoImagenes(imagenPequeña, imagenGrande)
@@ -125,9 +116,65 @@ Namespace pepeizq.Tiendas
 
                         Dim sistemas As New JuegoSistemas(juegoUK.Sistemas.Windows, juegoUK.Sistemas.Mac, juegoUK.Sistemas.Linux)
 
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoUK.SteamID)
 
-                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
+                        precio = Divisas.CambioMoneda(precio, libra)
+                        precio = precio.Replace(",", ".")
+                        precioFR = precioFR.Replace(",", ".")
+                        precioDE = precioDE.Replace(",", ".")
+
+                        Dim dprecioUK As Double = 1000000
+
+                        If Not precio = Nothing Then
+                            dprecioUK = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                        End If
+
+                        Dim dprecioFR As Double = 1000000
+
+                        If Not precioFR = Nothing Then
+                            dprecioFR = Double.Parse(precioFR.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                        End If
+
+                        Dim dprecioDE As Double = 1000000
+
+                        If Not precioDE = Nothing Then
+                            dprecioDE = Double.Parse(precioDE.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                        End If
+
+                        If dprecioUK < dprecioFR And dprecioUK < dprecioDE Then
+                            precio = precio
+                            enlace = enlace
+                        Else
+                            If dprecioDE < dprecioFR Then
+                                precio = precioDE
+                                enlace = enlaceDE
+                            Else
+                                precio = precioFR
+                                enlace = enlaceFR
+                            End If
+
+                            If precioFR = Nothing Then
+                                If dprecioDE < dprecioUK Then
+                                    precio = precioDE
+                                    enlace = enlaceDE
+                                Else
+                                    precio = precio
+                                    enlace = enlace
+                                End If
+                            End If
+
+                            If precioDE = Nothing Then
+                                If dprecioFR < dprecioUK Then
+                                    precio = precioFR
+                                    enlace = enlaceFR
+                                Else
+                                    precio = precio
+                                    enlace = enlace
+                                End If
+                            End If
+                        End If
+
+                        Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0

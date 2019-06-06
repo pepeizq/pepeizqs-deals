@@ -350,7 +350,7 @@
                 New Clases.Desarrolladores("Kenomica Productions", "@KenomicaPro", Nothing),
                 New Clases.Desarrolladores("KillHouse Games", "@inthekillhouse", Nothing),
                 New Clases.Desarrolladores("Kitfox Games", "@KitfoxGames", Nothing),
-                New Clases.Desarrolladores("Klei", "@klei", Nothing),
+                New Clases.Desarrolladores("Klei", "@klei", "Assets\Publishers\klei.png"),
                 New Clases.Desarrolladores("Knuckle Cracker", "@knucracker", Nothing),
                 New Clases.Desarrolladores("Konami", "@Konami", "Assets\Publishers\konami.png"),
                 New Clases.Desarrolladores("Kongregate", "@kongregate", Nothing),

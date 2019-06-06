@@ -9,8 +9,15 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim listaDesarrolladores As New List(Of WinGameStoreDesarrolladores)
         Dim Tienda As Tienda = Nothing
+        Dim dolar As String = String.Empty
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+            dolar = tbDolar.Text
 
             Tienda = tienda_
 
@@ -25,9 +32,6 @@ Namespace pepeizq.Tiendas
             Else
                 listaDesarrolladores = New List(Of WinGameStoreDesarrolladores)
             End If
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
 
             Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
             tb.Text = "0%"
@@ -72,16 +76,6 @@ Namespace pepeizq.Tiendas
                                         precio = precio + ".00"
                                     End If
 
-                                    Dim listaEnlaces As New List(Of String) From {
-                                        enlace
-                                    }
-
-                                    Dim listaPrecios As New List(Of String) From {
-                                        precio
-                                    }
-
-                                    Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, Nothing, listaPrecios)
-
                                     Dim imagenPequeña As String = juegoWGS.Imagen
 
                                     Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
@@ -110,9 +104,9 @@ Namespace pepeizq.Tiendas
 
                                     Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoWGS.SteamID)
 
-                                    Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0
@@ -139,6 +133,8 @@ Namespace pepeizq.Tiendas
                                             End If
                                         Next
 
+                                        juego.Precio = CambioMoneda(juego.Precio, dolar)
+
                                         listaJuegos.Add(juego)
                                     End If
                                 End If
@@ -151,7 +147,7 @@ Namespace pepeizq.Tiendas
             Dim i As Integer = 0
             For Each juego In listaJuegos
                 If juego.Desarrolladores Is Nothing Then
-                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlaces.Enlaces(0)))
+                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
                     Dim htmlJuego As String = htmlJuego_.Result
 
                     If Not htmlJuego = Nothing Then
@@ -170,7 +166,7 @@ Namespace pepeizq.Tiendas
 
                             juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
 
-                            Dim id As String = juego.Enlaces.Enlaces(0)
+                            Dim id As String = juego.Enlace
 
                             If id.Contains("/product/") Then
                                 Dim int4 As Integer = id.IndexOf("/product/")
@@ -244,6 +240,9 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("drm")>
         Public DRM As String
+
+        <JsonProperty("drmid")>
+        Public SteamID As String
 
         <JsonProperty("badge")>
         Public Imagen As String

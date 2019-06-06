@@ -73,6 +73,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            Dim botonPepeizqSteamNuevoAnuncio As Button = pagina.FindName("botonEditorpepeizqdealsSteamNuevoAnuncio")
+
+            RemoveHandler botonPepeizqSteamNuevoAnuncio.Click, AddressOf AbrirNuevoAnuncio
+            AddHandler botonPepeizqSteamNuevoAnuncio.Click, AddressOf AbrirNuevoAnuncio
+
             Dim usuarioPepeizqAmazon As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsAmazon")
 
             If Not usuarioPepeizqAmazon Is Nothing Then
@@ -88,6 +93,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     contraseñaPepeizqAmazon.Password = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon")
                 End If
             End If
+
+        End Sub
+
+        Private Sub AbrirNuevoAnuncio(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
         End Sub
 

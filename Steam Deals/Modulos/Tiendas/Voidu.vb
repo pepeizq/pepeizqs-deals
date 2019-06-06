@@ -10,7 +10,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -55,21 +55,7 @@ Namespace pepeizq.Tiendas
                                 enlace = enlace.Remove(intEnlace, enlace.Length - intEnlace)
                             End If
 
-                            Dim listaEnlaces As New List(Of String) From {
-                                enlace
-                            }
-
-                            Dim listaAfiliados As New List(Of String) From {
-                              "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
-                            }
-
                             Dim precio As String = juegoVoidu.PrecioRebajado + " €"
-
-                            Dim listaPrecios As New List(Of String) From {
-                                precio
-                            }
-
-                            Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
 
                             Dim imagenes As New JuegoImagenes(juegoVoidu.Imagen, Nothing)
 
@@ -97,11 +83,11 @@ Namespace pepeizq.Tiendas
 
                             Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoVoidu.SteamID)
 
                             Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoVoidu.Publisher}, Nothing)
 
-                            Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+                            Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
 
                             Dim tituloBool As Boolean = False
                             Dim k As Integer = 0
@@ -181,6 +167,9 @@ Namespace pepeizq.Tiendas
 
         <XmlElement("platform")>
         Public Sistemas As String
+
+        <XmlElement("steamId")>
+        Public SteamID As String
 
     End Class
 End Namespace

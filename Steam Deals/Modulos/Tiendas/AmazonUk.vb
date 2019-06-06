@@ -7,7 +7,7 @@ Namespace pepeizq.Tiendas
         Dim WithEvents bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
 
-        Public Sub GenerarOfertas()
+        Public Sub BuscarOfertas()
 
             bw.WorkerReportsProgress = True
             bw.WorkerSupportsCancellation = True

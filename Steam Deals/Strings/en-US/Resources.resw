@@ -354,8 +354,8 @@
   <data name="Comment.Text" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="Codes.Text" xml:space="preserve">
-    <value>Codes</value>
+  <data name="Coupons.Text" xml:space="preserve">
+    <value>Coupons</value>
   </data>
   <data name="Announcements.Text" xml:space="preserve">
     <value>Announcements</value>

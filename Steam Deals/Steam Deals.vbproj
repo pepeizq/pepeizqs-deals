@@ -120,10 +120,10 @@
     <Compile Include="Clases\Juego.vb" />
     <Compile Include="Clases\JuegoAnalisis.vb" />
     <Compile Include="Clases\JuegoDesarrolladores.vb" />
-    <Compile Include="Clases\JuegoEnlaces.vb" />
     <Compile Include="Clases\JuegoImagenes.vb" />
     <Compile Include="Clases\JuegoSistemas.vb" />
     <Compile Include="Clases\Tienda.vb" />
+    <Compile Include="Clases\TiendaCupon.vb" />
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -240,6 +240,7 @@
     <Content Include="Assets\Publishers\iceberg.png" />
     <Content Include="Assets\Publishers\imgnpro.png" />
     <Content Include="Assets\Publishers\jackboxgames.png" />
+    <Content Include="Assets\Publishers\klei.png" />
     <Content Include="Assets\Publishers\konami.png" />
     <Content Include="Assets\Publishers\plugin.png" />
     <Content Include="Assets\Publishers\rebellion.png" />

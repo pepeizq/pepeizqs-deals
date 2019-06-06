@@ -7,24 +7,24 @@ Imports Windows.UI.Core
 
 Module Interfaz
 
-    Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0)
-    Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1)
-    Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2)
-    Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3)
-    Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4)
-    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5)
-    Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6)
-    Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7)
-    Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8)
-    Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9)
-    Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10)
-    Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11)
-    Dim indiegalaT As New Tienda("IndieGala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12)
-    Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13)
-    Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15)
-    Dim amazonesT As New Tienda("Amazon.es (Físico)", "AmazonEs", "Assets/Tiendas/amazon.png", 16)
-    Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17)
-    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18)
+    Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0, Nothing, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png")
+    Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1, Nothing, 7, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamersgate.png")
+    Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2, Nothing, 6, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png")
+    Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3, Nothing, 8, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamesplanet.png")
+    Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4, Nothing, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png")
+    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5, Nothing, 9, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png")
+    Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6, Nothing, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png")
+    Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7, Nothing, 17, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png")
+    Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8, Nothing, Nothing, Nothing)
+    Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9, Nothing, 16, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png")
+    Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10, Nothing, 15, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png")
+    Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11, Nothing, 18, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png")
+    Dim indiegalaT As New Tienda("IndieGala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12, Nothing, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png")
+    Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13, Nothing, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png")
+    Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15, Nothing, 20, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png")
+    Dim amazonesT As New Tienda("Amazon.es (Físico)", "AmazonEs", "Assets/Tiendas/amazon.png", 16, Nothing, Nothing, Nothing)
+    Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17, Nothing, 1211, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png")
+    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18, Nothing, 1209, "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg")
 
     Dim ultimosResultados As Boolean = False
 
@@ -56,13 +56,13 @@ Module Interfaz
 
         Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
-        Dim spCodigos As StackPanel = pagina.FindName("spEditorCodigos")
+        Dim spCupones As StackPanel = pagina.FindName("spEditorCupones")
 
         For Each tienda In listaTiendas
             gvTiendas.Items.Add(AñadirBotonTienda(tienda))
             menuTiendas.Items.Add(AñadirMenuTienda(tienda))
             gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
-            spCodigos.Children.Add(AñadirCodigoTienda(tienda))
+            spCupones.Children.Add(AñadirCuponTienda(tienda))
         Next
 
         Dim cbUltimosResultados As CheckBox = pagina.FindName("cbOfertasTiendasUltimosResultados")
@@ -188,7 +188,7 @@ Module Interfaz
 
         Dim icono As New ImageEx With {
             .IsCacheEnabled = True,
-            .Source = tienda.Icono,
+            .Source = tienda.IconoApp,
             .Height = 16,
             .Width = 16,
             .Margin = New Thickness(0, 0, 10, 0)
@@ -258,25 +258,31 @@ Module Interfaz
 
     End Function
 
-    Private Function AñadirCodigoTienda(tienda As Tienda)
+    Private Function AñadirCuponTienda(tienda As Tienda)
 
         Dim gridTienda As New Grid With {
-            .Name = "gridCodigoTienda" + tienda.NombreUsar,
+            .Name = "gridCuponTienda" + tienda.NombreUsar,
             .Tag = tienda,
             .Padding = New Thickness(0, 5, 0, 5)
         }
 
         Dim col1 As New ColumnDefinition
         Dim col2 As New ColumnDefinition
+        Dim col3 As New ColumnDefinition
+        Dim col4 As New ColumnDefinition
 
         col1.Width = New GridLength(1, GridUnitType.Auto)
-        col2.Width = New GridLength(1, GridUnitType.Star)
+        col2.Width = New GridLength(1, GridUnitType.Auto)
+        col3.Width = New GridLength(1, GridUnitType.Auto)
+        col4.Width = New GridLength(1, GridUnitType.Star)
 
         gridTienda.ColumnDefinitions.Add(col1)
         gridTienda.ColumnDefinitions.Add(col2)
+        gridTienda.ColumnDefinitions.Add(col3)
+        gridTienda.ColumnDefinitions.Add(col4)
 
         Dim imagenIcono As New ImageEx With {
-            .Source = tienda.Icono,
+            .Source = tienda.IconoApp,
             .IsCacheEnabled = True,
             .VerticalAlignment = VerticalAlignment.Center,
             .Width = 16,
@@ -286,30 +292,85 @@ Module Interfaz
 
         gridTienda.Children.Add(imagenIcono)
 
-        Dim tbCodigo As New TextBox With {
+        '---------------------------
+
+        Dim tbPorcentajeCupon As New TextBox With {
+            .Margin = New Thickness(15, 0, 0, 0),
+            .HorizontalTextAlignment = TextAlignment.Center,
+            .TextWrapping = TextWrapping.Wrap,
+            .Tag = tienda
+        }
+        tbPorcentajeCupon.SetValue(Grid.ColumnProperty, 1)
+
+        If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar) Is Nothing Then
+            tbPorcentajeCupon.Text = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar)
+        End If
+
+        AddHandler tbPorcentajeCupon.TextChanged, AddressOf CuponTiendaTextoPorcentajeCuponCambia
+        gridTienda.Children.Add(tbPorcentajeCupon)
+
+        '---------------------------
+
+        Dim tbCodigoCupon As New TextBox With {
+            .Margin = New Thickness(15, 0, 0, 0),
+            .MinWidth = 150,
+            .HorizontalTextAlignment = TextAlignment.Center,
+            .TextWrapping = TextWrapping.Wrap,
+            .Tag = tienda
+        }
+        tbCodigoCupon.SetValue(Grid.ColumnProperty, 2)
+
+        If Not ApplicationData.Current.LocalSettings.Values("codigoCupon" + tienda.NombreUsar) Is Nothing Then
+            tbCodigoCupon.Text = ApplicationData.Current.LocalSettings.Values("codigoCupon" + tienda.NombreUsar)
+        End If
+
+        AddHandler tbCodigoCupon.TextChanged, AddressOf CuponTiendaTextoCodigoCuponCambia
+        gridTienda.Children.Add(tbCodigoCupon)
+
+        '---------------------------
+
+        Dim tbComentario As New TextBox With {
             .Margin = New Thickness(15, 0, 0, 0),
             .TextWrapping = TextWrapping.Wrap,
             .Tag = tienda
         }
-        tbCodigo.SetValue(Grid.ColumnProperty, 1)
+        tbComentario.SetValue(Grid.ColumnProperty, 3)
 
-        If Not ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar) Is Nothing Then
-            tbCodigo.Text = ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar)
+        If Not ApplicationData.Current.LocalSettings.Values("comentario" + tienda.NombreUsar) Is Nothing Then
+            tbComentario.Text = ApplicationData.Current.LocalSettings.Values("comentario" + tienda.NombreUsar)
         End If
 
-        AddHandler tbCodigo.TextChanged, AddressOf CodigoTiendaTextoCambia
-        gridTienda.Children.Add(tbCodigo)
+        AddHandler tbComentario.TextChanged, AddressOf CuponTiendaTextoComentarioCambia
+        gridTienda.Children.Add(tbComentario)
 
         Return gridTienda
 
     End Function
 
-    Private Sub CodigoTiendaTextoCambia(sender As Object, e As TextChangedEventArgs)
+    Private Sub CuponTiendaTextoPorcentajeCuponCambia(sender As Object, e As TextChangedEventArgs)
 
         Dim tb As TextBox = sender
         Dim tienda As Tienda = tb.Tag
 
-        ApplicationData.Current.LocalSettings.Values("codigo" + tienda.NombreUsar) = tb.Text.Trim
+        ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar) = tb.Text.Trim
+
+    End Sub
+
+    Private Sub CuponTiendaTextoCodigoCuponCambia(sender As Object, e As TextChangedEventArgs)
+
+        Dim tb As TextBox = sender
+        Dim tienda As Tienda = tb.Tag
+
+        ApplicationData.Current.LocalSettings.Values("codigoCupon" + tienda.NombreUsar) = tb.Text.Trim
+
+    End Sub
+
+    Private Sub CuponTiendaTextoComentarioCambia(sender As Object, e As TextChangedEventArgs)
+
+        Dim tb As TextBox = sender
+        Dim tienda As Tienda = tb.Tag
+
+        ApplicationData.Current.LocalSettings.Values("comentario" + tienda.NombreUsar) = tb.Text.Trim
 
     End Sub
 
@@ -343,9 +404,7 @@ Module Interfaz
                 cb.IsChecked = True
             End If
         Else
-            Dim enlace As String = Nothing
-
-            enlace = pepeizq.Editor.pepeizqdeals.Referidos.Generar(juego.Enlaces.Enlaces(0))
+            Dim enlace As String = pepeizq.Editor.pepeizqdeals.Referidos.Generar(juego.Enlace)
 
             Await Launcher.LaunchUriAsync(New Uri(enlace))
         End If
@@ -374,7 +433,7 @@ Module Interfaz
         botonTiendaSeleccionada.Visibility = Visibility.Visible
 
         Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaSeleccionada")
-        imagenTienda.Source = tienda.Icono
+        imagenTienda.Source = tienda.IconoApp
         imagenTienda.Tag = tienda
 
         Dim tbTienda As TextBlock = pagina.FindName("tbTiendaSeleccionada")
@@ -485,41 +544,41 @@ Module Interfaz
 
             If ultimosResultados = False Then
                 If tienda.NombreUsar = steamT.NombreUsar Then
-                    pepeizq.Tiendas.Steam.GenerarOfertas(steamT)
+                    pepeizq.Tiendas.Steam.BuscarOfertas(steamT)
                 ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-                    pepeizq.Tiendas.GamersGate.GenerarOfertas(gamersgateT)
+                    pepeizq.Tiendas.GamersGate.BuscarOfertas(gamersgateT)
                 ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
-                    pepeizq.Tiendas.Humble.GenerarOfertas(humbleT)
+                    pepeizq.Tiendas.Humble.BuscarOfertas(humbleT)
                 ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
-                    pepeizq.Tiendas.GamesPlanet.GenerarOfertas(gamesplanetT)
+                    pepeizq.Tiendas.GamesPlanet.BuscarOfertas(gamesplanetT)
                 ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
-                    pepeizq.Tiendas.Fanatical.GenerarOfertas(fanaticalT)
+                    pepeizq.Tiendas.Fanatical.BuscarOfertas(fanaticalT)
                 ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                    pepeizq.Tiendas.GOG.GenerarOfertas(gogT, False)
+                    pepeizq.Tiendas.GOG.BuscarOfertas(gogT, False)
                 ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
-                    pepeizq.Tiendas.WinGameStore.GenerarOfertas(wingamestoreT)
+                    pepeizq.Tiendas.WinGameStore.BuscarOfertas(wingamestoreT)
                 ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
-                    pepeizq.Tiendas.SilaGames.GenerarOfertas(silagamesT)
+                    pepeizq.Tiendas.SilaGames.BuscarOfertas(silagamesT)
                 ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
-                    pepeizq.Tiendas.Nuuvem.GenerarOfertas(nuuvemT)
+                    pepeizq.Tiendas.Nuuvem.BuscarOfertas(nuuvemT)
                 ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
-                    pepeizq.Tiendas.MicrosoftStore.GenerarOfertas(microsoftstoreT)
+                    pepeizq.Tiendas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
                 ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                    pepeizq.Tiendas.Chrono.GenerarOfertas(chronoT)
+                    pepeizq.Tiendas.Chrono.BuscarOfertas(chronoT)
                 ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
-                    pepeizq.Tiendas.Voidu.GenerarOfertas(voiduT)
+                    pepeizq.Tiendas.Voidu.BuscarOfertas(voiduT)
                 ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
-                    pepeizq.Tiendas.IndieGala.GenerarOfertas(indiegalaT)
+                    pepeizq.Tiendas.IndieGala.BuscarOfertas(indiegalaT)
                 ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
-                    pepeizq.Tiendas.GreenManGaming.GenerarOfertas(greenmangamingT)
+                    pepeizq.Tiendas.GreenManGaming.BuscarOfertas(greenmangamingT)
                 ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
-                    pepeizq.Tiendas.AmazonCom.GenerarOfertas(amazoncomT)
+                    pepeizq.Tiendas.AmazonCom.BuscarOfertas(amazoncomT)
                 ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                    pepeizq.Tiendas.AmazonEsFisico.GenerarOfertas(amazonesT)
+                    pepeizq.Tiendas.AmazonEsFisico.BuscarOfertas(amazonesT)
                 ElseIf tienda.NombreUsar = amazonesT2.NombreUsar Then
-                    pepeizq.Tiendas.AmazonEsDigital.GenerarOfertas(amazonesT2)
+                    pepeizq.Tiendas.AmazonEsDigital.BuscarOfertas(amazonesT2)
                 ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
-                    pepeizq.Tiendas.Yuplay.GenerarOfertas(yuplayT)
+                    pepeizq.Tiendas.Yuplay.BuscarOfertas(yuplayT)
                 End If
             Else
                 Ordenar.Ofertas(tienda.NombreUsar, False, True)
@@ -938,132 +997,34 @@ Module Interfaz
             sp4.Children.Add(fondoDescuento)
         End If
 
-        If juego.Enlaces.Precios.Count = 1 Then
+        Dim fondoPrecio As New Grid With {
+            .Background = New SolidColorBrush(Colors.Black),
+            .Padding = New Thickness(5, 0, 5, 0),
+            .Height = 34,
+            .MinWidth = 60,
+            .HorizontalAlignment = HorizontalAlignment.Center,
+            .Margin = New Thickness(10, 0, 20, 0)
+        }
 
-            Dim fondoPrecio As New Grid With {
-                .Background = New SolidColorBrush(Colors.Black),
-                .Padding = New Thickness(5, 0, 5, 0),
-                .Height = 34,
-                .MinWidth = 60,
+        Dim precio As String = juego.Precio
+
+        If Not precio = String.Empty Then
+            If precio.Contains("€") Then
+                precio = precio.Replace("€", Nothing)
+                precio = precio.Replace(",", ".")
+                precio = precio.Trim
+                precio = precio + " €"
+            End If
+
+            Dim textoPrecio As New TextBlock With {
+                .Text = precio,
+                .VerticalAlignment = VerticalAlignment.Center,
                 .HorizontalAlignment = HorizontalAlignment.Center,
-                .Margin = New Thickness(10, 0, 20, 0)
+                .Foreground = New SolidColorBrush(Colors.White)
             }
 
-            Dim precio As String = juego.Enlaces.Precios(0)
-
-            If precio.Contains("£") Then
-                Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                precio = Divisas.CambioMoneda(precio, tbLibra.Text)
-            ElseIf precio.Contains("$") Then
-                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                precio = Divisas.CambioMoneda(precio, tbDolar.Text)
-            End If
-
-            If juego.Tienda.NombreUsar = "Yuplay" Then
-                Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                precio = Divisas.CambioMoneda(precio, tbRublo.Text)
-            End If
-
-            If Not precio = String.Empty Then
-                If precio.Contains("€") Then
-                    precio = precio.Replace("€", Nothing)
-                    precio = precio.Replace(",", ".")
-                    precio = precio.Trim
-                    precio = precio + " €"
-                End If
-
-                Dim textoPrecio As New TextBlock With {
-                    .Text = precio,
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .HorizontalAlignment = HorizontalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White)
-                }
-
-                fondoPrecio.Children.Add(textoPrecio)
-                sp4.Children.Add(fondoPrecio)
-            End If
-
-        ElseIf juego.Enlaces.Precios.Count > 1 Then
-
-            Dim spPrecioVertical As New StackPanel With {
-                .Orientation = Orientation.Vertical,
-                .Margin = New Thickness(10, 0, 20, 0),
-                .VerticalAlignment = VerticalAlignment.Center
-            }
-
-            Dim i As Integer = 0
-            While i < juego.Enlaces.Precios.Count
-                Dim spPrecio As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Background = New SolidColorBrush(Colors.Black),
-                    .Padding = New Thickness(5, 0, 5, 0),
-                    .Height = 34,
-                    .MinWidth = 100,
-                    .HorizontalAlignment = HorizontalAlignment.Center,
-                    .Margin = New Thickness(0, 5, 0, 0)
-                }
-
-                Dim bandera As New ImageEx With {
-                    .IsCacheEnabled = True,
-                    .Margin = New Thickness(5, 0, 10, 0),
-                    .MaxHeight = 30,
-                    .MaxWidth = 22
-                }
-
-                If juego.Enlaces.Paises(i).Contains("EU") Then
-                    bandera.Source = "Assets\Banderas\pais_ue2.png"
-                ElseIf juego.Enlaces.Paises(i).Contains("UK") Then
-                    bandera.Source = "Assets\Banderas\pais_uk2.png"
-                ElseIf juego.Enlaces.Paises(i).Contains("FR") Then
-                    bandera.Source = "Assets\Banderas\pais_fr2.png"
-                ElseIf juego.Enlaces.Paises(i).Contains("DE") Then
-                    bandera.Source = "Assets\Banderas\pais_de2.png"
-                ElseIf juego.Enlaces.Paises(i).Contains("US") Then
-                    bandera.Source = "Assets\Banderas\pais_us2.png"
-                End If
-
-                spPrecio.Children.Add(bandera)
-
-                Dim precio As String = juego.Enlaces.Precios(i)
-
-                If Not precio = Nothing Then
-                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                        If precio.Contains("£") Then
-                            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                            precio = Divisas.CambioMoneda(precio, tbLibra.Text)
-                        ElseIf precio.Contains("$") Then
-                            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                            precio = Divisas.CambioMoneda(precio, tbDolar.Text)
-                        End If
-
-                        If Not precio = Nothing Then
-                            If precio.Contains("€") Then
-                                precio = precio.Replace("€", Nothing)
-                                precio = precio.Replace(",", ".")
-                                precio = precio.Trim
-                                precio = precio + " €"
-                            End If
-                        End If
-                    End If
-
-                    If Not precio = Nothing Then
-                        Dim tbPrecio As New TextBlock With {
-                            .Text = precio,
-                            .VerticalAlignment = VerticalAlignment.Center,
-                            .Foreground = New SolidColorBrush(Colors.White)
-                        }
-
-                        spPrecio.Children.Add(tbPrecio)
-                    End If
-
-                    spPrecioVertical.Children.Add(spPrecio)
-                End If
-
-                i += 1
-            End While
-
-            sp4.Children.Add(spPrecioVertical)
-
+            fondoPrecio.Children.Add(textoPrecio)
+            sp4.Children.Add(fondoPrecio)
         End If
 
         grid.Children.Add(sp4)

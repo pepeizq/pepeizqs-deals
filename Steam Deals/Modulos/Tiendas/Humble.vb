@@ -12,7 +12,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
 
-        Public Async Sub GenerarOfertas(tienda_ As Tienda)
+        Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
             Tienda = tienda_
 
@@ -88,20 +88,6 @@ Namespace pepeizq.Tiendas
                             End If
                         End If
 
-                        Dim listaEnlaces As New List(Of String) From {
-                            enlace
-                        }
-
-                        Dim listaAfiliados As New List(Of String) From {
-                            enlace + "?refc=gXsa9X"
-                        }
-
-                        Dim listaPrecios As New List(Of String) From {
-                            precio
-                        }
-
-                        Dim enlaces As New JuegoEnlaces(Nothing, listaEnlaces, listaAfiliados, listaPrecios)
-
                         Dim descuento As String = String.Empty
 
                         If Not juegoHumble.PrecioBase Is Nothing Then
@@ -146,9 +132,9 @@ Namespace pepeizq.Tiendas
 
                         End Try
 
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis)
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                        Dim juego As New Juego(titulo, imagenes, enlaces, descuento, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+                        Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                         Dim tituloBool As Boolean = False
                         Dim k As Integer = 0
