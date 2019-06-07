@@ -23,10 +23,12 @@ Namespace pepeizq.Tiendas
             End If
 
             If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
-                cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
-                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                cuponPorcentaje = cuponPorcentaje.Trim
-                cuponPorcentaje = "0," + cuponPorcentaje
+                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
+                    cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                    cuponPorcentaje = cuponPorcentaje.Trim
+                    cuponPorcentaje = "0," + cuponPorcentaje
+                End If
             End If
 
             listaJuegos.Clear()
@@ -84,7 +86,19 @@ Namespace pepeizq.Tiendas
                     End If
                 End If
 
-                precio = precio + " €"
+                If Not precio = Nothing Then
+                    precio = precio + " €"
+
+                    If Not cuponPorcentaje = Nothing Then
+                        precio = precio.Replace(",", ".")
+                        precio = precio.Replace("€", Nothing)
+                        precio = precio.Trim
+
+                        Dim dprecio As Double = Double.Parse(precio, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precio, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                        precio = Math.Round(dprecio, 2).ToString + " €"
+                        descuento = Calculadora.GenerarDescuento(juegoFanatical.PrecioBase.EUR, precio)
+                    End If
+                End If
 
                 Dim drm As String = Nothing
 

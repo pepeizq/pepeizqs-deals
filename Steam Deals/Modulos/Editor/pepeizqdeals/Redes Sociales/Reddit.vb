@@ -36,15 +36,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             End If
 
             Dim i As Integer = 0
-            While i < 10
+            While i < 15
                 If tituloFinal.Length > 300 Then
                     If categoria = "3" Then
-                        If tituloFinal.Contains("and more") Then
-                            If tituloFinal.Contains(",") Then
-                                Dim int As Integer = tituloFinal.LastIndexOf(",")
-                                tituloFinal = tituloFinal.Remove(int, tituloFinal.Length - int)
-                                tituloFinal = tituloFinal + " and more"
-                            End If
+                        If tituloFinal.Contains(",") Then
+                            Dim int As Integer = tituloFinal.LastIndexOf(",")
+                            tituloFinal = tituloFinal.Remove(int, tituloFinal.Length - int)
+                            tituloFinal = tituloFinal + " and more"
+                            Notificaciones.Toast(tituloFinal.Length, int)
                         End If
                     ElseIf categoria = "4" Then
                         If tituloFinal.Contains("and") Then
@@ -58,6 +57,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Else
                     Exit While
                 End If
+
                 i += 1
             End While
 
@@ -86,7 +86,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
                                                                                                                       subreddit1.SubmitPost(tituloFinal, enlaceFinal)
                                                                                                                   Catch ex As Exception
-                                                                                                                      Notificaciones.Toast("Reddit Error /r/pepeizqdeals", Nothing)
+                                                                                                                      Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
                                                                                                                   End Try
                                                                                                               End If
                                                                                                           End Sub))

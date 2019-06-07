@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.Storage
 
 Namespace pepeizq.Tiendas
     Module GreenManGaming
@@ -10,6 +11,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim listaDesarrolladores As New List(Of GreenManGamingDesarrolladores)
         Dim Tienda As Tienda = Nothing
+        Dim cuponPorcentaje As String = String.Empty
 
         Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
@@ -32,6 +34,15 @@ Namespace pepeizq.Tiendas
 
             Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
             tb.Text = "0%"
+
+            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
+                    cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                    cuponPorcentaje = cuponPorcentaje.Trim
+                    cuponPorcentaje = "0," + cuponPorcentaje
+                End If
+            End If
 
             listaJuegos.Clear()
 
@@ -78,6 +89,16 @@ Namespace pepeizq.Tiendas
                         End If
 
                         If Not descuento = Nothing Then
+                            If Not cuponPorcentaje = Nothing Then
+                                precioRebajado = precioRebajado.Replace(",", ".")
+                                precioRebajado = precioRebajado.Replace("€", Nothing)
+                                precioRebajado = precioRebajado.Trim
+
+                                Dim dprecio As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                precioRebajado = Math.Round(dprecio, 2).ToString + " €"
+                                descuento = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, precioRebajado)
+                            End If
+
                             Dim drm As String = juegoGMG.DRM
 
                             Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)

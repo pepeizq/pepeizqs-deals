@@ -157,7 +157,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         .BlurRadius = 20,
                         .ShadowOpacity = 0.9,
                         .Color = Colors.Black,
-                        .Margin = New Thickness(30, 30, 30, 30),
+                        .Margin = New Thickness(20, 20, 20, 30),
                         .Padding = New Thickness(6, 6, 6, 6)
                     }
 
@@ -181,7 +181,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     Dim imagenJuego As New ImageEx With {
                         .Stretch = Stretch.Uniform,
-                        .MaxWidth = 450,
+                        .MaxWidth = 420,
                         .MaxHeight = 360,
                         .IsCacheEnabled = True,
                         .Source = imagenUrl
@@ -261,6 +261,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenDesarrollador As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
             RemoveHandler tbImagenDesarrollador.TextChanged, AddressOf CambiarImagen
             AddHandler tbImagenDesarrollador.TextChanged, AddressOf CambiarImagen
+
             Dim imagenDesarrollador As ImageEx = pagina.FindName("imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos")
 
             Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
@@ -271,6 +272,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tbImagenDesarrollador.Text.Trim.Length > 0 Then
                 imagenDesarrollador.Visibility = Visibility.Visible
                 tbTitulo.Visibility = Visibility.Collapsed
+
+                If tbImagenDesarrollador.Text.Trim.Contains("Assets\Logos") Then
+                    imagenDesarrollador.MaxWidth = 450
+                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
+                Else
+                    imagenDesarrollador.MaxWidth = 960
+                    imagenDesarrollador.Margin = New Thickness(0, 0, 0, 0)
+                End If
 
                 imagenDesarrollador.Source = tbImagenDesarrollador.Text.Trim
             Else
@@ -291,7 +300,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridJuegosRestantes.Visibility = Visibility.Visible
 
                 Dim tbJuegosRestantes As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos")
-                tbJuegosRestantes.Text = "And Other " + (juegosRestantes - 6).ToString + " Deals"
+
+                If juegosRestantes - 6 = 1 Then
+                    tbJuegosRestantes.Text = "And Other 1 Deal"
+                Else
+                    tbJuegosRestantes.Text = "And Other " + (juegosRestantes - 6).ToString + " Deals"
+                End If
+
             Else
                 gridJuegosRestantes.Visibility = Visibility.Collapsed
             End If
@@ -326,6 +341,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tbImagenDesarrollador.Text.Trim.Length > 0 Then
                 imagenDesarrollador.Visibility = Visibility.Visible
                 tbTitulo.Visibility = Visibility.Collapsed
+
+                If tbImagenDesarrollador.Text.Trim.Contains("Assets\Logos") Then
+                    imagenDesarrollador.MaxWidth = 450
+                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
+                Else
+                    imagenDesarrollador.MaxWidth = 960
+                    imagenDesarrollador.Margin = New Thickness(0, 0, 0, 0)
+                End If
 
                 imagenDesarrollador.Source = tbImagenDesarrollador.Text.Trim
             Else

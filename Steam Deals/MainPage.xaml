@@ -352,11 +352,13 @@
                                     <Grid Margin="0,10,0,15">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <ComboBox x:Name="cbEditorTitulopepeizqdealsPublishers" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0"/>
-                                        <TextBox x:Name="tbEditorTitulopepeizqdealsPublishersImagen" Grid.Column="1" TextWrapping="Wrap"/>
+                                        <ComboBox x:Name="cbEditorTitulopepeizqdealsLogosJuegos" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                        <TextBox x:Name="tbEditorTitulopepeizqdealsPublishersImagen" Grid.Column="2" TextWrapping="Wrap"/>
                                     </Grid>
                                     <StackPanel x:Name="spEditorEnlacepepeizqdeals" Orientation="Vertical">
                                         <TextBlock x:Uid="Url"/>
@@ -417,7 +419,10 @@
                                                 <StackPanel>
                                                     <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuego" Width="500" Visibility="Collapsed">
                                                         <Grid.Background>
-                                                            <ImageBrush ImageSource="Assets\pepeizq\fondo_hexagono1.png" Stretch="UniformToFill"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#004e7a" Offset="0.5" />
+                                                                <GradientStop Color="#003553" Offset="1.0" />
+                                                            </LinearGradientBrush>
                                                         </Grid.Background>
 
                                                         <Grid.RowDefinitions>
@@ -484,7 +489,10 @@
 
                                                     <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegos" Width="1000" Visibility="Collapsed">
                                                         <Grid.Background>
-                                                            <ImageBrush ImageSource="Assets\pepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#004e7a" Offset="0.5" />
+                                                                <GradientStop Color="#003553" Offset="1.0" />
+                                                            </LinearGradientBrush>
                                                         </Grid.Background>
 
                                                         <Grid.RowDefinitions>
@@ -493,25 +501,21 @@
                                                             <RowDefinition Height="Auto"/>
                                                         </Grid.RowDefinitions>
 
-                                                        <Grid Grid.Row="0" Padding="50">
-                                                            <Grid.Background>
-                                                                <SolidColorBrush Color="#004e7a"/>
-                                                            </Grid.Background>
-
+                                                        <Grid Grid.Row="0" Padding="20">
                                                             <Grid VerticalAlignment="Center">
                                                                 <Grid.RowDefinitions>
                                                                     <RowDefinition Height="Auto"/>
                                                                     <RowDefinition Height="Auto"/>
                                                                 </Grid.RowDefinitions>
 
-                                                                <controls:ImageEx x:Name="imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,0" MaxHeight="250" MaxWidth="600"/>
-                                                                <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Foreground="White" FontSize="90" HorizontalAlignment="Center" Margin="20,0" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                <controls:ImageEx x:Name="imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center"/>
+                                                                <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Foreground="White" Margin="20" FontSize="90" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
 
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="350" MaxHeight="155" HorizontalAlignment="Center" Margin="20,60,20,0"/>
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="350" MaxHeight="155" HorizontalAlignment="Center" Margin="20,30,20,0"/>
                                                             </Grid>
                                                         </Grid>
 
-                                                        <GridView x:Name="gvEditorpepeizqdealsImagenEntrada1" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30">
+                                                        <GridView x:Name="gvEditorpepeizqdealsImagenEntrada1" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20">
                                                             <GridView.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
@@ -604,7 +608,10 @@
                                                 <StackPanel>
                                                     <Grid Width="1000">
                                                         <Grid.Background>
-                                                            <SolidColorBrush Color="#004e7a"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#004e7a" Offset="0.5" />
+                                                                <GradientStop Color="#003553" Offset="1.0" />
+                                                            </LinearGradientBrush>
                                                         </Grid.Background>
 
                                                         <Grid.RowDefinitions>
@@ -613,11 +620,11 @@
                                                             <RowDefinition Height="Auto"/>
                                                         </Grid.RowDefinitions>
 
-                                                        <Grid Grid.Row="0" Padding="20">
+                                                        <controls:DropShadowPanel Grid.Row="0" Margin="10" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                             <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundles" Stretch="Uniform" IsCacheEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Grid>
+                                                        </controls:DropShadowPanel> 
 
-                                                        <StackPanel Grid.Row="1" Padding="20,0,20,20" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <StackPanel Grid.Row="1" Padding="20,15,20,0" Orientation="Horizontal" HorizontalAlignment="Center">
                                                             <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="100" Margin="20" VerticalAlignment="Center"/>
 
                                                             <StackPanel Background="Black" Margin="30,0,0,0" VerticalAlignment="Center">
@@ -626,10 +633,6 @@
                                                         </StackPanel>
 
                                                         <Grid Grid.Row="2" Padding="20">
-                                                            <Grid.Background>
-                                                                <ImageBrush ImageSource="Assets\pepeizq\fondo_hexagono2.png" Stretch="UniformToFill"/>
-                                                            </Grid.Background>
-
                                                             <GridView x:Name="gvEditorpepeizqdealsImagenEntradaBundles" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                                 <GridView.ItemsPanel>
                                                                     <ItemsPanelTemplate>

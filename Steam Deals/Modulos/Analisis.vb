@@ -231,7 +231,9 @@ Module Analisis
                                 analisis = juego
                             End If
                         End If
-                    Else
+                    End If
+
+                    If analisis Is Nothing Then
                         If titulo = juego.Titulo Then
                             Dim añadir As Boolean = True
 

@@ -58,6 +58,8 @@ Namespace pepeizq.Tiendas
                         If listaJuegosIG.Juegos.Count > 0 Then
                             For Each juegoIG In listaJuegosIG.Juegos
                                 Dim titulo As String = WebUtility.HtmlDecode(juegoIG.Titulo)
+                                titulo = titulo.Replace("â", Nothing)
+                                titulo = titulo.Replace("¢", Nothing)
                                 titulo = titulo.Trim
 
                                 Dim enlace As String = juegoIG.Enlace

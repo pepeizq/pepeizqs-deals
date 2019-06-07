@@ -9,6 +9,7 @@ Namespace pepeizq.Tiendas
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim listaBloqueo As New List(Of YuplayBloqueo)
         Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
+        Dim listaIdiomas As New List(Of YuplayIdiomas)
         Dim Tienda As Tienda = Nothing
         Dim rublo As String = String.Empty
 
@@ -38,6 +39,12 @@ Namespace pepeizq.Tiendas
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay")
             Else
                 listaDesarrolladores = New List(Of YuplayDesarrolladores)
+            End If
+
+            If Await helper.FileExistsAsync("listaIdiomasYuplay") Then
+                listaIdiomas = Await helper.ReadFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay")
+            Else
+                listaIdiomas = New List(Of YuplayIdiomas)
             End If
 
             listaJuegos.Clear()
@@ -193,7 +200,8 @@ Namespace pepeizq.Tiendas
                                 If tituloBool = False Then
                                     Dim buscarBloqueo As Boolean = True
                                     Dim buscarDesarrollador As Boolean = True
-                                    Dim añadir As Boolean = False
+                                    Dim buscarIdioma As Boolean = True
+                                    Dim añadirJuegoLista As Boolean = False
 
                                     If Not listaBloqueo Is Nothing Then
                                         For Each juegoBloqueo In listaBloqueo
@@ -201,7 +209,7 @@ Namespace pepeizq.Tiendas
                                                 buscarBloqueo = False
 
                                                 If juegoBloqueo.Bloqueo = False Then
-                                                    añadir = True
+                                                    añadirJuegoLista = True
                                                 End If
                                             End If
                                         Next
@@ -222,7 +230,22 @@ Namespace pepeizq.Tiendas
                                         Next
                                     End If
 
-                                    If buscarBloqueo = True Or buscarDesarrollador = True Then
+                                    If Not listaIdiomas Is Nothing Then
+                                        For Each juegoIdiomas In listaIdiomas
+                                            If juegoIdiomas.ID = enlace Then
+                                                If Not juegoIdiomas.Idiomas = Nothing Then
+                                                    buscarIdioma = False
+                                                End If
+
+                                                If juegoIdiomas.Buscado = True Then
+                                                    buscarIdioma = False
+                                                    juego.Tipo = juegoIdiomas.Idiomas
+                                                End If
+                                            End If
+                                        Next
+                                    End If
+
+                                    If buscarBloqueo = True Or buscarDesarrollador = True Or buscarIdioma = True Then
                                         Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(enlace))
                                         Dim htmlJuego As String = htmlJuego_.Result
 
@@ -258,7 +281,7 @@ Namespace pepeizq.Tiendas
                                                         listaBloqueo.Add(bloqueo)
 
                                                         If bloqueo.Bloqueo = False Then
-                                                            añadir = True
+                                                            añadirJuegoLista = True
                                                         End If
                                                     End If
                                                 End If
@@ -289,10 +312,75 @@ Namespace pepeizq.Tiendas
 
                                                 desarrollador.Buscado = True
                                             End If
+
+                                            If buscarIdioma = True Then
+                                                Dim idioma As New YuplayIdiomas(enlace, Nothing, False)
+
+                                                If htmlJuego.Contains("Языки") Then
+                                                    Dim temp19, temp20 As String
+                                                    Dim int19, int20 As Integer
+
+                                                    int19 = htmlJuego.IndexOf("Языки")
+                                                    temp19 = htmlJuego.Remove(0, int19)
+
+                                                    int20 = temp19.IndexOf("</p>")
+                                                    temp20 = temp19.Remove(int20, temp19.Length - int20)
+
+                                                    Dim idiomas As String = String.Empty
+
+                                                    If temp20.Contains("Английский") Then
+                                                        idiomas += "english, "
+                                                    End If
+
+                                                    If temp20.Contains("Немецкий") Then
+                                                        idiomas += "german, "
+                                                    End If
+
+                                                    If temp20.Contains("Русский") Then
+                                                        idiomas += "russian, "
+                                                    End If
+
+                                                    If temp20.Contains("Французский") Then
+                                                        idiomas += "french, "
+                                                    End If
+
+                                                    If temp20.Contains("Итальянский") Then
+                                                        idiomas += "italian, "
+                                                    End If
+
+                                                    If temp20.Contains("Испанский") Then
+                                                        idiomas += "spanish, "
+                                                    End If
+
+                                                    If temp20.Contains("Польский") Then
+                                                        idiomas += "polish, "
+                                                    End If
+
+                                                    If temp20.Contains("Португальский") Then
+                                                        idiomas += "portuguese, "
+                                                    End If
+
+                                                    If temp20.Contains("Немецкий") Then
+                                                        idiomas += "deutsch, "
+                                                    End If
+
+                                                    If Not idiomas = String.Empty Then
+                                                        Dim tempIdiomas As Integer = idiomas.LastIndexOf(",")
+                                                        idiomas = idiomas.Remove(tempIdiomas, idiomas.Length - tempIdiomas)
+                                                    End If
+
+                                                    juego.Tipo = idiomas
+                                                    idioma.Idiomas = idiomas
+
+                                                    listaIdiomas.Add(idioma)
+                                                End If
+
+                                                idioma.Buscado = True
+                                            End If
                                         End If
                                     End If
 
-                                    If añadir = True Then
+                                    If añadirJuegoLista = True Then
                                         juego.Precio = CambioMoneda(juego.Precio, rublo)
 
                                         listaJuegos.Add(juego)
@@ -325,6 +413,7 @@ Namespace pepeizq.Tiendas
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
             Await helper.SaveFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay", listaDesarrolladores)
+            Await helper.SaveFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay", listaIdiomas)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
@@ -353,6 +442,20 @@ Namespace pepeizq.Tiendas
         Public Sub New(ByVal id As String, ByVal desarrollador As String, ByVal buscado As Boolean)
             Me.ID = id
             Me.Desarrollador = desarrollador
+            Me.Buscado = buscado
+        End Sub
+
+    End Class
+
+    Public Class YuplayIdiomas
+
+        Public Property ID As String
+        Public Property Idiomas As String
+        Public Property Buscado As Boolean
+
+        Public Sub New(ByVal id As String, ByVal idiomas As String, ByVal buscado As Boolean)
+            Me.ID = id
+            Me.Idiomas = idiomas
             Me.Buscado = buscado
         End Sub
 

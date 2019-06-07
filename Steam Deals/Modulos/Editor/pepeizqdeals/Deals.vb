@@ -9,6 +9,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
             Desarrolladores.GenerarDatos()
+            LogosJuegos.GenerarDatos()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -16,6 +17,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             '----------------------------------------------------
 
             Dim tbImagenPublisher As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+            Dim cbLogoJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            cbLogoJuegos.SelectedIndex = 0
+
             Dim spEnlace As StackPanel = pagina.FindName("spEditorEnlacepepeizqdeals")
             Dim spImagen As StackPanel = pagina.FindName("spEditorImagenpepeizqdeals")
             Dim spComplemento As StackPanel = pagina.FindName("spEditorComplementopepeizqdeals")
@@ -25,6 +29,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If listaFinal.Count = 1 Then
                 tbImagenPublisher.Visibility = Visibility.Collapsed
+                cbLogoJuegos.Visibility = Visibility.Collapsed
                 spEnlace.Visibility = Visibility.Visible
                 spImagen.Visibility = Visibility.Visible
                 spComplemento.Visibility = Visibility.Collapsed
@@ -33,6 +38,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbDescuentoCodigo.Visibility = Visibility.Visible
             ElseIf listaFinal.Count > 1 Then
                 tbImagenPublisher.Visibility = Visibility.Visible
+                cbLogoJuegos.Visibility = Visibility.Visible
                 spEnlace.Visibility = Visibility.Collapsed
                 spImagen.Visibility = Visibility.Collapsed
                 spComplemento.Visibility = Visibility.Visible
@@ -68,7 +74,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbComentario.Text = String.Empty
 
             If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing And Not ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
-                tbComentario.Text = "The prices shown have been applied the coupon: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
+                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 And ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                    tbComentario.Text = "The prices shown have been applied the coupon: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
+                End If
             End If
 
             If Not ApplicationData.Current.LocalSettings.Values("comentario" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
@@ -151,7 +159,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     Dim añadirAnalisis As Boolean = True
 
-                    If listaAnalisis.Count > 0 Then
+                    If listaAnalisis.Count > 0 And listaFinal.Count > 12 Then
                         For Each juegoAnalisis In listaAnalisis
                             If Not item.Analisis Is Nothing And Not juegoAnalisis.Analisis Is Nothing Then
                                 If item.Analisis.Enlace = juegoAnalisis.Analisis.Enlace Then
@@ -219,42 +227,50 @@ Namespace pepeizq.Editor.pepeizqdeals
                                        End If
 
                                        Dim resultado As Integer = yAnalisisCantidad.CompareTo(xAnalisisCantidad)
-                                       If resultado = 0 Then
-                                           resultado = x.Titulo.CompareTo(y.Titulo)
+
+                                       If xAnalisisCantidad = yAnalisisCantidad Then
+                                           If resultado = 0 Then
+                                               resultado = y.Titulo.CompareTo(x.Titulo)
+                                           End If
+                                       Else
+                                           If resultado = 0 Then
+                                               resultado = x.Titulo.CompareTo(y.Titulo)
+                                           End If
                                        End If
+
                                        Return resultado
                                    End Function)
 
                 Dim complementoTitulo As String = LimpiarTitulo(listaAnalisis(0).Titulo) + " (" + listaAnalisis(0).Descuento + ")"
 
-                If listaFinal.Count = 2 Then
+                If listaAnalisis.Count = 2 Then
                     complementoTitulo = complementoTitulo + " and " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ")"
-                ElseIf listaFinal.Count = 3 Then
+                ElseIf listaAnalisis.Count = 3 Then
                     complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ") and " +
                         LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ")"
-                ElseIf listaFinal.Count = 4 Then
+                ElseIf listaAnalisis.Count = 4 Then
                     complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ") and " +
                         LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ")"
-                ElseIf listaFinal.Count = 5 Then
+                ElseIf listaAnalisis.Count = 5 Then
                     complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ") and " +
                         LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ")"
-                ElseIf listaFinal.Count = 6 Then
+                ElseIf listaAnalisis.Count = 6 Then
                     complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ") and " +
                         LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + ")"
-                ElseIf listaFinal.Count = 7 Then
+                ElseIf listaAnalisis.Count = 7 Then
                     complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + ") and " +
                         LimpiarTitulo(listaAnalisis(6).Titulo) + " (" + listaAnalisis(6).Descuento + ")"
-                ElseIf listaFinal.Count > 7 Then
+                ElseIf listaAnalisis.Count > 7 Then
                     complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
                         LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
@@ -362,7 +378,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
-            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
@@ -601,6 +616,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
+
+                    If juego.Tienda.NombreUsar = "Yuplay" Then
+                        textoClipboard = textoClipboard + "Idiomas: " + juego.Tipo + Environment.NewLine
+                    End If
+
                     textoClipboard = textoClipboard + juego.Enlace + Environment.NewLine + Environment.NewLine
                 Next
             End If
@@ -718,6 +738,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             cbPublishers.IsEnabled = estado
+
+            Dim cbLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            cbLogosJuegos.IsEnabled = estado
 
             Dim tbImagenPublisher As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
             tbImagenPublisher.IsEnabled = estado

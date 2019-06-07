@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.Storage
 
 Namespace pepeizq.Tiendas
     Module Voidu
@@ -9,6 +10,7 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim Tienda As Tienda = Nothing
+        Dim cuponPorcentaje As String = String.Empty
 
         Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
@@ -18,6 +20,15 @@ Namespace pepeizq.Tiendas
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
+
+            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
+                    cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                    cuponPorcentaje = cuponPorcentaje.Trim
+                    cuponPorcentaje = "0," + cuponPorcentaje
+                End If
             End If
 
             listaJuegos.Clear()
@@ -57,11 +68,21 @@ Namespace pepeizq.Tiendas
 
                             Dim precio As String = juegoVoidu.PrecioRebajado + " €"
 
+                            Dim descuento As String = Calculadora.GenerarDescuento(juegoVoidu.PrecioBase, juegoVoidu.PrecioRebajado)
+
+                            If Not cuponPorcentaje = Nothing Then
+                                precio = precio.Replace(",", ".")
+                                precio = precio.Replace("€", Nothing)
+                                precio = precio.Trim
+
+                                Dim dprecio As Double = Double.Parse(precio, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precio, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                precio = Math.Round(dprecio, 2).ToString + " €"
+                                descuento = Calculadora.GenerarDescuento(juegoVoidu.PrecioBase, precio)
+                            End If
+
                             Dim imagenes As New JuegoImagenes(juegoVoidu.Imagen, Nothing)
 
                             Dim drm As String = juegoVoidu.DRM
-
-                            Dim descuento As String = Calculadora.GenerarDescuento(juegoVoidu.PrecioBase, juegoVoidu.PrecioRebajado)
 
                             Dim windows As Boolean = False
 
