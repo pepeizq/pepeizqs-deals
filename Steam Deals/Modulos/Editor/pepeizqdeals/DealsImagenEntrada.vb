@@ -273,8 +273,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenDesarrollador.Visibility = Visibility.Visible
                 tbTitulo.Visibility = Visibility.Collapsed
 
-                If tbImagenDesarrollador.Text.Trim.Contains("Assets\Logos") Then
-                    imagenDesarrollador.MaxWidth = 450
+                If tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosPublishers\") Then
+                    imagenDesarrollador.MaxWidth = 500
+                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
+                ElseIf tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosJuegos\") Then
+                    imagenDesarrollador.MaxWidth = 600
                     imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
                 Else
                     imagenDesarrollador.MaxWidth = 960
@@ -342,8 +345,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenDesarrollador.Visibility = Visibility.Visible
                 tbTitulo.Visibility = Visibility.Collapsed
 
-                If tbImagenDesarrollador.Text.Trim.Contains("Assets\Logos") Then
-                    imagenDesarrollador.MaxWidth = 450
+                If tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosPublishers\") Then
+                    imagenDesarrollador.MaxWidth = 500
+                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
+                ElseIf tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosJuegos\") Then
+                    imagenDesarrollador.MaxWidth = 600
                     imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
                 Else
                     imagenDesarrollador.MaxWidth = 960
