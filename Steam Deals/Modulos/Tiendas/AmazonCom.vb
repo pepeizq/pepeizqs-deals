@@ -234,6 +234,14 @@ Namespace pepeizq.Tiendas
                             ElseIf juego.Descuento.Length = 4 Then
                                 tituloBool = True
                             End If
+
+                            If juego.Titulo.Contains("Xbox One Standard Edition") Then
+                                tituloBool = True
+                            ElseIf juego.Titulo.Contains("Xbox One [Digital Code]") Then
+                                tituloBool = True
+                            ElseIf juego.Titulo.Contains("PlayStation 4 Standard Edition") Then
+                                tituloBool = True
+                            End If
                         End If
 
                         If tituloBool = False Then

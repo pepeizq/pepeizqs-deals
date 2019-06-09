@@ -16,32 +16,39 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '----------------------------------------------------
 
-            Dim tbImagenPublisher As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
-            Dim cbLogoJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
-            cbLogoJuegos.SelectedIndex = 0
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            tbCabeceraImagen.Text = String.Empty
 
-            Dim spEnlace As StackPanel = pagina.FindName("spEditorEnlacepepeizqdeals")
-            Dim spImagen As StackPanel = pagina.FindName("spEditorImagenpepeizqdeals")
-            Dim spComplemento As StackPanel = pagina.FindName("spEditorComplementopepeizqdeals")
+            Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            cbCabeceraLogosJuegos.SelectedIndex = 0
+
+            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            tbCabeceraImagenDimensiones.Text = String.Empty
+
+            Dim gridEnlace As Grid = pagina.FindName("gridEditorEnlacepepeizqdeals")
+            Dim gridImagen As Grid = pagina.FindName("gridEditorImagenpepeizqdeals")
+            Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
             Dim tbDescuentoMensaje As TextBlock = pagina.FindName("tbDescuentoMensajepepeizqdealsDeals")
             Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
 
             If listaFinal.Count = 1 Then
-                tbImagenPublisher.Visibility = Visibility.Collapsed
-                cbLogoJuegos.Visibility = Visibility.Collapsed
-                spEnlace.Visibility = Visibility.Visible
-                spImagen.Visibility = Visibility.Visible
-                spComplemento.Visibility = Visibility.Collapsed
+                tbCabeceraImagen.Visibility = Visibility.Collapsed
+                cbCabeceraLogosJuegos.Visibility = Visibility.Collapsed
+                tbCabeceraImagenDimensiones.Visibility = Visibility.Collapsed
+                gridEnlace.Visibility = Visibility.Visible
+                gridImagen.Visibility = Visibility.Visible
+                gridComplemento.Visibility = Visibility.Collapsed
                 cbError.Visibility = Visibility.Visible
                 tbDescuentoMensaje.Visibility = Visibility.Visible
                 tbDescuentoCodigo.Visibility = Visibility.Visible
             ElseIf listaFinal.Count > 1 Then
-                tbImagenPublisher.Visibility = Visibility.Visible
-                cbLogoJuegos.Visibility = Visibility.Visible
-                spEnlace.Visibility = Visibility.Collapsed
-                spImagen.Visibility = Visibility.Collapsed
-                spComplemento.Visibility = Visibility.Visible
+                tbCabeceraImagen.Visibility = Visibility.Visible
+                cbCabeceraLogosJuegos.Visibility = Visibility.Visible
+                tbCabeceraImagenDimensiones.Visibility = Visibility.Visible
+                gridEnlace.Visibility = Visibility.Collapsed
+                gridImagen.Visibility = Visibility.Collapsed
+                gridComplemento.Visibility = Visibility.Visible
                 cbError.Visibility = Visibility.Collapsed
                 tbDescuentoMensaje.Visibility = Visibility.Collapsed
                 tbDescuentoCodigo.Visibility = Visibility.Collapsed
@@ -63,9 +70,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.Text = String.Empty
-
-            Dim tbPublisherImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
-            tbPublisherImagen.Text = String.Empty
 
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.Text = String.Empty
@@ -399,7 +403,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
                 contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<tr>" + Environment.NewLine
+                contenidoEnlaces = contenidoEnlaces + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
 
                 If cosas.Tienda.NombreUsar = "GamersGate" Or cosas.Tienda.NombreUsar = "Voidu" Or cosas.Tienda.NombreUsar = "AmazonCom" Or cosas.Tienda.NombreUsar = "AmazonEs2" Or cosas.Tienda.NombreUsar = "GreenManGaming" Or cosas.Tienda.NombreUsar = "Yuplay" Then
                     contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
@@ -429,7 +433,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         imagenFinal = juego.Imagenes.Grande
                     End If
 
-                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row' data-href='" + Referidos.Generar(juego.Enlace) + "'>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row filaOferta' data-href='" + Referidos.Generar(juego.Enlace) + "'>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-juego" + ChrW(34) + " /></td>" + Environment.NewLine
 
                     Dim drmFinal As String = Nothing
@@ -458,7 +462,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         drmFinal = "<br/>" + drmFinal
                     End If
 
-                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + " class=" + ChrW(34) + "ofertaTitulo" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio.Replace(".", ",") + "</span></td>" + Environment.NewLine
 
@@ -739,11 +743,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             cbPublishers.IsEnabled = estado
 
-            Dim cbLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
-            cbLogosJuegos.IsEnabled = estado
+            Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            cbCabeceraLogosJuegos.IsEnabled = estado
 
-            Dim tbImagenPublisher As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
-            tbImagenPublisher.IsEnabled = estado
+            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            tbCabeceraImagenDimensiones.IsEnabled = estado
+
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            tbCabeceraImagen.IsEnabled = estado
 
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.IsEnabled = estado

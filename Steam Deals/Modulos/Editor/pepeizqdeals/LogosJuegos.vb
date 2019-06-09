@@ -55,7 +55,7 @@
                         End If
                     End If
 
-                    Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
+                    Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
 
                     If Not juego2.Logo = Nothing Then
                         tbImagen.Text = juego2.Logo

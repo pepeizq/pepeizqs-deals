@@ -258,35 +258,37 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             Next
 
-            Dim tbImagenDesarrollador As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
-            RemoveHandler tbImagenDesarrollador.TextChanged, AddressOf CambiarImagen
-            AddHandler tbImagenDesarrollador.TextChanged, AddressOf CambiarImagen
+            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            AddHandler tbCabeceraImagenDimensiones.TextChanged, AddressOf ModificarCabeceraImagenDimensiones
 
-            Dim imagenDesarrollador As ImageEx = pagina.FindName("imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            RemoveHandler tbCabeceraImagen.TextChanged, AddressOf CambiarCabecera
+            AddHandler tbCabeceraImagen.TextChanged, AddressOf CambiarCabecera
+
+            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
 
             Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
             Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             RemoveHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
             AddHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
 
-            If tbImagenDesarrollador.Text.Trim.Length > 0 Then
-                imagenDesarrollador.Visibility = Visibility.Visible
+            If tbCabeceraImagen.Text.Trim.Length > 0 Then
+                imagenCabecera.Visibility = Visibility.Visible
                 tbTitulo.Visibility = Visibility.Collapsed
 
-                If tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosPublishers\") Then
-                    imagenDesarrollador.MaxWidth = 500
-                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
-                ElseIf tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosJuegos\") Then
-                    imagenDesarrollador.MaxWidth = 600
-                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
+                If tbCabeceraImagen.Text.Trim.Contains("Assets\LogosPublishers\") Then
+                    tbCabeceraImagenDimensiones.Text = 500
+                ElseIf tbCabeceraImagen.Text.Trim.Contains("Assets\LogosJuegos\") Then
+                    tbCabeceraImagenDimensiones.Text = 600
                 Else
-                    imagenDesarrollador.MaxWidth = 960
-                    imagenDesarrollador.Margin = New Thickness(0, 0, 0, 0)
+                    tbCabeceraImagenDimensiones.Text = 960
                 End If
 
-                imagenDesarrollador.Source = tbImagenDesarrollador.Text.Trim
+                ModificarCabeceraImagenDimensiones()
+
+                imagenCabecera.Source = tbCabeceraImagen.Text.Trim
             Else
-                imagenDesarrollador.Visibility = Visibility.Collapsed
+                imagenCabecera.Visibility = Visibility.Collapsed
                 tbTitulo.Visibility = Visibility.Visible
 
                 If tbTituloMaestro.Text.Contains("•") Then
@@ -331,35 +333,82 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub CambiarImagen(sender As Object, e As TextChangedEventArgs)
+        Private Sub CambiarCabecera(sender As Object, e As TextChangedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbImagenDesarrollador As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsPublishersImagen")
-            Dim imagenDesarrollador As ImageEx = pagina.FindName("imagenDesarrolladorEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+
+            Dim panelCabecera As DropShadowPanel = pagina.FindName("panelCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
 
             Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
 
-            If tbImagenDesarrollador.Text.Trim.Length > 0 Then
-                imagenDesarrollador.Visibility = Visibility.Visible
+            If tbCabeceraImagen.Text.Trim.Length > 0 Then
+                panelCabecera.Visibility = Visibility.Visible
+                imagenCabecera.Visibility = Visibility.Visible
                 tbTitulo.Visibility = Visibility.Collapsed
 
-                If tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosPublishers\") Then
-                    imagenDesarrollador.MaxWidth = 500
-                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
-                ElseIf tbImagenDesarrollador.Text.Trim.Contains("Assets\LogosJuegos\") Then
-                    imagenDesarrollador.MaxWidth = 600
-                    imagenDesarrollador.Margin = New Thickness(20, 40, 20, 20)
+                If tbCabeceraImagen.Text.Trim.Contains("Assets\LogosPublishers\") Then
+                    tbCabeceraImagenDimensiones.Text = 500
+                ElseIf tbCabeceraImagen.Text.Trim.Contains("Assets\LogosJuegos\") Then
+                    tbCabeceraImagenDimensiones.Text = 600
                 Else
-                    imagenDesarrollador.MaxWidth = 960
-                    imagenDesarrollador.Margin = New Thickness(0, 0, 0, 0)
+                    tbCabeceraImagenDimensiones.Text = 960
                 End If
 
-                imagenDesarrollador.Source = tbImagenDesarrollador.Text.Trim
+                ModificarCabeceraImagenDimensiones()
+
+                imagenCabecera.Source = tbCabeceraImagen.Text.Trim
             Else
-                imagenDesarrollador.Visibility = Visibility.Collapsed
+                panelCabecera.Visibility = Visibility.Collapsed
+                imagenCabecera.Visibility = Visibility.Collapsed
                 tbTitulo.Visibility = Visibility.Visible
+            End If
+
+        End Sub
+
+        Private Sub ModificarCabeceraImagenDimensiones()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+
+            If tbDimensiones.Text.Trim.Length > 0 Then
+                Dim resultado As Double = 0
+                Dim esNumero As Boolean = Double.TryParse(tbDimensiones.Text.Trim, resultado)
+
+                If esNumero = True Then
+                    Dim ancho As Integer = tbDimensiones.Text.Trim
+
+                    If ancho > 960 Then
+                        ancho = 960
+                    End If
+
+                    If ancho < 0 Then
+                        ancho = 0
+                    End If
+
+                    tbDimensiones.Text = ancho.ToString
+
+                    Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
+                    imagenCabecera.MaxWidth = ancho
+
+                    Dim panelCabecera As DropShadowPanel = pagina.FindName("panelCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
+
+                    If ancho = 960 Then
+                        panelCabecera.Margin = New Thickness(0, 0, 0, 20)
+                        panelCabecera.ShadowOpacity = 0.9
+                        panelCabecera.BlurRadius = 20
+                    Else
+                        panelCabecera.Margin = New Thickness(20, 40, 20, 20)
+                        panelCabecera.ShadowOpacity = 0
+                        panelCabecera.BlurRadius = 0
+                    End If
+                End If
             End If
 
         End Sub
