@@ -43,7 +43,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                             Dim int As Integer = tituloFinal.LastIndexOf(",")
                             tituloFinal = tituloFinal.Remove(int, tituloFinal.Length - int)
                             tituloFinal = tituloFinal + " and more"
-                            Notificaciones.Toast(tituloFinal.Length, int)
                         End If
                     ElseIf categoria = "4" Then
                         If tituloFinal.Contains("and") Then

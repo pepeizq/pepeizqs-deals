@@ -59,6 +59,7 @@ Namespace pepeizq.Tiendas
                             For Each juegoIG In listaJuegosIG.Juegos
                                 Dim titulo As String = WebUtility.HtmlDecode(juegoIG.Titulo)
                                 titulo = titulo.Replace("â", Nothing)
+                                titulo = titulo.Replace("Â", Nothing)
                                 titulo = titulo.Replace("¢", Nothing)
                                 titulo = titulo.Trim
 
