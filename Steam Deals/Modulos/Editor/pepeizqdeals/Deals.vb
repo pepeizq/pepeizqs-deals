@@ -400,7 +400,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         ChrW(34) + "][vc_column][us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + "]" + tbComentario.Text.Trim + "[/us_message][/vc_column][/vc_row]"
                 End If
 
-                contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + " color_scheme=" + ChrW(34) + "custom" + ChrW(34) + " us_bg_color=" + ChrW(34) + "#003553" + ChrW(34) + " us_text_color=" + ChrW(34) + "#ffffff" + ChrW(34) + "][vc_column]"
+                contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
                 contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
