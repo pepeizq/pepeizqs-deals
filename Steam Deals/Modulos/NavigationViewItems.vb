@@ -51,8 +51,7 @@ Module NavigationViewItems
 
         Dim tb As New TextBlock With {
             .Text = titulo,
-            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario")),
-            .Margin = New Thickness(5, 0, 0, 0)
+            .Foreground = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
         }
 
         sp.Children.Add(tb)
@@ -61,7 +60,8 @@ Module NavigationViewItems
             .Content = sp,
             .Background = New SolidColorBrush(Colors.Transparent),
             .Tag = enlace,
-            .Style = App.Current.Resources("ButtonRevealStyle")
+            .Style = App.Current.Resources("ButtonRevealStyle"),
+            .Margin = New Thickness(-10, 0, 0, 0)
         }
 
         Dim tbToolTip As TextBlock = New TextBlock With {

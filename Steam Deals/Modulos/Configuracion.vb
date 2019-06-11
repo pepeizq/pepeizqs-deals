@@ -85,12 +85,8 @@ Module Configuracion
         If estado = True Then
             Dim i As Integer = 0
             While i < nvPrincipal.MenuItems.Count
-                If i < (nvPrincipal.MenuItems.Count - 6) Then
-                    If i = 1 Then
-                        nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
-                    Else
-                        nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
-                    End If
+                If i < (nvPrincipal.MenuItems.Count - 1) Then
+                    nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
                 Else
                     nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
                 End If
@@ -137,10 +133,10 @@ Module Configuracion
         Else
             Dim i As Integer = 0
             While i < nvPrincipal.MenuItems.Count
-                If i >= (nvPrincipal.MenuItems.Count - 6) Then
-                    nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
-                Else
+                If i < (nvPrincipal.MenuItems.Count - 1) Then
                     nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
+                Else
+                    nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
                 End If
                 i += 1
             End While

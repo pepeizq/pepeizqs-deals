@@ -11,11 +11,7 @@ Public NotInheritable Class MainPage
 
         Dim recursos As New Resources.ResourceLoader()
 
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarTexto(recursos.GetString("Deals"), 0))
-        nvPrincipal.MenuItems.Add(New NavigationViewItemSeparator)
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Steam", FontAwesome.UWP.FontAwesomeIcon.Steam, "https://steamcommunity.com/groups/pepeizqdeals/"))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Twitter", FontAwesome.UWP.FontAwesomeIcon.Twitter, "https://twitter.com/pepeizqdeals"))
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Reddit", FontAwesome.UWP.FontAwesomeIcon.Reddit, "https://new.reddit.com/r/pepeizqdeals/new/"))
+        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Xbox Game Pass", FontAwesome.UWP.FontAwesomeIcon.Windows, "http://microsoft.msafflnk.net/EYkmK"))
 
     End Sub
 
@@ -71,7 +67,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
@@ -86,6 +82,27 @@ Public NotInheritable Class MainPage
         Dim transpariencia As New UISettings
         TransparienciaEfectosFinal(transpariencia.AdvancedEffectsEnabled)
         AddHandler transpariencia.AdvancedEffectsEnabledChanged, AddressOf TransparienciaEfectosCambia
+
+        '--------------------------------------------------------
+
+        Dim usuarios As IReadOnlyList(Of User) = Await User.FindAllAsync(UserType.LocalUser)
+        Dim activarEditor As Boolean = False
+
+        For Each usuario In usuarios
+            Dim usuarioString As String = Await usuario.GetPropertyAsync(KnownUserProperties.AccountName)
+
+            If Not usuarioString = String.Empty Then
+                If usuarioString = "pepeizq@msn.com" Then
+                    activarEditor = True
+                End If
+            End If
+        Next
+
+        If activarEditor = True Then
+            itemConfigEditor.Visibility = Visibility.Visible
+        Else
+            itemConfigEditor.Visibility = Visibility.Collapsed
+        End If
 
     End Sub
 

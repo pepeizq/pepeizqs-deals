@@ -105,7 +105,7 @@
 
                         <Grid x:Name="gridPresentacionpepeizqdeals">
                             <ScrollViewer>
-                                <WebView x:Name="wvPresentacion" Margin="0,-45,0,-10"/>
+                                <WebView x:Name="wvPresentacion"/>
                             </ScrollViewer>
                         </Grid>
                     </Grid>
