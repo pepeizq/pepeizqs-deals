@@ -70,6 +70,7 @@
         Private Function CargarLista()
 
             Dim lista As New List(Of Clases.LogosJuegos) From {
+                 New Clases.LogosJuegos("Overcooked", "Assets\LogosJuegos\overcooked.png"),
                  New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png")
             }
 

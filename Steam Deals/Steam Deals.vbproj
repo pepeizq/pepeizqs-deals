@@ -221,6 +221,7 @@
     <Content Include="Assets\drm_bethesda.ico" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\LogosJuegos\overcooked.png" />
     <Content Include="Assets\LogosJuegos\sidmeiercivilization6.png" />
     <Content Include="Assets\LogosPublishers\11bitstudios.png" />
     <Content Include="Assets\LogosPublishers\1c.png" />
@@ -261,6 +262,7 @@
     <Content Include="Assets\LogosPublishers\rockstar.png" />
     <Content Include="Assets\LogosPublishers\scssoftware.png" />
     <Content Include="Assets\LogosPublishers\sega.png" />
+    <Content Include="Assets\LogosPublishers\slitherine.png" />
     <Content Include="Assets\LogosPublishers\squareenix.png" />
     <Content Include="Assets\LogosPublishers\team17.png" />
     <Content Include="Assets\LogosPublishers\techland.png" />

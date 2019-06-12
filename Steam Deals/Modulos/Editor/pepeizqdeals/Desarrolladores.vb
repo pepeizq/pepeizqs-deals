@@ -529,6 +529,7 @@
                 New Clases.Desarrolladores("sixteen tons", "@emergency_game", Nothing),
                 New Clases.Desarrolladores("SixtyGig Games", "@RaymondDoerr", Nothing),
                 New Clases.Desarrolladores("Ska Studios", "@skastudios", Nothing),
+                New Clases.Desarrolladores("Slitherine", "@SlitherineGames", "Assets\LogosPublishers\slitherine.png"),
                 New Clases.Desarrolladores("Sludj Games", "@SludjGames", Nothing),
                 New Clases.Desarrolladores("Sluggerfly", "@SluggerflyDev", Nothing),
                 New Clases.Desarrolladores("SmallBigSquare", "@smallbigsquare", Nothing),
