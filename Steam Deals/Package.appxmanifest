@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap mp uap3">
-  <Identity Name="5078pepeizq.SteamDeals" Publisher="CN=C91088FC-231C-4E13-86D1-5F9658173DA7" Version="1.7.2.0" />
+  <Identity Name="5078pepeizq.SteamDeals" Publisher="CN=C91088FC-231C-4E13-86D1-5F9658173DA7" Version="1.7.3.0" />
   <mp:PhoneIdentity PhoneProductId="3fca8fbe-9a52-4be4-a471-faf99361f880" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Steam Deals</DisplayName>

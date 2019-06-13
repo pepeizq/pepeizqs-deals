@@ -1,1 +1,1 @@
-F:\Proyectos\Steam Deals\Steam Deals\bin\ARM\Release\Upload\Steam Deals_1.7.2.0\Steam Deals_1.7.2.0_x86_x64_arm.msixbundle
+F:\Proyectos\Steam Deals\Steam Deals\bin\ARM\Release\Upload\Steam Deals_1.7.3.0\Steam Deals_1.7.3.0_x86_x64_arm.msixbundle

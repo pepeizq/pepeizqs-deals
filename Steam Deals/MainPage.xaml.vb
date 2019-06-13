@@ -85,18 +85,29 @@ Public NotInheritable Class MainPage
 
         '--------------------------------------------------------
 
-        Dim usuarios As IReadOnlyList(Of User) = Await User.FindAllAsync(UserType.LocalUser)
         Dim activarEditor As Boolean = False
 
-        For Each usuario In usuarios
-            Dim usuarioString As String = Await usuario.GetPropertyAsync(KnownUserProperties.AccountName)
+        Try
+            Dim usuarios As IReadOnlyList(Of User) = Await User.FindAllAsync(UserType.LocalUser)
 
-            If Not usuarioString = String.Empty Then
-                If usuarioString = "pepeizq@msn.com" Then
-                    activarEditor = True
+            For Each usuario In usuarios
+                Dim usuarioString As String = String.Empty
+
+                Try
+                    usuarioString = Await usuario.GetPropertyAsync(KnownUserProperties.AccountName)
+                Catch ex As Exception
+
+                End Try
+
+                If Not usuarioString = String.Empty Then
+                    If usuarioString = "pepeizq@msn.com" Then
+                        activarEditor = True
+                    End If
                 End If
-            End If
-        Next
+            Next
+        Catch ex As Exception
+
+        End Try
 
         If activarEditor = True Then
             itemConfigEditor.Visibility = Visibility.Visible
