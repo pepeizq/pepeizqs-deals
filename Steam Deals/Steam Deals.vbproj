@@ -221,6 +221,8 @@
     <Content Include="Assets\drm_bethesda.ico" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\LogosJuegos\assassinscreed.png" />
+    <Content Include="Assets\LogosJuegos\darksouls.png" />
     <Content Include="Assets\LogosJuegos\overcooked.png" />
     <Content Include="Assets\LogosJuegos\sidmeiercivilization6.png" />
     <Content Include="Assets\LogosPublishers\11bitstudios.png" />
@@ -234,6 +236,7 @@
     <Content Include="Assets\LogosPublishers\bethesda.png" />
     <Content Include="Assets\LogosPublishers\capcom.png" />
     <Content Include="Assets\LogosPublishers\codemasters.png" />
+    <Content Include="Assets\LogosPublishers\crytek.png" />
     <Content Include="Assets\LogosPublishers\curvedigital.png" />
     <Content Include="Assets\LogosPublishers\daedalic.png" />
     <Content Include="Assets\LogosPublishers\deepsilver.png" />
@@ -248,6 +251,7 @@
     <Content Include="Assets\LogosPublishers\fruitbatfactory.png" />
     <Content Include="Assets\LogosPublishers\funcom.png" />
     <Content Include="Assets\LogosPublishers\gearbox.png" />
+    <Content Include="Assets\LogosPublishers\goodshepherd.png" />
     <Content Include="Assets\LogosPublishers\iceberg.png" />
     <Content Include="Assets\LogosPublishers\imgnpro.png" />
     <Content Include="Assets\LogosPublishers\jackboxgames.png" />
