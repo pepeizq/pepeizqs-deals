@@ -143,7 +143,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     For Each tienda In listaTiendas
-                        If tienda.Nombre = cosas.Tienda Then
+                        If tienda.Nombre = cosas.Tienda.Replace(" ", Nothing) Then
                             imagenTienda.Source = tienda.Logo
                         End If
                     Next

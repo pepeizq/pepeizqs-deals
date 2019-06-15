@@ -28,6 +28,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
             AddHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
 
+            Dim tbImagenTiendaAncho As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFreeAncho")
+            tbImagenTiendaAncho.Text = 150
+
+            RemoveHandler tbImagenTiendaAncho.TextChanged, AddressOf ModificarImagenTiendaAncho
+            AddHandler tbImagenTiendaAncho.TextChanged, AddressOf ModificarImagenTiendaAncho
+
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             tbImagenTienda.Text = String.Empty
 
@@ -173,6 +179,26 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFree")
             imagen.Source = tbImagen.Text
+
+        End Sub
+
+        Private Sub ModificarImagenTiendaAncho(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbAncho As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFree")
+
+            If tbAncho.Text.Trim.Length > 0 Then
+                Dim resultado As Double = 0
+                Dim esNumero As Boolean = Double.TryParse(tbAncho.Text.Trim, resultado)
+
+                If esNumero = True Then
+                    imagen.MaxWidth = tbAncho.Text
+                End If
+            End If
 
         End Sub
 
@@ -448,6 +474,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
             tbImagenJuego.IsEnabled = estado
+
+            Dim tbImagenTiendaAncho As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFreeAncho")
+            tbImagenTiendaAncho.IsEnabled = estado
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             tbImagenTienda.IsEnabled = estado

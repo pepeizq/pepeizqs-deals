@@ -539,6 +539,7 @@
                 New Clases.Desarrolladores("SnagBox", "@SnagBox_Studio", Nothing),
                 New Clases.Desarrolladores("Snail Games USA", "@SnailGamesUSA", Nothing),
                 New Clases.Desarrolladores("Snap Finger Click", "@snapfingerclick", Nothing),
+                New Clases.Desarrolladores("SNK", "@SNKPofficial", "Assets\LogosPublishers\snk.png"),
                 New Clases.Desarrolladores("SnoutUp", "@SnoutUp", Nothing),
                 New Clases.Desarrolladores("Snowbird Games", "@SnowbirdGames", Nothing),
                 New Clases.Desarrolladores("SOEDESCO", "@SOEDESCO", Nothing),

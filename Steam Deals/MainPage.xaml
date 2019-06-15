@@ -546,7 +546,7 @@
                                                                 
                                                                 <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Foreground="White" Margin="20" FontSize="90" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
 
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="350" MaxHeight="155" HorizontalAlignment="Center" Margin="20,30,20,0"/>
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="400" MaxHeight="155" HorizontalAlignment="Center" Margin="20,30,20,0"/>
                                                             </Grid>
                                                         </Grid>
 
@@ -697,7 +697,16 @@
                                     <TextBox x:Name="tbEditorEnlacepepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                     <TextBlock x:Uid="Image"/>
                                     <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,0" TextWrapping="Wrap"/>
-                                    <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
+                                    <Grid Margin="0,10,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFreeAncho" Grid.Column="0" TextWrapping="Wrap" Margin="0,0,10,0"/>
+                                        <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Grid.Column="1" TextWrapping="Wrap"/>
+                                    </Grid>
 
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                         <DatePicker x:Name="fechaEditorpepeizqdealsFree" Margin="0,0,20,0"/>
