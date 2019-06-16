@@ -243,10 +243,10 @@ Namespace pepeizq.Tiendas
         <XmlElement("price_base")>
         Public PrecioBase As String
 
-        <XmlElement("teaser620")>
+        <XmlElement("teaser300")>
         Public ImagenPequeña As String
 
-        <XmlElement("teaser300")>
+        <XmlElement("teaser620")>
         Public ImagenGrande As String
 
         <XmlElement("delivery_type")>

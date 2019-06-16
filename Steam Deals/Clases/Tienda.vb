@@ -7,9 +7,11 @@
     Public Property Cupon As TiendaCupon
     Public Property EtiquetaWeb As Integer
     Public Property IconoWeb As String
+    Public Property LogoWeb As String
+    Public Property LogoWebAncho As Integer
 
     Public Sub New(ByVal nombreMostrar As String, ByVal nombreUsar As String, ByVal iconoApp As String, ByVal posicionApp As Integer,
-                   ByVal cupon As TiendaCupon, ByVal etiquetaWeb As Integer, ByVal iconoWeb As String)
+                   ByVal cupon As TiendaCupon, ByVal etiquetaWeb As Integer, ByVal iconoWeb As String, ByVal logoWeb As String, ByVal logoWebAncho As Integer)
         Me.NombreMostrar = nombreMostrar
         Me.NombreUsar = nombreUsar
         Me.IconoApp = iconoApp
@@ -17,6 +19,8 @@
         Me.Cupon = cupon
         Me.EtiquetaWeb = etiquetaWeb
         Me.IconoWeb = iconoWeb
+        Me.LogoWeb = logoWeb
+        Me.LogoWebAncho = logoWebAncho
     End Sub
 
 End Class

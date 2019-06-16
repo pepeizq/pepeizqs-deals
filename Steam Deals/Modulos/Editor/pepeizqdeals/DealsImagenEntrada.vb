@@ -16,8 +16,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Collapsed
 
-            Dim lista As List(Of Clases.Icono) = Iconos.ListaTiendas()
-
             Dim imagenJuego As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuego")
             imagenJuego.Source = enlace
 
@@ -35,17 +33,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
             tbPrecio.Text = precio
 
-            For Each tienda In lista
-                If tienda.Nombre = juego.Tienda.NombreUsar Then
-                    Dim imagenEntrada As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego")
+            Dim imagenEntrada As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego")
 
-                    If Not tienda.Logo = Nothing Then
-                        imagenEntrada.Source = tienda.Logo
-                    Else
-                        imagenEntrada.Source = Nothing
-                    End If
-                End If
-            Next
+            If Not juego.Tienda.LogoWeb = Nothing Then
+                imagenEntrada.Source = juego.Tienda.LogoWeb
+            Else
+                imagenEntrada.Source = Nothing
+            End If
 
             Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego")
 
@@ -101,8 +95,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Visible
-
-            Dim lista As List(Of Clases.Icono) = Iconos.ListaTiendas()
 
             Dim tiendasHorizontal As New List(Of String) From {
                 "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore"
@@ -246,17 +238,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
-            For Each tienda In lista
-                If tienda.Nombre = listaFinal(0).Tienda.NombreUsar Then
-                    Dim imagenEntrada As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos")
 
-                    If Not tienda.Logo = Nothing Then
-                        imagenEntrada.Source = tienda.Logo
-                    Else
-                        imagenEntrada.Source = Nothing
-                    End If
-                End If
-            Next
+            If Not listaFinal(0).Tienda.LogoWeb = Nothing Then
+                imagenTienda.Source = listaFinal(0).Tienda.LogoWeb
+                imagenTienda.MaxWidth = listaFinal(0).Tienda.LogoWebAncho
+            Else
+                imagenTienda.Source = Nothing
+            End If
 
             Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
             AddHandler tbCabeceraImagenDimensiones.TextChanged, AddressOf ModificarCabeceraImagenDimensiones

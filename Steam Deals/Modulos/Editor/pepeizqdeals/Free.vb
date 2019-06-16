@@ -73,7 +73,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
-            Dim listaTiendas As List(Of Clases.Icono) = Iconos.ListaTiendas()
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Interfaz.Tiendas
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -92,8 +92,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Steam(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.Nombre = "Steam" Then
-                            tbImagenTienda.Text = tienda.Logo
+                        If tienda.NombreUsar = "Steam" Then
+                            tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
 
@@ -101,8 +101,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Humble(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.Nombre = "Humble" Then
-                            tbImagenTienda.Text = tienda.Logo
+                        If tienda.NombreUsar = "Humble" Then
+                            tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
 
@@ -110,8 +110,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await GOG(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.Nombre = "GOG" Then
-                            tbImagenTienda.Text = tienda.Logo
+                        If tienda.NombreUsar = "GOG" Then
+                            tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
 
@@ -119,8 +119,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await EpicGames(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.Nombre = "EpicGamesStore" Then
-                            tbImagenTienda.Text = tienda.Logo
+                        If tienda.NombreUsar = "EpicGamesStore" Then
+                            tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
 

@@ -58,7 +58,7 @@ Module Divisas
         If Not html = Nothing Then
             Dim cambios As Cambios = JsonConvert.DeserializeObject(Of Cambios)(html)
 
-            If Not cambios Is Nothing Then
+            If Not cambios.Monedas Is Nothing Then
                 dolar = cambios.Monedas.Dolar
                 libra = cambios.Monedas.Libra
                 rublo = cambios.Monedas.Rublo

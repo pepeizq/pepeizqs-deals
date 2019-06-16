@@ -665,9 +665,9 @@
                                                         </controls:DropShadowPanel> 
 
                                                         <StackPanel Grid.Row="1" Padding="20,15,20,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="100" Margin="20" VerticalAlignment="Center"/>
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="100" Margin="0,20,50,20" VerticalAlignment="Center"/>
 
-                                                            <StackPanel Background="Black" Margin="30,0,0,0" VerticalAlignment="Center">
+                                                            <StackPanel Background="Black" VerticalAlignment="Center">
                                                                 <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundles" Foreground="White" FontSize="50" VerticalAlignment="Center" Margin="14,10,14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </StackPanel>
                                                         </StackPanel>
@@ -759,7 +759,7 @@
                                                             </Grid.Background>
 
                                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                <Grid Margin="0,0,40,0" VerticalAlignment="Center" Padding="20">
+                                                                <Grid Margin="0,0,40,0" VerticalAlignment="Center" Padding="0,20,20,20">
                                                                     <Grid.RowDefinitions>
                                                                         <RowDefinition Height="*"/>
                                                                         <RowDefinition Height="*"/>

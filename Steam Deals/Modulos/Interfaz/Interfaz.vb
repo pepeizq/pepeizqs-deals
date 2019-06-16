@@ -7,33 +7,38 @@ Imports Windows.UI.Core
 
 Module Interfaz
 
-    Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0, Nothing, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png")
-    Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1, Nothing, 7, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamersgate.png")
-    Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2, Nothing, 6, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png")
-    Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3, Nothing, 8, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamesplanet.png")
-    Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4, Nothing, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png")
-    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5, Nothing, 9, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png")
-    Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6, Nothing, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png")
-    Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7, Nothing, 17, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png")
-    Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8, Nothing, Nothing, Nothing)
-    Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9, Nothing, 16, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png")
-    Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10, Nothing, 15, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png")
-    Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11, Nothing, 18, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png")
-    Dim indiegalaT As New Tienda("IndieGala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12, Nothing, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png")
-    Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13, Nothing, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png")
-    Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15, Nothing, 20, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png")
-    Dim amazonesT As New Tienda("Amazon.es (Físico)", "AmazonEs", "Assets/Tiendas/amazon.png", 16, Nothing, Nothing, Nothing)
-    Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17, Nothing, 1211, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png")
-    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18, Nothing, 1209, "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg")
+    Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0, Nothing, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", "Assets/Tiendas/steam2.png", 350)
+    Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1, Nothing, 7, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamersgate.png", "Assets/Tiendas/gamersgate2.png", 350)
+    Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2, Nothing, 6, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", "Assets/Tiendas/humble2.png", 300)
+    Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3, Nothing, 8, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", 350)
+    Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4, Nothing, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", "Assets/Tiendas/fanatical2.png", 350)
+    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5, Nothing, 9, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png", "Assets/Tiendas/gog2.png", 300)
+    Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6, Nothing, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", "Assets/Tiendas/wingamestore2.png", 350)
+    Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7, Nothing, 17, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png", "Assets/Tiendas/silagames2.png", 350)
+    Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8, Nothing, Nothing, Nothing, Nothing, 350)
+    Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9, Nothing, 16, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png", "Assets/Tiendas/microsoftstore2.png", 350)
+    Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10, Nothing, 15, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png", "Assets/Tiendas/chrono2.png", 320)
+    Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11, Nothing, 18, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png", "Assets/Tiendas/voidu2.png", 320)
+    Dim indiegalaT As New Tienda("IndieGala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12, Nothing, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", "Assets/Tiendas/indiegala2.png", 350)
+    Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13, Nothing, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", "Assets/Tiendas/gmg2.png", 350)
+    Dim amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15, Nothing, 20, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png", "Assets/Tiendas/amazon2.png", 350)
+    Dim amazonesT As New Tienda("Amazon.es (Físico)", "AmazonEs", "Assets/Tiendas/amazon.png", 16, Nothing, Nothing, Nothing, "Assets/Tiendas/amazon2.png", 350)
+    Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17, Nothing, 1211, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png", "Assets/Tiendas/amazon2.png", 350)
+    Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18, Nothing, 1209, "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg", "Assets/Tiendas/yuplay2.png", 300)
+    Dim epicT As New Tienda("Epic Games Store", "EpicGamesStore", Nothing, 19, Nothing, Nothing, Nothing, "Assets/Tiendas/epicgames2.png", 300)
+
+    Dim listaTiendas As New List(Of Tienda) From {
+        steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
+        microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT
+    }
+
+    Public Function Tiendas()
+        Return listaTiendas
+    End Function
 
     Dim ultimosResultados As Boolean = False
 
     Public Sub Generar()
-
-        Dim listaTiendas As New List(Of Tienda) From {
-            steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
-            microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT
-        }
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -59,10 +64,12 @@ Module Interfaz
         Dim spCupones As StackPanel = pagina.FindName("spEditorCupones")
 
         For Each tienda In listaTiendas
-            gvTiendas.Items.Add(AñadirBotonTienda(tienda))
-            menuTiendas.Items.Add(AñadirMenuTienda(tienda))
-            gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
-            spCupones.Children.Add(AñadirCuponTienda(tienda))
+            If Not tienda.IconoApp = Nothing Then
+                gvTiendas.Items.Add(AñadirBotonTienda(tienda))
+                menuTiendas.Items.Add(AñadirMenuTienda(tienda))
+                gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
+                spCupones.Children.Add(AñadirCuponTienda(tienda))
+            End If
         Next
 
         Dim cbUltimosResultados As CheckBox = pagina.FindName("cbOfertasTiendasUltimosResultados")

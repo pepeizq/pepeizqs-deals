@@ -79,7 +79,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda")
 
-            Dim listaTiendas As List(Of Clases.Icono) = Iconos.ListaTiendas()
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Interfaz.Tiendas
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Bundles = Nothing
@@ -142,11 +142,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
+                    Dim tiendaLogo As String = String.Empty
+
                     For Each tienda In listaTiendas
-                        If tienda.Nombre = cosas.Tienda.Replace(" ", Nothing) Then
-                            imagenTienda.Source = tienda.Logo
+                        If tienda.NombreUsar = cosas.Tienda.Replace(" ", Nothing) Then
+                            tiendaLogo = tienda.LogoWeb
                         End If
                     Next
+
+                    If Not tiendaLogo = String.Empty Then
+                        imagenTienda.Visibility = Visibility.Visible
+                        imagenTienda.Source = tiendaLogo
+                    Else
+                        imagenTienda.Visibility = Visibility.Collapsed
+                    End If
 
                     tbTitulo.Tag = cosas
                 End If
