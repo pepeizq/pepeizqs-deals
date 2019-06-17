@@ -39,6 +39,8 @@
                 enlace = "http://www.anrdoezrs.net/click-8883540-13587394?url=" + enlace + "?ref=e8f2c4e5-81e9"
             ElseIf enlace.Contains("yuplay.ru") Then
                 enlace = enlace + "?partner=19b1d908fe49e597"
+            ElseIf enlace.Contains("microsoft.com") Then
+                enlace = "http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku=9P8WQ8TGB509&u=" + enlace
             End If
 
             Return enlace

@@ -94,6 +94,8 @@ Module Ordenar
                             boolBorrar = True
                         ElseIf tienda = "AmazonUk" Then
                             boolBorrar = True
+                        ElseIf tienda = "MicrosoftStore" Then
+                            boolBorrar = True
                         End If
 
                         If boolBorrar = False Then
@@ -140,6 +142,8 @@ Module Ordenar
                                 ElseIf tienda = "AmazonEs2" Then
                                     boolAntiguo = False
                                 ElseIf tienda = "AmazonUk" Then
+                                    boolAntiguo = False
+                                ElseIf tienda = "MicrosoftStore" Then
                                     boolAntiguo = False
                                 Else
                                     If Not listaJuegosAntigua Is Nothing Then

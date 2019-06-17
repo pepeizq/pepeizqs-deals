@@ -1,162 +1,174 @@
-﻿Imports System.Net
+﻿Imports ICSharpCode.SharpZipLib.Core
+Imports ICSharpCode.SharpZipLib.GZip
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Windows.Networking.BackgroundTransfer
+Imports Windows.Storage
 
 Namespace pepeizq.Tiendas
     Module MicrosoftStore
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Juego)
-        Dim listaAnalisis As New List(Of JuegoAnalisis)
-        Dim Tienda As Tienda = Nothing
-
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+        Public Async Sub BuscarOfertas(tienda As Tienda)
 
             Dim helper As New LocalObjectStorageHelper
+
+            Dim listaJuegos As New List(Of Juego)
+
+            Dim listaAnalisis As New List(Of JuegoAnalisis)
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
             End If
 
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
+            Dim listaJuegosAntigua As New List(Of Juego)
 
-            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-            tb.Text = "0%"
+            If Await helper.FileExistsAsync("listaOfertasAntiguaMicrosoftStore") Then
+                listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntiguaMicrosoftStore")
+            End If
+
+            Dim listaImagenes As New List(Of MicrosoftStoreImagen)
+
+            If Await helper.FileExistsAsync("listaImagenesMicrosoftStore") Then
+                listaImagenes = Await helper.ReadFileAsync(Of List(Of MicrosoftStoreImagen))("listaImagenesMicrosoftStore")
+            End If
 
             listaJuegos.Clear()
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
+            Dim ficheroZip As IStorageFile = Nothing
 
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
+            Try
+                ficheroZip = Await ApplicationData.Current.LocalFolder.CreateFileAsync("microsoftstore.gz", CreationCollisionOption.ReplaceExisting)
+            Catch ex As Exception
 
-        End Sub
+            End Try
 
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            If Not ficheroZip Is Nothing Then
+                Dim descargador As New BackgroundDownloader
+                Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri("https://product.impact.com/secure/productservices/catalog/download.irps?p=45x%7B%22networkId%22%3A%221%22%2C%22id%22%3A%22465091%22%2C%22mpId%22%3A%221382810%22%2C%22version%22%3A%22original%22%7DJedYObuX09GGw3LrEjpuZjoBIT8%3D"), ficheroZip)
+                descarga.Priority = BackgroundTransferPriority.Default
+                Await descarga.StartAsync
 
-            Dim i As Integer = 0
-            While i < 5000
-                Dim pagina As Integer = i
+                If descarga.Progress.Status = BackgroundTransferStatus.Completed Then
+                    Dim ficheroDescargado2 As IStorageFile = descarga.ResultFile
 
-                If Not pagina = 0 Then
-                    pagina = pagina * 90
-                End If
+                    If Not ficheroDescargado2 Is Nothing Then
+                        Dim dataBuffer As Byte() = New Byte(4095) {}
 
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.microsoft.com/es-es/store/top-paid/games/pc?s=store&skipitems=" + pagina.ToString))
-                Dim html As String = html_.Result
+                        Using fs As Stream = New FileStream(ApplicationData.Current.LocalFolder.Path + "\microsoftstore.gz", FileMode.Open, FileAccess.Read)
+                            Using gzipStream As New GZipInputStream(fs)
 
-                If Not html = Nothing Then
-                    If html.Contains("No se encontraron resultados.</p>") Then
-                        Exit While
-                    End If
+                                Dim fnOut As String = Path.Combine(ApplicationData.Current.LocalFolder.Path, Path.GetFileNameWithoutExtension("microsoftstore.gz"))
 
-                    If html.Contains("<div class=" + ChrW(34) + "m-channel-placement-item" + ChrW(34)) Then
-                        Dim j As Integer = 0
-                        While j < 90
-                            If html.Contains("<div class=" + ChrW(34) + "m-channel-placement-item" + ChrW(34)) Then
-                                Dim temp, temp2 As String
-                                Dim int, int2 As Integer
+                                Using fsOut As FileStream = File.Create(fnOut)
+                                    StreamUtils.Copy(gzipStream, fsOut, dataBuffer)
+                                End Using
+                            End Using
+                        End Using
 
-                                int = html.IndexOf("<div class=" + ChrW(34) + "m-channel-placement-item" + ChrW(34))
-                                temp = html.Remove(0, int + 5)
+                        If File.Exists(ApplicationData.Current.LocalFolder.Path + "\microsoftstore") Then
+                            Dim ficheroDescomprimido As StorageFile = Await StorageFile.GetFileFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\microsoftstore")
+                            Dim ficheroLineas As IList(Of String) = Await FileIO.ReadLinesAsync(ficheroDescomprimido)
 
-                                html = temp
+                            Dim i As Integer = 0
+                            For Each linea In ficheroLineas
+                                If i > 0 Then
+                                    Dim chars As Char = Convert.ToChar(9)
+                                    Dim texto As String() = linea.Split(chars)
 
-                                int2 = temp.IndexOf("</a>")
-                                temp2 = temp.Remove(int2, temp.Length - int2)
+                                    Dim id As String = texto(0)
 
-                                Dim temp3, temp4 As String
-                                Dim int3, int4 As Integer
+                                    Dim titulo As String = texto(1)
 
-                                int3 = temp2.IndexOf("title=")
-                                temp3 = temp2.Remove(0, int3 + 7)
+                                    Dim precio As String = texto(3)
+                                    precio = precio.Replace(".", ",")
+                                    precio = precio.Replace("EUR", "€")
 
-                                int4 = temp3.IndexOf(ChrW(34))
-                                temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                    Dim enlace As String = texto(4)
+                                    enlace = enlace.Replace("%2Fes-es%2F", "%2Fen-us%2F")
+                                    enlace = enlace.Replace("%2F", "/")
+                                    enlace = enlace.Replace("%3A", ":")
+                                    enlace = enlace.Replace("http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku=9NBLGGH4NMD9&u=", Nothing)
 
-                                temp4 = temp4.Trim
-                                temp4 = WebUtility.HtmlDecode(temp4)
+                                    Dim imagenPequeña As String = String.Empty
+                                    Dim buscarImagen As Boolean = True
 
-                                Dim titulo As String = temp4
+                                    If Not listaImagenes Is Nothing Then
+                                        If listaImagenes.Count > 0 Then
+                                            For Each imagen In listaImagenes
+                                                If id = imagen.ID Then
+                                                    imagenPequeña = imagen.Imagen
+                                                    buscarImagen = False
+                                                End If
+                                            Next
+                                        End If
+                                    End If
 
-                                Dim temp5, temp6 As String
-                                Dim int5, int6 As Integer
+                                    If buscarImagen = True Then
+                                        imagenPequeña = Await ExtraerImagen(id, enlace, listaImagenes)
+                                    End If
 
-                                int5 = temp2.IndexOf("<a href=")
-                                temp5 = temp2.Remove(0, int5 + 9)
+                                    If imagenPequeña = String.Empty Then
+                                        imagenPequeña = texto(8)
 
-                                int6 = temp5.IndexOf(ChrW(34))
-                                temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                        If Not imagenPequeña.Contains("http:") And Not imagenPequeña = String.Empty Then
+                                            imagenPequeña = "http:" + imagenPequeña
+                                        End If
+                                    End If
 
-                                If Not temp6.Contains("https://www.microsoft.com") Then
-                                    temp6 = "https://www.microsoft.com" + temp6
-                                End If
+                                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
-                                Dim enlace As String = temp6.Trim
+                                    Dim descuento As String = Nothing
+                                    Dim encontrado As Boolean = False
 
-                                enlace = enlace.Replace("?cid=msft_web_chart", Nothing)
+                                    If listaJuegosAntigua.Count > 0 Then
+                                        For Each juegoAntiguo In listaJuegosAntigua
+                                            If juegoAntiguo.Enlace = enlace Then
+                                                Dim tempAntiguoPrecio As String = juegoAntiguo.Precio.Replace("€", Nothing)
+                                                tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
-                                Dim temp7, temp8 As String
-                                Dim int7, int8 As Integer
+                                                Dim tempPrecio As String = precio.Replace("€", Nothing)
+                                                tempPrecio = tempPrecio.Trim
 
-                                int7 = temp2.IndexOf("<source")
-                                temp7 = temp2.Remove(0, int7)
+                                                Try
+                                                    If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
+                                                        descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio, precio)
+                                                    Else
+                                                        descuento = Nothing
+                                                    End If
+                                                Catch ex As Exception
+                                                    descuento = Nothing
+                                                End Try
 
-                                int7 = temp7.IndexOf("data-srcset=")
-                                temp7 = temp7.Remove(0, int7 + 13)
+                                                If Not descuento = Nothing Then
+                                                    If descuento = "00%" Then
+                                                        descuento = Nothing
+                                                    End If
+                                                End If
 
-                                int8 = temp7.IndexOf(ChrW(34))
-                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+                                                If Not descuento = Nothing Then
+                                                    If descuento.Contains("-") Then
+                                                        descuento = Nothing
+                                                    End If
+                                                End If
 
-                                If temp8.Contains("?") Then
-                                    int8 = temp8.IndexOf("?")
-                                    temp8 = temp8.Remove(int8, temp8.Length - int8)
-                                End If
+                                                If Not descuento = Nothing Then
+                                                    If Not descuento.Contains("%") Then
+                                                        descuento = Nothing
+                                                    End If
+                                                End If
 
-                                Dim imagenPequeña As String = temp8.Trim
+                                                juegoAntiguo.Precio = precio
+                                                encontrado = True
+                                            End If
+                                        Next
+                                    End If
 
-                                Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
-
-                                If temp2.Contains("<span itemprop=" + ChrW(34) + "price") Then
-                                    Dim temp9, temp10 As String
-                                    Dim int9, int10 As Integer
-
-                                    int9 = temp2.IndexOf("<span itemprop=" + ChrW(34) + "price")
-                                    temp9 = temp2.Remove(0, int9)
-
-                                    int9 = temp9.IndexOf(">")
-                                    temp9 = temp9.Remove(0, int9 + 1)
-
-                                    int10 = temp9.IndexOf("</span>")
-                                    temp10 = temp9.Remove(int10, temp9.Length - int10)
-
-                                    Dim precio As String = temp10.Trim
-
-                                    Dim descuento As String = String.Empty
-
-                                    If temp2.Contains("<s aria-label=") Then
-                                        Dim temp11, temp12 As String
-                                        Dim int11, int12 As Integer
-
-                                        int11 = temp2.IndexOf("<s aria-label=")
-                                        temp11 = temp2.Remove(0, int11)
-
-                                        int11 = temp11.IndexOf(">")
-                                        temp11 = temp11.Remove(0, int11 + 1)
-
-                                        int12 = temp11.IndexOf("</s>")
-                                        temp12 = temp11.Remove(int12, temp11.Length - int12)
-
-                                        descuento = Calculadora.GenerarDescuento(temp12.Trim, precio)
+                                    If encontrado = False Then
+                                        descuento = "00%"
                                     End If
 
                                     Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0
@@ -175,37 +187,66 @@ Namespace pepeizq.Tiendas
                                         listaJuegos.Add(juego)
                                     End If
                                 End If
-                            End If
-                            j += 1
-                        End While
+                                i += 1
+                            Next
+
+                            Await ficheroDescomprimido.DeleteAsync
+                        End If
+
+                        Await ficheroZip.DeleteAsync
                     End If
                 End If
+            End If
 
-                Bw.ReportProgress(i.ToString)
-                i += 1
-            End While
+            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of MicrosoftStoreImagen))("listaImagenesMicrosoftStore", listaImagenes)
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-            tb.Text = e.ProgressPercentage.ToString
+            Ordenar.Ofertas(tienda.NombreUsar, True, False)
 
         End Sub
 
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+        Private Async Function ExtraerImagen(id As String, enlace As String, listaImagenes As List(Of MicrosoftStoreImagen)) As Task(Of String)
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Dim imagen As String = String.Empty
 
-            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
+            Dim htmlJuego As String = Await HttpClient(New Uri(enlace))
 
-        End Sub
+            If Not htmlJuego = Nothing Then
+                Dim temp, temp2 As String
+                Dim int, int2 As Integer
+
+                int = htmlJuego.LastIndexOf("<img src=" + ChrW(34) + "https://store-images.s-microsoft.com/image/")
+                temp = htmlJuego.Remove(0, int + 10)
+
+                int2 = temp.IndexOf(ChrW(34))
+                temp2 = temp.Remove(int2, temp.Length - int2)
+
+                If temp2.Contains("?") Then
+                    Dim int3 As Integer = temp2.IndexOf("?")
+                    temp2 = temp2.Remove(int3, temp2.Length - int3)
+                End If
+
+                imagen = temp2.Trim
+                listaImagenes.Add(New MicrosoftStoreImagen(id, imagen))
+            End If
+
+            Return imagen
+
+        End Function
 
     End Module
+
+    Public Class MicrosoftStoreImagen
+
+        Public Property ID As String
+        Public Property Imagen As String
+
+        Public Sub New(ByVal id As String, ByVal imagen As String)
+            Me.ID = id
+            Me.Imagen = imagen
+        End Sub
+
+    End Class
+
 End Namespace
 
