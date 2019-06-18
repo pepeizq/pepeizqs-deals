@@ -223,6 +223,7 @@
     <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\LogosJuegos\assassinscreed.png" />
     <Content Include="Assets\LogosJuegos\darksouls.png" />
+    <Content Include="Assets\LogosJuegos\metalgearsolid.png" />
     <Content Include="Assets\LogosJuegos\overcooked.png" />
     <Content Include="Assets\LogosJuegos\sidmeiercivilization6.png" />
     <Content Include="Assets\LogosPublishers\11bitstudios.png" />
@@ -269,12 +270,14 @@
     <Content Include="Assets\LogosPublishers\slitherine.png" />
     <Content Include="Assets\LogosPublishers\snk.png" />
     <Content Include="Assets\LogosPublishers\squareenix.png" />
+    <Content Include="Assets\LogosPublishers\stardock.png" />
     <Content Include="Assets\LogosPublishers\team17.png" />
     <Content Include="Assets\LogosPublishers\techland.png" />
     <Content Include="Assets\LogosPublishers\thqnordic.png" />
     <Content Include="Assets\LogosPublishers\ubisoft.png" />
     <Content Include="Assets\LogosPublishers\versusevil.png" />
     <Content Include="Assets\LogosPublishers\warnerbros.png" />
+    <Content Include="Assets\LogosPublishers\xseed.png" />
     <Content Include="Assets\pepeizq\avatar_notificaciones.png" />
     <Content Include="Assets\pepeizq\fondo_hexagono1.png" />
     <Content Include="Assets\pepeizq\fondo_hexagono2.png" />
@@ -285,6 +288,7 @@
     <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />
+    <Content Include="Assets\Tiendas\discordnitro.png" />
     <Content Include="Assets\Tiendas\epicgames.ico" />
     <Content Include="Assets\Tiendas\epicgames2.png" />
     <Content Include="Assets\Tiendas\fanatical2.png" />
@@ -296,6 +300,7 @@
     <Content Include="Assets\Tiendas\humblemonthly.png" />
     <Content Include="Assets\Tiendas\indiegala2.png" />
     <Content Include="Assets\Tiendas\microsoftstore2.png" />
+    <Content Include="Assets\Tiendas\originaccess.png" />
     <Content Include="Assets\Tiendas\silagames2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
     <Content Include="Assets\Tiendas\chrono.png" />
@@ -319,6 +324,7 @@
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
     <Content Include="Assets\Tiendas\twitchprime.png" />
+    <Content Include="Assets\Tiendas\uplayplus.png" />
     <Content Include="Assets\Tiendas\voidu.ico" />
     <Content Include="Assets\Tiendas\voidu2.png" />
     <Content Include="Assets\Tiendas\wingamestore.png" />
@@ -385,6 +391,7 @@
     <Content Include="Assets\Sistemas\mac.png" />
     <Content Include="Assets\Sistemas\win.png" />
     <Content Include="Assets\Tiendas\wingamestore2.png" />
+    <Content Include="Assets\Tiendas\xboxgamepass.png" />
     <Content Include="Assets\Tiendas\yuplay.ico" />
     <Content Include="Assets\Tiendas\yuplay2.png" />
     <Content Include="Assets\pepeizq\fondo_hexagono.png" />

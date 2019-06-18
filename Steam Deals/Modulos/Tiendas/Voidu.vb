@@ -27,7 +27,12 @@ Namespace pepeizq.Tiendas
                     cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
                     cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
                     cuponPorcentaje = cuponPorcentaje.Trim
-                    cuponPorcentaje = "0," + cuponPorcentaje
+
+                    If cuponPorcentaje.Length = 1 Then
+                        cuponPorcentaje = "0,0" + cuponPorcentaje
+                    Else
+                        cuponPorcentaje = "0," + cuponPorcentaje
+                    End If
                 End If
             End If
 

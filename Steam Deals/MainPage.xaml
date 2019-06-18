@@ -873,8 +873,8 @@
                                                             </Grid.Background>
 
                                                             <Grid.RowDefinitions>
-                                                                <RowDefinition Height="Auto"/>
                                                                 <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
 
                                                             <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
@@ -889,7 +889,7 @@
                                                                             <SolidColorBrush Color="#004e7a"/>
                                                                         </Grid.Background>
 
-                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="350" MaxHeight="65" Margin="20"/>
+                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="400" MaxHeight="120" Margin="20"/>
                                                                     </Grid>
                                                                 </controls:DropShadowPanel>
 
@@ -898,7 +898,7 @@
                                                                 </StackPanel>
                                                             </Grid>
 
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                                                                 <GridView.ItemsPanel>
                                                                     <ItemsPanelTemplate>
                                                                         <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>

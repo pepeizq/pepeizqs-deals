@@ -110,6 +110,7 @@ Namespace pepeizq.Tiendas
                                 titulo = titulo.Replace("| Xbox One/Windows 10 PC - Código de descarga", Nothing)
                             End If
 
+                            titulo = titulo.Replace(" - Standard", Nothing)
                             titulo = titulo.Trim
 
                             Dim temp5, temp6 As String
