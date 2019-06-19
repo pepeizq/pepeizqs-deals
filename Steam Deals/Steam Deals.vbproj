@@ -225,7 +225,9 @@
     <Content Include="Assets\LogosJuegos\darksouls.png" />
     <Content Include="Assets\LogosJuegos\metalgearsolid.png" />
     <Content Include="Assets\LogosJuegos\overcooked.png" />
+    <Content Include="Assets\LogosJuegos\rainbowsiege.png" />
     <Content Include="Assets\LogosJuegos\sidmeiercivilization6.png" />
+    <Content Include="Assets\LogosJuegos\watchdogs.png" />
     <Content Include="Assets\LogosPublishers\11bitstudios.png" />
     <Content Include="Assets\LogosPublishers\1c.png" />
     <Content Include="Assets\LogosPublishers\2k.png" />

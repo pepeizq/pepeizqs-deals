@@ -243,6 +243,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not listaFinal(0).Tienda.LogoWeb = Nothing Then
                 imagenTienda.Source = listaFinal(0).Tienda.LogoWeb
                 imagenTienda.MaxWidth = listaFinal(0).Tienda.LogoWebAncho
+                imagenTienda.MaxHeight = listaFinal(0).Tienda.LogoWebAlto
             Else
                 imagenTienda.Source = Nothing
             End If
@@ -266,9 +267,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTitulo.Visibility = Visibility.Collapsed
 
                 If tbCabeceraImagen.Text.Trim.Contains("Assets\LogosPublishers\") Then
-                    tbCabeceraImagenDimensiones.Text = 500
+                    Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+                    Dim publisherElegido As TextBlock = cbPublishers.SelectedItem
+                    Dim publisher As Clases.Desarrolladores = publisherElegido.Tag
+
+                    If Not publisher.LogoAncho = Nothing Then
+                        tbCabeceraImagenDimensiones.Text = publisher.LogoAncho
+                    Else
+                        tbCabeceraImagenDimensiones.Text = 500
+                    End If
                 ElseIf tbCabeceraImagen.Text.Trim.Contains("Assets\LogosJuegos\") Then
-                    tbCabeceraImagenDimensiones.Text = 600
+                    Dim cbLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+                    Dim juegoElegido As TextBlock = cbLogosJuegos.SelectedItem
+                    Dim juego As Clases.LogosJuegos = juegoElegido.Tag
+
+                    If Not juego.LogoAncho = Nothing Then
+                        tbCabeceraImagenDimensiones.Text = juego.LogoAncho
+                    Else
+                        tbCabeceraImagenDimensiones.Text = 600
+                    End If
                 Else
                     tbCabeceraImagenDimensiones.Text = 960
                 End If

@@ -142,8 +142,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
 
-                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                precio.Text = Divisas.CambioMoneda("$9.99", tbDolar.Text)
+                precio.Text = "9,99 €"
 
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • " + mesElegido + " • " + cosas.Juegos
