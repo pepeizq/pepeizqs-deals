@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -32,41 +33,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbComentario2.TextChanged, AddressOf MostrarComentario2Anuncio
             AddHandler tbComentario2.TextChanged, AddressOf MostrarComentario2Anuncio
 
-            Dim tbID1 As TextBox = pagina.FindName("tbEditorIDJuego1pepeizqdealsAnuncios")
-            tbID1.Text = String.Empty
+            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
 
-            RemoveHandler tbID1.TextChanged, AddressOf CargarID1Anuncio
-            AddHandler tbID1.TextChanged, AddressOf CargarID1Anuncio
+            RemoveHandler botonIDs.Click, AddressOf GenerarImagenes
+            AddHandler botonIDs.Click, AddressOf GenerarImagenes
 
-            Dim tbImagen1 As TextBox = pagina.FindName("tbEditorImagenJuego1pepeizqdealsAnuncios")
-            tbImagen1.Text = String.Empty
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
+            tbIDs.Text = String.Empty
 
-            RemoveHandler tbImagen1.TextChanged, AddressOf MostrarImagen1Anuncio
-            AddHandler tbImagen1.TextChanged, AddressOf MostrarImagen1Anuncio
-
-            Dim cb1 As ComboBox = pagina.FindName("cbEditorRedJuego1pepeizqdealsAnuncios")
-            cb1.SelectedIndex = 0
-
-            RemoveHandler cb1.SelectionChanged, AddressOf MostrarRed1Anuncio
-            AddHandler cb1.SelectionChanged, AddressOf MostrarRed1Anuncio
-
-            Dim tbID2 As TextBox = pagina.FindName("tbEditorIDJuego2pepeizqdealsAnuncios")
-            tbID2.Text = String.Empty
-
-            RemoveHandler tbID2.TextChanged, AddressOf CargarID2Anuncio
-            AddHandler tbID2.TextChanged, AddressOf CargarID2Anuncio
-
-            Dim tbImagen2 As TextBox = pagina.FindName("tbEditorImagenJuego2pepeizqdealsAnuncios")
-            tbImagen2.Text = String.Empty
-
-            RemoveHandler tbImagen2.TextChanged, AddressOf MostrarImagen2Anuncio
-            AddHandler tbImagen2.TextChanged, AddressOf MostrarImagen2Anuncio
-
-            Dim cb2 As ComboBox = pagina.FindName("cbEditorRedJuego2pepeizqdealsAnuncios")
-            cb2.SelectedIndex = 0
-
-            RemoveHandler cb2.SelectionChanged, AddressOf MostrarRed2Anuncio
-            AddHandler cb2.SelectionChanged, AddressOf MostrarRed2Anuncio
+            Dim gvIDs As GridView = pagina.FindName("gvEditorpepeizqdealsAnuncios")
+            gvIDs.Items.Clear()
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
@@ -172,190 +148,177 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim caja As DropShadowPanel = pagina.FindName("cajaComentario2EditorpepeizqdealsGenerarImagenAnuncios")
             Dim tbComentario As TextBlock = pagina.FindName("tbComentario2EditorpepeizqdealsGenerarImagenAnuncios")
 
             If tbTexto.Text.Trim.Length > 0 Then
-                caja.Visibility = Visibility.Visible
+                tbComentario.Visibility = Visibility.Visible
                 tbComentario.Text = tbTexto.Text.Trim
             Else
-                caja.Visibility = Visibility.Collapsed
+                tbComentario.Visibility = Visibility.Collapsed
                 tbComentario.Text = String.Empty
             End If
 
         End Sub
 
-        Private Async Sub CargarID1Anuncio(sender As Object, e As TextChangedEventArgs)
+        Private Async Sub GenerarImagenes(sender As Object, e As RoutedEventArgs)
 
             BloquearControles(False)
-
-            Dim tbTexto As TextBox = sender
-            Dim textoID As String = tbTexto.Text.Trim
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaAnuncios")
-            Dim fondoUrl As String = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
+            Dim textoIDs As String = tbIDs.Text.Trim
 
-            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuego1pepeizqdealsAnuncios")
-            Dim tbImagenJuegoUrl As String = String.Empty
+            Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+            Dim fondo As String = String.Empty
 
-            If Not textoID = Nothing Then
-                Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
+            Dim i As Integer = 0
+            While i < 100
+                If textoIDs.Length > 0 Then
+                    Dim clave As String = String.Empty
 
-                If Not htmlID = Nothing Then
-                    Dim temp As String
-                    Dim int As Integer
+                    If textoIDs.Contains(",") Then
+                        Dim int As Integer = textoIDs.IndexOf(",")
+                        clave = textoIDs.Remove(int, textoIDs.Length - int)
 
-                    int = htmlID.IndexOf(":")
-                    temp = htmlID.Remove(0, int + 1)
-                    temp = temp.Remove(temp.Length - 1, 1)
+                        textoIDs = textoIDs.Remove(0, int + 1)
+                    Else
+                        clave = textoIDs
+                    End If
 
-                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                    clave = clave.Trim
 
-                    If Not datos Is Nothing Then
-                        If Not datos.Datos.Fondo = Nothing Then
-                            fondoUrl = datos.Datos.Fondo
+                    If clave.Contains("http") Then
+                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=220"))
+
+                        If Not htmlID = Nothing Then
+                            Dim temp As String
+                            Dim int As Integer
+
+                            int = htmlID.IndexOf(":")
+                            temp = htmlID.Remove(0, int + 1)
+                            temp = temp.Remove(temp.Length - 1, 1)
+
+                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                            datos.Datos.Imagen = clave
+
+                            listaJuegos.Add(datos)
                         End If
+                    Else
+                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
 
-                        tbImagenJuegoUrl = datos.Datos.Imagen
+                        If Not htmlID = Nothing Then
+                            Dim temp As String
+                            Dim int As Integer
+
+                            int = htmlID.IndexOf(":")
+                            temp = htmlID.Remove(0, int + 1)
+                            temp = temp.Remove(temp.Length - 1, 1)
+
+                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                            If Not datos Is Nothing Then
+                                If Not datos.Datos Is Nothing Then
+                                    If fondo = String.Empty Then
+                                        fondo = datos.Datos.Fondo
+                                    End If
+
+                                    Dim idBool As Boolean = False
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Datos.ID = datos.Datos.ID Then
+                                            idBool = True
+                                            Exit While
+                                        End If
+                                        k += 1
+                                    End While
+
+                                    If idBool = False Then
+                                        listaJuegos.Add(datos)
+                                    Else
+                                        Exit While
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+
+                    If Not textoIDs.Contains(",") Then
+                        Exit While
                     End If
                 End If
+                i += 1
+            End While
+
+            If Not fondo = String.Empty Then
+                Dim fondo2 As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaAnuncios")
+                fondo2.ImageSource = New BitmapImage(New Uri(fondo))
             End If
 
-            fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
-            tbImagenJuego.Text = tbImagenJuegoUrl
+            Dim cajaSuperior As DropShadowPanel = pagina.FindName("cajaComentario1EditorpepeizqdealsGenerarImagenAnuncios")
 
-            BloquearControles(True)
-
-        End Sub
-
-        Private Sub MostrarImagen1Anuncio(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTexto As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim caja As DropShadowPanel = pagina.FindName("cajaImagenJuego1EditorpepeizqdealsGenerarImagenAnuncios")
-
-            If tbTexto.Text.Trim.Length > 0 Then
-                caja.Visibility = Visibility.Visible
-
-                Dim imagen As ImageEx = pagina.FindName("imagenJuego1EditorpepeizqdealsGenerarImagenAnuncios")
-                imagen.Source = tbTexto.Text.Trim
+            If listaJuegos.Count = 1 Then
+                cajaSuperior.Margin = New Thickness(0, 30, 0, 0)
             Else
-                caja.Visibility = Visibility.Collapsed
+                cajaSuperior.Margin = New Thickness(0, 15, 0, 0)
             End If
 
-        End Sub
+            Dim gvImagenes As GridView = pagina.FindName("gvEditorpepeizqdealsAnuncios")
+            gvImagenes.Items.Clear()
 
-        Private Sub MostrarRed1Anuncio(sender As Object, e As SelectionChangedEventArgs)
-
-            Dim cb As ComboBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim caja As DropShadowPanel = pagina.FindName("cajaRedJuego1EditorpepeizqdealsGenerarImagenAnuncios")
-
-            If cb.SelectedIndex = 0 Then
-                caja.Visibility = Visibility.Collapsed
+            If listaJuegos.Count = 1 Then
+                gvImagenes.Margin = New Thickness(30, 0, 30, 0)
             Else
-                caja.Visibility = Visibility.Visible
-
-                Dim imagen As ImageEx = pagina.FindName("imagenRedJuego1EditorpepeizqdealsGenerarImagenAnuncios")
-
-                If cb.SelectedIndex = 1 Then
-                    imagen.Source = "ms-appx:///Assets/pepeizq/steam.png"
-                ElseIf cb.SelectedIndex = 2 Then
-                    imagen.Source = "ms-appx:///Assets/pepeizq/twitter.png"
-                End If
+                gvImagenes.Margin = New Thickness(5, 0, 5, 0)
             End If
 
-        End Sub
+            If listaJuegos.Count > 0 Then
+                i = 0
+                For Each juego In listaJuegos
+                    juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
 
-        Private Async Sub CargarID2Anuncio(sender As Object, e As TextChangedEventArgs)
+                    Dim panel As New DropShadowPanel With {
+                        .BlurRadius = 5,
+                        .ShadowOpacity = 0.9,
+                        .Color = Windows.UI.Colors.Black
+                    }
 
-            BloquearControles(False)
+                    Dim colorFondo2 As New SolidColorBrush With {
+                        .Color = "#004e7a".ToColor
+                    }
 
-            Dim tbTexto As TextBox = sender
-            Dim textoID As String = tbTexto.Text.Trim
+                    Dim gridContenido As New Grid With {
+                        .Background = colorFondo2
+                    }
 
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
+                    Dim imagenJuego As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = juego.Datos.Imagen
+                    }
 
-            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuego2pepeizqdealsAnuncios")
-            Dim tbImagenJuegoUrl As String = String.Empty
-
-            If Not textoID = Nothing Then
-                Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
-
-                If Not htmlID = Nothing Then
-                    Dim temp As String
-                    Dim int As Integer
-
-                    int = htmlID.IndexOf(":")
-                    temp = htmlID.Remove(0, int + 1)
-                    temp = temp.Remove(temp.Length - 1, 1)
-
-                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
-
-                    If Not datos Is Nothing Then
-                        tbImagenJuegoUrl = datos.Datos.Imagen
+                    If listaJuegos.Count > 1 Then
+                        imagenJuego.Stretch = Stretch.UniformToFill
+                    Else
+                        imagenJuego.Stretch = Stretch.Uniform
                     End If
-                End If
-            End If
 
-            tbImagenJuego.Text = tbImagenJuegoUrl
+                    If listaJuegos.Count > 1 Then
+                        imagenJuego.Width = 220
+                        imagenJuego.Height = 100
+                    End If
+
+                    gridContenido.Children.Add(imagenJuego)
+                    panel.Content = gridContenido
+                    gvImagenes.Items.Add(panel)
+
+                    i += 1
+                Next
+            End If
 
             BloquearControles(True)
-
-        End Sub
-
-        Private Sub MostrarImagen2Anuncio(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTexto As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim caja As DropShadowPanel = pagina.FindName("cajaImagenJuego2EditorpepeizqdealsGenerarImagenAnuncios")
-
-            If tbTexto.Text.Trim.Length > 0 Then
-                caja.Visibility = Visibility.Visible
-
-                Dim imagen As ImageEx = pagina.FindName("imagenJuego2EditorpepeizqdealsGenerarImagenAnuncios")
-                imagen.Source = tbTexto.Text.Trim
-            Else
-                caja.Visibility = Visibility.Collapsed
-            End If
-
-        End Sub
-
-        Private Sub MostrarRed2Anuncio(sender As Object, e As SelectionChangedEventArgs)
-
-            Dim cb As ComboBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim caja As DropShadowPanel = pagina.FindName("cajaRedJuego2EditorpepeizqdealsGenerarImagenAnuncios")
-
-            If cb.SelectedIndex = 0 Then
-                caja.Visibility = Visibility.Collapsed
-            Else
-                caja.Visibility = Visibility.Visible
-
-                Dim imagen As ImageEx = pagina.FindName("imagenRedJuego2EditorpepeizqdealsGenerarImagenAnuncios")
-
-                If cb.SelectedIndex = 1 Then
-                    imagen.Source = "ms-appx:///Assets/pepeizq/steam.png"
-                ElseIf cb.SelectedIndex = 2 Then
-                    imagen.Source = "ms-appx:///Assets/pepeizq/twitter.png"
-                End If
-            End If
 
         End Sub
 
@@ -386,23 +349,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbComentario2 As TextBox = pagina.FindName("tbEditorComentario2pepeizqdealsAnuncios")
             tbComentario2.IsEnabled = estado
 
-            Dim tbID1 As TextBox = pagina.FindName("tbEditorIDJuego1pepeizqdealsAnuncios")
-            tbID1.IsEnabled = estado
+            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
+            botonIDs.IsEnabled = estado
 
-            Dim tbImagen1 As TextBox = pagina.FindName("tbEditorImagenJuego1pepeizqdealsAnuncios")
-            tbImagen1.IsEnabled = estado
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
+            tbIDs.IsEnabled = estado
 
-            Dim cb1 As ComboBox = pagina.FindName("cbEditorRedJuego1pepeizqdealsAnuncios")
-            cb1.IsEnabled = estado
-
-            Dim tbID2 As TextBox = pagina.FindName("tbEditorIDJuego2pepeizqdealsAnuncios")
-            tbID2.IsEnabled = estado
-
-            Dim tbImagen2 As TextBox = pagina.FindName("tbEditorImagenJuego2pepeizqdealsAnuncios")
-            tbImagen2.IsEnabled = estado
-
-            Dim cb2 As ComboBox = pagina.FindName("cbEditorRedJuego2pepeizqdealsAnuncios")
-            cb2.IsEnabled = estado
+            Dim gvIDs As GridView = pagina.FindName("gvEditorpepeizqdealsAnuncios")
+            gvIDs.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
             fechaPicker.IsEnabled = estado

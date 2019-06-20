@@ -92,7 +92,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Steam(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.NombreUsar = "Steam" Then
+                        If tienda.NombreUsar = cosas.Tienda Then
                             tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
@@ -101,7 +101,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await Humble(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.NombreUsar = "Humble" Then
+                        If tienda.NombreUsar = cosas.Tienda Then
                             tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
@@ -110,7 +110,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await GOG(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.NombreUsar = "GOG" Then
+                        If tienda.NombreUsar = cosas.Tienda Then
                             tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
@@ -119,7 +119,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas = Await EpicGames(enlace)
 
                     For Each tienda In listaTiendas
-                        If tienda.NombreUsar = "EpicGamesStore" Then
+                        If tienda.NombreUsar = cosas.Tienda.Replace(" ", Nothing) Then
                             tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next

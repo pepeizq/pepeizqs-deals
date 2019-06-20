@@ -50,6 +50,7 @@ Namespace pepeizq.Tiendas
                     Dim titulo As String = juegoChrono.Titulo.Trim
                     titulo = WebUtility.HtmlDecode(titulo)
                     titulo = titulo.Replace("- NA/AUS", Nothing)
+                    titulo = titulo.Replace("- NA/ROW", Nothing)
                     titulo = titulo.Replace("- ROW", Nothing)
 
                     Dim enlace As String = juegoChrono.Enlace

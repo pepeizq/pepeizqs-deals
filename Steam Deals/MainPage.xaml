@@ -929,32 +929,18 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBox x:Name="tbEditorIDJuego1pepeizqdealsAnuncios" Grid.Column="0"/>
-                                        <TextBox x:Name="tbEditorImagenJuego1pepeizqdealsAnuncios" Grid.Column="1" Margin="10,0"/>
-                                        <ComboBox x:Name="cbEditorRedJuego1pepeizqdealsAnuncios" Grid.Column="2">
-                                            <ComboBoxItem Content="--"/>
-                                            <ComboBoxItem Content="Steam"/>
-                                            <ComboBoxItem Content="Twitter"/>
-                                        </ComboBox>
-                                    </Grid>
-                                    <Grid Margin="0,0,0,15">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                                        <Button x:Name="botonEditorSubirpepeizqdealsAnunciosIDs" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="IDs" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
 
-                                        <TextBox x:Name="tbEditorIDJuego2pepeizqdealsAnuncios" Grid.Column="0"/>
-                                        <TextBox x:Name="tbEditorImagenJuego2pepeizqdealsAnuncios" Grid.Column="1" Margin="10,0"/>
-                                        <ComboBox x:Name="cbEditorRedJuego2pepeizqdealsAnuncios" Grid.Column="2">
-                                            <ComboBoxItem Content="--"/>
-                                            <ComboBoxItem Content="Steam"/>
-                                            <ComboBoxItem Content="Twitter"/>
-                                        </ComboBox>
-                                    </Grid>
+                                        <TextBox x:Name="tbEditorpepeizqdealsAnunciosIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                    </Grid> 
 
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                         <DatePicker x:Name="fechaEditorpepeizqdealsAnuncios" Margin="0,0,20,0"/>
@@ -992,7 +978,7 @@
                                                             </LinearGradientBrush>
                                                         </Grid.Background>
 
-                                                        <Grid Padding="40">
+                                                        <Grid Padding="0,10">
                                                             <Grid.Background>
                                                                 <ImageBrush x:Name="fondopepeizqdealsImagenEntradaAnuncios" Stretch="UniformToFill"/>
                                                             </Grid.Background>
@@ -1003,7 +989,7 @@
                                                                 <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
 
-                                                            <controls:DropShadowPanel x:Name="cajaComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <controls:DropShadowPanel x:Name="cajaComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                                                                 <Grid>
                                                                     <Grid.Background>
                                                                         <SolidColorBrush Color="#004e7a"/>
@@ -1013,64 +999,17 @@
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
-                                                            <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,20,0,0">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="*"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="0,10">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <controls:DropShadowPanel x:Name="cajaRedJuego1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Top" Visibility="Collapsed">
-                                                                        <Grid>
-                                                                            <Grid.Background>
-                                                                                <SolidColorBrush Color="#004e7a"/>
-                                                                            </Grid.Background>
-
-                                                                            <controls:ImageEx x:Name="imagenRedJuego1EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="25" MaxHeight="25" Margin="15"/>
-                                                                        </Grid>
-                                                                    </controls:DropShadowPanel>
-
-                                                                    <controls:DropShadowPanel x:Name="cajaImagenJuego1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" Visibility="Collapsed">
-                                                                        <controls:ImageEx x:Name="imagenJuego1EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                                    </controls:DropShadowPanel>
-                                                                </Grid>
-
-                                                                <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,10">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <controls:DropShadowPanel x:Name="cajaRedJuego2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Top" Visibility="Collapsed">
-                                                                        <Grid>
-                                                                            <Grid.Background>
-                                                                                <SolidColorBrush Color="#004e7a"/>
-                                                                            </Grid.Background>
-
-                                                                            <controls:ImageEx x:Name="imagenRedJuego2EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="25" MaxHeight="25" Margin="15"/>
-                                                                        </Grid>
-                                                                    </controls:DropShadowPanel>
-
-                                                                    <controls:DropShadowPanel x:Name="cajaImagenJuego2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" Visibility="Collapsed">
-                                                                        <controls:ImageEx x:Name="imagenJuego2EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                                    </controls:DropShadowPanel>
-                                                                </Grid>
+                                                            <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,10,0,0">
+                                                                <GridView x:Name="gvEditorpepeizqdealsAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <GridView.ItemsPanel>
+                                                                        <ItemsPanelTemplate>
+                                                                            <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                                                                        </ItemsPanelTemplate>
+                                                                    </GridView.ItemsPanel>
+                                                                </GridView>
                                                             </Grid>
 
-                                                            <controls:DropShadowPanel x:Name="cajaComentario2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="2" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <Grid>
-                                                                    <Grid.Background>
-                                                                        <SolidColorBrush Color="#004e7a"/>
-                                                                    </Grid.Background>
-
-                                                                    <TextBlock x:Name="tbComentario2EditorpepeizqdealsGenerarImagenAnuncios" Margin="15,5" FontSize="20" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                </Grid>
-                                                            </controls:DropShadowPanel>
+                                                            <TextBlock x:Name="tbComentario2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="2" Margin="15,5" FontSize="20" Foreground="White" HorizontalAlignment="Right" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>
