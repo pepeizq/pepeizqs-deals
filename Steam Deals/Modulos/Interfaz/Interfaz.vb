@@ -26,11 +26,12 @@ Module Interfaz
     Dim amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17, Nothing, 1211, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png", "Assets/Tiendas/amazon2.png", 300, 155)
     Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18, Nothing, 1209, "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg", "Assets/Tiendas/yuplay2.png", 300, 155)
     Dim epicT As New Tienda("Epic Games Store", "EpicGamesStore", Nothing, 19, Nothing, Nothing, Nothing, "Assets/Tiendas/epicgames2.png", 300, 155)
+    Dim originT As New Tienda("Origin", "Origin", "Assets/Tiendas/origin.png", 20, Nothing, 1213, "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png", "Assets/Tiendas/origin2.png", 300, 155)
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-        epicT
+        epicT, originT
     }
 
     Public Function Tiendas()
@@ -587,6 +588,8 @@ Module Interfaz
                     pepeizq.Tiendas.AmazonEsDigital.BuscarOfertas(amazonesT2)
                 ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
                     pepeizq.Tiendas.Yuplay.BuscarOfertas(yuplayT)
+                ElseIf tienda.NombreUsar = originT.NombreUsar Then
+                    pepeizq.Tiendas.Origin.BuscarOfertas(originT)
                 End If
             Else
                 Ordenar.Ofertas(tienda.NombreUsar, False, True)

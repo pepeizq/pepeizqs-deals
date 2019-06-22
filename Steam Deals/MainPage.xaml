@@ -1009,7 +1009,7 @@
                                                                 </GridView>
                                                             </Grid>
 
-                                                            <TextBlock x:Name="tbComentario2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="2" Margin="15,5" FontSize="20" Foreground="White" HorizontalAlignment="Right" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed"/>
+                                                            <TextBlock x:Name="tbComentario2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="2" Margin="20,0,20,20" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>

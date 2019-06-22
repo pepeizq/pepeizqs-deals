@@ -97,7 +97,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             gridDosJuegos.Visibility = Visibility.Visible
 
             Dim tiendasHorizontal As New List(Of String) From {
-                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore"
+                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin"
             }
 
             Dim boolVertical As Boolean = True
