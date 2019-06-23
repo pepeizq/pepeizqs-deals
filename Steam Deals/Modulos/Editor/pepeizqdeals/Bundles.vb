@@ -79,7 +79,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda")
 
-            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Interfaz.Tiendas
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Bundles = Nothing

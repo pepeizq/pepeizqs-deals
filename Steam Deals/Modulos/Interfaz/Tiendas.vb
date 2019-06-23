@@ -5,7 +5,7 @@ Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
 
-Module Interfaz
+Module Tiendas
 
     Dim steamT As New Tienda("Steam", "Steam", "Assets/Tiendas/steam.ico", 0, Nothing, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", "Assets/Tiendas/steam2.png", 320, 155)
     Dim gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico", 1, Nothing, 7, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamersgate.png", "Assets/Tiendas/gamersgate2.png", 350, 155)
@@ -34,7 +34,7 @@ Module Interfaz
         epicT, originT
     }
 
-    Public Function Tiendas()
+    Public Function Listado()
         Return listaTiendas
     End Function
 
@@ -180,8 +180,14 @@ Module Interfaz
                                      End Function)
                 End If
 
+                Dim enseñarImagen As Boolean = True
+
+                If listaJuegos.Count > 500 Then
+                    enseñarImagen = False
+                End If
+
                 For Each juego In listaJuegos
-                    lvTienda.Items.Add(AñadirOfertaListado(juego))
+                    lvTienda.Items.Add(AñadirOfertaListado(juego, enseñarImagen))
                 Next
             End If
         Next
@@ -612,7 +618,7 @@ Module Interfaz
 
     End Sub
 
-    Public Function AñadirOfertaListado(juego As Juego)
+    Public Function AñadirOfertaListado(juego As Juego, enseñarImagen As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -681,30 +687,32 @@ Module Interfaz
             sp1.Children.Add(cb)
         End If
 
-        If Not juego.Imagenes Is Nothing Then
-            If Not juego.Imagenes.Pequeña = Nothing Then
-                Dim borde As New Border With {
-                    .BorderBrush = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
-                    .BorderThickness = New Thickness(1, 1, 1, 1),
-                    .Margin = New Thickness(2, 2, 10, 2)
-                }
+        If enseñarImagen = True Then
+            If Not juego.Imagenes Is Nothing Then
+                If Not juego.Imagenes.Pequeña = Nothing Then
+                    Dim borde As New Border With {
+                        .BorderBrush = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
+                        .BorderThickness = New Thickness(1, 1, 1, 1),
+                        .Margin = New Thickness(2, 2, 10, 2)
+                    }
 
-                Dim imagen As New ImageEx With {
-                    .Stretch = Stretch.Uniform,
-                    .IsCacheEnabled = True,
-                    .MaxHeight = 160,
-                    .MaxWidth = 200
-                }
+                    Dim imagen As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .MaxHeight = 160,
+                        .MaxWidth = 200
+                    }
 
-                Try
-                    imagen.Source = New BitmapImage(New Uri(juego.Imagenes.Pequeña))
-                Catch ex As Exception
+                    Try
+                        imagen.Source = New BitmapImage(New Uri(juego.Imagenes.Pequeña))
+                    Catch ex As Exception
 
-                End Try
+                    End Try
 
-                borde.Child = imagen
+                    borde.Child = imagen
 
-                sp1.Children.Add(borde)
+                    sp1.Children.Add(borde)
+                End If
             End If
         End If
 

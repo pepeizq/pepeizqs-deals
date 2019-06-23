@@ -153,7 +153,7 @@
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Interfaz\Editor.vb" />
-    <Compile Include="Modulos\Interfaz\Interfaz.vb" />
+    <Compile Include="Modulos\Interfaz\Tiendas.vb" />
     <Compile Include="Modulos\Interfaz\Pestañaspepeizq.vb" />
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
@@ -236,6 +236,7 @@
     <Content Include="Assets\LogosPublishers\505games.png" />
     <Content Include="Assets\LogosPublishers\arcsystemworks.png" />
     <Content Include="Assets\LogosPublishers\aspyr.png" />
+    <Content Include="Assets\LogosPublishers\atari.png" />
     <Content Include="Assets\LogosPublishers\bandainamco.png" />
     <Content Include="Assets\LogosPublishers\beamdog.png" />
     <Content Include="Assets\LogosPublishers\bethesda.png" />

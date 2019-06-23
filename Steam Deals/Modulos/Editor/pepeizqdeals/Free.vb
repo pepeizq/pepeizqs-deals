@@ -73,7 +73,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
-            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Interfaz.Tiendas
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content

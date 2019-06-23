@@ -57,37 +57,39 @@ Namespace pepeizq.Tiendas
                         Dim xml As New XmlSerializer(GetType(OriginPrecio1))
                         Dim precio1 As OriginPrecio1 = xml.Deserialize(stream)
 
-                        Dim precioRebajado As String = precio1.Precio2.Precio3.PrecioRebajado
-                        Dim precioBase As String = precio1.Precio2.Precio3.PrecioBase
+                        If Not precio1.Precio2.Precio3 Is Nothing Then
+                            Dim precioRebajado As String = precio1.Precio2.Precio3.PrecioRebajado
+                            Dim precioBase As String = precio1.Precio2.Precio3.PrecioBase
 
-                        Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                            Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                        precioRebajado = precioRebajado.Replace(".", ",")
-                        precioRebajado = precioRebajado + " €"
+                            precioRebajado = precioRebajado.Replace(".", ",")
+                            precioRebajado = precioRebajado + " €"
 
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                        Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                        Dim tituloBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
+                            Dim tituloBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                    tituloBool = True
+                                End If
+                                k += 1
+                            End While
+
+                            If juego.Descuento = Nothing Then
                                 tituloBool = True
+                            Else
+                                If juego.Descuento = "00%" Then
+                                    tituloBool = True
+                                End If
                             End If
-                            k += 1
-                        End While
 
-                        If juego.Descuento = Nothing Then
-                            tituloBool = True
-                        Else
-                            If juego.Descuento = "00%" Then
-                                tituloBool = True
+                            If tituloBool = False Then
+                                listaJuegos.Add(juego)
                             End If
-                        End If
-
-                        If tituloBool = False Then
-                            listaJuegos.Add(juego)
                         End If
                     End If
                 End If
@@ -135,9 +137,17 @@ Namespace pepeizq.Tiendas
                 "Origin.OFR.50.0000426", 'Battlefield Hardline
                 "Origin.OFR.50.0000846", 'Battlefield Hardline Ultimate Edition
                 "Origin.OFR.50.0002535", 'Burnout Paradise Remastered
+                "DR:77033800", 'Crysis 1    
+                "DR:105905500", 'Crysis 1 Warhead
+                "OFB-EAST:49464", 'Crysis 2    
                 "OFB-EAST:49459", 'Crysis 3
                 "Origin.OFR.50.0001104", 'Crysis Trilogy
+                "OFB-EAST:109547518", 'Dead Space
+                "DR:200493200", 'Dead Space 2
+                "OFB-EAST:50885", 'Dead Space 3
                 "OFB-EAST:51937", 'Dragon Age: Inquisition
+                "Origin.OFR.50.0001944", 'Fe
+                "Origin.OFR.50.0001895", 'FIFA 18
                 "Origin.OFR.50.0002738", 'FIFA 19
                 "Origin.OFR.50.0003450", 'FIFA 20
                 "Origin.OFR.50.0003560", 'FIFA 20 Ultimate Edition
@@ -172,8 +182,12 @@ Namespace pepeizq.Tiendas
                 "Origin.OFR.50.0003379", 'Madden NFL 20
                 "Origin.OFR.50.0003415", 'Madden NFL 20 Ultimate Edition
                 "Origin.OFR.50.0003380", 'Madden NFL 20 Superstar Edition
+                "DR:102427200", 'Mass Effect
+                "OFB-EAST:56694", 'Mass Effect 2
+                "DR:229644400", 'Mass Effect 3
                 "Origin.OFR.50.0001536", 'Mass Effect Andromeda
                 "DR:257846700", 'Mass Effect Trilogy
+                "DR:106999100", 'Mirror's Edge
                 "Origin.OFR.50.0001000", 'Mirror's Edge Catalyst
                 "Origin.OFR.50.0000810", 'Need for Speed
                 "Origin.OFR.50.0001009", 'Need for Speed Deluxe Edition
@@ -186,9 +200,13 @@ Namespace pepeizq.Tiendas
                 "OFB-EAST:60957", 'Need for Speed Shift 2
                 "DR:231088400", 'Need for Speed The Run
                 "DR:105868200", 'Need for Speed Undercover
+                "DR:235663500", 'Nox
+                "OFB-EAST:109550787", 'Plants vs Zombies Garden Warfare
                 "Origin.OFR.50.0000786", 'Plants vs Zombies Garden Warfare 2
                 "Origin.OFR.50.0001051", 'Plants vs Zombies Garden Warfare 2 Deluxe Edition
                 "Origin.OFR.50.0002405", 'Sea of Solitude
+                "OFB-EAST:48205", 'SimCity
+                "OFB-EAST:109547339", 'SimCity 4 Deluxe Edition
                 "Origin.OFR.50.0001211", 'STAR WARS Battlefront Ultimate Edition
                 "Origin.OFR.50.0001523", 'STAR WARS Battlefront II
                 "Origin.OFR.50.0003516", 'STAR WARS Jedi Fallen Order

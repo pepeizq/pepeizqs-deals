@@ -62,7 +62,7 @@
                 End If
             End If
 
-            contenidoEnlaces = contenidoEnlaces + "<a href=" + ChrW(34) + enlaceImagen + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) +
+            contenidoEnlaces = contenidoEnlaces + "<a href=" + ChrW(34) + Referidos(enlaceImagen) + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) +
                 "><img src=" + ChrW(34) + imagen + ChrW(34) + "/></a></div>"
 
             contenidoEnlaces = contenidoEnlaces + "<br/><ul>" + Environment.NewLine
@@ -101,10 +101,10 @@
                 End If
 
                 If juego.Tienda.NombreMostrar = "Amazon.es (Físico)" Then
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlace + "?tag=vayaa-21" + ChrW(34) + ">" +
+                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + Referidos(juego.Enlace) + ChrW(34) + ">" +
                        juego.Titulo + "</a> - " + juego.Precio + drm + "</li>" + Environment.NewLine
                 Else
-                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + juego.Enlace + ChrW(34) + ">" +
+                    contenidoEnlaces = contenidoEnlaces + "<li><a href=" + ChrW(34) + Referidos(juego.Enlace) + ChrW(34) + ">" +
                        descuento + juego.Titulo + "</a> - " + juego.Precio + drm +
                        "</li>" + Environment.NewLine
                 End If
@@ -164,8 +164,6 @@
                 tienda = "@GreenManGaming"
             ElseIf tienda = "Humble Store" Then
                 tienda = "@humblestore"
-            ElseIf tienda = "Microsoft Store" Then
-                tienda = "@MicrosoftStore"
             ElseIf tienda = "Steam" Then
                 tienda = "@steam_games"
             ElseIf tienda = "WinGameStore" Then
@@ -173,6 +171,32 @@
             End If
 
             Return tienda
+        End Function
+
+        Private Function Referidos(enlace As String)
+
+            If enlace.Contains("amazon.es") Then
+                If Not enlace.Contains("?") Then
+                    enlace = enlace + "?tag=vayaa-21"
+                Else
+                    enlace = enlace + "&tag=vayaa-21"
+                End If
+            ElseIf enlace.Contains("humblebundle.com") Then
+                enlace = enlace + "?partner=vayaansias"
+            ElseIf enlace.Contains("fanatical.com") Then
+                enlace = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
+            ElseIf enlace.Contains("indiegala.com") Then
+                enlace = enlace + "?ref=vayaansias"
+            ElseIf enlace.Contains("gamersgate.com") Then
+                enlace = enlace + "?caff=2385601"
+            ElseIf enlace.Contains("voidu.com") Then
+                enlace = "http://www.anrdoezrs.net/links/6454277/type/dlg/" + enlace
+            ElseIf enlace.Contains("gamesplanet.com") Then
+                enlace = enlace + "?ref=vayaansias"
+            End If
+
+            Return enlace
+
         End Function
 
     End Module

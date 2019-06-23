@@ -195,8 +195,14 @@ Module Ordenar
                     End If
                 Next
 
+                Dim enseñarImagen As Boolean = True
+
+                If listaGrids.Count > 500 Then
+                    enseñarImagen = False
+                End If
+
                 For Each juegoGrid In listaGrids
-                    lv.Items.Add(Interfaz.AñadirOfertaListado(juegoGrid))
+                    lv.Items.Add(Tiendas.AñadirOfertaListado(juegoGrid, enseñarImagen))
 
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                         If Not juegoGrid.Desarrolladores Is Nothing Then
@@ -220,7 +226,7 @@ Module Ordenar
 
                         If Not juegoGrid.Promocion Is Nothing Then
                             If Not juegoGrid.Promocion = Nothing Then
-                                Interfaz.AñadirOpcionSeleccion(juegoGrid.Promocion)
+                                Tiendas.AñadirOpcionSeleccion(juegoGrid.Promocion)
                             End If
                         End If
                     End If

@@ -74,7 +74,7 @@ Public NotInheritable Class MainPage
 
         Configuracion.Iniciar()
         MasCosas.Generar()
-        Interfaz.Generar()
+        Tiendas.Generar()
         Divisas.Generar()
 
         '--------------------------------------------------------
@@ -185,7 +185,7 @@ Public NotInheritable Class MainPage
             gridEditor.Visibility = Visibility.Collapsed
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-            Interfaz.IniciarTienda(tienda, True, False, False)
+            Tiendas.IniciarTienda(tienda, True, False, False)
         End If
 
     End Sub
@@ -198,7 +198,7 @@ Public NotInheritable Class MainPage
             If grid.Visibility = Visibility.Visible Then
                 Dim tienda As Tienda = grid.Tag
 
-                Interfaz.IniciarTienda(tienda, True, True, False)
+                Tiendas.IniciarTienda(tienda, True, True, False)
             End If
         Next
 
