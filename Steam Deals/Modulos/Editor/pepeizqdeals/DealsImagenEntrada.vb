@@ -83,7 +83,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Sub DosJuegosGenerar(juegos As List(Of Juego))
+        Public Sub DosJuegosGenerar(juegos As List(Of Juego), cantidadJuegos As Integer)
 
             Dim listaFinal As New List(Of Juego)
 
@@ -274,7 +274,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not publisher.LogoAncho = Nothing Then
                         tbCabeceraImagenDimensiones.Text = publisher.LogoAncho
                     Else
-                        tbCabeceraImagenDimensiones.Text = 500
+                        If tbCabeceraImagenDimensiones.Text = String.Empty Then
+                            tbCabeceraImagenDimensiones.Text = 500
+                        End If
                     End If
                 ElseIf tbCabeceraImagen.Text.Trim.Contains("Assets\LogosJuegos\") Then
                     Dim cbLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
@@ -284,7 +286,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not juego.LogoAncho = Nothing Then
                         tbCabeceraImagenDimensiones.Text = juego.LogoAncho
                     Else
-                        tbCabeceraImagenDimensiones.Text = 600
+                        If tbCabeceraImagenDimensiones.Text = String.Empty Then
+                            tbCabeceraImagenDimensiones.Text = 600
+                        End If
                     End If
                 Else
                     tbCabeceraImagenDimensiones.Text = 960
@@ -305,7 +309,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridJuegosRestantes As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos")
 
-            Dim juegosRestantes As Integer = juegos.Count
+            Dim juegosRestantes As Integer = cantidadJuegos
 
             If (juegosRestantes - 6) > 0 Then
                 gridJuegosRestantes.Visibility = Visibility.Visible
@@ -317,7 +321,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Else
                     tbJuegosRestantes.Text = "And Other " + (juegosRestantes - 6).ToString + " Deals"
                 End If
-
             Else
                 gridJuegosRestantes.Visibility = Visibility.Collapsed
             End If
@@ -358,9 +361,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTitulo.Visibility = Visibility.Collapsed
 
                 If tbCabeceraImagen.Text.Trim.Contains("Assets\LogosPublishers\") Then
-                    tbCabeceraImagenDimensiones.Text = 500
+                    If tbCabeceraImagenDimensiones.Text = String.Empty Then
+                        tbCabeceraImagenDimensiones.Text = 500
+                    End If
                 ElseIf tbCabeceraImagen.Text.Trim.Contains("Assets\LogosJuegos\") Then
-                    tbCabeceraImagenDimensiones.Text = 600
+                    If tbCabeceraImagenDimensiones.Text = String.Empty Then
+                        tbCabeceraImagenDimensiones.Text = 600
+                    End If
                 Else
                     tbCabeceraImagenDimensiones.Text = 960
                 End If

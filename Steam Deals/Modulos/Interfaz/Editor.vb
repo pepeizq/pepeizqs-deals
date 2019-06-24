@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Windows.Storage
+﻿Imports Windows.Storage
 
 Namespace pepeizq.Interfaz
     Module Editor
@@ -41,16 +40,38 @@ Namespace pepeizq.Interfaz
             Else
                 If lv.Items.Count > 0 Then
                     Dim listaFinal As New List(Of Juego)
+                    Dim listaAnalisis As New List(Of Juego)
 
                     For Each item In lv.Items
-                        Dim itemGrid As Grid = item
-                        Dim sp As StackPanel = itemGrid.Children(0)
+                        Dim grid As Grid = item
+                        Dim sp As StackPanel = grid.Children(0)
                         Dim cb As CheckBox = sp.Children(0)
 
                         If cb.IsChecked = True Then
-                            listaFinal.Add(itemGrid.Tag)
+                            listaFinal.Add(grid.Tag)
+                        End If
+
+                        Dim sp2 As StackPanel = grid.Children(1)
+                        Dim cbAnalisis As CheckBox = sp2.Children(0)
+
+                        If cbAnalisis.IsChecked = True Then
+                            listaAnalisis.Add(grid.Tag)
                         End If
                     Next
+
+                    If listaAnalisis.Count = 0 Then
+                        SeñalarFavoritos(lv)
+
+                        For Each item In lv.Items
+                            Dim grid As Grid = item
+                            Dim sp2 As StackPanel = grid.Children(1)
+                            Dim cbAnalisis As CheckBox = sp2.Children(0)
+
+                            If cbAnalisis.IsChecked = True Then
+                                listaAnalisis.Add(grid.Tag)
+                            End If
+                        Next
+                    End If
 
                     If listaFinal.Count > 0 Then
                         listaFinal.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
@@ -92,7 +113,7 @@ Namespace pepeizq.Interfaz
 
                             Pestañaspepeizq.Generar()
                             pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
-                            pepeizq.Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, cantidadJuegos)
+                            pepeizq.Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, listaAnalisis, cantidadJuegos)
                             pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
                             pepeizq.Editor.pepeizqdeals.Free.Cargar()
                             pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()

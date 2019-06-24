@@ -202,7 +202,7 @@ Module Ordenar
                 End If
 
                 For Each juegoGrid In listaGrids
-                    lv.Items.Add(Tiendas.AñadirOfertaListado(juegoGrid, enseñarImagen))
+                    lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
 
                     If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
                         If Not juegoGrid.Desarrolladores Is Nothing Then
@@ -231,6 +231,8 @@ Module Ordenar
                         End If
                     End If
                 Next
+
+                Tiendas.SeñalarFavoritos(lv)
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then

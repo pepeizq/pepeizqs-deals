@@ -214,6 +214,8 @@ Public NotInheritable Class MainPage
                     Dim itemGrid As Grid = itemlv
                     Analisis.FiltrarSeleccion(itemGrid)
                 Next
+
+                Tiendas.SeñalarFavoritos(lv)
             End If
         Next
 
@@ -232,6 +234,8 @@ Public NotInheritable Class MainPage
 
                     cb.IsChecked = False
                 Next
+
+                Tiendas.SeñalarFavoritos(lv)
             End If
         Next
 
@@ -406,9 +410,10 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
 
-        pepeizq.Editor.pepeizqdeals.Iconos.GenerarTiendas()
-        pepeizq.Editor.pepeizqdeals.Iconos.GenerarReviews()
-        pepeizq.Editor.pepeizqdeals.Iconos.GenerarDRMs()
+        pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosTiendas()
+        pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosReviews()
+        pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosDRMs()
+        pepeizq.Editor.pepeizqdeals.Assets.GenerarLogosRedditTiendas()
 
     End Sub
 

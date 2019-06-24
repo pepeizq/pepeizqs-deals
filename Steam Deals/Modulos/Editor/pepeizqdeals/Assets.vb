@@ -5,41 +5,42 @@ Imports Windows.Storage.Pickers
 Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
-    Module Iconos
+    Module Assets
 
         Public Function ListaTiendas()
-            Dim lista As New List(Of Clases.Icono) From {
-                New Clases.Icono("Steam", "Assets/drm_steam.png", "#475166", Nothing, 32, 32),
-                New Clases.Icono("Humble", "Assets/Tiendas/humble.ico", "#ea9192", Nothing, 32, 32),
-                New Clases.Icono("GamersGate", "Assets/Tiendas/gamersgate.ico", "#196176", Nothing, 32, 32),
-                New Clases.Icono("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "#838588", Nothing, 32, 32),
-                New Clases.Icono("GOG", "Assets/Tiendas/gog.ico", "#c957e9", Nothing, 32, 32),
-                New Clases.Icono("Fanatical", "Assets/Tiendas/fanatical.ico", "#ffcf89", Nothing, 32, 32),
-                New Clases.Icono("WinGameStore", "Assets/Tiendas/wingamestore.png", "#4a92d7", Nothing, 32, 32),
-                New Clases.Icono("Chrono", "Assets/Tiendas/chrono.png", "#855baa", Nothing, 32, 32),
-                New Clases.Icono("MicrosoftStore", "Assets/Tiendas/microsoft.ico", "#333333", Nothing, 32, 32),
-                New Clases.Icono("SilaGames", "Assets/Tiendas/silagames.ico", "#929cac", Nothing, 32, 32),
-                New Clases.Icono("Voidu", "Assets/Tiendas/voidu.ico", "#fbd3b6", Nothing, 32, 32),
-                New Clases.Icono("IndieGala", "Assets/Tiendas/indiegala.ico", "#ffccd4", Nothing, 32, 32),
-                New Clases.Icono("AmazonCom", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32),
-                New Clases.Icono("AmazonEs2", "Assets/Tiendas/amazon.png", "#ebebeb", Nothing, 32, 32),
-                New Clases.Icono("Twitch", "Assets/Tiendas/twitch.png", "#6441a4", Nothing, 32, 32),
-                New Clases.Icono("GreenManGaming", "Assets/Tiendas/gmg.ico", "#97ff9a", Nothing, 32, 32),
-                New Clases.Icono("EpicGamesStore", "Assets/Tiendas/epicgames.ico", "#E7E7E7", Nothing, 32, 32),
-                New Clases.Icono("Yuplay", "Assets/Tiendas/yuplay.ico", "#fff0c4", Nothing, 32, 32)
+            Dim lista As New List(Of Clases.Assets) From {
+                New Clases.Assets("Steam", "Assets/drm_steam.png", "Assets/Tiendas/steam2.png", "#475166", "#2e4460", Nothing, 32, 32),
+                New Clases.Assets("Humble", "Assets/Tiendas/humble.ico", "Assets/Tiendas/humble2.png", "#ea9192", "#cb2729", Nothing, 32, 32),
+                New Clases.Assets("GamersGate", "Assets/Tiendas/gamersgate.ico", "Assets/Tiendas/gamersgate2.png", "#196176", "#196176", Nothing, 32, 32),
+                New Clases.Assets("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", "#838588", "#323333", Nothing, 32, 32),
+                New Clases.Assets("GOG", "Assets/Tiendas/gog.ico", "Assets/Tiendas/gog2.png", "#c957e9", "#7f3694", Nothing, 32, 32),
+                New Clases.Assets("Fanatical", "Assets/Tiendas/fanatical.ico", "Assets/Tiendas/fanatical2.png", "#ffcf89", "#8a5200", Nothing, 32, 32),
+                New Clases.Assets("WinGameStore", "Assets/Tiendas/wingamestore.png", "Assets/Tiendas/wingamestore2.png", "#4a92d7", "#265c92", Nothing, 32, 32),
+                New Clases.Assets("Chrono", "Assets/Tiendas/chrono.png", "Assets/Tiendas/chrono2.png", "#855baa", "#322a46", Nothing, 32, 32),
+                New Clases.Assets("MicrosoftStore", "Assets/Tiendas/microsoft.ico", "Assets/Tiendas/microsoftstore2.png", "#333333", "#333333", Nothing, 32, 32),
+                New Clases.Assets("SilaGames", "Assets/Tiendas/silagames.ico", "Assets/Tiendas/silagames2.png", "#929cac", "#929cac", Nothing, 32, 32),
+                New Clases.Assets("Voidu", "Assets/Tiendas/voidu.ico", "Assets/Tiendas/voidu2.png", "#fbd3b6", "#f37720", Nothing, 32, 32),
+                New Clases.Assets("IndieGala", "Assets/Tiendas/indiegala.ico", "Assets/Tiendas/indiegala2.png", "#ffccd4", "#620d11", Nothing, 32, 32),
+                New Clases.Assets("AmazonCom", "Assets/Tiendas/amazon.png", "Assets/Tiendas/amazon2.png", "#ebebeb", "#585858", Nothing, 32, 32),
+                New Clases.Assets("AmazonEs2", "Assets/Tiendas/amazon.png", "Assets/Tiendas/amazon2.png", "#ebebeb", "#585858", Nothing, 32, 32),
+                New Clases.Assets("Twitch", "Assets/Tiendas/twitch.png", Nothing, "#6441a4", Nothing, Nothing, 32, 32),
+                New Clases.Assets("GreenManGaming", "Assets/Tiendas/gmg.ico", "Assets/Tiendas/gmg2.png", "#97ff9a", "#016603", Nothing, 32, 32),
+                New Clases.Assets("EpicGamesStore", "Assets/Tiendas/epicgames.ico", Nothing, "#E7E7E7", Nothing, Nothing, 32, 32),
+                New Clases.Assets("Yuplay", "Assets/Tiendas/yuplay.ico", "Assets/Tiendas/yuplay2.png", "#fff0c4", "#8f7e0b", Nothing, 32, 32),
+                New Clases.Assets("Origin", "Assets/drm_origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32)
             }
 
             Return lista
         End Function
 
-        Public Sub GenerarTiendas()
+        Public Sub GenerarIconosTiendas()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosTiendas")
 
-            Dim lista As List(Of Clases.Icono) = ListaTiendas()
+            Dim lista As List(Of Clases.Assets) = ListaTiendas()
 
             'New Clases.Icono("Windows", "https://www.iconsdb.com/icons/download/white/os-windows8-16.ico", "#0078d7", Nothing, 32, 32),
             'New Clases.Icono("Xbox", "https://www.iconsdb.com/icons/download/white/consoles-xbox-16.ico", "#008000", Nothing, 32, 32),
@@ -57,7 +58,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim grid As New Grid With {
                     .Padding = New Thickness(8, 8, 8, 8),
-                    .Background = New SolidColorBrush(tienda.Fondo.ToColor)
+                    .Background = New SolidColorBrush(tienda.FondoClaro.ToColor)
                 }
 
                 grid.Children.Add(imagenIcono)
@@ -78,7 +79,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Sub GenerarReviews()
+        Public Sub GenerarIconosReviews()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -123,7 +124,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 boton.Content = sp
-                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 32, 32)
+                boton.Tag = New Clases.Assets(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
 
                 AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
@@ -134,7 +135,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Sub GenerarDRMs()
+        Public Sub GenerarIconosDRMs()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -199,7 +200,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 boton.Content = sp
-                boton.Tag = New Clases.Icono(titulo, Nothing, Nothing, sp, 32, 32)
+                boton.Tag = New Clases.Assets(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
 
                 AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
@@ -210,10 +211,59 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Public Sub GenerarLogosRedditTiendas()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsLogosRedditTiendas")
+
+            Dim lista As List(Of Clases.Assets) = ListaTiendas()
+
+            For Each tienda In lista
+                If Not tienda.Logo = Nothing Then
+                    If tienda.Logo.Trim.Length > 0 Then
+                        tienda.Nombre = "reddit_" + tienda.Nombre.ToLower
+
+                        Dim imagenIcono As New ImageEx With {
+                            .Stretch = Stretch.Uniform,
+                            .IsCacheEnabled = True,
+                            .Source = tienda.Logo
+                        }
+
+                        Dim grid As New Grid With {
+                            .Padding = New Thickness(15, 20, 15, 20),
+                            .Background = New SolidColorBrush(tienda.FondoOscuro.ToColor),
+                            .Width = 256,
+                            .Height = 256
+                        }
+
+                        grid.Children.Add(imagenIcono)
+
+                        Dim boton As New Button With {
+                            .BorderThickness = New Thickness(0, 0, 0, 0),
+                            .Background = New SolidColorBrush(Colors.Transparent)
+                        }
+
+                        tienda.Objeto = grid
+                        tienda.ObjetoAlto = 256
+                        tienda.ObjetoAncho = 256
+                        boton.Content = grid
+                        boton.Tag = tienda
+
+                        AddHandler boton.Click, AddressOf GenerarFicheroImagen
+
+                        gv.Items.Add(boton)
+                    End If
+                End If
+            Next
+
+        End Sub
+
         Private Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
-            Dim cosas As Clases.Icono = boton.Tag
+            Dim cosas As Clases.Assets = boton.Tag
 
             Dim ficheroImagen As New List(Of String) From {
                 ".png"

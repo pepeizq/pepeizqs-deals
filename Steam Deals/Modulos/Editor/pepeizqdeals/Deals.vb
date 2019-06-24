@@ -5,7 +5,7 @@ Imports Windows.Storage
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
 
-        Public Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
+        Public Sub GenerarDatos(listaFinal As List(Of Juego), listaAnalisis As List(Of Juego), cantidadJuegos As String)
 
             BloquearControles(False)
             Desarrolladores.GenerarDatos()
@@ -94,8 +94,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Dim listaDescuento As New List(Of String)
-            Dim listaAnalisis As New List(Of Juego)
-
             Dim precioFinal As String = String.Empty
 
             If listaFinal.Count = 1 Then
@@ -161,22 +159,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     listaDescuento.Add(item.Descuento)
 
-                    Dim añadirAnalisis As Boolean = True
-
-                    If listaAnalisis.Count > 0 And listaFinal.Count > 12 Then
-                        For Each juegoAnalisis In listaAnalisis
-                            If Not item.Analisis Is Nothing And Not juegoAnalisis.Analisis Is Nothing Then
-                                If item.Analisis.Enlace = juegoAnalisis.Analisis.Enlace Then
-                                    añadirAnalisis = False
-                                End If
-                            End If
-                        Next
-                    End If
-
-                    If añadirAnalisis = True Then
-                        listaAnalisis.Add(item)
-                    End If
-
                     item.Precio = item.Precio.Replace(".", ",")
                     item.Precio = item.Precio.Replace("€", Nothing)
                     item.Precio = item.Precio.Trim
@@ -215,35 +197,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda.NombreMostrar
                 tbEnlace.Text = String.Empty
-
-                listaAnalisis.Sort(Function(x As Juego, y As Juego)
-
-                                       Dim xAnalisisCantidad As Integer = 0
-
-                                       If Not x.Analisis Is Nothing Then
-                                           xAnalisisCantidad = x.Analisis.Cantidad.Replace(",", Nothing)
-                                       End If
-
-                                       Dim yAnalisisCantidad As Integer = 0
-
-                                       If Not y.Analisis Is Nothing Then
-                                           yAnalisisCantidad = y.Analisis.Cantidad.Replace(",", Nothing)
-                                       End If
-
-                                       Dim resultado As Integer = yAnalisisCantidad.CompareTo(xAnalisisCantidad)
-
-                                       If xAnalisisCantidad = yAnalisisCantidad Then
-                                           If resultado = 0 Then
-                                               resultado = y.Titulo.CompareTo(x.Titulo)
-                                           End If
-                                       Else
-                                           If resultado = 0 Then
-                                               resultado = x.Titulo.CompareTo(y.Titulo)
-                                           End If
-                                       End If
-
-                                       Return resultado
-                                   End Function)
 
                 Dim complementoTitulo As String = LimpiarTitulo(listaAnalisis(0).Titulo) + " (" + listaAnalisis(0).Descuento + ")"
 
@@ -306,7 +259,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 DealsImagenEntrada.UnJuegoGenerar(tbImagen.Text, listaFinal(0), precioFinal)
             Else
-                DealsImagenEntrada.DosJuegosGenerar(listaAnalisis)
+                DealsImagenEntrada.DosJuegosGenerar(listaAnalisis, listaFinal.Count)
             End If
 
             AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
@@ -369,7 +322,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             AddHandler botonCopiarForo.Click, AddressOf CopiarForo
 
             listaDescuento.Clear()
-            listaAnalisis.Clear()
 
             BloquearControles(True)
 

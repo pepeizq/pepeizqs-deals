@@ -158,6 +158,8 @@
                             <ComboBox x:Name="cbFiltradoEditorAnalisis" VerticalAlignment="Center" Margin="10,0,0,0"/>
                             <ComboBox x:Name="cbFiltradoEditorDesarrolladores" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <TextBlock x:Name="tbNumOfertasCargadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            <TextBlock x:Name="tbNumOfertasSeleccionadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            <TextBlock x:Name="tbNumFavoritosSeleccionados2" VerticalAlignment="Center" Margin="20,0,0,0"/>
                         </StackPanel> 
                     </Grid>
 
@@ -318,7 +320,7 @@
                             <StackPanel Orientation="Vertical">
                                 <Button x:Name="botonEditorpepeizqdealsIconos" Background="{StaticResource BrushPrimario}" Padding="20,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
-                                        <TextBlock x:Uid="Icons" Foreground="White" FontSize="16"/>
+                                        <TextBlock Text="Assets" Foreground="White" FontSize="16"/>
                                     </Button.Content>
                                 </Button>
 
@@ -1104,6 +1106,8 @@
                                     <GridView x:Name="gvEditorpepeizqdealsIconosReviews" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
                                     <GridView x:Name="gvEditorpepeizqdealsIconosDRMs" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+
+                                    <GridView x:Name="gvEditorpepeizqdealsLogosRedditTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
                                 </StackPanel>
                             </ScrollViewer>
 

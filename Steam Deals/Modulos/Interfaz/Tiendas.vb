@@ -187,8 +187,10 @@ Module Tiendas
                 End If
 
                 For Each juego In listaJuegos
-                    lvTienda.Items.Add(AñadirOfertaListado(juego, enseñarImagen))
+                    lvTienda.Items.Add(AñadirOfertaListado(lvTienda,juego, enseñarImagen))
                 Next
+
+                Tiendas.SeñalarFavoritos(lvTienda)
             End If
         Next
 
@@ -618,7 +620,7 @@ Module Tiendas
 
     End Sub
 
-    Public Function AñadirOfertaListado(juego As Juego, enseñarImagen As Boolean)
+    Public Function AñadirOfertaListado(lv As ListView, juego As Juego, enseñarImagen As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -674,7 +676,7 @@ Module Tiendas
         If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
             Dim cb As New CheckBox With {
                 .Margin = New Thickness(10, 0, 10, 0),
-                .Tag = juego,
+                .Tag = grid,
                 .MinWidth = 20,
                 .IsHitTestVisible = False
             }
@@ -739,29 +741,30 @@ Module Tiendas
             Dim imagenDRM As New ImageEx
 
             If juego.DRM.ToLower.Contains("steam") Then
-                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_steam.png"))
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_steam2.png"))
             ElseIf juego.DRM.ToLower.Contains("uplay") Then
-                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_uplay.png"))
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_uplay2.png"))
             ElseIf juego.DRM.ToLower.Contains("origin") Then
-                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_origin.png"))
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_origin2.png"))
             ElseIf juego.DRM.ToLower.Contains("gog") Then
-                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_gog.ico"))
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_gog2.png"))
+            ElseIf juego.DRM.ToLower.Contains("battle") Then
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_battlenet2.png"))
+            ElseIf juego.DRM.ToLower.Contains("bethesda") Then
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_bethesda2.png"))
+            ElseIf juego.DRM.ToLower.Contains("epic") Then
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_epic2.jpg"))
+            ElseIf juego.DRM.ToLower.Contains("microsoft") Then
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_microsoft2.png"))
             End If
 
             If Not imagenDRM.Source Is Nothing Then
-                imagenDRM.Width = 16
-                imagenDRM.Height = 16
+                imagenDRM.Width = 32
+                imagenDRM.Height = 32
                 imagenDRM.IsCacheEnabled = True
+                imagenDRM.Margin = New Thickness(0, 0, 15, 0)
 
-                Dim fondoDRM As New Grid With {
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Padding = New Thickness(6, 0, 6, 0),
-                    .Margin = New Thickness(0, 0, 20, 0)
-                }
-
-                fondoDRM.Children.Add(imagenDRM)
-                sp3.Children.Add(fondoDRM)
+                sp3.Children.Add(imagenDRM)
             End If
         End If
 
@@ -771,7 +774,8 @@ Module Tiendas
                 .Padding = New Thickness(4, 0, 4, 0),
                 .Height = 26,
                 .Background = New SolidColorBrush(Colors.SlateGray),
-                .Margin = New Thickness(0, 0, 20, 0)
+                .Margin = New Thickness(0, 0, 20, 0),
+                .VerticalAlignment = VerticalAlignment.Center
             }
 
             Dim imagenAnalisis As New ImageEx With {
@@ -816,7 +820,8 @@ Module Tiendas
         If ApplicationData.Current.LocalSettings.Values("editor2") = False Then
             If Not juego.Sistemas Is Nothing Then
                 Dim fondoSistemas As New StackPanel With {
-                    .Orientation = Orientation.Horizontal
+                    .Orientation = Orientation.Horizontal,
+                    .VerticalAlignment = VerticalAlignment.Center
                 }
 
                 If juego.Sistemas.Windows = True Then
@@ -873,7 +878,8 @@ Module Tiendas
                     .Padding = New Thickness(4, 0, 4, 0),
                     .Height = 26,
                     .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(0, 0, 20, 0)
+                    .Margin = New Thickness(0, 0, 20, 0),
+                    .VerticalAlignment = VerticalAlignment.Center
                 }
 
                 Dim tbFecha As New TextBlock With {
@@ -940,7 +946,8 @@ Module Tiendas
                     .Padding = New Thickness(4, 0, 4, 0),
                     .Height = 26,
                     .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(0, 0, 20, 0)
+                    .Margin = New Thickness(0, 0, 20, 0),
+                    .VerticalAlignment = VerticalAlignment.Center
                 }
 
                 Dim desarrolladores As String = Nothing
@@ -996,6 +1003,22 @@ Module Tiendas
 
         sp4.SetValue(Grid.ColumnProperty, 2)
 
+        Dim cbAnalisis As New CheckBox With {
+            .Visibility = Visibility.Collapsed,
+            .VerticalAlignment = VerticalAlignment.Center,
+            .MinWidth = 30,
+            .Tag = lv
+        }
+
+        AddHandler cbAnalisis.Checked, AddressOf CbAnalisisChecked
+        AddHandler cbAnalisis.Unchecked, AddressOf CbAnalisisUnChecked
+        AddHandler cbAnalisis.PointerEntered, AddressOf UsuarioEntraBoton
+        AddHandler cbAnalisis.PointerExited, AddressOf UsuarioSaleBoton
+
+        sp4.Children.Add(cbAnalisis)
+
+        '-----------------------------------------------
+
         If Not juego.Descuento = Nothing Then
             Dim fondoDescuento As New Grid With {
                 .Padding = New Thickness(6, 0, 6, 0),
@@ -1030,7 +1053,7 @@ Module Tiendas
         If Not precio = String.Empty Then
             If precio.Contains("€") Then
                 precio = precio.Replace("€", Nothing)
-                precio = precio.Replace(",", ".")
+                precio = precio.Replace(".", ",")
                 precio = precio.Trim
                 precio = precio + " €"
             End If
@@ -1055,12 +1078,93 @@ Module Tiendas
 
     End Function
 
+    Public Sub SeñalarFavoritos(lv As ListView)
+
+        Dim listaAnalisis As New List(Of Juego)
+
+        For Each grid As Grid In lv.Items
+            Dim juego As Juego = grid.Tag
+            Dim sp As StackPanel = grid.Children(0)
+            Dim cb As CheckBox = sp.Children(0)
+
+            If cb.IsChecked = True Then
+                Dim añadirAnalisis As Boolean = True
+
+                If listaAnalisis.Count > 0 Then
+                    For Each juegoAnalisis In listaAnalisis
+                        If Not juego.Analisis Is Nothing And Not juegoAnalisis.Analisis Is Nothing Then
+                            If juego.Analisis.Enlace = juegoAnalisis.Analisis.Enlace Then
+                                añadirAnalisis = False
+                            End If
+                        End If
+                    Next
+                End If
+
+                If añadirAnalisis = True Then
+                    listaAnalisis.Add(juego)
+                End If
+            End If
+        Next
+
+        If listaAnalisis.Count > 0 Then
+            listaAnalisis.Sort(Function(x As Juego, y As Juego)
+
+                                   Dim xAnalisisCantidad As Integer = 0
+
+                                   If Not x.Analisis Is Nothing Then
+                                       xAnalisisCantidad = x.Analisis.Cantidad.Replace(",", Nothing)
+                                   End If
+
+                                   Dim yAnalisisCantidad As Integer = 0
+
+                                   If Not y.Analisis Is Nothing Then
+                                       yAnalisisCantidad = y.Analisis.Cantidad.Replace(",", Nothing)
+                                   End If
+
+                                   Dim resultado As Integer = yAnalisisCantidad.CompareTo(xAnalisisCantidad)
+
+                                   If xAnalisisCantidad = yAnalisisCantidad Then
+                                       If resultado = 0 Then
+                                           resultado = y.Titulo.CompareTo(x.Titulo)
+                                       End If
+                                   Else
+                                       If resultado = 0 Then
+                                           resultado = x.Titulo.CompareTo(y.Titulo)
+                                       End If
+                                   End If
+
+                                   Return resultado
+                               End Function)
+        End If
+
+        For Each grid As Grid In lv.Items
+            Dim juegoGrid As Juego = grid.Tag
+
+            Dim i As Integer = 0
+            While i < listaAnalisis.Count
+                If juegoGrid.Enlace = listaAnalisis(i).Enlace Then
+                    Dim sp As StackPanel = grid.Children(1)
+                    Dim cbAnalisis As CheckBox = sp.Children(0)
+
+                    If i < 6 Then
+                        cbAnalisis.IsChecked = True
+                    Else
+                        cbAnalisis.IsChecked = False
+                    End If
+                End If
+                i += 1
+            End While
+        Next
+
+    End Sub
+
     Private Sub CbChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
         Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
+        Dim tbSeleccionadas2 As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas2")
         Dim seleccionadas As Integer = 0
 
         If Not tbSeleccionadas.Text = Nothing Then
@@ -1069,6 +1173,13 @@ Module Tiendas
 
         seleccionadas = seleccionadas + 1
         tbSeleccionadas.Text = seleccionadas
+        tbSeleccionadas2.Text = seleccionadas
+
+        Dim cb As CheckBox = sender
+        Dim grid As Grid = cb.Tag
+        Dim sp As StackPanel = grid.Children(1)
+        Dim cbAnalisis As CheckBox = sp.Children(0)
+        cbAnalisis.Visibility = Visibility.Visible
 
     End Sub
 
@@ -1078,6 +1189,7 @@ Module Tiendas
         Dim pagina As Page = frame.Content
 
         Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
+        Dim tbSeleccionadas2 As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas2")
 
         If Not tbSeleccionadas.Text = Nothing Then
             Dim seleccionadas As Integer = tbSeleccionadas.Text
@@ -1086,8 +1198,55 @@ Module Tiendas
 
             If seleccionadas = 0 Then
                 tbSeleccionadas.Text = String.Empty
+                tbSeleccionadas2.Text = String.Empty
             Else
                 tbSeleccionadas.Text = seleccionadas
+                tbSeleccionadas2.Text = seleccionadas
+            End If
+        End If
+
+        Dim cb As CheckBox = sender
+        Dim grid As Grid = cb.Tag
+        Dim sp As StackPanel = grid.Children(1)
+        Dim cbAnalisis As CheckBox = sp.Children(0)
+        cbAnalisis.Visibility = Visibility.Collapsed
+        cbAnalisis.IsChecked = False
+
+    End Sub
+
+    Private Sub CbAnalisisChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim tbSeleccionados As TextBlock = pagina.FindName("tbNumFavoritosSeleccionados2")
+        Dim seleccionados As Integer = 0
+
+        If Not tbSeleccionados.Text = Nothing Then
+            seleccionados = tbSeleccionados.Text
+        End If
+
+        seleccionados = seleccionados + 1
+        tbSeleccionados.Text = seleccionados
+
+    End Sub
+
+    Private Sub CbAnalisisUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim tbSeleccionados As TextBlock = pagina.FindName("tbNumFavoritosSeleccionados2")
+
+        If Not tbSeleccionados.Text = Nothing Then
+            Dim seleccionados As Integer = tbSeleccionados.Text
+
+            seleccionados = seleccionados - 1
+
+            If seleccionados = 0 Then
+                tbSeleccionados.Text = String.Empty
+            Else
+                tbSeleccionados.Text = seleccionados
             End If
         End If
 
