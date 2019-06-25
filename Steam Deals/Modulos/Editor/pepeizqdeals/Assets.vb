@@ -23,9 +23,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("IndieGala", "Assets/Tiendas/indiegala.ico", "Assets/Tiendas/indiegala2.png", "#ffccd4", "#620d11", Nothing, 32, 32),
                 New Clases.Assets("AmazonCom", "Assets/Tiendas/amazon.png", "Assets/Tiendas/amazon2.png", "#ebebeb", "#585858", Nothing, 32, 32),
                 New Clases.Assets("AmazonEs2", "Assets/Tiendas/amazon.png", "Assets/Tiendas/amazon2.png", "#ebebeb", "#585858", Nothing, 32, 32),
-                New Clases.Assets("Twitch", "Assets/Tiendas/twitch.png", Nothing, "#6441a4", Nothing, Nothing, 32, 32),
+                New Clases.Assets("Twitch", "Assets/Tiendas/twitch.png", Nothing, "#6441a4", "#6441a4", Nothing, 32, 32),
                 New Clases.Assets("GreenManGaming", "Assets/Tiendas/gmg.ico", "Assets/Tiendas/gmg2.png", "#97ff9a", "#016603", Nothing, 32, 32),
-                New Clases.Assets("EpicGamesStore", "Assets/Tiendas/epicgames.ico", Nothing, "#E7E7E7", Nothing, Nothing, 32, 32),
+                New Clases.Assets("EpicGamesStore", "Assets/Tiendas/epicgames.ico", Nothing, "#E7E7E7", "#E7E7E7", Nothing, 32, 32),
                 New Clases.Assets("Yuplay", "Assets/Tiendas/yuplay.ico", "Assets/Tiendas/yuplay2.png", "#fff0c4", "#8f7e0b", Nothing, 32, 32),
                 New Clases.Assets("Origin", "Assets/drm_origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32)
             }

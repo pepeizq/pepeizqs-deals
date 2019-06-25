@@ -355,9 +355,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
             tbIDs.IsEnabled = estado
 
-            Dim gvIDs As GridView = pagina.FindName("gvEditorpepeizqdealsAnuncios")
-            gvIDs.IsEnabled = estado
-
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
             fechaPicker.IsEnabled = estado
 
