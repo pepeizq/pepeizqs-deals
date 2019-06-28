@@ -73,6 +73,7 @@ Namespace pepeizq.Tiendas
                 If listaJuegosGMG.Juegos.Count > 0 Then
                     For Each juegoGMG In listaJuegosGMG.Juegos
                         Dim titulo As String = WebUtility.HtmlDecode(juegoGMG.Titulo)
+                        titulo = titulo.Replace("(MAC)", Nothing)
                         titulo = titulo.Trim
 
                         Dim enlace As String = juegoGMG.Enlace.Trim

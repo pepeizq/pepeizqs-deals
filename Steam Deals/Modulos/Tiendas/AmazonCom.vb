@@ -235,11 +235,11 @@ Namespace pepeizq.Tiendas
                                 tituloBool = True
                             End If
 
-                            If juego.Titulo.Contains("Xbox One Standard Edition") Then
+                            If juego.Titulo.Contains("Xbox One") Then
                                 tituloBool = True
-                            ElseIf juego.Titulo.Contains("Xbox One [Digital Code]") Then
+                            ElseIf juego.Titulo.Contains("PlayStation 3") Then
                                 tituloBool = True
-                            ElseIf juego.Titulo.Contains("PlayStation 4 Standard Edition") Then
+                            ElseIf juego.Titulo.Contains("PlayStation 4") Then
                                 tituloBool = True
                             End If
                         End If

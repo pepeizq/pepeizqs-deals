@@ -12,7 +12,7 @@ Module Tiendas
     Dim humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico", 2, Nothing, 6, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", "Assets/Tiendas/humble2.png", 280, 155)
     Dim gamesplanetT As New Tienda("GamesPlanet", "GamesPlanet", "Assets/Tiendas/gamesplanet.png", 3, Nothing, 8, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", 380, 155)
     Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4, Nothing, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", "Assets/Tiendas/fanatical2.png", 350, 155)
-    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5, Nothing, 9, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png", "Assets/Tiendas/gog2.png", 350, 155)
+    Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5, Nothing, 9, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png", "Assets/Tiendas/gog2.png", 300, 60)
     Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6, Nothing, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", "Assets/Tiendas/wingamestore2.png", 350, 155)
     Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7, Nothing, 17, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png", "Assets/Tiendas/silagames2.png", 350, 155)
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8, Nothing, Nothing, Nothing, Nothing, 350, 155)
