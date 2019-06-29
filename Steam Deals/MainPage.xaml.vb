@@ -408,7 +408,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsGenerarIconos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarIconos.Click
+    Private Sub BotonEditorpepeizqdealsGenerarAssets_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarAssets.Click
 
         pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosTiendas()
         pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosReviews()
@@ -458,7 +458,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub BotonEditorpepeizqdealsGenerarRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarRSS.Click
+    Private Sub BotonEditorpepeizqdealsGenerarRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarRSS.Click
 
         pepeizq.Editor.pepeizqdeals.RedesSociales.RSS.Generar()
 

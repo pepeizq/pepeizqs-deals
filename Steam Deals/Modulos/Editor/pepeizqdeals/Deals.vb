@@ -315,6 +315,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             AddHandler botonCopiarForo.Click, AddressOf CopiarForo
 
             listaDescuento.Clear()
+            listaAnalisis.Clear()
 
             BloquearControles(True)
 

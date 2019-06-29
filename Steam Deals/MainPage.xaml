@@ -1093,7 +1093,7 @@
 
                             <ScrollViewer x:Name="svEditorpepeizqdealsIconos" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
                                 <StackPanel Orientation="Vertical">
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarIconos" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonEditorpepeizqdealsGenerarAssets" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <fa:FontAwesome Icon="Refresh" Foreground="White"/>
