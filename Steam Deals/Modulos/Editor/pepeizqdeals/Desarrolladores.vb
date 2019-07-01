@@ -557,7 +557,7 @@
                 New Clases.Desarrolladores("Squid In A Box", "@squidinabox", Nothing, Nothing),
                 New Clases.Desarrolladores("SRRIVERS", "@enigmaprison", Nothing, Nothing),
                 New Clases.Desarrolladores("Stainless Games", "@Stainless_Games", Nothing, Nothing),
-                New Clases.Desarrolladores("Stardock", "@Stardock", "Assets\LogosPublishers\stardock.png", Nothing),
+                New Clases.Desarrolladores("Stardock", "@Stardock", "Assets\LogosPublishers\stardock.png", 450),
                 New Clases.Desarrolladores("Steven Colling", "@StevenColling", Nothing, Nothing),
                 New Clases.Desarrolladores("Stromsky", "@Stromsky2", Nothing, Nothing),
                 New Clases.Desarrolladores("Studio Bean", "@OneMrBean", Nothing, Nothing),

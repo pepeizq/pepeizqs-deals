@@ -3,6 +3,14 @@
 
         Public Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
 
+            listaFinal.Sort(Function(x As Juego, y As Juego)
+                                Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                If resultado = 0 Then
+                                    resultado = x.Titulo.CompareTo(y.Titulo)
+                                End If
+                                Return resultado
+                            End Function)
+
             Dim recursos As New Resources.ResourceLoader()
 
             Dim frame As Frame = Window.Current.Content
