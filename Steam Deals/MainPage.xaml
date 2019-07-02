@@ -876,7 +876,7 @@
 
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="*"/>
                                                             </Grid.RowDefinitions>
 
                                                             <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">

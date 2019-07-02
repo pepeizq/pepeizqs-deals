@@ -201,7 +201,7 @@
                 New Clases.Desarrolladores("Deadpan Games", "@onegamewill", Nothing, Nothing),
                 New Clases.Desarrolladores("DECK13 Interactive", "@Deck13_de", Nothing, Nothing),
                 New Clases.Desarrolladores("Deckpoint Studio", "@LucklessSeven", Nothing, Nothing),
-                New Clases.Desarrolladores("Deep Silver", "@deepsilver", "Assets\LogosPublishers\deepsilver.png", 250),
+                New Clases.Desarrolladores("Deep Silver", "@deepsilver", "Assets\LogosPublishers\deepsilver.png", 200),
                 New Clases.Desarrolladores("Degica", "@DegicaGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Destructive Creations", "@DestCreat_Team", Nothing, Nothing),
                 New Clases.Desarrolladores("Devilish Games", "@devilishgames", Nothing, Nothing),

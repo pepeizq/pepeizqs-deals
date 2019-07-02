@@ -171,7 +171,7 @@
             ElseIf tienda = "Green Man Gaming" Then
                 tienda = "@GreenManGaming"
             ElseIf tienda = "Humble Store" Then
-                tienda = "@humblestore"
+                tienda = "@humble"
             ElseIf tienda = "Steam" Then
                 tienda = "@steam_games"
             ElseIf tienda = "WinGameStore" Then

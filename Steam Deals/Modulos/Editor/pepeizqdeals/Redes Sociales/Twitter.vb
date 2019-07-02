@@ -116,7 +116,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             ElseIf titulo.Contains("• Humble Bundle") Then
                 titulo = titulo.Replace("• Humble Bundle", "• @humble")
             ElseIf titulo.Contains("• Humble Store") Then
-                titulo = titulo.Replace("• Humble Store", "• @humblestore")
+                titulo = titulo.Replace("• Humble Store", "• @humble Store")
             ElseIf titulo.Contains("• IndieGala") Then
                 titulo = titulo.Replace("• IndieGala", "• @IndieGala")
             ElseIf titulo.Contains("• Microsoft Store") Then
