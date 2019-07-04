@@ -268,26 +268,32 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If tbCabeceraImagen.Text.Trim.Contains("Assets\LogosPublishers\") Then
                     Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
-                    Dim publisherElegido As TextBlock = cbPublishers.SelectedItem
-                    Dim publisher As Clases.Desarrolladores = publisherElegido.Tag
 
-                    If Not publisher.LogoAncho = Nothing Then
-                        tbCabeceraImagenDimensiones.Text = publisher.LogoAncho
-                    Else
-                        If tbCabeceraImagenDimensiones.Text = String.Empty Then
-                            tbCabeceraImagenDimensiones.Text = 500
+                    If TypeOf cbPublishers.SelectedItem Is TextBlock Then
+                        Dim publisherElegido As TextBlock = cbPublishers.SelectedItem
+                        Dim publisher As Clases.Desarrolladores = publisherElegido.Tag
+
+                        If Not publisher.LogoAncho = Nothing Then
+                            tbCabeceraImagenDimensiones.Text = publisher.LogoAncho
+                        Else
+                            If tbCabeceraImagenDimensiones.Text = String.Empty Then
+                                tbCabeceraImagenDimensiones.Text = 500
+                            End If
                         End If
                     End If
                 ElseIf tbCabeceraImagen.Text.Trim.Contains("Assets\LogosJuegos\") Then
                     Dim cbLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
-                    Dim juegoElegido As TextBlock = cbLogosJuegos.SelectedItem
-                    Dim juego As Clases.LogosJuegos = juegoElegido.Tag
 
-                    If Not juego.LogoAncho = Nothing Then
-                        tbCabeceraImagenDimensiones.Text = juego.LogoAncho
-                    Else
-                        If tbCabeceraImagenDimensiones.Text = String.Empty Then
-                            tbCabeceraImagenDimensiones.Text = 600
+                    If TypeOf cbLogosJuegos.SelectedItem Is TextBlock Then
+                        Dim juegoElegido As TextBlock = cbLogosJuegos.SelectedItem
+                        Dim juego As Clases.LogosJuegos = juegoElegido.Tag
+
+                        If Not juego.LogoAncho = Nothing Then
+                            tbCabeceraImagenDimensiones.Text = juego.LogoAncho
+                        Else
+                            If tbCabeceraImagenDimensiones.Text = String.Empty Then
+                                tbCabeceraImagenDimensiones.Text = 600
+                            End If
                         End If
                     End If
                 Else

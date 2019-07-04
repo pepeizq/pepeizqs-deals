@@ -751,7 +751,7 @@ Module Tiendas
             ElseIf juego.DRM.ToLower.Contains("battle") Then
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_battlenet2.png"))
             ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_bethesda2.png"))
+                imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_bethesda2.jpg"))
             ElseIf juego.DRM.ToLower.Contains("epic") Then
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_epic2.jpg"))
             ElseIf juego.DRM.ToLower.Contains("microsoft") Then
