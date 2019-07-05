@@ -423,7 +423,7 @@
                 New Clases.Desarrolladores("NewWestGames", "@NewWestGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Nezon Production", "@NezonProduction", Nothing, Nothing),
                 New Clases.Desarrolladores("Nickervision Studios", "@nickervision", Nothing, Nothing),
-                New Clases.Desarrolladores("Night Dive Studios", "@NightdiveStudio", Nothing, Nothing),
+                New Clases.Desarrolladores("Night Dive", "@NightdiveStudio", "Assets\LogosPublishers\nightdive.png", 350),
                 New Clases.Desarrolladores("Ninja Kiwi Games", "@ninjakiwigames", Nothing, Nothing),
                 New Clases.Desarrolladores("Ninja Theory", "@NinjaTheory", Nothing, Nothing),
                 New Clases.Desarrolladores("NIS America", "@NISAmerica", Nothing, Nothing),

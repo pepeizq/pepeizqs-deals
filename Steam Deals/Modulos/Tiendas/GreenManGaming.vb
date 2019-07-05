@@ -65,81 +65,84 @@ Namespace pepeizq.Tiendas
             Dim html_ As Task(Of String) = HttpClient(New Uri("https://api.greenmangaming.com/api/productfeed/prices/current?cc=es&cur=eur&lang=en"))
 
             Dim html As String = html_.Result
-            Dim stream As New StringReader(html)
-            Dim xml As New XmlSerializer(GetType(GreenManGamingJuegos))
-            Dim listaJuegosGMG As GreenManGamingJuegos = xml.Deserialize(stream)
 
-            If Not listaJuegosGMG Is Nothing Then
-                If listaJuegosGMG.Juegos.Count > 0 Then
-                    For Each juegoGMG In listaJuegosGMG.Juegos
-                        Dim titulo As String = WebUtility.HtmlDecode(juegoGMG.Titulo)
-                        titulo = titulo.Replace("(MAC)", Nothing)
-                        titulo = titulo.Trim
+            If Not html = Nothing Then
+                Dim stream As New StringReader(html)
+                Dim xml As New XmlSerializer(GetType(GreenManGamingJuegos))
+                Dim listaJuegosGMG As GreenManGamingJuegos = xml.Deserialize(stream)
 
-                        Dim enlace As String = juegoGMG.Enlace.Trim
+                If Not listaJuegosGMG Is Nothing Then
+                    If listaJuegosGMG.Juegos.Count > 0 Then
+                        For Each juegoGMG In listaJuegosGMG.Juegos
+                            Dim titulo As String = WebUtility.HtmlDecode(juegoGMG.Titulo)
+                            titulo = titulo.Replace("(MAC)", Nothing)
+                            titulo = titulo.Trim
 
-                        Dim imagenes As New JuegoImagenes(juegoGMG.Imagen, Nothing)
+                            Dim enlace As String = juegoGMG.Enlace.Trim
 
-                        Dim precioRebajado As String = juegoGMG.PrecioRebajado
+                            Dim imagenes As New JuegoImagenes(juegoGMG.Imagen, Nothing)
 
-                        If Not precioRebajado.Contains(".") Then
-                            precioRebajado = precioRebajado + ".00"
-                        End If
+                            Dim precioRebajado As String = juegoGMG.PrecioRebajado
 
-                        precioRebajado = precioRebajado + " €"
-
-                        Dim descuento As String = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, juegoGMG.PrecioRebajado)
-
-                        If descuento = "00%" Then
-                            descuento = Nothing
-                        End If
-
-                        If Not descuento = Nothing Then
-                            If Not cuponPorcentaje = Nothing Then
-                                precioRebajado = precioRebajado.Replace(",", ".")
-                                precioRebajado = precioRebajado.Replace("€", Nothing)
-                                precioRebajado = precioRebajado.Trim
-
-                                Dim dprecio As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                precioRebajado = Math.Round(dprecio, 2).ToString + " €"
-                                descuento = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, precioRebajado)
+                            If Not precioRebajado.Contains(".") Then
+                                precioRebajado = precioRebajado + ".00"
                             End If
 
-                            Dim drm As String = juegoGMG.DRM
+                            precioRebajado = precioRebajado + " €"
 
-                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
+                            Dim descuento As String = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, juegoGMG.PrecioRebajado)
 
-                            Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                            Dim tituloBool As Boolean = False
-                            Dim k As Integer = 0
-                            While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
-                                    tituloBool = True
-                                End If
-                                k += 1
-                            End While
-
-                            If juego.Descuento = Nothing Then
-                                tituloBool = True
-                            Else
-                                If juego.Descuento = "00%" Then
-                                    tituloBool = True
-                                End If
+                            If descuento = "00%" Then
+                                descuento = Nothing
                             End If
 
-                            If tituloBool = False Then
-                                For Each desarrollador In listaDesarrolladores
-                                    If desarrollador.Enlace = juego.Enlace Then
-                                        juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                        Exit For
+                            If Not descuento = Nothing Then
+                                If Not cuponPorcentaje = Nothing Then
+                                    precioRebajado = precioRebajado.Replace(",", ".")
+                                    precioRebajado = precioRebajado.Replace("€", Nothing)
+                                    precioRebajado = precioRebajado.Trim
+
+                                    Dim dprecio As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                    precioRebajado = Math.Round(dprecio, 2).ToString + " €"
+                                    descuento = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, precioRebajado)
+                                End If
+
+                                Dim drm As String = juegoGMG.DRM
+
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
+
+                                Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+
+                                Dim tituloBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        tituloBool = True
                                     End If
-                                Next
+                                    k += 1
+                                End While
 
-                                listaJuegos.Add(juego)
+                                If juego.Descuento = Nothing Then
+                                    tituloBool = True
+                                Else
+                                    If juego.Descuento = "00%" Then
+                                        tituloBool = True
+                                    End If
+                                End If
+
+                                If tituloBool = False Then
+                                    For Each desarrollador In listaDesarrolladores
+                                        If desarrollador.Enlace = juego.Enlace Then
+                                            juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                            Exit For
+                                        End If
+                                    Next
+
+                                    listaJuegos.Add(juego)
+                                End If
                             End If
-                        End If
-                    Next
+                        Next
+                    End If
                 End If
             End If
 

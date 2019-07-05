@@ -149,6 +149,8 @@ Namespace pepeizq.Tiendas
                 "Origin.OFR.50.0001944", 'Fe
                 "Origin.OFR.50.0001895", 'FIFA 18
                 "Origin.OFR.50.0002738", 'FIFA 19
+                "Origin.OFR.50.0002773", 'FIFA 19 Ultimate Edition
+                "Origin.OFR.50.0002768", 'FIFA 19 Champions Edition
                 "Origin.OFR.50.0003450", 'FIFA 20
                 "Origin.OFR.50.0003560", 'FIFA 20 Ultimate Edition
                 "Origin.OFR.50.0003451", 'FIFA 20 Champions Edition

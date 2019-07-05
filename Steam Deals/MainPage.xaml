@@ -869,13 +869,13 @@
                                                             </LinearGradientBrush>
                                                         </Grid.Background>
 
-                                                        <Grid Padding="40">
+                                                        <Grid Padding="20">
                                                             <Grid.Background>
                                                                 <ImageBrush x:Name="fondopepeizqdealsImagenEntradaSubscriptions" Stretch="UniformToFill"/>
                                                             </Grid.Background>
 
                                                             <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="Auto"/>
                                                                 <RowDefinition Height="*"/>
                                                             </Grid.RowDefinitions>
 

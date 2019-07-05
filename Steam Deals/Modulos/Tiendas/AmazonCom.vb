@@ -239,7 +239,11 @@ Namespace pepeizq.Tiendas
                                 tituloBool = True
                             ElseIf juego.Titulo.Contains("PlayStation 3") Then
                                 tituloBool = True
+                            ElseIf juego.Titulo.Contains("Playstation 3") Then
+                                tituloBool = True
                             ElseIf juego.Titulo.Contains("PlayStation 4") Then
+                                tituloBool = True
+                            ElseIf juego.Titulo.Contains("Playstation 4") Then
                                 tituloBool = True
                             ElseIf juego.Titulo.Contains("Nintendo Switch") Then
                                 tituloBool = True

@@ -70,16 +70,20 @@
         Private Function CargarLista()
 
             Dim lista As New List(Of Clases.LogosJuegos) From {
+                New Clases.LogosJuegos("ARK Survival Evolved", "Assets\LogosJuegos\ark.png", 300),
                 New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", Nothing),
                 New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 500),
                 New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 450),
                 New Clases.LogosJuegos("Cities Skylines", "Assets\LogosJuegos\citiesskylines.png", 400),
                 New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", Nothing),
                 New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 550),
+                New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 350),
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 500),
                 New Clases.LogosJuegos("Metal Gear", "Assets\LogosJuegos\metalgearsolid.png", Nothing),
                 New Clases.LogosJuegos("Overcooked", "Assets\LogosJuegos\overcooked.png", Nothing),
                 New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", Nothing),
+                New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 500),
+                New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 500),
                 New Clases.LogosJuegos("Tom Clancy's Rainbow Six Siege", "Assets\LogosJuegos\rainbowsiege.png", 550),
                 New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 550)
             }
