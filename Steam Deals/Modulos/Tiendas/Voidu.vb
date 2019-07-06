@@ -115,24 +115,32 @@ Namespace pepeizq.Tiendas
 
                             Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
 
-                            Dim tituloBool As Boolean = False
+                            Dim añadir As Boolean = True
                             Dim k As Integer = 0
                             While k < listaJuegos.Count
                                 If listaJuegos(k).Titulo = juego.Titulo Then
-                                    tituloBool = True
+                                    añadir = False
                                 End If
                                 k += 1
                             End While
 
                             If juego.Descuento = Nothing Then
-                                tituloBool = True
+                                añadir = False
                             Else
                                 If juego.Descuento = "00%" Then
-                                    tituloBool = True
+                                    añadir = False
                                 End If
                             End If
 
-                            If tituloBool = False Then
+                            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                                    If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juego.Descuento Then
+                                        añadir = False
+                                    End If
+                                End If
+                            End If
+
+                            If añadir = True Then
                                 listaJuegos.Add(juego)
                             End If
                         Next

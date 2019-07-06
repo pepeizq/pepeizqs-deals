@@ -177,6 +177,14 @@ Namespace pepeizq.Tiendas
                     ElseIf juego.Descuento.Contains("-") Then
                         añadir = False
                     End If
+
+                    If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                        If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                            If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juego.Descuento Then
+                                añadir = False
+                            End If
+                        End If
+                    End If
                 End If
 
                 If añadir = True Then

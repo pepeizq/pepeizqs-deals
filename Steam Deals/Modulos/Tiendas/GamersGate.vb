@@ -58,15 +58,23 @@ Namespace pepeizq.Tiendas
 
             Dim xml As New XmlSerializer(GetType(GamersGateJuegos))
 
+            Dim listaJuegosES As GamersGateJuegos = Nothing
             Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
             Dim html As String = html_.Result
-            Dim stream As New StringReader(html)
-            Dim listaJuegosES As GamersGateJuegos = xml.Deserialize(stream)
 
+            If Not html = Nothing Then
+                Dim stream As New StringReader(html)
+                listaJuegosES = xml.Deserialize(stream)
+            End If
+
+            Dim listaJuegosUK As GamersGateJuegos = Nothing
             Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
             Dim htmlUK As String = htmlUK_.Result
-            Dim streamUK As New StringReader(htmlUK)
-            Dim listaJuegosUK As GamersGateJuegos = xml.Deserialize(streamUK)
+
+            If Not htmlUK = Nothing Then
+                Dim streamUK As New StringReader(htmlUK)
+                listaJuegosUK = xml.Deserialize(streamUK)
+            End If
 
             If Not listaJuegosES Is Nothing Then
                 If listaJuegosES.Juegos.Count > 0 Then
@@ -95,25 +103,27 @@ Namespace pepeizq.Tiendas
                         Dim precioBaseUK As String = String.Empty
                         Dim precioRebajadoUK As String = String.Empty
 
-                        For Each juegoUK In listaJuegosUK.Juegos
-                            If juegoUK.ID = juego.ID Then
-                                precioBaseUK = juegoUK.PrecioBase
+                        If Not listaJuegosUK Is Nothing Then
+                            For Each juegoUK In listaJuegosUK.Juegos
+                                If juegoUK.ID = juego.ID Then
+                                    precioBaseUK = juegoUK.PrecioBase
 
-                                If Not precioBaseUK.Contains(".") Then
-                                    precioBaseUK = precioBaseUK + ".00"
+                                    If Not precioBaseUK.Contains(".") Then
+                                        precioBaseUK = precioBaseUK + ".00"
+                                    End If
+
+                                    precioBaseUK = "£" + precioBaseUK.Trim
+
+                                    precioRebajadoUK = juegoUK.PrecioDescontado
+
+                                    If Not precioRebajadoUK.Contains(".") Then
+                                        precioRebajadoUK = precioRebajadoUK + ".00"
+                                    End If
+
+                                    precioRebajadoUK = "£" + precioRebajadoUK.Trim
                                 End If
-
-                                precioBaseUK = "£" + precioBaseUK.Trim
-
-                                precioRebajadoUK = juegoUK.PrecioDescontado
-
-                                If Not precioRebajadoUK.Contains(".") Then
-                                    precioRebajadoUK = precioRebajadoUK + ".00"
-                                End If
-
-                                precioRebajadoUK = "£" + precioRebajadoUK.Trim
-                            End If
-                        Next
+                            Next
+                        End If
 
                         Dim drm As String = juego.DRM
 
@@ -210,20 +220,28 @@ Namespace pepeizq.Tiendas
 
                         Dim juegoFinal As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
-                        Dim tituloBool As Boolean = False
+                        Dim añadir As Boolean = True
                         Dim k As Integer = 0
                         While k < listaJuegos.Count
                             If listaJuegos(k).Titulo = juegoFinal.Titulo Then
-                                tituloBool = True
+                                añadir = False
                             End If
                             k += 1
                         End While
 
                         If juegoFinal.Descuento = Nothing Then
-                            tituloBool = True
+                            añadir = False
                         End If
 
-                        If tituloBool = False Then
+                        If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                            If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juegoFinal.Descuento Then
+                                    añadir = False
+                                End If
+                            End If
+                        End If
+
+                        If añadir = True Then
                             listaJuegos.Add(juegoFinal)
                         End If
                     Next
