@@ -85,6 +85,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Sub DosJuegosGenerar(juegos As List(Of Juego), cantidadJuegos As Integer)
 
+            If juegos.Count > 0 Then
+                juegos.Sort(Function(x As Juego, y As Juego)
+                                Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                If resultado = 0 Then
+                                    resultado = x.Titulo.CompareTo(y.Titulo)
+                                End If
+                                Return resultado
+                            End Function)
+            End If
+
             Dim listaFinal As New List(Of Juego)
 
             Dim frame As Frame = Window.Current.Content
