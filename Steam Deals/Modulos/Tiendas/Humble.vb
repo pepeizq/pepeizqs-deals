@@ -102,6 +102,24 @@ Namespace pepeizq.Tiendas
                             End If
                         End If
 
+                        Dim cuponPorcentaje As String = String.Empty
+
+                        If juegoHumble.DescuentoMonthly = 0.1 Then
+                            cuponPorcentaje = "0,2"
+                        ElseIf juegoHumble.DescuentoMonthly = 0 Then
+                            cuponPorcentaje = "0,1"
+                        End If
+
+                        If Not cuponPorcentaje = String.Empty Then
+                            precio = precio.Replace(",", ".")
+                            precio = precio.Replace("€", Nothing)
+                            precio = precio.Trim
+
+                            Dim dprecio As Double = Double.Parse(precio, CultureInfo.InvariantCulture) - (Double.Parse(precio, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                            precio = Math.Round(dprecio, 2).ToString + " €"
+                            descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase(0), precio)
+                        End If
+
                         Dim drm As String = String.Empty
 
                         For Each itemDRM In juegoHumble.DRM
@@ -136,28 +154,28 @@ Namespace pepeizq.Tiendas
 
                         Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
-                        Dim tituloBool As Boolean = False
+                        Dim añadir As Boolean = True
                         Dim k As Integer = 0
                         While k < listaJuegos.Count
                             If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
+                                añadir = False
                             End If
                             k += 1
                         End While
 
                         If juego.Descuento = Nothing Then
-                            tituloBool = True
+                            añadir = False
                         Else
                             If juego.Descuento = "00%" Then
-                                tituloBool = True
+                                añadir = False
                             End If
 
                             If juego.Descuento.Contains("-") Then
-                                tituloBool = True
+                                añadir = False
                             End If
                         End If
 
-                        If tituloBool = False Then
+                        If añadir = True Then
                             listaJuegos.Add(juego)
                         End If
                     Next
@@ -234,6 +252,9 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("sale_end")>
         Public FechaTermina As Double
+
+        <JsonProperty("rewards_split")>
+        Public DescuentoMonthly As Double
 
     End Class
 End Namespace

@@ -79,7 +79,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing And Not ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
                 If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 And ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                    tbComentario.Text = "The prices shown have been applied the coupon: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
+                    tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
                 End If
             End If
 
@@ -557,21 +557,26 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tituloFinal As String = juego.Titulo
                     tituloFinal = LimpiarTitulo(tituloFinal)
 
+                    Dim imagen As String = String.Empty
+
                     If Not juego.Imagenes Is Nothing Then
                         If Not juego.Imagenes.Pequeña = Nothing Then
-                            textoClipboard = textoClipboard + "[url=" + juego.Enlace + "][img]" + juego.Imagenes.Pequeña + "[/img][/url]" + Environment.NewLine + Environment.NewLine
+                            imagen = juego.Imagenes.Pequeña
                         Else
-                            textoClipboard = textoClipboard + "[url=" + juego.Enlace + "][img]" + juego.Imagenes.Grande + "[/img][/url]" + Environment.NewLine + Environment.NewLine
+                            imagen = juego.Imagenes.Grande
                         End If
                     End If
 
-                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
-
                     If juego.Tienda.NombreUsar = "Yuplay" Then
+                        textoClipboard = textoClipboard + "[url=" + juego.Enlace + "][img]" + imagen + "[/img][/url]" + Environment.NewLine + Environment.NewLine
+                        textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
                         textoClipboard = textoClipboard + "Idiomas: " + juego.Tipo + Environment.NewLine
+                        textoClipboard = textoClipboard + juego.Enlace + Environment.NewLine + Environment.NewLine
+                    Else
+                        textoClipboard = textoClipboard + "[img]" + imagen + "[/img]" + Environment.NewLine + Environment.NewLine
+                        textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
+                        textoClipboard = textoClipboard + "[code]" + juego.Enlace + "[/code]" + Environment.NewLine + Environment.NewLine
                     End If
-
-                    textoClipboard = textoClipboard + juego.Enlace + Environment.NewLine + Environment.NewLine
                 Next
             End If
 
