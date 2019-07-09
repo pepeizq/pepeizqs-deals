@@ -223,10 +223,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 If listaFinal.Count > 6 Then
-                    Dim int As Integer = complementoTitulo.LastIndexOf(") and ")
-                    complementoTitulo = complementoTitulo.Remove(int, 6)
-                    complementoTitulo = complementoTitulo.Insert(int, "), ")
-                    complementoTitulo = complementoTitulo + " and more"
+                    If complementoTitulo.Contains(") and ") Then
+                        Dim int As Integer = complementoTitulo.LastIndexOf(") and ")
+                        complementoTitulo = complementoTitulo.Remove(int, 6)
+                        complementoTitulo = complementoTitulo.Insert(int, "), ")
+                        complementoTitulo = complementoTitulo + " and more"
+                    End If
                 End If
 
                 If Not complementoTitulo = Nothing Then
