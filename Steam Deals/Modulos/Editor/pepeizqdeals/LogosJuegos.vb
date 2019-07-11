@@ -62,6 +62,12 @@
                     Else
                         tbImagen.Text = String.Empty
                     End If
+
+                    Dim tbDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+
+                    If Not juego2.LogoAncho = Nothing Then
+                        tbDimensiones.Text = juego2.LogoAncho
+                    End If
                 End If
             End If
 
