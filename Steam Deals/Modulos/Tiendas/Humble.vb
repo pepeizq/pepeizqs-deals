@@ -106,6 +106,8 @@ Namespace pepeizq.Tiendas
 
                         If juegoHumble.DescuentoMonthly = 0.1 Then
                             cuponPorcentaje = "0,2"
+                        ElseIf juegoHumble.DescuentoMonthly = 0.05 Then
+                            cuponPorcentaje = "0,2"
                         ElseIf juegoHumble.DescuentoMonthly = 0 Then
                             cuponPorcentaje = "0,1"
                         End If
