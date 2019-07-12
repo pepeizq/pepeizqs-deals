@@ -166,7 +166,7 @@
                 New Clases.Desarrolladores("Chasing Carrots", "@Chasing_Carrots", Nothing, Nothing),
                 New Clases.Desarrolladores("Choice of Games", "@choiceofgames", Nothing, Nothing),
                 New Clases.Desarrolladores("Chucklefish", "@ChucklefishLTD", Nothing, Nothing),
-                New Clases.Desarrolladores("CI Games", "@CIGamesOfficial", Nothing, Nothing),
+                New Clases.Desarrolladores("CI Games", "@CIGamesOfficial", "Assets\LogosPublishers\cigames.png", 200),
                 New Clases.Desarrolladores("CINEMAX GAMES", "@CINEMAXGAMES", Nothing, Nothing),
                 New Clases.Desarrolladores("Clapfoot", "@foxholegame", Nothing, Nothing),
                 New Clases.Desarrolladores("CleanWaterSoft", "@CleanWaterSoft", Nothing, Nothing),
