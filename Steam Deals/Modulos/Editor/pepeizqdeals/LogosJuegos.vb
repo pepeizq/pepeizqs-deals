@@ -49,6 +49,11 @@
                         If tbTitulo.Text.Contains("Sale") Then
                             If Not juego2 Is Nothing Then
                                 If Not tbTitulo.Text.Contains(juego2.Titulo) Then
+                                    If tbTitulo.Text.Contains("Sale") Then
+                                        Dim int As Integer = tbTitulo.Text.IndexOf("Sale")
+                                        tbTitulo.Text = tbTitulo.Text.Remove(0, int)
+                                    End If
+
                                     tbTitulo.Text = juego2.Titulo + " " + tbTitulo.Text
                                 End If
                             End If
@@ -81,6 +86,7 @@
                 New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 500),
                 New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 450),
                 New Clases.LogosJuegos("Cities Skylines", "Assets\LogosJuegos\citiesskylines.png", 400),
+                New Clases.LogosJuegos("Darksiders", "Assets\LogosJuegos\darksiders.png", 450),
                 New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", Nothing),
                 New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 550),
                 New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 350),
