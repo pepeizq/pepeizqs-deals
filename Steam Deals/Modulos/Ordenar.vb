@@ -143,8 +143,8 @@ Module Ordenar
                                     boolAntiguo = False
                                 ElseIf tienda = "AmazonUk" Then
                                     boolAntiguo = False
-                                ElseIf tienda = "MicrosoftStore" Then
-                                    boolAntiguo = False
+                                    'ElseIf tienda = "MicrosoftStore" Then
+                                    '    boolAntiguo = False
                                 Else
                                     If Not listaJuegosAntigua Is Nothing Then
                                         For Each juegoAntiguo In listaJuegosAntigua

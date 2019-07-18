@@ -113,13 +113,16 @@ Namespace pepeizq.Tiendas
                         End If
 
                         If Not cuponPorcentaje = String.Empty Then
-                            precio = precio.Replace(",", ".")
-                            precio = precio.Replace("€", Nothing)
-                            precio = precio.Trim
+                            If Not precio = String.Empty Then
+                                precio = precio.Replace(",", ".")
+                                precio = precio.Replace("€", Nothing)
+                                precio = precio.Trim
 
-                            Dim dprecio As Double = Double.Parse(precio, CultureInfo.InvariantCulture) - (Double.Parse(precio, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                            precio = Math.Round(dprecio, 2).ToString + " €"
-                            descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase(0), precio)
+                                Dim dcupon As Double = Double.Parse(precio, CultureInfo.InvariantCulture) * cuponPorcentaje
+                                Dim dprecio As Double = Double.Parse(precio, CultureInfo.InvariantCulture) - dcupon
+                                precio = Math.Round(dprecio, 2).ToString + " €"
+                                descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase(0), precio)
+                            End If
                         End If
 
                         Dim drm As String = String.Empty
