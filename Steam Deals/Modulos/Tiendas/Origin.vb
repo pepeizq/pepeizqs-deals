@@ -128,11 +128,13 @@ Namespace pepeizq.Tiendas
                 "Origin.OFR.50.0000557", 'Battlefield 1
                 "Origin.OFR.50.0002321", 'Battlefield 1 Revolution
                 "DR:225064100", 'Battlefield 3
-                "DR:255751200", 'Battlefield 3 Premium
+                "DR:255751200", 'Battlefield 3 Premium Edition
+                "OFB-EAST:50401", 'Battlefield 3 Premium Upgrade
                 "OFB-EAST:109546867", 'Battlefield 4
                 "OFB-EAST:109552316", 'Battlefield 4 Premium
                 "Origin.OFR.50.0002683", 'Battlefield V
                 "Origin.OFR.50.0002684", 'Battlefield V Deluxe Edition
+                "Origin.OFR.50.0002818", 'Battlefield V Upgrade
                 "OFB-EAST:60885", 'Battlefield Bad Company 2 
                 "Origin.OFR.50.0000426", 'Battlefield Hardline
                 "Origin.OFR.50.0000846", 'Battlefield Hardline Ultimate Edition
