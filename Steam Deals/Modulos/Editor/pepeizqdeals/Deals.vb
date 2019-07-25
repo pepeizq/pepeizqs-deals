@@ -311,6 +311,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
+            Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdeals")
+
+            RemoveHandler botonCopiarHtml.Click, AddressOf CopiarHtml
+            AddHandler botonCopiarHtml.Click, AddressOf CopiarHtml
+
             Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
 
             RemoveHandler botonCopiarForo.Click, AddressOf CopiarForo
@@ -343,31 +348,97 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim precioFinal As String = String.Empty
 
             If cosas.ListaJuegos.Count > 1 Then
+                contenidoEnlaces = GenerarHtmlTablaJuegos(cosas.ListaJuegos, tbComentario, cosas.Tienda)
+                precioFinal = cosas.Precio
+            Else
+                precioFinal = cosas.ListaJuegos(0).Precio
+            End If
+
+            Dim listaEtiquetas As New List(Of Integer)
+
+            If Not cosas.Tienda.EtiquetaWeb = Nothing Then
+                listaEtiquetas.Add(cosas.Tienda.EtiquetaWeb)
+            End If
+
+            Dim iconoTienda As String = String.Empty
+
+            If Not cosas.Tienda.IconoWeb = Nothing Then
+                iconoTienda = cosas.Tienda.IconoWeb
+            End If
+
+            precioFinal = precioFinal.Replace(".", ",")
+            precioFinal = precioFinal.Replace("€", Nothing)
+            precioFinal = precioFinal.Trim
+
+            If Not precioFinal.Contains("deals") Then
+                precioFinal = precioFinal + " €"
+            End If
+
+            Dim redireccion As String = String.Empty
+
+            If tbEnlace.Text.Trim.Length > 0 Then
+                redireccion = tbEnlace.Text.Trim
+            End If
+
+            Dim tituloComplemento As String = String.Empty
+
+            If tbTituloComplemento.Text.Trim.Length > 0 Then
+                tituloComplemento = tbTituloComplemento.Text.Trim
+            End If
+
+            Dim analisis As JuegoAnalisis = Nothing
+
+            If cosas.ListaJuegos.Count = 1 Then
+                If Not cosas.ListaJuegos(0).Analisis Is Nothing Then
+                    analisis = cosas.ListaJuegos(0).Analisis
+                End If
+            End If
+
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+
+            Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
+            fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
+
+            Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
+                               redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString)
+
+            BloquearControles(True)
+
+        End Sub
+
+        Private Function GenerarHtmlTablaJuegos(listaJuegos As List(Of Juego), tbComentario As TextBox, tienda As Tienda)
+
+            Dim contenido As String = String.Empty
+
+            If listaJuegos.Count > 1 Then
                 If tbComentario.Text.Trim.Length > 0 Then
-                    contenidoEnlaces = contenidoEnlaces + "[vc_row sticky=" + ChrW(34) + "1" + ChrW(34) + " " +
+                    contenido = contenido + "[vc_row sticky=" + ChrW(34) + "1" + ChrW(34) + " " +
                         ChrW(34) + "][vc_column][us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " color=" + ChrW(34) + "custom" + ChrW(34) + " bg_color=" + ChrW(34) + "#002033" + ChrW(34) + " text_color=" + ChrW(34) + "#ffffff" + ChrW(34) + "]" + tbComentario.Text.Trim + "[/us_message][/vc_column][/vc_row]"
                 End If
 
-                contenidoEnlaces = contenidoEnlaces + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
-                contenidoEnlaces = contenidoEnlaces + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<tbody>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
+                contenido = contenido + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
+                contenido = contenido + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
+                contenido = contenido + "<tbody>" + Environment.NewLine
+                contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
 
-                If cosas.Tienda.NombreUsar = "GamersGate" Or cosas.Tienda.NombreUsar = "Voidu" Or cosas.Tienda.NombreUsar = "AmazonCom" Or cosas.Tienda.NombreUsar = "AmazonEs2" Or cosas.Tienda.NombreUsar = "GreenManGaming" Or cosas.Tienda.NombreUsar = "Yuplay" Or cosas.Tienda.NombreUsar = "Origin" Then
-                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Then
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 Else
-                    contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 End If
 
-                contenidoEnlaces = contenidoEnlaces + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=0 perpage=2000 showsearch=1]</td>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "</tr>" + Environment.NewLine
+                contenido = contenido + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=0 perpage=2000 showsearch=1]</td>" + Environment.NewLine
+                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
+                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                contenido = contenido + "</tr>" + Environment.NewLine
 
                 Dim listaContenido As New List(Of String)
 
-                For Each juego In cosas.ListaJuegos
+                For Each juego In listaJuegos
                     Dim contenidoJuego As String = Nothing
 
                     Dim tituloFinal As String = juego.Titulo
@@ -435,71 +506,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Next
 
                 For Each item In listaContenido
-                    contenidoEnlaces = contenidoEnlaces + item
+                    contenido = contenido + item
                 Next
 
-                contenidoEnlaces = contenidoEnlaces + "</tbody>" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + "</table>[/vc_column][/vc_row]" + Environment.NewLine
-
-                precioFinal = cosas.Precio
-            Else
-                precioFinal = cosas.ListaJuegos(0).Precio
+                contenido = contenido + "</tbody>" + Environment.NewLine
+                contenido = contenido + "</table>[/vc_column][/vc_row]" + Environment.NewLine
             End If
 
-            Dim listaEtiquetas As New List(Of Integer)
+            Return contenido
 
-            If Not cosas.Tienda.EtiquetaWeb = Nothing Then
-                listaEtiquetas.Add(cosas.Tienda.EtiquetaWeb)
-            End If
-
-            Dim iconoTienda As String = String.Empty
-
-            If Not cosas.Tienda.IconoWeb = Nothing Then
-                iconoTienda = cosas.Tienda.IconoWeb
-            End If
-
-            precioFinal = precioFinal.Replace(".", ",")
-            precioFinal = precioFinal.Replace("€", Nothing)
-            precioFinal = precioFinal.Trim
-
-            If Not precioFinal.Contains("deals") Then
-                precioFinal = precioFinal + " €"
-            End If
-
-            Dim redireccion As String = String.Empty
-
-            If tbEnlace.Text.Trim.Length > 0 Then
-                redireccion = tbEnlace.Text.Trim
-            End If
-
-            Dim tituloComplemento As String = String.Empty
-
-            If tbTituloComplemento.Text.Trim.Length > 0 Then
-                tituloComplemento = tbTituloComplemento.Text.Trim
-            End If
-
-            Dim analisis As JuegoAnalisis = Nothing
-
-            If cosas.ListaJuegos.Count = 1 Then
-                If Not cosas.ListaJuegos(0).Analisis Is Nothing Then
-                    analisis = cosas.ListaJuegos(0).Analisis
-                End If
-            End If
-
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
-
-            Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
-            fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
-
-            Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
-                               redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString)
-
-            BloquearControles(True)
-
-        End Sub
+        End Function
 
         Private Sub MostrarImagen(sender As Object, e As TextChangedEventArgs)
 
@@ -540,6 +556,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
                 Notificaciones.Toast("Same Day", Nothing)
             End If
+
+        End Sub
+
+        Private Sub CopiarHtml(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            BloquearControles(False)
+
+            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim cosas As Clases.Deals = botonSubir.Tag
+            Dim textoClipboard As String = String.Empty
+
+            If cosas.ListaJuegos.Count > 1 Then
+                textoClipboard = GenerarHtmlTablaJuegos(cosas.ListaJuegos, tbComentario, cosas.Tienda)
+            End If
+
+            If Not textoClipboard = String.Empty Then
+                Dim datos As New DataPackage
+                datos.SetText(textoClipboard)
+                Clipboard.SetContent(datos)
+            End If
+
+            BloquearControles(True)
 
         End Sub
 
@@ -719,6 +761,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
             botonSubir.IsEnabled = estado
+
+            Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdeals")
+            botonCopiarHtml.IsEnabled = estado
 
             Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
             botonCopiarForo.IsEnabled = estado

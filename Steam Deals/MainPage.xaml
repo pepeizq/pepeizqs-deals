@@ -416,6 +416,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
                                         <Button x:Name="botonEditorSubirpepeizqdeals" Grid.Column="0" Margin="0,0,50,0" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
@@ -427,17 +428,27 @@
                                             </Button.Content>
                                         </Button>
 
-                                        <Button x:Name="botonEditorCopiarForopepeizqdeals" Grid.Column="1" Margin="0,0,50,0" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button x:Name="botonEditorCopiarHtmlpepeizqdeals" Grid.Column="1" Margin="0,0,50,0" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Copy" Foreground="White"/>
-                                                    <TextBlock Text="phpBB"  Margin="10,0,0,0" Foreground="White"/>
+                                                    <TextBlock Text="HTML" Margin="10,0,0,0" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="botonEditorCopiarForopepeizqdeals" Grid.Column="2" Margin="0,0,50,0" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:FontAwesome Icon="Copy" Foreground="White"/>
+                                                    <TextBlock Text="phpBB" Margin="10,0,0,0" Foreground="White"/>
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
                                     </Grid>
 
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <TextBlock Text="Movil/Redes Sociales" Margin="0,0,0,10"/>
                                         <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
                                             <Button.Resources>
                                                 <ResourceDictionary>
@@ -583,7 +594,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                    </Grid>
+                                    </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
 
