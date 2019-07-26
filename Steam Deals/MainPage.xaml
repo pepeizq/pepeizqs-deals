@@ -448,7 +448,6 @@
                                     </Grid>
 
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <TextBlock Text="Movil/Redes Sociales" Margin="0,0,0,10"/>
                                         <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
                                             <Button.Resources>
                                                 <ResourceDictionary>

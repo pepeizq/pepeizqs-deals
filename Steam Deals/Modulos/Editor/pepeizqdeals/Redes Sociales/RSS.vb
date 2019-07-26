@@ -65,7 +65,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim tituloComplemento As String = post.TituloComplemento
 
-            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.Imagen, enlaceFinal, post.Redireccion)
+            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.ImagenWeb, enlaceFinal, post.Redireccion)
 
         End Sub
 

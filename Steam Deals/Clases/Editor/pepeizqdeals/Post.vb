@@ -69,7 +69,7 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public Redireccion2 As String
 
         <JsonProperty("fifu_image_url")>
-        Public Imagen As String
+        Public ImagenWeb As String
 
         <JsonProperty("discount")>
         Public Descuento As String
@@ -77,8 +77,11 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("price")>
         Public Precio As String
 
+        <JsonProperty("tienda_nombre")>
+        Public TiendaNombre As String
+
         <JsonProperty("storeicon")>
-        Public IconoTienda As String
+        Public TiendaIcono As String
 
         <JsonProperty("title2")>
         Public TituloComplemento As String
@@ -88,12 +91,6 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
 
         <JsonProperty("review2")>
         Public ReviewPuntuacion As String
-
-        <JsonProperty("_yoast_wpseo_focuskw")>
-        Public SEOClavePrincipal As String
-
-        <JsonProperty("_yoast_wpseo_metadesc")>
-        Public SEODescripcion As String
 
         <JsonProperty("dateends")>
         Public FechaTermina As String

@@ -16,8 +16,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Collapsed
 
+            '--------------------------------------
+
             Dim imagenJuego As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuego")
             imagenJuego.Source = enlace
+
+            '--------------------------------------
 
             Dim gridDescuento As Grid = pagina.FindName("gridDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
 
@@ -33,13 +37,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
             tbPrecio.Text = precio
 
-            Dim imagenEntrada As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego")
+            '--------------------------------------
+
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego")
 
             If Not juego.Tienda.LogoWeb = Nothing Then
-                imagenEntrada.Source = juego.Tienda.LogoWeb
+                imagenTienda.Source = juego.Tienda.LogoWeb
             Else
-                imagenEntrada.Source = Nothing
+                imagenTienda.Source = Nothing
             End If
+
+            '--------------------------------------
 
             Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuego")
 
@@ -59,24 +67,29 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenAnalisis.Source = Nothing
             End If
 
+            '--------------------------------------
+
             Dim imagenDRM As ImageEx = pagina.FindName("imagenDRMEditorpepeizqdealsImagenEntradaUnJuego")
+            Dim imagenDRMString As String = String.Empty
 
             If Not juego.DRM = Nothing Then
                 If juego.DRM.ToLower.Contains("steam") Then
-                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_steam2.png"))
+                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_steam2.png"
                 ElseIf juego.DRM.ToLower.Contains("uplay") Then
-                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_uplay2.png"))
+                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_uplay2.png"
                 ElseIf juego.DRM.ToLower.Contains("origin") Then
-                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_origin2.png"))
+                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_origin2.png"
                 ElseIf juego.DRM.ToLower.Contains("gog") Then
-                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_gog2.png"))
+                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_gog2.png"
                 ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_bethesda2.jpg"))
+                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_bethesda2.jpg"
                 ElseIf juego.DRM.ToLower.Contains("epic") Then
-                    imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_epic2.jpg"))
-                Else
-                    imagenDRM.Source = Nothing
+                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_epic2.jpg"
                 End If
+            End If
+
+            If Not imagenDRMString = String.Empty Then
+                imagenDRM.Source = New BitmapImage(New Uri(imagenDRMString))
             Else
                 imagenDRM.Source = Nothing
             End If
@@ -95,8 +108,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End Function)
             End If
 
-            Dim listaFinal As New List(Of Juego)
-
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
@@ -105,6 +116,48 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Visible
+
+            '--------------------------------------
+
+            Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+
+            Dim complementoTitulo As String = LimpiarTitulo(juegos(0).Titulo) + " (" + juegos(0).Descuento + ")"
+
+            If juegos.Count = 2 Then
+                complementoTitulo = complementoTitulo + " and " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + ")"
+            ElseIf juegos.Count = 3 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + ") and " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + ")"
+            ElseIf juegos.Count = 4 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + ") and " +
+                    LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + ")"
+            ElseIf juegos.Count = 5 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
+                    LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + ") and " +
+                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ")"
+            ElseIf juegos.Count = 6 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
+                    LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + "), " +
+                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ") and " +
+                    LimpiarTitulo(juegos(5).Titulo) + " (" + juegos(5).Descuento + ")"
+            ElseIf juegos.Count > 6 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
+                    LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + "), " +
+                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ")," +
+                    LimpiarTitulo(juegos(5).Titulo) + " (" + juegos(5).Descuento + ") and more"
+            End If
+
+            If Not complementoTitulo = Nothing Then
+                tbTituloComplemento.Text = complementoTitulo
+            End If
+
+            '--------------------------------------
+
+            Dim listaFinal As New List(Of Juego)
 
             Dim tiendasHorizontal As New List(Of String) From {
                 "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin"

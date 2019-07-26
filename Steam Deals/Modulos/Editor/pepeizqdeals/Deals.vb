@@ -197,43 +197,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda.NombreMostrar
                 tbEnlace.Text = String.Empty
-
-                Dim complementoTitulo As String = LimpiarTitulo(listaAnalisis(0).Titulo) + " (" + listaAnalisis(0).Descuento + ")"
-
-                If listaAnalisis.Count = 2 Then
-                    complementoTitulo = complementoTitulo + " and " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ")"
-                ElseIf listaAnalisis.Count = 3 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + ") and " +
-                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ")"
-                ElseIf listaAnalisis.Count = 4 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
-                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + ") and " +
-                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ")"
-                ElseIf listaAnalisis.Count = 5 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
-                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
-                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + ") and " +
-                        LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ")"
-                ElseIf listaAnalisis.Count = 6 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(listaAnalisis(1).Titulo) + " (" + listaAnalisis(1).Descuento + "), " +
-                        LimpiarTitulo(listaAnalisis(2).Titulo) + " (" + listaAnalisis(2).Descuento + "), " +
-                        LimpiarTitulo(listaAnalisis(3).Titulo) + " (" + listaAnalisis(3).Descuento + "), " +
-                        LimpiarTitulo(listaAnalisis(4).Titulo) + " (" + listaAnalisis(4).Descuento + ") and " +
-                        LimpiarTitulo(listaAnalisis(5).Titulo) + " (" + listaAnalisis(5).Descuento + ")"
-                End If
-
-                If listaFinal.Count > 6 Then
-                    If complementoTitulo.Contains(") and ") Then
-                        Dim int As Integer = complementoTitulo.LastIndexOf(") and ")
-                        complementoTitulo = complementoTitulo.Remove(int, 6)
-                        complementoTitulo = complementoTitulo.Insert(int, "), ")
-                        complementoTitulo = complementoTitulo + " and more"
-                    End If
-                End If
-
-                If Not complementoTitulo = Nothing Then
-                    tbTituloComplemento.Text = complementoTitulo
-                End If
             End If
 
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
@@ -360,10 +323,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 listaEtiquetas.Add(cosas.Tienda.EtiquetaWeb)
             End If
 
-            Dim iconoTienda As String = String.Empty
+            Dim tiendaNombre As String = String.Empty
+
+            If Not cosas.Tienda.NombreMostrar = Nothing Then
+                tiendaNombre = cosas.Tienda.NombreMostrar
+            End If
+
+            Dim tiendaIcono As String = String.Empty
 
             If Not cosas.Tienda.IconoWeb = Nothing Then
-                iconoTienda = cosas.Tienda.IconoWeb
+                tiendaIcono = cosas.Tienda.IconoWeb
             End If
 
             precioFinal = precioFinal.Replace(".", ",")
@@ -402,7 +371,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, iconoTienda,
+            Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, 3, listaEtiquetas, cosas.Descuento, precioFinal, tiendaNombre, tiendaIcono,
                                redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString)
 
             BloquearControles(True)

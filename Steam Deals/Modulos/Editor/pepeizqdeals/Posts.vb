@@ -11,8 +11,8 @@ Imports WordPressPCL
 Namespace pepeizq.Editor.pepeizqdeals
     Module Posts
 
-        Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer), descuento As String, precio As String, iconoTienda As String,
-                                     redireccion As String, botonImagen As Button, tituloComplemento As String, analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String) As Task
+        Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer), descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
+                                     redireccion As String, imagen As Button, tituloComplemento As String, analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -21,40 +21,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim imagenUrl As String = String.Empty
-
-                Dim nombreFicheroImagen As String = "imagen" + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.jpg"
-                Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
-
-                If Not ficheroImagen Is Nothing Then
-                    Await ImagenFichero.Generar(ficheroImagen, botonImagen, botonImagen.ActualWidth, botonImagen.ActualHeight, 0)
-
-                    Try
-                        Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
-                        Dim endPoint As New ImageEndpoint(clienteImgur)
-                        Dim imagenImgur As IImage
-
-                        Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
-                            imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
-                        End Using
-
-                        imagenUrl = imagenImgur.Link
-                    Catch ex As Exception
-
-                    End Try
-
-                    If imagenUrl = Nothing Then
-                        Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-
-                        Dim mes As String = Date.Today.Month.ToString
-
-                        If mes.Length = 1 Then
-                            mes = "0" + mes
-                        End If
-
-                        imagenUrl = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
-                    End If
-                End If
+                Dim imagenUrl As String = Await SubirImagen(imagen, "Web", cliente)
 
                 Dim post As New Models.Post With {
                     .Title = New Models.Title(titulo.Trim)
@@ -93,10 +60,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not iconoTienda = Nothing Then
-                    If iconoTienda.Trim.Length > 0 Then
-                        iconoTienda = "<img src=" + ChrW(34) + iconoTienda.Trim + ChrW(34) + " />"
-                        postEditor.IconoTienda = iconoTienda
+                If Not tiendaNombre = Nothing Then
+                    If tiendaNombre.Trim.Length > 0 Then
+                        postEditor.TiendaNombre = tiendaNombre.Trim
+                    End If
+                End If
+
+                If Not tiendaIcono = Nothing Then
+                    If tiendaIcono.Trim.Length > 0 Then
+                        tiendaIcono = "<img src=" + ChrW(34) + tiendaIcono.Trim + ChrW(34) + " />"
+                        postEditor.TiendaIcono = tiendaIcono
                     End If
                 End If
 
@@ -113,14 +86,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not imagenUrl = Nothing Then
                     If imagenUrl.Trim.Length > 0 Then
-                        postEditor.Imagen = imagenUrl.Trim
+                        postEditor.ImagenWeb = imagenUrl.Trim
                     End If
                 End If
 
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
-                        postEditor.SEODescripcion = tituloComplemento.Trim
                     End If
                 End If
 
@@ -154,21 +126,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not puntuacionReview = Nothing Then
                         postEditor.ReviewPuntuacion = puntuacionReview
-                    End If
-                End If
-
-                If Not titulo = Nothing Then
-                    If titulo.Trim.Length > 0 Then
-                        Dim tituloSEO As String = titulo
-
-                        If tituloSEO.Contains("•") Then
-                            Dim int As Integer = tituloSEO.IndexOf("•")
-                            tituloSEO = tituloSEO.Remove(int, tituloSEO.Length - int)
-                            tituloSEO = tituloSEO.Replace("•", Nothing)
-                            tituloSEO = tituloSEO.Trim
-                        End If
-
-                        postEditor.SEOClavePrincipal = tituloSEO.Trim
                     End If
                 End If
 
@@ -270,6 +227,49 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                                                                          End Sub)
 
         End Sub
+
+        Private Async Function SubirImagen(imagen As Button, codigo As String, cliente As WordPressClient) As Task(Of String)
+
+            Dim urlImagen As String = String.Empty
+
+            If Not imagen Is Nothing Then
+                Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.jpg"
+                Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
+
+                If Not ficheroImagen Is Nothing Then
+                    Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight, 0)
+
+                    Try
+                        Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
+                        Dim endPoint As New ImageEndpoint(clienteImgur)
+                        Dim imagenImgur As IImage
+
+                        Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
+                            imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
+                        End Using
+
+                        urlImagen = imagenImgur.Link
+                    Catch ex As Exception
+
+                    End Try
+
+                    If urlImagen = Nothing Then
+                        Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+
+                        Dim mes As String = Date.Today.Month.ToString
+
+                        If mes.Length = 1 Then
+                            mes = "0" + mes
+                        End If
+
+                        urlImagen = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
+                    End If
+                End If
+            End If
+
+            Return urlImagen
+
+        End Function
 
     End Module
 End Namespace
