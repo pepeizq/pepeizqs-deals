@@ -147,7 +147,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
                     LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
                     LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + "), " +
-                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ")," +
+                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + "), " +
                     LimpiarTitulo(juegos(5).Titulo) + " (" + juegos(5).Descuento + ") and more"
             End If
 
