@@ -398,6 +398,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     temp2 = temp2.Trim
+
+                    If temp2.Length = 0 Then
+                        temp2 = "---"
+                    End If
+
                     cosas.Titulo = temp2
                 End If
             End If

@@ -27,7 +27,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("GreenManGaming", "Assets/Tiendas/gmg.ico", "Assets/Tiendas/gmg2.png", "#97ff9a", "#016603", Nothing, 32, 32),
                 New Clases.Assets("EpicGamesStore", "Assets/Tiendas/epicgames.ico", "Assets/Tiendas/epicgames2.png", "#E7E7E7", "#363636", Nothing, 32, 32),
                 New Clases.Assets("Yuplay", "Assets/Tiendas/yuplay.ico", "Assets/Tiendas/yuplay2.png", "#fff0c4", "#8f7e0b", Nothing, 32, 32),
-                New Clases.Assets("Origin", "Assets/drm_origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32)
+                New Clases.Assets("Origin", "Assets/drm_origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32),
+                New Clases.Assets("GameBillet", "Assets/Tiendas/gamebillet.ico", "Assets/Tiendas/gamebillet2.png", "#f8af91", "#f15f22", Nothing, 32, 32),
+                New Clases.Assets("2Game", "Assets/Tiendas/2game.png", "Assets/Tiendas/2game2.png", "#bdafd5", "#34274a", Nothing, 32, 32)
             }
 
             Return lista

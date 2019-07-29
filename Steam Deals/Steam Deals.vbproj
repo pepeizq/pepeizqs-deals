@@ -158,6 +158,7 @@
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
+    <Compile Include="Modulos\Tiendas\2Game.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEsDigital.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEsFisico.vb" />
@@ -166,6 +167,7 @@
     <Compile Include="Modulos\Tiendas\Fanatical.vb" />
     <Compile Include="Modulos\Herramientas\Calculadora.vb" />
     <Compile Include="Modulos\Herramientas\Decompiladores.vb" />
+    <Compile Include="Modulos\Tiendas\GameBillet.vb" />
     <Compile Include="Modulos\Tiendas\GamersGate.vb" />
     <Compile Include="Modulos\Tiendas\GamesPlanet.vb" />
     <Compile Include="Modulos\Tiendas\GOG.vb" />
@@ -305,9 +307,13 @@
     <Content Include="Assets\pepeizq\steam.png" />
     <Content Include="Assets\pepeizq\twitter.png" />
     <Content Include="Assets\steam_logo.png" />
+    <Content Include="Assets\Tiendas\2game.png" />
+    <Content Include="Assets\Tiendas\2game2.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\discordnitro.png" />
+    <Content Include="Assets\Tiendas\gamebillet.ico" />
+    <Content Include="Assets\Tiendas\gamebillet2.png" />
     <Content Include="Assets\Tiendas\gog2.png" />
     <Content Include="Assets\Tiendas\origin.png" />
     <Content Include="Assets\Tiendas\epicgames.ico" />

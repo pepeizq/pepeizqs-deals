@@ -27,6 +27,8 @@ Module Tiendas
     Dim yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18, Nothing, 1209, "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg", "Assets/Tiendas/yuplay2.png", 300, 155)
     Dim epicT As New Tienda("Epic Games Store", "EpicGamesStore", Nothing, 19, Nothing, Nothing, Nothing, "Assets/Tiendas/epicgames2.png", 300, 155)
     Dim originT As New Tienda("Origin", "Origin", "Assets/Tiendas/origin.png", 20, Nothing, 1213, "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png", "Assets/Tiendas/origin2.png", 300, 155)
+    Dim gamebilletT As New Tienda("GameBillet", "GameBillet", "Assets/Tiendas/gamebillet.ico", 21, Nothing, 1215, "https://pepeizqdeals.com/wp-content/uploads/2019/07/tienda_gamebillet.jpg", "Assets/Tiendas/gamebillet2.png", 300, 155)
+    Dim _2gameT As New Tienda("2Game", "2Game", "Assets/Tiendas/2game.png", 22, Nothing, 1216, "https://pepeizqdeals.com/wp-content/uploads/2019/07/tienda_2game.jpg", "Assets/Tiendas/2game2.png", 300, 155)
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
@@ -598,6 +600,10 @@ Module Tiendas
                     pepeizq.Tiendas.Yuplay.BuscarOfertas(yuplayT)
                 ElseIf tienda.NombreUsar = originT.NombreUsar Then
                     pepeizq.Tiendas.Origin.BuscarOfertas(originT)
+                ElseIf tienda.NombreUsar = gamebilletT.NombreUsar Then
+                    pepeizq.Tiendas.GameBillet.BuscarOfertas(gamebilletT)
+                ElseIf tienda.NombreUsar = _2gameT.NombreUsar Then
+                    pepeizq.Tiendas._2Game.BuscarOfertas(_2gameT)
                 End If
             Else
                 Ordenar.Ofertas(tienda.NombreUsar, False, True)
