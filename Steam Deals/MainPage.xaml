@@ -531,7 +531,7 @@
                                                         </controls:DropShadowPanel>
                                                     </Grid>
 
-                                                    <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegos" Width="1000" Visibility="Collapsed">
+                                                    <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegos" Width="1000" Visibility="Collapsed" Padding="0,0,0,20">
                                                         <Grid.Background>
                                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                                 <GradientStop Color="#004e7a" Offset="0.5" />
@@ -562,7 +562,7 @@
                                                             </Grid>
                                                         </Grid>
 
-                                                        <GridView x:Name="gvEditorpepeizqdealsImagenEntrada1" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20">
+                                                        <GridView x:Name="gvEditorpepeizqdealsImagenEntrada1" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0">
                                                             <GridView.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
@@ -570,7 +570,7 @@
                                                             </GridView.ItemsPanel>
                                                         </GridView>
 
-                                                        <GridView x:Name="gvEditorpepeizqdealsImagenEntrada2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,30">
+                                                        <GridView x:Name="gvEditorpepeizqdealsImagenEntrada2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,0">
                                                             <GridView.ItemsPanel>
                                                                 <ItemsPanelTemplate>
                                                                     <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
@@ -578,16 +578,8 @@
                                                             </GridView.ItemsPanel>
                                                         </GridView>
 
-                                                        <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="2" Padding="30,0,30,50">
-                                                            <controls:DropShadowPanel Color="Black" Padding="2" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <Grid>
-                                                                    <Grid.Background>
-                                                                        <SolidColorBrush Color="#004e7a" Opacity="0.8"/>
-                                                                    </Grid.Background>
-
-                                                                    <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Foreground="White" FontSize="80" HorizontalAlignment="Center" Margin="30,10,30,20" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                </Grid>
-                                                            </controls:DropShadowPanel>
+                                                        <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="2" Padding="20,0,20,30">
+                                                            <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos" Foreground="White" FontSize="65" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>

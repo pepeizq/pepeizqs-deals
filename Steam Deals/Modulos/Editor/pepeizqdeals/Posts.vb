@@ -90,9 +90,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
+                If Not titulo = Nothing Then
+                    If titulo.Trim.Length > 0 Then
+                        postEditor.SEOTitulo = titulo.Trim + " • Sale Deal Offer"
+                    End If
+                End If
+
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
+                        postEditor.SEOContenido = tituloComplemento.Trim
                     End If
                 End If
 
