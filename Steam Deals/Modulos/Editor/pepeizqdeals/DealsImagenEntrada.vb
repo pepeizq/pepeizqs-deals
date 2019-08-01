@@ -123,34 +123,35 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim complementoTitulo As String = LimpiarTitulo(juegos(0).Titulo) + " (" + juegos(0).Descuento + ")"
 
-            If cantidadJuegos < 7 Then
-                If juegos.Count = 2 Then
-                    complementoTitulo = complementoTitulo + " and " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + ")"
-                ElseIf juegos.Count = 3 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + ") and " +
-                        LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + ")"
-                ElseIf juegos.Count = 4 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
-                        LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + ") and " +
-                        LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + ")"
-                ElseIf juegos.Count = 5 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
-                        LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
-                        LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + ") and " +
-                        LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ")"
-                ElseIf juegos.Count = 6 Then
-                    complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
-                        LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
-                        LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + "), " +
-                        LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ") and " +
-                        LimpiarTitulo(juegos(5).Titulo) + " (" + juegos(5).Descuento + ")"
-                End If
-            ElseIf cantidadJuegos > 6 Then
+            If juegos.Count = 2 Then
+                complementoTitulo = complementoTitulo + " and " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + ")"
+            ElseIf juegos.Count = 3 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + ") and " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + ")"
+            ElseIf juegos.Count = 4 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + ") and " +
+                    LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + ")"
+            ElseIf juegos.Count = 5 Then
+                complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
+                    LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
+                    LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + ") and " +
+                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ")"
+            ElseIf juegos.Count = 6 Then
                 complementoTitulo = complementoTitulo + ", " + LimpiarTitulo(juegos(1).Titulo) + " (" + juegos(1).Descuento + "), " +
                     LimpiarTitulo(juegos(2).Titulo) + " (" + juegos(2).Descuento + "), " +
                     LimpiarTitulo(juegos(3).Titulo) + " (" + juegos(3).Descuento + "), " +
-                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + "), " +
-                    LimpiarTitulo(juegos(5).Titulo) + " (" + juegos(5).Descuento + ") and more"
+                    LimpiarTitulo(juegos(4).Titulo) + " (" + juegos(4).Descuento + ") and " +
+                    LimpiarTitulo(juegos(5).Titulo) + " (" + juegos(5).Descuento + ")"
+            End If
+
+            If cantidadJuegos > 6 Then
+                If complementoTitulo.Contains(") and ") Then
+                    Dim int As Integer = complementoTitulo.LastIndexOf(") and ")
+                    complementoTitulo = complementoTitulo.Remove(int, 6)
+                    complementoTitulo = complementoTitulo.Insert(int, "), ")
+                    complementoTitulo = complementoTitulo + " and more"
+                End If
             End If
 
             If Not complementoTitulo = Nothing Then
