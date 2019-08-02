@@ -879,6 +879,7 @@
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition Height="Auto"/>
                                                                 <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
 
                                                             <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
@@ -909,6 +910,8 @@
                                                                     </ItemsPanelTemplate>
                                                                 </GridView.ItemsPanel>
                                                             </GridView>
+
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje" Grid.Row="2" Foreground="White" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>

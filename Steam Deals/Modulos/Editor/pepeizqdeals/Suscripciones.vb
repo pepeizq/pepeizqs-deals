@@ -106,8 +106,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
             Dim precio As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
+            Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False)
+            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
                 imagenTienda.Source = "Assets\Tiendas\humblemonthly.png"
@@ -120,16 +121,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Enlace = "https://www.humblebundle.com/monthly"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.EnseñarJuegos = True
+                cosas.Mensaje = "More games will be revealed on the first Friday of next month"
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
 
-                precio.Text = "4,00 € (*)"
+                precio.Text = "4,00 € *"
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://twitch.amazon.com/tp"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
                 cosas.EnseñarJuegos = True
+                cosas.Mensaje = "* This price is different depending on your country, the one shown corresponds to Spain"
             ElseIf cbTiendas.SelectedIndex = 3 Then
                 imagenTienda.Source = "Assets\Tiendas\discordnitro.png"
 
@@ -171,6 +174,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not cosas.Enlace = Nothing Then
                 tbEnlace.Text = cosas.Enlace
+            End If
+
+            If Not cosas.Mensaje = Nothing Then
+                mensaje.Visibility = Visibility.Visible
+                mensaje.Text = cosas.Mensaje
+            Else
+                mensaje.Visibility = Visibility.Collapsed
             End If
 
             tbTitulo.Tag = cosas
@@ -375,9 +385,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     If listaJuegos.Count = 1 Then
-                        imagenJuego.MaxHeight = 160
+                        imagenJuego.MaxHeight = 150
                     ElseIf listaJuegos.Count = 2 Then
-                        imagenJuego.MaxHeight = 160
+                        imagenJuego.MaxHeight = 150
                     ElseIf listaJuegos.Count = 3 Then
                         imagenJuego.MaxHeight = 130
                     ElseIf listaJuegos.Count = 4 Then

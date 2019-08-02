@@ -8,9 +8,10 @@
         Public Property Enlace As String
         Public Property Icono As String
         Public Property EnseñarJuegos As Boolean
+        Public Property Mensaje As String
 
         Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal tienda As String, ByVal juegos As String,
-                       ByVal enlace As String, ByVal icono As String, ByVal enseñarJuegos As Boolean)
+                       ByVal enlace As String, ByVal icono As String, ByVal enseñarJuegos As Boolean, ByVal mensaje As String)
             Me.Titulo = titulo
             Me.Imagen = imagen
             Me.Tienda = tienda
@@ -18,6 +19,7 @@
             Me.Enlace = enlace
             Me.Icono = icono
             Me.EnseñarJuegos = enseñarJuegos
+            Me.Mensaje = mensaje
         End Sub
 
     End Class
