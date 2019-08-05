@@ -27,6 +27,12 @@ Module Configuracion
             UltimaVisitaFiltrar(ApplicationData.Current.LocalSettings.Values("ultimavisita"))
         End If
 
+        If ApplicationData.Current.LocalSettings.Values("mostrarimagenes") Is Nothing Then
+            MostrarImagenesJuegos(True)
+        Else
+            MostrarImagenesJuegos(ApplicationData.Current.LocalSettings.Values("mostrarimagenes"))
+        End If
+
         If ApplicationData.Current.LocalSettings.Values("analisis") Is Nothing Then
             AnalisisBuscar(False)
         Else
@@ -37,12 +43,6 @@ Module Configuracion
             DivisaActualizar(True)
         Else
             DivisaActualizar(ApplicationData.Current.LocalSettings.Values("divisas"))
-        End If
-
-        If ApplicationData.Current.LocalSettings.Values("steam+") Is Nothing Then
-            SteamMasActivar(False)
-        Else
-            SteamMasActivar(ApplicationData.Current.LocalSettings.Values("steam+"))
         End If
 
     End Sub
@@ -75,6 +75,7 @@ Module Configuracion
 
         Dim nvPrincipal As NavigationView = pagina.FindName("nvPrincipal")
         Dim itemUltimaVisita As ToggleMenuFlyoutItem = pagina.FindName("itemConfigUltimaVisita")
+        Dim itemMostrarImagenes As ToggleMenuFlyoutItem = pagina.FindName("itemConfigMostrarImagenes")
         Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
         Dim itemMasCosas As NavigationViewItem = pagina.FindName("itemMasCosas")
 
@@ -96,6 +97,7 @@ Module Configuracion
             itemMasCosas.Visibility = Visibility.Collapsed
 
             itemUltimaVisita.Visibility = Visibility.Visible
+            itemMostrarImagenes.Visibility = Visibility.Visible
             itemEditor.Visibility = Visibility.Visible
             gridOfertas.Visibility = Visibility.Visible
 
@@ -144,6 +146,7 @@ Module Configuracion
             itemMasCosas.Visibility = Visibility.Visible
 
             itemUltimaVisita.Visibility = Visibility.Collapsed
+            itemMostrarImagenes.Visibility = Visibility.Collapsed
             itemEditor.Visibility = Visibility.Collapsed
             gridOfertas.Visibility = Visibility.Collapsed
 
@@ -178,6 +181,18 @@ Module Configuracion
 
     End Sub
 
+    Public Sub MostrarImagenesJuegos(estado As Boolean)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        ApplicationData.Current.LocalSettings.Values("mostrarimagenes") = estado
+
+        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigMostrarImagenes")
+        toggle.IsChecked = estado
+
+    End Sub
+
     Public Async Sub AnalisisBuscar(estado As Boolean)
 
         Dim frame As Frame = Window.Current.Content
@@ -205,24 +220,9 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("divisas") = estado
 
-        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigDivisas")
-        'toggle.IsChecked = estado
-
         If estado = True Then
             Divisas.Generar()
         End If
-
-    End Sub
-
-    Public Sub SteamMasActivar(estado As Boolean)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        ApplicationData.Current.LocalSettings.Values("steam+") = estado
-
-        'Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("toggleConfigSteamMas")
-        'toggle.IsChecked = estado
 
     End Sub
 

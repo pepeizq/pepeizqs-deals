@@ -33,7 +33,7 @@ Module Tiendas
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-        epicT, originT
+        epicT, originT, gamebilletT
     }
 
     Public Function Listado()
@@ -693,6 +693,10 @@ Module Tiendas
             AddHandler cb.PointerExited, AddressOf UsuarioSaleBoton
 
             sp1.Children.Add(cb)
+        End If
+
+        If ApplicationData.Current.LocalSettings.Values("mostrarimagenes") = False Then
+            enseñarImagen = False
         End If
 
         If enseñarImagen = True Then

@@ -177,6 +177,12 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub ItemConfigMostrarImagenes_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigMostrarImagenes.Click
+
+        Configuracion.MostrarImagenesJuegos(itemConfigMostrarImagenes.IsChecked)
+
+    End Sub
+
     'EDITOR---------------------------------------------------------------------------------
 
     Private Sub BotonTiendaSeleccionada_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSeleccionada.Click

@@ -68,6 +68,7 @@
                                 <MenuFlyoutSeparator/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigUltimaVisita" x:Uid="ConfigLastVisit"/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigEditor" x:Uid="Editor2"/>
+                                <ToggleMenuFlyoutItem x:Name="itemConfigMostrarImagenes" Text="Mostrar Imágenes"/>
                             </MenuFlyout>
                         </FlyoutBase.AttachedFlyout>
                     </NavigationViewItem>
