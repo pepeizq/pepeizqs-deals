@@ -134,6 +134,7 @@ Namespace pepeizq.Tiendas
                                         Next
 
                                         juego.Precio = CambioMoneda(juego.Precio, dolar)
+                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                                         listaJuegos.Add(juego)
                                     End If

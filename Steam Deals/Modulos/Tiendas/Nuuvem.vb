@@ -193,6 +193,7 @@ Namespace pepeizq.Tiendas
 
                                 If tituloBool = False Then
                                     juego.Precio = CambioMoneda(juego.Precio, dolar)
+                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                                     listaJuegos.Add(juego)
                                 End If

@@ -184,6 +184,8 @@ Namespace pepeizq.Tiendas
                                     End If
 
                                     If tituloBool = False Then
+                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
                                         listaJuegos.Add(juego)
                                     End If
                                 End If

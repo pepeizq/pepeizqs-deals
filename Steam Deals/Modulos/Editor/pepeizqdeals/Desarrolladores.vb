@@ -360,7 +360,7 @@
                 New Clases.Desarrolladores("Kitfox Games", "@KitfoxGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Klei", "@klei", "Assets\LogosPublishers\klei.png", Nothing),
                 New Clases.Desarrolladores("Knuckle Cracker", "@knucracker", Nothing, Nothing),
-                New Clases.Desarrolladores("Konami", "@Konami", "Assets\LogosPublishers\konami.png", Nothing),
+                New Clases.Desarrolladores("Konami", "@Konami", "Assets\LogosPublishers\konami.png", 400),
                 New Clases.Desarrolladores("Kongregate", "@kongregate", Nothing, Nothing),
                 New Clases.Desarrolladores("Konstructors Entertainment", "@konstructors", Nothing, Nothing),
                 New Clases.Desarrolladores("Kozinaka Labs", "@insatiagame", Nothing, Nothing),

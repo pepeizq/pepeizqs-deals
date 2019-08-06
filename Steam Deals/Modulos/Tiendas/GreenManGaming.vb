@@ -146,6 +146,8 @@ Namespace pepeizq.Tiendas
                                         End If
                                     Next
 
+                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
                                     listaJuegos.Add(juego)
                                 End If
                             End If

@@ -260,6 +260,8 @@ Namespace pepeizq.Tiendas
                                             juego = SteamMas(juego).Result
                                         End If
 
+                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
                                         listaJuegos.Add(juego)
                                     End If
                                 End If

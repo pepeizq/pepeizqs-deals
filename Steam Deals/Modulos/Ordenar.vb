@@ -298,4 +298,29 @@ Module Ordenar
 
     End Sub
 
+    Public Function PrecioPreparar(precio As String)
+
+        If Not precio = Nothing Then
+            precio = precio.Replace(".", ",")
+            precio = precio.Replace("€", Nothing)
+            precio = precio.Trim + " €"
+
+            If precio.Contains(",") Then
+                Dim int As Integer = precio.IndexOf(",")
+                Dim int2 As Integer = precio.IndexOf("€")
+
+                If int2 - int = 3 Then
+                    precio = precio.Insert(int + 2, "0")
+                End If
+            Else
+                Dim int As Integer = precio.IndexOf("€")
+
+                precio = precio.Insert(int - 1, ",00")
+            End If
+        End If
+
+        Return precio
+
+    End Function
+
 End Module

@@ -382,6 +382,7 @@ Namespace pepeizq.Tiendas
 
                                     If añadirJuegoLista = True Then
                                         juego.Precio = CambioMoneda(juego.Precio, rublo)
+                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                                         listaJuegos.Add(juego)
                                     End If

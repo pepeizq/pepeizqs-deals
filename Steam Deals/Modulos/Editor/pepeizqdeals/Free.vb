@@ -376,39 +376,31 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cosas As New Clases.Free(Nothing, Nothing, "Epic Games Store")
 
-            Dim html As String = Await HttpClient(New Uri(enlace))
+            Dim clave As String = enlace.Trim
+            clave = clave.Replace("https://www.epicgames.com/store/es-ES/product/", Nothing)
+            clave = clave.Replace("https://www.epicgames.com/store/en-US/product/", Nothing)
+            clave = clave.Replace("/home", Nothing)
+
+            Dim html As String = Await Decompiladores.HttpClient(New Uri("https://www.epicgames.com/store/en-US/api/content/products/" + clave))
 
             If Not html = Nothing Then
-                If html.Contains("<title") Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
+                Dim juegoEpic As EpicGamesJuego = JsonConvert.DeserializeObject(Of EpicGamesJuego)(html)
 
-                    int = html.IndexOf("<title")
-                    temp = html.Remove(0, int + 1)
-
-                    int = temp.IndexOf(">")
-                    temp = temp.Remove(0, int + 1)
-
-                    int2 = temp.IndexOf("</title>")
-                    temp2 = temp.Remove(int2, temp.Length - int2)
-
-                    If temp2.Contains(" - ") Then
-                        int2 = temp2.LastIndexOf(" - ")
-                        temp2 = temp2.Remove(int2, temp2.Length - int2)
-                    End If
-
-                    temp2 = temp2.Trim
-
-                    If temp2.Length = 0 Then
-                        temp2 = "---"
-                    End If
-
-                    cosas.Titulo = temp2
-                End If
+                Dim titulo As String = juegoEpic.Titulo
+                cosas.Titulo = titulo.Trim
+            Else
+                cosas.Titulo = "---"
             End If
 
             Return cosas
         End Function
+
+        Public Class EpicGamesJuego
+
+            <JsonProperty("productName")>
+            Public Titulo As String
+
+        End Class
 
         Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
 

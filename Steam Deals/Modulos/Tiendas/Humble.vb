@@ -4,6 +4,8 @@ Imports Newtonsoft.Json
 Imports Windows.Globalization.NumberFormatting
 Imports Windows.System.UserProfile
 
+'https://www.humblebundle.com/store/api/recommend?recommendation_attempt=1&machine_name=americanfugitive_storefront
+
 Namespace pepeizq.Tiendas
     Module Humble
 
@@ -181,6 +183,8 @@ Namespace pepeizq.Tiendas
                         End If
 
                         If añadir = True Then
+                            juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
                             listaJuegos.Add(juego)
                         End If
                     Next
