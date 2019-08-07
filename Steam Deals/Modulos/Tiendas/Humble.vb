@@ -5,6 +5,7 @@ Imports Windows.Globalization.NumberFormatting
 Imports Windows.System.UserProfile
 
 'https://www.humblebundle.com/store/api/recommend?recommendation_attempt=1&machine_name=americanfugitive_storefront
+'https://www.humblebundle.com/store/api/search?sort=discount&filter=all&search=american&request=1
 
 Namespace pepeizq.Tiendas
     Module Humble

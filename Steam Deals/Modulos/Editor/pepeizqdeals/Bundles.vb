@@ -489,53 +489,70 @@ Namespace pepeizq.Editor.pepeizqdeals
                     enlace = enlace.Replace("/es/", "/en/")
 
                     If enlaceJuego = enlace.Trim Then
-                        Dim titulo As String = juegoFanatical.Titulo
-                        titulo = WebUtility.HtmlDecode(titulo)
-                        titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+                        Dim añadir As Boolean = False
 
-                        cosas.Titulo = titulo
-                        cosas.Precio = juegoFanatical.PrecioRebajado.EUR.Trim + " €"
-                        cosas.Imagen = juegoFanatical.Imagen
-
-                        Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-                        Try
-                            fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
-                            fechaTermina = fechaTermina.ToLocalTime
-                        Catch ex As Exception
-
-                        End Try
-
-                        cosas.FechaTermina = fechaTermina
-
-                        Dim listaIDs As New List(Of String)
-
-                        If Not juegoFanatical.Bundle.Tier1 Is Nothing Then
-                            If juegoFanatical.Bundle.Tier1.Juegos.Count > 0 Then
-                                For Each juego In juegoFanatical.Bundle.Tier1.Juegos
-                                    listaIDs.Add(juego.IDSteam)
+                        If Not juegoFanatical.Regiones Is Nothing Then
+                            If juegoFanatical.Regiones.Count > 0 Then
+                                añadir = False
+                                For Each region In juegoFanatical.Regiones
+                                    If region = "ES" Then
+                                        añadir = True
+                                    End If
                                 Next
                             End If
+                        Else
+                            añadir = True
                         End If
 
-                        If Not juegoFanatical.Bundle.Tier2 Is Nothing Then
-                            If juegoFanatical.Bundle.Tier2.Juegos.Count > 0 Then
-                                For Each juego In juegoFanatical.Bundle.Tier2.Juegos
-                                    listaIDs.Add(juego.IDSteam)
-                                Next
+                        If añadir = True Then
+                            Dim titulo As String = juegoFanatical.Titulo
+                            titulo = WebUtility.HtmlDecode(titulo)
+                            titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+
+                            cosas.Titulo = titulo
+                            cosas.Precio = juegoFanatical.PrecioRebajado.EUR.Trim + " €"
+                            cosas.Imagen = juegoFanatical.Imagen
+
+                            Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                            Try
+                                fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
+                                fechaTermina = fechaTermina.ToLocalTime
+                            Catch ex As Exception
+
+                            End Try
+
+                            cosas.FechaTermina = fechaTermina
+
+                            Dim listaIDs As New List(Of String)
+
+                            If Not juegoFanatical.Bundle.Tier1 Is Nothing Then
+                                If juegoFanatical.Bundle.Tier1.Juegos.Count > 0 Then
+                                    For Each juego In juegoFanatical.Bundle.Tier1.Juegos
+                                        listaIDs.Add(juego.IDSteam)
+                                    Next
+                                End If
                             End If
-                        End If
 
-                        If Not juegoFanatical.Bundle.Tier3 Is Nothing Then
-                            If juegoFanatical.Bundle.Tier3.Juegos.Count > 0 Then
-                                For Each juego In juegoFanatical.Bundle.Tier3.Juegos
-                                    listaIDs.Add(juego.IDSteam)
-                                Next
+                            If Not juegoFanatical.Bundle.Tier2 Is Nothing Then
+                                If juegoFanatical.Bundle.Tier2.Juegos.Count > 0 Then
+                                    For Each juego In juegoFanatical.Bundle.Tier2.Juegos
+                                        listaIDs.Add(juego.IDSteam)
+                                    Next
+                                End If
                             End If
+
+                            If Not juegoFanatical.Bundle.Tier3 Is Nothing Then
+                                If juegoFanatical.Bundle.Tier3.Juegos.Count > 0 Then
+                                    For Each juego In juegoFanatical.Bundle.Tier3.Juegos
+                                        listaIDs.Add(juego.IDSteam)
+                                    Next
+                                End If
+                            End If
+
+                            cosas.IDsJuegos = listaIDs
+
+                            Exit For
                         End If
-
-                        cosas.IDsJuegos = listaIDs
-
-                        Exit For
                     End If
                 Next
             End If
