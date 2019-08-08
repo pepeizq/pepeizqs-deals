@@ -78,6 +78,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda")
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda2")
 
             Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
@@ -153,8 +154,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not tiendaLogo = String.Empty Then
                         imagenTienda.Visibility = Visibility.Visible
                         imagenTienda.Source = tiendaLogo
+
+                        imagenTienda2.Visibility = Visibility.Visible
+                        imagenTienda2.Source = tiendaLogo
                     Else
                         imagenTienda.Visibility = Visibility.Collapsed
+                        imagenTienda2.Visibility = Visibility.Collapsed
                     End If
 
                     tbTitulo.Tag = cosas
@@ -176,7 +181,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsBundles")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundles")
+            Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundles")
 
             Dim cosas As Clases.Bundles = tbTitulo.Tag
 
@@ -187,7 +192,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text.Trim, tbJuegos.Text.Trim, 4, New List(Of Integer) From {cosas.Etiqueta}, " ", " ", cosas.Tienda, cosas.Icono,
-                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString)
+                               tbEnlace.Text.Trim, botonImagen1, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString)
 
             BloquearControles(True)
 
@@ -216,8 +221,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundles")
-            tbPrecio.Text = precio
+            Dim tbPrecio1 As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundles")
+            tbPrecio1.Text = precio
+
+            Dim tbPrecio2 As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundles2")
+            tbPrecio2.Text = precio
 
         End Sub
 
@@ -228,8 +236,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundles")
-            imagen.Source = tbImagen.Text
+            Dim imagen1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundles")
+            imagen1.Source = tbImagen.Text
+
+            Dim imagen2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundles2")
+            imagen2.Source = tbImagen.Text
 
         End Sub
 
@@ -499,6 +510,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         añadir = True
                                     End If
                                 Next
+                            Else
+                                añadir = True
                             End If
                         Else
                             añadir = True

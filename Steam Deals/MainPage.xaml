@@ -637,7 +637,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Button x:Name="botonEditorpepeizqdealsGenerarImagenBundles" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
                                             <Button.Resources>
                                                 <ResourceDictionary>
@@ -690,7 +690,49 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                    </Grid>
+
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenBundles2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,20,0,0">
+                                            <Button.Resources>
+                                                <ResourceDictionary>
+                                                    <ResourceDictionary.ThemeDictionaries>
+                                                        <ResourceDictionary x:Key="Light">
+                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                        </ResourceDictionary>
+                                                    </ResourceDictionary.ThemeDictionaries>
+                                                </ResourceDictionary>
+                                            </Button.Resources>
+
+                                            <Button.Content>
+                                                <StackPanel>
+                                                    <Grid Width="1000" Height="650">
+                                                        <Grid.Background>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#004e7a" Offset="0.5" />
+                                                                <GradientStop Color="#003553" Offset="1.0" />
+                                                            </LinearGradientBrush>
+                                                        </Grid.Background>
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <controls:DropShadowPanel Grid.Row="0" Margin="10" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundles2" Stretch="UniformToFill" IsCacheEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </controls:DropShadowPanel>
+
+                                                        <StackPanel Grid.Row="1" Padding="20,15,20,25" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="100" Margin="0,20,50,20" VerticalAlignment="Center"/>
+
+                                                            <StackPanel Background="Black" VerticalAlignment="Center">
+                                                                <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundles2" Foreground="White" FontSize="50" VerticalAlignment="Center" Margin="14,10,14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Grid> 
+                                                </StackPanel>
+                                            </Button.Content> 
+                                        </Button> 
+                                    </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
 
