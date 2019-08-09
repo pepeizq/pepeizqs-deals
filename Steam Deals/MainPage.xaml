@@ -586,6 +586,45 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
+
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenEntrada2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,20,0,0">
+                                            <Button.Resources>
+                                                <ResourceDictionary>
+                                                    <ResourceDictionary.ThemeDictionaries>
+                                                        <ResourceDictionary x:Key="Light">
+                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                        </ResourceDictionary>
+                                                    </ResourceDictionary.ThemeDictionaries>
+                                                </ResourceDictionary>
+                                            </Button.Resources>
+
+                                            <Button.Content>
+                                                <StackPanel>
+                                                    <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegos2" Width="1000" Height="600" Visibility="Collapsed">
+                                                        <Grid.Background>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                                <GradientStop Color="#004e7a" Offset="0.5" />
+                                                                <GradientStop Color="#003553" Offset="1.0" />
+                                                            </LinearGradientBrush>
+                                                        </Grid.Background>
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos2" Grid.Row="0" Margin="20" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                                        <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos2" Grid.Row="0" Foreground="White" Margin="20" FontSize="90" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+
+                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos2" Grid.Row="1" Stretch="Uniform" MaxWidth="420" MaxHeight="175" HorizontalAlignment="Center" Margin="20,30,20,30"/>
+
+                                                        <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegos2" Grid.Row="2" Foreground="White" FontSize="65" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Margin="20,30,20,50"/>
+                                                    </Grid>
+                                                </StackPanel> 
+                                            </Button.Content> 
+                                        </Button> 
                                     </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>

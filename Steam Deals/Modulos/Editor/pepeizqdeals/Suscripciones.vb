@@ -153,7 +153,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             ElseIf cbTiendas.SelectedIndex = 5 Then
                 imagenTienda.Source = "Assets\Tiendas\originaccess.png"
 
-                precio.Text = "3,99 € (*)"
+                precio.Text = "3,99 € *"
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
