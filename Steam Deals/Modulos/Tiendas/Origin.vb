@@ -2,6 +2,9 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 
+'https://api3.origin.com/supercat/ES/es_ES/supercat-PCWIN_MAC-ES-es_ES.json.gz
+'https://api1.origin.com/xsearch/store/es_es/esp/products?searchTerm=&filterQuery=price%3Aon-sale&sort=rank%20desc&start=0&rows=25
+
 Namespace pepeizq.Tiendas
     Module Origin
 

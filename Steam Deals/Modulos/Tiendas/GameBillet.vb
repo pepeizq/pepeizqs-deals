@@ -76,6 +76,7 @@ Namespace pepeizq.Tiendas
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoGB.Enlace
+                            enlace = enlace.Replace("www.", Nothing)
 
                             Dim precioRebajado As String = juegoGB.PrecioRebajado
                             precioRebajado = precioRebajado.Replace(".", ",")
