@@ -14,7 +14,6 @@ Module Tiendas
     Dim fanaticalT As New Tienda("Fanatical", "Fanatical", "Assets/Tiendas/fanatical.ico", 4, Nothing, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", "Assets/Tiendas/fanatical2.png", 350, 155)
     Dim gogT As New Tienda("GOG", "GOG", "Assets/Tiendas/gog.ico", 5, Nothing, 9, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_gog.png", "Assets/Tiendas/gog2.png", 300, 60)
     Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6, Nothing, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", "Assets/Tiendas/wingamestore2.png", 350, 155)
-    Dim silagamesT As New Tienda("Sila Games", "SilaGames", "Assets/Tiendas/silagames.ico", 7, Nothing, 17, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_silagames.png", "Assets/Tiendas/silagames2.png", 350, 155)
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8, Nothing, Nothing, Nothing, Nothing, 350, 155)
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9, Nothing, 16, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png", "Assets/Tiendas/microsoftstore2.png", 350, 155)
     Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10, Nothing, 15, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png", "Assets/Tiendas/chrono2.png", 300, 155)
@@ -31,7 +30,7 @@ Module Tiendas
     Dim _2gameT As New Tienda("2Game", "2Game", "Assets/Tiendas/2game.png", 22, Nothing, 1216, "https://pepeizqdeals.com/wp-content/uploads/2019/07/tienda_2game.jpg", "Assets/Tiendas/2game2.png", 300, 155)
 
     Dim listaTiendas As New List(Of Tienda) From {
-        steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, silagamesT, nuuvemT,
+        steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, nuuvemT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
         epicT, originT, gamebilletT
     }
@@ -576,8 +575,6 @@ Module Tiendas
                     pepeizq.Tiendas.GOG.BuscarOfertas(gogT, False)
                 ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
                     pepeizq.Tiendas.WinGameStore.BuscarOfertas(wingamestoreT)
-                ElseIf tienda.NombreUsar = silagamesT.NombreUsar Then
-                    pepeizq.Tiendas.SilaGames.BuscarOfertas(silagamesT)
                 ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
                     pepeizq.Tiendas.Nuuvem.BuscarOfertas(nuuvemT)
                 ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
