@@ -176,7 +176,7 @@ Namespace pepeizq.Tiendas
                     End If
 
                     Dim j As Integer = 1
-                    While j < numPaginas
+                    While j < numPaginas + 1
                         Dim htmlPagina_ As Task(Of String) = HttpClient(New Uri("https://gamebillet.com/hotdeals?pagenumber=" + j.ToString))
                         Dim htmlPagina As String = htmlPagina_.Result
 

@@ -523,12 +523,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagenCabecera.MaxWidth = ancho
 
                     Dim imagenCabecera2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos2")
-
-                    If ancho > 760 Then
-                        imagenCabecera2.MaxWidth = ancho
-                    Else
-                        imagenCabecera2.MaxWidth = ancho + 200
-                    End If
+                    imagenCabecera2.MaxWidth = ancho
 
                     Dim panelCabecera As DropShadowPanel = pagina.FindName("panelCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
 
