@@ -230,6 +230,7 @@
     <Content Include="Assets\LogosJuegos\citiesskylines.png" />
     <Content Include="Assets\LogosJuegos\darksiders.png" />
     <Content Include="Assets\LogosJuegos\darksouls.png" />
+    <Content Include="Assets\LogosJuegos\dirt.png" />
     <Content Include="Assets\LogosJuegos\farcry.png" />
     <Content Include="Assets\LogosJuegos\fifa19.png" />
     <Content Include="Assets\LogosJuegos\ghostrecon.png" />
