@@ -352,7 +352,7 @@
                 New Clases.Desarrolladores("Jundroo", "@JundrooGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Kagura Games", "@KaguraGaming", Nothing, Nothing),
                 New Clases.Desarrolladores("Kaleido Games", "@KaleidoGames", Nothing, Nothing),
-                New Clases.Desarrolladores("Kalypso", "@kalypsomediausa", "Assets\LogosPublishers\kalypso.png", 450),
+                New Clases.Desarrolladores("Kalypso", "@kalypsomediausa", "Assets\LogosPublishers\kalypso.png", 400),
                 New Clases.Desarrolladores("Kasedo Games", "@KasedoGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Katta Games", "@asteroidfight", Nothing, Nothing),
                 New Clases.Desarrolladores("Kenomica Productions", "@KenomicaPro", Nothing, Nothing),
