@@ -98,6 +98,7 @@
                 New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 500),
                 New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 500),
                 New Clases.LogosJuegos("Tom Clancy's Rainbow Six Siege", "Assets\LogosJuegos\rainbowsiege.png", 550),
+                New Clases.LogosJuegos("Total War", "Assets\LogosJuegos\totalwar.png", 500),
                 New Clases.LogosJuegos("Warhammer", "Assets\LogosJuegos\warhammer.png", 450),
                 New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 550)
             }
