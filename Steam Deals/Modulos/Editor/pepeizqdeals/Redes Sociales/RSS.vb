@@ -1,4 +1,5 @@
-﻿Imports Newtonsoft.Json
+﻿Imports System.Net
+Imports Newtonsoft.Json
 Imports Windows.UI.Core
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
@@ -21,8 +22,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     .Padding = New Thickness(5, 5, 5, 5)
                 }
 
+                Dim titulo As String = WebUtility.HtmlDecode(post.Titulo.Rendered)
+
                 Dim tbTitulo As New TextBlock With {
-                    .Text = post.Titulo.Rendered,
+                    .Text = titulo,
                     .VerticalAlignment = VerticalAlignment.Center
                 }
 
