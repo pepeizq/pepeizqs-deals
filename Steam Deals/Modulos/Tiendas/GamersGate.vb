@@ -80,6 +80,8 @@ Namespace pepeizq.Tiendas
                 If listaJuegosES.Juegos.Count > 0 Then
                     For Each juego In listaJuegosES.Juegos
                         Dim titulo As String = WebUtility.HtmlDecode(juego.Titulo)
+                        titulo = titulo.Replace("(Mac)", Nothing)
+                        titulo = titulo.Replace("(Mac & Linux)", Nothing)
                         titulo = titulo.Trim
 
                         Dim enlaceTemp As String = juego.Enlace

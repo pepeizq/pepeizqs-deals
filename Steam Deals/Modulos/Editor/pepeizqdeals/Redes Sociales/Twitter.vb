@@ -24,7 +24,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 mensaje = mensaje.Trim
                 mensaje = Twitter.ReemplazarTiendaTitulo(mensaje)
 
-                If categoria = 3 Then
+                If categoria = 3 Or categoria = 1218 Then
                     Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
 
                     If Not cb.SelectedIndex = 0 Then
