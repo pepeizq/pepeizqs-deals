@@ -6,6 +6,7 @@ Imports Windows.System.UserProfile
 
 'https://www.humblebundle.com/store/api/recommend?recommendation_attempt=1&machine_name=americanfugitive_storefront
 'https://www.humblebundle.com/store/api/search?sort=discount&filter=all&search=american&request=1
+'https://www.humblebundle.com/api/v1/trove/chunk?index=4
 
 Namespace pepeizq.Tiendas
     Module Humble
