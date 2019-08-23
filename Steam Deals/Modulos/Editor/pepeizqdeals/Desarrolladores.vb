@@ -575,7 +575,7 @@
                 New Clases.Desarrolladores("Subset Games", "@subsetgames", Nothing, Nothing),
                 New Clases.Desarrolladores("Sukeban Games", "@SukebanGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Suncrash", "@suncrashstudio", Nothing, Nothing),
-                New Clases.Desarrolladores("Supergiant Games", "@SupergiantGames", Nothing, Nothing),
+                New Clases.Desarrolladores("Supergiant Games", "@SupergiantGames", "Assets\LogosPublishers\supergiant.png", 380),
                 New Clases.Desarrolladores("SureAI", "@SureAITeam", Nothing, Nothing),
                 New Clases.Desarrolladores("Surprise Attack", "@FellowTravellr", Nothing, Nothing),
                 New Clases.Desarrolladores("Suspicious Developments", "@Pentadact", Nothing, Nothing),
