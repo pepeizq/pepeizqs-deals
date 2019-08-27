@@ -28,11 +28,12 @@ Module Tiendas
     Dim originT As New Tienda("Origin", "Origin", "Assets/Tiendas/origin.png", 20, Nothing, 1213, "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png", "Assets/Tiendas/origin2.png", 300, 155)
     Dim gamebilletT As New Tienda("GameBillet", "GameBillet", "Assets/Tiendas/gamebillet.ico", 21, Nothing, 1215, "https://pepeizqdeals.com/wp-content/uploads/2019/07/tienda_gamebillet.jpg", "Assets/Tiendas/gamebillet2.png", 300, 155)
     Dim _2gameT As New Tienda("2Game", "2Game", "Assets/Tiendas/2game.png", 22, Nothing, 1216, "https://pepeizqdeals.com/wp-content/uploads/2019/07/tienda_2game.jpg", "Assets/Tiendas/2game2.png", 300, 155)
+    Dim blizzardT As New Tienda("Blizzard Store", "Blizzard", "Assets/Tiendas/blizzard.ico", 23, Nothing, 1219, "https://pepeizqdeals.com/wp-content/uploads/2019/08/tienda_blizzardstore.jpg", "Assets/Tiendas/blizzard2.png", 300, 155)
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, nuuvemT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-        epicT, originT, gamebilletT
+        epicT, originT, gamebilletT, blizzardT
     }
 
     Public Function Listado()
@@ -601,6 +602,8 @@ Module Tiendas
                     pepeizq.Tiendas.GameBillet.BuscarOfertas(gamebilletT)
                 ElseIf tienda.NombreUsar = _2gameT.NombreUsar Then
                     pepeizq.Tiendas._2Game.BuscarOfertas(_2gameT)
+                ElseIf tienda.NombreUsar = blizzardT.NombreUsar Then
+                    pepeizq.Tiendas.BlizzardStore.BuscarOfertas(blizzardT)
                 End If
             Else
                 Ordenar.Ofertas(tienda.NombreUsar, False, True)

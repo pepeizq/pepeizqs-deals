@@ -86,7 +86,11 @@ Namespace pepeizq.Tiendas
                                     enlace = enlace.Replace("%2Fes-es%2F", "%2Fen-us%2F")
                                     enlace = enlace.Replace("%2F", "/")
                                     enlace = enlace.Replace("%3A", ":")
-                                    enlace = enlace.Replace("http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku=9NBLGGH4NMD9&u=", Nothing)
+
+                                    If enlace.Contains("&u=") Then
+                                        Dim int As Integer = enlace.IndexOf("&u=")
+                                        enlace = enlace.Remove(0, int + 3)
+                                    End If
 
                                     Dim imagenPequeña As String = String.Empty
                                     Dim buscarImagen As Boolean = True

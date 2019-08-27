@@ -163,6 +163,7 @@
     <Compile Include="Modulos\Tiendas\AmazonEsDigital.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEsFisico.vb" />
     <Compile Include="Modulos\Tiendas\AmazonUk.vb" />
+    <Compile Include="Modulos\Tiendas\BlizzardStore.vb" />
     <Compile Include="Modulos\Tiendas\Chrono.vb" />
     <Compile Include="Modulos\Tiendas\Fanatical.vb" />
     <Compile Include="Modulos\Herramientas\Calculadora.vb" />
@@ -314,6 +315,8 @@
     <Content Include="Assets\Tiendas\2game.png" />
     <Content Include="Assets\Tiendas\2game2.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
+    <Content Include="Assets\Tiendas\blizzard.ico" />
+    <Content Include="Assets\Tiendas\blizzard2.png" />
     <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\discordnitro.png" />
     <Content Include="Assets\Tiendas\gamebillet.ico" />

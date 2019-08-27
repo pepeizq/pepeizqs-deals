@@ -40,7 +40,10 @@
             ElseIf enlace.Contains("yuplay.ru") Then
                 enlace = enlace + "?partner=19b1d908fe49e597"
             ElseIf enlace.Contains("microsoft.com") Then
-                enlace = "http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku=9P8WQ8TGB509&u=" + enlace
+                Dim int As Integer = enlace.LastIndexOf("/")
+                Dim id As String = enlace.Remove(0, int + 1)
+
+                enlace = "http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku=" + id + "&u=" + enlace
             ElseIf enlace.Contains("gamebillet.com") Then
                 enlace = enlace + "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
             End If
