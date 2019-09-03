@@ -5,16 +5,18 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Reddit
 
-        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer) As Task
+        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer, subreddit As String, contenidoTexto As String) As Task
 
             Dim añadir As Boolean = True
 
-            If titulo.Contains("Humble Bundle") Then
-                añadir = False
-            ElseIf titulo.Contains("Humble Store") Then
-                añadir = False
-            ElseIf titulo.Contains("Humble Monthly") Then
-                añadir = False
+            If subreddit = "/r/pepeizqdeals" Then
+                If titulo.Contains("Humble Bundle") Then
+                    añadir = False
+                ElseIf titulo.Contains("Humble Store") Then
+                    añadir = False
+                ElseIf titulo.Contains("Humble Monthly") Then
+                    añadir = False
+                End If
             End If
 
             If añadir = True Then
@@ -48,7 +50,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 Dim i As Integer = 0
                 While i < 15
-                    If tituloFinal.Length > 300 Then
+                    If tituloFinal.Length > 290 Then
                         If categoria = "3" Then
                             If tituloFinal.Contains(",") Then
                                 Dim int As Integer = tituloFinal.LastIndexOf(",")
@@ -74,6 +76,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 If Not tituloFinal = Nothing Then
                     If tituloFinal.Trim.Length > 0 Then
                         tituloFinal = tituloFinal.Trim
+
                         If tituloFinal.LastIndexOf("•") = tituloFinal.Length - 1 Then
                             tituloFinal = tituloFinal.Remove(tituloFinal.Length - 1, 1)
                             tituloFinal = tituloFinal.Trim
@@ -93,10 +96,21 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                   If Not reddit.User Is Nothing Then
                                                                                                                       Try
-                                                                                                                          Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
-                                                                                                                          subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                          If subreddit = "/r/pepeizqdeals" Then
+                                                                                                                              Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
+                                                                                                                              subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                          End If
                                                                                                                       Catch ex As Exception
                                                                                                                           Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
+                                                                                                                      End Try
+
+                                                                                                                      Try
+                                                                                                                          If subreddit = "/r/GameDeals" Or subreddit = "r/steamdeals" Then
+                                                                                                                              Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subreddit)
+                                                                                                                              subreddit1.SubmitTextPost(tituloFinal, contenidoTexto)
+                                                                                                                          End If
+                                                                                                                      Catch ex As Exception
+                                                                                                                          Notificaciones.Toast(ex.Message, "Reddit Error " + subreddit)
                                                                                                                       End Try
                                                                                                                   End If
                                                                                                               End Sub))

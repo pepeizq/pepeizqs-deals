@@ -14,7 +14,7 @@ Namespace pepeizq.Editor.pepeizqdeals
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
                                      descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
                                      redireccion As String, imagen1 As Button, imagen2 As Button, tituloComplemento As String,
-                                     analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String) As Task
+                                     analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Juego)) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -197,9 +197,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Try
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria)
+                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing)
                         Catch ex As Exception
-                            Notificaciones.Toast("Reddit Error Post", Nothing)
+                            Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                         End Try
 
                         Try
@@ -207,6 +207,37 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Catch ex As Exception
                             Notificaciones.Toast("Push Error Post", Nothing)
                         End Try
+
+                        '----------------------------------------------------------------
+
+                        If categoria = 3 Or categoria = 1218 Then
+                            If lista.Count > 1 Then
+                                Dim caracteres As String = Reddit.GenerarTexto(lista)
+
+                                If caracteres.Length < 40000 Then
+                                    Try
+                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", caracteres)
+                                    Catch ex As Exception
+                                        Notificaciones.Toast("Reddit r/GameDeals Error Post", Nothing)
+                                    End Try
+                                End If
+                            End If
+                        End If
+
+                        If categoria = 3 Or categoria = 1218 Then
+                            If tiendaNombre = "Steam" And lista.Count > 1 Then
+                                Dim caracteres As String = Reddit.GenerarTexto(lista)
+
+                                If caracteres.Length < 40000 Then
+                                    Try
+                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/steamdeals", caracteres)
+                                    Catch ex As Exception
+                                        Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                                    End Try
+                                End If
+                            End If
+                        End If
+
                     End If
                 End If
             End If

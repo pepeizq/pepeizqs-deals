@@ -11,8 +11,6 @@
             Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
 
-            Dim contenidoEnlaces As String = Nothing
-
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTituloReddit")
 
             If listaFinal.Count = 0 Then
@@ -23,24 +21,26 @@
                 tbTitulo.Text = "[" + listaFinal(0).Tienda.NombreMostrar + "] Sale | Up to " + listaFinal(0).Descuento + " off (" + cantidadJuegos + " deals)"
             End If
 
-            If listaFinal(0).Tienda.NombreMostrar = "Steam" Then
+            Dim contenidoEnlaces As String = GenerarTexto(listaFinal)
+
+            Dim tbEnlaces As TextBox = pagina.FindName("tbEditorEnlacesReddit")
+            tbEnlaces.Tag = contenidoEnlaces
+
+            If contenidoEnlaces.Length < 40000 Then
+                tbEnlaces.Text = contenidoEnlaces
+            Else
+                tbEnlaces.Text = recursos.GetString("EditorLimit")
+            End If
+
+        End Sub
+
+        Public Function GenerarTexto(listaFinal As List(Of Juego))
+
+            Dim contenidoEnlaces As String = String.Empty
+
+            If listaFinal(0).Tienda.NombreMostrar = "Steam" Or listaFinal(0).Tienda.NombreMostrar = "GOG" Or listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Or listaFinal(0).Tienda.NombreMostrar = "Origin" Or listaFinal(0).Tienda.NombreMostrar = "Blizzard Store" Then
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda.NombreMostrar = "GOG" Then
-                contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Then
-                contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda.NombreMostrar = "GamersGate" Then
-                contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price UK** | **Rating**" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda.NombreMostrar = "GamesPlanet" Then
-                contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price UK** | **Price FR** | **Price DE** | **Rating**" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
-            ElseIf listaFinal(0).Tienda.NombreMostrar = "Fanatical" Then
-                contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price EU** | **Price US** | **Price UK** | **Rating**" + Environment.NewLine
-                contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:|:---------:|:---------:" + Environment.NewLine
             Else
                 contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price** | **Rating**" + Environment.NewLine
                 contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:" + Environment.NewLine
@@ -57,6 +57,14 @@
                         drm = "Origin"
                     ElseIf juego.DRM.ToLower.Contains("gog") Then
                         drm = "GOG"
+                    ElseIf juego.DRM.ToLower.Contains("bethesda") Then
+                        drm = "Bethesda"
+                    ElseIf juego.DRM.ToLower.Contains("epic") Then
+                        drm = "Epic Games"
+                    ElseIf juego.DRM.ToLower.Contains("battlenet") Then
+                        drm = "Battle.net"
+                    ElseIf juego.DRM.ToLower.Contains("microsoft") Then
+                        drm = "Microsoft"
                     End If
                 End If
 
@@ -74,11 +82,7 @@
 
                 Dim linea As String = Nothing
 
-                If listaFinal(0).Tienda.NombreMostrar = "Steam" Then
-                    linea = linea + "[" + juego.Titulo + "](" + juego.Enlace + ") | " + juego.Descuento + " | " + juego.Precio + " | " + analisis
-                ElseIf listaFinal(0).Tienda.NombreMostrar = "GOG" Then
-                    linea = linea + "[" + juego.Titulo + "](" + juego.Enlace + ") | " + juego.Descuento + " | " + juego.Precio + " | " + analisis
-                ElseIf listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Then
+                If listaFinal(0).Tienda.NombreMostrar = "Steam" Or listaFinal(0).Tienda.NombreMostrar = "GOG" Or listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Or listaFinal(0).Tienda.NombreMostrar = "Origin" Or listaFinal(0).Tienda.NombreMostrar = "Blizzard Store" Then
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlace + ") | " + juego.Descuento + " | " + juego.Precio + " | " + analisis
                 Else
                     linea = linea + "[" + juego.Titulo + "](" + juego.Enlace + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio + " | " + analisis
@@ -89,16 +93,9 @@
                 End If
             Next
 
-            Dim tbEnlaces As TextBox = pagina.FindName("tbEditorEnlacesReddit")
-            tbEnlaces.Tag = contenidoEnlaces
+            Return contenidoEnlaces
 
-            If contenidoEnlaces.Length < 40000 Then
-                tbEnlaces.Text = contenidoEnlaces
-            Else
-                tbEnlaces.Text = recursos.GetString("EditorLimit")
-            End If
-
-        End Sub
+        End Function
 
     End Module
 End Namespace

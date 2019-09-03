@@ -45,7 +45,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 Dim botonReddit As New Button With {
                     .Tag = post,
-                    .Content = "Reddit",
+                    .Content = "Reddit r/pepeizqdeals",
                     .Margin = New Thickness(30, 0, 0, 0)
                 }
 
@@ -83,7 +83,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Await RedesSociales.Reddit.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, categoria)
+            Await RedesSociales.Reddit.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing)
 
         End Sub
 
