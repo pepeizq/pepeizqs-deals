@@ -83,7 +83,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Await RedesSociales.Reddit.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing)
+            Await RedesSociales.Reddit.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
 
         End Sub
 

@@ -48,6 +48,11 @@ Namespace pepeizq.Tiendas
                         Dim titulo As String = juegoFamilia.Titulo
                         titulo = titulo.Trim
 
+                        If Not juegoFamilia.Subtitulo Is Nothing Then
+                            Dim subtitulo As String = juegoFamilia.Subtitulo
+                            titulo = titulo + " - " + subtitulo.Trim
+                        End If
+
                         Dim imagen As String = juegoFamilia.Imagen
 
                         If Not imagen = Nothing Then
@@ -81,7 +86,7 @@ Namespace pepeizq.Tiendas
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
                             While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                If listaJuegos(k).Enlace = juego.Enlace Then
                                     añadir = False
                                 End If
                                 k += 1

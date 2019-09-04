@@ -99,6 +99,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• Amazon.com", "• @amazongames")
             ElseIf titulo.Contains("• Amazon.es") Then
                 titulo = titulo.Replace("• Amazon.es", "• @AmazonESP")
+            ElseIf titulo.Contains("• Blizzard Store") Then
+                titulo = titulo.Replace("• Blizzard Store", "• @Blizzard_Ent Store")
             ElseIf titulo.Contains("• Chrono") Then
                 titulo = titulo.Replace("• Chrono", "• @chronodeals")
             ElseIf titulo.Contains("• Epic Games Store") Then

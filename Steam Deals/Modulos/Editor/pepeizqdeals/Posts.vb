@@ -197,7 +197,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Try
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing)
+                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
                         Catch ex As Exception
                             Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                         End Try
@@ -211,33 +211,28 @@ Namespace pepeizq.Editor.pepeizqdeals
                         '----------------------------------------------------------------
 
                         If categoria = 3 Or categoria = 1218 Then
-                            If lista.Count > 1 Then
-                                Dim caracteres As String = Reddit.GenerarTexto(lista)
+                            Dim caracteres As String = Reddit.GenerarTexto(lista)
 
-                                If caracteres.Length < 40000 Then
+                            If caracteres.Length < 40000 Then
+                                If lista.Count = 1 Then
+                                    Dim enlaceTemp As String = lista(0).Enlace + "?snr=" + Date.Today.DayOfYear.ToString + Date.Today.DayOfWeek.ToString
+
+                                    If tiendaNombre = "Steam" Then
+                                        Try
+                                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "r/steamdeals", caracteres, 0)
+                                        Catch ex As Exception
+                                            Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                                        End Try
+                                    End If
+                                ElseIf lista.Count > 1 Then
                                     Try
-                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", caracteres)
+                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", caracteres, 1)
                                     Catch ex As Exception
                                         Notificaciones.Toast("Reddit r/GameDeals Error Post", Nothing)
                                     End Try
                                 End If
                             End If
                         End If
-
-                        If categoria = 3 Or categoria = 1218 Then
-                            If tiendaNombre = "Steam" And lista.Count > 1 Then
-                                Dim caracteres As String = Reddit.GenerarTexto(lista)
-
-                                If caracteres.Length < 40000 Then
-                                    Try
-                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/steamdeals", caracteres)
-                                    Catch ex As Exception
-                                        Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                                    End Try
-                                End If
-                            End If
-                        End If
-
                     End If
                 End If
             End If
