@@ -19,6 +19,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 End If
             End If
 
+            If subreddit = "/r/GameDeals" Then
+                If titulo.Contains("Chrono") Then
+                    añadir = False
+                ElseIf titulo.Contains("Yuplay") Then
+                    añadir = False
+                End If
+            End If
+
             If añadir = True Then
                 Dim tituloFinal As String = titulo
 
@@ -109,6 +117,28 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subreddit)
 
                                                                                                                               If modo = 0 Then
+                                                                                                                                  Dim int As Integer = 0
+
+                                                                                                                                  If Not tituloFinal.Contains("Discount Code") Then
+                                                                                                                                      tituloFinal = tituloFinal + ")"
+                                                                                                                                  Else
+                                                                                                                                      int = tituloFinal.LastIndexOf(" • ")
+                                                                                                                                      tituloFinal = tituloFinal.Remove(int, 3)
+                                                                                                                                      tituloFinal = tituloFinal.Insert(int, ") - ")
+                                                                                                                                  End If
+
+                                                                                                                                  int = tituloFinal.LastIndexOf(" • ")
+                                                                                                                                  tituloFinal = tituloFinal.Remove(int, 3)
+                                                                                                                                  tituloFinal = tituloFinal.Insert(int, " off/ ")
+
+                                                                                                                                  int = tituloFinal.LastIndexOf(" • ")
+                                                                                                                                  tituloFinal = tituloFinal.Remove(int, 3)
+                                                                                                                                  tituloFinal = tituloFinal.Insert(int, " (")
+
+                                                                                                                                  If tituloFinal.Contains("[Humble Store]") Then
+                                                                                                                                      tituloFinal = tituloFinal + " Discount of Humble Monthly applied"
+                                                                                                                                  End If
+
                                                                                                                                   subreddit1.SubmitPost(tituloFinal, enlaceFinal)
                                                                                                                               ElseIf modo = 1 Then
                                                                                                                                   subreddit1.SubmitTextPost(tituloFinal, contenidoTexto)

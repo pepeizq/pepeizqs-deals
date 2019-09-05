@@ -127,7 +127,7 @@
                 New Clases.Desarrolladores("BeautiFun Games", "@BeautiFunGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Bedtime Digital Games", "@BedtimeDG", Nothing, Nothing),
                 New Clases.Desarrolladores("Benerot", "@BenerotCompany", Nothing, Nothing),
-                New Clases.Desarrolladores("Bethesda", "@bethesda", "Assets\LogosPublishers\bethesda.png", Nothing),
+                New Clases.Desarrolladores("Bethesda", "@bethesda", "Assets\LogosPublishers\bethesda.png", 450),
                 New Clases.Desarrolladores("Betadwarf", "@BetaDwarf", Nothing, Nothing),
                 New Clases.Desarrolladores("Big Robot Ltd", "@BigRobotLtd", Nothing, Nothing),
                 New Clases.Desarrolladores("Big Evil Corp", "@Big_Evil_Corp", Nothing, Nothing),

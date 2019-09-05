@@ -97,6 +97,24 @@
 
         End Function
 
+        Public Function LimpiarComentario(comentario As String)
+
+            Dim i As Integer = 0
+            While i < 100
+                If comentario.Contains("<") And comentario.Contains(">") Then
+                    Dim int As Integer = comentario.IndexOf("<")
+                    Dim int2 As Integer = comentario.IndexOf(">")
+
+                    comentario = comentario.Remove(int, int2 - int)
+                Else
+                    Exit While
+                End If
+                i += 1
+            End While
+
+            Return comentario
+        End Function
+
     End Module
 End Namespace
 

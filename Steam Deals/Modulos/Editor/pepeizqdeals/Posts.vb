@@ -14,7 +14,7 @@ Namespace pepeizq.Editor.pepeizqdeals
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
                                      descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
                                      redireccion As String, imagen1 As Button, imagen2 As Button, tituloComplemento As String,
-                                     analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Juego)) As Task
+                                     analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Juego), comentario As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -213,13 +213,26 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If categoria = 3 Or categoria = 1218 Then
                             Dim caracteres As String = Reddit.GenerarTexto(lista)
 
+                            If Not comentario = Nothing Then
+                                If comentario.Trim.Length > 0 Then
+                                    caracteres = Reddit.LimpiarComentario(comentario) + Environment.NewLine + caracteres
+                                End If
+                            End If
+
                             If caracteres.Length < 40000 Then
                                 If lista.Count = 1 Then
-                                    Dim enlaceTemp As String = lista(0).Enlace + "?snr=" + Date.Today.DayOfYear.ToString + Date.Today.DayOfWeek.ToString
+                                    Dim enlaceTemp As String = lista(0).Enlace + "?snr=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
+
+                                    Try
+                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/GameDeals", caracteres, 0)
+                                    Catch ex As Exception
+                                        Notificaciones.Toast("Reddit r/GameDeals Error Post", Nothing)
+                                    End Try
 
                                     If tiendaNombre = "Steam" Then
+                                        Notificaciones.Toast("entra steamdeals", Nothing)
                                         Try
-                                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "r/steamdeals", caracteres, 0)
+                                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", caracteres, 0)
                                         Catch ex As Exception
                                             Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                         End Try

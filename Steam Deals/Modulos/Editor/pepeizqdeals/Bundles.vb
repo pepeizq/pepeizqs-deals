@@ -193,7 +193,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text.Trim, tbJuegos.Text.Trim, 4, New List(Of Integer) From {cosas.Etiqueta}, " ", " ", cosas.Tienda, cosas.Icono,
-                               tbEnlace.Text.Trim, botonImagen1, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing)
+                               tbEnlace.Text.Trim, botonImagen1, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
