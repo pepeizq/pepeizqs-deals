@@ -215,13 +215,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             If Not comentario = Nothing Then
                                 If comentario.Trim.Length > 0 Then
-                                    caracteres = Reddit.LimpiarComentario(comentario) + Environment.NewLine + caracteres
+                                    caracteres = Reddit.LimpiarComentario(comentario) + Environment.NewLine + Environment.NewLine + caracteres
                                 End If
                             End If
 
                             If caracteres.Length < 40000 Then
                                 If lista.Count = 1 Then
-                                    Dim enlaceTemp As String = lista(0).Enlace + "?snr=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
+                                    Dim enlaceTemp As String = lista(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
 
                                     Try
                                         Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/GameDeals", caracteres, 0)

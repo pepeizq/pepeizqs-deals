@@ -103,7 +103,7 @@
             While i < 100
                 If comentario.Contains("<") And comentario.Contains(">") Then
                     Dim int As Integer = comentario.IndexOf("<")
-                    Dim int2 As Integer = comentario.IndexOf(">")
+                    Dim int2 As Integer = comentario.IndexOf(">") + 1
 
                     comentario = comentario.Remove(int, int2 - int)
                 Else
