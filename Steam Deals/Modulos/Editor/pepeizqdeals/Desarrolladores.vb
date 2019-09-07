@@ -333,7 +333,7 @@
                 New Clases.Desarrolladores("Igloo Studio", "@bountybrawlgame", Nothing, Nothing),
                 New Clases.Desarrolladores("Image & Form", "@ImageForm", Nothing, Nothing),
                 New Clases.Desarrolladores("ImaginationOverflow", "@ImaginationOver", Nothing, Nothing),
-                New Clases.Desarrolladores("IMGN PRO", "@IMGNPRO", "Assets\LogosPublishers\imgnpro.png", Nothing),
+                New Clases.Desarrolladores("IMGN PRO", "@IMGNPRO", "Assets\LogosPublishers\imgnpro.png", 450),
                 New Clases.Desarrolladores("Imperium42 Game Studio", "@TheThroneOfLies", Nothing, Nothing),
                 New Clases.Desarrolladores("INDIECODE GAMES", "@INDIECODE_GAMES", Nothing, Nothing),
                 New Clases.Desarrolladores("IndieGala", "@IndieGala", Nothing, Nothing),

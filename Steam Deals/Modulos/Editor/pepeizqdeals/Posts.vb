@@ -230,7 +230,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     End Try
 
                                     If tiendaNombre = "Steam" Then
-                                        Notificaciones.Toast("entra steamdeals", Nothing)
                                         Try
                                             Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", caracteres, 0)
                                         Catch ex As Exception

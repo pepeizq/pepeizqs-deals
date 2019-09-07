@@ -113,7 +113,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       End Try
 
                                                                                                                       Try
-                                                                                                                          If subreddit = "/r/GameDeals" Or subreddit = "r/steamdeals" Then
+                                                                                                                          If subreddit = "/r/GameDeals" Or subreddit = "/r/steamdeals" Then
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subreddit)
 
                                                                                                                               If modo = 0 Then
