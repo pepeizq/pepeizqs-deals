@@ -257,7 +257,9 @@ Namespace pepeizq.Tiendas
                                         Next
 
                                         If buscarDesarrollador = True Then
-                                            juego = SteamMas(juego).Result
+                                            If Not juego Is Nothing Then
+                                                juego = SteamMas(juego).Result
+                                            End If
                                         End If
 
                                         juego.Precio = Ordenar.PrecioPreparar(juego.Precio)

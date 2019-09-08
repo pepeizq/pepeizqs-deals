@@ -22,6 +22,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             If subreddit = "/r/GameDeals" Then
                 If titulo.Contains("Chrono") Then
                     añadir = False
+                ElseIf titulo.Contains("Humble Store") Then
+                    añadir = False
                 ElseIf titulo.Contains("Yuplay") Then
                     añadir = False
                 End If
@@ -137,6 +139,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                                   If tituloFinal.Contains("[Humble Store]") Then
                                                                                                                                       tituloFinal = tituloFinal + " Discount of Humble Monthly applied"
+                                                                                                                                  End If
+
+                                                                                                                                  If subreddit = "/r/steamdeals" Then
+                                                                                                                                      tituloFinal = tituloFinal.Replace("[Steam] ", Nothing)
                                                                                                                                   End If
 
                                                                                                                                   subreddit1.SubmitPost(tituloFinal, enlaceFinal)
