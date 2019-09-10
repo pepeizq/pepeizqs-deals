@@ -24,6 +24,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     añadir = False
                 ElseIf titulo.Contains("Humble Store") Then
                     añadir = False
+                ElseIf titulo.Contains("Steam") Then
+                    añadir = False
                 ElseIf titulo.Contains("Yuplay") Then
                     añadir = False
                 End If
@@ -136,10 +138,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                   int = tituloFinal.LastIndexOf(" • ")
                                                                                                                                   tituloFinal = tituloFinal.Remove(int, 3)
                                                                                                                                   tituloFinal = tituloFinal.Insert(int, " (")
-
-                                                                                                                                  If tituloFinal.Contains("[Humble Store]") Then
-                                                                                                                                      tituloFinal = tituloFinal + " Discount of Humble Monthly applied"
-                                                                                                                                  End If
 
                                                                                                                                   If subreddit = "/r/steamdeals" Then
                                                                                                                                       tituloFinal = tituloFinal.Replace("[Steam] ", Nothing)
