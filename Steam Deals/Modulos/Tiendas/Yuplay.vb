@@ -205,7 +205,7 @@ Namespace pepeizq.Tiendas
 
                                     If Not listaBloqueo Is Nothing Then
                                         For Each juegoBloqueo In listaBloqueo
-                                            If juegoBloqueo.ID = enlace Then
+                                            If juegoBloqueo.Enlace = enlace Then
                                                 buscarBloqueo = False
 
                                                 If juegoBloqueo.Bloqueo = False Then
@@ -268,7 +268,7 @@ Namespace pepeizq.Tiendas
                                                     Dim htmlSteamDB As String = htmlSteamDB_.Result
 
                                                     If Not htmlSteamDB = Nothing Then
-                                                        Dim bloqueo As New YuplayBloqueo(enlace, False)
+                                                        Dim bloqueo As New YuplayBloqueo(enlace, False, temp16.Trim)
 
                                                         If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
                                                             bloqueo.Bloqueo = True
@@ -424,12 +424,14 @@ Namespace pepeizq.Tiendas
 
     Public Class YuplayBloqueo
 
-        Public Property ID As String
+        Public Property Enlace As String
         Public Property Bloqueo As Boolean
+        Public Property IDSteam As String
 
-        Public Sub New(ByVal id As String, ByVal bloqueo As Boolean)
-            Me.ID = id
+        Public Sub New(ByVal enlace As String, ByVal bloqueo As Boolean, ByVal idSteam As String)
+            Me.Enlace = enlace
             Me.Bloqueo = bloqueo
+            Me.IDSteam = idSteam
         End Sub
 
     End Class
