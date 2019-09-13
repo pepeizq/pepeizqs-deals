@@ -164,10 +164,11 @@ Namespace pepeizq.Tiendas
                             int3 = temp2.IndexOf("</")
                             temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                            temp3 = temp3.Replace("1", Nothing)
-                            temp3 = temp3.Replace("/", Nothing)
+                            temp3 = temp3.Replace("1 /", Nothing)
 
-                            numPaginas = temp3.Trim
+                            If Not temp3.Trim = Nothing Then
+                                numPaginas = temp3.Trim
+                            End If
                         End If
                     End If
 
@@ -264,6 +265,8 @@ Namespace pepeizq.Tiendas
 
                                             If temp3.Contains("title=" + ChrW(34) + "Steam" + ChrW(34)) Then
                                                 drm = "steam"
+                                            ElseIf temp3.Contains("title=" + ChrW(34) + "Uplay" + ChrW(34)) Then
+                                                drm = "uplay"
                                             End If
 
                                             Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)

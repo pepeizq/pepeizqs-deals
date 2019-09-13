@@ -147,7 +147,7 @@
                 New Clases.Desarrolladores("Blendo Games", "@BlendoGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Blue Bottle Games", "@dcfedor", Nothing, Nothing),
                 New Clases.Desarrolladores("Blue Isle Studios", "@BlueIsleStudio", Nothing, Nothing),
-                New Clases.Desarrolladores("Bohemia Interactive", "@bohemiainteract", Nothing, Nothing),
+                New Clases.Desarrolladores("Bohemia Interactive", "@bohemiainteract", "Assets\LogosPublishers\bohemia.png", 450),
                 New Clases.Desarrolladores("Brace Yourself Games", "@BYG_Vancouver", Nothing, Nothing),
                 New Clases.Desarrolladores("Brilliant Game Studios", "@BrilliantGames", Nothing, Nothing),
                 New Clases.Desarrolladores("BT Studios", "@btstudiosgames", Nothing, Nothing),
