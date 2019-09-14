@@ -37,7 +37,7 @@ Namespace pepeizq.Tiendas
 
         Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-            Dim html1_ As Task(Of String) = HttpClient(New Uri("https://api3.origin.com/supercat/ES/es_ES/supercat-PCWIN_MAC-ES-es_ES.json.gz"))
+            Dim html1_ As Task(Of String) = HttpClient(New Uri("https://api3.origin.com/supercat/GB/en_GB/supercat-PCWIN_MAC-GB-en_GB.json.gz"))
             Dim html1 As String = html1_.Result
 
             If Not html1 = Nothing Then

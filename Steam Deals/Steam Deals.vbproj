@@ -265,6 +265,7 @@
     <Content Include="Assets\LogosPublishers\deepsilver.png" />
     <Content Include="Assets\LogosPublishers\devolver.png" />
     <Content Include="Assets\LogosPublishers\disney.png" />
+    <Content Include="Assets\LogosPublishers\ea.png" />
     <Content Include="Assets\LogosPublishers\epicgames.png" />
     <Content Include="Assets\LogosPublishers\excalibur.png" />
     <Content Include="Assets\LogosPublishers\fatshark.png" />
@@ -283,6 +284,7 @@
     <Content Include="Assets\LogosPublishers\kalypso.png" />
     <Content Include="Assets\LogosPublishers\klei.png" />
     <Content Include="Assets\LogosPublishers\konami.png" />
+    <Content Include="Assets\LogosPublishers\maximum.png" />
     <Content Include="Assets\LogosPublishers\mergegames.png" />
     <Content Include="Assets\LogosPublishers\neocore.png" />
     <Content Include="Assets\LogosPublishers\nightdive.png" />
@@ -338,7 +340,6 @@
     <Content Include="Assets\Tiendas\microsoftstore2.png" />
     <Content Include="Assets\Tiendas\origin2.png" />
     <Content Include="Assets\Tiendas\originaccess.png" />
-    <Content Include="Assets\Tiendas\silagames2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
     <Content Include="Assets\Tiendas\chrono.png" />
     <Content Include="Assets\Tiendas\fanatical.ico" />
@@ -356,7 +357,6 @@
     <Content Include="Assets\Tiendas\indiegala.ico" />
     <Content Include="Assets\Tiendas\microsoft.ico" />
     <Content Include="Assets\Tiendas\nuuvem.ico" />
-    <Content Include="Assets\Tiendas\silagames.ico" />
     <Content Include="Assets\Tiendas\steam.ico" />
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />

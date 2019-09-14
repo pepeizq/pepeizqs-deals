@@ -24,6 +24,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     añadir = False
                 ElseIf titulo.Contains("Humble Store") Then
                     añadir = False
+                ElseIf titulo.Contains("Origin") Then
+                    añadir = False
                 ElseIf titulo.Contains("Steam") Then
                     añadir = False
                 ElseIf titulo.Contains("Yuplay") Then
@@ -63,7 +65,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim i As Integer = 0
                 While i < 15
                     If tituloFinal.Length > 290 Then
-                        If categoria = "3" Then
+                        If categoria = "3" Or categoria = 1218 Then
                             If tituloFinal.Contains(",") Then
                                 Dim int As Integer = tituloFinal.LastIndexOf(",")
                                 tituloFinal = tituloFinal.Remove(int, tituloFinal.Length - int)
