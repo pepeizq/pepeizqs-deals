@@ -220,16 +220,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
 
                             If caracteres.Length < 40000 Then
-                                If lista.Count = 1 Then
+                                If categoria = 3 And lista.Count = 1 And tiendaNombre = "Steam" Then
                                     Dim enlaceTemp As String = lista(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
 
-                                    If tiendaNombre = "Steam" Then
-                                        Try
-                                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", caracteres, 0)
-                                        Catch ex As Exception
-                                            Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                                        End Try
-                                    End If
+                                    Try
+                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", caracteres, 0)
+                                    Catch ex As Exception
+                                        Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                                    End Try
                                 ElseIf lista.Count > 1 Then
                                     Try
                                         Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", caracteres, 1)
