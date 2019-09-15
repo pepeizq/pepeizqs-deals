@@ -273,7 +273,7 @@
                 New Clases.Desarrolladores("Flying Interactive", "@FlyingInt", Nothing, Nothing),
                 New Clases.Desarrolladores("Focus Home", "@FocusHome", "Assets\LogosPublishers\focushome.png", 450),
                 New Clases.Desarrolladores("Forgotten Empires", "@ForgottenEmp", Nothing, Nothing),
-                New Clases.Desarrolladores("Freebird Games", "@Reives_Freebird", Nothing, Nothing),
+                New Clases.Desarrolladores("Freebird Games", "@Reives_Freebird", "Assets\LogosPublishers\freebird.png", 420),
                 New Clases.Desarrolladores("Freejam", "@Freejamgames", Nothing, Nothing),
                 New Clases.Desarrolladores("FreezeNova Games", "@FreezeNova", Nothing, Nothing),
                 New Clases.Desarrolladores("Frictional Games", "@frictionalgames", Nothing, Nothing),
