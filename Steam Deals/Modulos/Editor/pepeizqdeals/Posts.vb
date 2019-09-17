@@ -228,7 +228,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     Catch ex As Exception
                                         Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                     End Try
-                                ElseIf lista.Count > 1 Then
+                                ElseIf lista.Count > 1 And categoria = 1218 Then
                                     Try
                                         Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", caracteres, 1)
                                     Catch ex As Exception
@@ -294,8 +294,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim urlImagen As String = String.Empty
 
             If Not imagen Is Nothing Then
+                Dim carpetaImagenes As StorageFolder = Nothing
+
+                If Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\Imagenes") = False Then
+                    carpetaImagenes = Await ApplicationData.Current.LocalFolder.CreateFolderAsync("Imagenes")
+                Else
+                    carpetaImagenes = Await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\Imagenes")
+                End If
+
                 Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.jpg"
-                Dim ficheroImagen As StorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
+                Dim ficheroImagen As StorageFile = Await carpetaImagenes.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
 
                 If Not ficheroImagen Is Nothing Then
                     Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight, 0)

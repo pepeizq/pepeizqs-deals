@@ -106,6 +106,8 @@ Namespace pepeizq.Tiendas
                                 titulo = WebUtility.HtmlDecode(titulo)
 
                                 titulo = titulo.Replace("(для Mac)", Nothing)
+                                titulo = titulo.Replace("(для Linux)", Nothing)
+                                titulo = titulo.Replace("(Linux)", Nothing)
                                 titulo = titulo.Replace("(Mac & Linux)", Nothing)
                                 titulo = titulo.Replace("(для Mac & Linux)", Nothing)
 
@@ -184,20 +186,20 @@ Namespace pepeizq.Tiendas
 
                                 Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, "steam", Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                Dim tituloBool As Boolean = False
+                                Dim añadir As Boolean = True
                                 Dim k As Integer = 0
                                 While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
-                                        tituloBool = True
+                                    If listaJuegos(k).Enlace = juego.Enlace Then
+                                        añadir = False
                                     End If
                                     k += 1
                                 End While
 
                                 If juego.Descuento = Nothing Then
-                                    tituloBool = True
+                                    añadir = False
                                 End If
 
-                                If tituloBool = False Then
+                                If añadir = True Then
                                     Dim buscarBloqueo As Boolean = True
                                     Dim buscarDesarrollador As Boolean = True
                                     Dim buscarIdioma As Boolean = True

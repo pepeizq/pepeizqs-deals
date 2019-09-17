@@ -225,7 +225,7 @@ Namespace pepeizq.Tiendas
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
                         While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juegoFinal.Titulo Then
+                            If listaJuegos(k).Enlace = juegoFinal.Enlace Then
                                 añadir = False
                             End If
                             k += 1

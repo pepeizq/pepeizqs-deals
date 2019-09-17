@@ -76,6 +76,7 @@ Namespace pepeizq.Tiendas
                         For Each juegoGMG In listaJuegosGMG.Juegos
                             Dim titulo As String = WebUtility.HtmlDecode(juegoGMG.Titulo)
                             titulo = titulo.Replace("(MAC)", Nothing)
+                            titulo = titulo.Replace("(PC)", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoGMG.Enlace.Trim
@@ -116,7 +117,7 @@ Namespace pepeizq.Tiendas
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
                                 While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                    If listaJuegos(k).Enlace = juego.Enlace Then
                                         añadir = False
                                     End If
                                     k += 1

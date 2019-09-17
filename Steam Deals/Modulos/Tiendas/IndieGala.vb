@@ -58,9 +58,6 @@ Namespace pepeizq.Tiendas
                         If listaJuegosIG.Juegos.Count > 0 Then
                             For Each juegoIG In listaJuegosIG.Juegos
                                 Dim titulo As String = WebUtility.HtmlDecode(juegoIG.Titulo)
-                                titulo = titulo.Replace("â", Nothing)
-                                titulo = titulo.Replace("Â", Nothing)
-                                titulo = titulo.Replace("¢", Nothing)
                                 titulo = titulo.Trim
 
                                 Dim enlace As String = juegoIG.Enlace
@@ -118,20 +115,20 @@ Namespace pepeizq.Tiendas
 
                                 Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
-                                Dim tituloBool As Boolean = False
+                                Dim añadir As Boolean = True
                                 Dim k As Integer = 0
                                 While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
-                                        tituloBool = True
+                                    If listaJuegos(k).Enlace = juego.Enlace Then
+                                        añadir = False
                                     End If
                                     k += 1
                                 End While
 
                                 If juego.Descuento = Nothing Then
-                                    tituloBool = True
+                                    añadir = False
                                 End If
 
-                                If tituloBool = False Then
+                                If añadir = True Then
                                     juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                                     listaJuegos.Add(juego)

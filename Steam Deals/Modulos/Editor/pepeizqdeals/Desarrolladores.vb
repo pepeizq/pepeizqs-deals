@@ -293,7 +293,7 @@
                 New Clases.Desarrolladores("Games Operators", "@GamesOperators", Nothing, Nothing),
                 New Clases.Desarrolladores("Gato Salvaje S.L.", "@GatoSalvajeDEV", Nothing, Nothing),
                 New Clases.Desarrolladores("GB Patch Games", "@Patch_Games", Nothing, Nothing),
-                New Clases.Desarrolladores("Gearbox", "@GearboxOfficial", "Assets\LogosPublishers\gearbox.png", Nothing),
+                New Clases.Desarrolladores("Gearbox", "@GearboxOfficial", "Assets\LogosPublishers\gearbox.png", 300),
                 New Clases.Desarrolladores("Gears for Breakfast", "@HatInTime", Nothing, Nothing),
                 New Clases.Desarrolladores("GFX47 Games", "@GFX47", Nothing, Nothing),
                 New Clases.Desarrolladores("Ghost Ship Games", "@JoinDeepRock", Nothing, Nothing),

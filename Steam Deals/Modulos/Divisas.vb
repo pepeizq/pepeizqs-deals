@@ -125,9 +125,17 @@ Module Divisas
         If Await helper.FileExistsAsync("monedas") Then
             monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
 
-            monedas.Dolar = dolar
-            monedas.Libra = libra
-            monedas.Rublo = rublo
+            If Not dolar Is Nothing Then
+                monedas.Dolar = dolar
+            End If
+
+            If Not libra Is Nothing Then
+                monedas.Libra = libra
+            End If
+
+            If Not rublo Is Nothing Then
+                monedas.Rublo = rublo
+            End If
         Else
             monedas = New Monedas(dolar, libra, rublo)
         End If
@@ -150,9 +158,9 @@ Module Divisas
                 Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
                 tbRublo.Text = monedas.Rublo.Valor
             End If
-        End If
 
-        Await helper.SaveFileAsync(Of Monedas)("monedas", monedas)
+            Await helper.SaveFileAsync(Of Monedas)("monedas", monedas)
+        End If
 
     End Sub
 
