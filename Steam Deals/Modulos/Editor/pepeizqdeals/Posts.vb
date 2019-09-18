@@ -228,12 +228,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     Catch ex As Exception
                                         Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                     End Try
-                                ElseIf lista.Count > 1 And categoria = 1218 Then
-                                    Try
-                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", caracteres, 1)
-                                    Catch ex As Exception
-                                        Notificaciones.Toast("Reddit r/GameDeals Error Post", Nothing)
-                                    End Try
                                 End If
                             End If
                         End If

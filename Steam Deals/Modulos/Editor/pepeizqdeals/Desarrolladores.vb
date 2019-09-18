@@ -278,7 +278,7 @@
                 New Clases.Desarrolladores("FreezeNova Games", "@FreezeNova", Nothing, Nothing),
                 New Clases.Desarrolladores("Frictional Games", "@frictionalgames", Nothing, Nothing),
                 New Clases.Desarrolladores("Frogwares", "@Frogwares", "Assets\LogosPublishers\frogwares.png", Nothing),
-                New Clases.Desarrolladores("Frontier Developments", "@frontierdev", "Assets\LogosPublishers\frontier.png", Nothing),
+                New Clases.Desarrolladores("Frontier Developments", "@frontierdev", "Assets\LogosPublishers\frontier.png", 400),
                 New Clases.Desarrolladores("Frontwing USA", "@FrontwingInt", Nothing, Nothing),
                 New Clases.Desarrolladores("Frozenbyte", "@Frozenbyte", "Assets\LogosPublishers\frozenbyte.png", 400),
                 New Clases.Desarrolladores("Fruitbat Factory", "@FruitbatFactory", "Assets\LogosPublishers\fruitbatfactory.png", Nothing),
