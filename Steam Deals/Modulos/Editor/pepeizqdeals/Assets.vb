@@ -30,7 +30,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("Origin", "Assets/drm_origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32),
                 New Clases.Assets("GameBillet", "Assets/Tiendas/gamebillet.ico", "Assets/Tiendas/gamebillet2.png", "#f8af91", "#f15f22", Nothing, 32, 32),
                 New Clases.Assets("2Game", "Assets/Tiendas/2game.png", "Assets/Tiendas/2game2.png", "#bdafd5", "#34274a", Nothing, 32, 32),
-                New Clases.Assets("BlizzardStore", "Assets/Tiendas/blizzard.ico", "Assets/Tiendas/blizzard2.png", "#0e86ca", "#0e86ca", Nothing, 32, 32)
+                New Clases.Assets("BlizzardStore", "Assets/Tiendas/blizzard.ico", "Assets/Tiendas/blizzard2.png", "#0e86ca", "#0e86ca", Nothing, 32, 32),
+                New Clases.Assets("Direct2Drive", "Assets/Tiendas/d2d.ico", "Assets/Tiendas/d2d2.png", "#1a1a1a", "#1a1a1a", Nothing, 32, 32)
             }
 
             Return lista

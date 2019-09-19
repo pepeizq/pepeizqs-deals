@@ -169,7 +169,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaFinal As New List(Of Juego)
 
             Dim tiendasHorizontal As New List(Of String) From {
-                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin"
+                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin", "Direct2Drive"
             }
 
             Dim boolVertical As Boolean = True
@@ -315,8 +315,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not listaFinal(0).Tienda.LogoWeb = Nothing Then
                 imagenTienda.Source = listaFinal(0).Tienda.LogoWeb
-                imagenTienda.MaxWidth = listaFinal(0).Tienda.LogoWebAncho
-                imagenTienda.MaxHeight = listaFinal(0).Tienda.LogoWebAlto
+                imagenTienda.Width = listaFinal(0).Tienda.LogoWebAncho
+                imagenTienda.Height = listaFinal(0).Tienda.LogoWebAlto
 
                 imagenTienda2.Source = listaFinal(0).Tienda.LogoWeb
                 imagenTienda2.MaxWidth = listaFinal(0).Tienda.LogoWebAncho

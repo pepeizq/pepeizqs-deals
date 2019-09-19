@@ -559,7 +559,7 @@
                                                                 
                                                                 <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="0" Foreground="White" Margin="20" FontSize="90" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
 
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" MaxWidth="400" MaxHeight="155" HorizontalAlignment="Center" Margin="20,30,20,0"/>
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegos" Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" Margin="20,30,20,0"/>
                                                             </Grid>
                                                         </Grid>
 

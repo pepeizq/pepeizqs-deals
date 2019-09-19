@@ -409,7 +409,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenido = contenido + "<tbody>" + Environment.NewLine
                 contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
 
-                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Then
+                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Or tienda.NombreUsar = "Direct2Drive" Then
                     contenido = contenido + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 Else
                     contenido = contenido + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine

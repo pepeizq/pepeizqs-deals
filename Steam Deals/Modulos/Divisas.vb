@@ -125,16 +125,18 @@ Module Divisas
         If Await helper.FileExistsAsync("monedas") Then
             monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
 
-            If Not dolar Is Nothing Then
-                monedas.Dolar = dolar
-            End If
+            If Not monedas Is Nothing Then
+                If Not dolar Is Nothing Then
+                    monedas.Dolar = dolar
+                End If
 
-            If Not libra Is Nothing Then
-                monedas.Libra = libra
-            End If
+                If Not libra Is Nothing Then
+                    monedas.Libra = libra
+                End If
 
-            If Not rublo Is Nothing Then
-                monedas.Rublo = rublo
+                If Not rublo Is Nothing Then
+                    monedas.Rublo = rublo
+                End If
             End If
         Else
             monedas = New Monedas(dolar, libra, rublo)
