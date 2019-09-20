@@ -379,15 +379,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim clave As String = enlace.Trim
             clave = clave.Replace("https://www.epicgames.com/store/es-ES/product/", Nothing)
             clave = clave.Replace("https://www.epicgames.com/store/en-US/product/", Nothing)
+            clave = clave.Replace("https://www.epicgames.com/store/es-ES/bundles/", Nothing)
+            clave = clave.Replace("https://www.epicgames.com/store/en-US/bundles/", Nothing)
             clave = clave.Replace("/home", Nothing)
 
-            Dim html As String = Await Decompiladores.HttpClient(New Uri("https://www.epicgames.com/store/en-US/api/content/products/" + clave))
+            Dim html As String = String.Empty
+
+            If enlace.Contains("/product/") Then
+                html = Await Decompiladores.HttpClient(New Uri("https://www.epicgames.com/store/en-US/api/content/products/" + clave))
+            ElseIf enlace.Contains("/bundles/") Then
+                html = Await Decompiladores.HttpClient(New Uri("https://www.epicgames.com/store/en-US/api/content/bundles/" + clave))
+            End If
 
             If Not html = Nothing Then
-                Dim juegoEpic As EpicGamesJuego = JsonConvert.DeserializeObject(Of EpicGamesJuego)(html)
+                If enlace.Contains("/product/") Then
+                    Dim juegoEpic As EpicGamesJuego = JsonConvert.DeserializeObject(Of EpicGamesJuego)(html)
 
-                Dim titulo As String = juegoEpic.Titulo
-                cosas.Titulo = titulo.Trim
+                    Dim titulo As String = juegoEpic.Titulo
+                    cosas.Titulo = titulo.Trim
+                ElseIf enlace.Contains("/bundles/") Then
+                    Dim juegoEpic As EpicGamesBundle = JsonConvert.DeserializeObject(Of EpicGamesBundle)(html)
+
+                    Dim titulo As String = juegoEpic.Titulo
+                    cosas.Titulo = titulo.Trim
+                Else
+                    cosas.Titulo = "---"
+                End If
             Else
                 cosas.Titulo = "---"
             End If
@@ -398,6 +415,13 @@ Namespace pepeizq.Editor.pepeizqdeals
         Public Class EpicGamesJuego
 
             <JsonProperty("productName")>
+            Public Titulo As String
+
+        End Class
+
+        Public Class EpicGamesBundle
+
+            <JsonProperty("_title")>
             Public Titulo As String
 
         End Class

@@ -1,6 +1,8 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Windows.Storage
 
+'https://2game.com/pc-games?limit=91&p=3&isLayerAjax=0
+
 Namespace pepeizq.Tiendas
     Module _2Game
 

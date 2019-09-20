@@ -316,11 +316,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not listaFinal(0).Tienda.LogoWeb = Nothing Then
                 imagenTienda.Source = listaFinal(0).Tienda.LogoWeb
                 imagenTienda.Width = listaFinal(0).Tienda.LogoWebAncho
-                imagenTienda.Height = listaFinal(0).Tienda.LogoWebAlto
+                'imagenTienda.Height = listaFinal(0).Tienda.LogoWebAlto
 
                 imagenTienda2.Source = listaFinal(0).Tienda.LogoWeb
                 imagenTienda2.MaxWidth = listaFinal(0).Tienda.LogoWebAncho
-                imagenTienda2.MaxHeight = listaFinal(0).Tienda.LogoWebAlto
+                'imagenTienda2.MaxHeight = listaFinal(0).Tienda.LogoWebAlto
             Else
                 imagenTienda.Source = Nothing
             End If
