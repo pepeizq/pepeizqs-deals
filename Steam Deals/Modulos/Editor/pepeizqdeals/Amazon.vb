@@ -36,7 +36,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         If Not contraseñaGuardada = Nothing Then
                             Dim contraseña As String = "document.getElementById('ap_password').value = '" + contraseñaGuardada + "'"
-                            Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+
+                            Try
+                                Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+                            Catch ex As Exception
+
+                            End Try
                         End If
 
                         Try

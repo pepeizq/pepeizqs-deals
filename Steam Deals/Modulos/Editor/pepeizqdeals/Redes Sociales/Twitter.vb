@@ -95,7 +95,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         Public Function ReemplazarTiendaTitulo(titulo As String)
 
-            If titulo.Contains("• Amazon.com") Then
+            If titulo.Contains("• 2Game") Then
+                titulo = titulo.Replace("• 2Game", "• @2game")
+            ElseIf titulo.Contains("• Amazon.com") Then
                 titulo = titulo.Replace("• Amazon.com", "• @amazongames")
             ElseIf titulo.Contains("• Amazon.es") Then
                 titulo = titulo.Replace("• Amazon.es", "• @AmazonESP")
