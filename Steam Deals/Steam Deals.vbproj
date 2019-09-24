@@ -285,6 +285,7 @@
     <Content Include="Assets\LogosPublishers\jackboxgames.png" />
     <Content Include="Assets\LogosPublishers\kalypso.png" />
     <Content Include="Assets\LogosPublishers\klei.png" />
+    <Content Include="Assets\LogosPublishers\koei.png" />
     <Content Include="Assets\LogosPublishers\konami.png" />
     <Content Include="Assets\LogosPublishers\maximum.png" />
     <Content Include="Assets\LogosPublishers\mergegames.png" />
