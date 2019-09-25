@@ -23,6 +23,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             If Not mensaje = Nothing Then
                 mensaje = mensaje.Trim
                 mensaje = Twitter.ReemplazarTiendaTitulo(mensaje)
+                mensaje = mensaje + Twitter.AñadirTag(mensaje)
 
                 If categoria = 3 Or categoria = 1218 Then
                     Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
@@ -93,7 +94,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         End Function
 
-        Public Function ReemplazarTiendaTitulo(titulo As String)
+        Private Function ReemplazarTiendaTitulo(titulo As String)
 
             If titulo.Contains("• 2Game") Then
                 titulo = titulo.Replace("• 2Game", "• @2game")
@@ -142,6 +143,23 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             End If
 
             Return titulo
+        End Function
+
+        Private Function AñadirTag(mensaje As String)
+
+            Dim tag As String = String.Empty
+
+            If mensaje.Contains("@humble Store") Then
+                tag = "HumbleStore"
+            ElseIf mensaje.Contains("@steam_games") Then
+                tag = "SteamDeals"
+            End If
+
+            If Not tag = String.Empty Then
+                tag = " #" + tag
+            End If
+
+            Return tag
         End Function
 
     End Module
