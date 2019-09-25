@@ -131,8 +131,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• Microsoft Store", "• @MicrosoftStore")
             ElseIf titulo.Contains("• Origin") Then
                 titulo = titulo.Replace("• Origin", "• @OriginInsider")
-            ElseIf titulo.Contains("• Sila Games") Then
-                titulo = titulo.Replace("• Sila Games", "• @SilaGames")
             ElseIf titulo.Contains("• Steam") Then
                 titulo = titulo.Replace("• Steam", "• @steam_games")
             ElseIf titulo.Contains("• Voidu") Then
