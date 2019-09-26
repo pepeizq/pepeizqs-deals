@@ -153,6 +153,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 tag = "HumbleStore"
             ElseIf mensaje.Contains("@steam_games") Then
                 tag = "SteamDeals"
+            ElseIf mensaje.Contains("• Free •") Then
+                tag = "FreeGames"
             End If
 
             If Not tag = String.Empty Then

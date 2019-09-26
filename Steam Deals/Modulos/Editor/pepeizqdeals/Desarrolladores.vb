@@ -178,7 +178,7 @@
                 New Clases.Desarrolladores("Cockroach Inc", "@theDreamGame", Nothing, Nothing),
                 New Clases.Desarrolladores("Codemasters", "@Codemasters", "Assets\LogosPublishers\codemasters.png", 400),
                 New Clases.Desarrolladores("Codename Entertainment", "@CodenameEnt", Nothing, Nothing),
-                New Clases.Desarrolladores("Coffee Stain", "@Coffee_Stain", Nothing, Nothing),
+                New Clases.Desarrolladores("Coffee Stain", "@Coffee_Stain", "Assets\LogosPublishers\coffeestain.png", 340),
                 New Clases.Desarrolladores("Cold Beam Games", "@ColdBeamGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Coldwild Games", "@ColdwildGames", Nothing, Nothing),
                 New Clases.Desarrolladores("ConcernedApe", "@ConcernedApe", Nothing, Nothing),
