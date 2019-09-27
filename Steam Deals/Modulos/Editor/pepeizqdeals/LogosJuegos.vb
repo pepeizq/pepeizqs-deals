@@ -89,7 +89,7 @@
                 New Clases.LogosJuegos("Darksiders", "Assets\LogosJuegos\darksiders.png", 450),
                 New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", Nothing),
                 New Clases.LogosJuegos("DiRT", "Assets\LogosJuegos\dirt.png", 400),
-                New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 550),
+                New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 420),
                 New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 350),
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 450),
                 New Clases.LogosJuegos("Metal Gear", "Assets\LogosJuegos\metalgearsolid.png", Nothing),

@@ -1184,6 +1184,7 @@
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <fa:FontAwesome Icon="Refresh" Foreground="White"/>
+                                                <TextBlock Text="Iconos" Foreground="White" Margin="10,0,0,0"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
@@ -1195,6 +1196,23 @@
                                     <GridView x:Name="gvEditorpepeizqdealsIconosDRMs" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
                                     <GridView x:Name="gvEditorpepeizqdealsLogosRedditTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+
+                                    <TextBox x:Name="tbEditorpepeizqdealsBanner" Margin="0,30,0,0"/>
+
+                                    <Button x:Name="botonEditorpepeizqdealsBanner" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <Grid x:Name="gridEditorpepeizqdealsBanner" Height="130" Width="1300">
+                                                <Grid.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Color="#004e7a" Offset="0.5" />
+                                                        <GradientStop Color="#003553" Offset="1.0" />
+                                                    </LinearGradientBrush>
+                                                </Grid.Background>
+
+                                                <GridView x:Name="gvEditorpepeizqdealsBanner" Opacity="0.5" HorizontalAlignment="Right" VerticalAlignment="Center" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" Padding="0,0,10,0"/>
+                                            </Grid>
+                                        </Button.Content>
+                                    </Button>
                                 </StackPanel>
                             </ScrollViewer>
 

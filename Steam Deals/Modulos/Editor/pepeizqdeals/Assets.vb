@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Newtonsoft.Json
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
 Imports Windows.UI
@@ -265,6 +266,130 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Public Sub GenerarBanner()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tb As TextBox = pagina.FindName("tbEditorpepeizqdealsBanner")
+
+            RemoveHandler tb.TextChanged, AddressOf ModificarBanner
+            AddHandler tb.TextChanged, AddressOf ModificarBanner
+
+        End Sub
+
+        Private Async Sub ModificarBanner(sender As Object, e As TextChangedEventArgs)
+
+            Dim tb As TextBox = sender
+            tb.IsEnabled = False
+
+            If tb.Text.Trim.Length > 0 Then
+                Dim textoIDs As String = tb.Text.Trim
+
+                Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+
+                Dim i As Integer = 0
+                If Not textoIDs.Contains("http") Then
+                    While i < 100
+                        If textoIDs.Length > 0 Then
+                            Dim clave As String = String.Empty
+
+                            If textoIDs.Contains(",") Then
+                                Dim int As Integer = textoIDs.IndexOf(",")
+                                clave = textoIDs.Remove(int, textoIDs.Length - int)
+
+                                textoIDs = textoIDs.Remove(0, int + 1)
+                            Else
+                                clave = textoIDs
+                            End If
+
+                            clave = clave.Trim
+
+                            Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+
+                            If Not htmlID = Nothing Then
+                                Dim temp As String
+                                Dim int As Integer
+
+                                int = htmlID.IndexOf(":")
+                                temp = htmlID.Remove(0, int + 1)
+                                temp = temp.Remove(temp.Length - 1, 1)
+
+                                Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                                Dim idBool As Boolean = False
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Datos.ID = datos.Datos.ID Then
+                                        idBool = True
+                                        Exit While
+                                    End If
+                                    k += 1
+                                End While
+
+                                If idBool = False Then
+                                    listaJuegos.Add(datos)
+                                Else
+                                    Exit While
+                                End If
+                            End If
+                        End If
+                        i += 1
+                    End While
+                Else
+                    If textoIDs.Length > 0 Then
+                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=220"))
+
+                        If Not htmlID = Nothing Then
+                            Dim temp As String
+                            Dim int As Integer
+
+                            int = htmlID.IndexOf(":")
+                            temp = htmlID.Remove(0, int + 1)
+                            temp = temp.Remove(temp.Length - 1, 1)
+
+                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                            datos.Datos.Imagen = textoIDs
+
+                            listaJuegos.Add(datos)
+                        End If
+                    End If
+                End If
+
+                If listaJuegos.Count > 0 Then
+                    Dim frame As Frame = Window.Current.Content
+                    Dim pagina As Page = frame.Content
+
+                    Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsBanner")
+                    gv.Items.Clear()
+
+                    For Each juego In listaJuegos
+                        Dim panel As New DropShadowPanel With {
+                            .BlurRadius = 20,
+                            .ShadowOpacity = 0.9,
+                            .Color = Colors.Black,
+                            .Margin = New Thickness(10, 10, 10, 10),
+                            .Padding = New Thickness(6, 6, 6, 6),
+                            .Height = 100
+                        }
+
+                        Dim imagenJuego As New ImageEx With {
+                            .Stretch = Stretch.Uniform,
+                            .IsCacheEnabled = True,
+                            .Source = juego.Datos.Imagen
+                        }
+
+                        panel.Content = imagenJuego
+                        gv.Items.Add(panel)
+                    Next
+                End If
+            End If
+
+            tb.IsEnabled = True
+
+        End Sub
+
         Private Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
@@ -288,6 +413,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
         End Sub
+
+
 
     End Module
 End Namespace

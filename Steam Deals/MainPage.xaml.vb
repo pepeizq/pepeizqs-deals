@@ -472,6 +472,13 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorpepeizqdealsBanner_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsBanner.Click
+
+        Dim boton As Button = sender
+        pepeizq.Editor.ImagenFichero.Exportar(boton)
+
+    End Sub
+
     Private Async Sub BotonEditorTwitterpepeizqdeals_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTwitterpepeizqdeals.Click
 
         Await pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Enviar(Nothing, Nothing, Nothing, Nothing)
