@@ -254,6 +254,7 @@
     <Content Include="Assets\LogosPublishers\arcsystemworks.png" />
     <Content Include="Assets\LogosPublishers\aspyr.png" />
     <Content Include="Assets\LogosPublishers\atari.png" />
+    <Content Include="Assets\LogosPublishers\badland.png" />
     <Content Include="Assets\LogosPublishers\bandainamco.png" />
     <Content Include="Assets\LogosPublishers\beamdog.png" />
     <Content Include="Assets\LogosPublishers\bethesda.png" />

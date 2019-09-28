@@ -82,6 +82,7 @@ Namespace pepeizq.Tiendas
                         Dim titulo As String = WebUtility.HtmlDecode(juego.Titulo)
                         titulo = titulo.Replace("(Mac)", Nothing)
                         titulo = titulo.Replace("(Mac & Linux)", Nothing)
+                        titulo = titulo.Replace("(Linux)", Nothing)
                         titulo = titulo.Trim
 
                         Dim enlaceTemp As String = juego.Enlace
