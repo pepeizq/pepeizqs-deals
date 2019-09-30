@@ -101,7 +101,8 @@
                 New Clases.LogosJuegos("Tomb Raider", "Assets\LogosJuegos\tombraider.png", 510),
                 New Clases.LogosJuegos("Total War", "Assets\LogosJuegos\totalwar.png", 500),
                 New Clases.LogosJuegos("Warhammer", "Assets\LogosJuegos\warhammer.png", 450),
-                New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 550)
+                New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 550),
+                New Clases.LogosJuegos("XCOM", "Assets\LogosJuegos\xcom.png", 450)
             }
 
             Return lista
