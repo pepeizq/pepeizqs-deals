@@ -31,6 +31,18 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 sp.Children.Add(tbTitulo)
 
+                Dim botonTwitter As New Button With {
+                    .Tag = post,
+                    .Content = "Twitter",
+                    .Margin = New Thickness(30, 0, 0, 0)
+                }
+
+                AddHandler botonTwitter.Click, AddressOf Twitter
+                AddHandler botonTwitter.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonTwitter.PointerExited, AddressOf UsuarioSaleBoton
+
+                sp.Children.Add(botonTwitter)
+
                 Dim botonSteam As New Button With {
                     .Tag = post,
                     .Content = "Steam",
@@ -59,16 +71,33 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Next
         End Sub
 
+        Private Async Sub Twitter(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
+            Dim enlaceFinal As String = post.Enlace
+
+            Dim categoria As Integer = post.Categorias(0)
+
+            Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenWeb1, categoria)
+
+        End Sub
+
         Private Async Sub Steam(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag
 
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
             Dim enlaceFinal As String = post.Enlace
 
-            Dim tituloComplemento As String = post.TituloComplemento
-
-            Await RedesSociales.Steam.Enviar(post.Titulo.Rendered, post.ImagenWeb1, enlaceFinal, post.Redireccion)
+            Await RedesSociales.Steam.Enviar(titulo, post.ImagenWeb1, enlaceFinal, post.Redireccion)
 
         End Sub
 
@@ -77,13 +106,16 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag
 
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
             Dim enlaceFinal As String = post.Enlace
 
             Dim tituloComplemento As String = post.TituloComplemento
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Await RedesSociales.Reddit.Enviar(post.Titulo.Rendered, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+            Await RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
 
         End Sub
 
