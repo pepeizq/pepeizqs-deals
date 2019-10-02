@@ -38,8 +38,15 @@ Namespace pepeizq.Tiendas
             Dim htmlP As String = htmlP_.Result
 
             If Not htmlP = Nothing Then
-                Dim productos As Direct2DriveProducts = JsonConvert.DeserializeObject(Of Direct2DriveProducts)(htmlP)
-                paginas = productos.Datos.Paginas
+                Try
+                    Dim productos As Direct2DriveProducts = JsonConvert.DeserializeObject(Of Direct2DriveProducts)(htmlP)
+
+                    If Not productos Is Nothing Then
+                        paginas = productos.Datos.Paginas
+                    End If
+                Catch ex As Exception
+
+                End Try
             End If
 
             If paginas > 0 Then
