@@ -83,7 +83,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenWeb1, categoria)
+            Try
+                Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenWeb1, categoria)
+            Catch ex As Exception
+                Notificaciones.Toast("Twitter Error Post", Nothing)
+            End Try
 
         End Sub
 
@@ -97,7 +101,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim enlaceFinal As String = post.Enlace
 
-            Await RedesSociales.Steam.Enviar(titulo, post.ImagenWeb1, enlaceFinal, post.Redireccion)
+            Try
+                Await RedesSociales.Steam.Enviar(titulo, post.ImagenWeb1, enlaceFinal, post.Redireccion)
+            Catch ex As Exception
+                Notificaciones.Toast("Steam Error Post", Nothing)
+            End Try
 
         End Sub
 
@@ -115,7 +123,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Await RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+            Try
+                Await RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+            Catch ex As Exception
+                Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
+            End Try
 
         End Sub
 
