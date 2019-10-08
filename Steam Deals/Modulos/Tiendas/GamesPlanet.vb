@@ -65,6 +65,7 @@ Namespace pepeizq.Tiendas
                         titulo = titulo.Replace("Â", Nothing)
                         titulo = titulo.Replace("¢", Nothing)
                         titulo = titulo.Replace("(Steam)", Nothing)
+                        titulo = titulo.Replace("(GOG)", Nothing)
                         titulo = titulo.Trim
 
                         Dim enlace As String = juegoUK.Enlace
@@ -177,24 +178,24 @@ Namespace pepeizq.Tiendas
 
                         Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
 
-                        Dim tituloBool As Boolean = False
+                        Dim añadir As Boolean = True
                         Dim k As Integer = 0
                         While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
+                            If listaJuegos(k).Enlace = juego.Enlace Then
+                                añadir = False
                             End If
                             k += 1
                         End While
 
                         If juego.Descuento = Nothing Then
-                            tituloBool = True
+                            añadir = False
                         Else
                             If juego.Descuento = "00%" Then
-                                tituloBool = True
+                                añadir = False
                             End If
                         End If
 
-                        If tituloBool = False Then
+                        If añadir = True Then
                             juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                             listaJuegos.Add(juego)
