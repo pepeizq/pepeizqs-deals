@@ -91,7 +91,7 @@
                 New Clases.Desarrolladores("ACE Team", "@theACETeam", Nothing, Nothing),
                 New Clases.Desarrolladores("Activision", "@Activision", "Assets\LogosPublishers\activision.png", 450),
                 New Clases.Desarrolladores("Adliberum", "@liamtwose", Nothing, Nothing),
-                New Clases.Desarrolladores("Adult Swim", "@adultswimgames", Nothing, Nothing),
+                New Clases.Desarrolladores("Adult Swim", "@adultswimgames", "Assets\LogosPublishers\adulswim.png", 450),
                 New Clases.Desarrolladores("AdroVGames", "@adrovgames", Nothing, Nothing),
                 New Clases.Desarrolladores("Aerosoft", "@AerosoftGmbH", Nothing, Nothing),
                 New Clases.Desarrolladores("Akupara Games", "@akuparagames", Nothing, Nothing),
