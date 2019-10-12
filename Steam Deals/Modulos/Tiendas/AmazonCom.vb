@@ -161,6 +161,8 @@ Namespace pepeizq.Tiendas
                         temp6 = temp5.Remove(int6, temp5.Length - int6)
 
                         Dim precioRebajado As String = temp6.Trim
+                        precioRebajado = precioRebajado.Replace("US", Nothing)
+                        precioRebajado = precioRebajado.Trim
 
                         Dim precioBase As String = String.Empty
 
@@ -179,6 +181,8 @@ Namespace pepeizq.Tiendas
                                 temp8 = temp7.Remove(int8, temp7.Length - int8)
 
                                 precioBase = temp8.Trim
+                                precioBase = precioBase.Replace("US", Nothing)
+                                precioBase = precioBase.Trim
                             End If
                         End If
 

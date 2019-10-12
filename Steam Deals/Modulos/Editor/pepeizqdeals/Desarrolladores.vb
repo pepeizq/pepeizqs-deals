@@ -95,7 +95,7 @@
                 New Clases.Desarrolladores("AdroVGames", "@adrovgames", Nothing, Nothing),
                 New Clases.Desarrolladores("Aerosoft", "@AerosoftGmbH", Nothing, Nothing),
                 New Clases.Desarrolladores("Akupara Games", "@akuparagames", Nothing, Nothing),
-                New Clases.Desarrolladores("Aksys Games", "@aksysgames", Nothing, Nothing),
+                New Clases.Desarrolladores("Aksys Games", "@aksysgames", "Assets\LogosPublishers\aksysgames.png", 520),
                 New Clases.Desarrolladores("ALICE IN DISSONANCE", "@projectwritten", Nothing, Nothing),
                 New Clases.Desarrolladores("Alientrap", "@AlientrapGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Amanita Design", "@Amanita_Design", Nothing, Nothing),
