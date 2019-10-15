@@ -330,7 +330,7 @@
                 New Clases.Desarrolladores("Humble Bundle", "@humble", Nothing, Nothing),
                 New Clases.Desarrolladores("HypeTrain Digital", "@HypeTrainD", Nothing, Nothing),
                 New Clases.Desarrolladores("Ice-Pick Lodge", "@IcePickLodge", Nothing, Nothing),
-                New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\LogosPublishers\iceberg.png", Nothing),
+                New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\LogosPublishers\iceberg.png", 490),
                 New Clases.Desarrolladores("IDALGAME", "@IDALGAME", Nothing, Nothing),
                 New Clases.Desarrolladores("Idea Factory", "@IdeaFactoryIntl", Nothing, Nothing),
                 New Clases.Desarrolladores("Igloo Studio", "@bountybrawlgame", Nothing, Nothing),
