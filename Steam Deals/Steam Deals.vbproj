@@ -233,6 +233,7 @@
     <Content Include="Assets\LogosJuegos\citiesskylines.png" />
     <Content Include="Assets\LogosJuegos\darksiders.png" />
     <Content Include="Assets\LogosJuegos\darksouls.png" />
+    <Content Include="Assets\LogosJuegos\deusex.png" />
     <Content Include="Assets\LogosJuegos\dirt.png" />
     <Content Include="Assets\LogosJuegos\farcry.png" />
     <Content Include="Assets\LogosJuegos\fifa19.png" />
@@ -289,6 +290,7 @@
     <Content Include="Assets\LogosPublishers\goodshepherd.png" />
     <Content Include="Assets\LogosPublishers\headup.png" />
     <Content Include="Assets\LogosPublishers\iceberg.png" />
+    <Content Include="Assets\LogosPublishers\ideafactory.png" />
     <Content Include="Assets\LogosPublishers\imgnpro.png" />
     <Content Include="Assets\LogosPublishers\jackboxgames.png" />
     <Content Include="Assets\LogosPublishers\kalypso.png" />

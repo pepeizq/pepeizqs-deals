@@ -82,7 +82,7 @@
 
             Dim lista As New List(Of Clases.LogosJuegos) From {
                 New Clases.LogosJuegos("ARK Survival Evolved", "Assets\LogosJuegos\ark.png", 300),
-                New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", Nothing),
+                New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", 480),
                 New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 450),
                 New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 480),
                 New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 450),
@@ -90,6 +90,7 @@
                 New Clases.LogosJuegos("Darksiders", "Assets\LogosJuegos\darksiders.png", 450),
                 New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", Nothing),
                 New Clases.LogosJuegos("DiRT", "Assets\LogosJuegos\dirt.png", 400),
+                New Clases.LogosJuegos("Deus EX", "Assets\LogosJuegos\deusex.png", 480),
                 New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 420),
                 New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 350),
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 450),
