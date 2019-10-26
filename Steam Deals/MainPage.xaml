@@ -1059,7 +1059,7 @@
 
                                             <Button.Content>
                                                 <StackPanel>
-                                                    <Grid Width="472" Height="400">
+                                                    <Grid Height="320" Width="1300">
                                                         <Grid.Background>
                                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                                 <GradientStop Color="#2e4460" Offset="0.5" />
@@ -1149,17 +1149,27 @@
 
                                     <controls:Expander Header="Steam" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
                                         <StackPanel Orientation="Vertical" Padding="20">
-                                            <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
-                                                <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
-                                                <TextBox x:Name="tbEditorUsuariopepeizqdealsSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
-                                                <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                                <PasswordBox x:Name="tbEditorContraseñapepeizqdealsSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
-                                                <Button x:Name="botonEditorpepeizqdealsSteamNuevoAnuncio" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                                    <Button.Content>
-                                                        <TextBlock Text="Nuevo Anuncio" Foreground="White"/>
-                                                    </Button.Content>
-                                                </Button>
-                                            </StackPanel>
+                                            <Grid Margin="0,0,0,20">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                                    <TextBox x:Name="tbEditorUsuariopepeizqdealsSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
+                                                    <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                                                    <PasswordBox x:Name="tbEditorContraseñapepeizqdealsSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
+                                                    <Button x:Name="botonEditorpepeizqdealsSteamNuevoAnuncio" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                                        <Button.Content>
+                                                            <TextBlock Text="Nuevo Anuncio" Foreground="White"/>
+                                                        </Button.Content>
+                                                    </Button>
+                                                </StackPanel>
+
+                                                <TextBox x:Name="tbEditorEnlacepepeizqdealsSteam" Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                                            </Grid>
+                                            
                                             <WebView x:Name="wvEditorSteampepeizqdeals" MinWidth="700" MinHeight="700"/>
                                         </StackPanel>
                                     </controls:Expander>

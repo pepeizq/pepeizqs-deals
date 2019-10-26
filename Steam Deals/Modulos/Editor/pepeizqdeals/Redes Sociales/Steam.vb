@@ -80,6 +80,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim wv As WebView = sender
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tb As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSteam")
+            tb.Text = wv.Source.AbsoluteUri
+
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
                 If wv.DocumentTitle.Contains("Error") Then
                     wv.Navigate(New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate"))

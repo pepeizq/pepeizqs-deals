@@ -286,7 +286,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     Dim colorFondo2 As New SolidColorBrush With {
-                        .Color = "#004e7a".ToColor
+                        .Color = "#2e4460".ToColor
                     }
 
                     Dim gridContenido As New Grid With {

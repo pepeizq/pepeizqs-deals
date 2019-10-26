@@ -263,17 +263,26 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                                                                                                  If posts.Count > 0 Then
                                                                                                                      For Each post In posts
-                                                                                                                         If Not post.FechaTermina = Nothing Then
-                                                                                                                             Dim fechaTermina As Date = Date.Parse(post.FechaTermina)
-                                                                                                                             Dim fechaAhora As Date = Date.Now
-                                                                                                                             fechaAhora = fechaAhora.AddHours(2)
+                                                                                                                         If Not post.FechaTermina Is Nothing Then
+                                                                                                                             Dim fechaTermina As Date = Nothing
 
-                                                                                                                             If fechaTermina < fechaAhora Then
-                                                                                                                                 Try
-                                                                                                                                     Await cliente.Posts.Delete(post.Id)
-                                                                                                                                 Catch ex As Exception
+                                                                                                                             Try
+                                                                                                                                 fechaTermina = Date.Parse(post.FechaTermina)
+                                                                                                                             Catch ex As Exception
 
-                                                                                                                                 End Try
+                                                                                                                             End Try
+
+                                                                                                                             If Not fechaTermina = Nothing Then
+                                                                                                                                 Dim fechaAhora As Date = Date.Now
+                                                                                                                                 fechaAhora = fechaAhora.AddHours(2)
+
+                                                                                                                                 If fechaTermina < fechaAhora Then
+                                                                                                                                     Try
+                                                                                                                                         Await cliente.Posts.Delete(post.Id)
+                                                                                                                                     Catch ex As Exception
+
+                                                                                                                                     End Try
+                                                                                                                                 End If
                                                                                                                              End If
                                                                                                                          End If
                                                                                                                      Next

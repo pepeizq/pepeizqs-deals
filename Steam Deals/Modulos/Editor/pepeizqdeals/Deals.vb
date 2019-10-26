@@ -377,7 +377,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim categoria As Integer = 3
 
-            If cosas.ListaJuegos.Count > 9 Then
+            If cosas.ListaJuegos.Count > 1 Then
                 categoria = 1218
             End If
 
