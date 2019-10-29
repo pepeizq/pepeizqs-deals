@@ -27,12 +27,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbComentario1.TextChanged, AddressOf MostrarComentario1Anuncio
             AddHandler tbComentario1.TextChanged, AddressOf MostrarComentario1Anuncio
 
-            Dim tbComentario2 As TextBox = pagina.FindName("tbEditorComentario2pepeizqdealsAnuncios")
-            tbComentario2.Text = String.Empty
-
-            RemoveHandler tbComentario2.TextChanged, AddressOf MostrarComentario2Anuncio
-            AddHandler tbComentario2.TextChanged, AddressOf MostrarComentario2Anuncio
-
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
 
             RemoveHandler botonIDs.Click, AddressOf GenerarImagenes
@@ -41,8 +35,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
             tbIDs.Text = String.Empty
 
-            Dim gvIDs As GridView = pagina.FindName("gvEditorpepeizqdealsAnuncios")
-            gvIDs.Items.Clear()
+            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsGenerarImagenAnuncios")
+            imagen.Source = Nothing
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
@@ -128,27 +122,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim caja As DropShadowPanel = pagina.FindName("cajaComentario1EditorpepeizqdealsGenerarImagenAnuncios")
             Dim tbComentario As TextBlock = pagina.FindName("tbComentario1EditorpepeizqdealsGenerarImagenAnuncios")
-
-            If tbTexto.Text.Trim.Length > 0 Then
-                caja.Visibility = Visibility.Visible
-                tbComentario.Text = tbTexto.Text.Trim
-            Else
-                caja.Visibility = Visibility.Collapsed
-                tbComentario.Text = String.Empty
-            End If
-
-        End Sub
-
-        Private Sub MostrarComentario2Anuncio(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTexto As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tbComentario As TextBlock = pagina.FindName("tbComentario2EditorpepeizqdealsGenerarImagenAnuncios")
 
             If tbTexto.Text.Trim.Length > 0 Then
                 tbComentario.Visibility = Visibility.Visible
@@ -174,7 +148,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fondo As String = String.Empty
 
             Dim i As Integer = 0
-            While i < 100
+            While i < 1
                 If textoIDs.Length > 0 Then
                     Dim clave As String = String.Empty
 
@@ -257,65 +231,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 fondo2.ImageSource = New BitmapImage(New Uri(fondo))
             End If
 
-            Dim cajaSuperior As DropShadowPanel = pagina.FindName("cajaComentario1EditorpepeizqdealsGenerarImagenAnuncios")
-
-            If listaJuegos.Count = 1 Then
-                cajaSuperior.Margin = New Thickness(0, 30, 0, 0)
-            Else
-                cajaSuperior.Margin = New Thickness(0, 15, 0, 0)
-            End If
-
-            Dim gvImagenes As GridView = pagina.FindName("gvEditorpepeizqdealsAnuncios")
-            gvImagenes.Items.Clear()
-
-            If listaJuegos.Count = 1 Then
-                gvImagenes.Margin = New Thickness(30, 0, 30, 0)
-            Else
-                gvImagenes.Margin = New Thickness(5, 0, 5, 0)
-            End If
+            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsGenerarImagenAnuncios")
+            imagen.Source = Nothing
 
             If listaJuegos.Count > 0 Then
-                i = 0
-                For Each juego In listaJuegos
-                    juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
-
-                    Dim panel As New DropShadowPanel With {
-                        .BlurRadius = 5,
-                        .ShadowOpacity = 0.9,
-                        .Color = Windows.UI.Colors.Black
-                    }
-
-                    Dim colorFondo2 As New SolidColorBrush With {
-                        .Color = "#2e4460".ToColor
-                    }
-
-                    Dim gridContenido As New Grid With {
-                        .Background = colorFondo2
-                    }
-
-                    Dim imagenJuego As New ImageEx With {
-                        .Stretch = Stretch.Uniform,
-                        .IsCacheEnabled = True,
-                        .Source = juego.Datos.Imagen
-                    }
-
-                    If listaJuegos.Count > 1 Then
-                        imagenJuego.Stretch = Stretch.UniformToFill
-                    Else
-                        imagenJuego.Stretch = Stretch.Uniform
-                    End If
-
-                    If listaJuegos.Count > 1 Then
-                        imagenJuego.Width = 220
-                        imagenJuego.Height = 100
-                    End If
-
-                    gridContenido.Children.Add(imagenJuego)
-                    panel.Content = gridContenido
-                    gvImagenes.Items.Add(panel)
-
-                    i += 1
-                Next
+                imagen.Source = listaJuegos(0).Datos.Imagen
             End If
 
             BloquearControles(True)
@@ -345,9 +265,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbComentario1 As TextBox = pagina.FindName("tbEditorComentario1pepeizqdealsAnuncios")
             tbComentario1.IsEnabled = estado
-
-            Dim tbComentario2 As TextBox = pagina.FindName("tbEditorComentario2pepeizqdealsAnuncios")
-            tbComentario2.IsEnabled = estado
 
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
             botonIDs.IsEnabled = estado
