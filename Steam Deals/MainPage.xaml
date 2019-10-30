@@ -1073,6 +1073,7 @@
 
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition x:Name="columna2EditorpepeizqdealsGenerarImagenAnuncios" Width="Auto"/>
                                                                 <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
 
@@ -1082,11 +1083,21 @@
                                                                         <SolidColorBrush Color="#1b2838"/>
                                                                     </Grid.Background>
 
-                                                                    <controls:ImageEx x:Name="imagenEditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                                    <controls:ImageEx x:Name="imagen1EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
-                                                            <TextBlock x:Name="tbComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="2" Margin="20" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed" TextWrapping="Wrap" MaxWidth="300"/>
+                                                            <controls:DropShadowPanel x:Name="caja2EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                                <Grid>
+                                                                    <Grid.Background>
+                                                                        <SolidColorBrush Color="#1b2838"/>
+                                                                    </Grid.Background>
+
+                                                                    <controls:ImageEx x:Name="imagen2EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                                </Grid>
+                                                            </controls:DropShadowPanel>
+
+                                                            <TextBlock x:Name="tbComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Column="2" Margin="40,20" FontSize="22" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed" TextWrapping="Wrap" MaxWidth="300"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>
