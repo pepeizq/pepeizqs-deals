@@ -8,6 +8,7 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim listaDesarrolladores As New List(Of WinGameStoreDesarrolladores)
+        Dim listaImagenes As New List(Of WinGameStoreImagenes)
         Dim Tienda As Tienda = Nothing
         Dim dolar As String = String.Empty
 
@@ -31,6 +32,12 @@ Namespace pepeizq.Tiendas
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore")
             Else
                 listaDesarrolladores = New List(Of WinGameStoreDesarrolladores)
+            End If
+
+            If Await helper.FileExistsAsync("listaImagenesWinGameStore") Then
+                listaImagenes = Await helper.ReadFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore")
+            Else
+                listaImagenes = New List(Of WinGameStoreImagenes)
             End If
 
             Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
@@ -108,27 +115,34 @@ Namespace pepeizq.Tiendas
 
                                     Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
-                                    Dim tituloBool As Boolean = False
+                                    Dim añadir As Boolean = True
                                     Dim k As Integer = 0
                                     While k < listaJuegos.Count
-                                        If listaJuegos(k).Titulo = juego.Titulo Then
-                                            tituloBool = True
+                                        If listaJuegos(k).Enlace = juego.Enlace Then
+                                            añadir = False
                                         End If
                                         k += 1
                                     End While
 
                                     If juego.Descuento = Nothing Then
-                                        tituloBool = True
+                                        añadir = False
                                     Else
                                         If juego.Descuento = "00%" Then
-                                            tituloBool = True
+                                            añadir = False
                                         End If
                                     End If
 
-                                    If tituloBool = False Then
+                                    If añadir = True Then
                                         For Each desarrollador In listaDesarrolladores
                                             If desarrollador.ID = juegoWGS.ID Then
                                                 juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                Exit For
+                                            End If
+                                        Next
+
+                                        For Each imagen In listaImagenes
+                                            If imagen.ID = juegoWGS.ID Then
+                                                juego.Imagenes.Pequeña = imagen.Imagen
                                                 Exit For
                                             End If
                                         Next
@@ -147,45 +161,67 @@ Namespace pepeizq.Tiendas
 
             Dim i As Integer = 0
             For Each juego In listaJuegos
-                If juego.Desarrolladores Is Nothing Then
+                If juego.Desarrolladores Is Nothing Or juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
                     Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
                     Dim htmlJuego As String = htmlJuego_.Result
 
                     If Not htmlJuego = Nothing Then
-                        If htmlJuego.Contains("<label>Publisher</label>") Then
-                            Dim temp, temp2, temp3 As String
-                            Dim int, int2, int3 As Integer
+                        Dim id As String = juego.Enlace
 
-                            int = htmlJuego.IndexOf("<label>Publisher</label>")
-                            temp = htmlJuego.Remove(0, int + 5)
+                        If id.Contains("/product/") Then
+                            Dim int4 As Integer = id.IndexOf("/product/")
+                            id = id.Remove(0, int4 + 9)
 
-                            int2 = temp.IndexOf("</a>")
-                            temp2 = temp.Remove(int2, temp.Length - int2)
+                            int4 = id.IndexOf("/")
+                            id = id.Remove(int4, id.Length - int4)
+                        End If
 
-                            int3 = temp2.LastIndexOf(">")
-                            temp3 = temp2.Remove(0, int3 + 1)
+                        If id.Contains("/product-goto/") Then
+                            Dim int4 As Integer = id.IndexOf("/product-goto/")
+                            id = id.Remove(0, int4 + 14)
 
-                            juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
+                            int4 = id.IndexOf("/")
+                            id = id.Remove(int4, id.Length - int4)
+                        End If
 
-                            Dim id As String = juego.Enlace
+                        If juego.Desarrolladores Is Nothing Then
+                            If htmlJuego.Contains("<label>Publisher</label>") Then
+                                Dim temp, temp2, temp3 As String
+                                Dim int, int2, int3 As Integer
 
-                            If id.Contains("/product/") Then
-                                Dim int4 As Integer = id.IndexOf("/product/")
-                                id = id.Remove(0, int4 + 9)
+                                int = htmlJuego.IndexOf("<label>Publisher</label>")
+                                temp = htmlJuego.Remove(0, int + 5)
 
-                                int4 = id.IndexOf("/")
-                                id = id.Remove(int4, id.Length - int4)
+                                int2 = temp.IndexOf("</a>")
+                                temp2 = temp.Remove(int2, temp.Length - int2)
+
+                                int3 = temp2.LastIndexOf(">")
+                                temp3 = temp2.Remove(0, int3 + 1)
+
+                                juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
+
+                                listaDesarrolladores.Add(New WinGameStoreDesarrolladores(id, temp3.Trim))
                             End If
+                        End If
 
-                            If id.Contains("/product-goto/") Then
-                                Dim int4 As Integer = id.IndexOf("/product-goto/")
-                                id = id.Remove(0, int4 + 14)
+                        If juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
+                            If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
+                                Dim temp, temp2, temp3 As String
+                                Dim int, int2, int3 As Integer
 
-                                int4 = id.IndexOf("/")
-                                id = id.Remove(int4, id.Length - int4)
+                                int = htmlJuego.IndexOf("<meta property=" + ChrW(34) + "og:image")
+                                temp = htmlJuego.Remove(0, int + 1)
+
+                                int2 = temp.IndexOf("content=")
+                                temp2 = temp.Remove(0, int2 + 9)
+
+                                int3 = temp2.IndexOf(ChrW(34))
+                                temp3 = temp2.Remove(int3, temp2.Length - int3)
+
+                                juego.Imagenes.Pequeña = temp3.Trim
+
+                                listaImagenes.Add(New WinGameStoreImagenes(id, temp3.Trim))
                             End If
-
-                            listaDesarrolladores.Add(New WinGameStoreDesarrolladores(id, temp3.Trim))
                         End If
                     End If
                 End If
@@ -212,6 +248,7 @@ Namespace pepeizq.Tiendas
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore", listaDesarrolladores)
+            Await helper.SaveFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore", listaImagenes)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
@@ -258,6 +295,18 @@ Namespace pepeizq.Tiendas
         Public Sub New(ByVal id As String, ByVal desarrollador As String)
             Me.ID = id
             Me.Desarrollador = desarrollador
+        End Sub
+
+    End Class
+
+    Public Class WinGameStoreImagenes
+
+        Public Property ID As String
+        Public Property Imagen As String
+
+        Public Sub New(ByVal id As String, ByVal imagen As String)
+            Me.ID = id
+            Me.Imagen = imagen
         End Sub
 
     End Class
