@@ -38,9 +38,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagen1 As ImageEx = pagina.FindName("imagen1EditorpepeizqdealsGenerarImagenAnuncios")
             imagen1.Source = Nothing
 
-            Dim imagen2 As ImageEx = pagina.FindName("imagen2EditorpepeizqdealsGenerarImagenAnuncios")
-            imagen2.Source = Nothing
-
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
 
@@ -145,7 +142,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fondo As String = String.Empty
 
             Dim i As Integer = 0
-            While i < 2
+            While i < 1
                 If textoIDs.Length > 0 Then
                     Dim clave As String = String.Empty
 
@@ -228,20 +225,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If listaJuegos.Count > 0 Then
                 imagen1.Source = listaJuegos(0).Datos.Imagen
-
-                Dim columna2 As ColumnDefinition = pagina.FindName("columna2EditorpepeizqdealsGenerarImagenAnuncios")
-                Dim caja2 As DropShadowPanel = pagina.FindName("caja2EditorpepeizqdealsGenerarImagenAnuncios")
-
-                If listaJuegos.Count > 1 Then
-                    columna2.Width = New GridLength(1, GridUnitType.Star)
-                    caja2.Visibility = Visibility.Visible
-
-                    Dim imagen2 As ImageEx = pagina.FindName("imagen2EditorpepeizqdealsGenerarImagenAnuncios")
-                    imagen2.Source = listaJuegos(1).Datos.Imagen
-                Else
-                    columna2.Width = New GridLength(1, GridUnitType.Auto)
-                    caja2.Visibility = Visibility.Collapsed
-                End If
             End If
 
             BloquearControles(True)

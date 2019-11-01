@@ -161,7 +161,7 @@ Namespace pepeizq.Tiendas
 
             Dim i As Integer = 0
             For Each juego In listaJuegos
-                If juego.Desarrolladores Is Nothing Or juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
+                If juego.Desarrolladores Is Nothing Or juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Or juego.Imagenes.Pequeña = "https://www.macgamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
                     Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
                     Dim htmlJuego As String = htmlJuego_.Result
 
@@ -204,7 +204,7 @@ Namespace pepeizq.Tiendas
                             End If
                         End If
 
-                        If juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
+                        If juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Or juego.Imagenes.Pequeña = "https://www.macgamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
                             If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
                                 Dim temp, temp2, temp3 As String
                                 Dim int, int2, int3 As Integer
