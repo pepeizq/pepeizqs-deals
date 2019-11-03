@@ -19,7 +19,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("--")
             cbTiendas.Items.Add("Humble Monthly")
             cbTiendas.Items.Add("Twitch Prime")
-            cbTiendas.Items.Add("Discord Nitro")
             cbTiendas.Items.Add("Xbox Game Pass")
             cbTiendas.Items.Add("Origin Access")
             cbTiendas.Items.Add("Uplay Plus")
@@ -134,15 +133,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.EnseñarJuegos = True
                 cosas.Mensaje = "* This price is different depending on your country, the one shown corresponds to Spain"
             ElseIf cbTiendas.SelectedIndex = 3 Then
-                imagenTienda.Source = "Assets\Tiendas\discordnitro.png"
-
-                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                precio.Text = Divisas.CambioMoneda("$9.99", tbDolar.Text)
-
-                cosas.Tienda = "Discord"
-                cosas.Titulo = "Discord Nitro • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://discordapp.com/nitro"
-            ElseIf cbTiendas.SelectedIndex = 4 Then
                 imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
 
                 precio.Text = "9,99 €"
@@ -150,7 +140,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "http://microsoft.msafflnk.net/EYkmK"
-            ElseIf cbTiendas.SelectedIndex = 5 Then
+            ElseIf cbTiendas.SelectedIndex = 4 Then
                 imagenTienda.Source = "Assets\Tiendas\originaccess.png"
 
                 precio.Text = "3,99 € *"
@@ -158,7 +148,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.origin.com/esp/en-us/store/origin-access"
-            ElseIf cbTiendas.SelectedIndex = 6 Then
+            ElseIf cbTiendas.SelectedIndex = 5 Then
                 imagenTienda.Source = "Assets\Tiendas\uplayplus.png"
 
                 precio.Text = "14,99 €"

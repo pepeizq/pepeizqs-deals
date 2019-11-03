@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Anuncios
@@ -50,6 +51,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
+            Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
+            cbGrid.IsChecked = False
+
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -73,8 +77,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
-                If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
-                    tbTitulo.Text = "--- • Giveaways"
+                If enlace.Contains("https://pepeizqdeals.com/rewards/") Then
+                    tbTitulo.Text = "--- • Rewards"
                 Else
                     tbTitulo.Text = "--- • Announcement"
                 End If
@@ -142,7 +146,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fondo As String = String.Empty
 
             Dim i As Integer = 0
-            While i < 1
+            While i < 100
                 If textoIDs.Length > 0 Then
                     Dim clave As String = String.Empty
 
@@ -221,10 +225,69 @@ Namespace pepeizq.Editor.pepeizqdeals
                 fondo2.ImageSource = New BitmapImage(New Uri(fondo))
             End If
 
+            Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
+            Dim fila2 As RowDefinition = pagina.FindName("fila2EditorpepeizqdealsImagenEntradaAnuncios")
             Dim imagen1 As ImageEx = pagina.FindName("imagen1EditorpepeizqdealsGenerarImagenAnuncios")
+            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaAnuncios")
+            Dim tb As TextBlock = pagina.FindName("tbComentario1EditorpepeizqdealsGenerarImagenAnuncios")
 
-            If listaJuegos.Count > 0 Then
-                imagen1.Source = listaJuegos(0).Datos.Imagen
+            If cbGrid.IsChecked = False Then
+                fila2.Height = New GridLength(1, GridUnitType.Auto)
+                imagen1.Visibility = Visibility.Visible
+                gv.Visibility = Visibility.Collapsed
+
+                If listaJuegos.Count > 0 Then
+                    imagen1.Source = listaJuegos(0).Datos.Imagen
+                End If
+
+                tb.FontSize = 22
+            Else
+                fila2.Height = New GridLength(1, GridUnitType.Star)
+                imagen1.Visibility = Visibility.Collapsed
+                gv.Visibility = Visibility.Visible
+
+                gv.Items.Clear()
+
+                For Each juego In listaJuegos
+                    Dim panel As New DropShadowPanel With {
+                    .BlurRadius = 20,
+                    .ShadowOpacity = 0.9,
+                    .Color = Colors.Black,
+                    .Margin = New Thickness(5, 5, 5, 5)
+                }
+
+                    Dim colorFondo2 As New SolidColorBrush With {
+                        .Color = "#004e7a".ToColor
+                    }
+
+                    Dim gridContenido As New Grid With {
+                        .Background = colorFondo2
+                    }
+
+                    Dim imagenJuego As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = juego.Datos.Imagen
+                    }
+
+                    If listaJuegos.Count = 1 Then
+                        imagenJuego.MaxHeight = 150
+                    ElseIf listaJuegos.Count = 2 Then
+                        imagenJuego.MaxHeight = 150
+                    ElseIf listaJuegos.Count = 3 Then
+                        imagenJuego.MaxHeight = 130
+                    ElseIf listaJuegos.Count = 4 Then
+                        imagenJuego.MaxHeight = 100
+                    Else
+                        imagenJuego.MaxHeight = 75
+                    End If
+
+                    gridContenido.Children.Add(imagenJuego)
+                    panel.Content = gridContenido
+                    gv.Items.Add(panel)
+                Next
+
+                tb.FontSize = 32
             End If
 
             BloquearControles(True)
@@ -266,6 +329,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.IsEnabled = estado
+
+            Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
+            cbGrid.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
             botonSubir.IsEnabled = estado

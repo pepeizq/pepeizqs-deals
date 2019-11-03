@@ -1032,7 +1032,8 @@
 
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                         <DatePicker x:Name="fechaEditorpepeizqdealsAnuncios" Margin="0,0,20,0"/>
-                                        <TimePicker x:Name="horaEditorpepeizqdealsAnuncios"/>
+                                        <TimePicker x:Name="horaEditorpepeizqdealsAnuncios" Margin="0,0,30,0"/>
+                                        <CheckBox x:Name="cbEditorpepeizqAnunciosGrid" Content="Grid"/>
                                     </StackPanel>
 
                                     <Button x:Name="botonEditorSubirpepeizqdealsAnuncios" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
@@ -1073,7 +1074,7 @@
 
                                                             <Grid.RowDefinitions>
                                                                 <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto" x:Name="fila2EditorpepeizqdealsImagenEntradaAnuncios"/>
                                                             </Grid.RowDefinitions>
 
                                                             <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -1085,6 +1086,14 @@
                                                                     <controls:ImageEx x:Name="imagen1EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
+
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" Grid.Row="0" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                                <GridView.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                                                                    </ItemsPanelTemplate>
+                                                                </GridView.ItemsPanel>
+                                                            </GridView>
 
                                                             <TextBlock x:Name="tbComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="1" Margin="40,20" FontSize="22" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed" TextWrapping="Wrap"/>
                                                         </Grid>
