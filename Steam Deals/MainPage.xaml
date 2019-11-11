@@ -1095,7 +1095,7 @@
                                                                 </GridView.ItemsPanel>
                                                             </GridView>
 
-                                                            <TextBlock x:Name="tbComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="1" Margin="40,20,40,0" FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed" TextWrapping="Wrap"/>
+                                                            <TextBlock x:Name="tbComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="1" Margin="40,40,40,20" FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed" TextWrapping="Wrap"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>

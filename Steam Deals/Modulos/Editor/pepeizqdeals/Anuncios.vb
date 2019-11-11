@@ -234,16 +234,18 @@ Namespace pepeizq.Editor.pepeizqdeals
             If cbGrid.IsChecked = False Then
                 fila2.Height = New GridLength(1, GridUnitType.Auto)
                 imagen1.Visibility = Visibility.Visible
+                imagen1.Margin = New Thickness(0, 10, 0, 0)
                 gv.Visibility = Visibility.Collapsed
 
                 If listaJuegos.Count > 0 Then
                     imagen1.Source = listaJuegos(0).Datos.Imagen
                 End If
 
-                tb.FontSize = 22
+                tb.FontSize = 26
             Else
                 fila2.Height = New GridLength(1, GridUnitType.Star)
                 imagen1.Visibility = Visibility.Collapsed
+                imagen1.Margin = New Thickness(0, 0, 0, 0)
                 gv.Visibility = Visibility.Visible
 
                 gv.Items.Clear()
