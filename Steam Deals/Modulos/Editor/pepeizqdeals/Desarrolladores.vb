@@ -492,7 +492,7 @@
                 New Clases.Desarrolladores("Rain Games", "@rain_games", Nothing, Nothing),
                 New Clases.Desarrolladores("Rake in Grass", "@rakeingrass", Nothing, Nothing),
                 New Clases.Desarrolladores("Rat King Entertainment", "@RatKingsLair", Nothing, Nothing),
-                New Clases.Desarrolladores("Raw Fury", "@rawfury", "Assets\LogosPublishers\rawfury.png", 350),
+                New Clases.Desarrolladores("Raw Fury", "@rawfury", "Assets\LogosPublishers\rawfury.png", 300),
                 New Clases.Desarrolladores("Razzart Visual", "@StarlightVega", Nothing, Nothing),
                 New Clases.Desarrolladores("Re-Logic", "@ReLogicGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Rebellion", "@Rebellion", "Assets\LogosPublishers\rebellion.png", 350),

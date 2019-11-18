@@ -96,6 +96,16 @@
             RemoveHandler botonRss.Click, AddressOf MostrarGrid
             AddHandler botonRss.Click, AddressOf MostrarGrid
 
+            Dim bordeSteamDB As Grid = pagina.FindName("bordeEditorpepeizqdealsSteamDB")
+            bordeSteamDB.Visibility = Visibility.Collapsed
+            Dim svSteamDB As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamDB")
+            svSteamDB.Visibility = Visibility.Collapsed
+            Dim botonSteamDB As Button = pagina.FindName("botonEditorpepeizqdealsSteamDB")
+            botonSteamDB.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeSteamDB, svSteamDB)
+
+            RemoveHandler botonSteamDB.Click, AddressOf MostrarGrid
+            AddHandler botonSteamDB.Click, AddressOf MostrarGrid
+
         End Sub
 
         Private Sub MostrarGrid(sender As Object, e As RoutedEventArgs)
@@ -156,6 +166,12 @@
 
             Dim svRss As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
             svRss.Visibility = Visibility.Collapsed
+
+            Dim bordeSteamDB As Grid = pagina.FindName("bordeEditorpepeizqdealsSteamDB")
+            bordeSteamDB.Visibility = Visibility.Collapsed
+
+            Dim svSteamDB As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamDB")
+            svSteamDB.Visibility = Visibility.Collapsed
 
             '-------------------------------------------
 

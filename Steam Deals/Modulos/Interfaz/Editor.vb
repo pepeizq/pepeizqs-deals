@@ -33,6 +33,7 @@ Namespace pepeizq.Interfaz
                     pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
                     pepeizq.Editor.pepeizqdeals.Posts.Borrar()
                     pepeizq.Editor.pepeizqdeals.Assets.GenerarBanner()
+                    pepeizq.Editor.pepeizqdeals.SteamDB.Cargar()
                 Else
                     gridpepeizq.Visibility = Visibility.Collapsed
                     gridReddit.Visibility = Visibility.Collapsed
@@ -123,6 +124,7 @@ Namespace pepeizq.Interfaz
                             pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
                             pepeizq.Editor.pepeizqdeals.Posts.Borrar()
                             pepeizq.Editor.pepeizqdeals.Assets.GenerarBanner()
+                            pepeizq.Editor.pepeizqdeals.SteamDB.Cargar()
 
                         ElseIf cbWebs.SelectedIndex = 1 Then
                             gridpepeizq.Visibility = Visibility.Collapsed
