@@ -73,7 +73,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 int4 = temp3.IndexOf("</li>")
                                 temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                If temp4.Contains("Free") Or temp4.Contains("free") Then
+                                Dim gratis As Boolean = False
+
+                                If temp4.Contains("Free") Then
+                                    gratis = True
+                                ElseIf temp4.Contains("free") Then
+                                    gratis = True
+                                End If
+
+                                If temp4.Contains("Source: free on demand") Then
+                                    gratis = False
+                                End If
+
+                                If gratis = True Then
                                     Dim temp5, temp6 As String
                                     Dim int5, int6 As Integer
 
@@ -96,7 +108,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                     Dim titulo As String = temp8.Trim
 
-                                    tb.Text = enlace + " - " + titulo + Environment.NewLine + Environment.NewLine
+                                    tb.Text = tb.Text + enlace + " - " + titulo + Environment.NewLine
 
                                     If listaPrevia.Count > 0 Then
                                         Dim añadir As Boolean = True
