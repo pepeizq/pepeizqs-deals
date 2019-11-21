@@ -60,7 +60,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         temp2 = temp.Remove(int2, temp.Length - int2)
 
                         Dim i As Integer = 0
-                        While i < 300
+                        While i < 1200
                             If temp2.Contains("<li class=" + ChrW(34) + "app-history-row" + ChrW(34) + ">") Then
                                 Dim temp3, temp4 As String
                                 Dim int3, int4 As Integer
