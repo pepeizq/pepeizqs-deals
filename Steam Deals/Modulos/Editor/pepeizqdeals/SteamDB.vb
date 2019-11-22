@@ -108,7 +108,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                     Dim titulo As String = temp8.Trim
 
-                                    tb.Text = tb.Text + enlace + " - " + titulo + Environment.NewLine
+                                    If Not tb.Text.Contains(enlace) Then
+                                        tb.Text = tb.Text + enlace + " - " + titulo + Environment.NewLine
+                                    End If
 
                                     If listaPrevia.Count > 0 Then
                                         Dim añadir As Boolean = True
@@ -135,7 +137,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Await helper.SaveFileAsync(Of List(Of String))("listaSteamDB", listaPrevia)
+            Try
+                Await helper.SaveFileAsync(Of List(Of String))("listaSteamDB", listaPrevia)
+            Catch ex As Exception
+
+            End Try
 
         End Sub
 
