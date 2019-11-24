@@ -80,7 +80,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If enlace.Contains("https://pepeizqdeals.com/rewards/") Then
                     tbTitulo.Text = "--- • Rewards"
                 Else
-                    tbTitulo.Text = "--- • Announcement"
+                    tbTitulo.Text = "--- • News"
                 End If
             End If
 
