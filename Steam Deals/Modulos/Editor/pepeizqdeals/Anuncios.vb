@@ -227,25 +227,31 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
             Dim fila2 As RowDefinition = pagina.FindName("fila2EditorpepeizqdealsImagenEntradaAnuncios")
+            Dim panel1 As DropShadowPanel = pagina.FindName("panel1EditorpepeizqdealsGenerarImagenAnuncios")
             Dim imagen1 As ImageEx = pagina.FindName("imagen1EditorpepeizqdealsGenerarImagenAnuncios")
             Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaAnuncios")
             Dim tb As TextBlock = pagina.FindName("tbComentario1EditorpepeizqdealsGenerarImagenAnuncios")
 
             If cbGrid.IsChecked = False Then
                 fila2.Height = New GridLength(1, GridUnitType.Auto)
-                imagen1.Visibility = Visibility.Visible
-                imagen1.Margin = New Thickness(0, 10, 0, 0)
+                panel1.Visibility = Visibility.Visible
                 gv.Visibility = Visibility.Collapsed
 
                 If listaJuegos.Count > 0 Then
                     imagen1.Source = listaJuegos(0).Datos.Imagen
                 End If
 
+                If tb.Text.Trim.Length > 0 Then
+                    panel1.Margin = New Thickness(0, 10, 0, 0)
+                Else
+                    panel1.Margin = New Thickness(0, 10, 0, 10)
+                End If
+
                 tb.FontSize = 26
             Else
                 fila2.Height = New GridLength(1, GridUnitType.Star)
-                imagen1.Visibility = Visibility.Collapsed
-                imagen1.Margin = New Thickness(0, 0, 0, 0)
+                panel1.Visibility = Visibility.Collapsed
+                panel1.Margin = New Thickness(0, 0, 0, 0)
                 gv.Visibility = Visibility.Visible
 
                 gv.Items.Clear()

@@ -1086,7 +1086,7 @@
                                                                 <RowDefinition Height="Auto" x:Name="fila2EditorpepeizqdealsImagenEntradaAnuncios"/>
                                                             </Grid.RowDefinitions>
 
-                                                            <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <controls:DropShadowPanel x:Name="panel1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                                 <Grid>
                                                                     <Grid.Background>
                                                                         <SolidColorBrush Color="#1b2838"/>

@@ -185,11 +185,11 @@ Namespace pepeizq.Tiendas
                         End If
 
                         If juego.Desarrolladores Is Nothing Then
-                            If htmlJuego.Contains("<label>Publisher</label>") Then
+                            If htmlJuego.Contains("<th>Publisher</th>") Then
                                 Dim temp, temp2, temp3 As String
                                 Dim int, int2, int3 As Integer
 
-                                int = htmlJuego.IndexOf("<label>Publisher</label>")
+                                int = htmlJuego.IndexOf("<th>Publisher</th>")
                                 temp = htmlJuego.Remove(0, int + 5)
 
                                 int2 = temp.IndexOf("</a>")
