@@ -83,6 +83,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                 If temp4.Contains("Source: free on demand") Then
                                     gratis = False
+                                ElseIf temp4.Contains("Changed name") Then
+                                    gratis = False
                                 End If
 
                                 If gratis = True Then
