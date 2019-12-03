@@ -1,6 +1,8 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
+Imports Windows.Storage.Pickers
+Imports Windows.Storage.Streams
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
@@ -27,29 +29,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridEnlace As Grid = pagina.FindName("gridEditorEnlacepepeizqdeals")
             Dim gridImagen As Grid = pagina.FindName("gridEditorImagenpepeizqdeals")
-            Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
+            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorEnlacepepeizqdealsDosJuegos")
             Dim tbDescuentoMensaje As TextBlock = pagina.FindName("tbDescuentoMensajepepeizqdealsDeals")
             Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
 
             If listaFinal.Count = 1 Then
-                tbCabeceraImagen.Visibility = Visibility.Collapsed
-                cbCabeceraLogosJuegos.Visibility = Visibility.Collapsed
-                tbCabeceraImagenDimensiones.Visibility = Visibility.Collapsed
                 gridEnlace.Visibility = Visibility.Visible
                 gridImagen.Visibility = Visibility.Visible
-                gridComplemento.Visibility = Visibility.Collapsed
                 cbError.Visibility = Visibility.Visible
+                gridDosJuegos.Visibility = Visibility.Collapsed
+
                 tbDescuentoMensaje.Visibility = Visibility.Visible
                 tbDescuentoCodigo.Visibility = Visibility.Visible
             ElseIf listaFinal.Count > 1 Then
-                tbCabeceraImagen.Visibility = Visibility.Visible
-                cbCabeceraLogosJuegos.Visibility = Visibility.Visible
-                tbCabeceraImagenDimensiones.Visibility = Visibility.Visible
                 gridEnlace.Visibility = Visibility.Collapsed
                 gridImagen.Visibility = Visibility.Collapsed
-                gridComplemento.Visibility = Visibility.Visible
                 cbError.Visibility = Visibility.Collapsed
+                gridDosJuegos.Visibility = Visibility.Visible
                 tbDescuentoMensaje.Visibility = Visibility.Collapsed
                 tbDescuentoCodigo.Visibility = Visibility.Collapsed
             End If
@@ -81,9 +78,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 And ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 Then
                     tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
 
+                    Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
+
                     If listaFinal.Count = 1 Then
                         tbTituloComplemento.Text = "Discount Code: " + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar)
                         gridComplemento.Visibility = Visibility.Visible
+                    Else
+                        gridComplemento.Visibility = Visibility.Collapsed
                     End If
                 End If
             End If
@@ -204,6 +205,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbEnlace.Text = String.Empty
             End If
 
+            Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
+
+            RemoveHandler botonImagen.Click, AddressOf CargarImagenFicheroUnJuego
+            AddHandler botonImagen.Click, AddressOf CargarImagenFicheroUnJuego
+
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagen.Text = String.Empty
 
@@ -225,7 +231,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 DealsImagenEntrada.DosJuegosGenerar(listaAnalisis, listaFinal.Count)
             End If
 
-            AddHandler tbImagen.TextChanged, AddressOf MostrarImagen
+            AddHandler tbImagen.TextChanged, AddressOf CargarImagenEnlace
 
             '----------------------------------------------------
 
@@ -265,6 +271,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             AddHandler tbDescuentoCodigo.TextChanged, AddressOf ModificarDescuento
+
+            '----------------------------------------------------
+
+            Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
+
+            RemoveHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegos
+            AddHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegos
 
             '----------------------------------------------------
 
@@ -502,7 +515,61 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Sub MostrarImagen(sender As Object, e As TextChangedEventArgs)
+        Private Async Sub CargarImagenFicheroUnJuego(sender As Object, e As RoutedEventArgs)
+
+            Dim ficheroPicker As New FileOpenPicker
+            ficheroPicker.FileTypeFilter.Add(".jpg")
+            ficheroPicker.FileTypeFilter.Add(".png")
+            ficheroPicker.ViewMode = PickerViewMode.Thumbnail
+
+            Dim ficheroElegido As StorageFile = Await ficheroPicker.PickSingleFileAsync
+
+            If Not ficheroElegido Is Nothing Then
+                Dim frame As Frame = Window.Current.Content
+                Dim pagina As Page = frame.Content
+
+                Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+                tbImagen.Text = ficheroElegido.Path
+
+                Using stream As IRandomAccessStream = Await ficheroElegido.OpenAsync(FileAccessMode.Read)
+                    Dim bitmap As New BitmapImage
+                    Await bitmap.SetSourceAsync(stream)
+
+                    Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuego")
+                    imagen.Source = bitmap
+                End Using
+            End If
+
+        End Sub
+
+        Private Async Sub CargarImagenFicheroDosJuegos(sender As Object, e As RoutedEventArgs)
+
+            Dim ficheroPicker As New FileOpenPicker
+            ficheroPicker.FileTypeFilter.Add(".jpg")
+            ficheroPicker.FileTypeFilter.Add(".png")
+            ficheroPicker.ViewMode = PickerViewMode.Thumbnail
+
+            Dim ficheroElegido As StorageFile = Await ficheroPicker.PickSingleFileAsync
+
+            If Not ficheroElegido Is Nothing Then
+                Dim frame As Frame = Window.Current.Content
+                Dim pagina As Page = frame.Content
+
+                Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+                tbImagen.Text = ficheroElegido.Path
+
+                Using stream As IRandomAccessStream = Await ficheroElegido.OpenAsync(FileAccessMode.Read)
+                    Dim bitmap As New BitmapImage
+                    Await bitmap.SetSourceAsync(stream)
+
+                    Dim imagen As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
+                    imagen.Source = bitmap
+                End Using
+            End If
+
+        End Sub
+
+        Private Sub CargarImagenEnlace(sender As Object, e As TextChangedEventArgs)
 
             Dim tbImagen As TextBox = sender
 
@@ -717,6 +784,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.IsEnabled = estado
 
+            Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
+            botonImagen.IsEnabled = estado
+
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagen.IsEnabled = estado
 
@@ -728,6 +798,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
             tbCabeceraImagenDimensiones.IsEnabled = estado
+
+            Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
+            botonCabeceraImagen.IsEnabled = estado
 
             Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
             tbCabeceraImagen.IsEnabled = estado
