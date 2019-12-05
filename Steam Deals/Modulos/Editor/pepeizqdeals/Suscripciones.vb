@@ -17,7 +17,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Clear()
 
             cbTiendas.Items.Add("--")
-            cbTiendas.Items.Add("Humble Monthly")
+            cbTiendas.Items.Add("Humble Choice")
             cbTiendas.Items.Add("Twitch Prime")
             cbTiendas.Items.Add("Xbox Game Pass")
             cbTiendas.Items.Add("Origin Access")
@@ -110,17 +110,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
-                imagenTienda.Source = "Assets\Tiendas\humblemonthly.png"
+                imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
 
-                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                precio.Text = Divisas.CambioMoneda("$12.00", tbDolar.Text)
+                precio.Text = "13,99 € *"
 
                 cosas.Tienda = "Humble Bundle"
-                cosas.Titulo = "Humble Monthly • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://www.humblebundle.com/monthly"
+                cosas.Titulo = "Humble Choice • " + mesElegido + " • " + cosas.Juegos
+                cosas.Enlace = "https://www.humblebundle.com/subscription"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.EnseñarJuegos = True
-                cosas.Mensaje = "More games will be revealed on the first Friday of next month"
+                cosas.Mensaje = "* This price corresponds to the Basic mode, you can get more games in Premium"
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
 
