@@ -16,6 +16,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     añadir = False
                 ElseIf titulo.Contains("Humble Monthly") Then
                     añadir = False
+                ElseIf titulo.Contains("Humble Choice") Then
+                    añadir = False
                 End If
             End If
 
