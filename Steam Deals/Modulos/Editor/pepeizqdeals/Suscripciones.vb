@@ -316,8 +316,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gvImagen.Visibility = Visibility.Collapsed
             Else
                 If cosas.EnseñarJuegos = True Then
-                    imagenTienda.MaxHeight = 65
-                    imagenTienda.MaxWidth = 350
+                    imagenTienda.MaxHeight = 60
+                    imagenTienda.MaxWidth = 280
                 Else
                     imagenTienda.MaxHeight = 120
                     imagenTienda.MaxWidth = 400
