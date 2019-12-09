@@ -87,6 +87,7 @@
                 New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 480),
                 New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 450),
                 New Clases.LogosJuegos("Cities Skylines", "Assets\LogosJuegos\citiesskylines.png", 400),
+                New Clases.LogosJuegos("Company of Heroes", "Assets\LogosJuegos\companyofheroes.png", 530),
                 New Clases.LogosJuegos("Darksiders", "Assets\LogosJuegos\darksiders.png", 450),
                 New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", Nothing),
                 New Clases.LogosJuegos("DiRT", "Assets\LogosJuegos\dirt.png", 400),
