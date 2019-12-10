@@ -79,8 +79,8 @@ Namespace pepeizq.Tiendas
                         Dim precio As String = String.Empty
 
                         If Not juegoHumble.PrecioDescontado Is Nothing Then
-                            If juegoHumble.PrecioDescontado(0).Trim.Length > 0 Then
-                                Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado(0), CultureInfo.InvariantCulture).ToString
+                            If juegoHumble.PrecioDescontado.Cantidad.Trim.Length > 0 Then
+                                Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado.Cantidad, CultureInfo.InvariantCulture).ToString
 
                                 Dim moneda As String = GlobalizationPreferences.Currencies(0)
 
@@ -95,9 +95,9 @@ Namespace pepeizq.Tiendas
                         Dim descuento As String = String.Empty
 
                         If Not juegoHumble.PrecioBase Is Nothing Then
-                            If juegoHumble.PrecioBase(0).Trim.Length > 0 Then
+                            If juegoHumble.PrecioBase.Cantidad.Trim.Length > 0 Then
                                 Try
-                                    Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase(0), CultureInfo.InvariantCulture).ToString
+                                    Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase.Cantidad, CultureInfo.InvariantCulture).ToString
 
                                     descuento = Calculadora.GenerarDescuento(tempDescuento, precio)
                                 Catch ex As Exception
@@ -125,7 +125,7 @@ Namespace pepeizq.Tiendas
                                 Dim dcupon As Double = Double.Parse(precio, CultureInfo.InvariantCulture) * cuponPorcentaje
                                 Dim dprecio As Double = Double.Parse(precio, CultureInfo.InvariantCulture) - dcupon
                                 precio = Math.Round(dprecio, 2).ToString + " €"
-                                descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase(0), precio)
+                                descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase.Cantidad, precio)
                             End If
                         End If
 
@@ -247,10 +247,10 @@ Namespace pepeizq.Tiendas
         Public ImagenGrande As String
 
         <JsonProperty("current_price")>
-        Public PrecioDescontado As List(Of String)
+        Public PrecioDescontado As HumbleJuegoPrecio
 
         <JsonProperty("full_price")>
-        Public PrecioBase As List(Of String)
+        Public PrecioBase As HumbleJuegoPrecio
 
         <JsonProperty("human_url")>
         Public Enlace As String
@@ -266,6 +266,16 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("rewards_split")>
         Public DescuentoMonthly As Double
+
+    End Class
+
+    Public Class HumbleJuegoPrecio
+
+        <JsonProperty("currency")>
+        Public Moneda As String
+
+        <JsonProperty("amount")>
+        Public Cantidad As String
 
     End Class
 End Namespace
