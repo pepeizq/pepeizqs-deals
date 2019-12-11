@@ -221,7 +221,7 @@ Namespace pepeizq.Tiendas
                         j += 1
                     End While
 
-                    If Not html.Contains("<li class=" + ChrW(34) + "current" + ChrW(34) + ">" + i.ToString + "</li>") Then
+                    If Not html.Contains("<a class=" + ChrW(34) + "next i-next" + ChrW(34)) Then
                         Exit While
                     End If
                 End If
@@ -237,11 +237,11 @@ Namespace pepeizq.Tiendas
                     Dim htmlJuego As String = htmlJuego_.Result
 
                     If Not htmlJuego = Nothing Then
-                        If htmlJuego.Contains("<td class=" + ChrW(34) + "label" + ChrW(34) + ">Publisher:</td>") Then
+                        If htmlJuego.Contains("<td class=" + ChrW(34) + "label" + ChrW(34) + "><h3>Publisher</h3>:</td>") Then
                             Dim temp, temp2, temp3 As String
                             Dim int, int2, int3 As Integer
 
-                            int = htmlJuego.IndexOf("<td class=" + ChrW(34) + "label" + ChrW(34) + ">Publisher:</td>")
+                            int = htmlJuego.IndexOf("<td class=" + ChrW(34) + "label" + ChrW(34) + "><h3>Publisher</h3>:</td>")
                             temp = htmlJuego.Remove(0, int + 5)
 
                             int2 = temp.IndexOf("<td class=" + ChrW(34) + "data" + ChrW(34))
