@@ -436,6 +436,29 @@ Namespace pepeizq.Tiendas
         <JsonProperty("background")>
         Public Fondo As String
 
+        <JsonProperty("background")>
+        Public Videos As List(Of SteamMasDatosAmpliadoVideo)
+
+    End Class
+
+    Public Class SteamMasDatosAmpliadoVideo
+
+        <JsonProperty("thumbnail")>
+        Public Captura As String
+
+        <JsonProperty("webm")>
+        Public Calidad As SteamMasDatosAmpliadoVideoCalidad
+
+    End Class
+
+    Public Class SteamMasDatosAmpliadoVideoCalidad
+
+        <JsonProperty("480")>
+        Public _480 As String
+
+        <JsonProperty("max")>
+        Public Max As String
+
     End Class
 
     Public Class SteamDesarrolladores
