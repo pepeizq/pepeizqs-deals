@@ -412,12 +412,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim contenido As String = String.Empty
 
             If listaJuegos.Count > 1 Then
+                contenido = contenido + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
+
                 If tbComentario.Text.Trim.Length > 0 Then
-                    contenido = contenido + "[vc_row sticky=" + ChrW(34) + "1" + ChrW(34) + " " +
-                        ChrW(34) + "][vc_column][us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " color=" + ChrW(34) + "custom" + ChrW(34) + " bg_color=" + ChrW(34) + "#002033" + ChrW(34) + " text_color=" + ChrW(34) + "#ffffff" + ChrW(34) + "]" + tbComentario.Text.Trim + "[/us_message][/vc_column][/vc_row]"
+                    contenido = contenido + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " el_class=" + ChrW(34) + "mensajeOfertas" + ChrW(34) + " bg_color=" + ChrW(34) + "#002033" + ChrW(34) + " text_color=" + ChrW(34) + "#ffffff" + ChrW(34) + "]<p style=" + ChrW(34) + "font-size: 16px;" + ChrW(34) + ">" + tbComentario.Text.Trim + "</p>[/us_message]"
                 End If
 
-                contenido = contenido + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
                 contenido = contenido + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenido = contenido + "<tbody>" + Environment.NewLine
                 contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
