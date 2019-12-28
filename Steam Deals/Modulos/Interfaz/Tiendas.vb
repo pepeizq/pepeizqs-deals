@@ -30,6 +30,7 @@ Module Tiendas
     Dim _2gameT As New Tienda("2Game", "2Game", "Assets/Tiendas/2game.png", 22, Nothing, 1216, "https://pepeizqdeals.com/wp-content/uploads/2019/07/tienda_2game.jpg", "Assets/Tiendas/2game2.png", 300, 155)
     Dim blizzardT As New Tienda("Blizzard Store", "Blizzard", "Assets/Tiendas/blizzard.ico", 23, Nothing, 1219, "https://pepeizqdeals.com/wp-content/uploads/2019/08/tienda_blizzardstore.jpg", "Assets/Tiendas/blizzard2.png", 300, 155)
     Dim direct2driveT As New Tienda("Direct2Drive", "Direct2Drive", "Assets/Tiendas/d2d.ico", 24, Nothing, 1238, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/d2d2.png", 200, 90)
+    Dim robotcacheT As New Tienda("Robot Cache", "RobotCache", "Assets/Tiendas/robotcache.png", 25, Nothing, 1245, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/robotcache2.png", 200, 90)
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, nuuvemT,
