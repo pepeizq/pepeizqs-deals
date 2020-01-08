@@ -33,15 +33,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorEnlacepepeizqdealsDosJuegos")
             Dim tbDescuentoMensaje As TextBlock = pagina.FindName("tbDescuentoMensajepepeizqdealsDeals")
             Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
+            Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
 
             If listaFinal.Count = 1 Then
                 gridEnlace.Visibility = Visibility.Visible
                 gridImagen.Visibility = Visibility.Visible
                 cbError.Visibility = Visibility.Visible
                 gridDosJuegos.Visibility = Visibility.Collapsed
-
                 tbDescuentoMensaje.Visibility = Visibility.Visible
                 tbDescuentoCodigo.Visibility = Visibility.Visible
+                gridComplemento.Visibility = Visibility.Collapsed
             ElseIf listaFinal.Count > 1 Then
                 gridEnlace.Visibility = Visibility.Collapsed
                 gridImagen.Visibility = Visibility.Collapsed
@@ -49,6 +50,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridDosJuegos.Visibility = Visibility.Visible
                 tbDescuentoMensaje.Visibility = Visibility.Collapsed
                 tbDescuentoCodigo.Visibility = Visibility.Collapsed
+                gridComplemento.Visibility = Visibility.Visible
             End If
 
             '----------------------------------------------------
@@ -78,13 +80,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 And ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 Then
                     tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
 
-                    Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
-
                     If listaFinal.Count = 1 Then
                         tbTituloComplemento.Text = "Discount Code: " + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar)
-                        gridComplemento.Visibility = Visibility.Visible
-                    Else
-                        gridComplemento.Visibility = Visibility.Collapsed
                     End If
                 End If
             End If

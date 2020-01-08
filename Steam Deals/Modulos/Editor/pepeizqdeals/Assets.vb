@@ -10,7 +10,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Function ListaTiendas()
             Dim lista As New List(Of Clases.Assets) From {
-                New Clases.Assets("Steam", "Assets/drm_steam.png", "Assets/Tiendas/steam2.png", "#475166", "#2e4460", Nothing, 32, 32),
+                New Clases.Assets("Steam", "Assets/drm_steam.png", "Assets/Tiendas/steam2.png", "#2e4460", "#2e4460", Nothing, 32, 32),
                 New Clases.Assets("Humble", "Assets/Tiendas/humble.ico", "Assets/Tiendas/humble2.png", "#ea9192", "#cb2729", Nothing, 32, 32),
                 New Clases.Assets("GamersGate", "Assets/Tiendas/gamersgate.ico", "Assets/Tiendas/gamersgate2.png", "#196176", "#196176", Nothing, 32, 32),
                 New Clases.Assets("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", "#323333", "#323333", Nothing, 32, 32),
