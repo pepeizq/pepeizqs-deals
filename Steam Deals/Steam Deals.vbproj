@@ -227,6 +227,7 @@
     <Content Include="Assets\drm_bethesda.ico" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\LogosJuegos\anno.png" />
     <Content Include="Assets\LogosJuegos\ark.png" />
     <Content Include="Assets\LogosJuegos\assassinscreed.png" />
     <Content Include="Assets\LogosJuegos\batman.png" />
