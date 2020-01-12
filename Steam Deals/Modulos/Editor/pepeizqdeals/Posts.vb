@@ -104,26 +104,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not titulo = Nothing Then
-                    If titulo.Trim.Length > 0 Then
-                        If categoria = 3 Then
-                            postEditor.SEOTitulo = titulo.Trim + " • More deals games in pepeizq's deals"
-                        ElseIf categoria = 4 Then
-                            postEditor.SEOTitulo = titulo.Trim + " • More bundles in pepeizq's deals"
-                        ElseIf categoria = 12 Then
-                            postEditor.SEOTitulo = titulo.Trim + " • More free games in pepeizq's deals"
-                        ElseIf categoria = 13 Then
-                            postEditor.SEOTitulo = titulo.Trim + " • Check other subscriptions in pepeizq's deals"
-                        Else
-                            postEditor.SEOTitulo = titulo.Trim + " • Visit pepeizq's deals to check the best deals"
-                        End If
-                    End If
-                End If
-
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
-                        postEditor.SEOContenido = tituloComplemento.Trim
                     End If
                 End If
 

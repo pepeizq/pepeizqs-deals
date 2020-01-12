@@ -98,11 +98,5 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("dateends")>
         Public FechaTermina As String
 
-        <JsonProperty("rank_math_title")>
-        Public SEOTitulo As String
-
-        <JsonProperty("rank_math_content")>
-        Public SEOContenido As String
-
     End Class
 End Namespace
