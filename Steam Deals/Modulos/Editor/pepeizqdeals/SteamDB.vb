@@ -106,31 +106,35 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     temp7 = temp4.Remove(0, int7 + 3)
 
                                     int8 = temp7.IndexOf("</b>")
-                                    temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                    Dim titulo As String = temp8.Trim
+                                    If Not int8 = -1 Then
+                                        temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                    If Not tb.Text.Contains(enlace) Then
-                                        tb.Text = tb.Text + enlace + " - " + titulo + Environment.NewLine
-                                    End If
+                                        Dim titulo As String = temp8.Trim
 
-                                    If listaPrevia.Count > 0 Then
-                                        Dim añadir As Boolean = True
+                                        If Not tb.Text.Contains(enlace) Then
+                                            tb.Text = tb.Text + enlace + " - " + titulo + Environment.NewLine
+                                        End If
 
-                                        For Each enlacePrevio In listaPrevia
-                                            If enlacePrevio = enlace Then
-                                                añadir = False
+                                        If listaPrevia.Count > 0 Then
+                                            Dim añadir As Boolean = True
+
+                                            For Each enlacePrevio In listaPrevia
+                                                If enlacePrevio = enlace Then
+                                                    añadir = False
+                                                End If
+                                            Next
+
+                                            If añadir = True Then
+                                                listaPrevia.Add(enlace)
+                                                Notificaciones.Toast(titulo, enlace)
                                             End If
-                                        Next
-
-                                        If añadir = True Then
+                                        Else
                                             listaPrevia.Add(enlace)
                                             Notificaciones.Toast(titulo, enlace)
                                         End If
-                                    Else
-                                        listaPrevia.Add(enlace)
-                                        Notificaciones.Toast(titulo, enlace)
                                     End If
+
                                 End If
                             End If
                             i += 1
