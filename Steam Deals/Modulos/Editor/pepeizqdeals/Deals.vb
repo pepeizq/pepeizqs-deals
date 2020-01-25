@@ -379,11 +379,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-            Dim botonImagen2 As Button = Nothing
-
-            If cosas.ListaJuegos.Count > 1 Then
-                botonImagen2 = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada2")
-            End If
 
             Dim categoria As Integer = 3
 

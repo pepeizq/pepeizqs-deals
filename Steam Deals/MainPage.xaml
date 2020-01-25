@@ -632,6 +632,7 @@
                                     <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                         <CheckBox x:Name="cbEditorLogoTiendapepeizqdealsBundles" Content="Mostrar Logo Tienda" VerticalAlignment="Center"/>
                                         <CheckBox x:Name="cbEditorImagenSombreadopepeizqdealsBundles" Content="Sombreado Cabecera" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                        <CheckBox x:Name="cbEditorMasJuegospepeizqdealsBundles" Content="Mas Juegos" VerticalAlignment="Center" Margin="20,0,0,0"/>
                                         <TextBlock Text="Ancho" Margin="20,0,5,0" VerticalAlignment="Center"/>
                                         <TextBox x:Name="tbEditorImagenAnchopepeizqdealsBundles" MaxWidth="100"/>
                                     </StackPanel>
@@ -700,6 +701,7 @@
                                                             <RowDefinition Height="Auto"/>
                                                             <RowDefinition Height="Auto"/>
                                                             <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
                                                         </Grid.RowDefinitions>
 
                                                         <controls:DropShadowPanel x:Name="panelTiendaEditorpepeizqdealsGenerarImagenBundles" Grid.Row="0" Margin="10" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -722,6 +724,10 @@
                                                                     </ItemsPanelTemplate>
                                                                 </GridView.ItemsPanel>
                                                             </GridView>
+                                                        </Grid>
+
+                                                        <Grid x:Name="gridEditorMasJuegospepeizqdealsBundles" Grid.Row="3" Padding="20,0,20,40">
+                                                            <TextBlock Text="And More Games" Foreground="White" FontSize="50" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </Grid>
                                                     </Grid>
                                                 </StackPanel>

@@ -49,6 +49,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbImagenSombreado.Unchecked, AddressOf MostrarSombreadoImagenCabecera
             AddHandler cbImagenSombreado.Unchecked, AddressOf MostrarSombreadoImagenCabecera
 
+            Dim cbMasJuegos As CheckBox = pagina.FindName("cbEditorMasJuegospepeizqdealsBundles")
+            cbMasJuegos.IsChecked = False
+
+            RemoveHandler cbMasJuegos.Checked, AddressOf MostrarMasJuegos
+            AddHandler cbMasJuegos.Checked, AddressOf MostrarMasJuegos
+
+            RemoveHandler cbMasJuegos.Unchecked, AddressOf MostrarMasJuegos
+            AddHandler cbMasJuegos.Unchecked, AddressOf MostrarMasJuegos
+
             Dim tbImagenAncho As TextBox = pagina.FindName("tbEditorImagenAnchopepeizqdealsBundles")
             tbImagenAncho.Text = String.Empty
 
@@ -291,6 +300,23 @@ Namespace pepeizq.Editor.pepeizqdeals
                 panel.ShadowOpacity = 0.9
             Else
                 panel.ShadowOpacity = 0
+            End If
+
+        End Sub
+
+        Private Sub MostrarMasJuegos(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundles")
+
+            Dim cb As CheckBox = sender
+
+            If cb.IsChecked = True Then
+                gridMasJuegos.Visibility = Visibility.Visible
+            Else
+                gridMasJuegos.Visibility = Visibility.Collapsed
             End If
 
         End Sub
@@ -851,6 +877,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbImagenSombreado As CheckBox = pagina.FindName("cbEditorImagenSombreadopepeizqdealsBundles")
             cbImagenSombreado.IsEnabled = estado
+
+            Dim cbMasJuegos As CheckBox = pagina.FindName("cbEditorMasJuegospepeizqdealsBundles")
+            cbMasJuegos.IsEnabled = estado
 
             Dim tbImagenAncho As TextBox = pagina.FindName("tbEditorImagenAnchopepeizqdealsBundles")
             tbImagenAncho.IsEnabled = estado
