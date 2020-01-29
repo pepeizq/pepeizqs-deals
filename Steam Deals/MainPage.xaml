@@ -726,7 +726,7 @@
                                                             </GridView>
                                                         </Grid>
 
-                                                        <Grid x:Name="gridEditorMasJuegospepeizqdealsBundles" Grid.Row="3" Padding="20,0,20,40">
+                                                        <Grid x:Name="gridEditorMasJuegospepeizqdealsBundles" Grid.Row="3" Padding="20,0,20,40" Visibility="Collapsed">
                                                             <TextBlock Text="And More Games" Foreground="White" FontSize="50" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </Grid>
                                                     </Grid>
