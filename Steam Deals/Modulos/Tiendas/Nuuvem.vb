@@ -59,143 +59,146 @@ Namespace pepeizq.Tiendas
                                 html = temp
 
                                 int2 = temp.IndexOf("product-btn-added-to-cart")
-                                temp2 = temp.Remove(int2, temp.Length - int2)
 
-                                Dim temp3, temp4 As String
-                                Dim int3, int4 As Integer
+                                If Not int2 = -1 Then
+                                    temp2 = temp.Remove(int2, temp.Length - int2)
 
-                                int3 = temp2.IndexOf("title=" + ChrW(34))
-                                temp3 = temp2.Remove(0, int3 + 7)
+                                    Dim temp3, temp4 As String
+                                    Dim int3, int4 As Integer
 
-                                int4 = temp3.IndexOf(ChrW(34))
-                                temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                    int3 = temp2.IndexOf("title=" + ChrW(34))
+                                    temp3 = temp2.Remove(0, int3 + 7)
 
-                                temp4 = temp4.Trim
-                                temp4 = WebUtility.HtmlDecode(temp4)
+                                    int4 = temp3.IndexOf(ChrW(34))
+                                    temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                Dim titulo As String = temp4.Trim
+                                    temp4 = temp4.Trim
+                                    temp4 = WebUtility.HtmlDecode(temp4)
 
-                                Dim temp5, temp6 As String
-                                Dim int5, int6 As Integer
+                                    Dim titulo As String = temp4.Trim
 
-                                int5 = temp2.IndexOf("href=" + ChrW(34))
-                                temp5 = temp2.Remove(0, int5 + 6)
+                                    Dim temp5, temp6 As String
+                                    Dim int5, int6 As Integer
 
-                                int6 = temp5.IndexOf(ChrW(34))
-                                temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                    int5 = temp2.IndexOf("href=" + ChrW(34))
+                                    temp5 = temp2.Remove(0, int5 + 6)
 
-                                Dim enlace As String = temp6.Trim
+                                    int6 = temp5.IndexOf(ChrW(34))
+                                    temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                Dim temp7, temp8 As String
-                                Dim int7, int8 As Integer
+                                    Dim enlace As String = temp6.Trim
 
-                                int7 = temp2.IndexOf("<img")
-                                temp7 = temp2.Remove(0, int7 + 4)
+                                    Dim temp7, temp8 As String
+                                    Dim int7, int8 As Integer
 
-                                int7 = temp7.IndexOf("src=" + ChrW(34))
-                                temp7 = temp7.Remove(0, int7 + 5)
+                                    int7 = temp2.IndexOf("<img")
+                                    temp7 = temp2.Remove(0, int7 + 4)
 
-                                int8 = temp7.IndexOf(ChrW(34))
-                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+                                    int7 = temp7.IndexOf("src=" + ChrW(34))
+                                    temp7 = temp7.Remove(0, int7 + 5)
 
-                                Dim imagenPequeña As String = temp8.Trim
+                                    int8 = temp7.IndexOf(ChrW(34))
+                                    temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
+                                    Dim imagenPequeña As String = temp8.Trim
 
-                                Dim temp9, temp10 As String
-                                Dim int9, int10 As Integer
+                                    Dim imagenes As New JuegoImagenes(imagenPequeña, Nothing)
 
-                                int9 = temp2.IndexOf("<sup class=" + ChrW(34) + "currency-symbol")
-                                temp9 = temp2.Remove(0, int9)
+                                    Dim temp9, temp10 As String
+                                    Dim int9, int10 As Integer
 
-                                int10 = temp9.IndexOf("</button>")
-                                temp10 = temp9.Remove(int10, temp9.Length - int10)
+                                    int9 = temp2.IndexOf("<sup class=" + ChrW(34) + "currency-symbol")
+                                    temp9 = temp2.Remove(0, int9)
 
-                                Dim l As Integer = 0
-                                While l < 10
-                                    If temp10.Contains("<") Then
-                                        Dim intCarac, intCarac2 As Integer
+                                    int10 = temp9.IndexOf("</button>")
+                                    temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                                        intCarac = temp10.IndexOf("<")
-                                        intCarac2 = temp10.IndexOf(">")
+                                    Dim l As Integer = 0
+                                    While l < 10
+                                        If temp10.Contains("<") Then
+                                            Dim intCarac, intCarac2 As Integer
 
-                                        temp10 = temp10.Remove(intCarac, (intCarac2 + 1) - intCarac)
+                                            intCarac = temp10.IndexOf("<")
+                                            intCarac2 = temp10.IndexOf(">")
+
+                                            temp10 = temp10.Remove(intCarac, (intCarac2 + 1) - intCarac)
+                                        End If
+                                        l += 1
+                                    End While
+
+                                    temp10 = temp10.Replace("USD", Nothing)
+
+                                    Dim precio As String = temp10.Trim
+
+                                    Dim temp11, temp12 As String
+                                    Dim int11, int12 As Integer
+
+                                    int11 = temp2.IndexOf("product-price--discount")
+                                    temp11 = temp2.Remove(0, int11)
+
+                                    int11 = temp11.IndexOf(">")
+                                    temp11 = temp11.Remove(0, int11 + 1)
+
+                                    int12 = temp11.IndexOf("</span>")
+                                    temp12 = temp11.Remove(int12, temp11.Length - int12)
+
+                                    temp12 = temp12.Replace("-", Nothing)
+
+                                    If temp12.Length = 2 Then
+                                        temp12 = "0" + temp12
                                     End If
-                                    l += 1
-                                End While
 
-                                temp10 = temp10.Replace("USD", Nothing)
+                                    Dim descuento As String = temp12.Trim
 
-                                Dim precio As String = temp10.Trim
+                                    Dim drm As String = Nothing
 
-                                Dim temp11, temp12 As String
-                                Dim int11, int12 As Integer
+                                    If temp2.Contains("class=" + ChrW(34) + "icon icon-steam") Then
+                                        drm = "steam"
+                                    End If
 
-                                int11 = temp2.IndexOf("product-price--discount")
-                                temp11 = temp2.Remove(0, int11)
+                                    Dim windows As Boolean = False
 
-                                int11 = temp11.IndexOf(">")
-                                temp11 = temp11.Remove(0, int11 + 1)
+                                    If temp2.Contains("class=" + ChrW(34) + "icon icon-windows") Then
+                                        windows = True
+                                    End If
 
-                                int12 = temp11.IndexOf("</span>")
-                                temp12 = temp11.Remove(int12, temp11.Length - int12)
+                                    Dim mac As Boolean = False
 
-                                temp12 = temp12.Replace("-", Nothing)
+                                    If temp2.Contains("class=" + ChrW(34) + "icon icon-mac") Then
+                                        mac = True
+                                    End If
 
-                                If temp12.Length = 2 Then
-                                    temp12 = "0" + temp12
-                                End If
+                                    Dim linux As Boolean = False
 
-                                Dim descuento As String = temp12.Trim
+                                    If temp2.Contains("class=" + ChrW(34) + "icon icon-linux") Then
+                                        linux = True
+                                    End If
 
-                                Dim drm As String = Nothing
+                                    Dim sistemas As New JuegoSistemas(windows, mac, linux)
 
-                                If temp2.Contains("class=" + ChrW(34) + "icon icon-steam") Then
-                                    drm = "steam"
-                                End If
+                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim windows As Boolean = False
+                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
-                                If temp2.Contains("class=" + ChrW(34) + "icon icon-windows") Then
-                                    windows = True
-                                End If
+                                    Dim tituloBool As Boolean = False
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Titulo = juego.Titulo Then
+                                            tituloBool = True
+                                        End If
+                                        k += 1
+                                    End While
 
-                                Dim mac As Boolean = False
-
-                                If temp2.Contains("class=" + ChrW(34) + "icon icon-mac") Then
-                                    mac = True
-                                End If
-
-                                Dim linux As Boolean = False
-
-                                If temp2.Contains("class=" + ChrW(34) + "icon icon-linux") Then
-                                    linux = True
-                                End If
-
-                                Dim sistemas As New JuegoSistemas(windows, mac, linux)
-
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
-
-                                Dim tituloBool As Boolean = False
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                    If juego.Descuento = Nothing Then
                                         tituloBool = True
                                     End If
-                                    k += 1
-                                End While
 
-                                If juego.Descuento = Nothing Then
-                                    tituloBool = True
-                                End If
+                                    If tituloBool = False Then
+                                        juego.Precio = CambioMoneda(juego.Precio, dolar)
+                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
-                                If tituloBool = False Then
-                                    juego.Precio = CambioMoneda(juego.Precio, dolar)
-                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
-
-                                    listaJuegos.Add(juego)
+                                        listaJuegos.Add(juego)
+                                    End If
                                 End If
                             End If
                             j += 1

@@ -104,28 +104,126 @@ Namespace pepeizq.Tiendas
 
                     Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
-                    Dim tituloBool As Boolean = False
+                    Dim añadir As Boolean = True
                     Dim k As Integer = 0
                     While k < listaJuegos.Count
                         If listaJuegos(k).Titulo = juego.Titulo Then
-                            tituloBool = True
+                            añadir = False
                         End If
                         k += 1
                     End While
 
                     If juego.Descuento = Nothing Then
-                        tituloBool = True
+                        añadir = False
                     Else
                         If juego.Descuento = "00%" Then
-                            tituloBool = True
+                            añadir = False
                         End If
                     End If
 
-                    If tituloBool = False Then
+                    If añadir = True Then
                         juego.Precio = CambioMoneda(juego.Precio, dolar)
                         juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                         listaJuegos.Add(juego)
+                    End If
+                End If
+            End If
+
+            Dim html2_ As Task(Of String) = HttpClient(New Uri("https://www.chrono.gg/"))
+            Dim html2 As String = html2_.Result
+
+            If Not html2 = Nothing Then
+                If html2.Contains("https://store.steampowered.com/app/") Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html2.IndexOf("https://store.steampowered.com/app/")
+                    temp = html2.Remove(0, int)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    temp2 = temp2.Replace("https://store.steampowered.com/app/", Nothing)
+
+                    If temp2.Contains("/") Then
+                        int2 = temp2.IndexOf("/")
+                        temp2 = temp2.Remove(int2, temp2.Length - int2)
+                    End If
+
+                    Dim htmlMas_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + temp2.Trim))
+                    Dim htmlMas As String = htmlMas_.Result
+
+                    If Not htmlMas = Nothing Then
+                        Dim temp3 As String
+                        Dim int3 As Integer
+
+                        int3 = htmlMas.IndexOf(":")
+                        temp3 = htmlMas.Remove(0, int3 + 1)
+                        temp3 = temp3.Remove(temp3.Length - 1, 1)
+
+                        Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp3)
+
+                        If Not datos Is Nothing Then
+                            If html2.Contains(ChrW(34) + "normalPrice" + ChrW(34)) And html2.Contains(ChrW(34) + "featuredPrice" + ChrW(34)) Then
+                                Dim temp4, temp5 As String
+                                Dim int4, int5 As Integer
+
+                                int4 = html2.IndexOf(ChrW(34) + "normalPrice" + ChrW(34))
+                                temp4 = html2.Remove(0, int4)
+
+                                int4 = temp4.IndexOf(":")
+                                temp4 = temp4.Remove(0, int4 + 1)
+
+                                int5 = temp4.IndexOf(",")
+                                temp5 = temp4.Remove(int5, temp4.Length - int5)
+
+                                Dim temp6, temp7 As String
+                                Dim int6, int7 As Integer
+
+                                int6 = html2.IndexOf(ChrW(34) + "featuredPrice" + ChrW(34))
+                                temp6 = html2.Remove(0, int6)
+
+                                int6 = temp6.IndexOf(":")
+                                temp6 = temp6.Remove(0, int6 + 1)
+
+                                int7 = temp6.IndexOf(",")
+                                temp7 = temp6.Remove(int7, temp6.Length - int7)
+
+                                Dim titulo As String = datos.Datos.Titulo
+                                titulo = WebUtility.HtmlDecode(titulo)
+                                titulo = titulo.Trim
+
+                                Dim descuento As String = Calculadora.GenerarDescuento(temp5.Trim, temp7.Trim)
+                                Dim precio As String = CambioMoneda(temp7.Trim, dolar)
+
+                                Dim enlace As String = "https://www.chrono.gg/?=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
+
+                                Dim imagenes As New JuegoImagenes(datos.Datos.Imagen, Nothing)
+
+                                Dim fechaTermina As DateTime = DateTime.Today
+                                fechaTermina = fechaTermina.AddHours(42)
+
+                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, temp2.Trim)
+
+                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, "steam", Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, Nothing)
+
+                                Dim añadir As Boolean = True
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Titulo = juego.Titulo Then
+                                        añadir = False
+                                    End If
+                                    k += 1
+                                End While
+
+                                If añadir = True Then
+                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
+                                    listaJuegos.Add(juego)
+                                End If
+                            End If
+                        End If
                     End If
                 End If
             End If

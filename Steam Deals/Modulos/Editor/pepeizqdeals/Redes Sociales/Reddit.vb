@@ -21,20 +21,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 End If
             End If
 
-            If subreddit = "/r/GameDeals" Then
-                If titulo.Contains("Chrono") Then
-                    añadir = False
-                ElseIf titulo.Contains("Humble Store") Then
-                    añadir = False
-                ElseIf titulo.Contains("Origin") Then
-                    añadir = False
-                ElseIf titulo.Contains("Steam") Then
-                    añadir = False
-                ElseIf titulo.Contains("Yuplay") Then
-                    añadir = False
-                End If
-            End If
-
             If añadir = True Then
                 Dim tituloFinal As String = titulo
 
