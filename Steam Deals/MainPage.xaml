@@ -849,9 +849,19 @@
                                             <ComboBox x:Name="cbEditorpepeizqdealsSubscriptionsTiendas" Margin="0,10,0,0"/>
                                         </StackPanel>
 
-                                        <StackPanel Orientation="Vertical">
+                                        <StackPanel x:Name="spEditorpepeizqdealsSubscriptionsMeses" Orientation="Vertical">
                                             <TextBlock x:Uid="Month"/>
                                             <ComboBox x:Name="cbEditorpepeizqdealsSubscriptionsMeses" Margin="0,10,0,0"/>
+                                        </StackPanel>
+
+                                        <StackPanel x:Name="spEditorpepeizqdealsSubscriptionsBuscar" Orientation="Vertical" Visibility="Collapsed">
+                                            <Button x:Name="botonEditorpepeizqdealsSubscriptionsBuscar" Margin="0,10,0,0" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                                <Button.Content>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <fa:FontAwesome Icon="Search" Foreground="White"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
                                         </StackPanel>
                                     </StackPanel>
 

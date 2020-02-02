@@ -3,6 +3,8 @@ Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Windows.UI
 
+'https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?itemTypes=Devices&DeviceFamily=Windows.Desktop&market=US&language=EN&count=200
+
 Namespace pepeizq.Editor.pepeizqdeals
     Module Suscripciones
 
@@ -20,8 +22,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("Humble Choice")
             cbTiendas.Items.Add("Twitch Prime")
             cbTiendas.Items.Add("Xbox Game Pass")
-            cbTiendas.Items.Add("Origin Access")
-            cbTiendas.Items.Add("Uplay Plus")
 
             cbTiendas.SelectedIndex = 0
 
@@ -54,6 +54,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.Text = String.Empty
+
+            Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+
+            RemoveHandler botonBuscar.Click, AddressOf BuscarJuegos
+            AddHandler botonBuscar.Click, AddressOf BuscarJuegos
 
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptionsIDs")
 
@@ -103,6 +108,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
+            Dim spMeses As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsMeses")
+            Dim spBuscar As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsBuscar")
+
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
             Dim precio As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
             Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
@@ -110,6 +118,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
+                spMeses.Visibility = Visibility.Visible
+                spBuscar.Visibility = Visibility.Collapsed
+
                 imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
 
                 precio.Text = "13,99 € *"
@@ -121,6 +132,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.EnseñarJuegos = True
                 cosas.Mensaje = "* This price corresponds to the Basic mode, you can get more games in Premium"
             ElseIf cbTiendas.SelectedIndex = 2 Then
+                spMeses.Visibility = Visibility.Visible
+                spBuscar.Visibility = Visibility.Collapsed
+
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
 
                 precio.Text = "4,00 € *"
@@ -132,12 +146,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.EnseñarJuegos = True
                 cosas.Mensaje = "* This price is different depending on your country, the one shown corresponds to Spain"
             ElseIf cbTiendas.SelectedIndex = 3 Then
+                spMeses.Visibility = Visibility.Collapsed
+                spBuscar.Visibility = Visibility.Visible
+
                 imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
 
-                precio.Text = "9,99 €"
+                precio.Text = "1,00 €"
 
                 cosas.Tienda = "Microsoft Store"
-                cosas.Titulo = "Xbox Game Pass • " + mesElegido + " • " + cosas.Juegos
+                cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Enlace = "http://microsoft.msafflnk.net/EYkmK"
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 imagenTienda.Source = "Assets\Tiendas\originaccess.png"
@@ -147,14 +164,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.origin.com/esp/en-us/store/origin-access"
-            ElseIf cbTiendas.SelectedIndex = 5 Then
-                imagenTienda.Source = "Assets\Tiendas\uplayplus.png"
-
-                precio.Text = "14,99 €"
-
-                cosas.Tienda = "Uplay"
-                cosas.Titulo = "Uplay Plus • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://store.ubi.com/en/uplayplus"
             End If
 
             If Not cosas.Titulo = Nothing Then
@@ -400,6 +409,107 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Dim WithEvents Bw As New BackgroundWorker
+        Dim listaIDs As New List(Of String)
+        Dim listaJuegos As New List(Of JuegoImagen)
+
+        Private Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
+
+            Dim helper As New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaXboxSuscripcion") Then
+                listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaXboxSuscripcion")
+            End If
+
+            Bw.WorkerReportsProgress = True
+            Bw.WorkerSupportsCancellation = True
+
+            If Bw.IsBusy = False Then
+                Bw.RunWorkerAsync()
+            End If
+
+        End Sub
+
+        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+
+            Dim listaIDs2 As New List(Of String)
+
+            Dim html_ As Task(Of String) = HttpClient(New Uri("https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?itemTypes=Devices&DeviceFamily=Windows.Desktop&market=US&language=EN&count=200"))
+            Dim html As String = html_.Result
+
+            If Not html = Nothing Then
+                Dim juegos As MicrosoftStoreBBDDIDs = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDIDs)(html)
+
+                If Not juegos Is Nothing Then
+                    For Each juego In juegos.Juegos
+                        Dim añadir As Boolean = True
+
+                        If Not listaIDs Is Nothing Then
+                            For Each id In listaIDs
+                                If id = juego.ID Then
+                                    añadir = False
+                                End If
+                            Next
+                        End If
+
+                        If añadir = True Then
+                            listaIDs.Add(juego.ID)
+                            listaIDs2.Add(juego.ID)
+                        End If
+                    Next
+                End If
+            End If
+
+            If listaIDs2.Count > 0 Then
+                Dim ids As String = String.Empty
+
+                For Each id In listaIDs2
+                    ids = ids + id + ","
+                Next
+
+                If ids.Length > 0 Then
+                    ids = ids.Remove(ids.Length - 1)
+
+                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
+                    Dim htmlJuego As String = htmlJuego_.Result
+
+                    If Not htmlJuego = Nothing Then
+                        Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuego)
+
+                        For Each juego In juegos.Juegos
+                            Notificaciones.Toast(juego.Detalles(0).Titulo, Nothing)
+                            'listaJuegos.Add(New JuegoImagen(titulo, imagen))
+                        Next
+
+                    End If
+                End If
+            End If
+
+        End Sub
+
+        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+
+            Dim helper As New LocalObjectStorageHelper
+            Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+
+            If Not listaJuegos Is Nothing Then
+                For Each juego In listaJuegos
+                    tbJuegos.Text = tbJuegos.Text + " " + juego.Titulo
+                Next
+            End If
+
+            BloquearControles(True)
+
+        End Sub
+
+
         Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
 
             Dim fechaPicker As DatePicker = sender
@@ -430,6 +540,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.IsEnabled = estado
 
+            Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+            botonBuscar.IsEnabled = estado
+
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptionsIDs")
             botonIDs.IsEnabled = estado
 
@@ -448,5 +561,53 @@ Namespace pepeizq.Editor.pepeizqdeals
         End Sub
 
     End Module
+
+    Public Class MicrosoftStoreBBDDIDs
+
+        <JsonProperty("Items")>
+        Public Juegos As List(Of MicrosoftStoreBBDDIDsJuego)
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDIDsJuego
+
+        <JsonProperty("Id")>
+        Public ID As String
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDDetalles
+
+        <JsonProperty("Products")>
+        Public Juegos As List(Of MicrosoftStoreBBDDDetallesJuego)
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDDetallesJuego
+
+        <JsonProperty("LocalizedProperties")>
+        Public Detalles As List(Of MicrosoftStoreBBDDDetallesJuego2)
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDDetallesJuego2
+
+        <JsonProperty("ProductTitle")>
+        Public Titulo As String
+
+    End Class
+
+    Public Class JuegoImagen
+
+        Public Property Titulo As String
+        Public Property Imagen As String
+
+        Public Sub New(ByVal titulo As String, ByVal imagen As String)
+            Me.Titulo = titulo
+            Me.Imagen = imagen
+        End Sub
+
+    End Class
+
 End Namespace
 

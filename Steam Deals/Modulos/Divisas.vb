@@ -21,7 +21,7 @@ Module Divisas
         If Await helper.FileExistsAsync("monedas") Then
             Dim monedas As Monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
 
-            If Not monedas.Dolar.Valor = Nothing Then
+            If Not monedas.Dolar.Valor Is Nothing Then
                 Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                 tbDolar.Text = monedas.Dolar.Valor
                 dolar = New Moneda(monedas.Dolar.Valor, monedas.Dolar.Fecha)
@@ -35,7 +35,7 @@ Module Divisas
                 buscarDolar = True
             End If
 
-            If Not monedas.Libra.Valor = Nothing Then
+            If Not monedas.Libra.Valor Is Nothing Then
                 Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                 tbLibra.Text = monedas.Libra.Valor
                 libra = New Moneda(monedas.Libra.Valor, monedas.Libra.Fecha)
@@ -49,7 +49,7 @@ Module Divisas
                 buscarLibra = True
             End If
 
-            If Not monedas.Rublo.Valor = Nothing Then
+            If Not monedas.Rublo.Valor Is Nothing Then
                 Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
                 tbRublo.Text = monedas.Rublo.Valor
                 rublo = New Moneda(monedas.Rublo.Valor, monedas.Rublo.Fecha)
