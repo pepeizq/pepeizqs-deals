@@ -925,7 +925,7 @@
                                                             </LinearGradientBrush>
                                                         </Grid.Background>
 
-                                                        <Grid Padding="20">
+                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo1" Padding="20">
                                                             <Grid.Background>
                                                                 <ImageBrush x:Name="fondopepeizqdealsImagenEntradaSubscriptions" Stretch="UniformToFill"/>
                                                             </Grid.Background>
@@ -948,12 +948,12 @@
                                                                             <SolidColorBrush Color="#004e7a"/>
                                                                         </Grid.Background>
 
-                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="400" MaxHeight="120" Margin="20"/>
+                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions1" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="400" MaxHeight="120" Margin="20"/>
                                                                     </Grid>
                                                                 </controls:DropShadowPanel>
 
                                                                 <StackPanel Grid.Column="1" Background="Black" Padding="30,20" VerticalAlignment="Center" Margin="30,0,0,0">
-                                                                    <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                    <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions1" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </StackPanel>
                                                             </Grid>
 
@@ -967,7 +967,43 @@
 
                                                             <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje" Grid.Row="2" Foreground="White" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </Grid>
-                                                    </Grid>
+
+                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo2" Padding="20" Visibility="Collapsed">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                </Grid.RowDefinitions>
+
+                                                                <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
+                                                                    <Grid>
+                                                                        <Grid.Background>
+                                                                            <SolidColorBrush Color="#004e7a"/>
+                                                                        </Grid.Background>
+
+                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="400" MaxHeight="120" Margin="20"/>
+                                                                    </Grid>
+                                                                </controls:DropShadowPanel>
+
+                                                                <StackPanel Grid.Row="1" Background="Black" Padding="30,20" VerticalAlignment="Center" Margin="30,0,0,0">
+                                                                    <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions2" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                </StackPanel>
+                                                            </Grid>
+
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                                <GridView.ItemsPanel>
+                                                                    <ItemsPanelTemplate>
+                                                                        <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
+                                                                    </ItemsPanelTemplate>
+                                                                </GridView.ItemsPanel>
+                                                            </GridView>
+                                                        </Grid> 
+                                                     </Grid>
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>

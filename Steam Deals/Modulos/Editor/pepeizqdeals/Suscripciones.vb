@@ -111,19 +111,28 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim spMeses As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsMeses")
             Dim spBuscar As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsBuscar")
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
-            Dim precio As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
+            Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions1")
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions2")
+
+            Dim precio1 As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions1")
+            Dim precio2 As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions2")
+
             Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
+
+            Dim estilo1 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo1")
+            Dim estilo2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo2")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
+                estilo1.Visibility = Visibility.Visible
+                estilo2.Visibility = Visibility.Collapsed
+
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
-
-                precio.Text = "13,99 € *"
+                imagenTienda1.Source = "Assets\Tiendas\humblechoice.png"
+                precio1.Text = "13,99 € *"
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Choice • " + mesElegido + " • " + cosas.Juegos
@@ -132,12 +141,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.EnseñarJuegos = True
                 cosas.Mensaje = "* This price corresponds to the Basic mode, you can get more games in Premium"
             ElseIf cbTiendas.SelectedIndex = 2 Then
+                estilo1.Visibility = Visibility.Visible
+                estilo2.Visibility = Visibility.Collapsed
+
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
-
-                precio.Text = "4,00 € *"
+                imagenTienda1.Source = "Assets\Tiendas\twitchprime.png"
+                precio1.Text = "4,00 € *"
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
@@ -146,20 +157,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.EnseñarJuegos = True
                 cosas.Mensaje = "* This price is different depending on your country, the one shown corresponds to Spain"
             ElseIf cbTiendas.SelectedIndex = 3 Then
+                estilo1.Visibility = Visibility.Collapsed
+                estilo2.Visibility = Visibility.Visible
+
                 spMeses.Visibility = Visibility.Collapsed
                 spBuscar.Visibility = Visibility.Visible
 
-                imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
-
-                precio.Text = "1,00 €"
+                imagenTienda2.Source = "Assets\Tiendas\xboxgamepass.png"
+                precio2.Text = "1,00 €"
 
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Enlace = "http://microsoft.msafflnk.net/EYkmK"
             ElseIf cbTiendas.SelectedIndex = 4 Then
-                imagenTienda.Source = "Assets\Tiendas\originaccess.png"
+                estilo1.Visibility = Visibility.Collapsed
+                estilo2.Visibility = Visibility.Visible
 
-                precio.Text = "3,99 € *"
+                imagenTienda2.Source = "Assets\Tiendas\originaccess.png"
+                precio2.Text = "3,99 € *"
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
@@ -479,10 +494,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuego)
 
                         For Each juego In juegos.Juegos
-                            Notificaciones.Toast(juego.Detalles(0).Titulo, Nothing)
-                            'listaJuegos.Add(New JuegoImagen(titulo, imagen))
-                        Next
+                            Dim imagenLista As String = String.Empty
 
+                            For Each imagen In juego.Detalles(0).Imagenes
+                                If imagen.Proposito = "BoxArt" Then
+                                    imagenLista = imagen.Enlace
+
+                                    If Not imagenLista.Contains("http:") Then
+                                        imagenLista = "http:" + imagenLista
+                                    End If
+                                End If
+                            Next
+
+                            If Not imagenLista = Nothing Then
+                                listaJuegos.Add(New JuegoImagen(juego.Detalles(0).Titulo.Trim, imagenLista))
+                            End If
+                        Next
                     End If
                 End If
             End If
@@ -497,18 +524,89 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+
+            Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions2")
+            gvImagen.Items.Clear()
 
             If Not listaJuegos Is Nothing Then
+                gvImagen.Visibility = Visibility.Visible
+
+                Dim i As Integer = 0
                 For Each juego In listaJuegos
-                    tbJuegos.Text = tbJuegos.Text + " " + juego.Titulo
+
+                    If i = 0 Then
+                        tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
+                        tbJuegos.Text = juego.Titulo.Trim
+                        tbIDs.Text = juego.Imagen
+                    ElseIf i = (listaJuegos.Count - 1) Then
+                        tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
+                        tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
+                    Else
+                        tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
+                        tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
+                        tbIDs.Text = tbIDs.Text + "," + juego.Imagen
+                    End If
+
+                    Dim margin As Integer = 0
+
+                    If listaJuegos.Count = 1 Then
+                        margin = 10
+                    ElseIf listaJuegos.Count = 2 Then
+                        margin = 5
+                    ElseIf listaJuegos.Count = 3 Then
+                        margin = 5
+                    Else
+                        margin = 2
+                    End If
+
+                    Dim panel As New DropShadowPanel With {
+                        .BlurRadius = 15,
+                        .ShadowOpacity = 0.9,
+                        .Color = Colors.Black,
+                        .Margin = New Thickness(margin, margin, margin, margin)
+                    }
+
+                    Dim colorFondo2 As New SolidColorBrush With {
+                        .Color = "#004e7a".ToColor
+                    }
+
+                    Dim gridContenido As New Grid With {
+                        .Background = colorFondo2
+                    }
+
+                    Dim imagenJuego As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = juego.Imagen
+                    }
+
+                    If listaJuegos.Count = 1 Then
+                        imagenJuego.MaxHeight = 250
+                    ElseIf listaJuegos.Count = 2 Then
+                        imagenJuego.MaxHeight = 250
+                    ElseIf listaJuegos.Count = 3 Then
+                        imagenJuego.MaxHeight = 130
+                    ElseIf listaJuegos.Count = 4 Then
+                        imagenJuego.MaxHeight = 100
+                    Else
+                        imagenJuego.MaxHeight = 75
+                    End If
+
+                    gridContenido.Children.Add(imagenJuego)
+                    panel.Content = gridContenido
+
+                    gvImagen.Items.Add(panel)
+
+                    i += 1
                 Next
             End If
 
             BloquearControles(True)
 
         End Sub
-
 
         Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
 
@@ -576,6 +674,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
     End Class
 
+    '-------------------------
+
     Public Class MicrosoftStoreBBDDDetalles
 
         <JsonProperty("Products")>
@@ -588,12 +688,32 @@ Namespace pepeizq.Editor.pepeizqdeals
         <JsonProperty("LocalizedProperties")>
         Public Detalles As List(Of MicrosoftStoreBBDDDetallesJuego2)
 
+        <JsonProperty("Properties")>
+        Public Propiedades As MicrosoftStoreBBDDDetallesPropiedades
+
     End Class
 
     Public Class MicrosoftStoreBBDDDetallesJuego2
 
         <JsonProperty("ProductTitle")>
         Public Titulo As String
+
+        <JsonProperty("Images")>
+        Public Imagenes As List(Of MicrosoftStoreBBDDDetallesJuego2Imagen)
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDDetallesJuego2Imagen
+
+        <JsonProperty("ImagePurpose")>
+        Public Proposito As String
+
+        <JsonProperty("Uri")>
+        Public Enlace As String
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDDetallesPropiedades
 
     End Class
 
