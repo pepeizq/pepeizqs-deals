@@ -990,12 +990,12 @@
                                                                     </Grid>
                                                                 </controls:DropShadowPanel>
 
-                                                                <StackPanel Grid.Row="1" Background="Black" Padding="30,20" VerticalAlignment="Center" Margin="30,0,0,0">
+                                                                <StackPanel Grid.Row="1" Background="Black" Padding="30,20" HorizontalAlignment="Center" Margin="0,30,0,0">
                                                                     <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions2" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </StackPanel>
                                                             </Grid>
 
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions2" Grid.Column="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                                                                 <GridView.ItemsPanel>
                                                                     <ItemsPanelTemplate>
                                                                         <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>

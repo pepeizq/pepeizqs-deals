@@ -329,7 +329,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions1")
 
             Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
             gvImagen.Items.Clear()
@@ -497,7 +497,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Dim imagenLista As String = String.Empty
 
                             For Each imagen In juego.Detalles(0).Imagenes
-                                If imagen.Proposito = "BoxArt" Then
+                                If imagen.Proposito = "Poster" Then
                                     imagenLista = imagen.Enlace
 
                                     If Not imagenLista.Contains("http:") Then
@@ -507,7 +507,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Next
 
                             If Not imagenLista = Nothing Then
-                                listaJuegos.Add(New JuegoImagen(juego.Detalles(0).Titulo.Trim, imagenLista))
+                                If Not juego.Propiedades.Detalles Is Nothing Then
+                                    For Each detalle In juego.Propiedades.Detalles
+                                        If Not detalle.Plataformas Is Nothing Then
+                                            For Each plataforma In detalle.Plataformas
+                                                If plataforma = "Desktop" Then
+                                                    Dim añadir As Boolean = True
+
+                                                    For Each juegolista In listaJuegos
+                                                        If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                                                            añadir = False
+                                                        End If
+                                                    Next
+
+                                                    If añadir = True Then
+                                                        listaJuegos.Add(New JuegoImagen(juego.Detalles(0).Titulo.Trim, imagenLista))
+                                                    End If
+                                                End If
+                                            Next
+                                        End If
+                                    Next
+                                End If
                             End If
                         Next
                     End If
@@ -553,13 +573,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim margin As Integer = 0
 
                     If listaJuegos.Count = 1 Then
-                        margin = 10
+                        margin = 8
                     ElseIf listaJuegos.Count = 2 Then
-                        margin = 5
+                        margin = 8
                     ElseIf listaJuegos.Count = 3 Then
-                        margin = 5
+                        margin = 8
                     Else
-                        margin = 2
+                        margin = 5
                     End If
 
                     Dim panel As New DropShadowPanel With {
@@ -584,15 +604,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     If listaJuegos.Count = 1 Then
-                        imagenJuego.MaxHeight = 250
+                        imagenJuego.MaxHeight = 320
                     ElseIf listaJuegos.Count = 2 Then
-                        imagenJuego.MaxHeight = 250
+                        imagenJuego.MaxHeight = 320
                     ElseIf listaJuegos.Count = 3 Then
-                        imagenJuego.MaxHeight = 130
-                    ElseIf listaJuegos.Count = 4 Then
-                        imagenJuego.MaxHeight = 100
+                        imagenJuego.MaxHeight = 320
                     Else
-                        imagenJuego.MaxHeight = 75
+                        imagenJuego.MaxHeight = 175
                     End If
 
                     gridContenido.Children.Add(imagenJuego)
@@ -714,6 +732,16 @@ Namespace pepeizq.Editor.pepeizqdeals
     End Class
 
     Public Class MicrosoftStoreBBDDDetallesPropiedades
+
+        <JsonProperty("Attributes")>
+        Public Detalles As List(Of MicrosoftStoreBBDDDetallesPropiedadesDetalles)
+
+    End Class
+
+    Public Class MicrosoftStoreBBDDDetallesPropiedadesDetalles
+
+        <JsonProperty("ApplicablePlatforms")>
+        Public Plataformas As List(Of String)
 
     End Class
 
