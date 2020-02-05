@@ -159,6 +159,7 @@
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
+    <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Tiendas\2Game.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
     <Compile Include="Modulos\Tiendas\AmazonEsDigital.vb" />
