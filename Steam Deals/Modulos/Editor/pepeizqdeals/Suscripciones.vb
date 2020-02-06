@@ -53,11 +53,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.Text = String.Empty
 
-            Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
-            RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
-            AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
-
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptionsIDs")
 
             RemoveHandler botonIDs.Click, AddressOf GenerarJuegos
@@ -120,7 +115,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim estilo1 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo1")
             Dim estilo2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo2")
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing)
+            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
                 estilo1.Visibility = Visibility.Visible
@@ -167,6 +162,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Enlace = "http://microsoft.msafflnk.net/EYkmK"
+
+                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 estilo1.Visibility = Visibility.Collapsed
                 estilo2.Visibility = Visibility.Visible
@@ -221,8 +221,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
-                               tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+            Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
+
+            If cbTiendas.SelectedIndex = 0 Or cbTiendas.SelectedIndex = 1 Then
+                Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
+                                   tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+            ElseIf cbTiendas.SelectedIndex = 2 Then
+                Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
+                                   Nothing, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+            End If
+
 
             BloquearControles(True)
 

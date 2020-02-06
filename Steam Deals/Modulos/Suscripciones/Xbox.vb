@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Windows.UI
 
 Namespace pepeizq.Suscripciones
@@ -12,7 +13,7 @@ Namespace pepeizq.Suscripciones
 
         Public Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
 
-            pepeizq.Editor.pepeizqdeals.Suscripciones.BloquearControles(False)
+            BloquearControles(False)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -103,7 +104,7 @@ Namespace pepeizq.Suscripciones
                                                     Next
 
                                                     If añadir = True Then
-                                                        listaJuegos.Add(New JuegoImagen(juego.Detalles(0).Titulo.Trim, imagenLista))
+                                                        listaJuegos.Add(New JuegoImagen(juego.Detalles(0).Titulo.Trim, imagenLista, juego.ID))
                                                     End If
                                                 End If
                                             Next
@@ -134,77 +135,103 @@ Namespace pepeizq.Suscripciones
             gvImagen.Items.Clear()
 
             If Not listaJuegos Is Nothing Then
-                gvImagen.Visibility = Visibility.Visible
+                If listaJuegos.Count > 0 Then
+                    gvImagen.Visibility = Visibility.Visible
 
-                Dim i As Integer = 0
-                For Each juego In listaJuegos
+                    Dim i As Integer = 0
+                    For Each juego In listaJuegos
 
-                    If i = 0 Then
-                        tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
-                        tbJuegos.Text = juego.Titulo.Trim
-                        tbIDs.Text = juego.Imagen
-                    ElseIf i = (listaJuegos.Count - 1) Then
-                        tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
-                        tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
-                    Else
-                        tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
-                        tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
-                        tbIDs.Text = tbIDs.Text + "," + juego.Imagen
-                    End If
+                        If i = 0 Then
+                            tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
+                            tbJuegos.Text = juego.Titulo.Trim
+                            tbIDs.Text = juego.Imagen
+                        ElseIf i = (listaJuegos.Count - 1) Then
+                            tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
+                            tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
+                        Else
+                            tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
+                            tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
+                            tbIDs.Text = tbIDs.Text + "," + juego.Imagen
+                        End If
 
-                    Dim margin As Integer = 0
+                        Dim margin As Integer = 0
 
-                    If listaJuegos.Count = 1 Then
-                        margin = 8
-                    ElseIf listaJuegos.Count = 2 Then
-                        margin = 8
+                        If listaJuegos.Count = 1 Then
+                            margin = 8
+                        ElseIf listaJuegos.Count = 2 Then
+                            margin = 8
+                        ElseIf listaJuegos.Count = 3 Then
+                            margin = 8
+                        Else
+                            margin = 5
+                        End If
+
+                        Dim panel As New DropShadowPanel With {
+                            .BlurRadius = 15,
+                            .ShadowOpacity = 0.9,
+                            .Color = Colors.Black,
+                            .Margin = New Thickness(margin, margin, margin, margin)
+                        }
+
+                        Dim colorFondo2 As New SolidColorBrush With {
+                            .Color = "#004e7a".ToColor
+                        }
+
+                        Dim gridContenido As New Grid With {
+                            .Background = colorFondo2
+                        }
+
+                        Dim imagenJuego As New ImageEx With {
+                            .Stretch = Stretch.Uniform,
+                            .IsCacheEnabled = True,
+                            .Source = juego.Imagen
+                        }
+
+                        If listaJuegos.Count = 1 Then
+                            imagenJuego.MaxHeight = 320
+                        ElseIf listaJuegos.Count = 2 Then
+                            imagenJuego.MaxHeight = 320
+                        ElseIf listaJuegos.Count = 3 Then
+                            imagenJuego.MaxHeight = 320
+                        Else
+                            imagenJuego.MaxHeight = 175
+                        End If
+
+                        gridContenido.Children.Add(imagenJuego)
+                        panel.Content = gridContenido
+
+                        gvImagen.Items.Add(panel)
+
+                        i += 1
+                    Next
+
+                    Dim cosas As Clases.Suscripciones = tbTitulo.Tag
+
+                    Dim ancho As String = String.Empty
+
+                    If listaJuegos.Count = 2 Then
+                        ancho = " width=" + ChrW(34) + "1/2" + ChrW(34)
                     ElseIf listaJuegos.Count = 3 Then
-                        margin = 8
-                    Else
-                        margin = 5
+                        ancho = " width=" + ChrW(34) + "1/3" + ChrW(34)
+                    ElseIf listaJuegos.Count > 3 Then
+                        ancho = " width=" + ChrW(34) + "1/4" + ChrW(34)
                     End If
 
-                    Dim panel As New DropShadowPanel With {
-                        .BlurRadius = 15,
-                        .ShadowOpacity = 0.9,
-                        .Color = Colors.Black,
-                        .Margin = New Thickness(margin, margin, margin, margin)
-                    }
+                    Dim html As String = String.Empty
 
-                    Dim colorFondo2 As New SolidColorBrush With {
-                        .Color = "#004e7a".ToColor
-                    }
+                    html = "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + " bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:http%3A%2F%2Fmicrosoft.msafflnk.net%2FEYkmK||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "][/vc_column][/vc_row]"
+                    html = html + "[vc_row el_class=" + ChrW(34) + "tope" + ChrW(34) + "][vc_column"
 
-                    Dim gridContenido As New Grid With {
-                        .Background = colorFondo2
-                    }
+                    For Each juego In listaJuegos
+                        html = html
+                    Next
 
-                    Dim imagenJuego As New ImageEx With {
-                        .Stretch = Stretch.Uniform,
-                        .IsCacheEnabled = True,
-                        .Source = juego.Imagen
-                    }
 
-                    If listaJuegos.Count = 1 Then
-                        imagenJuego.MaxHeight = 320
-                    ElseIf listaJuegos.Count = 2 Then
-                        imagenJuego.MaxHeight = 320
-                    ElseIf listaJuegos.Count = 3 Then
-                        imagenJuego.MaxHeight = 320
-                    Else
-                        imagenJuego.MaxHeight = 175
-                    End If
-
-                    gridContenido.Children.Add(imagenJuego)
-                    panel.Content = gridContenido
-
-                    gvImagen.Items.Add(panel)
-
-                    i += 1
-                Next
+                    cosas.Html = html
+                End If
             End If
 
-            pepeizq.Editor.pepeizqdeals.Suscripciones.BloquearControles(True)
+            BloquearControles(True)
 
         End Sub
 
@@ -239,6 +266,9 @@ Namespace pepeizq.Suscripciones
 
             <JsonProperty("Properties")>
             Public Propiedades As MicrosoftStoreBBDDDetallesPropiedades
+
+            <JsonProperty("ProductId")>
+            Public ID As String
 
         End Class
 
@@ -280,10 +310,12 @@ Namespace pepeizq.Suscripciones
 
             Public Property Titulo As String
             Public Property Imagen As String
+            Public Property ID As String
 
-            Public Sub New(ByVal titulo As String, ByVal imagen As String)
+            Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal id As String)
                 Me.Titulo = titulo
                 Me.Imagen = imagen
+                Me.ID = id
             End Sub
 
         End Class
