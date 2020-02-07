@@ -220,12 +220,23 @@ Namespace pepeizq.Suscripciones
                     Dim html As String = String.Empty
 
                     html = "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + " bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:http%3A%2F%2Fmicrosoft.msafflnk.net%2FEYkmK||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "][/vc_column][/vc_row]"
-                    html = html + "[vc_row el_class=" + ChrW(34) + "tope" + ChrW(34) + "][vc_column"
 
-                    For Each juego In listaJuegos
-                        html = html
-                    Next
+                    Dim j As Integer = 0
+                    While j < listaJuegos.Count
+                        If j = 0 Or j = 4 Or j = 8 Then
+                            html = html + "[vc_row el_class=" + ChrW(34) + "tope" + ChrW(34) + "]"
+                        End If
 
+                        html = html + "[vc_column " + ancho + "][vc_column_text]"
+                        html = html + "<a href=" + ChrW(34) + Referidos.Generar("https://www.microsoft.com/store/apps/" + listaJuegos(j).ID) + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto;" + ChrW(34) + " src=" + ChrW(34) + listaJuegos(j).Imagen + ChrW(34) + "></a><div style=" + ChrW(34) + "text-align: center; margin-top: 5px; font-size: 17px;" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + Referidos.Generar("https://www.microsoft.com/store/apps/" + listaJuegos(j).ID) + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + listaJuegos(j).Titulo + "</a></div>"
+                        html = html + "[/vc_column_text][/vc_column]"
+
+                        If j = listaJuegos.Count - 1 Or j = 3 Or j = 7 Then
+                            html = html + "[/vc_row]"
+                        End If
+
+                        j += 1
+                    End While
 
                     cosas.Html = html
                 End If
