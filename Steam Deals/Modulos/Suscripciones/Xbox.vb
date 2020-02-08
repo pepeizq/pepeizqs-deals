@@ -187,14 +187,10 @@ Namespace pepeizq.Suscripciones
                             .Source = juego.Imagen
                         }
 
-                        If listaJuegos.Count = 1 Then
-                            imagenJuego.MaxHeight = 320
-                        ElseIf listaJuegos.Count = 2 Then
-                            imagenJuego.MaxHeight = 320
-                        ElseIf listaJuegos.Count = 3 Then
+                        If listaJuegos.Count < 4 Then
                             imagenJuego.MaxHeight = 320
                         Else
-                            imagenJuego.MaxHeight = 175
+                            imagenJuego.MaxHeight = 160
                         End If
 
                         gridContenido.Children.Add(imagenJuego)
