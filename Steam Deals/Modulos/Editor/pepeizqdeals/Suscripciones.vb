@@ -104,75 +104,55 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim spMeses As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsMeses")
             Dim spBuscar As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsBuscar")
 
-            Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions1")
-            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions2")
-
-            Dim precio1 As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions1")
-            Dim precio2 As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions2")
-
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripciones")
+            Dim precio As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSuscripciones")
             Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
-
-            Dim estilo1 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo1")
-            Dim estilo2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo2")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
-                estilo1.Visibility = Visibility.Visible
-                estilo2.Visibility = Visibility.Collapsed
-
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
 
-                imagenTienda1.Source = "Assets\Tiendas\humblechoice.png"
-                precio1.Text = "13,99 € *"
+                imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
+                precio.Text = "13,99 € *"
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Choice • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.humblebundle.com/subscription"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.EnseñarJuegos = True
-                cosas.Mensaje = "* This price corresponds to the Basic mode, you can get more games in Premium"
+                cosas.Mensaje = "* This price corresponds to the Basic mode"
             ElseIf cbTiendas.SelectedIndex = 2 Then
-                estilo1.Visibility = Visibility.Visible
-                estilo2.Visibility = Visibility.Collapsed
-
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
 
-                imagenTienda1.Source = "Assets\Tiendas\twitchprime.png"
-                precio1.Text = "4,00 € *"
+                imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
+                precio.Text = "4,00 € *"
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://twitch.amazon.com/tp"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
                 cosas.EnseñarJuegos = True
-                cosas.Mensaje = "* This price is different depending on your country, the one shown corresponds to Spain"
+                cosas.Mensaje = "4,00 € • This price is different depending on your country"
             ElseIf cbTiendas.SelectedIndex = 3 Then
-                estilo1.Visibility = Visibility.Collapsed
-                estilo2.Visibility = Visibility.Visible
-
                 spMeses.Visibility = Visibility.Collapsed
                 spBuscar.Visibility = Visibility.Visible
 
-                imagenTienda2.Source = "Assets\Tiendas\xboxgamepass.png"
-                precio2.Text = "1,00 €"
+                imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
+                precio.Text = "1,00 €"
 
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
-                cosas.Enlace = "http://microsoft.msafflnk.net/EYkmK"
 
                 Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
             ElseIf cbTiendas.SelectedIndex = 4 Then
-                estilo1.Visibility = Visibility.Collapsed
-                estilo2.Visibility = Visibility.Visible
-
-                imagenTienda2.Source = "Assets\Tiendas\originaccess.png"
-                precio2.Text = "3,99 € *"
+                imagenTienda.Source = "Assets\Tiendas\originaccess.png"
+                precio.Text = "3,99 € *"
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
@@ -243,9 +223,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaSubscriptions")
-            Dim fondoUrl As String = String.Empty
-
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             Dim textoIDs As String = tbIDs.Text.Trim
 
@@ -299,12 +276,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                     i += 1
                 End While
-
-                If listaJuegos.Count > 0 Then
-                    If Not listaJuegos(0).Datos.Fondo Is Nothing Then
-                        fondoUrl = listaJuegos(0).Datos.Fondo
-                    End If
-                End If
             Else
                 If textoIDs.Length > 0 Then
                     Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=220"))
@@ -326,104 +297,54 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            If Not fondoUrl = String.Empty Then
-                fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
-            End If
-
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             Dim cosas As Clases.Suscripciones = tbTitulo.Tag
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions1")
-
-            Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
-            gvImagen.Items.Clear()
+            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
+            gv.Items.Clear()
 
             If listaJuegos.Count = 0 Then
-                imagenTienda.MaxHeight = 120
-                imagenTienda.MaxWidth = 400
-                gvImagen.Visibility = Visibility.Collapsed
+                gv.Visibility = Visibility.Collapsed
             Else
-                If cosas.EnseñarJuegos = True Then
-                    imagenTienda.MaxHeight = 60
-                    imagenTienda.MaxWidth = 280
-                Else
-                    imagenTienda.MaxHeight = 120
-                    imagenTienda.MaxWidth = 400
-                End If
-
-                gvImagen.Visibility = Visibility.Visible
+                gv.Visibility = Visibility.Visible
 
                 i = 0
-                For Each juego In listaJuegos
-                    juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
+                While i < listaJuegos.Count
+                    listaJuegos(i).Datos.Titulo = Deals.LimpiarTitulo(listaJuegos(i).Datos.Titulo)
 
-                    If i = 0 Then
-                        tbTitulo.Text = tbTitulo.Text + juego.Datos.Titulo.Trim
-                        tbJuegos.Text = juego.Datos.Titulo.Trim
-                    ElseIf i = (listaJuegos.Count - 1) Then
-                        tbTitulo.Text = tbTitulo.Text + " and " + juego.Datos.Titulo.Trim
-                        tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
-                    Else
-                        tbTitulo.Text = tbTitulo.Text + ", " + juego.Datos.Titulo.Trim
-                        tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
+                    If Not tbTitulo.Text.Contains(listaJuegos(i).Datos.Titulo.Trim) Then
+                        If i = 0 Then
+                            tbTitulo.Text = tbTitulo.Text + listaJuegos(i).Datos.Titulo.Trim
+                            tbJuegos.Text = listaJuegos(i).Datos.Titulo.Trim
+                        ElseIf i = (listaJuegos.Count - 1) Then
+                            tbTitulo.Text = tbTitulo.Text + " and " + listaJuegos(i).Datos.Titulo.Trim
+                            tbJuegos.Text = tbJuegos.Text + " and " + listaJuegos(i).Datos.Titulo.Trim
+                        Else
+                            tbTitulo.Text = tbTitulo.Text + ", " + listaJuegos(i).Datos.Titulo.Trim
+                            tbJuegos.Text = tbJuegos.Text + ", " + listaJuegos(i).Datos.Titulo.Trim
+                        End If
                     End If
-
-                    Dim margin As Integer = 0
-
-                    If listaJuegos.Count = 1 Then
-                        margin = 10
-                    ElseIf listaJuegos.Count = 2 Then
-                        margin = 10
-                    ElseIf listaJuegos.Count = 3 Then
-                        margin = 5
-                    Else
-                        margin = 2
-                    End If
-
-                    Dim panel As New DropShadowPanel With {
-                        .BlurRadius = 20,
-                        .ShadowOpacity = 0.9,
-                        .Color = Colors.Black,
-                        .Margin = New Thickness(margin, margin, margin, margin)
-                    }
-
-                    Dim colorFondo2 As New SolidColorBrush With {
-                        .Color = "#004e7a".ToColor
-                    }
-
-                    Dim gridContenido As New Grid With {
-                        .Background = colorFondo2
-                    }
 
                     Dim imagenJuego As New ImageEx With {
                         .Stretch = Stretch.Uniform,
                         .IsCacheEnabled = True,
-                        .Source = juego.Datos.Imagen
+                        .Source = listaJuegos(i).Datos.Imagen
                     }
 
-                    If listaJuegos.Count = 1 Then
-                        imagenJuego.MaxHeight = 150
-                    ElseIf listaJuegos.Count = 2 Then
-                        imagenJuego.MaxHeight = 150
-                    ElseIf listaJuegos.Count = 3 Then
-                        imagenJuego.MaxHeight = 130
-                    ElseIf listaJuegos.Count = 4 Then
-                        imagenJuego.MaxHeight = 100
-                    Else
-                        imagenJuego.MaxHeight = 75
-                    End If
-
-                    gridContenido.Children.Add(imagenJuego)
-                    panel.Content = gridContenido
-
                     If cosas.EnseñarJuegos = True Then
-                        gvImagen.Items.Add(panel)
+                        gv.Items.Add(imagenJuego)
                     End If
 
                     i += 1
-                Next
+
+                    If i = listaJuegos.Count Then
+                        If gv.Items.Count < 9 Then
+                            i = 0
+                        End If
+                    End If
+                End While
             End If
 
             BloquearControles(True)

@@ -916,95 +916,45 @@
                                             </Button.Resources>
 
                                             <Button.Content>
-                                                <StackPanel>
-                                                    <Grid Width="1000" Height="400">
-                                                        <Grid.Background>
-                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                                <GradientStop Color="#2e4460" Offset="0.5" />
-                                                                <GradientStop Color="#1b2838" Offset="1.0" />
-                                                            </LinearGradientBrush>
-                                                        </Grid.Background>
+                                                <Grid Width="1000" Height="400">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                            <GradientStop Color="#2e4460" Offset="0.5" />
+                                                            <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+                                                    
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="350"/>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
 
-                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo1" Padding="20">
-                                                            <Grid.Background>
-                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaSubscriptions" Stretch="UniformToFill"/>
-                                                            </Grid.Background>
+                                                        <Grid Grid.Row="0" VerticalAlignment="Top" Background="#1b2838" Padding="20">
+                                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripciones" Stretch="Uniform" HorizontalAlignment="Left" MaxHeight="90" MaxWidth="400"/>
+                                                            </controls:DropShadowPanel>
+                                                        </Grid> 
 
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="Auto"/>
-                                                                <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="Auto"/>
-                                                            </Grid.RowDefinitions>
-
-                                                            <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="Auto"/>
-                                                                    <ColumnDefinition Width="Auto"/>
-                                                                </Grid.ColumnDefinitions>
-
-                                                                <controls:DropShadowPanel Grid.Column="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
-                                                                    <Grid>
-                                                                        <Grid.Background>
-                                                                            <SolidColorBrush Color="#004e7a"/>
-                                                                        </Grid.Background>
-
-                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions1" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="400" MaxHeight="120" Margin="20"/>
-                                                                    </Grid>
-                                                                </controls:DropShadowPanel>
-
-                                                                <StackPanel Grid.Column="1" Background="Black" Padding="30,20" VerticalAlignment="Center" Margin="30,0,0,0">
-                                                                    <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions1" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                </StackPanel>
-                                                            </Grid>
-
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <GridView.ItemsPanel>
-                                                                    <ItemsPanelTemplate>
-                                                                        <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
-                                                                    </ItemsPanelTemplate>
-                                                                </GridView.ItemsPanel>
-                                                            </GridView>
-
-                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje" Grid.Row="2" Foreground="White" FontSize="20" TextWrapping="Wrap" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                        </Grid>
-
-                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaSubscriptionsEstilo2" Padding="20" Visibility="Collapsed">
+                                                        <Grid Grid.Row="0" VerticalAlignment="Top" Padding="40" Visibility="Collapsed">
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"/>
                                                                 <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
+                                                            
 
-                                                                <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
-                                                                    <Grid>
-                                                                        <Grid.Background>
-                                                                            <SolidColorBrush Color="#004e7a"/>
-                                                                        </Grid.Background>
+                                                            <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" Visibility="Collapsed">
+                                                                <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSuscripciones" FontSize="50" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </controls:DropShadowPanel> 
+                                                        </Grid>
 
-                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSubscriptions2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="400" MaxHeight="120" Margin="20"/>
-                                                                    </Grid>
-                                                                </controls:DropShadowPanel>
-
-                                                                <StackPanel Grid.Row="1" Background="Black" Padding="30,20" HorizontalAlignment="Center" Margin="0,30,0,0">
-                                                                    <TextBlock x:Name="tbPrecioTiendaEditorpepeizqdealsGenerarImagenSubscriptions2" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                </StackPanel>
-                                                            </Grid>
-
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptions2" Grid.Column="1" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <GridView.ItemsPanel>
-                                                                    <ItemsPanelTemplate>
-                                                                        <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
-                                                                    </ItemsPanelTemplate>
-                                                                </GridView.ItemsPanel>
-                                                            </GridView>
-                                                        </Grid> 
-                                                     </Grid>
-                                                </StackPanel>
+                                                        <Grid Grid.Row="1" Background="#1b2838" Padding="20,24">
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje" FontSize="30" Foreground="White" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        </Grid>
+                                                    </Grid> 
+                                                </Grid>
                                             </Button.Content>
                                         </Button>
                                     </Grid>
@@ -1017,8 +967,10 @@
                                     <TextBox x:Name="tbEditorTitulopepeizqdealsAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                     <TextBlock x:Uid="Url"/>
                                     <TextBox x:Name="tbEditorEnlacepepeizqdealsAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
-                                    <TextBlock Text="Comentarios"/>
-                                    <TextBox x:Name="tbEditorComentario1pepeizqdealsAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Imagen Titulo"/>
+                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosTitulo" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                    <TextBlock Text="Imagen Comentario"/>
+                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosComentario" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                     <TextBlock Text="Juegos"/>
                                     <Grid Margin="0,10,0,15">
@@ -1066,8 +1018,8 @@
                                             </Button.Resources>
 
                                             <Button.Content>
-                                                <StackPanel>
-                                                    <Grid Width="1000" Height="400">
+                                                <Grid Width="1000" Height="465">
+                                                    <Grid>
                                                         <Grid.Background>
                                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                                 <GradientStop Color="#2e4460" Offset="0.5" />
@@ -1075,38 +1027,26 @@
                                                             </LinearGradientBrush>
                                                         </Grid.Background>
 
-                                                        <Grid Padding="40,20">
-                                                            <Grid.Background>
-                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaAnuncios" Stretch="UniformToFill"/>
-                                                            </Grid.Background>
-
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="Auto" x:Name="fila2EditorpepeizqdealsImagenEntradaAnuncios"/>
-                                                            </Grid.RowDefinitions>
-
-                                                            <controls:DropShadowPanel x:Name="panel1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <Grid>
-                                                                    <Grid.Background>
-                                                                        <SolidColorBrush Color="#1b2838"/>
-                                                                    </Grid.Background>
-
-                                                                    <controls:ImageEx x:Name="imagen1EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                                </Grid>
-                                                            </controls:DropShadowPanel>
-
-                                                            <GridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" Grid.Row="0" ItemContainerStyle="{StaticResource GridViewEstilo2}" IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <GridView.ItemsPanel>
-                                                                    <ItemsPanelTemplate>
-                                                                        <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
-                                                                    </ItemsPanelTemplate>
-                                                                </GridView.ItemsPanel>
-                                                            </GridView>
-
-                                                            <TextBlock x:Name="tbComentario1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="1" Margin="40,40,40,20" FontSize="26" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Visibility="Collapsed" TextWrapping="Wrap"/>
-                                                        </Grid>
+                                                        <controls:DropShadowPanel x:Name="panel1EditorpepeizqdealsGenerarImagenAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30" Opacity="0.4">
+                                                            <controls:ImageEx x:Name="imagen1EditorpepeizqdealsGenerarImagenAnuncios" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        </controls:DropShadowPanel>
                                                     </Grid>
-                                                </StackPanel>
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="350" Opacity="0.2"/>
+                                                    <Grid Padding="60">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10">
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        </controls:DropShadowPanel>
+
+                                                        <controls:DropShadowPanel Grid.Row="1" Color="Black" ShadowOpacity="1" BlurRadius="20">
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosComentario" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        </controls:DropShadowPanel>                                                           
+                                                    </Grid>
+                                                </Grid>
                                             </Button.Content>
                                         </Button>
                                     </Grid>
