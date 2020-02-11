@@ -105,46 +105,52 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim spBuscar As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsBuscar")
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripciones")
-            Dim precio As TextBlock = pagina.FindName("tbPrecioTiendaEditorpepeizqdealsGenerarImagenSuscripciones")
             Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
+            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, False, Nothing, Nothing)
+            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 1 Then
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
-                precio.Text = "13,99 € *"
+                imagenTienda.MaxHeight = 110
+                imagenTienda.MaxWidth = 450
+                gv.DesiredWidth = 350
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Choice • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://www.humblebundle.com/subscription"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
-                cosas.EnseñarJuegos = True
-                cosas.Mensaje = "* This price corresponds to the Basic mode"
+                cosas.Mensaje = "13,99 € • This price corresponds to the Basic mode"
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
-                precio.Text = "4,00 € *"
+                imagenTienda.MaxHeight = 110
+                imagenTienda.MaxWidth = 450
+                gv.DesiredWidth = 350
 
                 cosas.Tienda = "Twitch"
                 cosas.Titulo = "Twitch Prime • " + mesElegido + " • " + cosas.Juegos
                 cosas.Enlace = "https://twitch.amazon.com/tp"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
-                cosas.EnseñarJuegos = True
                 cosas.Mensaje = "4,00 € • This price is different depending on your country"
             ElseIf cbTiendas.SelectedIndex = 3 Then
                 spMeses.Visibility = Visibility.Collapsed
                 spBuscar.Visibility = Visibility.Visible
 
                 imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
-                precio.Text = "1,00 €"
+                imagenTienda.MaxHeight = 140
+                imagenTienda.MaxWidth = 450
+                gv.DesiredWidth = 200
 
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/02/tienda_xboxgamepass.jpg"
+                cosas.Mensaje = "1,00 € every 3 months"
 
                 Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
 
@@ -152,7 +158,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 imagenTienda.Source = "Assets\Tiendas\originaccess.png"
-                precio.Text = "3,99 € *"
+                'precio.Text = "3,99 € *"
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
@@ -333,9 +339,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         .Source = listaJuegos(i).Datos.Imagen
                     }
 
-                    If cosas.EnseñarJuegos = True Then
-                        gv.Items.Add(imagenJuego)
-                    End If
+                    gv.Items.Add(imagenJuego)
 
                     i += 1
 

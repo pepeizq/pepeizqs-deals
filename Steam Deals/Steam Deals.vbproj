@@ -456,6 +456,7 @@
     <Content Include="Assets\Sistemas\win.png" />
     <Content Include="Assets\Tiendas\wingamestore2.png" />
     <Content Include="Assets\Tiendas\xboxgamepass.png" />
+    <Content Include="Assets\Tiendas\xboxgamepass2.png" />
     <Content Include="Assets\Tiendas\yuplay.ico" />
     <Content Include="Assets\Tiendas\yuplay2.png" />
     <Content Include="Assets\pepeizq\fondo_hexagono.png" />

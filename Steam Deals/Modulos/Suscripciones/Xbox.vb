@@ -131,12 +131,12 @@ Namespace pepeizq.Suscripciones
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
 
-            Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions2")
-            gvImagen.Items.Clear()
+            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
+            gv.Items.Clear()
 
             If Not listaJuegos Is Nothing Then
                 If listaJuegos.Count > 0 Then
-                    gvImagen.Visibility = Visibility.Visible
+                    gv.Visibility = Visibility.Visible
 
                     Dim i As Integer = 0
                     For Each juego In listaJuegos
@@ -148,38 +148,12 @@ Namespace pepeizq.Suscripciones
                         ElseIf i = (listaJuegos.Count - 1) Then
                             tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
                             tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
+                            tbIDs.Text = tbIDs.Text + " and " + juego.Imagen
                         Else
                             tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
                             tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
                             tbIDs.Text = tbIDs.Text + "," + juego.Imagen
                         End If
-
-                        Dim margin As Integer = 0
-
-                        If listaJuegos.Count = 1 Then
-                            margin = 8
-                        ElseIf listaJuegos.Count = 2 Then
-                            margin = 8
-                        ElseIf listaJuegos.Count = 3 Then
-                            margin = 8
-                        Else
-                            margin = 5
-                        End If
-
-                        Dim panel As New DropShadowPanel With {
-                            .BlurRadius = 15,
-                            .ShadowOpacity = 0.9,
-                            .Color = Colors.Black,
-                            .Margin = New Thickness(margin, margin, margin, margin)
-                        }
-
-                        Dim colorFondo2 As New SolidColorBrush With {
-                            .Color = "#004e7a".ToColor
-                        }
-
-                        Dim gridContenido As New Grid With {
-                            .Background = colorFondo2
-                        }
 
                         Dim imagenJuego As New ImageEx With {
                             .Stretch = Stretch.Uniform,
@@ -187,16 +161,7 @@ Namespace pepeizq.Suscripciones
                             .Source = juego.Imagen
                         }
 
-                        If listaJuegos.Count < 4 Then
-                            imagenJuego.MaxHeight = 320
-                        Else
-                            imagenJuego.MaxHeight = 160
-                        End If
-
-                        gridContenido.Children.Add(imagenJuego)
-                        panel.Content = gridContenido
-
-                        gvImagen.Items.Add(panel)
+                        gv.Items.Add(imagenJuego)
 
                         i += 1
                     Next
