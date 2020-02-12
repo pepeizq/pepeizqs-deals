@@ -1003,7 +1003,7 @@
                                             </Button.Resources>
 
                                             <Button.Content>
-                                                <Grid Width="1000" Height="465">
+                                                <Grid Width="1000" Height="400">
                                                     <Grid>
                                                         <Grid.Background>
                                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -1017,19 +1017,19 @@
                                                         </controls:DropShadowPanel>
                                                     </Grid>
                                                     <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="350" Opacity="0.2"/>
-                                                    <Grid Padding="60">
+                                                    <Grid>
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="*"/>
                                                             <RowDefinition Height="Auto"/>
                                                         </Grid.RowDefinitions>
 
-                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10">
-                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel Grid.Row="1" Color="Black" ShadowOpacity="1" BlurRadius="20">
-                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosComentario" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="30" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
-                                                        </controls:DropShadowPanel>                                                           
+                                                        <Grid Grid.Row="1" Background="#1b2838" Padding="20,24">
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosComentario" HorizontalAlignment="Center" FontSize="30" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        </Grid>                                                         
                                                     </Grid>
                                                 </Grid>
                                             </Button.Content>
