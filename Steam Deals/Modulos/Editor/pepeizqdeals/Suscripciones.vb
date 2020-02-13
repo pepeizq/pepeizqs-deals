@@ -209,12 +209,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
-            If cbTiendas.SelectedIndex = 0 Or cbTiendas.SelectedIndex = 1 Then
+            If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
-            ElseIf cbTiendas.SelectedIndex = 2 Then
+            ElseIf cbTiendas.SelectedIndex = 3 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
-                                   Nothing, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                                   " ", botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
             End If
 
 
