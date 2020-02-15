@@ -2,6 +2,7 @@
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Tiendas
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Free
@@ -218,64 +219,37 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cosas As New Clases.Free(Nothing, Nothing, "Steam")
 
-            Dim html As String = Await HttpClient(New Uri(enlace))
+            Dim id As String = enlace.Replace("https://store.steampowered.com/app/", Nothing)
 
-            If Not html = Nothing Then
-                If html.Contains("<div class=" + ChrW(34) + "details_block" + ChrW(34) + ">") Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
-
-                    int = html.IndexOf("<div class=" + ChrW(34) + "details_block" + ChrW(34) + ">")
-                    temp = html.Remove(0, int + 5)
-
-                    int2 = temp.IndexOf("<br>")
-                    temp2 = temp.Remove(int2, temp.Length - int2)
-
-                    If temp2.Contains(">") Then
-                        Dim int5 As Integer = temp2.IndexOf(">")
-
-                        temp2 = temp2.Remove(0, int5 + 1)
-                    End If
-
-                    If temp2.Contains("<b>") Then
-                        Dim int3 As Integer = temp2.IndexOf("<b>")
-                        Dim int4 As Integer = temp2.IndexOf("</b>")
-
-                        temp2 = temp2.Remove(int3, (int4 + 4) - int3)
-                    End If
-
-                    cosas.Titulo = temp2.Trim
-                End If
-
-                If Not cosas.Titulo = Nothing Then
-                    Dim temp, temp2 As String
-                    Dim int, int2 As Integer
-
-                    int = html.IndexOf("<title>")
-                    temp = html.Remove(0, int + 7)
-
-                    int2 = temp.IndexOf("</title>")
-                    temp2 = temp.Remove(int2, temp.Length - int2)
-
-                    temp2 = temp2.Replace("en Steam", Nothing)
-                    temp2 = temp2.Replace("on Steam", Nothing)
-                    temp2 = temp2.Replace("Save 100% on", Nothing)
-                    temp2 = temp2.Trim
-
-                    cosas.Titulo = temp2
-                End If
+            If id.Contains("/") Then
+                Dim int As Integer = id.IndexOf("/")
+                id = id.Remove(int, id.Length - int)
             End If
 
-            If Not enlace = Nothing Then
-                Dim id As String = enlace
-                id = id.Replace("https://store.steampowered.com/app/", Nothing)
+            Dim html As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
 
-                If id.Contains("/") Then
-                    Dim int As Integer = id.IndexOf("/")
-                    id = id.Remove(int, id.Length - int)
+            If Not html = Nothing Then
+                Dim temp As String
+                Dim int As Integer
+
+                int = html.IndexOf(":")
+                temp = html.Remove(0, int + 1)
+                temp = temp.Remove(temp.Length - 1, 1)
+
+                Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
+
+                If Not datos Is Nothing Then
+                    cosas.Titulo = datos.Datos.Titulo
+                    cosas.Imagen = datos.Datos.Imagen
+
+                    If Not datos.Datos.Fondo Is Nothing Then
+                        Dim frame As Frame = Window.Current.Content
+                        Dim pagina As Page = frame.Content
+
+                        Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaFree")
+                        fondo.ImageSource = New BitmapImage(New Uri(datos.Datos.Fondo))
+                    End If
                 End If
-
-                cosas.Imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + id + "/header.jpg"
             End If
 
             Return cosas
@@ -463,7 +437,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     temp = htmlID.Remove(0, int + 1)
                     temp = temp.Remove(temp.Length - 1, 1)
 
-                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                    Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
 
                     If Not datos Is Nothing Then
                         If Not datos.Datos.Fondo Is Nothing Then

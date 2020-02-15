@@ -814,16 +814,10 @@
                                                                     </Grid.RowDefinitions>
 
                                                                     <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
-                                                                        <Grid>
-                                                                            <Grid.Background>
-                                                                                <SolidColorBrush Color="#004e7a"/>
-                                                                            </Grid.Background>
-
-                                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="150" MaxHeight="120" Margin="20"/>
-                                                                        </Grid>
+                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="150" MaxHeight="120"/>
                                                                     </controls:DropShadowPanel>
 
-                                                                    <StackPanel Grid.Row="1" Background="Black" Padding="30,20" HorizontalAlignment="Center" Margin="0,30,0,0">
+                                                                    <StackPanel Grid.Row="1" Background="Black" Padding="25,15" HorizontalAlignment="Center" Margin="0,40,0,0">
                                                                         <TextBlock Text="Free" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                     </StackPanel>
                                                                 </Grid>
