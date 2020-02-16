@@ -159,6 +159,8 @@
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
+    <Compile Include="Modulos\Suscripciones\Html.vb" />
+    <Compile Include="Modulos\Suscripciones\OriginBasic.vb" />
     <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Tiendas\2Game.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
@@ -364,7 +366,8 @@
     <Content Include="Assets\Tiendas\indiegala2.png" />
     <Content Include="Assets\Tiendas\microsoftstore2.png" />
     <Content Include="Assets\Tiendas\origin2.png" />
-    <Content Include="Assets\Tiendas\originaccess.png" />
+    <Content Include="Assets\Tiendas\originaccessbasic.png" />
+    <Content Include="Assets\Tiendas\originaccesspremier.png" />
     <Content Include="Assets\Tiendas\robotcache.png" />
     <Content Include="Assets\Tiendas\robotcache2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />

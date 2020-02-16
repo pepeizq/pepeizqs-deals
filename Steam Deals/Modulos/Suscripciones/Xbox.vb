@@ -1,15 +1,13 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
-Imports Windows.UI
 
 Namespace pepeizq.Suscripciones
     Module Xbox
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaIDs As New List(Of String)
-        Dim listaJuegos As New List(Of JuegoImagen)
+        Dim listaJuegos As New List(Of JuegoSuscripcion)
 
         Public Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
 
@@ -104,7 +102,7 @@ Namespace pepeizq.Suscripciones
                                                     Next
 
                                                     If añadir = True Then
-                                                        listaJuegos.Add(New JuegoImagen(juego.Detalles(0).Titulo.Trim, imagenLista, juego.ID))
+                                                        listaJuegos.Add(New JuegoSuscripcion(juego.Detalles(0).Titulo.Trim, imagenLista, juego.ID, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID)))
                                                     End If
                                                 End If
                                             Next
@@ -124,84 +122,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
 
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
-
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
-            gv.Items.Clear()
-
-            If Not listaJuegos Is Nothing Then
-                If listaJuegos.Count > 0 Then
-                    gv.Visibility = Visibility.Visible
-
-                    Dim i As Integer = 0
-                    For Each juego In listaJuegos
-
-                        If i = 0 Then
-                            tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
-                            tbJuegos.Text = juego.Titulo.Trim
-                            tbIDs.Text = juego.Imagen
-                        ElseIf i = (listaJuegos.Count - 1) Then
-                            tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
-                            tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
-                            tbIDs.Text = tbIDs.Text + " and " + juego.Imagen
-                        Else
-                            tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
-                            tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
-                            tbIDs.Text = tbIDs.Text + "," + juego.Imagen
-                        End If
-
-                        Dim imagenJuego As New ImageEx With {
-                            .Stretch = Stretch.Uniform,
-                            .IsCacheEnabled = True,
-                            .Source = juego.Imagen
-                        }
-
-                        gv.Items.Add(imagenJuego)
-
-                        i += 1
-                    Next
-
-                    Dim cosas As Clases.Suscripciones = tbTitulo.Tag
-
-                    Dim ancho As String = String.Empty
-
-                    If listaJuegos.Count = 2 Then
-                        ancho = " width=" + ChrW(34) + "1/2" + ChrW(34)
-                    ElseIf listaJuegos.Count = 3 Then
-                        ancho = " width=" + ChrW(34) + "1/3" + ChrW(34)
-                    ElseIf listaJuegos.Count > 3 Then
-                        ancho = " width=" + ChrW(34) + "1/4" + ChrW(34)
-                    End If
-
-                    Dim html As String = String.Empty
-
-                    html = "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + " bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:http%3A%2F%2Fmicrosoft.msafflnk.net%2FEYkmK||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "][/vc_column][/vc_row]"
-
-                    Dim j As Integer = 0
-                    While j < listaJuegos.Count
-                        If j = 0 Or j = 4 Or j = 8 Then
-                            html = html + "[vc_row el_class=" + ChrW(34) + "tope" + ChrW(34) + "]"
-                        End If
-
-                        html = html + "[vc_column " + ancho + "][vc_column_text]"
-                        html = html + "<a href=" + ChrW(34) + Referidos.Generar("https://www.microsoft.com/store/apps/" + listaJuegos(j).ID) + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto;" + ChrW(34) + " src=" + ChrW(34) + listaJuegos(j).Imagen + ChrW(34) + "></a><div style=" + ChrW(34) + "text-align: center; margin-top: 5px; font-size: 17px;" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + Referidos.Generar("https://www.microsoft.com/store/apps/" + listaJuegos(j).ID) + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + listaJuegos(j).Titulo + "</a></div>"
-                        html = html + "[/vc_column_text][/vc_column]"
-
-                        If j = listaJuegos.Count - 1 Or j = 3 Or j = 7 Then
-                            html = html + "[/vc_row]"
-                        End If
-
-                        j += 1
-                    End While
-
-                    cosas.Html = html
-                End If
-            End If
+            Html.Generar(Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), listaJuegos)
 
             BloquearControles(True)
 
@@ -275,20 +196,6 @@ Namespace pepeizq.Suscripciones
 
             <JsonProperty("ApplicablePlatforms")>
             Public Plataformas As List(Of String)
-
-        End Class
-
-        Public Class JuegoImagen
-
-            Public Property Titulo As String
-            Public Property Imagen As String
-            Public Property ID As String
-
-            Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal id As String)
-                Me.Titulo = titulo
-                Me.Imagen = imagen
-                Me.ID = id
-            End Sub
 
         End Class
 

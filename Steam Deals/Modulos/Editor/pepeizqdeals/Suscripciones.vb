@@ -1,7 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
-Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Suscripciones
@@ -20,6 +18,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("Humble Choice")
             cbTiendas.Items.Add("Twitch Prime")
             cbTiendas.Items.Add("Xbox Game Pass")
+            cbTiendas.Items.Add("Origin Access Basic")
 
             cbTiendas.SelectedIndex = 0
 
@@ -157,12 +156,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
             ElseIf cbTiendas.SelectedIndex = 4 Then
-                imagenTienda.Source = "Assets\Tiendas\originaccess.png"
-                'precio.Text = "3,99 € *"
+                spMeses.Visibility = Visibility.Collapsed
+                spBuscar.Visibility = Visibility.Visible
+
+                imagenTienda.Source = "Assets\Tiendas\originaccessbasic.png"
+                imagenTienda.MaxHeight = 110
+                imagenTienda.MaxWidth = 450
 
                 cosas.Tienda = "Origin"
-                cosas.Titulo = "Origin Access • " + mesElegido + " • " + cosas.Juegos
-                cosas.Enlace = "https://www.origin.com/esp/en-us/store/origin-access"
+                cosas.Titulo = "Origin Access • New Games Added • " + cosas.Juegos
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
+                cosas.Mensaje = "3,99 € every month"
+
+                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
             End If
 
             If Not cosas.Titulo = Nothing Then
@@ -212,7 +221,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
-            ElseIf cbTiendas.SelectedIndex = 3 Then
+            ElseIf cbTiendas.SelectedIndex = 3 Or cbTiendas.SelectedIndex = 4 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    " ", botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
             End If

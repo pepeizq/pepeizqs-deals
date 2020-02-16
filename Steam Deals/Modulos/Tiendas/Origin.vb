@@ -180,6 +180,12 @@ Namespace pepeizq.Tiendas
         <JsonProperty("imageServer")>
         Public ImagenRaiz As String
 
+        <JsonProperty("vault")>
+        Public AccessBasic As OriginBBDDJuegoAccess
+
+        <JsonProperty("premiumVault")>
+        Public AccessPremier As OriginBBDDJuegoAccess
+
     End Class
 
     Public Class OriginBBDDJuegoi18n
@@ -192,6 +198,13 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("packArtLarge")>
         Public ImagenGrande As String
+
+    End Class
+
+    Public Class OriginBBDDJuegoAccess
+
+        <JsonProperty("path")>
+        Public Enlace As String
 
     End Class
 
