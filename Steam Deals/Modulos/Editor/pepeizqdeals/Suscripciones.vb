@@ -19,6 +19,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("Twitch Prime")
             cbTiendas.Items.Add("Xbox Game Pass")
             cbTiendas.Items.Add("Origin Access Basic")
+            cbTiendas.Items.Add("Origin Access Premier")
 
             cbTiendas.SelectedIndex = 0
 
@@ -93,6 +94,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbTiendas As ComboBox = sender
             cbTiendas.IsEnabled = False
 
+            Dim fechaDefecto As DateTime = DateTime.Now
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+
             Dim cbMeses As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsMeses")
             mesElegido = cbMeses.SelectedItem.ToString
 
@@ -123,6 +127,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Enlace = "https://www.humblebundle.com/subscription"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.Mensaje = "13,99 € • This price corresponds to the Basic mode"
+
+                fechaDefecto = fechaDefecto.AddMonths(1)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 spMeses.Visibility = Visibility.Visible
                 spBuscar.Visibility = Visibility.Collapsed
@@ -137,6 +144,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Enlace = "https://twitch.amazon.com/tp"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
                 cosas.Mensaje = "4,00 € • This price is different depending on your country"
+
+                fechaDefecto = fechaDefecto.AddMonths(1)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
             ElseIf cbTiendas.SelectedIndex = 3 Then
                 spMeses.Visibility = Visibility.Collapsed
                 spBuscar.Visibility = Visibility.Visible
@@ -155,6 +165,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
+
+                fechaDefecto = fechaDefecto.AddDays(7)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 spMeses.Visibility = Visibility.Collapsed
                 spBuscar.Visibility = Visibility.Visible
@@ -162,9 +175,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.Source = "Assets\Tiendas\originaccessbasic.png"
                 imagenTienda.MaxHeight = 110
                 imagenTienda.MaxWidth = 450
+                gv.DesiredWidth = 200
 
                 cosas.Tienda = "Origin"
-                cosas.Titulo = "Origin Access • New Games Added • " + cosas.Juegos
+                cosas.Titulo = "Origin Access Basic • New Games Added • " + cosas.Juegos
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
                 cosas.Mensaje = "3,99 € every month"
 
@@ -172,6 +186,30 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
+
+                fechaDefecto = fechaDefecto.AddDays(7)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
+            ElseIf cbTiendas.SelectedIndex = 5 Then
+                spMeses.Visibility = Visibility.Collapsed
+                spBuscar.Visibility = Visibility.Visible
+
+                imagenTienda.Source = "Assets\Tiendas\originaccesspremier.png"
+                imagenTienda.MaxHeight = 110
+                imagenTienda.MaxWidth = 450
+                gv.DesiredWidth = 200
+
+                cosas.Tienda = "Origin"
+                cosas.Titulo = "Origin Access Premier • New Games Added • " + cosas.Juegos
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
+                cosas.Mensaje = "14,99 € every month"
+
+                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
+
+                fechaDefecto = fechaDefecto.AddDays(7)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             End If
 
             If Not cosas.Titulo = Nothing Then
@@ -221,7 +259,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
-            ElseIf cbTiendas.SelectedIndex = 3 Or cbTiendas.SelectedIndex = 4 Then
+            ElseIf cbTiendas.SelectedIndex = 3 Or cbTiendas.SelectedIndex = 4 Or cbTiendas.SelectedIndex = 5 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    " ", botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
             End If

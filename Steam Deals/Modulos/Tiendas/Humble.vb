@@ -8,6 +8,7 @@ Imports Windows.System.UserProfile
 'https://www.humblebundle.com/store/api/search?sort=discount&filter=all&search=american&request=1
 'https://www.humblebundle.com/api/v1/trove/chunk?index=4
 'https://www.humblebundle.com/api/v1/subscriptions/humble_monthly/subscription_products_with_gamekeys/
+'https://www.humblebundle.com/store/api/lookup?products[]=sonic-mania&request=1
 
 Namespace pepeizq.Tiendas
     Module Humble
@@ -15,6 +16,7 @@ Namespace pepeizq.Tiendas
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim listaDesarrolladores As New List(Of HumbleDesarrolladores)
         Dim Tienda As Tienda = Nothing
 
         Public Async Sub BuscarOfertas(tienda_ As Tienda)
@@ -25,6 +27,12 @@ Namespace pepeizq.Tiendas
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
+
+            If Await helper.FileExistsAsync("listaDesarrolladoresHumble") Then
+                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble")
+            Else
+                listaDesarrolladores = New List(Of HumbleDesarrolladores)
             End If
 
             Dim frame As Frame = Window.Current.Content
@@ -190,6 +198,36 @@ Namespace pepeizq.Tiendas
                         End If
 
                         If añadir = True Then
+                            For Each desarrollador In listaDesarrolladores
+                                If desarrollador.ID = juegoHumble.ID Then
+                                    juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                    Exit For
+                                End If
+                            Next
+
+                            If juego.Desarrolladores Is Nothing Then
+                                Dim htmlP_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
+                                Dim htmlP As String = htmlP_.Result
+
+                                If Not htmlP = Nothing Then
+                                    Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
+
+                                    If Not juegoDev Is Nothing Then
+                                        If Not juegoDev.Resultado(0).Publishers Is Nothing Then
+                                            juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Publishers(0).Nombre}, Nothing)
+                                            listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Publishers(0).Nombre))
+                                        End If
+
+                                        If juego.Desarrolladores Is Nothing Then
+                                            If Not juegoDev.Resultado(0).Desarrolladores Is Nothing Then
+                                                juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Desarrolladores(0).Nombre}, Nothing)
+                                                listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Desarrolladores(0).Nombre))
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+
                             juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
                             listaJuegos.Add(juego)
@@ -219,6 +257,7 @@ Namespace pepeizq.Tiendas
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
@@ -244,6 +283,9 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("human_name")>
         Public Titulo As String
+
+        <JsonProperty("machine_name")>
+        Public ID As String
 
         <JsonProperty("standard_carousel_image")>
         Public ImagenPequeña As String
@@ -281,6 +323,42 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("amount")>
         Public Cantidad As String
+
+    End Class
+
+    Public Class HumbleDesarrolladores
+
+        Public Property ID As String
+        Public Property Desarrollador As String
+
+        Public Sub New(ByVal id As String, ByVal desarrollador As String)
+            Me.ID = id
+            Me.Desarrollador = desarrollador
+        End Sub
+
+    End Class
+
+    Public Class HumbleJuegoDatos
+
+        <JsonProperty("result")>
+        Public Resultado As List(Of HumbleJuegoDatosResultado)
+
+    End Class
+
+    Public Class HumbleJuegoDatosResultado
+
+        <JsonProperty("publishers")>
+        Public Publishers As List(Of HumbleJuegoDatosResultadoPublisher)
+
+        <JsonProperty("developers")>
+        Public Desarrolladores As List(Of HumbleJuegoDatosResultadoPublisher)
+
+    End Class
+
+    Public Class HumbleJuegoDatosResultadoPublisher
+
+        <JsonProperty("publisher-name")>
+        Public Nombre As String
 
     End Class
 End Namespace

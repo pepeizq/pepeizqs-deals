@@ -22,6 +22,9 @@ Namespace pepeizq.Suscripciones
 
                     Dim i As Integer = 0
                     For Each juego In listaJuegos
+                        juego.Titulo = juego.Titulo.Replace("™", Nothing)
+                        juego.Titulo = juego.Titulo.Replace("©", Nothing)
+                        juego.Titulo = juego.Titulo.Trim
 
                         If i = 0 Then
                             tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim

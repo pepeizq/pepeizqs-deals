@@ -525,7 +525,9 @@ Module Tiendas
             listaDesarrolladores.Sort()
 
             For Each desarrollador In listaDesarrolladores
-                cbDesarrolladores.Items.Add(desarrollador)
+                If Not desarrollador = Nothing Then
+                    cbDesarrolladores.Items.Add(desarrollador)
+                End If
             Next
         End If
 
@@ -968,8 +970,10 @@ Module Tiendas
 
                 If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
                     If juego.Desarrolladores.Desarrolladores.Count > 0 Then
-                        If juego.Desarrolladores.Desarrolladores(0).Trim.Length > 0 Then
-                            desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
+                        If Not juego.Desarrolladores.Desarrolladores(0) = Nothing Then
+                            If juego.Desarrolladores.Desarrolladores(0).Trim.Length > 0 Then
+                                desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
+                            End If
                         End If
                     End If
                 End If

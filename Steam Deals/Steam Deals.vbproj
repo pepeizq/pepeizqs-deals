@@ -161,6 +161,7 @@
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
     <Compile Include="Modulos\Suscripciones\OriginBasic.vb" />
+    <Compile Include="Modulos\Suscripciones\OriginPremier.vb" />
     <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Tiendas\2Game.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />

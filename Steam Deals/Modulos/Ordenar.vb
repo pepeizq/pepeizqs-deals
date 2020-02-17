@@ -273,7 +273,9 @@ Module Ordenar
                         listaDesarrolladores.Sort()
 
                         For Each desarrollador In listaDesarrolladores
-                            cbDesarrolladores.Items.Add(desarrollador)
+                            If Not desarrollador = Nothing Then
+                                cbDesarrolladores.Items.Add(desarrollador)
+                            End If
                         Next
                     End If
 
