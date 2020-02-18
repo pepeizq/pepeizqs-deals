@@ -624,6 +624,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             cosas.Titulo = titulo
                             cosas.Precio = juegoFanatical.PrecioRebajado.EUR.Trim + " €"
+
+                            juegoFanatical.Imagen = juegoFanatical.Imagen.Replace("/400x225/", "/original/")
+
                             cosas.Imagen = juegoFanatical.Imagen
 
                             Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
