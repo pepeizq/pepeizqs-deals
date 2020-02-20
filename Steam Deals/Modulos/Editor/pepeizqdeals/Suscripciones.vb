@@ -159,7 +159,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/02/tienda_xboxgamepass.jpg"
-                cosas.Mensaje = "1,00 € every 3 months"
+                cosas.Mensaje = "1,00 € every month"
 
                 Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
 
