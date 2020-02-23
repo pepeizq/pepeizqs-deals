@@ -35,7 +35,27 @@ Namespace pepeizq.Suscripciones
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
+                Dim juegos As List(Of HumbleTroveBBDD) = JsonConvert.DeserializeObject(Of List(Of HumbleTroveBBDD))(html)
 
+                If Not juegos Is Nothing Then
+                    For Each juego In juegos
+                        Dim añadir As Boolean = True
+
+                        If Not listaIDs Is Nothing Then
+                            For Each id In listaIDs
+                                If id = juego.ID Then
+                                    añadir = False
+                                End If
+                            Next
+                        End If
+
+                        If añadir = True Then
+                            listaIDs.Add(juego.ID)
+
+                            listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, juego.Imagen, juego.ID, Referidos.Generar("https://www.humblebundle.com/subscription/trove#trove-main")))
+                        End If
+                    Next
+                End If
             End If
 
         End Sub
@@ -52,5 +72,18 @@ Namespace pepeizq.Suscripciones
         End Sub
 
     End Module
+
+    Public Class HumbleTroveBBDD
+
+        <JsonProperty("human-name")>
+        Public Titulo As String
+
+        <JsonProperty("machine_name")>
+        Public ID As String
+
+        <JsonProperty("image")>
+        Public Imagen As String
+
+    End Class
 End Namespace
 

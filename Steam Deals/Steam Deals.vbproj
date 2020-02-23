@@ -356,6 +356,7 @@
     <Content Include="Assets\Tiendas\gamebillet.ico" />
     <Content Include="Assets\Tiendas\gamebillet2.png" />
     <Content Include="Assets\Tiendas\gog2.png" />
+    <Content Include="Assets\Tiendas\humbletrove.png" />
     <Content Include="Assets\Tiendas\origin.png" />
     <Content Include="Assets\Tiendas\epicgames.ico" />
     <Content Include="Assets\Tiendas\epicgames2.png" />
@@ -364,7 +365,6 @@
     <Content Include="Assets\Tiendas\gamesplanet2.png" />
     <Content Include="Assets\Tiendas\gmg2.png" />
     <Content Include="Assets\Tiendas\humble2.png" />
-    <Content Include="Assets\Tiendas\humblemonthly.png" />
     <Content Include="Assets\Tiendas\indiegala2.png" />
     <Content Include="Assets\Tiendas\microsoftstore2.png" />
     <Content Include="Assets\Tiendas\origin2.png" />
