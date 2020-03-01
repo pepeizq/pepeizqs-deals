@@ -389,7 +389,22 @@
                                         </Grid.RowDefinitions>
 
                                         <TextBlock x:Uid="Url" Grid.Row="0"/>
-                                        <TextBox x:Name="tbEditorEnlacepepeizqdeals" Grid.Row="1" Margin="0,10,0,15" TextWrapping="Wrap" TextAlignment="Justify"/>
+
+                                        <Grid Grid.Row="1" Margin="0,10,0,15">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBox x:Name="tbEditorEnlacepepeizqdeals" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Justify"/>
+                                            <Button x:Name="botonEditorEnlaceAbrirpepeizqdeals" Grid.Column="1" Background="{StaticResource BrushPrimario}" Margin="15,0,0,0" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                                <Button.Content>
+                                                    <StackPanel>
+                                                        <fa:FontAwesome Icon="Globe" Foreground="White"/>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
                                     </Grid>
                                     <Grid x:Name="gridEditorImagenpepeizqdeals" HorizontalAlignment="Stretch">
                                         <Grid.RowDefinitions>

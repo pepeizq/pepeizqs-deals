@@ -3,6 +3,7 @@ Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
 Imports Windows.Storage.Streams
+Imports Windows.System
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
@@ -69,6 +70,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.Text = String.Empty
+
+            Dim botonEnlaceAbrir As Button = pagina.FindName("botonEditorEnlaceAbrirpepeizqdeals")
+
+            RemoveHandler botonEnlaceAbrir.Click, AddressOf AbrirEnlace
+            AddHandler botonEnlaceAbrir.Click, AddressOf AbrirEnlace
 
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
             tbTituloComplemento.Text = String.Empty
@@ -765,6 +771,21 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Async Sub AbrirEnlace()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim enlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+
+            Try
+                Await Launcher.LaunchUriAsync(New Uri(enlace.Text))
+            Catch ex As Exception
+
+            End Try
+
+        End Sub
+
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -775,6 +796,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.IsEnabled = estado
+
+            Dim botonEnlaceAbrir As Button = pagina.FindName("botonEditorEnlaceAbrirpepeizqdeals")
+            botonEnlaceAbrir.IsEnabled = estado
 
             Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
             botonImagen.IsEnabled = estado
