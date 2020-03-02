@@ -21,6 +21,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("Origin Access Basic")
             cbTiendas.Items.Add("Origin Access Premier")
             cbTiendas.Items.Add("Humble Trove")
+            cbTiendas.Items.Add("Geforce Now")
 
             cbTiendas.SelectedIndex = 0
 
@@ -232,6 +233,29 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
+            ElseIf cbTiendas.SelectedIndex = 7 Then
+                spMeses.Visibility = Visibility.Collapsed
+                spBuscar.Visibility = Visibility.Visible
+
+                imagenTienda.Source = "Assets\Tiendas\geforcenow.png"
+                imagenTienda.MaxHeight = 110
+                imagenTienda.MaxWidth = 450
+                gv.DesiredWidth = 350
+
+                cosas.Tienda = "Geforce"
+                cosas.Titulo = "Geforce NOW • New Games Supported • " + cosas.Juegos
+                cosas.Enlace = "https://www.nvidia.com/en-us/geforce-now/"
+
+                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                cosas.Mensaje = Divisas.CambioMoneda("4.99", tbDolar.Text) + " every month"
+
+                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
+
+                fechaDefecto = fechaDefecto.AddDays(7)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             End If
 
             If Not cosas.Titulo = Nothing Then
@@ -278,7 +302,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
-            If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Then
+            If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Or cbTiendas.SelectedIndex = 7 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
             ElseIf cbTiendas.SelectedIndex = 3 Or cbTiendas.SelectedIndex = 4 Or cbTiendas.SelectedIndex = 5 Or cbTiendas.SelectedIndex = 6 Then

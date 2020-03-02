@@ -771,7 +771,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Sub AbrirEnlace()
+        Private Async Sub AbrirEnlace(sender As Object, e As RoutedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content

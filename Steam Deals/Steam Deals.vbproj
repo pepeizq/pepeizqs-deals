@@ -159,6 +159,7 @@
     <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
+    <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleTrove.vb" />
     <Compile Include="Modulos\Suscripciones\OriginBasic.vb" />
@@ -352,6 +353,7 @@
     <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\d2d.ico" />
     <Content Include="Assets\Tiendas\d2d2.png" />
+    <Content Include="Assets\Tiendas\geforcenow.png" />
     <Content Include="Assets\Tiendas\humblechoice.png" />
     <Content Include="Assets\Tiendas\gamebillet.ico" />
     <Content Include="Assets\Tiendas\gamebillet2.png" />
