@@ -239,7 +239,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = "Assets\Tiendas\geforcenow.png"
                 imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 450
+                imagenTienda.MaxWidth = 420
                 gv.DesiredWidth = 350
 
                 cosas.Tienda = "Geforce"

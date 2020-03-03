@@ -34,7 +34,54 @@ Namespace pepeizq.Suscripciones
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
+                Dim juegos As List(Of GeforceNowBBDD) = JsonConvert.DeserializeObject(Of List(Of GeforceNowBBDD))(html)
 
+                If Not juegos Is Nothing Then
+                    For Each juego In juegos
+                        Dim añadir As Boolean = True
+
+                        If Not listaIDs Is Nothing Then
+                            For Each id In listaIDs
+                                If id = juego.ID Then
+                                    añadir = False
+                                End If
+                            Next
+                        End If
+
+                        If añadir = True Then
+                            If Not juego.SteamEnlace = Nothing Then
+                                If juego.SteamEnlace.Contains("store.steampowered.com/app/") Then
+                                    listaIDs.Add(juego.ID)
+
+                                    Dim imagen As String = juego.SteamEnlace
+                                    imagen = imagen.Replace("https://store.steampowered.com/app/", Nothing)
+                                    imagen = imagen.Replace("http://store.steampowered.com/app/", Nothing)
+
+                                    If imagen.Contains("/") Then
+                                        Dim int As Integer = imagen.IndexOf("/")
+                                        imagen = imagen.Remove(int, imagen.Length - int)
+                                    End If
+
+                                    Dim htmlID_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + imagen))
+                                    Dim htmlID As String = htmlID_.Result
+
+                                    If Not htmlID = Nothing Then
+                                        Dim temp As String
+                                        Dim int As Integer
+
+                                        int = htmlID.IndexOf(":")
+                                        temp = htmlID.Remove(0, int + 1)
+                                        temp = temp.Remove(temp.Length - 1, 1)
+
+                                        Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+
+                                        listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace)))
+                                    End If
+                                End If
+                            End If
+                        End If
+                    Next
+                End If
             End If
 
         End Sub
@@ -44,7 +91,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaGeforceNowSuscripcion", listaIDs)
 
-            'Html.Generar("https://www.nvidia.com/en-us/geforce-now/", listaJuegos)
+            Html.Generar("https://www.nvidia.com/en-us/geforce-now/", listaJuegos)
 
             BloquearControles(True)
 
