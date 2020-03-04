@@ -435,12 +435,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     gv.Items.Add(imagenJuego)
 
                     i += 1
-
-                    If i = listaJuegos.Count Then
-                        If gv.Items.Count < 9 Then
-                            i = 0
-                        End If
-                    End If
                 End While
             End If
 
