@@ -244,6 +244,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = "Geforce"
                 cosas.Titulo = "Geforce NOW • New Games Supported • " + cosas.Juegos
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
                 cosas.Enlace = "https://www.nvidia.com/en-us/geforce-now/"
 
                 Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")

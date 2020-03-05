@@ -1162,6 +1162,21 @@
                                             </Grid>
                                         </Button.Content>
                                     </Button>
+
+                                    <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <Grid x:Name="gridEditorpepeizqdealsFondoRedesSociales">
+                                                <Grid.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Color="#004e7a" Offset="0.5" />
+                                                        <GradientStop Color="#003553" Offset="1.0" />
+                                                    </LinearGradientBrush>
+                                                </Grid.Background>
+
+                                                <!--<controls:ImageEx x:Name="imagenEditorpepeizqdealsFondoRedesSociales" Stretch="None" Source="Assets\RedesSociales\Fondo.jpg"/>-->
+                                            </Grid>
+                                        </Button.Content>
+                                    </Button>
                                 </StackPanel>
                             </ScrollViewer>
 

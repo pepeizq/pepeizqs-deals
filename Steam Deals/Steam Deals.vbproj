@@ -344,6 +344,7 @@
     <Content Include="Assets\pepeizq\gogconnect.jpg" />
     <Content Include="Assets\pepeizq\steam.png" />
     <Content Include="Assets\pepeizq\twitter.png" />
+    <Content Include="Assets\RedesSociales\Fondo.jpg" />
     <Content Include="Assets\steam_logo.png" />
     <Content Include="Assets\Tiendas\2game.png" />
     <Content Include="Assets\Tiendas\2game2.png" />
@@ -354,6 +355,7 @@
     <Content Include="Assets\Tiendas\d2d.ico" />
     <Content Include="Assets\Tiendas\d2d2.png" />
     <Content Include="Assets\Tiendas\geforcenow.png" />
+    <Content Include="Assets\Tiendas\geforcenow2.png" />
     <Content Include="Assets\Tiendas\humblechoice.png" />
     <Content Include="Assets\Tiendas\gamebillet.ico" />
     <Content Include="Assets\Tiendas\gamebillet2.png" />
