@@ -39,6 +39,21 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return lista
         End Function
 
+        Public Sub Cargar()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim botonFondo As Button = pagina.FindName("botonEditorpepeizqdealsGenerarFondoRedesSociales")
+
+            RemoveHandler botonFondo.Click, AddressOf GenerarFondo
+            AddHandler botonFondo.Click, AddressOf GenerarFondo
+
+            Dim tbFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsFondoRedesSociales")
+            tbFondo.Text = "1085660,578080,294100,227300,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,275850,220200,379720,552520,1066780,814380,745920,359320"
+
+        End Sub
+
         Public Sub GenerarIconosTiendas()
 
             Dim frame As Frame = Window.Current.Content
@@ -267,21 +282,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Sub GenerarBanner()
+        Private Async Sub GenerarFondo(sender As Object, e As RoutedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBox = pagina.FindName("tbEditorpepeizqdealsBanner")
+            Dim botonFondo As Button = pagina.FindName("botonEditorpepeizqdealsGenerarFondoRedesSociales")
+            botonFondo.IsEnabled = False
 
-            RemoveHandler tb.TextChanged, AddressOf ModificarBanner
-            AddHandler tb.TextChanged, AddressOf ModificarBanner
-
-        End Sub
-
-        Private Async Sub ModificarBanner(sender As Object, e As TextChangedEventArgs)
-
-            Dim tb As TextBox = sender
+            Dim tb As TextBox = pagina.FindName("tbEditorpepeizqdealsFondoRedesSociales")
             tb.IsEnabled = False
 
             If tb.Text.Trim.Length > 0 Then
@@ -359,34 +368,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 If listaJuegos.Count > 0 Then
-                    Dim frame As Frame = Window.Current.Content
-                    Dim pagina As Page = frame.Content
-
-                    Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsBanner")
+                    Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsFondoRedesSociales")
                     gv.Items.Clear()
 
                     For Each juego In listaJuegos
-                        Dim panel As New DropShadowPanel With {
-                            .BlurRadius = 20,
-                            .ShadowOpacity = 0.9,
-                            .Color = Colors.Black,
-                            .Margin = New Thickness(10, 10, 10, 10),
-                            .Padding = New Thickness(6, 6, 6, 6),
-                            .Height = 100
-                        }
-
                         Dim imagenJuego As New ImageEx With {
                             .Stretch = Stretch.Uniform,
                             .IsCacheEnabled = True,
                             .Source = juego.Datos.Imagen
                         }
 
-                        panel.Content = imagenJuego
-                        gv.Items.Add(panel)
+                        gv.Items.Add(imagenJuego)
                     Next
                 End If
             End If
 
+            botonFondo.IsEnabled = True
             tb.IsEnabled = True
 
         End Sub

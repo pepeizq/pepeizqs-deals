@@ -1146,22 +1146,16 @@
 
                                     <GridView x:Name="gvEditorpepeizqdealsLogosRedditTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsBanner" Margin="0,30,0,0"/>
-
-                                    <Button x:Name="botonEditorpepeizqdealsBanner" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonEditorpepeizqdealsGenerarFondoRedesSociales" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
-                                            <Grid x:Name="gridEditorpepeizqdealsBanner" Height="130" Width="1300">
-                                                <Grid.Background>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#004e7a" Offset="0.5" />
-                                                        <GradientStop Color="#003553" Offset="1.0" />
-                                                    </LinearGradientBrush>
-                                                </Grid.Background>
-
-                                                <GridView x:Name="gvEditorpepeizqdealsBanner" Opacity="0.5" HorizontalAlignment="Right" VerticalAlignment="Center" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" Padding="0,0,10,0"/>
-                                            </Grid>
+                                            <StackPanel Orientation="Horizontal">
+                                                <fa:FontAwesome Icon="Refresh" Foreground="White"/>
+                                                <TextBlock Text="Fondo" Foreground="White" Margin="10,0,0,0"/>
+                                            </StackPanel>
                                         </Button.Content>
                                     </Button>
+
+                                    <TextBox x:Name="tbEditorpepeizqdealsFondoRedesSociales" Margin="0,30,0,0"/>
 
                                     <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
@@ -1173,7 +1167,13 @@
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
-                                                <!--<controls:ImageEx x:Name="imagenEditorpepeizqdealsFondoRedesSociales" Stretch="None" Source="Assets\RedesSociales\Fondo.jpg"/>-->
+                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsFondoRedesSociales" Opacity="0.5" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false">
+                                                    <GridView.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <ItemsWrapGrid MaximumRowsOrColumns="6" Orientation="Horizontal"/>
+                                                        </ItemsPanelTemplate>
+                                                    </GridView.ItemsPanel>
+                                                </controls:AdaptiveGridView> 
                                             </Grid>
                                         </Button.Content>
                                     </Button>
