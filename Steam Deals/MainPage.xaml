@@ -1162,8 +1162,8 @@
                                             <Grid x:Name="gridEditorpepeizqdealsFondoRedesSociales">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#004e7a" Offset="0.5" />
-                                                        <GradientStop Color="#003553" Offset="1.0" />
+                                                        <GradientStop Color="#2e4460" Offset="0.5" />
+                                                        <GradientStop Color="#1b2838" Offset="1.0" />
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 

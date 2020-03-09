@@ -372,13 +372,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                     gv.Items.Clear()
 
                     For Each juego In listaJuegos
+                        Dim panel As New DropShadowPanel With {
+                            .Margin = New Thickness(10, 10, 10, 10),
+                            .ShadowOpacity = 0.9,
+                            .BlurRadius = 20
+                        }
+
                         Dim imagenJuego As New ImageEx With {
                             .Stretch = Stretch.Uniform,
                             .IsCacheEnabled = True,
                             .Source = juego.Datos.Imagen
                         }
 
-                        gv.Items.Add(imagenJuego)
+                        panel.Content = imagenJuego
+                        gv.Items.Add(panel)
                     Next
                 End If
             End If
