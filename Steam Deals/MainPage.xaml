@@ -1173,7 +1173,7 @@
                                                             <ItemsWrapGrid MaximumRowsOrColumns="6" Orientation="Horizontal"/>
                                                         </ItemsPanelTemplate>
                                                     </GridView.ItemsPanel>
-                                                </controls:AdaptiveGridView> 
+                                                </controls:AdaptiveGridView>
                                             </Grid>
                                         </Button.Content>
                                     </Button>
