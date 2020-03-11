@@ -248,7 +248,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Enlace = "https://www.nvidia.com/en-us/geforce-now/"
 
                 Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                cosas.Mensaje = Divisas.CambioMoneda("4.99", tbDolar.Text) + " every month"
+                cosas.Mensaje = "5,49 € every month"
 
                 Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
 

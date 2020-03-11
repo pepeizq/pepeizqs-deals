@@ -133,7 +133,7 @@
                 New Clases.Desarrolladores("Betadwarf", "@BetaDwarf", Nothing, Nothing),
                 New Clases.Desarrolladores("Big Robot Ltd", "@BigRobotLtd", Nothing, Nothing),
                 New Clases.Desarrolladores("Big Evil Corp", "@Big_Evil_Corp", Nothing, Nothing),
-                New Clases.Desarrolladores("Bigben Games", "@Bigben_games", Nothing, Nothing),
+                New Clases.Desarrolladores("Bigben Games", "@Bigben_games", "Assets\LogosPublishers\bigben.png", 490),
                 New Clases.Desarrolladores("Bigosaur", "@Bigosaur", Nothing, Nothing),
                 New Clases.Desarrolladores("Bishop Games", "@BishopGamesTeam", Nothing, Nothing),
                 New Clases.Desarrolladores("Bitbox", "@LifeisFeudal", Nothing, Nothing),
