@@ -30,32 +30,40 @@ Namespace pepeizq.Suscripciones
 
         Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/api/v1/trove/chunk?index=4"))
-            Dim html As String = html_.Result
+            Dim i As Integer = 0
+            While i < 100
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/api/v1/trove/chunk?index=" + i.ToString))
+                Dim html As String = html_.Result
 
-            If Not html = Nothing Then
-                Dim juegos As List(Of HumbleTroveBBDD) = JsonConvert.DeserializeObject(Of List(Of HumbleTroveBBDD))(html)
+                If Not html = Nothing Then
+                    Dim juegos As List(Of HumbleTroveBBDD) = JsonConvert.DeserializeObject(Of List(Of HumbleTroveBBDD))(html)
 
-                If Not juegos Is Nothing Then
-                    For Each juego In juegos
-                        Dim añadir As Boolean = True
+                    If Not juegos Is Nothing Then
+                        If juegos.Count = 0 Then
+                            Exit While
+                        Else
+                            For Each juego In juegos
+                                Dim añadir As Boolean = True
 
-                        If Not listaIDs Is Nothing Then
-                            For Each id In listaIDs
-                                If id = juego.ID Then
-                                    añadir = False
+                                If Not listaIDs Is Nothing Then
+                                    For Each id In listaIDs
+                                        If id = juego.ID Then
+                                            añadir = False
+                                        End If
+                                    Next
+                                End If
+
+                                If añadir = True Then
+                                    listaIDs.Add(juego.ID)
+
+                                    listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, juego.Imagen, juego.ID, Referidos.Generar("https://www.humblebundle.com/subscription/trove#trove-main")))
                                 End If
                             Next
                         End If
-
-                        If añadir = True Then
-                            listaIDs.Add(juego.ID)
-
-                            listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, juego.Imagen, juego.ID, Referidos.Generar("https://www.humblebundle.com/subscription/trove#trove-main")))
-                        End If
-                    Next
+                    End If
                 End If
-            End If
+                i += 1
+            End While
 
         End Sub
 
