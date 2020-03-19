@@ -565,7 +565,7 @@
                 New Clases.Desarrolladores("Spiderling Studios", "@spiderlinggames", Nothing, Nothing),
                 New Clases.Desarrolladores("Spike Chunsoft", "@SpikeChunsoft_e", "Assets\LogosPublishers\spikechunsoft.png", 550),
                 New Clases.Desarrolladores("Spooky Squid Games", "@spookysquid", Nothing, Nothing),
-                New Clases.Desarrolladores("Square Enix", "@SquareEnix", "Assets\LogosPublishers\squareenix.png", 480),
+                New Clases.Desarrolladores("Square Enix", "@SquareEnix", "Assets\LogosPublishers\squareenix.png", 520),
                 New Clases.Desarrolladores("Squid In A Box", "@squidinabox", Nothing, Nothing),
                 New Clases.Desarrolladores("SRRIVERS", "@enigmaprison", Nothing, Nothing),
                 New Clases.Desarrolladores("Stainless Games", "@Stainless_Games", Nothing, Nothing),

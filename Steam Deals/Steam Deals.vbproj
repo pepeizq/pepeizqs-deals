@@ -141,6 +141,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Discord.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Push.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Reddit.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\RSS.vb" />
@@ -527,6 +528,9 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Discord.Net">
+      <Version>2.1.1</Version>
+    </PackageReference>
     <PackageReference Include="FireSharp">
       <Version>2.0.4</Version>
     </PackageReference>

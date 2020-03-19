@@ -360,9 +360,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = String.Empty
 
             If enlace.Contains("/product/") Then
-                html = Await Decompiladores.HttpClient(New Uri("https://www.epicgames.com/store/en-US/api/content/products/" + clave))
+                html = Await Decompiladores.HttpClient(New Uri("https://store-content.ak.epicgames.com/api/en-US/content/products/" + clave))
             ElseIf enlace.Contains("/bundles/") Then
-                html = Await Decompiladores.HttpClient(New Uri("https://www.epicgames.com/store/en-US/api/content/bundles/" + clave))
+                html = Await Decompiladores.HttpClient(New Uri("https://store-content.ak.epicgames.com/api/en-US/content/bundles/" + clave))
             End If
 
             If Not html = Nothing Then
