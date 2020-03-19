@@ -1124,6 +1124,21 @@
                                             <WebView x:Name="wvEditorAmazonpepeizqdeals" MinWidth="700" MinHeight="700"/>
                                         </StackPanel>
                                     </controls:Expander>
+
+                                    <controls:Expander Header="Discord" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
+                                        <StackPanel Orientation="Vertical" Padding="20">
+                                            <TextBlock Text="Hook Ofertas" HorizontalAlignment="Left"/>
+                                            <TextBox x:Name="tbEditorpepeizqdealsDiscordHookOfertas" Margin="0,10"/>
+                                            <TextBlock Text="Hook Bundles" HorizontalAlignment="Left"/>
+                                            <TextBox x:Name="tbEditorpepeizqdealsDiscordHookBundles" Margin="0,10"/>
+                                            <TextBlock Text="Hook Gratis" HorizontalAlignment="Left"/>
+                                            <TextBox x:Name="tbEditorpepeizqdealsDiscordHookGratis" Margin="0,10"/>
+                                            <TextBlock Text="Hook Suscripciones" HorizontalAlignment="Left"/>
+                                            <TextBox x:Name="tbEditorpepeizqdealsDiscordHookSuscripciones" Margin="0,10"/>
+                                            <TextBlock Text="Hook Otros" HorizontalAlignment="Left"/>
+                                            <TextBox x:Name="tbEditorpepeizqdealsDiscordHookOtros" Margin="0,10"/>
+                                        </StackPanel> 
+                                    </controls:Expander>
                                 </StackPanel>
                             </ScrollViewer>
 

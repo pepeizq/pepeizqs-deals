@@ -414,6 +414,46 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbEditorpepeizqdealsDiscordHookOfertas_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookOfertas.TextChanged
+
+        If tbEditorpepeizqdealsDiscordHookOfertas.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord") = tbEditorpepeizqdealsDiscordHookOfertas.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorpepeizqdealsDiscordHookBundles_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookBundles.TextChanged
+
+        If tbEditorpepeizqdealsDiscordHookBundles.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord") = tbEditorpepeizqdealsDiscordHookBundles.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorpepeizqdealsDiscordHookGratis_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookGratis.TextChanged
+
+        If tbEditorpepeizqdealsDiscordHookGratis.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookGratisDiscord") = tbEditorpepeizqdealsDiscordHookGratis.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorpepeizqdealsDiscordHookSuscripciones_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookSuscripciones.TextChanged
+
+        If tbEditorpepeizqdealsDiscordHookSuscripciones.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookSuscripcionesDiscord") = tbEditorpepeizqdealsDiscordHookSuscripciones.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorpepeizqdealsDiscordHookOtros_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookOtros.TextChanged
+
+        If tbEditorpepeizqdealsDiscordHookOtros.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord") = tbEditorpepeizqdealsDiscordHookOtros.Text.Trim
+        End If
+
+    End Sub
+
     Private Sub BotonEditorpepeizqdealsGenerarAssets_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarAssets.Click
 
         pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosTiendas()

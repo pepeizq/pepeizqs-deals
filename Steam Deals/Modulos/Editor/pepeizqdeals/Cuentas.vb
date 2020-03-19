@@ -94,6 +94,46 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            Dim tbEditorpepeizqdealsDiscordHookOfertas As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookOfertas")
+
+            If Not tbEditorpepeizqdealsDiscordHookOfertas Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord") Is Nothing Then
+                    tbEditorpepeizqdealsDiscordHookOfertas.Text = ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord")
+                End If
+            End If
+
+            Dim tbEditorpepeizqdealsDiscordHookBundles As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookBundles")
+
+            If Not tbEditorpepeizqdealsDiscordHookBundles Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord") Is Nothing Then
+                    tbEditorpepeizqdealsDiscordHookBundles.Text = ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord")
+                End If
+            End If
+
+            Dim tbEditorpepeizqdealsDiscordHookGratis As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookGratis")
+
+            If Not tbEditorpepeizqdealsDiscordHookGratis Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("hookGratisDiscord") Is Nothing Then
+                    tbEditorpepeizqdealsDiscordHookGratis.Text = ApplicationData.Current.LocalSettings.Values("hookGratisDiscord")
+                End If
+            End If
+
+            Dim tbEditorpepeizqdealsDiscordHookSuscripciones As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookSuscripciones")
+
+            If Not tbEditorpepeizqdealsDiscordHookSuscripciones Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("hookSuscripcionesDiscord") Is Nothing Then
+                    tbEditorpepeizqdealsDiscordHookSuscripciones.Text = ApplicationData.Current.LocalSettings.Values("hookSuscripcionesDiscord")
+                End If
+            End If
+
+            Dim tbEditorpepeizqdealsDiscordHookOtros As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookOtros")
+
+            If Not tbEditorpepeizqdealsDiscordHookOtros Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord") Is Nothing Then
+                    tbEditorpepeizqdealsDiscordHookOtros.Text = ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord")
+                End If
+            End If
+
         End Sub
 
         Private Sub AbrirNuevoAnuncio(sender As Object, e As RoutedEventArgs)
