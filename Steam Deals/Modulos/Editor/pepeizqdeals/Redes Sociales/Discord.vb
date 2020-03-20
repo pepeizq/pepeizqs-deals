@@ -24,11 +24,15 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Using cliente As New DiscordWebhookClient(hook)
                 Dim constructor As New EmbedBuilder With {
                     .Title = titulo,
-                    .ThumbnailUrl = imagen,
+                    .ImageUrl = imagen,
                     .Url = enlaceFinal
                 }
 
-                Await cliente.SendMessageAsync(Nothing, True, constructor, "pepebot3")
+                Dim lista As New List(Of Embed) From {
+                    constructor.Build()
+                }
+
+                Await cliente.SendMessageAsync(titulo, False, lista, "pepebot3")
             End Using
 
         End Function
