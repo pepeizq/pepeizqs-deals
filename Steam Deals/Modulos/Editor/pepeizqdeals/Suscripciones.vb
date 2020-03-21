@@ -243,7 +243,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gv.DesiredWidth = 350
 
                 cosas.Tienda = "Geforce"
-                cosas.Titulo = "Geforce NOW • New Games Supported • " + cosas.Juegos
+
+                If cosas.Juegos.Count < 5 Then
+                    cosas.Titulo = "Geforce NOW • New Games Supported • " + cosas.Juegos.Count
+                Else
+                    cosas.Titulo = "Geforce NOW • " + cosas.Juegos.Count + " New Games Supported"
+                End If
+
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
                 cosas.Enlace = "https://www.nvidia.com/en-us/geforce-now/"
 
@@ -303,10 +309,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
-            If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Or cbTiendas.SelectedIndex = 7 Then
+            If cbTiendas.SelectedIndex = 1 Or cbTiendas.SelectedIndex = 2 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, " ", 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    tbEnlace.Text.Trim, botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
-            ElseIf cbTiendas.SelectedIndex = 3 Or cbTiendas.SelectedIndex = 4 Or cbTiendas.SelectedIndex = 5 Or cbTiendas.SelectedIndex = 6 Then
+            ElseIf cbTiendas.SelectedIndex = 3 Or cbTiendas.SelectedIndex = 4 Or cbTiendas.SelectedIndex = 5 Or cbTiendas.SelectedIndex = 6 Or cbTiendas.SelectedIndex = 7 Then
                 Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                    " ", botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
             End If

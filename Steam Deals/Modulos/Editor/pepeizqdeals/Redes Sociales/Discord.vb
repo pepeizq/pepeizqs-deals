@@ -32,6 +32,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     constructor.Build()
                 }
 
+                If categoria = 12 Then
+                    titulo = "@everyone " + titulo
+                End If
+
                 Await cliente.SendMessageAsync(titulo, False, lista, "pepebot3")
             End Using
 
