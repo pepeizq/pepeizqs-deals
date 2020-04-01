@@ -398,6 +398,7 @@
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
     <Content Include="Assets\Tiendas\twitchprime.png" />
+    <Content Include="Assets\Tiendas\uplay.png" />
     <Content Include="Assets\Tiendas\uplayplus.png" />
     <Content Include="Assets\Tiendas\voidu.ico" />
     <Content Include="Assets\Tiendas\voidu2.png" />

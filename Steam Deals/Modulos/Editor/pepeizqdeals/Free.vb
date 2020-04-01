@@ -83,6 +83,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
+            Dim tbImagenTiendaAncho As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFreeAncho")
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
 
             If tbEnlace.Text.Trim.Length > 0 Then
@@ -91,6 +92,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If enlace.Contains("https://store.steampowered.com/") Then
                     cosas = Await Steam(enlace)
+                    tbImagenTiendaAncho.Text = 170
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -100,6 +102,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
                     cosas = Await Humble(enlace)
+                    tbImagenTiendaAncho.Text = 140
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -109,6 +112,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://www.gog.com/game/") Then
                     cosas = Await GOG(enlace)
+                    tbImagenTiendaAncho.Text = 180
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -118,12 +122,19 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://www.epicgames.com/store/") Then
                     cosas = Await EpicGames(enlace)
+                    tbImagenTiendaAncho.Text = 140
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
                             tbImagenTienda.Text = tienda.LogoWeb
                         End If
                     Next
+
+                ElseIf enlace.Contains("https://register.ubisoft.com/") Then
+                    cosas = Await Uplay()
+                    tbImagenTiendaAncho.Text = 180
+
+                    tbImagenTienda.Text = "Assets/Tiendas/uplay.png"
 
                 Else
                     Dim cosas2 As New Clases.Free("--", Nothing, "--")
@@ -134,6 +145,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not cosas.Titulo = Nothing Then
                         tbTitulo.Text = cosas.Titulo + " • Free • " + cosas.Tienda
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
+                    Else
+                        If Not cosas.Tienda = Nothing Then
+                            tbTitulo.Text = "-- • Free • " + cosas.Tienda
+                        End If
                     End If
 
                     If Not cosas.Imagen = Nothing Then
@@ -399,6 +414,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             Public Titulo As String
 
         End Class
+
+        Private Async Function Uplay() As Task(Of Clases.Free)
+
+            Dim cosas As New Clases.Free(Nothing, Nothing, "Uplay")
+
+            Return cosas
+        End Function
 
         Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
 
