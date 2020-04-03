@@ -13,7 +13,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("Steam", "Assets/drm_steam.png", "Assets/Tiendas/steam2.png", "#2e4460", "#2e4460", Nothing, 32, 32),
                 New Clases.Assets("Humble", "Assets/Tiendas/humble.ico", "Assets/Tiendas/humble2.png", "#ea9192", "#cb2729", Nothing, 32, 32),
                 New Clases.Assets("GamersGate", "Assets/Tiendas/gamersgate.ico", "Assets/Tiendas/gamersgate2.png", "#196176", "#196176", Nothing, 32, 32),
-                New Clases.Assets("GamesPlanet", "Assets/Tiendas/gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", "#323333", "#323333", Nothing, 32, 32),
+                New Clases.Assets("Gamesplanet", "Assets/Tiendas/gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", "#000", "#000", Nothing, 32, 32),
                 New Clases.Assets("GOG", "Assets/Tiendas/gog.ico", "Assets/Tiendas/gog2.png", "#7f3694", "#7f3694", Nothing, 32, 32),
                 New Clases.Assets("Fanatical", "Assets/Tiendas/fanatical.ico", "Assets/Tiendas/fanatical2.png", "#ffcf89", "#8a5200", Nothing, 32, 32),
                 New Clases.Assets("WinGameStore", "Assets/Tiendas/wingamestore.png", "Assets/Tiendas/wingamestore2.png", "#265c92", "#265c92", Nothing, 32, 32),

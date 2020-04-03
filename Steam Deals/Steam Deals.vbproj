@@ -355,6 +355,8 @@
     <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\d2d.ico" />
     <Content Include="Assets\Tiendas\d2d2.png" />
+    <Content Include="Assets\Tiendas\gamesplanet.png" />
+    <Content Include="Assets\Tiendas\gamesplanet2.png" />
     <Content Include="Assets\Tiendas\geforcenow.png" />
     <Content Include="Assets\Tiendas\geforcenow2.png" />
     <Content Include="Assets\Tiendas\humblechoice.png" />
@@ -367,7 +369,6 @@
     <Content Include="Assets\Tiendas\epicgames2.png" />
     <Content Include="Assets\Tiendas\fanatical2.png" />
     <Content Include="Assets\Tiendas\gamersgate2.png" />
-    <Content Include="Assets\Tiendas\gamesplanet2.png" />
     <Content Include="Assets\Tiendas\gmg2.png" />
     <Content Include="Assets\Tiendas\humble2.png" />
     <Content Include="Assets\Tiendas\indiegala2.png" />
@@ -385,7 +386,6 @@
     <Content Include="Assets\Analisis\positive.png" />
     <Content Include="Assets\Tiendas\amazon.png" />
     <Content Include="Assets\Tiendas\gamersgate.ico" />
-    <Content Include="Assets\Tiendas\gamesplanet.png" />
     <Content Include="Assets\Tiendas\steam3.png" />
     <Content Include="Assets\Tiendas\twitch.png" />
     <Content Include="Assets\Tiendas\gmg.ico" />
