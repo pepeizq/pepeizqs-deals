@@ -388,10 +388,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim categoria As Integer = 3
 
-            If cosas.ListaJuegos.Count > 1 Then
-                categoria = 1218
-            End If
-
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
 
