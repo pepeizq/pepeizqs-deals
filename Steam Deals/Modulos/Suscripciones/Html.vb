@@ -4,7 +4,7 @@ Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Namespace pepeizq.Suscripciones
     Module Html
 
-        Public Sub Generar(enlaceSuscripcion As String, listaJuegos As List(Of JuegoSuscripcion))
+        Public Sub Generar(enlaceSuscripcion As String, listaJuegos As List(Of JuegoSuscripcion), titulo As Boolean)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -27,15 +27,24 @@ Namespace pepeizq.Suscripciones
                         juego.Titulo = juego.Titulo.Trim
 
                         If i = 0 Then
-                            tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
+                            If titulo = True Then
+                                tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
+                            End If
+
                             tbJuegos.Text = juego.Titulo.Trim
                             tbIDs.Text = juego.Imagen
                         ElseIf i = (listaJuegos.Count - 1) Then
-                            tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
+                            If titulo = True Then
+                                tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
+                            End If
+
                             tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
                             tbIDs.Text = tbIDs.Text + " and " + juego.Imagen
                         Else
-                            tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
+                            If titulo = True Then
+                                tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
+                            End If
+
                             tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
                             tbIDs.Text = tbIDs.Text + "," + juego.Imagen
                         End If

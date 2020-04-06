@@ -73,7 +73,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaOriginPremierSuscripcion", listaIDs)
 
-            Html.Generar("https://www.origin.com/store/origin-access", listaJuegos)
+            Html.Generar("https://www.origin.com/store/origin-access", listaJuegos, True)
 
             BloquearControles(True)
 

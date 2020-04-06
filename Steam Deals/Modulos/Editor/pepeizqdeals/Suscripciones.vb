@@ -244,12 +244,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = "Geforce"
 
-                If cosas.Juegos.Count < 5 Then
-                    cosas.Titulo = "Geforce NOW • New Games Supported • " + cosas.Juegos
-                Else
-                    cosas.Titulo = "Geforce NOW • " + cosas.Juegos.Count.ToString + " New Games Supported"
-                End If
-
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
                 cosas.Enlace = "https://www.nvidia.com/en-us/geforce-now/"
 

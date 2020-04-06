@@ -122,7 +122,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
 
-            Html.Generar(Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), listaJuegos)
+            Html.Generar(Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), listaJuegos, True)
 
             BloquearControles(True)
 

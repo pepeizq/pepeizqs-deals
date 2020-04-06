@@ -29,12 +29,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
             AddHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
 
-            Dim tbImagenTiendaAncho As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFreeAncho")
-            tbImagenTiendaAncho.Text = 150
-
-            RemoveHandler tbImagenTiendaAncho.TextChanged, AddressOf ModificarImagenTiendaAncho
-            AddHandler tbImagenTiendaAncho.TextChanged, AddressOf ModificarImagenTiendaAncho
-
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             tbImagenTienda.Text = String.Empty
 
@@ -83,7 +77,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
-            Dim tbImagenTiendaAncho As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFreeAncho")
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
 
             If tbEnlace.Text.Trim.Length > 0 Then
@@ -92,7 +85,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If enlace.Contains("https://store.steampowered.com/") Then
                     cosas = Await Steam(enlace)
-                    tbImagenTiendaAncho.Text = 170
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -102,7 +94,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://www.humblebundle.com/store") Then
                     cosas = Await Humble(enlace)
-                    tbImagenTiendaAncho.Text = 140
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -112,7 +103,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://www.gog.com/game/") Then
                     cosas = Await GOG(enlace)
-                    tbImagenTiendaAncho.Text = 180
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -122,7 +112,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://www.epicgames.com/store/") Then
                     cosas = Await EpicGames(enlace)
-                    tbImagenTiendaAncho.Text = 140
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -132,7 +121,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 ElseIf enlace.Contains("https://register.ubisoft.com/") Then
                     cosas = Await Uplay()
-                    tbImagenTiendaAncho.Text = 180
 
                     tbImagenTienda.Text = "Assets/Tiendas/uplay.png"
 
@@ -256,14 +244,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not datos Is Nothing Then
                     cosas.Titulo = datos.Datos.Titulo
                     cosas.Imagen = datos.Datos.Imagen
-
-                    If Not datos.Datos.Fondo Is Nothing Then
-                        Dim frame As Frame = Window.Current.Content
-                        Dim pagina As Page = frame.Content
-
-                        Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaFree")
-                        fondo.ImageSource = New BitmapImage(New Uri(datos.Datos.Fondo))
-                    End If
                 End If
             End If
 
@@ -442,9 +422,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
             Dim textoID As String = tbID.Text.Trim
 
-            Dim fondo As ImageBrush = pagina.FindName("fondopepeizqdealsImagenEntradaFree")
-            Dim fondoUrl As String = "ms-appx:///Assets/pepeizq/fondo_hexagono2.png"
-
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
             Dim tbImagenJuegoUrl As String = String.Empty
 
@@ -462,16 +439,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
 
                     If Not datos Is Nothing Then
-                        If Not datos.Datos.Fondo Is Nothing Then
-                            fondoUrl = datos.Datos.Fondo
-                        End If
-
                         tbImagenJuegoUrl = datos.Datos.Imagen
                     End If
                 End If
             End If
 
-            fondo.ImageSource = New BitmapImage(New Uri(fondoUrl))
             tbImagenJuego.Text = tbImagenJuegoUrl
 
             BloquearControles(True)
@@ -491,9 +463,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
             tbImagenJuego.IsEnabled = estado
-
-            Dim tbImagenTiendaAncho As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFreeAncho")
-            tbImagenTiendaAncho.IsEnabled = estado
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             tbImagenTienda.IsEnabled = estado

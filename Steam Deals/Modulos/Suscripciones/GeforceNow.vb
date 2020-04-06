@@ -91,7 +91,35 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaGeforceNowSuscripcion", listaIDs)
 
-            Html.Generar("https://www.nvidia.com/en-us/geforce-now/", listaJuegos)
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim titulo As String = String.Empty
+
+            If listaJuegos.Count = 1 Then
+                titulo = "Geforce NOW • New Game Supported • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
+            ElseIf listaJuegos.Count < 5 Then
+                titulo = "Geforce NOW • New Games Supported • "
+
+                Dim i As Integer = 0
+                While i < listaJuegos.Count
+                    If i + 1 = listaJuegos.Count Then
+                        titulo = titulo + " and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                    ElseIf i = 0 Then
+                        titulo = titulo + " " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                    Else
+                        titulo = titulo + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                    End If
+                    i += 1
+                End While
+            Else
+                titulo = "Geforce NOW • " + listaJuegos.Count.ToString + " New Games Supported"
+            End If
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            tbTitulo.Text = titulo
+
+            Html.Generar("https://www.nvidia.com/en-us/geforce-now/", listaJuegos, False)
 
             BloquearControles(True)
 

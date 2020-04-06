@@ -759,17 +759,8 @@
                                     <TextBlock x:Uid="Url"/>
                                     <TextBox x:Name="tbEditorEnlacepepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                     <TextBlock x:Uid="Image"/>
-                                    <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,0" TextWrapping="Wrap"/>
-
-                                    <Grid Margin="0,10,0,15">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFreeAncho" Grid.Column="0" TextWrapping="Wrap" Margin="0,0,10,0"/>
-                                        <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Grid.Column="1" TextWrapping="Wrap"/>
-                                    </Grid>
+                                    <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
 
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                         <DatePicker x:Name="fechaEditorpepeizqdealsFree" Margin="0,0,20,0"/>
@@ -808,40 +799,42 @@
 
                                             <Button.Content>
                                                 <StackPanel>
-                                                    <Grid Width="1000" Height="400">
+                                                    <Grid Width="500">
                                                         <Grid.Background>
                                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                                <GradientStop Color="#2e4460" Offset="0.5" />
-                                                                <GradientStop Color="#1b2838" Offset="1.0" />
+                                                                <GradientStop Color="#004e7a" Offset="0.5" />
+                                                                <GradientStop Color="#003553" Offset="1.0" />
                                                             </LinearGradientBrush>
                                                         </Grid.Background>
 
-                                                        <Grid Padding="40">
-                                                            <Grid.Background>
-                                                                <ImageBrush x:Name="fondopepeizqdealsImagenEntradaFree" Stretch="UniformToFill"/>
-                                                            </Grid.Background>
+                                                        <controls:DropShadowPanel Color="Black" Margin="30" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <Grid>
+                                                                <Grid.Background>
+                                                                    <SolidColorBrush Color="#004e7a" Opacity="0.8"/>
+                                                                </Grid.Background>
 
-                                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                <Grid Margin="0,0,40,0" VerticalAlignment="Center" Padding="0,20,20,20">
-                                                                    <Grid.RowDefinitions>
-                                                                        <RowDefinition Height="*"/>
-                                                                        <RowDefinition Height="*"/>
-                                                                    </Grid.RowDefinitions>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                </Grid.RowDefinitions>
 
-                                                                    <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
-                                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="150" MaxHeight="120"/>
-                                                                    </controls:DropShadowPanel>
+                                                                <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFree" Grid.Row="0" Stretch="Uniform" MaxWidth="450" MaxHeight="250" IsCacheEnabled="True"/>
 
-                                                                    <StackPanel Grid.Row="1" Background="Black" Padding="25,15" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                                                        <TextBlock Text="Free" FontSize="40" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                <Grid Grid.Row="1">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+
+                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFree" Grid.Column="0" IsCacheEnabled="True" MaxHeight="23" MaxWidth="180" VerticalAlignment="Center" Margin="15" Stretch="Uniform"/>
+
+                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
+                                                                        <TextBox Text="Free" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="18,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                     </StackPanel>
                                                                 </Grid>
-
-                                                                <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="20" MaxWidth="650">
-                                                                    <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFree" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                                </controls:DropShadowPanel>
-                                                            </StackPanel>
-                                                        </Grid>
+                                                            </Grid>
+                                                        </controls:DropShadowPanel>
                                                     </Grid>
                                                 </StackPanel>
                                             </Button.Content>
