@@ -49,8 +49,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonID As Button = pagina.FindName("botonEditorSubirpepeizqdealsFreeID")
 
-            RemoveHandler botonID.Click, AddressOf GenerarImagenes
-            AddHandler botonID.Click, AddressOf GenerarImagenes
+            RemoveHandler botonID.Click, AddressOf GenerarImagenID
+            AddHandler botonID.Click, AddressOf GenerarImagenID
 
             Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
             tbID.Text = String.Empty
@@ -183,26 +183,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFree")
             imagen.Source = tbImagen.Text
-
-        End Sub
-
-        Private Sub ModificarImagenTiendaAncho(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbAncho As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFree")
-
-            If tbAncho.Text.Trim.Length > 0 Then
-                Dim resultado As Double = 0
-                Dim esNumero As Boolean = Double.TryParse(tbAncho.Text.Trim, resultado)
-
-                If esNumero = True Then
-                    imagen.MaxWidth = tbAncho.Text
-                End If
-            End If
 
         End Sub
 
@@ -412,7 +392,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Sub GenerarImagenes(sender As Object, e As RoutedEventArgs)
+        Private Async Sub GenerarImagenID(sender As Object, e As RoutedEventArgs)
 
             BloquearControles(False)
 
