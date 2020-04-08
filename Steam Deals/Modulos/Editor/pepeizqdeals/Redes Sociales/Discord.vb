@@ -9,7 +9,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim hook As String = String.Empty
 
-            If categoria = 3 Or categoria = 1218 Then
+            If categoria = 3 Then
                 hook = ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord")
             ElseIf categoria = 4 Then
                 hook = ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord")

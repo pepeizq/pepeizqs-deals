@@ -168,7 +168,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl1.Trim, enlaceFinal, resultado.Redireccion)
+                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl1.Trim, enlaceFinal, resultado.Redireccion, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try
@@ -191,15 +191,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                         End Try
 
-                        Try
-                            Await pepeizqdeals.RedesSociales.Push.Enviar(titulo, enlaceFinal, imagenUrl1.Trim)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Push Error Post", Nothing)
-                        End Try
+                        'Try
+                        '    Await pepeizqdeals.RedesSociales.Push.Enviar(titulo, enlaceFinal, imagenUrl1.Trim)
+                        'Catch ex As Exception
+                        '    Notificaciones.Toast("Push Error Post", Nothing)
+                        'End Try
 
                         '----------------------------------------------------------------
 
-                        If categoria = 3 Or categoria = 1218 Then
+                        If categoria = 3 Then
                             Dim caracteres As String = Reddit.GenerarTexto(lista)
 
                             If Not comentario = Nothing Then

@@ -99,10 +99,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim titulo As String = post.Titulo.Rendered
             titulo = WebUtility.HtmlDecode(titulo)
 
+            Dim categoria As Integer = post.Categorias(0)
+
             Dim enlaceFinal As String = post.Enlace
 
             Try
-                Await RedesSociales.Steam.Enviar(titulo, post.ImagenWeb1, enlaceFinal, post.Redireccion)
+                Await RedesSociales.Steam.Enviar(titulo, post.ImagenWeb1, enlaceFinal, post.Redireccion, categoria)
             Catch ex As Exception
                 Notificaciones.Toast("Steam Error Post", Nothing)
             End Try
