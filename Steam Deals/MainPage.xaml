@@ -719,12 +719,12 @@
                                                             <RowDefinition Height="Auto"/>
                                                         </Grid.RowDefinitions>
 
-                                                        <controls:DropShadowPanel x:Name="panelTiendaEditorpepeizqdealsGenerarImagenBundles" Grid.Row="0" Margin="10" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <controls:DropShadowPanel x:Name="panelTiendaEditorpepeizqdealsGenerarImagenBundles" Grid.Row="0" Margin="20" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                             <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundles" Stretch="Uniform" IsCacheEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <StackPanel Grid.Row="1" Padding="20,15,20,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="80" Margin="0,20,50,20" VerticalAlignment="Center"/>
+                                                        <StackPanel Grid.Row="1" Padding="20,5,20,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="260" MaxHeight="70" Margin="0,20,50,20" VerticalAlignment="Center"/>
 
                                                             <StackPanel Background="Black" VerticalAlignment="Center">
                                                                 <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundles" Foreground="White" FontSize="50" VerticalAlignment="Center" Margin="14,10,14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
