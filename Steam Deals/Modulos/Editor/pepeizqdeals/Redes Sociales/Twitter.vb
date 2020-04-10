@@ -116,8 +116,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• GameBillet", "• @Gamebillet")
             ElseIf titulo.Contains("• GamersGate") Then
                 titulo = titulo.Replace("• GamersGate", "• @GamersGate")
-            ElseIf titulo.Contains("• GamesPlanet") Then
-                titulo = titulo.Replace("• GamesPlanet", "• @GamesPlanetUK")
+            ElseIf titulo.Contains("• Gamesplanet") Then
+                titulo = titulo.Replace("• Gamesplanet", "• @GamesplanetUK")
             ElseIf titulo.Contains("• GOG") Then
                 titulo = titulo.Replace("• GOG", "• @GOGcom")
             ElseIf titulo.Contains("• Green Man Gaming") Then

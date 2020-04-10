@@ -1,10 +1,20 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
 Namespace pepeizq.Suscripciones
     Module Html
 
-        Public Sub Generar(enlaceSuscripcion As String, listaJuegos As List(Of JuegoSuscripcion), titulo As Boolean)
+        Public Async Sub Generar(tiendaSuscripcion As String, enlaceSuscripcion As String, mensaje As String, listaJuegos As List(Of JuegoSuscripcion), titulo As Boolean)
+
+            Dim listaAnalisis As New List(Of JuegoAnalisis)
+
+            Dim helper As New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaAnalisis") Then
+                listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -64,30 +74,117 @@ Namespace pepeizq.Suscripciones
 
                     Dim html As String = String.Empty
 
-                    html = "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + " bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:" + enlaceSuscripcion + "||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "][/vc_column][/vc_row]"
+                    html = "[vc_row bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][vc_row_inner][vc_column_inner][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:" + enlaceSuscripcion + "||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + " css=" + ChrW(34) + "%7B%22default%22%3A%7B%22margin-bottom%22%3A%2220px%22%7D%7D" + ChrW(34) + "]"
 
-                    Dim j As Integer = 0
-                    While j < listaJuegos.Count
-                        If j = 0 Or j = 4 Or j = 8 Then
-                            html = html + "[vc_row el_class=" + ChrW(34) + "tope" + ChrW(34) + "]"
+                    If Not mensaje = Nothing Then
+                        html = html + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " css=" + ChrW(34) + "%7B%22default%22%3A%7B%22margin-left%22%3A%2220px%22%2C%22margin-bottom%22%3A%2230px%22%2C%22margin-right%22%3A%2220px%22%7D%7D" + ChrW(34) + "]" + mensaje + "[/us_message]"
+                    End If
+
+                    html = html + "[/vc_column_inner][/vc_row_inner]"
+
+                    For Each juego In listaJuegos
+                        html = html + "[vc_row_inner content_placement=" + ChrW(34) + "middle" + ChrW(34) + " css=" + ChrW(34) + "%7B%22default%22%3A%7B%22background-color%22%3A%22linear-gradient%28180deg%2C%23004e7a%2C%23002640%29%22%2C%22background-repeat%22%3A%22repeat-x%22%2C%22margin-bottom%22%3A%2240px%22%2C%22padding-top%22%3A%2240px%22%2C%22padding-bottom%22%3A%2240px%22%2C%22border-style%22%3A%22solid%22%2C%22border-left-width%22%3A%221px%22%2C%22border-top-width%22%3A%221px%22%2C%22border-bottom-width%22%3A%221px%22%2C%22border-right-width%22%3A%221px%22%2C%22border-color%22%3A%22%231b98e0%22%7D%7D" + ChrW(34) + "]"
+                        html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text]"
+                        html = html + "<a href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) + " src=" + ChrW(34) + juego.Imagen + ChrW(34) + "></a><div style=" + ChrW(34) + "text-align: center; margin-top: 5px; font-size: 17px;" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + juego.Titulo + "</a></div>"
+
+                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(juego.Titulo, listaAnalisis, juego.ID)
+
+                        If Not ana Is Nothing Then
+                            If ana.Porcentaje > 74 Then
+                                html = html + "<div style=" + ChrW(34) + "margin-top: 20px; margin-bottom: 15px; text-align: center; line-height: 16px;" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews in Steam</div>"
+                            ElseIf ana.Porcentaje > 49 And ana.Porcentaje < 75 Then
+                                html = html + "<div style=" + ChrW(34) + "margin-top: 20px; margin-bottom: 15px; text-align: center; line-height: 16px;" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews in Steam</div>"
+                            ElseIf ana.Porcentaje < 50 Then
+                                html = html + "<div style=" + ChrW(34) + "margin-top: 20px; margin-bottom: 15px; text-align: center; line-height: 16px;" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews in Steam</div>"
+                            End If
                         End If
 
-                        html = html + "[vc_column width=" + ChrW(34) + "1/4" + ChrW(34) + "][vc_column_text]"
-                        html = html + "<a href=" + ChrW(34) + listaJuegos(j).Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto;" + ChrW(34) + " src=" + ChrW(34) + listaJuegos(j).Imagen + ChrW(34) + "></a><div style=" + ChrW(34) + "text-align: center; margin-top: 5px; font-size: 17px;" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + listaJuegos(j).Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + listaJuegos(j).Titulo + "</a></div>"
-                        html = html + "[/vc_column_text][/vc_column]"
+                        html = html + "[/vc_column_text][us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "25px" + ChrW(34) + "]"
 
-                        If j = listaJuegos.Count - 1 Or j = 3 Or j = 7 Then
-                            html = html + "[/vc_row]"
+                        If tiendaSuscripcion = "Microsoft Store" Then
+                            If Not ana Is Nothing Then
+                                html = html + BotonHtml(tiendaSuscripcion, juego.Enlace) + BotonHtml("Steam", Referidos.Generar(ana.Enlace.Replace("#app_reviews_hash", Nothing)))
+                            Else
+                                html = html + BotonHtml(tiendaSuscripcion, juego.Enlace)
+                            End If
+                        Else
+                            html = html + BotonHtml(tiendaSuscripcion, enlaceSuscripcion) + BotonHtml("Steam", juego.Enlace)
                         End If
 
-                        j += 1
-                    End While
+                        html = html + "[/us_hwrapper][/vc_column_inner]"
+
+                        If Not juego.Video = Nothing Then
+                            html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + juego.Video + ChrW(34) + "][/vc_column_text][/vc_column_inner]"
+                        Else
+                            If Not ana Is Nothing Then
+                                Dim id As String = ana.Enlace
+                                id = id.Replace("https://store.steampowered.com/app/", Nothing)
+
+                                If id.Contains("/") Then
+                                    Dim int As Integer = id.IndexOf("/")
+                                    id = id.Remove(int, id.Length - int)
+                                End If
+
+                                Dim video As String = String.Empty
+
+                                Dim htmlBuscar As String = await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
+
+                                If Not htmlBuscar = Nothing Then
+                                    Dim temp3 As String
+                                    Dim int3 As Integer
+
+                                    int3 = htmlBuscar.IndexOf(":")
+                                    temp3 = htmlBuscar.Remove(0, int3 + 1)
+                                    temp3 = temp3.Remove(temp3.Length - 1, 1)
+
+                                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp3)
+
+                                    If Not datos.Datos.Videos Is Nothing Then
+                                        video = datos.Datos.Videos(0).Calidad.Max
+
+                                        If video.Contains("?") Then
+                                            Dim int4 As Integer = video.IndexOf("?")
+                                            video = video.Remove(int4, video.Length - int4)
+                                        End If
+                                    End If
+                                End If
+
+                                If Not video = String.Empty Then
+                                    Notificaciones.Toast(video, Nothing)
+                                    html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + video + ChrW(34) + "][/vc_column_text][/vc_column_inner]"
+                                End If
+                            End If
+                        End If
+
+                        html = html + "[/vc_row_inner]"
+                    Next
+
+                    html = html + "[/vc_column][/vc_row]"
 
                     cosas.Html = html
+
+                    Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdealsSubscriptions")
+                    botonCopiarHtml.Tag = cosas.Html
+
                 End If
             End If
 
         End Sub
+
+        Private Function BotonHtml(tienda As String, enlace As String)
+
+            Dim html As String = String.Empty
+
+            html = html + "[us_btn label=" + ChrW(34) + "Go to " + tienda + ChrW(34) + " link=" + ChrW(34) + "url:" + enlace + "||target:%20_blank|" + ChrW(34) + " style=" + ChrW(34) + "5" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + " css=" + ChrW(34) + "%7B%22default%22%3A%7B%22margin-top%22%3A%2220px%22%7D%7D" + ChrW(34)
+
+            If tienda = "Steam" Then
+                html = html + " icon=" + ChrW(34) + "fab|steam" + ChrW(34)
+            End If
+
+            html = html + "]"
+
+            Return html
+        End Function
 
         Public Class JuegoSuscripcion
 
@@ -95,12 +192,14 @@ Namespace pepeizq.Suscripciones
             Public Property Imagen As String
             Public Property ID As String
             Public Property Enlace As String
+            Public Property Video As String
 
-            Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal id As String, ByVal enlace As String)
+            Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal id As String, ByVal enlace As String, ByVal video As String)
                 Me.Titulo = titulo
                 Me.Imagen = imagen
                 Me.ID = id
                 Me.Enlace = enlace
+                Me.Video = video
             End Sub
 
         End Class

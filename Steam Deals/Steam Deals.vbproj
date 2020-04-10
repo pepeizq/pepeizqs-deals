@@ -152,6 +152,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Twitter.vb" />
     <Compile Include="Modulos\Editor\Reddit.vb" />
     <Compile Include="Modulos\Editor\VayaAnsias.vb" />
+    <Compile Include="Modulos\Gratis\EpicGames.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Interfaz\Editor.vb" />
@@ -162,9 +163,11 @@
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
+    <Compile Include="Modulos\Suscripciones\HumbleChoice.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleTrove.vb" />
     <Compile Include="Modulos\Suscripciones\OriginBasic.vb" />
     <Compile Include="Modulos\Suscripciones\OriginPremier.vb" />
+    <Compile Include="Modulos\Suscripciones\TwitchPrime.vb" />
     <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Tiendas\2Game.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />

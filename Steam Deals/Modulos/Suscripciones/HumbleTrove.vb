@@ -56,7 +56,7 @@ Namespace pepeizq.Suscripciones
                                 If añadir = True Then
                                     listaIDs.Add(juego.ID)
 
-                                    listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, juego.Imagen, juego.ID, Referidos.Generar("https://www.humblebundle.com/subscription/trove#trove-main")))
+                                    listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, juego.Imagen, juego.ID, Referidos.Generar("https://www.humblebundle.com/subscription/trove#trove-main"), Nothing))
                                 End If
                             Next
                         End If
@@ -72,7 +72,9 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaHumbleTroveSuscripcion", listaIDs)
 
-            Html.Generar(Referidos.Generar("https://www.humblebundle.com/subscription/trove"), listaJuegos, True)
+            Dim mensaje As String = "To access these games, just pay for the Humble Choice Lite plan."
+
+            Html.Generar("Humble Trove", Referidos.Generar("https://www.humblebundle.com/subscription/trove"), mensaje, listaJuegos, True)
 
             BloquearControles(True)
 

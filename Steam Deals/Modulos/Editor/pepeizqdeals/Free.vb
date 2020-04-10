@@ -2,6 +2,7 @@
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Gratis
 Imports Steam_Deals.pepeizq.Tiendas
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -111,7 +112,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Next
 
                 ElseIf enlace.Contains("https://www.epicgames.com/store/") Then
-                    cosas = Await EpicGames(enlace)
+                    cosas = Await EpicGames.Generar(enlace)
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
@@ -320,60 +321,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Return cosas
         End Function
-
-        Private Async Function EpicGames(enlace As String) As Task(Of Clases.Free)
-
-            Dim cosas As New Clases.Free(Nothing, Nothing, "Epic Games Store")
-
-            Dim clave As String = enlace.Trim
-            clave = clave.Replace("https://www.epicgames.com/store/es-ES/product/", Nothing)
-            clave = clave.Replace("https://www.epicgames.com/store/en-US/product/", Nothing)
-            clave = clave.Replace("https://www.epicgames.com/store/es-ES/bundles/", Nothing)
-            clave = clave.Replace("https://www.epicgames.com/store/en-US/bundles/", Nothing)
-            clave = clave.Replace("/home", Nothing)
-
-            Dim html As String = String.Empty
-
-            If enlace.Contains("/product/") Then
-                html = Await Decompiladores.HttpClient(New Uri("https://store-content.ak.epicgames.com/api/en-US/content/products/" + clave))
-            ElseIf enlace.Contains("/bundles/") Then
-                html = Await Decompiladores.HttpClient(New Uri("https://store-content.ak.epicgames.com/api/en-US/content/bundles/" + clave))
-            End If
-
-            If Not html = Nothing Then
-                If enlace.Contains("/product/") Then
-                    Dim juegoEpic As EpicGamesJuego = JsonConvert.DeserializeObject(Of EpicGamesJuego)(html)
-
-                    Dim titulo As String = juegoEpic.Titulo
-                    cosas.Titulo = titulo.Trim
-                ElseIf enlace.Contains("/bundles/") Then
-                    Dim juegoEpic As EpicGamesBundle = JsonConvert.DeserializeObject(Of EpicGamesBundle)(html)
-
-                    Dim titulo As String = juegoEpic.Titulo
-                    cosas.Titulo = titulo.Trim
-                Else
-                    cosas.Titulo = "---"
-                End If
-            Else
-                cosas.Titulo = "---"
-            End If
-
-            Return cosas
-        End Function
-
-        Public Class EpicGamesJuego
-
-            <JsonProperty("productName")>
-            Public Titulo As String
-
-        End Class
-
-        Public Class EpicGamesBundle
-
-            <JsonProperty("_title")>
-            Public Titulo As String
-
-        End Class
 
         Private Async Function Uplay() As Task(Of Clases.Free)
 

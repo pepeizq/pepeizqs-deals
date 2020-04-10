@@ -229,6 +229,7 @@ Module Analisis
                         If Not juego.Enlace Is Nothing Then
                             If juego.Enlace.Contains("/app/" + idSteam + "/") Then
                                 analisis = juego
+                                Exit For
                             End If
                         End If
                     End If
@@ -247,6 +248,7 @@ Module Analisis
 
                             If añadir = True Then
                                 analisis = juego
+                                Exit For
                             End If
                         End If
                     End If

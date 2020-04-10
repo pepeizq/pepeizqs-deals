@@ -54,7 +54,7 @@ Namespace pepeizq.Suscripciones
                                 If añadir = True Then
                                     listaIDs.Add(juego.ID)
 
-                                    listaJuegos.Add(New JuegoSuscripcion(juego.i18n.Titulo.Trim, juego.ImagenRaiz + juego.i18n.ImagenGrande, juego.ID, "https://www.origin.com/store" + juego.Enlace))
+                                    listaJuegos.Add(New JuegoSuscripcion(juego.i18n.Titulo.Trim, juego.ImagenRaiz + juego.i18n.ImagenGrande, juego.ID, "https://www.origin.com/store" + juego.Enlace, Nothing))
                                 End If
                             End If
                         End If
@@ -69,7 +69,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaOriginBasicSuscripcion", listaIDs)
 
-            Html.Generar("https://www.origin.com/store/origin-access", listaJuegos, True)
+            Html.Generar("Origin Access Basic", "https://www.origin.com/store/origin-access", Nothing, listaJuegos, True)
 
             BloquearControles(True)
 

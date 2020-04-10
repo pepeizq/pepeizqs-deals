@@ -102,7 +102,7 @@ Namespace pepeizq.Suscripciones
                                                     Next
 
                                                     If añadir = True Then
-                                                        listaJuegos.Add(New JuegoSuscripcion(juego.Detalles(0).Titulo.Trim, imagenLista, juego.ID, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID)))
+                                                        listaJuegos.Add(New JuegoSuscripcion(juego.Detalles(0).Titulo.Trim, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
                                                     End If
                                                 End If
                                             Next
@@ -122,7 +122,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
 
-            Html.Generar(Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), listaJuegos, True)
+            Html.Generar("Microsoft Store", Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), Nothing, listaJuegos, True)
 
             BloquearControles(True)
 

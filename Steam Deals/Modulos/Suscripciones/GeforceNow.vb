@@ -75,7 +75,18 @@ Namespace pepeizq.Suscripciones
 
                                         Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
 
-                                        listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace)))
+                                        Dim video As String = Nothing
+
+                                        If Not datos.Datos.Videos Is Nothing Then
+                                            video = datos.Datos.Videos(0).Calidad.Max
+
+                                            If video.Contains("?") Then
+                                                Dim int2 As Integer = video.IndexOf("?")
+                                                video = video.Remove(int2, video.Length - int2)
+                                            End If
+                                        End If
+
+                                        listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
                                     End If
                                 End If
                             End If
@@ -119,7 +130,9 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("https://www.nvidia.com/en-us/geforce-now/", listaJuegos, False)
+            Dim mensaje As String = "You can play your Steam games for free with Geforce NOW, but if you become Founders you will have priority access and you can play without limitations."
+
+            Html.Generar("Geforce NOW", "https://www.nvidia.com/en-us/geforce-now/", mensaje, listaJuegos, False)
 
             BloquearControles(True)
 

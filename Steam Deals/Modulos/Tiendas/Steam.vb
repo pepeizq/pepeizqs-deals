@@ -436,7 +436,7 @@ Namespace pepeizq.Tiendas
         <JsonProperty("background")>
         Public Fondo As String
 
-        <JsonProperty("videos")>
+        <JsonProperty("movies")>
         Public Videos As List(Of SteamMasDatosAmpliadoVideo)
 
     End Class
