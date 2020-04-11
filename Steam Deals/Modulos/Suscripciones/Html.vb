@@ -21,7 +21,7 @@ Namespace pepeizq.Suscripciones
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
 
             Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
             gv.Items.Clear()
@@ -42,21 +42,21 @@ Namespace pepeizq.Suscripciones
                             End If
 
                             tbJuegos.Text = juego.Titulo.Trim
-                            tbIDs.Text = juego.Imagen
+                            tbImagenesGrid.Text = juego.Imagen
                         ElseIf i = (listaJuegos.Count - 1) Then
                             If titulo = True Then
                                 tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
                             End If
 
                             tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
-                            tbIDs.Text = tbIDs.Text + " and " + juego.Imagen
+                            tbImagenesGrid.Text = tbImagenesGrid.Text + " and " + juego.Imagen
                         Else
                             If titulo = True Then
                                 tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
                             End If
 
                             tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
-                            tbIDs.Text = tbIDs.Text + "," + juego.Imagen
+                            tbImagenesGrid.Text = tbImagenesGrid.Text + "," + juego.Imagen
                         End If
 
                         Dim imagenJuego As New ImageEx With {

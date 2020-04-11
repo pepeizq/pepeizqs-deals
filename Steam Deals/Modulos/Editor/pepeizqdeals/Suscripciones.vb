@@ -30,17 +30,21 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbTiendas.SelectionChanged, AddressOf GenerarDatos
             AddHandler cbTiendas.SelectionChanged, AddressOf GenerarDatos
 
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            tbIDs.Text = String.Empty
+            tbIDs.Visibility = Visibility.Collapsed
+
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = String.Empty
-
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
-            tbEnlace.Text = String.Empty
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.Text = String.Empty
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
-            tbIDs.Text = String.Empty
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            tbImagenesGrid.Text = String.Empty
+
+            RemoveHandler tbImagenesGrid.TextChanged, AddressOf CambiarImagenesGrid
+            AddHandler tbImagenesGrid.TextChanged, AddressOf CambiarImagenesGrid
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddMonths(1)
@@ -82,21 +86,23 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
-            Dim spBuscar As StackPanel = pagina.FindName("spEditorpepeizqdealsSubscriptionsBuscar")
+            Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripciones")
             Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
             Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, tbJuegos.Text, Nothing, Nothing, Nothing, Nothing)
+            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 0 Then
-                spBuscar.Visibility = Visibility.Collapsed
+                botonBuscar.Visibility = Visibility.Collapsed
+                tbIDs.Visibility = Visibility.Collapsed
             ElseIf cbTiendas.SelectedIndex = 1 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Visible
+                tbIDs.Text = String.Empty
 
                 imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
                 imagenTienda.MaxHeight = 110
@@ -107,15 +113,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.Mensaje = "13,99 € • This price corresponds to the Basic mode"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleChoice.GenerarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleChoice.GenerarJuegos
 
                 fechaDefecto = fechaDefecto.AddMonths(1)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
             ElseIf cbTiendas.SelectedIndex = 2 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Visible
+                tbIDs.Text = String.Empty
 
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
                 imagenTienda.MaxHeight = 110
@@ -126,15 +132,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
                 cosas.Mensaje = "4,00 € • This price is different depending on your country"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.TwitchPrime.GenerarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.TwitchPrime.GenerarJuegos
 
                 fechaDefecto = fechaDefecto.AddMonths(1)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
             ElseIf cbTiendas.SelectedIndex = 3 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
                 imagenTienda.MaxHeight = 140
@@ -146,15 +151,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/02/tienda_xboxgamepass.jpg"
                 cosas.Mensaje = "1,00 € every month"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 4 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\originaccessbasic.png"
                 imagenTienda.MaxHeight = 110
@@ -166,15 +170,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
                 cosas.Mensaje = "3,99 € every month"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 5 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\originaccesspremier.png"
                 imagenTienda.MaxHeight = 110
@@ -186,15 +189,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
                 cosas.Mensaje = "14,99 € every month"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 6 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\humbletrove.png"
                 imagenTienda.MaxHeight = 110
@@ -206,15 +208,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.Mensaje = "13,99 € • You need the Basic mode of Humble Choice"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 7 Then
-                spBuscar.Visibility = Visibility.Visible
+                botonBuscar.Visibility = Visibility.Visible
+                tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\geforcenow.png"
                 imagenTienda.MaxHeight = 110
@@ -229,8 +230,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
                 cosas.Mensaje = "5,49 € every month"
 
-                Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
 
@@ -240,10 +239,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not cosas.Titulo = Nothing Then
                 tbTitulo.Text = Deals.LimpiarTitulo(cosas.Titulo)
-            End If
-
-            If Not cosas.Enlace = Nothing Then
-                tbEnlace.Text = cosas.Enlace
             End If
 
             If Not cosas.Mensaje = Nothing Then
@@ -289,6 +284,46 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub CambiarImagenesGrid(sender As Object, e As TextChangedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
+            gv.Items.Clear()
+
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim enlaces As String = tbImagenesGrid.Text.Trim
+
+            Dim i As Integer = 0
+            While i < 100
+                If enlaces.Length > 0 Then
+                    Dim enlace As String = String.Empty
+
+                    If enlaces.Contains(",") Then
+                        Dim int As Integer = enlaces.IndexOf(",")
+                        enlace = enlaces.Remove(int, enlaces.Length - int)
+
+                        enlaces = enlaces.Remove(0, int + 1)
+                    Else
+                        enlace = enlaces
+                    End If
+
+                    enlace = enlace.Trim
+
+                    Dim imagenJuego As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = enlace
+                    }
+
+                    gv.Items.Add(imagenJuego)
+                End If
+                i += 1
+            End While
+
+        End Sub
+
         Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
 
             Dim fechaPicker As DatePicker = sender
@@ -325,11 +360,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.IsEnabled = estado
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
-            tbEnlace.IsEnabled = estado
-
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             tbJuegos.IsEnabled = estado
+
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            tbImagenesGrid.IsEnabled = estado
 
             Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
             botonBuscar.IsEnabled = estado

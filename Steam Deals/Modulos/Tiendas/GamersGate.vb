@@ -83,6 +83,8 @@ Namespace pepeizq.Tiendas
                         titulo = titulo.Replace("(Mac)", Nothing)
                         titulo = titulo.Replace("(Mac & Linux)", Nothing)
                         titulo = titulo.Replace("(Linux)", Nothing)
+                        titulo = titulo.Replace("(Steam)", Nothing)
+                        titulo = titulo.Replace("(Epic)", Nothing)
                         titulo = titulo.Trim
 
                         Dim enlaceTemp As String = juego.Enlace

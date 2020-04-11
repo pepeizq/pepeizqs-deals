@@ -845,27 +845,28 @@
 
                             <ScrollViewer x:Name="svEditorpepeizqdealsSuscripciones" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                        <StackPanel Orientation="Vertical" Margin="0,0,30,0">
-                                            <TextBlock x:Uid="Stores"/>
-                                            <ComboBox x:Name="cbEditorpepeizqdealsSubscriptionsTiendas" Margin="0,10,0,0"/>
-                                        </StackPanel>
+                                    <Grid Margin="0,0,0,15">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <ComboBox x:Name="cbEditorpepeizqdealsSubscriptionsTiendas" Grid.Column="0" Margin="0,0,20,0"/>
 
-                                        <StackPanel x:Name="spEditorpepeizqdealsSubscriptionsBuscar" Orientation="Vertical" Visibility="Collapsed">
-                                            <Button x:Name="botonEditorpepeizqdealsSubscriptionsBuscar" Margin="0,25,0,0" Background="{StaticResource BrushPrimario}" Padding="12,6" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                                <Button.Content>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <fa:FontAwesome Icon="Search" Foreground="White"/>
-                                                    </StackPanel>
-                                                </Button.Content>
-                                            </Button>
-                                        </StackPanel>
-                                    </StackPanel>
+                                        <Button x:Name="botonEditorpepeizqdealsSubscriptionsBuscar" Grid.Column="1" Margin="0,0,20,0" Visibility="Collapsed" Background="{StaticResource BrushPrimario}" Padding="12,6" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:FontAwesome Icon="Search" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsIDs" Grid.Column="2" TextWrapping="Wrap"/>
+                                    </Grid>
 
                                     <TextBlock x:Uid="Title2"/>
                                     <TextBox x:Name="tbEditorTitulopepeizqdealsSubscriptions" Margin="0,10,0,15" TextWrapping="Wrap"/>
-                                    <TextBlock x:Uid="Url"/>
-                                    <TextBox x:Name="tbEditorEnlacepepeizqdealsSubscriptions" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                     <TextBlock x:Uid="Title3"/>
                                     <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsJuegos" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
@@ -875,9 +876,9 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="IDs:" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Imágenes Grid:" Grid.Column="0" VerticalAlignment="Center"/>
 
-                                        <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                        <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                     </Grid>
 
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
