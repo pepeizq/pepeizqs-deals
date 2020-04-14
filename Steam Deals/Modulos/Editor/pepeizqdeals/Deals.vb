@@ -657,16 +657,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    If juego.Tienda.NombreUsar = "Yuplay" Then
-                        textoClipboard = textoClipboard + "[url=" + juego.Enlace + "][img]" + imagen + "[/img][/url]" + Environment.NewLine + Environment.NewLine
-                        textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
-                        textoClipboard = textoClipboard + "Idiomas: " + juego.Tipo + Environment.NewLine
-                        textoClipboard = textoClipboard + juego.Enlace + Environment.NewLine + Environment.NewLine
-                    Else
-                        textoClipboard = textoClipboard + "[img]" + imagen + "[/img]" + Environment.NewLine + Environment.NewLine
-                        textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
-                        textoClipboard = textoClipboard + "[code]" + juego.Enlace + "[/code]" + Environment.NewLine + Environment.NewLine
-                    End If
+                    textoClipboard = textoClipboard + "[img]" + imagen + "[/img]" + Environment.NewLine + Environment.NewLine
+                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
                 Next
             End If
 
