@@ -150,7 +150,6 @@ Namespace pepeizq.Suscripciones
                                 End If
 
                                 If Not video = String.Empty Then
-                                    Notificaciones.Toast(video, Nothing)
                                     html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + video + ChrW(34) + "][/vc_column_text][/vc_column_inner]"
                                 End If
                             End If
