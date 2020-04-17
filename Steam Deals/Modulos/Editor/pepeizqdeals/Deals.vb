@@ -658,7 +658,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     textoClipboard = textoClipboard + "[img]" + imagen + "[/img]" + Environment.NewLine + Environment.NewLine
-                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine
+                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine + Environment.NewLine
                 Next
             End If
 

@@ -49,7 +49,7 @@ Namespace pepeizq.Suscripciones
                             End If
 
                             tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
-                            tbImagenesGrid.Text = tbImagenesGrid.Text + " and " + juego.Imagen
+                            tbImagenesGrid.Text = tbImagenesGrid.Text + "," + juego.Imagen
                         Else
                             If titulo = True Then
                                 tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
