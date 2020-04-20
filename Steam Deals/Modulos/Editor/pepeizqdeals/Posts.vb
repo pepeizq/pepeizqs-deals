@@ -267,7 +267,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                                                                                                                  If fechaTermina < fechaAhora Then
                                                                                                                                      Try
-                                                                                                                                         Await cliente.Posts.Delete(post.Id)
+                                                                                                                                         Dim entrada As Models.Post = Await cliente.Posts.GetByID(post.Id)
+                                                                                                                                         entrada.Categories = New Integer() {1247}
+
+                                                                                                                                         Await cliente.Posts.Update(entrada)
+                                                                                                                                         'Await cliente.Posts.Delete(post.Id)
                                                                                                                                      Catch ex As Exception
 
                                                                                                                                      End Try
