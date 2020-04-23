@@ -102,7 +102,12 @@ Namespace pepeizq.Suscripciones
                                                     Next
 
                                                     If añadir = True Then
-                                                        listaJuegos.Add(New JuegoSuscripcion(juego.Detalles(0).Titulo.Trim, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
+                                                        Dim titulo As String = juego.Detalles(0).Titulo.Trim
+                                                        titulo = titulo.Replace("(PC)", Nothing)
+                                                        titulo = titulo.Replace("for Windows 10", Nothing)
+                                                        titulo = titulo.Trim
+
+                                                        listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
                                                     End If
                                                 End If
                                             Next
