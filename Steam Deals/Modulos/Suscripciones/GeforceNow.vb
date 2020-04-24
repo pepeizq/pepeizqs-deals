@@ -86,7 +86,13 @@ Namespace pepeizq.Suscripciones
                                             End If
                                         End If
 
-                                        listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
+                                        Dim titulo As String = juego.Titulo.Trim
+                                        titulo = titulo.Replace("®", Nothing)
+                                        titulo = titulo.Replace("™", Nothing)
+                                        titulo = titulo.Replace("– Steam", Nothing)
+                                        titulo = titulo.Trim
+
+                                        listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
                                     End If
                                 End If
                             End If
