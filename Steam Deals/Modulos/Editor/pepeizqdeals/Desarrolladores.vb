@@ -115,7 +115,7 @@
                 New Clases.Desarrolladores("Aslan Game Studio", "@AslanGameStudio", Nothing, Nothing),
                 New Clases.Desarrolladores("Asmodee Digital", "@AsmodeeDigital", Nothing, Nothing),
                 New Clases.Desarrolladores("Aspyr", "@AspyrMedia", "Assets\LogosPublishers\aspyr.png", 350),
-                New Clases.Desarrolladores("astragon Entertainment", "@astragon_GmbH", Nothing, Nothing),
+                New Clases.Desarrolladores("astragon Entertainment", "@astragon_games", Nothing, Nothing),
                 New Clases.Desarrolladores("Atari", "@atari", "Assets\LogosPublishers\atari.png", 380),
                 New Clases.Desarrolladores("Atelier 801", "@Atelier801", Nothing, Nothing),
                 New Clases.Desarrolladores("Atomic Fabrik", "@atomicfabrik", Nothing, Nothing),
