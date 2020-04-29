@@ -76,11 +76,11 @@ Namespace pepeizq.Tiendas
 
             Dim numPaginasOrigin As Integer = 0
 
-            numPaginasOrigin = GenerarNumPaginas(New Uri("https://www.amazon.com/s/ref=sr_pg_2?rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cn%3A2445220011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&page=2&bbn=2445220011&ie=UTF8&qid=1542799915"))
+            numPaginasOrigin = GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=2&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
 
             i = 1
             While i < numPaginasOrigin
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s/ref=sr_pg_2?rh=n%3A468642%2Cn%3A%2111846801%2Cn%3A979455011%2Cn%3A2445220011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&page=" + i.ToString + "&bbn=2445220011&ie=UTF8&qid=1542799915"))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
