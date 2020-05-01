@@ -105,6 +105,7 @@ Namespace pepeizq.Suscripciones
                                                         Dim titulo As String = juego.Detalles(0).Titulo.Trim
                                                         titulo = titulo.Replace("(PC)", Nothing)
                                                         titulo = titulo.Replace("for Windows 10", Nothing)
+                                                        titulo = titulo.Replace(" – Windows 10", Nothing)
                                                         titulo = titulo.Trim
 
                                                         listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))

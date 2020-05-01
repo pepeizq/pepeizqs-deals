@@ -99,6 +99,7 @@
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 450),
                 New Clases.LogosJuegos("Metal Gear", "Assets\LogosJuegos\metalgearsolid.png", Nothing),
                 New Clases.LogosJuegos("Overcooked", "Assets\LogosJuegos\overcooked.png", Nothing),
+                New Clases.LogosJuegos("Project CARS", "Assets\LogosJuegos\projectcars.png", 450),
                 New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 550),
                 New Clases.LogosJuegos("Sonic", "Assets\LogosJuegos\sonic.png", 440),
                 New Clases.LogosJuegos("The Sims 4", "Assets\LogosJuegos\thesims4.png", 400),
