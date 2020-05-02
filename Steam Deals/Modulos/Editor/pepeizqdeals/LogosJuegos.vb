@@ -102,6 +102,7 @@
                 New Clases.LogosJuegos("Project CARS", "Assets\LogosJuegos\projectcars.png", 450),
                 New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 550),
                 New Clases.LogosJuegos("Sonic", "Assets\LogosJuegos\sonic.png", 440),
+                New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 420),
                 New Clases.LogosJuegos("The Sims 4", "Assets\LogosJuegos\thesims4.png", 400),
                 New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 480),
                 New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 480),

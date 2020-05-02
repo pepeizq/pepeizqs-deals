@@ -69,10 +69,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public Redireccion2 As String
 
         <JsonProperty("fifu_image_url")>
-        Public ImagenWeb1 As String
+        Public ImagenFeatured As String
 
-        <JsonProperty("imagen_web_2")>
-        Public ImagenWeb2 As String
+        <JsonProperty("imagen_redes_sociales")>
+        Public ImagenRedesSociales As String
 
         <JsonProperty("discount")>
         Public Descuento As String

@@ -56,59 +56,88 @@
             RemoveHandler botonAnuncios.Click, AddressOf MostrarGrid
             AddHandler botonAnuncios.Click, AddressOf MostrarGrid
 
-            Dim bordeCuentas As Grid = pagina.FindName("bordeEditorpepeizqdealsCuentas")
-            bordeCuentas.Visibility = Visibility.Collapsed
+            '-------------------------------------------
+
+            Dim bordeOpciones As Grid = pagina.FindName("bordeEditorpepeizqdealsOpciones")
+            bordeOpciones.Visibility = Visibility.Collapsed
+
             Dim svCuentas As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCuentas")
             svCuentas.Visibility = Visibility.Collapsed
-            Dim botonCuentas As Button = pagina.FindName("botonEditorpepeizqdealsCuentas")
-            botonCuentas.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeCuentas, svCuentas)
+            Dim botonCuentas As MenuFlyoutItem = pagina.FindName("botonEditorpepeizqdealsCuentas")
+            botonCuentas.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svCuentas)
 
-            RemoveHandler botonCuentas.Click, AddressOf MostrarGrid
-            AddHandler botonCuentas.Click, AddressOf MostrarGrid
+            RemoveHandler botonCuentas.Click, AddressOf MostrarGrid2
+            AddHandler botonCuentas.Click, AddressOf MostrarGrid2
 
-            Dim bordeIconos As Grid = pagina.FindName("bordeEditorpepeizqdealsIconos")
-            bordeIconos.Visibility = Visibility.Collapsed
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
-            Dim botonIconos As Button = pagina.FindName("botonEditorpepeizqdealsIconos")
-            botonIconos.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeIconos, svIconos)
+            Dim botonIconos As MenuFlyoutItem = pagina.FindName("botonEditorpepeizqdealsIconos")
+            botonIconos.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svIconos)
 
-            RemoveHandler botonIconos.Click, AddressOf MostrarGrid
-            AddHandler botonIconos.Click, AddressOf MostrarGrid
+            RemoveHandler botonIconos.Click, AddressOf MostrarGrid2
+            AddHandler botonIconos.Click, AddressOf MostrarGrid2
 
-            Dim bordeCupones As Grid = pagina.FindName("bordeEditorpepeizqdealsCupones")
-            bordeCupones.Visibility = Visibility.Collapsed
             Dim svCupones As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
             svCupones.Visibility = Visibility.Collapsed
-            Dim botonCupones As Button = pagina.FindName("botonEditorpepeizqdealsCupones")
-            botonCupones.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeCupones, svCupones)
+            Dim botonCupones As MenuFlyoutItem = pagina.FindName("botonEditorpepeizqdealsCupones")
+            botonCupones.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svCupones)
 
-            RemoveHandler botonCupones.Click, AddressOf MostrarGrid
-            AddHandler botonCupones.Click, AddressOf MostrarGrid
+            RemoveHandler botonCupones.Click, AddressOf MostrarGrid2
+            AddHandler botonCupones.Click, AddressOf MostrarGrid2
 
-            Dim bordeRss As Grid = pagina.FindName("bordeEditorpepeizqdealsRss")
-            bordeRss.Visibility = Visibility.Collapsed
             Dim svRss As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
             svRss.Visibility = Visibility.Collapsed
-            Dim botonRss As Button = pagina.FindName("botonEditorpepeizqdealsRss")
-            botonRss.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeRss, svRss)
+            Dim botonRss As MenuFlyoutItem = pagina.FindName("botonEditorpepeizqdealsRss")
+            botonRss.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svRss)
 
-            RemoveHandler botonRss.Click, AddressOf MostrarGrid
-            AddHandler botonRss.Click, AddressOf MostrarGrid
+            RemoveHandler botonRss.Click, AddressOf MostrarGrid2
+            AddHandler botonRss.Click, AddressOf MostrarGrid2
 
-            Dim bordeSteamDB As Grid = pagina.FindName("bordeEditorpepeizqdealsSteamDB")
-            bordeSteamDB.Visibility = Visibility.Collapsed
             Dim svSteamDB As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamDB")
             svSteamDB.Visibility = Visibility.Collapsed
-            Dim botonSteamDB As Button = pagina.FindName("botonEditorpepeizqdealsSteamDB")
-            botonSteamDB.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeSteamDB, svSteamDB)
+            Dim botonSteamDB As MenuFlyoutItem = pagina.FindName("botonEditorpepeizqdealsSteamDB")
+            botonSteamDB.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svSteamDB)
 
-            RemoveHandler botonSteamDB.Click, AddressOf MostrarGrid
-            AddHandler botonSteamDB.Click, AddressOf MostrarGrid
+            RemoveHandler botonSteamDB.Click, AddressOf MostrarGrid2
+            AddHandler botonSteamDB.Click, AddressOf MostrarGrid2
 
         End Sub
 
         Private Sub MostrarGrid(sender As Object, e As RoutedEventArgs)
+
+            OcultarControles()
+
+            Dim boton As Button = sender
+            Dim pestaña As pepeizq.Editor.pepeizqdeals.Clases.Pestañas = boton.Tag
+
+            If Not pestaña.GridBorde Is Nothing Then
+                Dim borde As Grid = pestaña.GridBorde
+                borde.Visibility = Visibility.Visible
+            End If
+
+            Dim sv As ScrollViewer = pestaña.SVMostrar
+            sv.Visibility = Visibility.Visible
+
+        End Sub
+
+        Private Sub MostrarGrid2(sender As Object, e As RoutedEventArgs)
+
+            OcultarControles()
+
+            Dim boton As MenuFlyoutItem = sender
+            Dim pestaña As pepeizq.Editor.pepeizqdeals.Clases.Pestañas = boton.Tag
+
+            If Not pestaña.GridBorde Is Nothing Then
+                Dim borde As Grid = pestaña.GridBorde
+                borde.Visibility = Visibility.Visible
+            End If
+
+            Dim sv As ScrollViewer = pestaña.SVMostrar
+            sv.Visibility = Visibility.Visible
+
+        End Sub
+
+        Private Sub OcultarControles()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -143,44 +172,20 @@
             Dim svAnuncios As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAnuncios")
             svAnuncios.Visibility = Visibility.Collapsed
 
-            Dim bordeCuentas As Grid = pagina.FindName("bordeEditorpepeizqdealsCuentas")
-            bordeCuentas.Visibility = Visibility.Collapsed
-
             Dim svCuentas As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCuentas")
             svCuentas.Visibility = Visibility.Collapsed
-
-            Dim bordeIconos As Grid = pagina.FindName("bordeEditorpepeizqdealsIconos")
-            bordeIconos.Visibility = Visibility.Collapsed
 
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
 
-            Dim bordeCupones As Grid = pagina.FindName("bordeEditorpepeizqdealsCupones")
-            bordeCupones.Visibility = Visibility.Collapsed
-
             Dim svCupones As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
             svCupones.Visibility = Visibility.Collapsed
-
-            Dim bordeRss As Grid = pagina.FindName("bordeEditorpepeizqdealsRss")
-            bordeRss.Visibility = Visibility.Collapsed
 
             Dim svRss As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
             svRss.Visibility = Visibility.Collapsed
 
-            Dim bordeSteamDB As Grid = pagina.FindName("bordeEditorpepeizqdealsSteamDB")
-            bordeSteamDB.Visibility = Visibility.Collapsed
-
             Dim svSteamDB As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamDB")
             svSteamDB.Visibility = Visibility.Collapsed
-
-            '-------------------------------------------
-
-            Dim boton As Button = sender
-            Dim pestaña As pepeizq.Editor.pepeizqdeals.Clases.Pestañas = boton.Tag
-            Dim borde As Grid = pestaña.GridBorde
-            borde.Visibility = Visibility.Visible
-            Dim sv As ScrollViewer = pestaña.SVMostrar
-            sv.Visibility = Visibility.Visible
 
         End Sub
 

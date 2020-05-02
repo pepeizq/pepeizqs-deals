@@ -94,13 +94,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not imagenUrl1 = Nothing Then
                     If imagenUrl1.Trim.Length > 0 Then
-                        postEditor.ImagenWeb1 = imagenUrl1.Trim
-                    End If
-                End If
+                        postEditor.ImagenFeatured = imagenUrl1.Trim
 
-                If Not imagenUrl2 = Nothing Then
-                    If imagenUrl2.Trim.Length > 0 Then
-                        postEditor.ImagenWeb2 = "<img src=" + ChrW(34) + imagenUrl2.Trim + ChrW(34) + " />"
+                        postEditor.ImagenRedesSociales = "<img src=" + ChrW(34) + imagenUrl1.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                     End If
                 End If
 

@@ -84,7 +84,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim categoria As Integer = post.Categorias(0)
 
             Try
-                Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenWeb1, categoria)
+                Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenFeatured, categoria)
             Catch ex As Exception
                 Notificaciones.Toast("Twitter Error Post", Nothing)
             End Try
@@ -104,7 +104,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim enlaceFinal As String = post.Enlace
 
             Try
-                Await RedesSociales.Steam.Enviar(titulo, post.ImagenWeb1, enlaceFinal, post.Redireccion, categoria)
+                Await RedesSociales.Steam.Enviar(titulo, post.ImagenFeatured, enlaceFinal, post.Redireccion, categoria)
             Catch ex As Exception
                 Notificaciones.Toast("Steam Error Post", Nothing)
             End Try

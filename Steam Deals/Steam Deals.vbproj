@@ -155,6 +155,7 @@
     <Compile Include="Modulos\Gratis\EpicGames.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\IGDB.vb" />
     <Compile Include="Modulos\Interfaz\Editor.vb" />
     <Compile Include="Modulos\Interfaz\Tiendas.vb" />
     <Compile Include="Modulos\Interfaz\Pestañaspepeizq.vb" />
@@ -259,6 +260,7 @@
     <Content Include="Assets\LogosJuegos\rainbowsiege.png" />
     <Content Include="Assets\LogosJuegos\sidmeiercivilization6.png" />
     <Content Include="Assets\LogosJuegos\sonic.png" />
+    <Content Include="Assets\LogosJuegos\starwars.png" />
     <Content Include="Assets\LogosJuegos\thesims4.png" />
     <Content Include="Assets\LogosJuegos\tombraider.png" />
     <Content Include="Assets\LogosJuegos\totalwar.png" />

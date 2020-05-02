@@ -454,6 +454,14 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbEditorpepeizqdealsIGDBClave_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsIGDBClave.TextChanged
+
+        If tbEditorpepeizqdealsIGDBClave.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("igdbClave") = tbEditorpepeizqdealsIGDBClave.Text.Trim
+        End If
+
+    End Sub
+
     Private Sub BotonEditorpepeizqdealsGenerarAssets_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarAssets.Click
 
         pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosTiendas()

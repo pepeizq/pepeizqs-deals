@@ -134,6 +134,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            Dim tbEditorpepeizqdealsIGDBClave As TextBox = pagina.FindName("tbEditorpepeizqdealsIGDBClave")
+
+            If Not tbEditorpepeizqdealsIGDBClave Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("igdbClave") Is Nothing Then
+                    tbEditorpepeizqdealsIGDBClave.Text = ApplicationData.Current.LocalSettings.Values("igdbClave")
+                End If
+            End If
+
         End Sub
 
         Private Sub AbrirNuevoAnuncio(sender As Object, e As RoutedEventArgs)
