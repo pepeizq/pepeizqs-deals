@@ -103,10 +103,7 @@ Namespace pepeizq.Suscripciones
 
                                                     If añadir = True Then
                                                         Dim titulo As String = juego.Detalles(0).Titulo.Trim
-                                                        titulo = titulo.Replace("(PC)", Nothing)
-                                                        titulo = titulo.Replace("for Windows 10", Nothing)
-                                                        titulo = titulo.Replace(" – Windows 10", Nothing)
-                                                        titulo = titulo.Trim
+                                                        titulo = LimpiarTitulo(titulo)
 
                                                         listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
                                                     End If
@@ -134,6 +131,15 @@ Namespace pepeizq.Suscripciones
 
         End Sub
 
+        Public Function LimpiarTitulo(titulo As String)
+
+            titulo = titulo.Replace("(PC)", Nothing)
+            titulo = titulo.Replace("for Windows 10", Nothing)
+            titulo = titulo.Replace(" – Windows 10", Nothing)
+            titulo = titulo.Trim
+
+            Return titulo
+        End Function
 
         Public Class MicrosoftStoreBBDDIDs
 
@@ -169,6 +175,9 @@ Namespace pepeizq.Suscripciones
             <JsonProperty("ProductId")>
             Public ID As String
 
+            <JsonProperty("DisplaySkuAvailabilities")>
+            Public Propiedades2 As List(Of MicrosoftStoreBBDDDetallesPropiedades2)
+
         End Class
 
         Public Class MicrosoftStoreBBDDDetallesJuego2
@@ -202,6 +211,37 @@ Namespace pepeizq.Suscripciones
 
             <JsonProperty("ApplicablePlatforms")>
             Public Plataformas As List(Of String)
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2
+
+            <JsonProperty("Availabilities")>
+            Public Disponible As List(Of MicrosoftStoreBBDDDetallesPropiedades2Disponibilidad)
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2Disponibilidad
+
+            <JsonProperty("OrderManagementData")>
+            Public Datos As MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadDatos
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadDatos
+
+            <JsonProperty("Price")>
+            Public Precio As MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadDatosPrecio
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadDatosPrecio
+
+            <JsonProperty("ListPrice")>
+            Public PrecioRebajado As String
+
+            <JsonProperty("MSRP")>
+            Public PrecioBase As String
 
         End Class
 
