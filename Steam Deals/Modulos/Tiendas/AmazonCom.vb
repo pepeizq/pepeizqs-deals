@@ -137,9 +137,11 @@ Namespace pepeizq.Tiendas
 
                     If temp4.Contains("[") Then
                         Dim intTemp As Integer = temp4.IndexOf("[")
-                        Dim intTemp2 As Integer = temp4.IndexOf("]") + 1
+                        Dim intTemp2 As Integer = temp4.LastIndexOf("]") + 1
 
-                        temp4 = temp4.Remove(intTemp, intTemp2 - intTemp)
+                        If intTemp > 0 And intTemp2 > 0 Then
+                            temp4 = temp4.Remove(intTemp, intTemp2 - intTemp)
+                        End If
                     End If
 
                     temp4 = WebUtility.HtmlDecode(temp4)
