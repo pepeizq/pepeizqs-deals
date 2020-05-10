@@ -1,4 +1,7 @@
-﻿Namespace pepeizq.Interfaz
+﻿Imports Windows.Storage
+Imports Windows.System
+
+Namespace pepeizq.Interfaz
     Module Pestañaspepeizq
 
         Public Sub Generar()
@@ -101,6 +104,19 @@
             RemoveHandler botonSteamDB.Click, AddressOf MostrarGrid2
             AddHandler botonSteamDB.Click, AddressOf MostrarGrid2
 
+            Dim botonAbrirCarpetaDatos As MenuFlyoutItem = pagina.FindName("botonEditorAbrirCarpetaDatos")
+
+            RemoveHandler botonAbrirCarpetaDatos.Click, AddressOf AbrirCarpetaDatos
+            AddHandler botonAbrirCarpetaDatos.Click, AddressOf AbrirCarpetaDatos
+
+            Dim svPruebas As ScrollViewer = pagina.FindName("svEditorpepeizqdealsPruebas")
+            svPruebas.Visibility = Visibility.Collapsed
+            Dim botonPruebas As MenuFlyoutItem = pagina.FindName("botonEditorPruebas")
+            botonPruebas.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svPruebas)
+
+            RemoveHandler botonPruebas.Click, AddressOf MostrarGrid2
+            AddHandler botonPruebas.Click, AddressOf MostrarGrid2
+
         End Sub
 
         Private Sub MostrarGrid(sender As Object, e As RoutedEventArgs)
@@ -134,6 +150,12 @@
 
             Dim sv As ScrollViewer = pestaña.SVMostrar
             sv.Visibility = Visibility.Visible
+
+        End Sub
+
+        Private Async Sub AbrirCarpetaDatos(sender As Object, e As RoutedEventArgs)
+
+            Await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder)
 
         End Sub
 
@@ -186,6 +208,9 @@
 
             Dim svSteamDB As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamDB")
             svSteamDB.Visibility = Visibility.Collapsed
+
+            Dim svPruebas As ScrollViewer = pagina.FindName("svEditorpepeizqdealsPruebas")
+            svPruebas.Visibility = Visibility.Collapsed
 
         End Sub
 

@@ -256,12 +256,6 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub BotonEditorAbrirCarpetaDatos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorAbrirCarpetaDatos.Click
-
-        Await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder)
-
-    End Sub
-
     Private Sub BotonEditorActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorActualizarAnalisis.Click
 
         Analisis.Generar()
