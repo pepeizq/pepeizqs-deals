@@ -5,7 +5,7 @@ Imports Windows.UI
 Namespace pepeizq.Editor.pepeizqdeals
     Module DealsImagenEntrada
 
-        Public Sub UnJuegoGenerar(enlace As String, juego As Juego, precio As String)
+        Public Sub UnJuegoGenerar(enlaceImagenJuego As String, enlaceImagenFondo As String, juego As Juego, precio As String)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -16,10 +16,27 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Collapsed
 
+            Dim gridUnJuego2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
+            gridUnJuego2.Visibility = Visibility.Visible
+
+            Dim gridDosJuegos2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            gridDosJuegos2.Visibility = Visibility.Collapsed
+
+            '--------------------------------------
+
+            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+            If enlaceImagenFondo.Trim.Length > 0 Then
+                imagenFondo.ImageSource = New BitmapImage(New Uri(enlaceImagenFondo))
+            End If
+
             '--------------------------------------
 
             Dim imagenJuego As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuego")
-            imagenJuego.Source = enlace
+            imagenJuego.Source = enlaceImagenJuego
+
+            Dim imagenJuego2 As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuegov2")
+            imagenJuego2.Source = enlaceImagenJuego
 
             '--------------------------------------
 
@@ -37,6 +54,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
             tbPrecio.Text = precio
 
+            Dim gridDescuento2 As Grid = pagina.FindName("gridDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+            If Not juego.Descuento = Nothing Then
+                gridDescuento2.Visibility = Visibility.Visible
+
+                Dim tbDescuento2 As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+                tbDescuento2.Text = juego.Descuento.Trim
+            Else
+                gridDescuento.Visibility = Visibility.Collapsed
+            End If
+
+            Dim tbPrecio2 As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2")
+            tbPrecio2.Text = precio
+
             '--------------------------------------
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuego")
@@ -45,6 +76,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.Source = juego.Tienda.LogoWeb
             Else
                 imagenTienda.Source = Nothing
+            End If
+
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+            If Not juego.Tienda.LogoWeb = Nothing Then
+                imagenTienda2.Source = juego.Tienda.LogoWeb
+            Else
+                imagenTienda2.Source = Nothing
             End If
 
             '--------------------------------------
@@ -67,9 +106,28 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenAnalisis.Source = Nothing
             End If
 
+            Dim imagenAnalisis2 As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+            If Not juego.Analisis Is Nothing Then
+                If Not juego.Analisis.Porcentaje = Nothing Then
+                    If juego.Analisis.Porcentaje > 74 Then
+                        imagenAnalisis2.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive2.png"))
+                    ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
+                        imagenAnalisis2.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed2.png"))
+                    ElseIf juego.Analisis.Porcentaje < 50 Then
+                        imagenAnalisis2.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative2.png"))
+                    End If
+                Else
+                    imagenAnalisis2.Source = Nothing
+                End If
+            Else
+                imagenAnalisis2.Source = Nothing
+            End If
+
             '--------------------------------------
 
             Dim imagenDRM As ImageEx = pagina.FindName("imagenDRMEditorpepeizqdealsImagenEntradaUnJuego")
+            Dim imagenDRM2 As ImageEx = pagina.FindName("imagenDRMEditorpepeizqdealsImagenEntradaUnJuegov2")
             Dim imagenDRMString As String = String.Empty
 
             If Not juego.DRM = Nothing Then
@@ -90,8 +148,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not imagenDRMString = String.Empty Then
                 imagenDRM.Source = New BitmapImage(New Uri(imagenDRMString))
+                imagenDRM2.Source = New BitmapImage(New Uri(imagenDRMString))
             Else
                 imagenDRM.Source = Nothing
+                imagenDRM2.Source = Nothing
             End If
 
         End Sub
@@ -116,6 +176,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegos")
             gridDosJuegos.Visibility = Visibility.Visible
+
+            Dim gridUnJuego2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
+            gridUnJuego2.Visibility = Visibility.Collapsed
+
+            Dim gridDosJuegos2 As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            gridDosJuegos2.Visibility = Visibility.Visible
 
             '--------------------------------------
 
@@ -397,6 +463,131 @@ Namespace pepeizq.Editor.pepeizqdeals
             Else
                 gridJuegosRestantes.Visibility = Visibility.Collapsed
             End If
+
+            '------------------------------------------------------------------------
+
+            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradav2")
+            gv.Items.Clear()
+
+            limite = 6
+            If limite > juegos.Count Then
+                limite = juegos.Count
+            End If
+
+            i = 0
+            While i < limite
+                Dim imagenUrl As String = String.Empty
+
+                If Not juegos(i).Imagenes.Grande = Nothing Then
+                    imagenUrl = juegos(i).Imagenes.Grande
+                Else
+                    imagenUrl = juegos(i).Imagenes.Pequeña
+                End If
+
+                If imagenUrl.Length = 0 Then
+                    limite = limite + 1
+                ElseIf imagenUrl.Length > 0 Then
+                    listaFinal.Add(juegos(i))
+
+                    Dim panel As New DropShadowPanel With {
+                        .BlurRadius = 10,
+                        .ShadowOpacity = 0.9,
+                        .Color = Colors.Black,
+                        .Margin = New Thickness(10, 10, 10, 10),
+                        .HorizontalAlignment = HorizontalAlignment.Stretch,
+                        .VerticalAlignment = VerticalAlignment.Stretch
+                    }
+
+                    Dim colorFondo2 As New SolidColorBrush With {
+                        .Color = "#2e4460".ToColor,
+                        .Opacity = 0.8
+                    }
+
+                    Dim gridContenido As New Grid With {
+                        .Background = colorFondo2
+                    }
+
+                    Dim fila1 As New RowDefinition
+                    Dim fila2 As New RowDefinition
+
+                    fila1.Height = New GridLength(1, GridUnitType.Star)
+                    fila2.Height = New GridLength(1, GridUnitType.Auto)
+
+                    gridContenido.RowDefinitions.Add(fila1)
+                    gridContenido.RowDefinitions.Add(fila2)
+
+                    Dim imagenJuego As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = imagenUrl
+                    }
+
+                    imagenJuego.SetValue(Grid.RowProperty, 0)
+                    gridContenido.Children.Add(imagenJuego)
+
+                    Dim spDatos As New StackPanel With {
+                        .HorizontalAlignment = HorizontalAlignment.Right,
+                        .Orientation = Orientation.Horizontal
+                    }
+
+                    Dim spDescuento As New StackPanel With {
+                        .Background = New SolidColorBrush(Colors.ForestGreen),
+                        .VerticalAlignment = VerticalAlignment.Stretch
+                    }
+
+                    Dim tbDescuento As New TextBlock With {
+                        .Text = listaFinal(i).Descuento,
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 25,
+                        .FontWeight = Text.FontWeights.SemiBold,
+                        .Padding = New Thickness(14, 8, 14, 8),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .IsHitTestVisible = False,
+                        .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
+                    }
+
+                    spDescuento.Children.Add(tbDescuento)
+
+                    spDatos.SetValue(Grid.RowProperty, 1)
+                    spDatos.Children.Add(spDescuento)
+
+                    Dim spPrecio As New StackPanel With {
+                        .Background = New SolidColorBrush(Colors.Black),
+                        .VerticalAlignment = VerticalAlignment.Stretch
+                    }
+
+                    Dim tbPrecio As New TextBlock With {
+                        .Text = listaFinal(i).Precio,
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 25,
+                        .FontWeight = Text.FontWeights.SemiBold,
+                        .Padding = New Thickness(14, 8, 14, 8),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .IsHitTestVisible = False,
+                        .FontFamily = New FontFamily("/Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans")
+                    }
+
+                    spPrecio.Children.Add(tbPrecio)
+
+                    spDatos.Children.Add(spPrecio)
+
+                    gridContenido.Children.Add(spDatos)
+
+                    panel.Content = gridContenido
+
+                    gv.Items.Add(panel)
+                End If
+
+                i += 1
+            End While
+
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            imagenTienda2.Source = listaFinal(0).Tienda.LogoWeb
+
+            Dim imagenCabecera2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+            Dim tbTitulo2 As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
 
         End Sub
 

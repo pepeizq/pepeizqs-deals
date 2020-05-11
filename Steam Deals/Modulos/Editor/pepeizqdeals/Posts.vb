@@ -100,6 +100,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
+                If Not imagenUrl2 = Nothing Then
+                    If imagenUrl2.Trim.Length > 0 Then
+                        postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenUrl2.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                    End If
+                End If
+
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim

@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.ApplicationModel.DataTransfer
+Imports Windows.Devices.Display.Core
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
 Imports Windows.Storage.Streams
@@ -34,6 +35,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorEnlacepepeizqdealsDosJuegos")
             Dim tbDescuentoMensaje As TextBlock = pagina.FindName("tbDescuentoMensajepepeizqdealsDeals")
             Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
+            Dim tbMensaje As TextBlock = pagina.FindName("tbMensajepepeizqdealsDeals")
+            Dim tbMensajeContenido As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
             Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
 
             If listaFinal.Count = 1 Then
@@ -43,6 +46,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridDosJuegos.Visibility = Visibility.Collapsed
                 tbDescuentoMensaje.Visibility = Visibility.Visible
                 tbDescuentoCodigo.Visibility = Visibility.Visible
+                tbMensaje.Visibility = Visibility.Visible
+                tbMensajeContenido.Visibility = Visibility.Visible
                 gridComplemento.Visibility = Visibility.Collapsed
             ElseIf listaFinal.Count > 1 Then
                 gridEnlace.Visibility = Visibility.Collapsed
@@ -51,6 +56,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridDosJuegos.Visibility = Visibility.Visible
                 tbDescuentoMensaje.Visibility = Visibility.Collapsed
                 tbDescuentoCodigo.Visibility = Visibility.Collapsed
+                tbMensaje.Visibility = Visibility.Collapsed
+                tbMensajeContenido.Visibility = Visibility.Collapsed
                 gridComplemento.Visibility = Visibility.Visible
             End If
 
@@ -213,28 +220,48 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler botonImagen.Click, AddressOf CargarImagenFicheroUnJuego
             AddHandler botonImagen.Click, AddressOf CargarImagenFicheroUnJuego
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
-            tbImagen.Text = String.Empty
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
+            tbImagenFondo.Text = String.Empty
+
+            If Not listaFinal(0).Analisis Is Nothing Then
+                If Not listaFinal(0).Analisis.Enlace = Nothing Then
+                    Dim fondo As String = listaFinal(0).Analisis.Enlace
+
+                    If fondo.Contains("https://store.steampowered.com/app/") Then
+                        fondo = fondo.Replace("https://store.steampowered.com/app/", Nothing)
+
+                        Dim int As Integer = fondo.IndexOf("/")
+                        fondo = fondo.Remove(int, fondo.Length - int)
+
+                        fondo = "https://steamcdn-a.akamaihd.net/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
+
+                        tbImagenFondo.Text = fondo
+                    End If
+                End If
+            End If
+
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+            tbImagenJuego.Text = String.Empty
 
             If listaFinal.Count = 1 Then
                 If Not listaFinal(0).Imagenes.Grande = String.Empty Then
                     If listaFinal(0).Tienda.NombreUsar = "Humble" Then
-                        tbImagen.Text = listaFinal(0).Imagenes.Pequeña
+                        tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
                     Else
-                        tbImagen.Text = listaFinal(0).Imagenes.Grande
+                        tbImagenJuego.Text = listaFinal(0).Imagenes.Grande
                     End If
                 Else
                     If Not listaFinal(0).Imagenes.Pequeña = String.Empty Then
-                        tbImagen.Text = listaFinal(0).Imagenes.Pequeña
+                        tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
                     End If
                 End If
 
-                DealsImagenEntrada.UnJuegoGenerar(tbImagen.Text, listaFinal(0), precioFinal)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaFinal(0), precioFinal)
             Else
                 DealsImagenEntrada.DosJuegosGenerar(listaAnalisis, listaFinal.Count)
             End If
 
-            AddHandler tbImagen.TextChanged, AddressOf CargarImagenEnlace
+            AddHandler tbImagenJuego.TextChanged, AddressOf CargarImagenEnlace
 
             '----------------------------------------------------
 
@@ -274,6 +301,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             AddHandler tbDescuentoCodigo.TextChanged, AddressOf ModificarDescuento
+
+            tbMensajeContenido.Text = String.Empty
+
+            If listaFinal.Count = 1 Then
+                If listaFinal(0).Tienda.NombreUsar = "Humble" Then
+                    tbMensajeContenido.Text = "* Price with Humble Choice"
+                    ModificarMensaje()
+                End If
+            End If
+
+            AddHandler tbMensajeContenido.TextChanged, AddressOf ModificarMensaje
 
             '----------------------------------------------------
 
@@ -386,6 +424,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
 
+            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntradav2")
+
             Dim categoria As Integer = 3
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
@@ -395,7 +435,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, categoria, listaEtiquetas, cosas.Descuento, precioFinal, tiendaNombre, tiendaIcono,
-                               redireccion, botonImagen1, Nothing, tituloComplemento, analisis, True, fechaFinal.ToString, cosas.ListaJuegos, tbComentario.Text)
+                               redireccion, botonImagen1, botonImagen2, tituloComplemento, analisis, True, fechaFinal.ToString, cosas.ListaJuegos, tbComentario.Text)
 
             BloquearControles(True)
 
@@ -567,10 +607,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Sub CargarImagenEnlace(sender As Object, e As TextChangedEventArgs)
 
-            Dim tbImagen As TextBox = sender
+            Dim tbImagenJuego As TextBox = sender
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
+
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
             Dim cosas As Clases.Deals = botonSubir.Tag
@@ -578,8 +620,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim precioFinal As String = tbEnlace.Tag
 
-            If tbImagen.Text.Trim.Length > 0 Then
-                DealsImagenEntrada.UnJuegoGenerar(tbImagen.Text, cosas.ListaJuegos(0), precioFinal)
+            If tbImagenJuego.Text.Trim.Length > 0 Then
+                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegos(0), precioFinal)
             End If
 
         End Sub
@@ -733,6 +775,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 panelMensaje.Visibility = Visibility.Collapsed
             End If
 
+            Dim panelMensaje2 As DropShadowPanel = pagina.FindName("panelMensajeErrorPreciov2")
+
+            If cbError.IsChecked = True Then
+                panelMensaje2.Visibility = Visibility.Visible
+            Else
+                panelMensaje2.Visibility = Visibility.Collapsed
+            End If
+
         End Sub
 
         Private Sub ModificarDescuento()
@@ -745,6 +795,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim panelJuego As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsUnJuego")
             Dim panelDescuento As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
 
+            Dim panelDescuento2 As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+
             If tbDescuento.Text.Trim.Length > 0 Then
                 panelJuego.Margin = New Thickness(30, 30, 30, 0)
                 panelDescuento.Visibility = Visibility.Visible
@@ -754,9 +806,42 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not tbDescuento2 Is Nothing Then
                     tbDescuento2.Text = "Discount Code: " + tbDescuento.Text
                 End If
+
+                panelDescuento2.Visibility = Visibility.Visible
+
+                Dim tbDescuento3 As TextBlock = pagina.FindName("tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+                If Not tbDescuento3 Is Nothing Then
+                    tbDescuento3.Text = "Discount Code: " + tbDescuento.Text
+                End If
             Else
                 panelJuego.Margin = New Thickness(30, 30, 30, 30)
                 panelDescuento.Visibility = Visibility.Collapsed
+
+                panelDescuento2.Visibility = Visibility.Collapsed
+            End If
+
+        End Sub
+
+        Private Sub ModificarMensaje()
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+
+            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+            If tbMensaje.Text.Trim.Length > 0 Then
+                panelMensaje.Visibility = Visibility.Visible
+
+                Dim tbMensaje2 As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+                If Not tbMensaje2 Is Nothing Then
+                    tbMensaje2.Text = tbMensaje.Text
+                End If
+            Else
+                panelMensaje.Visibility = Visibility.Collapsed
             End If
 
         End Sub
@@ -793,8 +878,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
             botonImagen.IsEnabled = estado
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
-            tbImagen.IsEnabled = estado
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+            tbImagenJuego.IsEnabled = estado
+
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
+            tbImagenFondo.IsEnabled = estado
 
             Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             cbPublishers.IsEnabled = estado
@@ -837,6 +925,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
             tbDescuentoCodigo.IsEnabled = estado
+
+            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            tbMensaje.IsEnabled = estado
 
         End Sub
 
