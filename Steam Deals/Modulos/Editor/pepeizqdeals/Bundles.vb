@@ -75,6 +75,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             tbIDs.Text = String.Empty
 
+            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            tbImagenesJuegos.Text = String.Empty
+
+            RemoveHandler tbImagenesJuegos.TextChanged, AddressOf CambiarImagenesJuegos
+            AddHandler tbImagenesJuegos.TextChanged, AddressOf CambiarImagenesJuegos
+
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(14)
 
@@ -111,6 +117,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda")
+
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2")
 
             Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
@@ -190,8 +198,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not tiendaLogo = String.Empty Then
                         imagenTienda.Visibility = Visibility.Visible
                         imagenTienda.Source = tiendaLogo
+
+                        imagenTienda2.Visibility = Visibility.Visible
+                        imagenTienda2.Source = tiendaLogo
                     Else
                         imagenTienda.Visibility = Visibility.Collapsed
+
+                        imagenTienda2.Visibility = Visibility.Collapsed
                     End If
 
                     tbTitulo.Tag = cosas
@@ -215,6 +228,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundles")
 
+            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundlesv2")
+
             Dim cosas As Clases.Bundles = tbTitulo.Tag
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
@@ -224,7 +239,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text.Trim, tbJuegos.Text.Trim, 4, New List(Of Integer) From {cosas.Etiqueta}, " ", " ", cosas.Tienda, cosas.Icono,
-                               tbEnlace.Text.Trim, botonImagen1, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen1, botonImagen2, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -256,6 +271,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbPrecio1 As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundles")
             tbPrecio1.Text = precio
 
+            Dim tbPrecio2 As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
+            tbPrecio2.Text = precio
+
         End Sub
 
         Private Sub MostrarImagen(sender As Object, e As TextChangedEventArgs)
@@ -267,6 +285,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagen1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundles")
             imagen1.Source = tbImagen.Text
+
+            Dim imagen2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
+            imagen2.Source = tbImagen.Text
 
         End Sub
 
@@ -311,12 +332,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundles")
 
+            Dim gridMasJuegos2 As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
+
             Dim cb As CheckBox = sender
 
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
+                gridMasJuegos2.Visibility = Visibility.Visible
             Else
                 gridMasJuegos.Visibility = Visibility.Collapsed
+                gridMasJuegos2.Visibility = Visibility.Collapsed
             End If
 
         End Sub
@@ -340,6 +365,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End Try
             Else
                 panel.Margin = New Thickness(10, 10, 10, 10)
+            End If
+
+            Dim imagen2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
+
+            If tbAncho.Text.Trim.Length > 0 Then
+                Try
+                    imagen2.Width = tbAncho.Text.Trim
+                Catch ex As Exception
+
+                End Try
             End If
 
         End Sub
@@ -410,8 +445,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
 
-            Dim gvImagen As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundles")
-            gvImagen.Items.Clear()
+            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundles")
+            gv.Items.Clear()
+
+            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
 
             i = 0
             For Each juego In listaJuegos
@@ -419,10 +456,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If i = 0 Then
                     tbJuegos.Text = juego.Datos.Titulo.Trim
+                    tbImagenesJuegos.Text = juego.Datos.Imagen
                 ElseIf i = (listaJuegos.Count - 1) Then
                     tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
+                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + juego.Datos.Imagen
                 Else
                     tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
+                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + juego.Datos.Imagen
                 End If
 
                 Dim panel As New DropShadowPanel With {
@@ -449,12 +489,75 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 gridContenido.Children.Add(imagenJuego)
                 panel.Content = gridContenido
-                gvImagen.Items.Add(panel)
+                gv.Items.Add(panel)
 
                 i += 1
             Next
 
             BloquearControles(True)
+
+        End Sub
+
+        Private Sub CambiarImagenesJuegos(sender As Object, e As TextChangedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gv2 As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundlesv2")
+            gv2.Items.Clear()
+
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            Dim textoJuegos As String = tbJuegos.Text.Trim
+
+            Dim listaJuegos As New List(Of String)
+
+            Dim i As Integer = 0
+            While i < 100
+                If textoJuegos.Length > 0 Then
+                    If textoJuegos.Contains(",") Then
+                        Dim int As Integer = textoJuegos.IndexOf(",")
+                        listaJuegos.Add(textoJuegos.Remove(int, textoJuegos.Length - int))
+
+                        textoJuegos = textoJuegos.Remove(0, int + 1)
+                    Else
+                        listaJuegos.Add(textoJuegos)
+                        Exit While
+                    End If
+                End If
+                i += 1
+            End While
+
+            i = 0
+            For Each juego In listaJuegos
+                Dim panel As New DropShadowPanel With {
+                    .BlurRadius = 10,
+                    .ShadowOpacity = 0.9,
+                    .Color = Windows.UI.Colors.Black,
+                    .Margin = New Thickness(10, 10, 10, 10),
+                    .HorizontalAlignment = HorizontalAlignment.Stretch,
+                    .VerticalAlignment = VerticalAlignment.Stretch
+                }
+
+                Dim colorFondo2 As New SolidColorBrush With {
+                    .Color = "#2e4460".ToColor
+                }
+
+                Dim gridContenido As New Grid With {
+                    .Background = colorFondo2
+                }
+
+                Dim imagenJuego As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .Source = juego
+                }
+
+                gridContenido.Children.Add(imagenJuego)
+                panel.Content = gridContenido
+                gv2.Items.Add(panel)
+
+                i += 1
+            Next
 
         End Sub
 
@@ -895,6 +998,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             tbIDs.IsEnabled = estado
+
+            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            tbImagenesJuegos.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             fechaPicker.IsEnabled = estado

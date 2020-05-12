@@ -519,7 +519,7 @@
 
                                                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                                 <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="15" HorizontalAlignment="Center">
-                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2" MaxWidth="250" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2" MaxWidth="200" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
                                                                 </controls:DropShadowPanel>
 
                                                                 <controls:DropShadowPanel x:Name="panelMensajeErrorPreciov2" Color="Black" Margin="0,30,0,0" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
@@ -596,23 +596,23 @@
                                                                 <ColumnDefinition Width="*"/>
                                                             </Grid.ColumnDefinitions>
 
-                                                            <controls:DropShadowPanel Grid.Column="0" Margin="30" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="250" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:DropShadowPanel Grid.Column="0" Margin="60,30" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="200" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel Grid.Column="1" Margin="30" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                <StackPanel>
-                                                                    <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:DropShadowPanel x:Name="panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="35" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            </controls:DropShadowPanel>
 
-                                                                    <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="30" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                </StackPanel>
-                                                            </controls:DropShadowPanel>                                                                 
+                                                            <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="35" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </controls:DropShadowPanel>
                                                         </Grid>
 
-                                                        <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradav2" Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0"/>
+                                                        <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradav2" Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10"/>
 
-                                                        <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Row="2" Margin="30">
-                                                            <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="30" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
+                                                            <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </Grid>
                                                     </Grid> 
                                                 </StackPanel>
@@ -795,6 +795,9 @@
                                         <TextBox x:Name="tbEditorpepeizqdealsBundlesIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                     </Grid>
 
+                                    <TextBlock Text="Imagenes Juegos"/>
+                                    <TextBox x:Name="tbEditorJuegosImagenespepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
                                     <Grid HorizontalAlignment="Stretch" Margin="0,10,0,15">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -815,7 +818,63 @@
                                     </Button>
 
                                     <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenBundles" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenBundlesv2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                            <Button.Resources>
+                                                <ResourceDictionary>
+                                                    <ResourceDictionary.ThemeDictionaries>
+                                                        <ResourceDictionary x:Key="Light">
+                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                        </ResourceDictionary>
+                                                    </ResourceDictionary.ThemeDictionaries>
+                                                </ResourceDictionary>
+                                            </Button.Resources>
+
+                                            <Button.Content>
+                                                <Grid Width="850">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                            <GradientStop Color="#2e4460" Offset="0.5" />
+                                                            <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                                                            <controls:DropShadowPanel Margin="60,30" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="200" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            </controls:DropShadowPanel>
+
+                                                            <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0">
+                                                                <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="14,8,14,8" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+
+                                                        <controls:DropShadowPanel Grid.Column="1" Margin="20,30" Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        </controls:DropShadowPanel>
+                                                    </Grid>
+
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10"/>
+
+                                                    <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
+                                                        <TextBlock Text="And More Games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                    </Grid>
+                                                </Grid>
+                                            </Button.Content> 
+                                        </Button> 
+                                        
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenBundles" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
                                             <Button.Resources>
                                                 <ResourceDictionary>
                                                     <ResourceDictionary.ThemeDictionaries>
@@ -882,9 +941,10 @@
                                     <TextBox x:Name="tbEditorTitulopepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                     <TextBlock x:Uid="Url"/>
                                     <TextBox x:Name="tbEditorEnlacepepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
-                                    <TextBlock x:Uid="Image"/>
+                                    <TextBlock Text="Imagenes"/>
                                     <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                     <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbEditorImagenFondopepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
 
                                     <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                         <DatePicker x:Name="fechaEditorpepeizqdealsFree" Margin="0,0,20,0"/>
@@ -909,8 +969,54 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenFree" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenFreev2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
+                                            <Button.Resources>
+                                                <ResourceDictionary>
+                                                    <ResourceDictionary.ThemeDictionaries>
+                                                        <ResourceDictionary x:Key="Light">
+                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                        </ResourceDictionary>
+                                                    </ResourceDictionary.ThemeDictionaries>
+                                                </ResourceDictionary>
+                                            </Button.Resources>
+
+                                            <Button.Content>
+                                                <Grid Width="850" Height="300">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                            <GradientStop Color="#2e4460" Offset="0.5" />
+                                                            <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+
+                                                    <Grid>
+                                                        <Grid.Background>
+                                                            <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenFree" Stretch="UniformToFill"/>
+                                                        </Grid.Background>
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="3*"/>
+                                                            <ColumnDefinition Width="4*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFreev2" MaxWidth="200" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
+
+                                                            <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                                                <TextBlock Text="Free" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="15,8,15,8" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+
+                                                        <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
+                                                            <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFreev2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        </controls:DropShadowPanel>
+                                                    </Grid>
+                                                </Grid>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenFree" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
                                             <Button.Resources>
                                                 <ResourceDictionary>
                                                     <ResourceDictionary.ThemeDictionaries>
@@ -963,7 +1069,7 @@
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                    </Grid>
+                                    </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
 
@@ -1028,8 +1134,53 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenSubscriptions" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenSubscriptionsv2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
+                                            <Button.Resources>
+                                                <ResourceDictionary>
+                                                    <ResourceDictionary.ThemeDictionaries>
+                                                        <ResourceDictionary x:Key="Light">
+                                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                        </ResourceDictionary>
+                                                    </ResourceDictionary.ThemeDictionaries>
+                                                </ResourceDictionary>
+                                            </Button.Resources>
+
+                                            <Button.Content>
+                                                <Grid Width="850">
+                                                    <Grid.Background>
+                                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                            <GradientStop Color="#2e4460" Offset="0.5" />
+                                                            <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        </LinearGradientBrush>
+                                                    </Grid.Background>
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50,50,50,40">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" MaxWidth="400" MaxHeight="70" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        </controls:DropShadowPanel>
+
+                                                        <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="0,30,50,30">
+                                                            <TextBlock x:Name="mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Foreground="White" FontSize="32" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        </controls:DropShadowPanel>
+                                                    </Grid>
+
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptionsv2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="160" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="20,0,20,20"/>
+                                                </Grid>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenSubscriptions" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
                                             <Button.Resources>
                                                 <ResourceDictionary>
                                                     <ResourceDictionary.ThemeDictionaries>
@@ -1067,7 +1218,7 @@
                                                 </Grid>
                                             </Button.Content>
                                         </Button>
-                                    </Grid>
+                                    </StackPanel>
                                 </StackPanel>
                             </ScrollViewer>
 
@@ -1346,433 +1497,7 @@
 
                             <ScrollViewer x:Name="svEditorpepeizqdealsPruebas" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
                                 <StackPanel Orientation="Vertical">
-                                   
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenPruebas2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
-                                        <Button.Resources>
-                                            <ResourceDictionary>
-                                                <ResourceDictionary.ThemeDictionaries>
-                                                    <ResourceDictionary x:Key="Light">
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
-                                                    </ResourceDictionary>
-                                                </ResourceDictionary.ThemeDictionaries>
-                                            </ResourceDictionary>
-                                        </Button.Resources>
-
-                                        <Button.Content>
-                                            <Grid Width="850">
-                                                <Grid.Background>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.5" />
-                                                        <GradientStop Color="#1b2838" Offset="1.0" />
-                                                    </LinearGradientBrush>
-                                                </Grid.Background>
-
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="Auto"/>
-                                                    </Grid.RowDefinitions>
-
-                                                    <Grid Grid.Row="0">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <controls:ImageEx Grid.Column="0" Margin="60,30" MaxWidth="200" Source="https://pepeizqdeals.com/wp-content/uploads/2019/09/wingamestore2.png" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                        <controls:ImageEx Grid.Column="1" Margin="20,30" Source="https://i.imgur.com/1P4lJr3.png" Stretch="UniformtoFill" IsCacheEnabled="True"/>
-                                                    </Grid>
-
-                                                    <controls:AdaptiveGridView Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20">
-
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-                                                            <Grid>
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
-                                                                </Grid.Background>
-
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <controls:ImageEx Grid.Row="0" Source="https://static.gamersgate.com/content_images/product/8/0/d/5f768402e8a2e587bf9b6d98f56d3e786f5e9d08.jpg" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                </StackPanel>
-
-                                                                <Grid Grid.Row="1">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <Grid Grid.Column="1" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="40%"  Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </Grid>
-
-                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="36,99 €" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </controls:DropShadowPanel>
-
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-                                                            <Grid>
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
-                                                                </Grid.Background>
-
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <controls:ImageEx Grid.Row="0" Source="https://static.gamersgate.com/content_images/product/8/0/d/5f768402e8a2e587bf9b6d98f56d3e786f5e9d08.jpg" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                </StackPanel>
-
-                                                                <Grid Grid.Row="1">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <Grid Grid.Column="1" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="40%"  Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </Grid>
-
-                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="36,99 €" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </controls:DropShadowPanel>
-
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-                                                            <Grid>
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
-                                                                </Grid.Background>
-
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <controls:ImageEx Grid.Row="0" Source="https://static.gamersgate.com/content_images/product/8/0/d/5f768402e8a2e587bf9b6d98f56d3e786f5e9d08.jpg" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                </StackPanel>
-
-                                                                <Grid Grid.Row="1">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <Grid Grid.Column="1" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="40%"  Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </Grid>
-
-                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="36,99 €" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </controls:DropShadowPanel>
-
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-                                                            <Grid>
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
-                                                                </Grid.Background>
-
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <controls:ImageEx Grid.Row="0" Source="https://static.gamersgate.com/content_images/product/8/0/d/5f768402e8a2e587bf9b6d98f56d3e786f5e9d08.jpg" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                </StackPanel>
-
-                                                                <Grid Grid.Row="1">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <Grid Grid.Column="1" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="40%"  Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </Grid>
-
-                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="36,99 €" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </controls:DropShadowPanel>
-
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-                                                            <Grid>
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
-                                                                </Grid.Background>
-
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <controls:ImageEx Grid.Row="0" Source="https://static.gamersgate.com/content_images/product/8/0/d/5f768402e8a2e587bf9b6d98f56d3e786f5e9d08.jpg" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                </StackPanel>
-
-                                                                <Grid Grid.Row="1">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <Grid Grid.Column="1" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="40%"  Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </Grid>
-
-                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="36,99 €" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </controls:DropShadowPanel>
-
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="30">
-                                                            <Grid>
-                                                                <Grid.Background>
-                                                                    <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
-                                                                </Grid.Background>
-
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="*"/>
-                                                                    <RowDefinition Height="Auto"/>
-                                                                </Grid.RowDefinitions>
-
-                                                                <controls:ImageEx Grid.Row="0" Source="https://static.gamersgate.com/content_images/product/8/0/d/5f768402e8a2e587bf9b6d98f56d3e786f5e9d08.jpg" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                    <controls:ImageEx IsCacheEnabled="True" Stretch="None"/>
-                                                                </StackPanel>
-
-                                                                <Grid Grid.Row="1">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                        <ColumnDefinition Width="Auto"/>
-                                                                    </Grid.ColumnDefinitions>
-
-                                                                    <Grid Grid.Column="1" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="40%"  Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </Grid>
-
-                                                                    <StackPanel Grid.Column="2" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox Text="36,99 €" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </controls:DropShadowPanel>
-
-                                                    </controls:AdaptiveGridView>
-
-                                                    <Grid Grid.Row="2" Padding="20,0,20,30">
-                                                        <TextBlock Text="100 Deals" Foreground="White" FontSize="50" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                    </Grid>
-                                                </Grid>
-
-
-
-                                            </Grid>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenPruebas3" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
-                                        <Button.Resources>
-                                            <ResourceDictionary>
-                                                <ResourceDictionary.ThemeDictionaries>
-                                                    <ResourceDictionary x:Key="Light">
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
-                                                    </ResourceDictionary>
-                                                </ResourceDictionary.ThemeDictionaries>
-                                            </ResourceDictionary>
-                                        </Button.Resources>
-
-                                        <Button.Content>
-                                            <Grid Width="850">
-                                                <Grid.Background>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.5" />
-                                                        <GradientStop Color="#1b2838" Offset="1.0" />
-                                                    </LinearGradientBrush>
-                                                </Grid.Background>
-
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-
-                                                <Grid Grid.Row="0">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                                                        <controls:ImageEx Margin="60,30" MaxWidth="200" Source="https://pepeizqdeals.com/wp-content/uploads/2019/09/fanatical2.png" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0">
-                                                            <TextBlock Text="10,99 € (3 Games)" Foreground="White" FontSize="28" VerticalAlignment="Center" Margin="14,10,14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                    
-
-                                                    <controls:DropShadowPanel Grid.Column="1" Margin="20,30" Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                                        <controls:ImageEx Source="https://fanatical.imgix.net/product/original/e5821a5d-1e46-442e-b8b4-9fdf2134f148.jpeg" Stretch="UniformtoFill" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel> 
-                                                    
-                                                </Grid>
-
-                                                <controls:AdaptiveGridView Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20">
-                                                    <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-
-                                                    <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-
-
-                                                    <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-
-
-                                                    <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-
-
-                                                    <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-
-
-                                                    <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-                                                </controls:AdaptiveGridView>
-
-                                                <Grid Grid.Row="2" Padding="20,0,20,30">
-                                                    <TextBlock Text="And More Games" Foreground="White" FontSize="50" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                </Grid>
-                                            </Grid> 
-                                        </Button.Content> 
-                                    </Button>
-
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenPruebas4" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
-                                        <Button.Resources>
-                                            <ResourceDictionary>
-                                                <ResourceDictionary.ThemeDictionaries>
-                                                    <ResourceDictionary x:Key="Light">
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
-                                                    </ResourceDictionary>
-                                                </ResourceDictionary.ThemeDictionaries>
-                                            </ResourceDictionary>
-                                        </Button.Resources>
-
-                                        <Button.Content>
-                                            <Grid Width="850" Height="300">
-                                                <Grid.Background>
-                                                    <ImageBrush Stretch="UniformToFill" ImageSource="https://steamcdn-a.akamaihd.net/steam/apps/1172380/page_bg_generated_v6b.jpg?t=1588955280"/>
-                                                </Grid.Background>
-
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                                                        <controls:ImageEx Margin="130,60,130,40" Source="https://pepeizqdeals.com/wp-content/uploads/2019/09/yuplay2.png" Stretch="Uniform" IsCacheEnabled="True"/>
-
-                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,50">
-                                                            <TextBlock Text="Free" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="15,10,15,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                        </StackPanel>
-                                                    </StackPanel>
-
-                                                    <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
-                                                        <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1172380/header.jpg?t=1588978141" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                    </controls:DropShadowPanel>
-                                                </Grid>
-                                            </Grid>
-                                        </Button.Content>
-                                    </Button>
-
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenPruebas5" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
-                                        <Button.Resources>
-                                            <ResourceDictionary>
-                                                <ResourceDictionary.ThemeDictionaries>
-                                                    <ResourceDictionary x:Key="Light">
-                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
-                                                    </ResourceDictionary>
-                                                </ResourceDictionary.ThemeDictionaries>
-                                            </ResourceDictionary>
-                                        </Button.Resources>
-
-                                        <Button.Content>
-                                            <Grid Width="850" Height="300">
-                                                <Grid.Background>
-                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.5" />
-                                                        <GradientStop Color="#1b2838" Offset="1.0" />
-                                                    </LinearGradientBrush>
-                                                </Grid.Background>
-                                                <!--250 steam-->
-                                                <controls:AdaptiveGridView ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="160" Opacity="0.2" VerticalContentAlignment="Stretch" Padding="30">
-                                                    <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1085660/library_600x900.jpg"/>
-                                                    <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1085660/library_600x900.jpg"/>
-                                                    <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1085660/library_600x900.jpg"/>
-                                                    <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1085660/library_600x900.jpg"/>
-                                                    <controls:ImageEx Source="https://steamcdn-a.akamaihd.net/steam/apps/1085660/library_600x900.jpg"/>
-                                                </controls:AdaptiveGridView>
-
-                                                <controls:DropShadowPanel VerticalAlignment="Center" HorizontalAlignment="Center" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="180,120">
-                                                    <controls:ImageEx Source="https://i.imgur.com/0X3tImF.png" Stretch="Uniform"/>
-                                                </controls:DropShadowPanel>
-                                            </Grid> 
-                                        </Button.Content> 
-                                    </Button> 
+                                                                      
                                 </StackPanel>
                             </ScrollViewer>
                         </Grid>

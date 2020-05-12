@@ -2,12 +2,14 @@
     Public Class Free
 
         Public Property Titulo As String
-        Public Property Imagen As String
+        Public Property ImagenJuego As String
+        Public Property ImagenFondo As String
         Public Property Tienda As String
 
-        Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal tienda As String)
+        Public Sub New(ByVal titulo As String, ByVal imagenJuego As String, ByVal imagenFondo As String, ByVal tienda As String)
             Me.Titulo = titulo
-            Me.Imagen = imagen
+            Me.ImagenJuego = imagenJuego
+            Me.ImagenFondo = imagenFondo
             Me.Tienda = tienda
         End Sub
 

@@ -598,8 +598,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim bitmap As New BitmapImage
                     Await bitmap.SetSourceAsync(stream)
 
-                    Dim imagen As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
-                    imagen.Source = bitmap
+                    Dim imagen1 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
+                    imagen1.Source = bitmap
+
+                    Dim imagen2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                    imagen2.Source = bitmap
                 End Using
             End If
 

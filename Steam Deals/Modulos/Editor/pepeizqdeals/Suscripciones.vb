@@ -1,4 +1,5 @@
 ﻿Imports System.Globalization
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Windows.ApplicationModel.DataTransfer
@@ -94,6 +95,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
             Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
 
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 0 Then
@@ -109,9 +112,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 450
                 gv.DesiredWidth = 350
 
+                imagenTienda2.Source = "Assets\Tiendas\humblechoice.png"
+
                 cosas.Tienda = "Humble Bundle"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
-                cosas.Mensaje = "13,99 € • This price corresponds to the Basic mode"
+
+                Dim ci As CultureInfo = New CultureInfo("en-US")
+                Dim mes As String = DateTime.Now.ToString("MMMM", ci)
+                cosas.Mensaje = mes
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleChoice.GenerarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleChoice.GenerarJuegos
@@ -128,9 +136,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 450
                 gv.DesiredWidth = 350
 
+                imagenTienda2.Source = "Assets\Tiendas\twitchprime.png"
+
                 cosas.Tienda = "Twitch"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
-                cosas.Mensaje = "4,00 € • This price is different depending on your country"
+
+                Dim ci As CultureInfo = New CultureInfo("en-US")
+                Dim mes As String = DateTime.Now.ToString("MMMM", ci)
+                cosas.Mensaje = mes
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.TwitchPrime.GenerarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.TwitchPrime.GenerarJuegos
@@ -146,10 +159,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 450
                 gv.DesiredWidth = 200
 
+                imagenTienda2.Source = "Assets\Tiendas\xboxgamepass.png"
+
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/02/tienda_xboxgamepass.jpg"
-                cosas.Mensaje = "1,00 € for new users"
+                cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
@@ -165,10 +180,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 450
                 gv.DesiredWidth = 200
 
+                imagenTienda2.Source = "Assets\Tiendas\originaccessbasic.png"
+
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access Basic • New Games Added • " + cosas.Juegos
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
-                cosas.Mensaje = "3,99 € every month"
+                cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
@@ -184,10 +201,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 450
                 gv.DesiredWidth = 200
 
+                imagenTienda2.Source = "Assets\Tiendas\originaccesspremier.png"
+
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access Premier • New Games Added • " + cosas.Juegos
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
-                cosas.Mensaje = "14,99 € every month"
+                cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
@@ -203,10 +222,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 450
                 gv.DesiredWidth = 350
 
+                imagenTienda2.Source = "Assets\Tiendas\humbletrove.png"
+
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Trove • New Games Added • " + cosas.Juegos
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
-                cosas.Mensaje = "13,99 € • You need the Basic mode of Humble Choice"
+                cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
@@ -222,13 +243,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.MaxWidth = 420
                 gv.DesiredWidth = 350
 
+                imagenTienda2.Source = "Assets\Tiendas\geforcenow.png"
+
                 cosas.Tienda = "Geforce"
-
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
-                cosas.Enlace = "https://www.nvidia.com/en-us/geforce-now/"
-
-                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                cosas.Mensaje = "5,49 € every month"
+                cosas.Mensaje = "New Games Supported"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
@@ -241,11 +260,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTitulo.Text = Deals.LimpiarTitulo(cosas.Titulo)
             End If
 
+            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+            Dim mensaje2 As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+
             If Not cosas.Mensaje = Nothing Then
                 mensaje.Visibility = Visibility.Visible
                 mensaje.Text = cosas.Mensaje
+
+                panelMensaje.Visibility = Visibility.Visible
+                mensaje2.Text = cosas.Mensaje
             Else
                 mensaje.Visibility = Visibility.Collapsed
+
+                panelMensaje.Visibility = Visibility.Collapsed
+                mensaje2.Text = String.Empty
             End If
 
             tbTitulo.Tag = cosas
@@ -265,7 +293,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
+            Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
+
+            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
 
             Dim cosas As Clases.Suscripciones = tbTitulo.Tag
 
@@ -278,7 +308,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
             Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
-                               " ", botonImagen, Nothing, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               " ", botonImagen1, botonImagen2, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -292,12 +322,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
             gv.Items.Clear()
 
+            Dim gv2 As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptionsv2")
+            gv2.Items.Clear()
+
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
             Dim enlaces As String = tbImagenesGrid.Text.Trim
 
             Dim i As Integer = 0
             While i < 100
-                If enlaces.Length > 0 Then
+                If enlaces.Trim.Length > 0 Then
                     Dim enlace As String = String.Empty
 
                     If enlaces.Contains(",") Then
@@ -307,6 +340,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         enlaces = enlaces.Remove(0, int + 1)
                     Else
                         enlace = enlaces
+                        enlaces = String.Empty
                     End If
 
                     enlace = enlace.Trim
@@ -318,6 +352,37 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     gv.Items.Add(imagenJuego)
+
+                    Dim panel As New DropShadowPanel With {
+                        .BlurRadius = 10,
+                        .ShadowOpacity = 0.9,
+                        .Color = Windows.UI.Colors.Black,
+                        .Margin = New Thickness(10, 10, 10, 10),
+                        .HorizontalAlignment = HorizontalAlignment.Stretch,
+                        .VerticalAlignment = VerticalAlignment.Stretch
+                    }
+
+                    Dim colorFondo2 As New SolidColorBrush With {
+                        .Color = "#2e4460".ToColor
+                    }
+
+                    Dim gridContenido As New Grid With {
+                        .Background = colorFondo2
+                    }
+
+                    If enlace.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
+                        enlace = enlace.Replace("header", "library_600x900")
+                    End If
+
+                    Dim imagenJuego2 As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = enlace
+                    }
+
+                    gridContenido.Children.Add(imagenJuego2)
+                    panel.Content = gridContenido
+                    gv2.Items.Add(panel)
                 End If
                 i += 1
             End While

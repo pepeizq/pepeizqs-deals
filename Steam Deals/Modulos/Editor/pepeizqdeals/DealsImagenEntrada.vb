@@ -584,10 +584,44 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2")
             imagenTienda2.Source = listaFinal(0).Tienda.LogoWeb
 
+            Dim panelImagenCabecera2 As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
             Dim imagenCabecera2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
+            Dim panelTitulo2 As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
             Dim tbTitulo2 As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
+            If tbCabeceraImagen.Text.Trim.Length > 0 Then
+                panelImagenCabecera2.Visibility = Visibility.Visible
+                panelTitulo2.Visibility = Visibility.Collapsed
+
+                imagenCabecera2.Source = tbCabeceraImagen.Text.Trim
+            Else
+                panelImagenCabecera2.Visibility = Visibility.Collapsed
+                panelTitulo2.Visibility = Visibility.Visible
+
+                If tbTituloMaestro.Text.Contains("•") Then
+                    Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
+                    tbTitulo2.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+                End If
+            End If
+
+            Dim gridJuegosRestantes2 As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+            Dim juegosRestantes2 As Integer = cantidadJuegos
+
+            If (juegosRestantes2 - limite) > 0 Then
+                gridJuegosRestantes2.Visibility = Visibility.Visible
+
+                Dim tbJuegosRestantes2 As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+                If juegosRestantes2 - limite = 1 Then
+                    tbJuegosRestantes2.Text = "And Other 1 Deal"
+                Else
+                    tbJuegosRestantes2.Text = "And Other " + (juegosRestantes2 - limite).ToString + " Deals"
+                End If
+            Else
+                gridJuegosRestantes2.Visibility = Visibility.Collapsed
+            End If
 
         End Sub
 
@@ -597,11 +631,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegos")
+            Dim tbTitulo2 As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
             Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
 
             If tbTituloMaestro.Text.Contains("•") Then
                 Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
                 tbTitulo.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+
+                tbTitulo2.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
             End If
 
         End Sub
@@ -653,6 +690,31 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTitulo.Visibility = Visibility.Visible
             End If
 
+            Dim panelImagenCabecera2 As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim imagenCabecera2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+            Dim panelTitulo2 As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim tbTitulo2 As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+            If tbCabeceraImagen.Text.Trim.Length > 0 Then
+                panelImagenCabecera2.Visibility = Visibility.Visible
+                panelTitulo2.Visibility = Visibility.Collapsed
+
+                imagenCabecera2.Source = tbCabeceraImagen.Text.Trim
+            Else
+                panelImagenCabecera2.Visibility = Visibility.Collapsed
+                panelTitulo2.Visibility = Visibility.Visible
+
+                imagenCabecera2.Source = Nothing
+
+                Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+
+                If tbTituloMaestro.Text.Contains("•") Then
+                    Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
+                    tbTitulo2.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+                End If
+            End If
+
         End Sub
 
         Private Sub ModificarCabeceraImagenDimensiones()
@@ -693,6 +755,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         panelCabecera.ShadowOpacity = 0
                         panelCabecera.BlurRadius = 0
                     End If
+
+                    Dim imagenCabecera2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                    imagenCabecera2.MaxWidth = ancho
                 End If
             End If
 

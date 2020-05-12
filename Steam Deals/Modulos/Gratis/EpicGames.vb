@@ -6,7 +6,7 @@ Namespace pepeizq.Gratis
 
         Public Async Function Generar(enlace As String) As Task(Of Clases.Free)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, "Epic Games Store")
+            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Epic Games Store")
 
             Dim clave As String = enlace.Trim
             clave = clave.Replace("https://www.epicgames.com/store/es-ES/product/", Nothing)
@@ -30,7 +30,7 @@ Namespace pepeizq.Gratis
                     Dim titulo As String = juegoEpic.Titulo
                     cosas.Titulo = titulo.Trim
 
-                    cosas.Imagen = juegoEpic.Paginas(0).Datos.Imagenes.FondoHorizontal
+                    cosas.ImagenJuego = juegoEpic.Paginas(0).Datos.Imagenes.FondoHorizontal
                 ElseIf enlace.Contains("/bundles/") Then
                     Dim juegoEpic As EpicGamesBundle = JsonConvert.DeserializeObject(Of EpicGamesBundle)(html)
 

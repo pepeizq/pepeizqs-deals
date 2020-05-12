@@ -36,6 +36,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
             AddHandler tbImagenTienda.TextChanged, AddressOf MostrarImagenTienda
 
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
+            tbImagenFondo.Text = String.Empty
+
+            RemoveHandler tbImagenFondo.TextChanged, AddressOf CambiarImagenFondo
+            AddHandler tbImagenFondo.TextChanged, AddressOf CambiarImagenFondo
+
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
 
@@ -79,6 +85,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Free = Nothing
@@ -126,7 +133,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbImagenTienda.Text = "Assets/Tiendas/uplay.png"
 
                 Else
-                    Dim cosas2 As New Clases.Free("--", Nothing, "--")
+                    Dim cosas2 As New Clases.Free("--", Nothing, Nothing, "--")
                     cosas = cosas2
                 End If
 
@@ -140,8 +147,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    If Not cosas.Imagen = Nothing Then
-                        tbImagenJuego.Text = cosas.Imagen
+                    If Not cosas.ImagenJuego = Nothing Then
+                        tbImagenJuego.Text = cosas.ImagenJuego
+                    End If
+
+                    If Not cosas.ImagenFondo = Nothing Then
+                        tbImagenFondo.Text = cosas.ImagenFondo
                     End If
                 End If
             End If
@@ -160,7 +171,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFree")
+            Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFree")
+
+            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFreev2")
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsFree")
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsFree")
@@ -169,7 +182,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text.Trim, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ", " ",
-                               tbEnlace.Text.Trim, botonImagen, Nothing, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen1, botonImagen2, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -185,6 +198,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFree")
             imagen.Source = tbImagen.Text
 
+            Dim imagen2 As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
+            imagen2.Source = tbImagen.Text
+
         End Sub
 
         Private Sub MostrarImagenTienda(sender As Object, e As TextChangedEventArgs)
@@ -197,11 +213,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFree")
             imagen.Source = tbImagen.Text
 
+            Dim imagen2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFreev2")
+            imagen2.Source = tbImagen.Text
+
+        End Sub
+
+        Private Sub CambiarImagenFondo(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbImagen As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            If tbImagen.Text.Trim.Length > 0 Then
+                Try
+                    Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenFree")
+                    fondo.ImageSource = New BitmapImage(New Uri(tbImagen.Text.Trim))
+                Catch ex As Exception
+
+                End Try
+            End If
+
         End Sub
 
         Private Async Function Steam(enlace As String) As Task(Of Clases.Free)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, "Steam")
+            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Steam")
 
             Dim id As String = enlace.Replace("https://store.steampowered.com/app/", Nothing)
 
@@ -224,7 +261,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not datos Is Nothing Then
                     cosas.Titulo = datos.Datos.Titulo
-                    cosas.Imagen = datos.Datos.Imagen
+                    cosas.ImagenJuego = datos.Datos.Imagen
+                    cosas.ImagenFondo = datos.Datos.Fondo
                 End If
             End If
 
@@ -233,7 +271,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Humble(enlace As String) As Task(Of Clases.Free)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, "Humble Store")
+            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Humble Store")
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -273,7 +311,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     temp2 = temp2.Trim
 
-                    cosas.Imagen = temp2
+                    cosas.ImagenJuego = temp2
                 End If
             End If
 
@@ -282,7 +320,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function GOG(enlace As String) As Task(Of Clases.Free)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, "GOG")
+            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "GOG")
 
             Dim i As Integer = 1
             While i < 100
@@ -309,7 +347,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                 cosas.Titulo = titulo
 
-                                cosas.Imagen = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_392.")
+                                cosas.ImagenJuego = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_392.")
 
                                 Exit While
                             End If
@@ -324,7 +362,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Uplay() As Task(Of Clases.Free)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, "Uplay")
+            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Uplay")
 
             Return cosas
         End Function
@@ -350,7 +388,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim textoID As String = tbID.Text.Trim
 
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
-            Dim tbImagenJuegoUrl As String = String.Empty
+
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
 
             If Not textoID = Nothing Then
                 Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
@@ -366,12 +405,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
 
                     If Not datos Is Nothing Then
-                        tbImagenJuegoUrl = datos.Datos.Imagen
+                        tbImagenJuego.Text = datos.Datos.Imagen
+
+                        tbImagenFondo.Text = datos.Datos.Fondo
                     End If
                 End If
             End If
-
-            tbImagenJuego.Text = tbImagenJuegoUrl
 
             BloquearControles(True)
 
@@ -393,6 +432,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             tbImagenTienda.IsEnabled = estado
+
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
+            tbImagenFondo.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsFree")
             fechaPicker.IsEnabled = estado
