@@ -297,13 +297,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim logo As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTienda")
+            Dim logo2 As DropShadowPanel = pagina.FindName("panelImagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2")
 
             Dim cb As CheckBox = sender
 
             If cb.IsChecked = True Then
                 logo.Visibility = Visibility.Visible
+                logo2.Visibility = Visibility.Visible
             Else
                 logo.Visibility = Visibility.Collapsed
+                logo2.Visibility = Visibility.Collapsed
             End If
 
         End Sub

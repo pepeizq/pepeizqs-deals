@@ -493,10 +493,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                         .BlurRadius = 10,
                         .ShadowOpacity = 0.9,
                         .Color = Colors.Black,
-                        .Margin = New Thickness(10, 10, 10, 10),
                         .HorizontalAlignment = HorizontalAlignment.Stretch,
                         .VerticalAlignment = VerticalAlignment.Stretch
                     }
+
+                    If boolVertical = False Then
+                        panel.Margin = New Thickness(35, 10, 35, 10)
+                    Else
+                        panel.Margin = New Thickness(10, 10, 10, 10)
+                    End If
 
                     Dim colorFondo2 As New SolidColorBrush With {
                         .Color = "#2e4460".ToColor,
@@ -700,7 +705,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                 panelImagenCabecera2.Visibility = Visibility.Visible
                 panelTitulo2.Visibility = Visibility.Collapsed
 
-                imagenCabecera2.Source = tbCabeceraImagen.Text.Trim
+                ModificarCabeceraImagenDimensiones()
+
+                Dim modificar As Boolean = True
+
+                If tbCabeceraImagen.Text.Trim.Contains("c:\") Or tbCabeceraImagen.Text.Trim.Contains("C:\") Then
+                    modificar = False
+                End If
+
+                If modificar = True Then
+                    imagenCabecera2.Source = tbCabeceraImagen.Text.Trim
+                End If
             Else
                 panelImagenCabecera2.Visibility = Visibility.Collapsed
                 panelTitulo2.Visibility = Visibility.Visible

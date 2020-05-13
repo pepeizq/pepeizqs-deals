@@ -1,7 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
-Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Anuncios
@@ -34,6 +32,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenComentario.TextChanged, AddressOf CambiarComentarioImagen
             AddHandler tbImagenComentario.TextChanged, AddressOf CambiarComentarioImagen
 
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosFondo")
+            tbImagenFondo.Text = String.Empty
+
+            RemoveHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
+            AddHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
+
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
 
             RemoveHandler botonIDs.Click, AddressOf GenerarImagenes
@@ -42,8 +46,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
             tbIDs.Text = String.Empty
 
-            Dim imagen1 As ImageEx = pagina.FindName("imagen1EditorpepeizqdealsGenerarImagenAnuncios")
-            imagen1.Source = Nothing
+            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenAnuncios")
+            imagenFondo.ImageSource = Nothing
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
@@ -131,8 +135,24 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
-            tbTitulo.Text = tbTexto.Text.Trim
+            Dim panelTexto As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsImagenEntradaAnunciosTitulo")
+            Dim panelImagen As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsImagenEntradaAnunciosTituloImagen")
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                If tbTexto.Text.Contains("https://") Or tbTexto.Text.Contains("http://") Then
+                    panelTexto.Visibility = Visibility.Collapsed
+                    panelImagen.Visibility = Visibility.Visible
+
+                    Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaAnunciosTitulo")
+                    imagen.Source = tbTexto.Text.Trim
+                Else
+                    panelTexto.Visibility = Visibility.Visible
+                    panelImagen.Visibility = Visibility.Collapsed
+
+                    Dim tbTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
+                    tbTitulo.Text = tbTexto.Text.Trim
+                End If
+            End If
 
         End Sub
 
@@ -148,6 +168,27 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub CambiarFondoImagen(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTexto As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                Try
+                    Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenAnuncios")
+                    imagenFondo.ImageSource = New BitmapImage(New Uri(tbTexto.Text.Trim))
+
+                    Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaAnuncios")
+                    gv.Items.Clear()
+                Catch ex As Exception
+
+                End Try
+            End If
+
+        End Sub
+
         Private Async Sub GenerarImagenes(sender As Object, e As RoutedEventArgs)
 
             BloquearControles(False)
@@ -156,45 +197,31 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
-            Dim textoIDs As String = tbIDs.Text.Trim
+            Dim enlaces As String = tbIDs.Text.Trim
 
-            Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+            Dim listaJuegos As New List(Of String)
 
             Dim i As Integer = 0
             While i < 100
-                If textoIDs.Length > 0 Then
-                    Dim clave As String = String.Empty
+                If enlaces.Length > 0 Then
+                    Dim enlace As String = String.Empty
 
-                    If textoIDs.Contains(",") Then
-                        Dim int As Integer = textoIDs.IndexOf(",")
-                        clave = textoIDs.Remove(int, textoIDs.Length - int)
+                    If enlaces.Contains(",") Then
+                        Dim int As Integer = enlaces.IndexOf(",")
+                        enlace = enlaces.Remove(int, enlaces.Length - int)
 
-                        textoIDs = textoIDs.Remove(0, int + 1)
+                        enlaces = enlaces.Remove(0, int + 1)
                     Else
-                        clave = textoIDs
+                        enlace = enlaces
+                        enlaces = String.Empty
                     End If
 
-                    clave = clave.Trim
+                    enlace = enlace.Trim
 
-                    If clave.Contains("http") Then
-                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=220"))
-
-                        If Not htmlID = Nothing Then
-                            Dim temp As String
-                            Dim int As Integer
-
-                            int = htmlID.IndexOf(":")
-                            temp = htmlID.Remove(0, int + 1)
-                            temp = temp.Remove(temp.Length - 1, 1)
-
-                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
-
-                            datos.Datos.Imagen = clave
-
-                            listaJuegos.Add(datos)
-                        End If
+                    If enlace.Contains("http") Then
+                        listaJuegos.Add(enlace)
                     Else
-                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + enlace))
 
                         If Not htmlID = Nothing Then
                             Dim temp As String
@@ -208,21 +235,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             If Not datos Is Nothing Then
                                 If Not datos.Datos Is Nothing Then
-                                    Dim idBool As Boolean = False
-                                    Dim k As Integer = 0
-                                    While k < listaJuegos.Count
-                                        If listaJuegos(k).Datos.ID = datos.Datos.ID Then
-                                            idBool = True
-                                            Exit While
-                                        End If
-                                        k += 1
-                                    End While
-
-                                    If idBool = False Then
-                                        listaJuegos.Add(datos)
-                                    Else
-                                        Exit While
-                                    End If
+                                    listaJuegos.Add(datos.Datos.Imagen)
                                 End If
                             End If
                         End If
@@ -231,44 +244,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
-            Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
-            Dim panel1 As DropShadowPanel = pagina.FindName("panel1EditorpepeizqdealsGenerarImagenAnuncios")
-            Dim imagen1 As ImageEx = pagina.FindName("imagen1EditorpepeizqdealsGenerarImagenAnuncios")
             Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaAnuncios")
+            gv.Items.Clear()
 
-            If cbGrid.IsChecked = False Then
-                panel1.Visibility = Visibility.Visible
-                gv.Visibility = Visibility.Collapsed
+            i = 0
+            While i < listaJuegos.Count
+                Dim imagen As String = listaJuegos(i)
 
-                If listaJuegos.Count > 0 Then
-                    imagen1.Source = listaJuegos(0).Datos.Imagen
+                If imagen.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
+                    imagen = imagen.Replace("header", "library_600x900")
                 End If
-            Else
-                panel1.Visibility = Visibility.Collapsed
-                panel1.Margin = New Thickness(0, 0, 0, 0)
-                gv.Visibility = Visibility.Visible
 
-                gv.Items.Clear()
+                Dim imagenJuego As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .Source = imagen
+                }
 
-                i = 0
-                While i < listaJuegos.Count
-                    Dim imagenJuego As New ImageEx With {
-                        .Stretch = Stretch.Uniform,
-                        .IsCacheEnabled = True,
-                        .Source = listaJuegos(i).Datos.Imagen
-                    }
+                gv.Items.Add(imagenJuego)
 
-                    gv.Items.Add(imagenJuego)
-
-                    i += 1
-
-                    If i = listaJuegos.Count Then
-                        If gv.Items.Count < 9 Then
-                            i = 0
-                        End If
-                    End If
-                End While
-            End If
+                i += 1
+            End While
 
             BloquearControles(True)
 
@@ -300,6 +296,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenComentario As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
             tbImagenComentario.IsEnabled = estado
+
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosFondo")
+            tbImagenFondo.IsEnabled = estado
 
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
             botonIDs.IsEnabled = estado

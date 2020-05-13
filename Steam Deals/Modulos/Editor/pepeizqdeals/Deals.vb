@@ -223,6 +223,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
             tbImagenFondo.Text = String.Empty
 
+            RemoveHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
+            AddHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
+
             If Not listaFinal(0).Analisis Is Nothing Then
                 If Not listaFinal(0).Analisis.Enlace = Nothing Then
                     Dim fondo As String = listaFinal(0).Analisis.Enlace
@@ -456,7 +459,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 contenido = contenido + "<tbody>" + Environment.NewLine
                 contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
 
-                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Or tienda.NombreUsar = "Direct2Drive" Then
+                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Or tienda.NombreUsar = "Direct2Drive" Or tienda.NombreUsar = "MicrosoftStore" Then
                     contenido = contenido + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
                 ElseIf tienda.NombreMostrar = "GOG" Then
                     contenido = contenido + "<td style=" + ChrW(34) + "width: 200px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
@@ -625,6 +628,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbImagenJuego.Text.Trim.Length > 0 Then
                 DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegos(0), precioFinal)
+            End If
+
+        End Sub
+
+        Private Sub CargarFondoEnlace(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbImagenFondo As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            If tbImagenFondo.Text.Trim.Length > 0 Then
+                Try
+                    Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
+                    fondo.ImageSource = New BitmapImage(New Uri(tbImagenFondo.Text.Trim))
+                Catch ex As Exception
+
+                End Try
             End If
 
         End Sub

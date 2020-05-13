@@ -96,6 +96,7 @@
                 New Clases.LogosJuegos("DRAGON BALL", "Assets\LogosJuegos\dragonball.png", 520),
                 New Clases.LogosJuegos("Fallout", "Assets\LogosJuegos\fallout.png", 400),
                 New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 420),
+                New Clases.LogosJuegos("Forza", "Assets\LogosJuegos\forza.png", 320),
                 New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 350),
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 450),
                 New Clases.LogosJuegos("Metal Gear", "Assets\LogosJuegos\metalgearsolid.png", Nothing),
