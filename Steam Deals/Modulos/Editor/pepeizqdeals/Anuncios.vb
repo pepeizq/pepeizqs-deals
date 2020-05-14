@@ -61,9 +61,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
-            Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
-            cbGrid.IsChecked = False
-
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -122,7 +119,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
 
             Await Posts.Enviar(tbTitulo.Text.Trim, " ", 1208, New List(Of Integer) From {9999}, " ", " ", " ", " ",
-                               tbEnlace.Text.Trim, botonImagen, Nothing, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -311,9 +308,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.IsEnabled = estado
-
-            Dim cbGrid As CheckBox = pagina.FindName("cbEditorpepeizqAnunciosGrid")
-            cbGrid.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
             botonSubir.IsEnabled = estado

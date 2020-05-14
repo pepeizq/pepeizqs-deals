@@ -472,21 +472,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsGenerarImagenEntrada_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenEntrada.Click
-
-        Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
-
-    End Sub
-
     Private Sub BotonEditorpepeizqdealsGenerarImagenBundlesv2_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenBundlesv2.Click
-
-        Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGenerarImagenBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenBundles.Click
 
         Dim boton As Button = sender
         pepeizq.Editor.ImagenFichero.Exportar(boton)
@@ -500,21 +486,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsGenerarImagenFree_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenFree.Click
-
-        Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
-
-    End Sub
-
     Private Sub BotonEditorpepeizqdealsGenerarImagenSubscriptionsv2_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenSubscriptionsv2.Click
-
-        Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGenerarImagenSubscriptions_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenSubscriptions.Click
 
         Dim boton As Button = sender
         pepeizq.Editor.ImagenFichero.Exportar(boton)

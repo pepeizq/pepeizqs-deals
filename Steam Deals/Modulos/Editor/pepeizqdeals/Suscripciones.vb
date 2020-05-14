@@ -91,11 +91,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripciones")
-            Dim mensaje As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaSuscripcionesMensaje")
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
-
-            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -108,11 +104,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Text = String.Empty
 
                 imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
-                imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 450
-                gv.DesiredWidth = 350
-
-                imagenTienda2.Source = "Assets\Tiendas\humblechoice.png"
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
@@ -132,11 +123,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Text = String.Empty
 
                 imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
-                imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 450
-                gv.DesiredWidth = 350
-
-                imagenTienda2.Source = "Assets\Tiendas\twitchprime.png"
 
                 cosas.Tienda = "Twitch"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
@@ -155,11 +141,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
-                imagenTienda.MaxHeight = 140
-                imagenTienda.MaxWidth = 450
-                gv.DesiredWidth = 200
-
-                imagenTienda2.Source = "Assets\Tiendas\xboxgamepass.png"
 
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
@@ -176,11 +157,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\originaccessbasic.png"
-                imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 450
-                gv.DesiredWidth = 200
-
-                imagenTienda2.Source = "Assets\Tiendas\originaccessbasic.png"
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access Basic • New Games Added • " + cosas.Juegos
@@ -197,11 +173,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\originaccesspremier.png"
-                imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 450
-                gv.DesiredWidth = 200
-
-                imagenTienda2.Source = "Assets\Tiendas\originaccesspremier.png"
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access Premier • New Games Added • " + cosas.Juegos
@@ -218,11 +189,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\humbletrove.png"
-                imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 450
-                gv.DesiredWidth = 350
-
-                imagenTienda2.Source = "Assets\Tiendas\humbletrove.png"
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Trove • New Games Added • " + cosas.Juegos
@@ -239,11 +205,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Collapsed
 
                 imagenTienda.Source = "Assets\Tiendas\geforcenow.png"
-                imagenTienda.MaxHeight = 110
-                imagenTienda.MaxWidth = 420
-                gv.DesiredWidth = 350
-
-                imagenTienda2.Source = "Assets\Tiendas\geforcenow.png"
 
                 cosas.Tienda = "Geforce"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
@@ -264,14 +225,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim mensaje2 As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
 
             If Not cosas.Mensaje = Nothing Then
-                mensaje.Visibility = Visibility.Visible
-                mensaje.Text = cosas.Mensaje
-
                 panelMensaje.Visibility = Visibility.Visible
                 mensaje2.Text = cosas.Mensaje
             Else
-                mensaje.Visibility = Visibility.Collapsed
-
                 panelMensaje.Visibility = Visibility.Collapsed
                 mensaje2.Text = String.Empty
             End If
@@ -293,9 +249,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
-            Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptions")
-
-            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
 
             Dim cosas As Clases.Suscripciones = tbTitulo.Tag
 
@@ -308,7 +262,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
             Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
-                               " ", botonImagen1, botonImagen2, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               " ", botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -319,11 +273,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
+            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptionsv2")
             gv.Items.Clear()
-
-            Dim gv2 As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptionsv2")
-            gv2.Items.Clear()
 
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
             Dim enlaces As String = tbImagenesGrid.Text.Trim
@@ -344,14 +295,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     enlace = enlace.Trim
-
-                    Dim imagenJuego As New ImageEx With {
-                        .Stretch = Stretch.Uniform,
-                        .IsCacheEnabled = True,
-                        .Source = enlace
-                    }
-
-                    gv.Items.Add(imagenJuego)
 
                     Dim panel As New DropShadowPanel With {
                         .BlurRadius = 10,
@@ -382,7 +325,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     gridContenido.Children.Add(imagenJuego2)
                     panel.Content = gridContenido
-                    gv2.Items.Add(panel)
+                    gv.Items.Add(panel)
                 End If
                 i += 1
             End While

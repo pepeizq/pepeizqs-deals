@@ -13,7 +13,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
                                      descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
-                                     redireccion As String, imagen1 As Button, imagen2 As Button, tituloComplemento As String,
+                                     redireccion As String, imagen As Button, tituloComplemento As String,
                                      analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Juego), comentario As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
@@ -23,13 +23,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim imagenUrl1 As String = Await SubirImagen(imagen1, "Web", cliente)
-
-                Dim imagenUrl2 As String = String.Empty
-
-                If Not imagen2 Is Nothing Then
-                    imagenUrl2 = Await SubirImagen(imagen2, "Web2", cliente)
-                End If
+                Dim imagenUrl As String = Await SubirImagen(imagen, "Web", cliente)
 
                 Dim post As New Models.Post With {
                     .Title = New Models.Title(titulo.Trim)
@@ -92,17 +86,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not imagenUrl1 = Nothing Then
-                    If imagenUrl1.Trim.Length > 0 Then
-                        postEditor.ImagenFeatured = imagenUrl1.Trim
+                If Not imagenUrl = Nothing Then
+                    If imagenUrl.Trim.Length > 0 Then
+                        postEditor.ImagenFeatured = imagenUrl.Trim
 
-                        postEditor.ImagenRedesSociales = "<img src=" + ChrW(34) + imagenUrl1.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
-                    End If
-                End If
-
-                If Not imagenUrl2 = Nothing Then
-                    If imagenUrl2.Trim.Length > 0 Then
-                        postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenUrl2.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                        postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenUrl.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                     End If
                 End If
 
@@ -170,19 +158,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl1.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Steam Error Post", Nothing)
                         End Try
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagenUrl1.Trim, categoria)
+                            Await pepeizqdeals.RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagenUrl.Trim, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl1.Trim)
+                            Await pepeizqdeals.RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Discord Error Post", Nothing)
                         End Try

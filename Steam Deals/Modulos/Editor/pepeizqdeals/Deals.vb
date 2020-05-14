@@ -425,9 +425,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntrada")
-
-            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntradav2")
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntradav2")
 
             Dim categoria As Integer = 3
 
@@ -438,7 +436,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, categoria, listaEtiquetas, cosas.Descuento, precioFinal, tiendaNombre, tiendaIcono,
-                               redireccion, botonImagen1, botonImagen2, tituloComplemento, analisis, True, fechaFinal.ToString, cosas.ListaJuegos, tbComentario.Text)
+                               redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString, cosas.ListaJuegos, tbComentario.Text)
 
             BloquearControles(True)
 
@@ -574,7 +572,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim bitmap As New BitmapImage
                     Await bitmap.SetSourceAsync(stream)
 
-                    Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuego")
+                    Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuegov2")
                     imagen.Source = bitmap
                 End Using
             End If
@@ -601,11 +599,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim bitmap As New BitmapImage
                     Await bitmap.SetSourceAsync(stream)
 
-                    Dim imagen1 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegos")
-                    imagen1.Source = bitmap
-
-                    Dim imagen2 As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
-                    imagen2.Source = bitmap
+                    Dim imagen As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                    imagen.Source = bitmap
                 End Using
             End If
 
@@ -749,10 +744,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuego")
+            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If gridUnJuego.Visibility = Visibility.Visible Then
-                Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
+                Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
 
                 Dim temp, temp2 As String
                 Dim int, int2 As Integer
@@ -765,7 +760,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 tbDescuento.Text = temp2.Trim
 
-                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuego")
+                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2")
 
                 Dim temp3, temp4 As String
                 Dim int3, int4 As Integer
@@ -788,17 +783,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim panelJuego As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsUnJuego")
-            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeErrorPrecio")
-
-            If cbError.IsChecked = True Then
-                panelJuego.Margin = New Thickness(30, 30, 30, 0)
-                panelMensaje.Visibility = Visibility.Visible
-            Else
-                panelJuego.Margin = New Thickness(30, 30, 30, 30)
-                panelMensaje.Visibility = Visibility.Collapsed
-            End If
-
             Dim panelMensaje2 As DropShadowPanel = pagina.FindName("panelMensajeErrorPreciov2")
 
             If cbError.IsChecked = True Then
@@ -816,33 +800,18 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
 
-            Dim panelJuego As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsUnJuego")
-            Dim panelDescuento As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuego")
-
-            Dim panelDescuento2 As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim panelDescuento As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If tbDescuento.Text.Trim.Length > 0 Then
-                panelJuego.Margin = New Thickness(30, 30, 30, 0)
                 panelDescuento.Visibility = Visibility.Visible
 
-                Dim tbDescuento2 As TextBlock = pagina.FindName("tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuego")
+                Dim tbDescuento2 As TextBlock = pagina.FindName("tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2")
 
                 If Not tbDescuento2 Is Nothing Then
                     tbDescuento2.Text = "Discount Code: " + tbDescuento.Text
                 End If
-
-                panelDescuento2.Visibility = Visibility.Visible
-
-                Dim tbDescuento3 As TextBlock = pagina.FindName("tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2")
-
-                If Not tbDescuento3 Is Nothing Then
-                    tbDescuento3.Text = "Discount Code: " + tbDescuento.Text
-                End If
             Else
-                panelJuego.Margin = New Thickness(30, 30, 30, 30)
                 panelDescuento.Visibility = Visibility.Collapsed
-
-                panelDescuento2.Visibility = Visibility.Collapsed
             End If
 
         End Sub

@@ -71,9 +71,6 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("fifu_image_url")>
         Public ImagenFeatured As String
 
-        <JsonProperty("imagen_redes_sociales")>
-        Public ImagenRedesSociales As String
-
         <JsonProperty("imagen_v2")>
         Public Imagenv2 As String
 

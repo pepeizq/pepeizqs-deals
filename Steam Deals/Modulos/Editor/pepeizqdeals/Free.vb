@@ -171,9 +171,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
-            Dim botonImagen1 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFree")
-
-            Dim botonImagen2 As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFreev2")
+            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenFreev2")
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsFree")
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsFree")
@@ -182,7 +180,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Await Posts.Enviar(tbTitulo.Text.Trim, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ", " ",
-                               tbEnlace.Text.Trim, botonImagen1, botonImagen2, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -195,11 +193,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFree")
-            imagen.Source = tbImagen.Text
+            If tbImagen.Text.Trim.Length > 0 Then
+                Try
+                    Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
+                    imagen.Source = tbImagen.Text.Trim
+                Catch ex As Exception
 
-            Dim imagen2 As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
-            imagen2.Source = tbImagen.Text
+                End Try
+            End If
 
         End Sub
 
@@ -210,11 +211,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFree")
-            imagen.Source = tbImagen.Text
+            If tbImagen.Text.Trim.Length > 0 Then
+                Try
+                    Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFreev2")
+                    imagen.Source = tbImagen.Text
 
-            Dim imagen2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFreev2")
-            imagen2.Source = tbImagen.Text
+                    If tbImagen.Text.Contains("epicgames") Then
+                        imagen.MaxHeight = 95
+                    Else
+                        imagen.MaxHeight = 23
+                    End If
+                Catch ex As Exception
+
+                End Try
+            End If
 
         End Sub
 
