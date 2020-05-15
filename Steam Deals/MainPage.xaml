@@ -325,8 +325,6 @@
 
                                             <MenuFlyoutItem x:Name="botonEditorpepeizqdealsRss" Text="RSS" Foreground="White" FontSize="16" HorizontalAlignment="Stretch" Background="{StaticResource BrushPrimario}" Padding="20,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
 
-                                            <MenuFlyoutItem x:Name="botonEditorpepeizqdealsSteamDB" Text="SteamDB" Foreground="White" FontSize="16" HorizontalAlignment="Stretch" Background="{StaticResource BrushPrimario}" Padding="20,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-
                                             <MenuFlyoutItem x:Name="botonEditorAbrirCarpetaDatos" Text="Abrir Carpeta Datos" Foreground="White" FontSize="16" HorizontalAlignment="Stretch" Background="{StaticResource BrushPrimario}" Padding="20,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
 
                                             <MenuFlyoutItem x:Name="botonEditorPruebas" Text="Pruebas" Foreground="White" FontSize="16" HorizontalAlignment="Stretch" Background="{StaticResource BrushPrimario}" Padding="20,5" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
@@ -1127,6 +1125,12 @@
                                             <TextBox x:Name="tbEditorpepeizqdealsIGDBClave" Margin="0,10"/>
                                         </StackPanel>
                                     </controls:Expander>
+
+                                    <controls:Expander Header="Gamebillet" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
+                                        <StackPanel Orientation="Vertical" Padding="20">
+                                            <WebView x:Name="wvEditorGamebilletpepeizqdeals" MinWidth="700" MinHeight="700" Source="https://gamebillet.com/hotdeals"/>
+                                        </StackPanel> 
+                                    </controls:Expander> 
                                 </StackPanel>
                             </ScrollViewer>
 
@@ -1201,17 +1205,9 @@
                                 </StackPanel>
                             </ScrollViewer>
 
-                            <ScrollViewer x:Name="svEditorpepeizqdealsSteamDB" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
-                                <StackPanel Orientation="Vertical">
-                                    <CheckBox x:Name="cbEditorpepeizqdealsSteamDB" Content="Activar"/>
-
-                                    <TextBox x:Name="tbEditorpepeizqdealsSteamDB" AcceptsReturn="True" TextWrapping="Wrap" Margin="0,20,0,0"/>
-                                </StackPanel>
-                            </ScrollViewer>
-
                             <ScrollViewer x:Name="svEditorpepeizqdealsPruebas" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
                                 <StackPanel Orientation="Vertical">
-                                                                      
+                                
                                 </StackPanel>
                             </ScrollViewer>
                         </Grid>

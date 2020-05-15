@@ -6,6 +6,8 @@ Imports Windows.Storage
 Namespace pepeizq.Tiendas
     Module GameBillet
 
+        'https://www.gamebillet.com/Product/JsonFeed?store=eu
+
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)

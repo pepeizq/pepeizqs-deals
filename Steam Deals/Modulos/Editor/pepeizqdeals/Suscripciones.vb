@@ -320,7 +320,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim imagenJuego2 As New ImageEx With {
                         .Stretch = Stretch.Uniform,
                         .IsCacheEnabled = True,
-                        .Source = enlace
+                        .Source = enlace,
+                        .MaxHeight = 250
                     }
 
                     gridContenido.Children.Add(imagenJuego2)
