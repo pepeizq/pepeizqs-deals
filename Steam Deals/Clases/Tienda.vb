@@ -8,12 +8,10 @@
     Public Property EtiquetaWeb As Integer
     Public Property IconoWeb As String
     Public Property LogoWeb As String
-    Public Property LogoWebAncho As Integer
-    Public Property LogoWebAlto As Integer
+    Public Property MensajeUnJuego As String
 
     Public Sub New(ByVal nombreMostrar As String, ByVal nombreUsar As String, ByVal iconoApp As String, ByVal posicionApp As Integer,
-                   ByVal cupon As TiendaCupon, ByVal etiquetaWeb As Integer, ByVal iconoWeb As String, ByVal logoWeb As String,
-                   ByVal logoWebAncho As Integer, ByVal logoWebAlto As Integer)
+                   ByVal cupon As TiendaCupon, ByVal etiquetaWeb As Integer, ByVal iconoWeb As String, ByVal logoWeb As String, ByVal mensajeUnJuego As String)
         Me.NombreMostrar = nombreMostrar
         Me.NombreUsar = nombreUsar
         Me.IconoApp = iconoApp
@@ -22,8 +20,7 @@
         Me.EtiquetaWeb = etiquetaWeb
         Me.IconoWeb = iconoWeb
         Me.LogoWeb = logoWeb
-        Me.LogoWebAncho = logoWebAncho
-        Me.LogoWebAlto = logoWebAlto
+        Me.MensajeUnJuego = mensajeUnJuego
     End Sub
 
 End Class

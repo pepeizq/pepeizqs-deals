@@ -91,6 +91,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                         postEditor.ImagenFeatured = imagenUrl.Trim
 
                         postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenUrl.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+
+                        If categoria = 1208 Then
+                            postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenUrl.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                        End If
                     End If
                 End If
 

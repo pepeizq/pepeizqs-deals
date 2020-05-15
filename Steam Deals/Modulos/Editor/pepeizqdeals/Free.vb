@@ -217,9 +217,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagen.Source = tbImagen.Text
 
                     If tbImagen.Text.Contains("epicgames") Then
-                        imagen.MaxHeight = 95
+                        imagen.MaxHeight = 90
+                    ElseIf tbImagen.Text.Contains("humble") Then
+                        imagen.MaxHeight = 45
                     Else
-                        imagen.MaxHeight = 23
+                        imagen.MaxHeight = 55
                     End If
                 Catch ex As Exception
 

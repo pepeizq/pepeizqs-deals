@@ -471,8 +471,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If esNumero = True Then
                     Dim ancho As Integer = tbDimensiones.Text.Trim
 
-                    If ancho > 560 Then
-                        ancho = 560
+                    If ancho > 760 Then
+                        ancho = 760
                     End If
 
                     If ancho < 0 Then

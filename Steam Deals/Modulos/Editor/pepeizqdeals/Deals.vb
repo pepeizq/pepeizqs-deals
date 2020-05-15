@@ -308,9 +308,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbMensajeContenido.Text = String.Empty
 
             If listaFinal.Count = 1 Then
-                If listaFinal(0).Tienda.NombreUsar = "Humble" Then
-                    tbMensajeContenido.Text = "* Price with Humble Choice"
-                    ModificarMensaje()
+                If Not listaFinal(0).Tienda.MensajeUnJuego = Nothing Then
+                    If listaFinal(0).Tienda.MensajeUnJuego.Trim.Length > 0 Then
+                        tbMensajeContenido.Text = listaFinal(0).Tienda.MensajeUnJuego.Trim
+                        ModificarMensaje()
+                    End If
                 End If
             End If
 
@@ -634,13 +636,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
+
             If tbImagenFondo.Text.Trim.Length > 0 Then
                 Try
-                    Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
                     fondo.ImageSource = New BitmapImage(New Uri(tbImagenFondo.Text.Trim))
                 Catch ex As Exception
-
+                    fondo.ImageSource = Nothing
                 End Try
+            Else
+                fondo.ImageSource = Nothing
             End If
 
         End Sub

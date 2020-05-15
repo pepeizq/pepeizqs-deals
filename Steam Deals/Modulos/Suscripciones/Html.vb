@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
@@ -23,13 +22,8 @@ Namespace pepeizq.Suscripciones
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
 
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptions")
-            gv.Items.Clear()
-
             If Not listaJuegos Is Nothing Then
                 If listaJuegos.Count > 0 Then
-                    gv.Visibility = Visibility.Visible
-
                     Dim i As Integer = 0
                     For Each juego In listaJuegos
                         juego.Titulo = juego.Titulo.Replace("™", Nothing)
@@ -59,14 +53,6 @@ Namespace pepeizq.Suscripciones
                             tbImagenesGrid.Text = tbImagenesGrid.Text + "," + juego.Imagen
                         End If
 
-                        Dim imagenJuego As New ImageEx With {
-                            .Stretch = Stretch.Uniform,
-                            .IsCacheEnabled = True,
-                            .Source = juego.Imagen
-                        }
-
-                        gv.Items.Add(imagenJuego)
-
                         i += 1
                     Next
 
@@ -74,7 +60,7 @@ Namespace pepeizq.Suscripciones
 
                     Dim html As String = String.Empty
 
-                    html = "[vc_row bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + " el_class=" + ChrW(34) + "filaSuscripcionesComprar" + ChrW(34) + "][vc_column][vc_row_inner][vc_column_inner][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:" + enlaceSuscripcion + "||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "]"
+                    html = "[vc_row bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][vc_row_inner el_class=" + ChrW(34) + "filaSuscripcionesComprar" + ChrW(34) + "][vc_column_inner][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:" + enlaceSuscripcion + "||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "]"
 
                     If Not mensaje = Nothing Then
                         html = html + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " el_class=" + ChrW(34) + "tope" + ChrW(34) + "]" + mensaje + "[/us_message]"
