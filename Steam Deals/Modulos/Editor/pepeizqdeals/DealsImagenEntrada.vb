@@ -178,13 +178,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                 "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin", "Direct2Drive"
             }
 
-            Dim boolVertical As Boolean = False
+            Dim tiendasVertical As Integer = 0
 
             For Each tienda In tiendasHorizontal
                 If tienda = juegos(0).Tienda.NombreUsar Then
-                    boolVertical = True
+                    tiendasVertical = 1
                 End If
             Next
+
+            If juegos(0).Tienda.NombreUsar = "Yuplay" Then
+                tiendasVertical = 2
+            End If
 
             Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
             AddHandler tbCabeceraImagenDimensiones.TextChanged, AddressOf ModificarCabeceraImagenDimensiones
@@ -230,8 +234,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                         .VerticalAlignment = VerticalAlignment.Stretch
                     }
 
-                    If boolVertical = True Then
+                    If tiendasVertical = 1 Then
                         panel.Margin = New Thickness(35, 10, 35, 10)
+                    ElseIf tiendasVertical = 2 Then
+                        panel.Margin = New Thickness(20, 10, 20, 10)
                     Else
                         panel.Margin = New Thickness(10, 10, 10, 10)
                     End If
