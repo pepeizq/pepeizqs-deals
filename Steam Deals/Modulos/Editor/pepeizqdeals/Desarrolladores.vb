@@ -85,7 +85,7 @@
                 New Clases.Desarrolladores("34BigThings", "@34bigthings", Nothing, Nothing),
                 New Clases.Desarrolladores("3D Avenue", "@3D_Avenue", Nothing, Nothing),
                 New Clases.Desarrolladores("3DClouds.it", "@3DClouds", Nothing, Nothing),
-                New Clases.Desarrolladores("505 Games", "@505_Games", "Assets\LogosPublishers\505games.png", 300),
+                New Clases.Desarrolladores("505 Games", "@505_Games", "Assets\LogosPublishers\505games.png", 250),
                 New Clases.Desarrolladores("Abbey Games", "@AbbeyGamesNL", Nothing, Nothing),
                 New Clases.Desarrolladores("Abylight Studios", "@abylight", Nothing, Nothing),
                 New Clases.Desarrolladores("ACE Team", "@theACETeam", Nothing, Nothing),
