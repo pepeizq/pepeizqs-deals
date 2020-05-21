@@ -91,6 +91,20 @@ Namespace pepeizq.Tiendas
 
                             precioRebajado = precioRebajado + " €"
 
+                            If precioRebajado.Contains(".") Then
+                                Dim int As Integer = precioRebajado.IndexOf(".")
+                                Dim int2 As Integer = precioRebajado.IndexOf("€")
+
+                                If int2 - int > 4 Then
+                                    Dim precioRebajado2 As String = precioRebajado
+                                    precioRebajado2 = precioRebajado2.Replace(",", ".")
+                                    precioRebajado2 = precioRebajado2.Replace("€", Nothing)
+
+                                    Dim dprecio As Double = Double.Parse(precioRebajado2, Globalization.CultureInfo.InvariantCulture)
+                                    precioRebajado = Math.Round(dprecio, 2).ToString + " €"
+                                End If
+                            End If
+
                             Dim descuento As String = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, juegoGMG.PrecioRebajado)
 
                             If descuento = "00%" Then
@@ -103,8 +117,8 @@ Namespace pepeizq.Tiendas
                                     precioRebajado = precioRebajado.Replace("€", Nothing)
                                     precioRebajado = precioRebajado.Trim
 
-                                    Dim dprecio As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                    precioRebajado = Math.Round(dprecio, 2).ToString + " €"
+                                    Dim dprecio2 As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                    precioRebajado = Math.Round(dprecio2, 2).ToString + " €"
                                     descuento = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, precioRebajado)
                                 End If
 
