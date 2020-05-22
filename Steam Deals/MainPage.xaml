@@ -802,8 +802,10 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFreev2" MaxWidth="200" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
-
+                                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFreev2" MaxWidth="200" MaxHeight="55" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            </controls:DropShadowPanel> 
+                                                            
                                                             <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
                                                                 <TextBlock Text="Free" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="15,8,15,8" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </StackPanel>

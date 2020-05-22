@@ -77,22 +77,24 @@ Namespace pepeizq.Suscripciones
 
                                         Dim video As String = Nothing
 
-                                        If Not datos.Datos.Videos Is Nothing Then
-                                            video = datos.Datos.Videos(0).Calidad.Max
+                                        If Not datos.Datos Is Nothing Then
+                                            If Not datos.Datos.Videos Is Nothing Then
+                                                video = datos.Datos.Videos(0).Calidad.Max
 
-                                            If video.Contains("?") Then
-                                                Dim int2 As Integer = video.IndexOf("?")
-                                                video = video.Remove(int2, video.Length - int2)
+                                                If video.Contains("?") Then
+                                                    Dim int2 As Integer = video.IndexOf("?")
+                                                    video = video.Remove(int2, video.Length - int2)
+                                                End If
                                             End If
+
+                                            Dim titulo As String = juego.Titulo.Trim
+                                            titulo = titulo.Replace("®", Nothing)
+                                            titulo = titulo.Replace("™", Nothing)
+                                            titulo = titulo.Replace("– Steam", Nothing)
+                                            titulo = titulo.Trim
+
+                                            listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
                                         End If
-
-                                        Dim titulo As String = juego.Titulo.Trim
-                                        titulo = titulo.Replace("®", Nothing)
-                                        titulo = titulo.Replace("™", Nothing)
-                                        titulo = titulo.Replace("– Steam", Nothing)
-                                        titulo = titulo.Trim
-
-                                        listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
                                     End If
                                 End If
                             End If
