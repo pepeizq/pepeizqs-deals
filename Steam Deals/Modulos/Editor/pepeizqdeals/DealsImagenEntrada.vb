@@ -383,6 +383,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            ModificarCabeceraImagenDimensiones()
+
             Dim gridJuegosRestantes As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
             Dim juegosRestantes As Integer = cantidadJuegos
@@ -488,7 +490,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbDimensiones.Text = ancho.ToString
 
                     Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
-                    imagenCabecera.MaxWidth = ancho
+                    imagenCabecera.Width = ancho
                 End If
             End If
 
