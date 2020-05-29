@@ -97,7 +97,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_bethesda2.jpg"
                 ElseIf juego.DRM.ToLower.Contains("epic") Then
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_epic2.jpg"
-                ElseIf juego.DRM.ToLower.Contains("battlenet") Then
+                ElseIf juego.DRM.ToLower.Contains("battle") Then
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_battlenet2.png"
                 ElseIf juego.DRM.ToLower.Contains("microsoft") Then
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_microsoft2.png"
