@@ -189,7 +189,12 @@ Module Divisas
 
                     If moneda.Length > 0 And precio.Length > 0 Then
                         dou = CDbl(moneda)
-                        dou2 = CDbl(precio)
+
+                        Try
+                            dou2 = CDbl(precio)
+                        Catch ex As Exception
+
+                        End Try
 
                         resultado = dou2 / dou
 
