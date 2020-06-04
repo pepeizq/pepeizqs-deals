@@ -29,7 +29,11 @@ Public Module Calculadora
                 precioBase = precioBase.Remove(0, 1)
             End If
 
-            douBase = Double.Parse(precioBase, CultureInfo.InvariantCulture)
+            Try
+                douBase = Double.Parse(precioBase, CultureInfo.InvariantCulture)
+            Catch ex As Exception
+
+            End Try
         End If
 
         If Not precioRebajado = Nothing Then
