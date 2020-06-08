@@ -111,7 +111,7 @@
                 New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 380),
                 New Clases.LogosJuegos("Tom Clancy's Rainbow Six Siege", "Assets\LogosJuegos\rainbowsiege.png", 420),
                 New Clases.LogosJuegos("Tomb Raider", "Assets\LogosJuegos\tombraider.png", 410),
-                New Clases.LogosJuegos("Total War", "Assets\LogosJuegos\totalwar.png", 380),
+                New Clases.LogosJuegos("Total War", "Assets\LogosJuegos\totalwar.png", 310),
                 New Clases.LogosJuegos("Warhammer", "Assets\LogosJuegos\warhammer.png", 350),
                 New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 450),
                 New Clases.LogosJuegos("Wolfenstein", "Assets\LogosJuegos\wolfenstein.png", 380),
