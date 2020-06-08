@@ -1,9 +1,13 @@
-# Steam Deals
+# pepeizq's deals
 
 App for Windows 10 written in Visual Basic for Universal Windows Platform (UWP).
 
 ### What does the app do?
 
-It is used to show the web [pepeizqdeals.com](https://pepeizqdeals.com/) and generate new entries with deals for the web, more information [in my web](https://pepeizqapps.com/app/steam-deals/).
+App to manage and create new entries with deals on [pepeizqdeals.com](https://pepeizqdeals.com/).
 
-[![Image1](https://i.imgur.com/X0CAhzf.png)](https://pepeizqapps.com/app/steam-deals/)
+[![Image1](https://i.imgur.com/R7OhrOo.png)](https://pepeizqdeals.com/)
+
+[![Image2](https://i.imgur.com/Vz9pqnw.png)](https://pepeizqdeals.com/)
+
+[![Image3](https://i.imgur.com/EL8hv6S.png)](https://pepeizqdeals.com/)
