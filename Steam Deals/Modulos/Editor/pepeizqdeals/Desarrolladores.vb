@@ -221,7 +221,7 @@
                 New Clases.Desarrolladores("Digitalmindsoft", "@digitalmindsoft", Nothing, Nothing),
                 New Clases.Desarrolladores("Dinosaur Polo Club", "@dinopoloclub", Nothing, Nothing),
                 New Clases.Desarrolladores("DireWolfDigital", "@direwolfdigital", Nothing, Nothing),
-                New Clases.Desarrolladores("Disney", "@Disney", "Assets\LogosPublishers\disney.png", 300),
+                New Clases.Desarrolladores("Disney", "@Disney", "Assets\LogosPublishers\disney.png", 240),
                 New Clases.Desarrolladores("DLsite", "@DLsite", Nothing, Nothing),
                 New Clases.Desarrolladores("Dodge Roll", "@DodgeRollGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Dotemu", "@Dotemu", Nothing, Nothing),
