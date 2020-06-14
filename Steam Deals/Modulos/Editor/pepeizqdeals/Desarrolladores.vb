@@ -201,7 +201,7 @@
                 New Clases.Desarrolladores("CyberCoconut", "@TWLgame", Nothing, Nothing),
                 New Clases.Desarrolladores("D-Pad Studio", "@DPadStudio", Nothing, Nothing),
                 New Clases.Desarrolladores("D3 PUBLISHER", "@D3_PUBLISHER", Nothing, Nothing),
-                New Clases.Desarrolladores("Daedalic", "@daedalic", "Assets\LogosPublishers\daedalic.png", 380),
+                New Clases.Desarrolladores("Daedalic", "@daedalic", "Assets\LogosPublishers\daedalic.png", 320),
                 New Clases.Desarrolladores("DANGEN Entertainment", "@Dangen_Ent", Nothing, Nothing),
                 New Clases.Desarrolladores("Daniel Mullins Games", "@DMullinsGames", Nothing, Nothing),
                 New Clases.Desarrolladores("David Stark", "@zarkonnen_com", Nothing, Nothing),
