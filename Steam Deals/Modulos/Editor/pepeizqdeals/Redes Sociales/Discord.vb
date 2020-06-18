@@ -36,7 +36,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     titulo = "@everyone " + titulo
                 End If
 
-                Await cliente.SendMessageAsync(titulo + Environment.NewLine + enlaceFinal, False, lista, "pepebot3")
+                Await cliente.SendMessageAsync(titulo + Environment.NewLine + enlaceFinal, False, lista, "pepebot4")
             End Using
 
         End Function

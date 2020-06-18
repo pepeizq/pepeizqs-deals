@@ -4,6 +4,8 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Tiendas
     Module Yuplay
 
+        'https://jsonformatter.org/json-viewer
+
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
@@ -270,7 +272,7 @@ Namespace pepeizq.Tiendas
                                                     Dim htmlSteamDB As String = htmlSteamDB_.Result
 
                                                     If Not htmlSteamDB = Nothing Then
-                                                        Dim bloqueo As New YuplayBloqueo(enlace, False, temp16.Trim)
+                                                        Dim bloqueo As New YuplayBloqueo(titulo, enlace, False, temp16.Trim)
 
                                                         If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
                                                             bloqueo.Bloqueo = True
@@ -286,6 +288,10 @@ Namespace pepeizq.Tiendas
                                                             añadirJuegoLista = True
                                                         End If
                                                     End If
+                                                Else
+                                                    Notificaciones.Toast(titulo, enlace)
+                                                    Dim bloqueo As New YuplayBloqueo(titulo, enlace, True, "---")
+                                                    listaBloqueo.Add(bloqueo)
                                                 End If
                                             End If
 
@@ -426,11 +432,13 @@ Namespace pepeizq.Tiendas
 
     Public Class YuplayBloqueo
 
+        Public Property Titulo As String
         Public Property Enlace As String
         Public Property Bloqueo As Boolean
         Public Property IDSteam As String
 
-        Public Sub New(ByVal enlace As String, ByVal bloqueo As Boolean, ByVal idSteam As String)
+        Public Sub New(ByVal titulo As String, ByVal enlace As String, ByVal bloqueo As Boolean, ByVal idSteam As String)
+            Me.Titulo = titulo
             Me.Enlace = enlace
             Me.Bloqueo = bloqueo
             Me.IDSteam = idSteam
