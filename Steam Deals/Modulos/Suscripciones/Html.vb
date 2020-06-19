@@ -104,11 +104,14 @@ Namespace pepeizq.Suscripciones
                         Else
                             If Not ana Is Nothing Then
                                 Dim id As String = ana.Enlace
-                                id = id.Replace("https://store.steampowered.com/app/", Nothing)
 
-                                If id.Contains("/") Then
-                                    Dim int As Integer = id.IndexOf("/")
-                                    id = id.Remove(int, id.Length - int)
+                                If Not id = Nothing Then
+                                    id = id.Replace("https://store.steampowered.com/app/", Nothing)
+
+                                    If id.Contains("/") Then
+                                        Dim int As Integer = id.IndexOf("/")
+                                        id = id.Remove(int, id.Length - int)
+                                    End If
                                 End If
 
                                 Dim video As String = String.Empty

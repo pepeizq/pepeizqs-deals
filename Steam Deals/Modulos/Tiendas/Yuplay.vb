@@ -14,6 +14,7 @@ Namespace pepeizq.Tiendas
         Dim listaIdiomas As New List(Of YuplayIdiomas)
         Dim Tienda As Tienda = Nothing
         Dim rublo As String = String.Empty
+        Dim contadorDB As Integer = 0
 
         Public Async Sub BuscarOfertas(tienda_ As Tienda)
 
@@ -256,36 +257,40 @@ Namespace pepeizq.Tiendas
                                         If Not htmlJuego = Nothing Then
                                             If buscarBloqueo = True Then
                                                 If htmlJuego.Contains("Steam SUB_ID:") Then
-                                                    Dim temp15, temp16 As String
-                                                    Dim int15, int16 As Integer
+                                                    If contadorDB < 50 Then
+                                                        contadorDB += 1
 
-                                                    int15 = htmlJuego.IndexOf("Steam SUB_ID:")
-                                                    temp15 = htmlJuego.Remove(0, int15)
+                                                        Dim temp15, temp16 As String
+                                                        Dim int15, int16 As Integer
 
-                                                    int15 = temp15.IndexOf("<span>")
-                                                    temp15 = temp15.Remove(0, int15 + 6)
+                                                        int15 = htmlJuego.IndexOf("Steam SUB_ID:")
+                                                        temp15 = htmlJuego.Remove(0, int15)
 
-                                                    int16 = temp15.IndexOf("</span>")
-                                                    temp16 = temp15.Remove(int16, temp15.Length - int16)
+                                                        int15 = temp15.IndexOf("<span>")
+                                                        temp15 = temp15.Remove(0, int15 + 6)
 
-                                                    Dim htmlSteamDB_ As Task(Of String) = HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
-                                                    Dim htmlSteamDB As String = htmlSteamDB_.Result
+                                                        int16 = temp15.IndexOf("</span>")
+                                                        temp16 = temp15.Remove(int16, temp15.Length - int16)
 
-                                                    If Not htmlSteamDB = Nothing Then
-                                                        Dim bloqueo As New YuplayBloqueo(titulo, enlace, False, temp16.Trim)
+                                                        Dim htmlSteamDB_ As Task(Of String) = HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
+                                                        Dim htmlSteamDB As String = htmlSteamDB_.Result
 
-                                                        If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
-                                                            bloqueo.Bloqueo = True
-                                                        End If
+                                                        If Not htmlSteamDB = Nothing Then
+                                                            Dim bloqueo As New YuplayBloqueo(titulo, enlace, False, temp16.Trim)
 
-                                                        If htmlSteamDB.Contains("This package can only be run in specified countries") Then
-                                                            bloqueo.Bloqueo = True
-                                                        End If
+                                                            If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
+                                                                bloqueo.Bloqueo = True
+                                                            End If
 
-                                                        listaBloqueo.Add(bloqueo)
+                                                            If htmlSteamDB.Contains("This package can only be run in specified countries") Then
+                                                                bloqueo.Bloqueo = True
+                                                            End If
 
-                                                        If bloqueo.Bloqueo = False Then
-                                                            añadirJuegoLista = True
+                                                            listaBloqueo.Add(bloqueo)
+
+                                                            If bloqueo.Bloqueo = False Then
+                                                                añadirJuegoLista = True
+                                                            End If
                                                         End If
                                                     End If
                                                 Else

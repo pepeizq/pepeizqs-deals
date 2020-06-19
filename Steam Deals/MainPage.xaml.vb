@@ -69,7 +69,7 @@ Public NotInheritable Class MainPage
 
     Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
-        Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
+        'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         Configuracion.Iniciar()
