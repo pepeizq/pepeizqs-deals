@@ -237,13 +237,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenFree")
+
             If tbImagen.Text.Trim.Length > 0 Then
                 Try
-                    Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenFree")
                     fondo.ImageSource = New BitmapImage(New Uri(tbImagen.Text.Trim))
                 Catch ex As Exception
-
+                    fondo.ImageSource = Nothing
                 End Try
+            Else
+                fondo.ImageSource = Nothing
             End If
 
         End Sub

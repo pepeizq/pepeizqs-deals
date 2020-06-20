@@ -21,23 +21,27 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 hook = ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord")
             End If
 
-            Using cliente As New DiscordWebhookClient(hook)
-                Dim constructor As New EmbedBuilder With {
-                    .Title = titulo,
-                    .ImageUrl = imagen,
-                    .Url = enlaceFinal
-                }
+            If Not hook = String.Empty Then
+                hook = hook.Replace("https://discord.com/api/", "https://discordapp.com/api/")
 
-                Dim lista As New List(Of Embed) From {
-                    constructor.Build()
-                }
+                Using cliente As New DiscordWebhookClient(hook)
+                    Dim constructor As New EmbedBuilder With {
+                        .Title = titulo,
+                        .ImageUrl = imagen,
+                        .Url = enlaceFinal
+                    }
 
-                If categoria = 12 Then
-                    titulo = "@everyone " + titulo
-                End If
+                    Dim lista As New List(Of Embed) From {
+                        constructor.Build()
+                    }
 
-                Await cliente.SendMessageAsync(titulo + Environment.NewLine + enlaceFinal, False, lista, "pepebot4")
-            End Using
+                    If categoria = 12 Then
+                        titulo = "@everyone " + titulo
+                    End If
+
+                    Await cliente.SendMessageAsync(titulo + Environment.NewLine + enlaceFinal, False, lista, "pepebot4")
+                End Using
+            End If
 
         End Function
 

@@ -257,7 +257,7 @@ Namespace pepeizq.Tiendas
                                         If Not htmlJuego = Nothing Then
                                             If buscarBloqueo = True Then
                                                 If htmlJuego.Contains("Steam SUB_ID:") Then
-                                                    If contadorDB < 50 Then
+                                                    If contadorDB < 150 Then
                                                         contadorDB += 1
 
                                                         Dim temp15, temp16 As String
