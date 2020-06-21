@@ -8,7 +8,7 @@ Namespace pepeizq.Tiendas
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
-        Dim listaDesarrolladores As New List(Of SteamDesarrolladores)
+        Dim listaAPI As New List(Of SteamAPI)
         Dim Tienda As Tienda = Nothing
 
         Public Async Sub BuscarOfertas(tienda_ As Tienda)
@@ -21,10 +21,10 @@ Namespace pepeizq.Tiendas
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
             End If
 
-            If Await helper.FileExistsAsync("listaDesarrolladoresSteam2") Then
-                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam2")
+            If Await helper.FileExistsAsync("listaSteamAPI") Then
+                listaAPI = Await helper.ReadFileAsync(Of List(Of SteamAPI))("listaSteamAPI")
             Else
-                listaDesarrolladores = New List(Of SteamDesarrolladores)
+                listaAPI = New List(Of SteamAPI)
             End If
 
             Dim frame As Frame = Window.Current.Content
@@ -220,43 +220,40 @@ Namespace pepeizq.Tiendas
                                         analisis = AñadirAnalisis(temp2, listaAnalisis)
                                     End If
 
-                                    Dim temp13, temp14 As String
-                                    Dim int13 As Integer
+                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
-                                    temp13 = enlace.Replace("https://store.steampowered.com/", Nothing)
-                                    int13 = temp13.IndexOf("/")
-
-                                    temp14 = temp13.Remove(int13, temp13.Length - int13)
-
-                                    Dim tipo As String = temp14.Trim
-
-                                    Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, tipo, DateTime.Today, Nothing, analisis, sistemas, Nothing)
-
-                                    Dim tituloBool As Boolean = False
+                                    Dim añadir As Boolean = True
                                     Dim k As Integer = 0
                                     While k < listaJuegos.Count
-                                        If listaJuegos(k).Titulo = juego.Titulo Then
-                                            tituloBool = True
+                                        If listaJuegos(k).Enlace = juego.Enlace Then
+                                            añadir = False
                                         End If
                                         k += 1
                                     End While
 
                                     If juego.Descuento = Nothing Then
-                                        tituloBool = True
+                                        añadir = False
                                     End If
 
-                                    If tituloBool = False Then
-                                        Dim buscarDesarrollador As Boolean = True
+                                    If añadir = True Then
+                                        Dim buscarAPI As Boolean = True
 
-                                        For Each desarrollador In listaDesarrolladores
-                                            If desarrollador.Enlace = juego.Enlace Then
-                                                juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                                buscarDesarrollador = False
+                                        For Each api In listaAPI
+                                            If api.Enlace = juego.Enlace Then
+                                                If Not api.Desarrollador = Nothing Then
+                                                    juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {api.Desarrollador}, Nothing)
+                                                End If
+
+                                                If Not api.Tipo = Nothing Then
+                                                    juego.Tipo = api.Tipo
+                                                End If
+
+                                                buscarAPI = False
                                                 Exit For
                                             End If
                                         Next
 
-                                        If buscarDesarrollador = True Then
+                                        If buscarAPI = True Then
                                             If Not juego Is Nothing Then
                                                 juego = SteamMas(juego).Result
                                             End If
@@ -292,7 +289,7 @@ Namespace pepeizq.Tiendas
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
-            Await helper.SaveFileAsync(Of List(Of SteamDesarrolladores))("listaDesarrolladoresSteam2", listaDesarrolladores)
+            Await helper.SaveFileAsync(Of List(Of SteamAPI))("listaSteamAPI", listaAPI)
 
             Ordenar.Ofertas(Tienda.NombreUsar, True, False)
 
@@ -389,12 +386,14 @@ Namespace pepeizq.Tiendas
                             If datos.Datos.Desarrolladores.Count > 0 Then
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
                                 juego.Desarrolladores = desarrolladores
-                                listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlace, datos.Datos.Desarrolladores(0)))
+                                juego.Tipo = datos.Datos.Tipo
+                                listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores(0), datos.Datos.Tipo))
                             ElseIf datos.Datos.Desarrolladores.Count = 0 Then
                                 If datos.Datos.Desarrolladores2.Count > 0 Then
                                     Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores2(0)}, Nothing)
                                     juego.Desarrolladores = desarrolladores
-                                    listaDesarrolladores.Add(New SteamDesarrolladores(juego.Enlace, datos.Datos.Desarrolladores2(0)))
+                                    juego.Tipo = datos.Datos.Tipo
+                                    listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores2(0), datos.Datos.Tipo))
                                 End If
                             End If
                         End If
@@ -417,6 +416,9 @@ Namespace pepeizq.Tiendas
     End Class
 
     Public Class SteamMasDatosAmpliado
+
+        <JsonProperty("type")>
+        Public Tipo As String
 
         <JsonProperty("name")>
         Public Titulo As String
@@ -461,14 +463,16 @@ Namespace pepeizq.Tiendas
 
     End Class
 
-    Public Class SteamDesarrolladores
+    Public Class SteamAPI
 
         Public Property Enlace As String
         Public Property Desarrollador As String
+        Public Property Tipo As String
 
-        Public Sub New(ByVal enlace As String, ByVal desarrollador As String)
+        Public Sub New(ByVal enlace As String, ByVal desarrollador As String, ByVal tipo As String)
             Me.Enlace = enlace
             Me.Desarrollador = desarrollador
+            Me.Tipo = tipo
         End Sub
 
     End Class

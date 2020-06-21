@@ -365,9 +365,7 @@ Module Analisis
                                 If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
-                                    If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
-                                        añadirCheck = False
-                                    ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
+                                    If FiltrarSteam(juego) = False Then
                                         añadirCheck = False
                                     End If
 
@@ -395,9 +393,7 @@ Module Analisis
                                 If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
-                                    If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
-                                        añadirCheck = False
-                                    ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
+                                    If FiltrarSteam(juego) = False Then
                                         añadirCheck = False
                                     End If
 
@@ -434,10 +430,25 @@ Module Analisis
                                             descuento = descuento.Replace("%", Nothing)
 
                                             If Int32.Parse(descuento) > 19 Then
-                                                Dim sp As StackPanel = itemGrid.Children(0)
-                                                Dim cb As CheckBox = sp.Children(0)
+                                                If juego.Tienda.NombreUsar = "Steam" Then
+                                                    Dim añadirCheck As Boolean = True
 
-                                                cb.IsChecked = True
+                                                    If FiltrarSteam(juego) = False Then
+                                                        añadirCheck = False
+                                                    End If
+
+                                                    If añadirCheck = True Then
+                                                        Dim sp As StackPanel = itemGrid.Children(0)
+                                                        Dim cb As CheckBox = sp.Children(0)
+
+                                                        cb.IsChecked = True
+                                                    End If
+                                                Else
+                                                    Dim sp As StackPanel = itemGrid.Children(0)
+                                                    Dim cb As CheckBox = sp.Children(0)
+
+                                                    cb.IsChecked = True
+                                                End If
                                             End If
                                         End If
                                     End If
@@ -445,10 +456,27 @@ Module Analisis
                             End If
                         End If
                     Else
-                        Dim sp As StackPanel = itemGrid.Children(0)
-                        Dim cb As CheckBox = sp.Children(0)
+                        Dim juego As Juego = itemGrid.Tag
 
-                        cb.IsChecked = True
+                        If juego.Tienda.NombreUsar = "Steam" Then
+                            Dim añadirCheck As Boolean = True
+
+                            If FiltrarSteam(juego) = False Then
+                                añadirCheck = False
+                            End If
+
+                            If añadirCheck = True Then
+                                Dim sp As StackPanel = itemGrid.Children(0)
+                                Dim cb As CheckBox = sp.Children(0)
+
+                                cb.IsChecked = True
+                            End If
+                        Else
+                            Dim sp As StackPanel = itemGrid.Children(0)
+                            Dim cb As CheckBox = sp.Children(0)
+
+                            cb.IsChecked = True
+                        End If
                     End If
                 End If
             Else
@@ -460,5 +488,24 @@ Module Analisis
         End If
 
     End Sub
+
+    Private Function FiltrarSteam(juego As Juego)
+
+        Dim añadir As Boolean = True
+
+        If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
+            añadir = False
+        ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
+            añadir = False
+        End If
+
+        If juego.Tipo = "video" Then
+            añadir = False
+        ElseIf juego.Tipo = "dlc" Then
+            añadir = False
+        End If
+
+        Return añadir
+    End Function
 
 End Module
