@@ -36,8 +36,6 @@ Public NotInheritable Class MainPage
 
             If item.Text = recursos.GetString("Deals") Then
 
-                pepeizq.Interfaz.Presentacion.Generar()
-
             ElseIf item.Text = recursos.GetString("Editor") Then
                 For Each grid As Grid In gridOfertasTiendas.Children
                     If grid.Visibility = Visibility.Visible Then
@@ -83,38 +81,6 @@ Public NotInheritable Class MainPage
         TransparienciaEfectosFinal(transpariencia.AdvancedEffectsEnabled)
         AddHandler transpariencia.AdvancedEffectsEnabledChanged, AddressOf TransparienciaEfectosCambia
 
-        '--------------------------------------------------------
-
-        Dim activarEditor As Boolean = False
-
-        Try
-            Dim usuarios As IReadOnlyList(Of User) = Await User.FindAllAsync(UserType.LocalUser)
-
-            For Each usuario In usuarios
-                Dim usuarioString As String = String.Empty
-
-                Try
-                    usuarioString = Await usuario.GetPropertyAsync(KnownUserProperties.AccountName)
-                Catch ex As Exception
-
-                End Try
-
-                If Not usuarioString = String.Empty Then
-                    If usuarioString = "pepeizq@msn.com" Then
-                        activarEditor = True
-                    End If
-                End If
-            Next
-        Catch ex As Exception
-
-        End Try
-
-        If activarEditor = True Then
-            itemConfigEditor.Visibility = Visibility.Visible
-        Else
-            itemConfigEditor.Visibility = Visibility.Collapsed
-        End If
-
     End Sub
 
     Private Sub TransparienciaEfectosCambia(sender As UISettings, e As Object)
@@ -159,21 +125,9 @@ Public NotInheritable Class MainPage
 
     'CONFIG---------------------------------------------------------------------------------
 
-    Private Sub ItemConfigNotificaciones_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigNotificaciones.Click
-
-        Configuracion.NotificacionesActivar(itemConfigNotificaciones.IsChecked)
-
-    End Sub
-
     Private Sub ItemConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigUltimaVisita.Click
 
         Configuracion.UltimaVisitaFiltrar(itemConfigUltimaVisita.IsChecked)
-
-    End Sub
-
-    Private Sub ItemConfigEditor_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigEditor.Click
-
-        Configuracion.EditorActivar(itemConfigEditor.IsChecked)
 
     End Sub
 
@@ -259,16 +213,6 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorActualizarAnalisis.Click
 
         Analisis.Generar()
-
-    End Sub
-
-    Private Async Sub BotonEditorAbrirEnlace_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorAbrirEnlace.Click
-
-        If cbEditorWebs.SelectedIndex = 1 Then
-            Await Launcher.LaunchUriAsync(New Uri("https://www.reddit.com/r/GameDeals/submit"))
-        ElseIf cbEditorWebs.SelectedIndex = 2 Then
-            Await Launcher.LaunchUriAsync(New Uri("https://www.blogger.com/blogger.g?blogID=1309083716416671969#editor/src=sidebar"))
-        End If
 
     End Sub
 

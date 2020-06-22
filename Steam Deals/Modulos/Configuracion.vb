@@ -5,20 +5,68 @@ Module Configuracion
 
     Public Sub Iniciar()
 
-        If ApplicationData.Current.LocalSettings.Values("notificacionespush") Is Nothing Then
-            NotificacionesActivar(True)
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim nvPrincipal As NavigationView = pagina.FindName("nvPrincipal")
+        Dim itemUltimaVisita As ToggleMenuFlyoutItem = pagina.FindName("itemConfigUltimaVisita")
+        Dim itemMostrarImagenes As ToggleMenuFlyoutItem = pagina.FindName("itemConfigMostrarImagenes")
+        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
+        Dim itemMasCosas As NavigationViewItem = pagina.FindName("itemMasCosas")
+
+        Dim spEditor As StackPanel = pagina.FindName("spPresentacionEditor")
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
+
+        Dim i As Integer = 0
+        While i < nvPrincipal.MenuItems.Count
+            If i < (nvPrincipal.MenuItems.Count - 1) Then
+                nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
+            Else
+                nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
+            End If
+            i += 1
+        End While
+
+        itemMasCosas.Visibility = Visibility.Collapsed
+
+        itemUltimaVisita.Visibility = Visibility.Visible
+        itemMostrarImagenes.Visibility = Visibility.Visible
+        itemEditor.Visibility = Visibility.Visible
+        gridOfertas.Visibility = Visibility.Visible
+
+        Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
+
+        If ApplicationData.Current.LocalSettings.Values("editorWeb") Is Nothing Then
+            ApplicationData.Current.LocalSettings.Values("editorWeb") = 0
+            cbWebs.SelectedIndex = 0
         Else
-            NotificacionesActivar(ApplicationData.Current.LocalSettings.Values("notificacionespush"))
+            cbWebs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorWeb")
         End If
+
+        spEditor.Visibility = Visibility.Visible
+
+        Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
+        cbFiltrado.Items.Clear()
+
+        cbFiltrado.Items.Add("--")
+        cbFiltrado.Items.Add(">50%")
+        cbFiltrado.Items.Add(">75%")
+        cbFiltrado.Items.Add(">80%")
+        cbFiltrado.Items.Add(">85%")
+        cbFiltrado.Items.Add(">90%")
+        cbFiltrado.Items.Add("+100")
+        cbFiltrado.Items.Add("+1000")
+
+        If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
+            cbFiltrado.SelectedIndex = ApplicationData.Current.LocalSettings.Values("filtrado")
+        Else
+            cbFiltrado.SelectedIndex = 0
+        End If
+
+        AddHandler cbFiltrado.SelectionChanged, AddressOf FiltradoCambia
 
         If ApplicationData.Current.LocalSettings.Values("ordenar") Is Nothing Then
             ApplicationData.Current.LocalSettings.Values("ordenar") = 0
-        End If
-
-        If ApplicationData.Current.LocalSettings.Values("editor2") Is Nothing Then
-            EditorActivar(False)
-        Else
-            EditorActivar(ApplicationData.Current.LocalSettings.Values("editor2"))
         End If
 
         If ApplicationData.Current.LocalSettings.Values("ultimavisita") Is Nothing Then
@@ -43,128 +91,6 @@ Module Configuracion
             DivisaActualizar(True)
         Else
             DivisaActualizar(ApplicationData.Current.LocalSettings.Values("divisas"))
-        End If
-
-    End Sub
-
-    Public Sub NotificacionesActivar(estado As Boolean)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        ApplicationData.Current.LocalSettings.Values("notificacionespush") = estado
-
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigNotificaciones")
-        toggle.IsChecked = estado
-
-        If estado = True Then
-            pepeizq.Editor.pepeizqdeals.RedesSociales.Push.Escuchar()
-        End If
-
-    End Sub
-
-    Public Sub EditorActivar(estado As Boolean)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        ApplicationData.Current.LocalSettings.Values("editor2") = estado
-
-        Dim toggle As ToggleMenuFlyoutItem = pagina.FindName("itemConfigEditor")
-        toggle.IsChecked = estado
-
-        Dim nvPrincipal As NavigationView = pagina.FindName("nvPrincipal")
-        Dim itemUltimaVisita As ToggleMenuFlyoutItem = pagina.FindName("itemConfigUltimaVisita")
-        Dim itemMostrarImagenes As ToggleMenuFlyoutItem = pagina.FindName("itemConfigMostrarImagenes")
-        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
-        Dim itemMasCosas As NavigationViewItem = pagina.FindName("itemMasCosas")
-
-        Dim spEditor As StackPanel = pagina.FindName("spPresentacionEditor")
-        Dim gridpepeizqdeals As Grid = pagina.FindName("gridPresentacionpepeizqdeals")
-        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
-
-        If estado = True Then
-            Dim i As Integer = 0
-            While i < nvPrincipal.MenuItems.Count
-                If i < (nvPrincipal.MenuItems.Count - 1) Then
-                    nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
-                Else
-                    nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
-                End If
-                i += 1
-            End While
-
-            itemMasCosas.Visibility = Visibility.Collapsed
-
-            itemUltimaVisita.Visibility = Visibility.Visible
-            itemMostrarImagenes.Visibility = Visibility.Visible
-            itemEditor.Visibility = Visibility.Visible
-            gridOfertas.Visibility = Visibility.Visible
-
-            Dim cbWebs As ComboBox = pagina.FindName("cbEditorWebs")
-
-            If ApplicationData.Current.LocalSettings.Values("editorWeb") Is Nothing Then
-                ApplicationData.Current.LocalSettings.Values("editorWeb") = 0
-                cbWebs.SelectedIndex = 0
-            Else
-                cbWebs.SelectedIndex = ApplicationData.Current.LocalSettings.Values("editorWeb")
-            End If
-
-            spEditor.Visibility = Visibility.Visible
-            gridpepeizqdeals.Visibility = Visibility.Collapsed
-
-            Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
-            cbFiltrado.Items.Clear()
-
-            cbFiltrado.Items.Add("--")
-            cbFiltrado.Items.Add(">50%")
-            cbFiltrado.Items.Add(">75%")
-            cbFiltrado.Items.Add(">80%")
-            cbFiltrado.Items.Add(">85%")
-            cbFiltrado.Items.Add(">90%")
-            cbFiltrado.Items.Add("+100")
-            cbFiltrado.Items.Add("+1000")
-
-            If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
-                cbFiltrado.SelectedIndex = ApplicationData.Current.LocalSettings.Values("filtrado")
-            Else
-                cbFiltrado.SelectedIndex = 0
-            End If
-
-            AddHandler cbFiltrado.SelectionChanged, AddressOf FiltradoCambia
-        Else
-            Dim i As Integer = 0
-            While i < nvPrincipal.MenuItems.Count
-                If i < (nvPrincipal.MenuItems.Count - 1) Then
-                    nvPrincipal.MenuItems(i).Visibility = Visibility.Collapsed
-                Else
-                    nvPrincipal.MenuItems(i).Visibility = Visibility.Visible
-                End If
-                i += 1
-            End While
-
-            itemMasCosas.Visibility = Visibility.Visible
-
-            itemUltimaVisita.Visibility = Visibility.Collapsed
-            itemMostrarImagenes.Visibility = Visibility.Collapsed
-            itemEditor.Visibility = Visibility.Collapsed
-            gridOfertas.Visibility = Visibility.Collapsed
-
-            spEditor.Visibility = Visibility.Collapsed
-            gridpepeizqdeals.Visibility = Visibility.Visible
-
-            Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
-            gridNoOfertas.Visibility = Visibility.Collapsed
-
-            Dim gridEditor As Grid = pagina.FindName("gridEditor")
-            gridEditor.Visibility = Visibility.Collapsed
-
-            Dim gridPresentacion As Grid = pagina.FindName("gridPresentacionpepeizqdealsDeals")
-
-            Dim gridSeleccionar As Grid = pagina.FindName("gridSeleccionarOfertasTiendas")
-            gridSeleccionar.Visibility = Visibility.Visible
-
-            pepeizq.Interfaz.Presentacion.Generar()
         End If
 
     End Sub

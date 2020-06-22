@@ -158,7 +158,6 @@
     <Compile Include="Modulos\Interfaz\Editor.vb" />
     <Compile Include="Modulos\Interfaz\Tiendas.vb" />
     <Compile Include="Modulos\Interfaz\Pestañaspepeizq.vb" />
-    <Compile Include="Modulos\Interfaz\Presentacion.vb" />
     <Compile Include="Modulos\MasCosas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />

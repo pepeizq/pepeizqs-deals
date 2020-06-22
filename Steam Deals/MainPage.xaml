@@ -62,10 +62,11 @@
                         <NavigationViewItem.Icon>
                             <fa:FontAwesome Icon="Cog" Foreground="{StaticResource BrushPrimario}"/>
                         </NavigationViewItem.Icon>
+                        <NavigationViewItem.Content>
+                            <TextBlock Text="Configuración" Foreground="{StaticResource BrushPrimario}" Margin="0,0,15,0"/>
+                        </NavigationViewItem.Content>
                         <FlyoutBase.AttachedFlyout>
                             <MenuFlyout>
-                                <ToggleMenuFlyoutItem x:Name="itemConfigNotificaciones" x:Uid="ConfigNotifications"/>
-                                <MenuFlyoutSeparator/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigUltimaVisita" x:Uid="ConfigLastVisit"/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigEditor" x:Uid="Editor2"/>
                                 <ToggleMenuFlyoutItem x:Name="itemConfigMostrarImagenes" Text="Mostrar Imágenes"/>
@@ -103,12 +104,6 @@
                             <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,20"/>
                             <CheckBox x:Name="cbOfertasTiendasUltimosResultados" Content="Mostrar Últimos Resultados" HorizontalAlignment="Center"/>
                         </StackPanel>
-
-                        <Grid x:Name="gridPresentacionpepeizqdeals">
-                            <ScrollViewer>
-                                <WebView x:Name="wvPresentacion"/>
-                            </ScrollViewer>
-                        </Grid>
                     </Grid>
 
                     <Grid x:Name="gridOfertasTiendasSupremo">
@@ -227,26 +222,6 @@
                             <TextBlock x:Name="tbNumOfertasSeleccionadas" Margin="15,0,0,0" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushPrimario}" Margin="10,0" Padding="10,5" VerticalAlignment="Center" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock x:Uid="Rating" Foreground="White"/>
-                                        <TextBlock x:Name="tbEditorAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-
-                            <Button x:Name="botonEditorAbrirEnlace" Background="{StaticResource BrushPrimario}" Margin="10,0,30,0" Padding="10,5" VerticalAlignment="Center" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                <Button.Content>
-                                    <fa:FontAwesome Icon="Globe" Foreground="White"/>
-                                </Button.Content>
-                            </Button>
-
-                            <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="tbDivisasLibra" Margin="10,0" VerticalAlignment="Center"/>
-                            <TextBlock x:Name="tbDivisasRublo" VerticalAlignment="Center"/>
-                        </StackPanel>
                     </Grid>
 
                     <Grid x:Name="gridEditorpepeizqdeals" Grid.Row="1" Visibility="Collapsed" Padding="20">
@@ -1028,10 +1003,26 @@
                                 </StackPanel>
                             </ScrollViewer>
 
-                            <ScrollViewer x:Name="svEditorpepeizqdealsCuentas" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
+                            <ScrollViewer x:Name="svEditorpepeizqdealsConfig" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Padding="20" Visibility="Collapsed">
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Vertical" Padding="20">
-                                        <TextBlock Text="REST API" Margin="0,0,0,10"/>
+                                    <StackPanel Orientation="Vertical" Padding="15">
+                                        <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock x:Uid="Rating" Foreground="White"/>
+                                                    <TextBlock x:Name="tbEditorAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <TextBlock Text="Monedas" Margin="0,30,0,10"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
+                                            <TextBlock x:Name="tbDivisasLibra" Margin="10,0" VerticalAlignment="Center"/>
+                                            <TextBlock x:Name="tbDivisasRublo" VerticalAlignment="Center"/>
+                                        </StackPanel>                                        
+
+                                        <TextBlock Text="REST API" Margin="0,30,0,10"/>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
                                             <TextBox x:Name="tbEditorUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
@@ -1071,6 +1062,12 @@
                                             <TextBox x:Name="tbEditorpepeizqdealsDiscordHookSuscripciones" Margin="0,10"/>
                                             <TextBlock Text="Hook Otros" HorizontalAlignment="Left"/>
                                             <TextBox x:Name="tbEditorpepeizqdealsDiscordHookOtros" Margin="0,10"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="IGDB" Margin="0,30,0,10"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="user-key" HorizontalAlignment="Left"/>
+                                            <TextBox x:Name="tbEditorpepeizqdealsIGDBClave" Margin="0,10"/>
                                         </StackPanel>
                                     </StackPanel>
                                   
@@ -1113,18 +1110,6 @@
                                         </StackPanel>
                                     </controls:Expander>
 
-                                    <controls:Expander Header="IGDB" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
-                                        <StackPanel Orientation="Vertical" Padding="20">
-                                            <TextBlock Text="user-key" HorizontalAlignment="Left"/>
-                                            <TextBox x:Name="tbEditorpepeizqdealsIGDBClave" Margin="0,10"/>
-                                        </StackPanel>
-                                    </controls:Expander>
-
-                                    <controls:Expander Header="Gamebillet" IsExpanded="False" Margin="0,0,0,30" HorizontalContentAlignment="Stretch">
-                                        <StackPanel Orientation="Vertical" Padding="20">
-                                            <WebView x:Name="wvEditorGamebilletpepeizqdeals" MinWidth="700" MinHeight="700" Source="https://gamebillet.com/hotdeals"/>
-                                        </StackPanel> 
-                                    </controls:Expander> 
                                 </StackPanel>
                             </ScrollViewer>
 

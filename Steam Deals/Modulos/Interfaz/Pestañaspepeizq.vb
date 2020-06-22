@@ -64,10 +64,10 @@ Namespace pepeizq.Interfaz
             Dim bordeOpciones As Grid = pagina.FindName("bordeEditorpepeizqdealsOpciones")
             bordeOpciones.Visibility = Visibility.Collapsed
 
-            Dim svCuentas As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCuentas")
-            svCuentas.Visibility = Visibility.Collapsed
+            Dim svConfig As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")
+            svConfig.Visibility = Visibility.Collapsed
             Dim botonCuentas As MenuFlyoutItem = pagina.FindName("botonEditorpepeizqdealsCuentas")
-            botonCuentas.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svCuentas)
+            botonCuentas.Tag = New pepeizq.Editor.pepeizqdeals.Clases.Pestañas(bordeOpciones, svConfig)
 
             RemoveHandler botonCuentas.Click, AddressOf MostrarGrid2
             AddHandler botonCuentas.Click, AddressOf MostrarGrid2
@@ -186,8 +186,8 @@ Namespace pepeizq.Interfaz
             Dim svAnuncios As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAnuncios")
             svAnuncios.Visibility = Visibility.Collapsed
 
-            Dim svCuentas As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCuentas")
-            svCuentas.Visibility = Visibility.Collapsed
+            Dim svConfig As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")
+            svConfig.Visibility = Visibility.Collapsed
 
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
