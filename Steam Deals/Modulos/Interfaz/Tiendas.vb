@@ -1,7 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Animations
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
-Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
 
@@ -78,12 +77,26 @@ Module Tiendas
             End If
         Next
 
-        Dim cbUltimosResultados As CheckBox = pagina.FindName("cbOfertasTiendasUltimosResultados")
+        Dim cbUltimosResultados As CheckBox = pagina.FindName("cbUltimosResultados")
         RemoveHandler cbUltimosResultados.Checked, AddressOf CbUltimosResultadosChecked
         AddHandler cbUltimosResultados.Checked, AddressOf CbUltimosResultadosChecked
 
         RemoveHandler cbUltimosResultados.Unchecked, AddressOf CbUltimosResultadosUnChecked
         AddHandler cbUltimosResultados.Unchecked, AddressOf CbUltimosResultadosUnChecked
+
+        Dim cbUltimaVisita As CheckBox = pagina.FindName("cbUltimaVisita")
+        RemoveHandler cbUltimaVisita.Checked, AddressOf CbUltimaVisitaChecked
+        AddHandler cbUltimaVisita.Checked, AddressOf CbUltimaVisitaChecked
+
+        RemoveHandler cbUltimaVisita.Unchecked, AddressOf CbUltimaVisitaUnChecked
+        AddHandler cbUltimaVisita.Unchecked, AddressOf CbUltimaVisitaUnChecked
+
+        Dim cbMostrarImagenes As CheckBox = pagina.FindName("cbMostrarImagenes")
+        RemoveHandler cbMostrarImagenes.Checked, AddressOf CbMostrarImagenesChecked
+        AddHandler cbMostrarImagenes.Checked, AddressOf CbMostrarImagenesChecked
+
+        RemoveHandler cbMostrarImagenes.Unchecked, AddressOf CbMostrarImagenesUnChecked
+        AddHandler cbMostrarImagenes.Unchecked, AddressOf CbMostrarImagenesUnChecked
 
     End Sub
 
@@ -106,27 +119,23 @@ Module Tiendas
         Dim menuItem As MenuFlyoutItem = sender
         Dim tienda As Tienda = menuItem.Tag
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
 
-            Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
+        Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
-            Dim actualizar As Boolean = True
+        Dim actualizar As Boolean = True
 
-            If Not lv Is Nothing Then
-                If lv.Items.Count > 0 Then
-                    actualizar = False
-                End If
+        If Not lv Is Nothing Then
+            If lv.Items.Count > 0 Then
+                actualizar = False
             End If
+        End If
 
-            If actualizar = True Then
-                IniciarTienda(tienda, True, True, False)
-            Else
-                IniciarTienda(tienda, True, False, False)
-            End If
+        If actualizar = True Then
+            IniciarTienda(tienda, True, True, False)
         Else
-            IniciarTienda(tienda, False, True, False)
+            IniciarTienda(tienda, True, False, False)
         End If
 
     End Sub
@@ -410,24 +419,18 @@ Module Tiendas
 
     End Function
 
-    Private Async Sub ListaOfertas_ItemClick(sender As Object, e As ItemClickEventArgs)
+    Private Sub ListaOfertas_ItemClick(sender As Object, e As ItemClickEventArgs)
 
         Dim grid As Grid = e.ClickedItem
         Dim juego As Juego = grid.Tag
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            Dim sp As StackPanel = grid.Children(0)
-            Dim cb As CheckBox = sp.Children(0)
+        Dim sp As StackPanel = grid.Children(0)
+        Dim cb As CheckBox = sp.Children(0)
 
-            If cb.IsChecked = True Then
-                cb.IsChecked = False
-            Else
-                cb.IsChecked = True
-            End If
+        If cb.IsChecked = True Then
+            cb.IsChecked = False
         Else
-            Dim enlace As String = pepeizq.Editor.pepeizqdeals.Referidos.Generar(juego.Enlace)
-
-            Await Launcher.LaunchUriAsync(New Uri(enlace))
+            cb.IsChecked = True
         End If
 
     End Sub
@@ -460,9 +463,8 @@ Module Tiendas
         Dim tbTienda As TextBlock = pagina.FindName("tbTiendaSeleccionada")
         tbTienda.Text = tienda.NombreMostrar
 
-        Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
-        Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
-        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
+        gridOfertas.Visibility = Visibility.Visible
 
         Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
@@ -475,20 +477,14 @@ Module Tiendas
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            If actualizar = False Then
-                lv.Items.Clear()
-            Else
-                For Each item In lv.Items
-                    item.Opacity = 0.5
-                Next
-
-                lv.IsEnabled = False
-            End If
+        If actualizar = False Then
+            lv.Items.Clear()
         Else
-            If actualizar = True Then
-                lv.Items.Clear()
-            End If
+            For Each item In lv.Items
+                item.Opacity = 0.5
+            Next
+
+            lv.IsEnabled = False
         End If
 
         Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
@@ -536,11 +532,7 @@ Module Tiendas
         Dim tbCargadas As TextBlock = pagina.FindName("tbNumOfertasCargadas2")
         tbCargadas.Text = lv.Items.Count
 
-        Dim iniciar As Boolean = False
-
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            iniciar = True
-        End If
+        Dim iniciar As Boolean = True
 
         If cambiar = False Then
             iniciar = False
@@ -551,9 +543,7 @@ Module Tiendas
         End If
 
         If iniciar = True Then
-            itemTiendas.IsEnabled = False
-            itemConfig.IsEnabled = False
-            itemEditor.IsEnabled = False
+            pepeizq.Interfaz.Pestañas.Botones(False)
 
             lv.IsEnabled = False
 
@@ -561,9 +551,6 @@ Module Tiendas
             gridProgreso.Visibility = Visibility.Visible
 
             botonTiendaSeleccionada.IsEnabled = False
-
-            Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
-            tbSeleccionadas.Text = String.Empty
 
             If ultimosResultados = False Then
                 If tienda.NombreUsar = steamT.NombreUsar Then
@@ -615,9 +602,7 @@ Module Tiendas
                 Ordenar.Ofertas(tienda.NombreUsar, False, True)
             End If
         Else
-            itemTiendas.IsEnabled = True
-            itemConfig.IsEnabled = True
-            itemEditor.IsEnabled = True
+            pepeizq.Interfaz.Pestañas.Botones(True)
 
             lv.IsEnabled = True
 
@@ -685,21 +670,19 @@ Module Tiendas
 
         sp1.SetValue(Grid.ColumnProperty, 0)
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            Dim cb As New CheckBox With {
-                .Margin = New Thickness(10, 0, 10, 0),
-                .Tag = grid,
-                .MinWidth = 20,
-                .IsHitTestVisible = False
-            }
+        Dim cb As New CheckBox With {
+            .Margin = New Thickness(10, 0, 10, 0),
+            .Tag = grid,
+            .MinWidth = 20,
+            .IsHitTestVisible = False
+        }
 
-            AddHandler cb.Checked, AddressOf CbChecked
-            AddHandler cb.Unchecked, AddressOf CbUnChecked
-            AddHandler cb.PointerEntered, AddressOf UsuarioEntraBoton
-            AddHandler cb.PointerExited, AddressOf UsuarioSaleBoton
+        AddHandler cb.Checked, AddressOf CbChecked
+        AddHandler cb.Unchecked, AddressOf CbUnChecked
+        AddHandler cb.PointerEntered, AddressOf UsuarioEntraBoton
+        AddHandler cb.PointerExited, AddressOf UsuarioSaleBoton
 
-            sp1.Children.Add(cb)
-        End If
+        sp1.Children.Add(cb)
 
         If ApplicationData.Current.LocalSettings.Values("mostrarimagenes") = False Then
             enseñarImagen = False
@@ -833,180 +816,176 @@ Module Tiendas
             sp3.Children.Add(fondoAnalisis)
         End If
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = False Then
-            If Not juego.Sistemas Is Nothing Then
-                Dim fondoSistemas As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .VerticalAlignment = VerticalAlignment.Center
-                }
+        'If Not juego.Sistemas Is Nothing Then
+        '    Dim fondoSistemas As New StackPanel With {
+        '            .Orientation = Orientation.Horizontal,
+        '            .VerticalAlignment = VerticalAlignment.Center
+        '        }
 
-                If juego.Sistemas.Windows = True Then
-                    Dim imagenWin As New ImageEx With {
-                        .Width = 16,
-                        .Height = 16,
-                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/win.png")),
-                        .Padding = New Thickness(2, 0, 2, 0),
-                        .IsCacheEnabled = True
+        '    If juego.Sistemas.Windows = True Then
+        '        Dim imagenWin As New ImageEx With {
+        '                .Width = 16,
+        '                .Height = 16,
+        '                .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/win.png")),
+        '                .Padding = New Thickness(2, 0, 2, 0),
+        '                .IsCacheEnabled = True
+        '            }
+
+        '        fondoSistemas.Children.Add(imagenWin)
+        '    End If
+
+        '    If juego.Sistemas.Mac = True Then
+        '        Dim imagenMac As New ImageEx With {
+        '                .Width = 16,
+        '                .Height = 16,
+        '                .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/mac.png")),
+        '                .Padding = New Thickness(2, 0, 2, 0),
+        '                .IsCacheEnabled = True
+        '            }
+
+        '        fondoSistemas.Children.Add(imagenMac)
+        '    End If
+
+        '    If juego.Sistemas.Linux = True Then
+        '        Dim imagenLinux As New ImageEx With {
+        '                .Width = 16,
+        '                .Height = 16,
+        '                .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/linux.png")),
+        '                .Padding = New Thickness(2, 0, 2, 0),
+        '                .IsCacheEnabled = True
+        '            }
+
+        '        fondoSistemas.Children.Add(imagenLinux)
+        '    End If
+
+        '    If fondoSistemas.Children.Count > 0 Then
+        '        fondoSistemas.Padding = New Thickness(4, 0, 4, 0)
+        '        fondoSistemas.Height = 26
+        '        fondoSistemas.Background = New SolidColorBrush(Colors.SlateGray)
+        '        fondoSistemas.Margin = New Thickness(0, 0, 20, 0)
+        '    End If
+
+        '    sp3.Children.Add(fondoSistemas)
+        'End If
+
+        If Not juego.FechaTermina = Nothing Then
+            Dim fondoFecha As New StackPanel With {
+                .Orientation = Orientation.Horizontal,
+                .Padding = New Thickness(4, 0, 4, 0),
+                .Height = 26,
+                .Background = New SolidColorBrush(Colors.SlateGray),
+                .Margin = New Thickness(0, 0, 20, 0),
+                .VerticalAlignment = VerticalAlignment.Center
+            }
+
+            Dim tbFecha As New TextBlock With {
+                .Text = juego.FechaTermina.Day.ToString + "/" + juego.FechaTermina.Month.ToString + " - " + juego.FechaTermina.Hour.ToString + ":00",
+                .Margin = New Thickness(0, 0, 0, 0),
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White),
+                .FontSize = 12
+            }
+
+            fondoFecha.Children.Add(tbFecha)
+
+            sp3.Children.Add(fondoFecha)
+        End If
+
+        If Not juego.Promocion = Nothing Then
+            Dim fondoPromocion As New StackPanel With {
+                .Orientation = Orientation.Horizontal,
+                .Padding = New Thickness(4, 0, 4, 0),
+                .Height = 26,
+                .Background = New SolidColorBrush(Colors.SlateGray),
+                .Margin = New Thickness(0, 0, 20, 0)
+            }
+
+            Dim tbPromocion As New TextBlock With {
+                .Text = juego.Promocion,
+                .Margin = New Thickness(0, 0, 0, 0),
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White),
+                .FontSize = 12
+            }
+
+            fondoPromocion.Children.Add(tbPromocion)
+
+            sp3.Children.Add(fondoPromocion)
+        End If
+
+        Dim spTooltip As New StackPanel
+
+        If Not juego.Tipo = Nothing Then
+            Dim fondoTipo As New StackPanel With {
+                .Orientation = Orientation.Horizontal,
+                .Padding = New Thickness(4, 0, 4, 0),
+                .Height = 26,
+                .Background = New SolidColorBrush(Colors.SlateGray)
+            }
+
+            Dim tbTipo As New TextBlock With {
+                .Text = juego.Tipo,
+                .Margin = New Thickness(0, 0, 0, 0),
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Foreground = New SolidColorBrush(Colors.White),
+                .FontSize = 12
+            }
+
+            fondoTipo.Children.Add(tbTipo)
+
+            spTooltip.Children.Add(fondoTipo)
+        End If
+
+        If Not juego.Desarrolladores Is Nothing Then
+            Dim fondoDesarrolladores As New StackPanel With {
+                .Orientation = Orientation.Horizontal,
+                .Padding = New Thickness(4, 0, 4, 0),
+                .Height = 26,
+                .Background = New SolidColorBrush(Colors.SlateGray),
+                .Margin = New Thickness(0, 0, 20, 0),
+                .VerticalAlignment = VerticalAlignment.Center
+            }
+
+            Dim desarrolladores As String = Nothing
+
+            If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
+                If juego.Desarrolladores.Desarrolladores.Count > 0 Then
+                    If Not juego.Desarrolladores.Desarrolladores(0) = Nothing Then
+                        If juego.Desarrolladores.Desarrolladores(0).Trim.Length > 0 Then
+                            desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
+                        End If
+                    End If
+                End If
+            End If
+
+            If Not juego.Desarrolladores.Editores Is Nothing Then
+                If juego.Desarrolladores.Editores.Count > 0 Then
+                    If juego.Desarrolladores.Editores(0).Trim.Length > 0 Then
+                        desarrolladores = desarrolladores + juego.Desarrolladores.Editores(0) + " "
+                    End If
+                End If
+            End If
+
+            If Not desarrolladores = Nothing Then
+                If desarrolladores.Trim.Length > 0 Then
+                    Dim tbDesarrolladores As New TextBlock With {
+                        .Text = desarrolladores.Trim,
+                        .Margin = New Thickness(0, 0, 0, 0),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 12
                     }
 
-                    fondoSistemas.Children.Add(imagenWin)
+                    fondoDesarrolladores.Children.Add(tbDesarrolladores)
+
+                    sp3.Children.Add(fondoDesarrolladores)
                 End If
-
-                If juego.Sistemas.Mac = True Then
-                    Dim imagenMac As New ImageEx With {
-                        .Width = 16,
-                        .Height = 16,
-                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/mac.png")),
-                        .Padding = New Thickness(2, 0, 2, 0),
-                        .IsCacheEnabled = True
-                    }
-
-                    fondoSistemas.Children.Add(imagenMac)
-                End If
-
-                If juego.Sistemas.Linux = True Then
-                    Dim imagenLinux As New ImageEx With {
-                        .Width = 16,
-                        .Height = 16,
-                        .Source = New BitmapImage(New Uri("ms-appx:///Assets/Sistemas/linux.png")),
-                        .Padding = New Thickness(2, 0, 2, 0),
-                        .IsCacheEnabled = True
-                    }
-
-                    fondoSistemas.Children.Add(imagenLinux)
-                End If
-
-                If fondoSistemas.Children.Count > 0 Then
-                    fondoSistemas.Padding = New Thickness(4, 0, 4, 0)
-                    fondoSistemas.Height = 26
-                    fondoSistemas.Background = New SolidColorBrush(Colors.SlateGray)
-                    fondoSistemas.Margin = New Thickness(0, 0, 20, 0)
-                End If
-
-                sp3.Children.Add(fondoSistemas)
             End If
         End If
 
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            If Not juego.FechaTermina = Nothing Then
-                Dim fondoFecha As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(0, 0, 20, 0),
-                    .VerticalAlignment = VerticalAlignment.Center
-                }
-
-                Dim tbFecha As New TextBlock With {
-                    .Text = juego.FechaTermina.Day.ToString + "/" + juego.FechaTermina.Month.ToString + " - " + juego.FechaTermina.Hour.ToString + ":00",
-                    .Margin = New Thickness(0, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
-                }
-
-                fondoFecha.Children.Add(tbFecha)
-
-                sp3.Children.Add(fondoFecha)
-            End If
-
-            If Not juego.Promocion = Nothing Then
-                Dim fondoPromocion As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(0, 0, 20, 0)
-                }
-
-                Dim tbPromocion As New TextBlock With {
-                    .Text = juego.Promocion,
-                    .Margin = New Thickness(0, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
-                }
-
-                fondoPromocion.Children.Add(tbPromocion)
-
-                sp3.Children.Add(fondoPromocion)
-            End If
-
-            Dim spTooltip As New StackPanel
-
-            If Not juego.Tipo = Nothing Then
-                Dim fondoTipo As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray)
-                }
-
-                Dim tbTipo As New TextBlock With {
-                    .Text = juego.Tipo,
-                    .Margin = New Thickness(0, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
-                }
-
-                fondoTipo.Children.Add(tbTipo)
-
-                spTooltip.Children.Add(fondoTipo)
-            End If
-
-            If Not juego.Desarrolladores Is Nothing Then
-                Dim fondoDesarrolladores As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(0, 0, 20, 0),
-                    .VerticalAlignment = VerticalAlignment.Center
-                }
-
-                Dim desarrolladores As String = Nothing
-
-                If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
-                    If juego.Desarrolladores.Desarrolladores.Count > 0 Then
-                        If Not juego.Desarrolladores.Desarrolladores(0) = Nothing Then
-                            If juego.Desarrolladores.Desarrolladores(0).Trim.Length > 0 Then
-                                desarrolladores = desarrolladores + juego.Desarrolladores.Desarrolladores(0) + " "
-                            End If
-                        End If
-                    End If
-                End If
-
-                If Not juego.Desarrolladores.Editores Is Nothing Then
-                    If juego.Desarrolladores.Editores.Count > 0 Then
-                        If juego.Desarrolladores.Editores(0).Trim.Length > 0 Then
-                            desarrolladores = desarrolladores + juego.Desarrolladores.Editores(0) + " "
-                        End If
-                    End If
-                End If
-
-                If Not desarrolladores = Nothing Then
-                    If desarrolladores.Trim.Length > 0 Then
-                        Dim tbDesarrolladores As New TextBlock With {
-                            .Text = desarrolladores.Trim,
-                            .Margin = New Thickness(0, 0, 0, 0),
-                            .VerticalAlignment = VerticalAlignment.Center,
-                            .Foreground = New SolidColorBrush(Colors.White),
-                            .FontSize = 12
-                        }
-
-                        fondoDesarrolladores.Children.Add(tbDesarrolladores)
-
-                        sp3.Children.Add(fondoDesarrolladores)
-                    End If
-                End If
-            End If
-
-            If spTooltip.Children.Count > 0 Then
-                ToolTipService.SetToolTip(grid, spTooltip)
-                ToolTipService.SetPlacement(grid, PlacementMode.Bottom)
-            End If
+        If spTooltip.Children.Count > 0 Then
+            ToolTipService.SetToolTip(grid, spTooltip)
+            ToolTipService.SetPlacement(grid, PlacementMode.Bottom)
         End If
 
         sp2.Children.Add(sp3)
@@ -1181,16 +1160,14 @@ Module Tiendas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
         Dim tbSeleccionadas2 As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas2")
         Dim seleccionadas As Integer = 0
 
-        If Not tbSeleccionadas.Text = Nothing Then
-            seleccionadas = tbSeleccionadas.Text
+        If Not tbSeleccionadas2.Text = Nothing Then
+            seleccionadas = tbSeleccionadas2.Text
         End If
 
         seleccionadas = seleccionadas + 1
-        tbSeleccionadas.Text = seleccionadas
         tbSeleccionadas2.Text = seleccionadas
 
         Dim cb As CheckBox = sender
@@ -1206,19 +1183,16 @@ Module Tiendas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tbSeleccionadas As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas")
         Dim tbSeleccionadas2 As TextBlock = pagina.FindName("tbNumOfertasSeleccionadas2")
 
-        If Not tbSeleccionadas.Text = Nothing Then
-            Dim seleccionadas As Integer = tbSeleccionadas.Text
+        If Not tbSeleccionadas2.Text = Nothing Then
+            Dim seleccionadas As Integer = tbSeleccionadas2.Text
 
             seleccionadas = seleccionadas - 1
 
             If seleccionadas = 0 Then
-                tbSeleccionadas.Text = String.Empty
                 tbSeleccionadas2.Text = String.Empty
             Else
-                tbSeleccionadas.Text = seleccionadas
                 tbSeleccionadas2.Text = seleccionadas
             End If
         End If
@@ -1403,6 +1377,30 @@ Module Tiendas
     Private Sub CbUltimosResultadosUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
 
         ultimosResultados = False
+
+    End Sub
+
+    Private Sub CbUltimaVisitaChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Configuracion.UltimaVisitaFiltrar(True)
+
+    End Sub
+
+    Private Sub CbUltimaVisitaUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Configuracion.UltimaVisitaFiltrar(False)
+
+    End Sub
+
+    Private Sub CbMostrarImagenesChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Configuracion.MostrarImagenesJuegos(True)
+
+    End Sub
+
+    Private Sub CbMostrarImagenesUnChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Configuracion.MostrarImagenesJuegos(False)
 
     End Sub
 

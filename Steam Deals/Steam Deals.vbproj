@@ -155,10 +155,8 @@
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\IGDB.vb" />
-    <Compile Include="Modulos\Interfaz\Editor.vb" />
     <Compile Include="Modulos\Interfaz\Tiendas.vb" />
-    <Compile Include="Modulos\Interfaz\Pestañaspepeizq.vb" />
-    <Compile Include="Modulos\MasCosas.vb" />
+    <Compile Include="Modulos\Interfaz\Pestañas.vb" />
     <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />

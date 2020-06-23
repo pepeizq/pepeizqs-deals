@@ -5,22 +5,12 @@ Module Ordenar
 
     Public Async Sub Ofertas(tienda As String, buscar As Boolean, cargarUltimas As Boolean)
 
+        pepeizq.Interfaz.Pestañas.Botones(False)
+
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda)
-
-        Dim itemTiendas As NavigationViewItem = pagina.FindName("itemTiendas")
-        itemTiendas.IsEnabled = False
-
-        Dim botonTiendaSeleccionada As Button = pagina.FindName("botonTiendaSeleccionada")
-        botonTiendaSeleccionada.IsEnabled = False
-
-        Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
-        itemConfig.IsEnabled = False
-
-        Dim itemEditor As NavigationViewItem = pagina.FindName("itemEditor")
-        itemEditor.IsEnabled = False
 
         Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
         spEditor.Visibility = Visibility.Collapsed
@@ -30,6 +20,9 @@ Module Ordenar
 
         Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
         tbProgreso.Text = String.Empty
+
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
+        gridOfertas.Visibility = Visibility.Visible
 
         Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
         gridNoOfertas.Visibility = Visibility.Collapsed
@@ -66,10 +59,6 @@ Module Ordenar
             End If
 
             If Not listaJuegos Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("editor2") = False Then
-                    lv.Items.Clear()
-                End If
-
                 listaJuegos.Sort(Function(x As Juego, y As Juego)
                                      Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                      If resultado = 0 Then
@@ -200,30 +189,28 @@ Module Ordenar
                 For Each juegoGrid In listaGrids
                     lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
 
-                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                        If Not juegoGrid.Desarrolladores Is Nothing Then
-                            If juegoGrid.Desarrolladores.Desarrolladores.Count > 0 Then
-                                If listaDesarrolladores.Count > 0 Then
-                                    Dim añadirDesarrollador As Boolean = True
-                                    For Each desarrollador In listaDesarrolladores
-                                        If desarrollador = juegoGrid.Desarrolladores.Desarrolladores(0) Then
-                                            añadirDesarrollador = False
-                                        End If
-                                    Next
-
-                                    If añadirDesarrollador = True Then
-                                        listaDesarrolladores.Add(juegoGrid.Desarrolladores.Desarrolladores(0))
+                    If Not juegoGrid.Desarrolladores Is Nothing Then
+                        If juegoGrid.Desarrolladores.Desarrolladores.Count > 0 Then
+                            If listaDesarrolladores.Count > 0 Then
+                                Dim añadirDesarrollador As Boolean = True
+                                For Each desarrollador In listaDesarrolladores
+                                    If desarrollador = juegoGrid.Desarrolladores.Desarrolladores(0) Then
+                                        añadirDesarrollador = False
                                     End If
-                                Else
+                                Next
+
+                                If añadirDesarrollador = True Then
                                     listaDesarrolladores.Add(juegoGrid.Desarrolladores.Desarrolladores(0))
                                 End If
+                            Else
+                                listaDesarrolladores.Add(juegoGrid.Desarrolladores.Desarrolladores(0))
                             End If
                         End If
+                    End If
 
-                        If Not juegoGrid.Promocion Is Nothing Then
-                            If Not juegoGrid.Promocion = Nothing Then
-                                Tiendas.AñadirOpcionSeleccion(juegoGrid.Promocion)
-                            End If
+                    If Not juegoGrid.Promocion Is Nothing Then
+                        If Not juegoGrid.Promocion = Nothing Then
+                            Tiendas.AñadirOpcionSeleccion(juegoGrid.Promocion)
                         End If
                     End If
                 Next
@@ -244,41 +231,37 @@ Module Ordenar
             End If
 
             If lv.Items.Count = 0 Then
+                gridOfertas.Visibility = Visibility.Collapsed
                 gridNoOfertas.Visibility = Visibility.Visible
 
-                If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                    spEditor.Visibility = Visibility.Collapsed
+                spEditor.Visibility = Visibility.Collapsed
 
-                    numOfertasCargadas.Visibility = Visibility.Visible
-                    numOfertasCargadas.Text = "(" + listaJuegos.Count.ToString + ")"
-                Else
-                    numOfertasCargadas.Visibility = Visibility.Collapsed
-                End If
+                numOfertasCargadas.Visibility = Visibility.Visible
+                numOfertasCargadas.Text = "(" + listaJuegos.Count.ToString + ")"
             Else
+                gridOfertas.Visibility = Visibility.Visible
                 gridNoOfertas.Visibility = Visibility.Collapsed
 
-                If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                    spEditor.Visibility = Visibility.Visible
+                spEditor.Visibility = Visibility.Visible
 
-                    Dim cbAnalisis As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
-                    cbAnalisis.SelectedIndex = 0
+                Dim cbAnalisis As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
+                cbAnalisis.SelectedIndex = 0
 
-                    Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
+                Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
 
-                    If listaDesarrolladores.Count > 0 Then
-                        listaDesarrolladores.Sort()
+                If listaDesarrolladores.Count > 0 Then
+                    listaDesarrolladores.Sort()
 
-                        For Each desarrollador In listaDesarrolladores
-                            If Not desarrollador = Nothing Then
-                                cbDesarrolladores.Items.Add(desarrollador)
-                            End If
-                        Next
-                    End If
-
-                    cbDesarrolladores.SelectedIndex = 0
-
-                    numOfertasCargadas2.Text = lv.Items.Count.ToString
+                    For Each desarrollador In listaDesarrolladores
+                        If Not desarrollador = Nothing Then
+                            cbDesarrolladores.Items.Add(desarrollador)
+                        End If
+                    Next
                 End If
+
+                cbDesarrolladores.SelectedIndex = 0
+
+                numOfertasCargadas2.Text = lv.Items.Count.ToString
             End If
 
             For Each item In lv.Items
@@ -288,10 +271,8 @@ Module Ordenar
             lv.IsEnabled = True
         End If
 
-        itemTiendas.IsEnabled = True
-        botonTiendaSeleccionada.IsEnabled = True
-        itemConfig.IsEnabled = True
-        itemEditor.IsEnabled = True
+        pepeizq.Interfaz.Pestañas.Botones(True)
+
         gridProgreso.Visibility = Visibility.Collapsed
 
     End Sub

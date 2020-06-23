@@ -1,19 +1,10 @@
 ﻿Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
-Imports Windows.System
 Imports Windows.UI
 Imports Windows.UI.Core
 
 Public NotInheritable Class MainPage
     Inherits Page
-
-    Private Sub Nv_Loaded(sender As Object, e As RoutedEventArgs)
-
-        Dim recursos As New Resources.ResourceLoader()
-
-        nvPrincipal.MenuItems.Add(NavigationViewItems.GenerarIcono("Xbox Game Pass", FontAwesome.UWP.FontAwesomeIcon.Windows, "http://microsoft.msafflnk.net/EYkmK"))
-
-    End Sub
 
     Private Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
 
@@ -22,37 +13,59 @@ Public NotInheritable Class MainPage
                 Dim lv As ListView = grid.Children(0)
 
                 If lv.Items.Count > 0 Then
-                    If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                        spOfertasTiendasEditor.Visibility = Visibility.Visible
-                    End If
+                    spOfertasTiendasEditor.Visibility = Visibility.Visible
                 End If
             End If
         Next
 
-        Dim recursos As New Resources.ResourceLoader()
-
         If TypeOf e.InvokedItem Is TextBlock Then
             Dim item As TextBlock = e.InvokedItem
 
-            If item.Text = recursos.GetString("Deals") Then
+            If item.Text = "Principal" Then
 
-            ElseIf item.Text = recursos.GetString("Editor") Then
+                GridVisibilidad(gridOfertas, item.Text)
+
+                gridSeleccionarOfertasTiendas.Visibility = Visibility.Visible
+
+                gridOfertasTiendasSupremo.Visibility = Visibility.Collapsed
+                gridProgreso.Visibility = Visibility.Collapsed
+                gridNoOfertas.Visibility = Visibility.Collapsed
+
+            ElseIf item.Text = "Ofertas" Then
                 For Each grid As Grid In gridOfertasTiendas.Children
                     If grid.Visibility = Visibility.Visible Then
+                        spOfertasTiendasEditor.Visibility = Visibility.Visible
 
-                        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-                            spOfertasTiendasEditor.Visibility = Visibility.Visible
-
-                            Dim lv As ListView = grid.Children(0)
-                            gridEditor.Tag = lv
-                            pepeizq.Interfaz.Editor.Generar(lv)
-                        End If
+                        Dim lv As ListView = grid.Children(0)
+                        gridEditor.Tag = lv
+                        pepeizq.Interfaz.Pestañas.CargarListadoOfertas(lv)
                     End If
 
                     grid.Visibility = Visibility.Collapsed
                 Next
 
                 GridVisibilidad(gridEditor, item.Text)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsDeals)
+
+            ElseIf item.Text = "Bundles" Then
+
+                GridVisibilidad(gridEditor, item.Text)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsBundles)
+
+            ElseIf item.Text = "Gratis" Then
+
+                GridVisibilidad(gridEditor, item.Text)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsFree)
+
+            ElseIf item.Text = "Suscripciones" Then
+
+                GridVisibilidad(gridEditor, item.Text)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsSuscripciones)
+
+            ElseIf item.Text = "Anuncios" Then
+
+                GridVisibilidad(gridEditor, item.Text)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsAnuncios)
 
             End If
         End If
@@ -65,15 +78,24 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "es-ES"
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         Configuracion.Iniciar()
-        MasCosas.Generar()
         Tiendas.Generar()
         Divisas.Generar()
+
+        pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
+        pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
+        pepeizq.Editor.pepeizqdeals.Free.Cargar()
+        pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
+        pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
+        pepeizq.Editor.pepeizqdeals.RedesSociales.Steam.Comprobar()
+        pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
+        pepeizq.Editor.pepeizqdeals.Posts.Borrar()
+        pepeizq.Editor.pepeizqdeals.Assets.Cargar()
 
         '--------------------------------------------------------
 
@@ -105,6 +127,7 @@ Public NotInheritable Class MainPage
 
         tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - " + tag
 
+        gridOfertas.Visibility = Visibility.Collapsed
         gridEditor.Visibility = Visibility.Collapsed
 
         grid.Visibility = Visibility.Visible
@@ -123,26 +146,15 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    'CONFIG---------------------------------------------------------------------------------
-
-    Private Sub ItemConfigUltimaVisita_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigUltimaVisita.Click
-
-        Configuracion.UltimaVisitaFiltrar(itemConfigUltimaVisita.IsChecked)
-
-    End Sub
-
-    Private Sub ItemConfigMostrarImagenes_Click(sender As Object, e As RoutedEventArgs) Handles itemConfigMostrarImagenes.Click
-
-        Configuracion.MostrarImagenesJuegos(itemConfigMostrarImagenes.IsChecked)
-
-    End Sub
-
     'EDITOR---------------------------------------------------------------------------------
 
     Private Sub BotonTiendaSeleccionada_Click(sender As Object, e As RoutedEventArgs) Handles botonTiendaSeleccionada.Click
 
         If Not imagenTiendaSeleccionada.Tag Is Nothing Then
             gridEditor.Visibility = Visibility.Collapsed
+
+            gridOfertas.Visibility = Visibility.Visible
+            gridOfertasTiendasSupremo.Visibility = Visibility.Visible
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
             Tiendas.IniciarTienda(tienda, True, False, False)
@@ -198,15 +210,6 @@ Public NotInheritable Class MainPage
                 Tiendas.SeñalarFavoritos(lv)
             End If
         Next
-
-    End Sub
-
-    Private Sub CbEditorWebs_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles cbEditorWebs.SelectionChanged
-
-        If ApplicationData.Current.LocalSettings.Values("editor2") = True Then
-            Dim lv As ListView = gridEditor.Tag
-            pepeizq.Interfaz.Editor.Generar(lv)
-        End If
 
     End Sub
 
