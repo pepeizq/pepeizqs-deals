@@ -237,18 +237,18 @@
 
                                     <Grid Grid.Row="1" Margin="0,10,0,15">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-
-                                        <TextBox x:Name="tbEditorEnlacepepeizqdeals" Grid.Column="0" TextWrapping="Wrap" TextAlignment="Justify"/>
-                                        <Button x:Name="botonEditorEnlaceAbrirpepeizqdeals" Grid.Column="1" Background="{StaticResource BrushPrimario}" Margin="15,0,0,0" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                       
+                                        <Button x:Name="botonEditorEnlaceAbrirpepeizqdeals" Grid.Column="0" Background="{StaticResource BrushPrimario}" Margin="0,0,15,0" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel>
                                                     <fa:FontAwesome Icon="Globe" Foreground="White"/>
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
+                                        <TextBox x:Name="tbEditorEnlacepepeizqdeals" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Justify"/>
                                     </Grid>
                                 </Grid>
                                 <Grid x:Name="gridEditorImagenpepeizqdeals" HorizontalAlignment="Stretch">

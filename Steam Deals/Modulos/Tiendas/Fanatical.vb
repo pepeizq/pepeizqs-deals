@@ -145,7 +145,9 @@ Namespace pepeizq.Tiendas
 
                 Dim desarrolladores As New JuegoDesarrolladores(juegoFanatical.Publishers, Nothing)
 
-                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+                Dim tipo As String = juegoFanatical.Tipo
+
+                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
                 Dim añadir As Boolean = True
                 Dim k As Integer = 0
@@ -263,6 +265,9 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("bundle_games")>
         Public Bundle As FanaticalJuegoBundle
+
+        <JsonProperty("type")>
+        Public Tipo As String
 
     End Class
 

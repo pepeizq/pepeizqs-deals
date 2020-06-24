@@ -365,7 +365,7 @@ Module Analisis
                                 If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
-                                    If FiltrarSteam(juego) = False Then
+                                    If FiltrarTiendas(juego) = False Then
                                         añadirCheck = False
                                     End If
 
@@ -393,7 +393,7 @@ Module Analisis
                                 If juego.Tienda.NombreUsar = "Steam" Then
                                     Dim añadirCheck As Boolean = True
 
-                                    If FiltrarSteam(juego) = False Then
+                                    If FiltrarTiendas(juego) = False Then
                                         añadirCheck = False
                                     End If
 
@@ -430,20 +430,13 @@ Module Analisis
                                             descuento = descuento.Replace("%", Nothing)
 
                                             If Int32.Parse(descuento) > 19 Then
-                                                If juego.Tienda.NombreUsar = "Steam" Then
-                                                    Dim añadirCheck As Boolean = True
+                                                Dim añadirCheck As Boolean = True
 
-                                                    If FiltrarSteam(juego) = False Then
-                                                        añadirCheck = False
-                                                    End If
+                                                If FiltrarTiendas(juego) = False Then
+                                                    añadirCheck = False
+                                                End If
 
-                                                    If añadirCheck = True Then
-                                                        Dim sp As StackPanel = itemGrid.Children(0)
-                                                        Dim cb As CheckBox = sp.Children(0)
-
-                                                        cb.IsChecked = True
-                                                    End If
-                                                Else
+                                                If añadirCheck = True Then
                                                     Dim sp As StackPanel = itemGrid.Children(0)
                                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -457,21 +450,13 @@ Module Analisis
                         End If
                     Else
                         Dim juego As Juego = itemGrid.Tag
+                        Dim añadirCheck As Boolean = True
 
-                        If juego.Tienda.NombreUsar = "Steam" Then
-                            Dim añadirCheck As Boolean = True
+                        If FiltrarTiendas(juego) = False Then
+                            añadirCheck = False
+                        End If
 
-                            If FiltrarSteam(juego) = False Then
-                                añadirCheck = False
-                            End If
-
-                            If añadirCheck = True Then
-                                Dim sp As StackPanel = itemGrid.Children(0)
-                                Dim cb As CheckBox = sp.Children(0)
-
-                                cb.IsChecked = True
-                            End If
-                        Else
+                        If añadirCheck = True Then
                             Dim sp As StackPanel = itemGrid.Children(0)
                             Dim cb As CheckBox = sp.Children(0)
 
@@ -489,20 +474,32 @@ Module Analisis
 
     End Sub
 
-    Private Function FiltrarSteam(juego As Juego)
+    Private Function FiltrarTiendas(juego As Juego)
 
         Dim añadir As Boolean = True
 
-        If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
-            añadir = False
-        ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
-            añadir = False
-        End If
+        If juego.Tienda.NombreUsar = "Steam" Then
+            If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
+                añadir = False
+            ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
+                añadir = False
+            End If
 
-        If juego.Tipo = "video" Then
-            añadir = False
-        ElseIf juego.Tipo = "dlc" Then
-            añadir = False
+            If juego.Tipo = "video" Then
+                añadir = False
+            ElseIf juego.Tipo = "dlc" Then
+                añadir = False
+            ElseIf juego.Tipo = "music" Then
+                añadir = False
+            End If
+        ElseIf juego.Tienda.NombreUsar = "Fanatical" Then
+            If juego.Tipo = "dlc" Then
+                añadir = False
+            End If
+        ElseIf juego.Tienda.NombreUsar = "GamersGate" Then
+            If juego.Tipo = "dlc" Then
+                añadir = False
+            End If
         End If
 
         Return añadir
