@@ -21,7 +21,7 @@ Module Ordenar
         Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
         tbProgreso.Text = String.Empty
 
-        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendas")
         gridOfertas.Visibility = Visibility.Visible
 
         Dim gridNoOfertas As Grid = pagina.FindName("gridNoOfertas")
@@ -215,7 +215,7 @@ Module Ordenar
                     End If
                 Next
 
-                Tiendas.SeñalarFavoritos(lv)
+                Tiendas.SeñalarImportantes(lv)
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then

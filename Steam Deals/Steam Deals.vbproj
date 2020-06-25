@@ -133,6 +133,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Anuncios.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Assets.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Bundles.vb" />
+    <Compile Include="Modulos\CopiaSeguridad.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Free.vb" />
@@ -155,9 +156,9 @@
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\IGDB.vb" />
+    <Compile Include="Modulos\Interfaz\Filtrados.vb" />
     <Compile Include="Modulos\Interfaz\Tiendas.vb" />
     <Compile Include="Modulos\Interfaz\Pestañas.vb" />
-    <Compile Include="Modulos\NavigationViewItems.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleChoice.vb" />

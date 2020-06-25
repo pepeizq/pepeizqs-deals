@@ -1,7 +1,4 @@
-﻿Imports Windows.Storage
-Imports Windows.System
-
-Namespace pepeizq.Interfaz
+﻿Namespace pepeizq.Interfaz
     Module Pestañas
 
         Public Sub CargarListadoOfertas(lv As ListView)
@@ -27,7 +24,7 @@ Namespace pepeizq.Interfaz
             Next
 
             If listaAnalisis.Count = 0 Then
-                SeñalarFavoritos(lv)
+                SeñalarImportantes(lv)
 
                 For Each item In lv.Items
                     Dim grid As Grid = item

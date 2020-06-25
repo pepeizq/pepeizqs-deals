@@ -114,7 +114,7 @@
                 </Grid.Background>
 
                 <Grid x:Name="gridOfertas" Visibility="Collapsed">
-                    <Grid x:Name="gridSeleccionarOfertasTiendas">
+                    <Grid x:Name="gridOfertasSeleccionar">
                         <StackPanel x:Name="spPresentacionEditor" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock x:Uid="SelectStore2" Margin="0,0,0,10" HorizontalAlignment="Center"/>
                             <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,0"/>
@@ -127,13 +127,13 @@
                         </StackPanel>
                     </Grid>
 
-                    <Grid x:Name="gridOfertasTiendasSupremo">
+                    <Grid x:Name="gridOfertasTiendas">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <Grid x:Name="gridOfertasTiendas" Grid.Row="0" Visibility="Collapsed"/>
+                        <Grid x:Name="gridOfertasTiendas2" Grid.Row="0" Visibility="Collapsed"/>
                         <StackPanel x:Name="spOfertasTiendasEditor" Grid.Row="1" Orientation="Horizontal" Padding="10" Visibility="Collapsed">
                             <Button x:Name="botonActualizarOfertas" Background="Transparent" BorderBrush="Transparent" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Style="{StaticResource ButtonRevealStyle}">
                                 <Button.Content>
@@ -176,7 +176,9 @@
                             <ComboBox x:Name="cbFiltradoEditorDesarrolladores" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <TextBlock x:Name="tbNumOfertasCargadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <TextBlock x:Name="tbNumOfertasSeleccionadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
-                            <TextBlock x:Name="tbNumFavoritosSeleccionados2" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            
+                            <TextBlock x:Name="tbImportantesSeleccionados" VerticalAlignment="Center" Margin="30,0,0,0"/>
+                            <ComboBox x:Name="cbImportantesSeleccionados" VerticalAlignment="Center" Margin="20,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
                     </Grid>
 
@@ -952,6 +954,18 @@
                                         <TextBox x:Name="tbEditorpepeizqdealsDiscordHookSuscripciones" Margin="0,10"/>
                                         <TextBlock Text="Hook Otros" HorizontalAlignment="Left"/>
                                         <TextBox x:Name="tbEditorpepeizqdealsDiscordHookOtros" Margin="0,10"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="Copia Seguridad" Margin="0,30,0,10"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="botonEditorpepeizqdealsCopiaSeguridad" Background="{StaticResource BrushPrimario}" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:FontAwesome Icon="Folder" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                        <TextBlock x:Name="tbEditorpepeizqdealsCopiaSeguridad" Margin="15,0" VerticalAlignment="Center"/>
                                     </StackPanel>
 
                                     <TextBlock Text="IGDB" Margin="0,30,0,10"/>

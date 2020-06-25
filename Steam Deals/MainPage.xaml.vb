@@ -8,7 +8,7 @@ Public NotInheritable Class MainPage
 
     Private Sub Nv_ItemInvoked(sender As NavigationView, e As NavigationViewItemInvokedEventArgs)
 
-        For Each grid As Grid In gridOfertasTiendas.Children
+        For Each grid As Grid In gridOfertasTiendas2.Children
             If grid.Visibility = Visibility.Visible Then
                 Dim lv As ListView = grid.Children(0)
 
@@ -25,14 +25,13 @@ Public NotInheritable Class MainPage
 
                 GridVisibilidad(gridOfertas, item.Text)
 
-                gridSeleccionarOfertasTiendas.Visibility = Visibility.Visible
-
-                gridOfertasTiendasSupremo.Visibility = Visibility.Collapsed
+                gridOfertasSeleccionar.Visibility = Visibility.Visible
+                gridOfertasTiendas.Visibility = Visibility.Collapsed
                 gridProgreso.Visibility = Visibility.Collapsed
                 gridNoOfertas.Visibility = Visibility.Collapsed
 
             ElseIf item.Text = "Ofertas" Then
-                For Each grid As Grid In gridOfertasTiendas.Children
+                For Each grid As Grid In gridOfertasTiendas2.Children
                     If grid.Visibility = Visibility.Visible Then
                         spOfertasTiendasEditor.Visibility = Visibility.Visible
 
@@ -86,6 +85,7 @@ Public NotInheritable Class MainPage
         Configuracion.Iniciar()
         Tiendas.Generar()
         Divisas.Generar()
+        CopiaSeguridad.Cargar()
 
         pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
@@ -154,7 +154,7 @@ Public NotInheritable Class MainPage
             gridEditor.Visibility = Visibility.Collapsed
 
             gridOfertas.Visibility = Visibility.Visible
-            gridOfertasTiendasSupremo.Visibility = Visibility.Visible
+            gridOfertasTiendas.Visibility = Visibility.Visible
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
             Tiendas.IniciarTienda(tienda, True, False, False)
@@ -166,7 +166,7 @@ Public NotInheritable Class MainPage
 
         gridEditor.Visibility = Visibility.Collapsed
 
-        For Each grid As Grid In gridOfertasTiendas.Children
+        For Each grid As Grid In gridOfertasTiendas2.Children
             If grid.Visibility = Visibility.Visible Then
                 Dim tienda As Tienda = grid.Tag
 
@@ -178,16 +178,16 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonSeleccionarTodo_Click(sender As Object, e As RoutedEventArgs) Handles botonSeleccionarTodo.Click
 
-        For Each grid As Grid In gridOfertasTiendas.Children
+        For Each grid As Grid In gridOfertasTiendas2.Children
             If grid.Visibility = Visibility.Visible Then
                 Dim lv As ListView = grid.Children(0)
 
                 For Each itemlv In lv.Items
                     Dim itemGrid As Grid = itemlv
-                    Analisis.FiltrarSeleccion(itemGrid)
+                    pepeizq.Interfaz.Filtrados.Seleccion(itemGrid)
                 Next
 
-                Tiendas.SeñalarFavoritos(lv)
+                Tiendas.SeñalarImportantes(lv)
             End If
         Next
 
@@ -195,7 +195,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonLimpiarSeleccion_Click(sender As Object, e As RoutedEventArgs) Handles botonLimpiarSeleccion.Click
 
-        For Each grid As Grid In gridOfertasTiendas.Children
+        For Each grid As Grid In gridOfertasTiendas2.Children
             If grid.Visibility = Visibility.Visible Then
                 Dim lv As ListView = grid.Children(0)
 
@@ -207,7 +207,7 @@ Public NotInheritable Class MainPage
                     cb.IsChecked = False
                 Next
 
-                Tiendas.SeñalarFavoritos(lv)
+                Tiendas.SeñalarImportantes(lv)
             End If
         Next
 

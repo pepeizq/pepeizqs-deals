@@ -179,9 +179,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                         End Try
 
-                        Await pepeizqdeals.RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl.Trim)
                         Try
-
+                            Await pepeizqdeals.RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Discord Error Post", Nothing)
                         End Try

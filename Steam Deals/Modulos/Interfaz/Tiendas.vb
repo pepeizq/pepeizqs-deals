@@ -65,7 +65,7 @@ Module Tiendas
         AddHandler gvTiendas.ItemClick, AddressOf UsuarioClickeaTienda
 
         Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
-        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
         Dim spCupones As StackPanel = pagina.FindName("spEditorCupones")
 
         For Each tienda In listaTiendas
@@ -148,7 +148,7 @@ Module Tiendas
         Dim menuItem As MenuFlyoutItem = sender
         ApplicationData.Current.LocalSettings.Values("ordenar") = menuItem.Tag
 
-        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
 
         For Each grid As Grid In gridOfertasTiendas.Children
             If grid.Visibility = Visibility.Visible Then
@@ -203,7 +203,7 @@ Module Tiendas
                     lvTienda.Items.Add(AñadirOfertaListado(lvTienda,juego, enseñarImagen))
                 Next
 
-                Tiendas.SeñalarFavoritos(lvTienda)
+                Tiendas.SeñalarImportantes(lvTienda)
             End If
         Next
 
@@ -440,10 +440,13 @@ Module Tiendas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim gridSeleccionar As Grid = pagina.FindName("gridSeleccionarOfertasTiendas")
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertas")
+        gridOfertas.Visibility = Visibility.Visible
+
+        Dim gridSeleccionar As Grid = pagina.FindName("gridOfertasSeleccionar")
         gridSeleccionar.Visibility = Visibility.Collapsed
 
-        Dim gridTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        Dim gridTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
         gridTiendas.Visibility = Visibility.Visible
 
         For Each grid As Grid In gridTiendas.Children
@@ -463,8 +466,8 @@ Module Tiendas
         Dim tbTienda As TextBlock = pagina.FindName("tbTiendaSeleccionada")
         tbTienda.Text = tienda.NombreMostrar
 
-        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
-        gridOfertas.Visibility = Visibility.Visible
+        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        gridOfertasTiendas.Visibility = Visibility.Visible
 
         Dim gridTienda As Grid = pagina.FindName("gridTienda" + tienda.NombreUsar)
         gridTienda.Visibility = Visibility.Visible
@@ -1004,7 +1007,7 @@ Module Tiendas
             .Visibility = Visibility.Collapsed,
             .VerticalAlignment = VerticalAlignment.Center,
             .MinWidth = 30,
-            .Tag = lv
+            .Tag = juego
         }
 
         AddHandler cbAnalisis.Checked, AddressOf CbAnalisisChecked
@@ -1075,7 +1078,7 @@ Module Tiendas
 
     End Function
 
-    Public Sub SeñalarFavoritos(lv As ListView)
+    Public Sub SeñalarImportantes(lv As ListView)
 
         Dim listaAnalisis As New List(Of Juego)
 
@@ -1211,15 +1214,51 @@ Module Tiendas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tbSeleccionados As TextBlock = pagina.FindName("tbNumFavoritosSeleccionados2")
+        Dim tbSeleccionados As TextBlock = pagina.FindName("tbImportantesSeleccionados")
         Dim seleccionados As Integer = 0
 
         If Not tbSeleccionados.Text = Nothing Then
+            tbSeleccionados.Text = tbSeleccionados.Text.Replace("Importantes (", Nothing)
+            tbSeleccionados.Text = tbSeleccionados.Text.Replace("):", Nothing)
+
             seleccionados = tbSeleccionados.Text
         End If
 
         seleccionados = seleccionados + 1
-        tbSeleccionados.Text = seleccionados
+        tbSeleccionados.Text = "Importantes (" + seleccionados.ToString + "):"
+
+        Dim cbSeleccionados As ComboBox = pagina.FindName("cbImportantesSeleccionados")
+        cbSeleccionados.Visibility = Visibility.Visible
+
+        Dim cbAnalisis As CheckBox = sender
+        Dim juego As Juego = cbAnalisis.Tag
+
+        Dim añadir As Boolean = True
+
+        For Each item In cbSeleccionados.Items
+            If item = juego.Descuento + " - " + juego.Titulo Then
+                añadir = False
+            End If
+        Next
+
+        If añadir = True Then
+            cbSeleccionados.Items.Add(juego.Descuento + " - " + juego.Titulo)
+
+            Dim lista As New List(Of String)
+
+            For Each item In cbSeleccionados.Items
+                lista.Add(item)
+            Next
+
+            lista.Sort()
+            lista.Reverse()
+
+            cbSeleccionados.Items.Clear()
+
+            For Each item In lista
+                cbSeleccionados.Items.Add(item)
+            Next
+        End If
 
     End Sub
 
@@ -1228,18 +1267,39 @@ Module Tiendas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tbSeleccionados As TextBlock = pagina.FindName("tbNumFavoritosSeleccionados2")
+        Dim tbSeleccionados As TextBlock = pagina.FindName("tbImportantesSeleccionados")
+        Dim cbSeleccionados As ComboBox = pagina.FindName("cbImportantesSeleccionados")
 
         If Not tbSeleccionados.Text = Nothing Then
+            tbSeleccionados.Text = tbSeleccionados.Text.Replace("Importantes (", Nothing)
+            tbSeleccionados.Text = tbSeleccionados.Text.Replace("):", Nothing)
+
             Dim seleccionados As Integer = tbSeleccionados.Text
 
             seleccionados = seleccionados - 1
 
             If seleccionados = 0 Then
                 tbSeleccionados.Text = String.Empty
+                cbSeleccionados.Visibility = Visibility.Collapsed
             Else
-                tbSeleccionados.Text = seleccionados
+                tbSeleccionados.Text = "Importantes (" + seleccionados.ToString + "):"
+                cbSeleccionados.Visibility = Visibility.Visible
             End If
+        End If
+
+        Dim cbAnalisis As CheckBox = sender
+        Dim juego As Juego = cbAnalisis.Tag
+
+        Dim quitar As Boolean = False
+
+        For Each item In cbSeleccionados.Items
+            If item = juego.Descuento + " - " + juego.Titulo Then
+                quitar = True
+            End If
+        Next
+
+        If quitar = True Then
+            cbSeleccionados.Items.Remove(juego.Descuento + " - " + juego.Titulo)
         End If
 
     End Sub
@@ -1280,7 +1340,7 @@ Module Tiendas
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas")
+        Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
 
         For Each grid As Grid In gridOfertasTiendas.Children
             If grid.Visibility = Visibility.Visible Then

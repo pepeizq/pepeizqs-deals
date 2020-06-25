@@ -20,7 +20,7 @@ Module Configuracion
         Dim spEditor As StackPanel = pagina.FindName("spPresentacionEditor")
         spEditor.Visibility = Visibility.Visible
 
-        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendasSupremo")
+        Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendas")
         gridOfertas.Visibility = Visibility.Visible
 
         Dim cbFiltrado As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
