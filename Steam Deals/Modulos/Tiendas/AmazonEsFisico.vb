@@ -231,7 +231,7 @@ Namespace pepeizq.Tiendas
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
+            Ordenar.Ofertas(Tienda, True, False)
 
         End Sub
 

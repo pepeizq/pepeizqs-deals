@@ -211,7 +211,7 @@ Namespace pepeizq.Tiendas
             Await helper.SaveFileAsync(Of List(Of MicrosoftStoreImagen))("listaImagenesMicrosoftStore", listaImagenes)
             Await helper.SaveFileAsync(Of List(Of String))("listaIDsMicrosoftStore", listaIDs)
 
-            Ordenar.Ofertas(tienda.NombreUsar, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Sub
 

@@ -391,7 +391,7 @@ Namespace pepeizq.Tiendas
             Await helper.SaveFileAsync(Of List(Of GameBilletImagenes))("listaImagenesGameBillet", listaImagenes)
             Await helper.SaveFileAsync(Of List(Of GameBilletDesarrolladores))("listaDesarrolladoresGameBillet", listaDesarrolladores)
 
-            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
+            Ordenar.Ofertas(Tienda, True, False)
 
         End Sub
 

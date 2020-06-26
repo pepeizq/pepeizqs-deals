@@ -108,6 +108,7 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Comprobacion.vb" />
     <Compile Include="Clases\Editor\EditorPaquete.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Bundles.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Deals.vb" />

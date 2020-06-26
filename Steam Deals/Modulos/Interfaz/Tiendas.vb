@@ -1,6 +1,8 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Animations
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Animations
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
+Imports Windows.Storage.FileProperties
 Imports Windows.UI
 Imports Windows.UI.Core
 
@@ -32,7 +34,7 @@ Module Tiendas
     Dim robotcacheT As New Tienda("Robot Cache", "RobotCache", "Assets/Tiendas/robotcache.png", 25, Nothing, 1245, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/robotcache2.png", Nothing)
 
     Dim listaTiendas As New List(Of Tienda) From {
-        steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT, nuuvemT,
+        steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
         epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT
     }
@@ -43,7 +45,7 @@ Module Tiendas
 
     Dim ultimosResultados As Boolean = False
 
-    Public Sub Generar()
+    Public Async Sub Generar()
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -64,14 +66,36 @@ Module Tiendas
         Dim gvTiendas As GridView = pagina.FindName("gvOfertasTiendas")
         AddHandler gvTiendas.ItemClick, AddressOf UsuarioClickeaTienda
 
-        Dim menuTiendas As MenuFlyout = pagina.FindName("botonTiendasMenu")
+        Dim tiendasMenu As MenuFlyout = pagina.FindName("botonTiendasMenu")
         Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
         Dim spCupones As StackPanel = pagina.FindName("spEditorCupones")
 
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaComprobacionesTiendas As New List(Of Comprobacion)
+
+        If Await helper.FileExistsAsync("comprobaciones") = True Then
+            listaComprobacionesTiendas = Await helper.ReadFileAsync(Of List(Of Comprobacion))("comprobaciones")
+        End If
+
         For Each tienda In listaTiendas
             If Not tienda.IconoApp = Nothing Then
+                Dim mensaje As String = String.Empty
+
+                For Each comprobacion In listaComprobacionesTiendas
+                    If comprobacion.Tienda = tienda.NombreUsar Then
+                        If (comprobacion.Dias < DateTime.Today.DayOfYear) Or DateTime.Today.DayOfYear = 1 Then
+                            If Not comprobacion.Dias = DateTime.Today.DayOfYear Then
+                                mensaje = " • Hoy no se ha comprobado"
+                            End If
+                        End If
+                    End If
+                Next
+
+                tiendasMenu.Items.Add(AñadirMenuTienda(tienda, mensaje))
+
                 gvTiendas.Items.Add(AñadirBotonTienda(tienda))
-                menuTiendas.Items.Add(AñadirMenuTienda(tienda))
+
                 gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
                 spCupones.Children.Add(AñadirCuponTienda(tienda))
             End If
@@ -200,7 +224,7 @@ Module Tiendas
                 End If
 
                 For Each juego In listaJuegos
-                    lvTienda.Items.Add(AñadirOfertaListado(lvTienda,juego, enseñarImagen))
+                    lvTienda.Items.Add(AñadirOfertaListado(lvTienda, juego, enseñarImagen))
                 Next
 
                 Tiendas.SeñalarImportantes(lvTienda)
@@ -250,7 +274,13 @@ Module Tiendas
 
     End Function
 
-    Private Function AñadirMenuTienda(tienda As Tienda)
+    Private Function AñadirMenuTienda(tienda As Tienda, mensaje As String)
+
+        Dim texto As String = tienda.NombreMostrar
+
+        If Not mensaje = Nothing Then
+            texto = texto + mensaje
+        End If
 
         Dim menuItem As New MenuFlyoutItem With {
             .Text = tienda.NombreMostrar,
@@ -602,7 +632,7 @@ Module Tiendas
                     pepeizq.Tiendas.Direct2Drive.BuscarOfertas(direct2driveT)
                 End If
             Else
-                Ordenar.Ofertas(tienda.NombreUsar, False, True)
+                Ordenar.Ofertas(tienda, False, True)
             End If
         Else
             pepeizq.Interfaz.Pestañas.Botones(True)

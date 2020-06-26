@@ -221,7 +221,7 @@ Namespace pepeizq.Tiendas
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of GreenManGamingDesarrolladores))("listaDesarrolladoresGreenManGaming", listaDesarrolladores)
 
-            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
+            Ordenar.Ofertas(Tienda, True, False)
 
         End Sub
 

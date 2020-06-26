@@ -149,6 +149,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tbTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
                     tbTitulo.Text = tbTexto.Text.Trim
                 End If
+            Else
+                panelTexto.Visibility = Visibility.Collapsed
+                panelImagen.Visibility = Visibility.Collapsed
             End If
 
         End Sub

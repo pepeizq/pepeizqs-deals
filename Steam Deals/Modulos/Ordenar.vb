@@ -3,14 +3,14 @@ Imports Windows.Storage
 
 Module Ordenar
 
-    Public Async Sub Ofertas(tienda As String, buscar As Boolean, cargarUltimas As Boolean)
+    Public Async Sub Ofertas(tienda As Tienda, buscar As Boolean, cargarUltimas As Boolean)
 
         pepeizq.Interfaz.Pestañas.Botones(False)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim lv As ListView = pagina.FindName("listaTienda" + tienda)
+        Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
         Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
         spEditor.Visibility = Visibility.Collapsed
@@ -42,13 +42,13 @@ Module Ordenar
             Dim listaDesarrolladores As New List(Of String)
 
             If buscar = True Then
-                If Await helper.FileExistsAsync("listaOfertas" + tienda) = True Then
-                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda)
+                If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
+                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda.NombreUsar)
                 End If
             Else
                 If cargarUltimas = True Then
-                    If Await helper.FileExistsAsync("listaUltimasOfertas" + tienda) = True Then
-                        listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda)
+                    If Await helper.FileExistsAsync("listaUltimasOfertas" + tienda.NombreUsar) = True Then
+                        listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda.NombreUsar)
                     End If
                 Else
                     For Each item In lv.Items
@@ -71,17 +71,20 @@ Module Ordenar
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
-                        If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda) = True Then
-                            listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda)
+
+                        ComprobacionesTiendas(tienda.NombreMostrar)
+
+                        If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda.NombreUsar) = True Then
+                            listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda.NombreUsar)
                         End If
 
                         Dim boolBorrar As Boolean = False
 
-                        If tienda = "AmazonEs" Then
+                        If tienda.NombreUsar = "AmazonEs" Then
                             boolBorrar = True
-                        ElseIf tienda = "AmazonEs2" Then
+                        ElseIf tienda.NombreUsar = "AmazonEs2" Then
                             boolBorrar = True
-                        ElseIf tienda = "AmazonUk" Then
+                        ElseIf tienda.NombreUsar = "AmazonUk" Then
                             boolBorrar = True
                         End If
 
@@ -124,11 +127,11 @@ Module Ordenar
                             If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
                                 Dim boolAntiguo As Boolean = False
 
-                                If tienda = "AmazonEs" Then
+                                If tienda.NombreUsar = "AmazonEs" Then
                                     boolAntiguo = False
-                                ElseIf tienda = "AmazonEs2" Then
+                                ElseIf tienda.NombreUsar = "AmazonEs2" Then
                                     boolAntiguo = False
-                                ElseIf tienda = "AmazonUk" Then
+                                ElseIf tienda.NombreUsar = "AmazonUk" Then
                                     boolAntiguo = False
                                 Else
                                     If Not listaJuegosAntigua Is Nothing Then
@@ -219,11 +222,11 @@ Module Ordenar
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
-                        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda, listaJuegosAntigua)
+                        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda.NombreUsar, listaJuegosAntigua)
 
                         If cargarUltimas = False Then
                             If listaUltimasOfertas.Count > 0 Then
-                                Await helper.SaveFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda, listaUltimasOfertas)
+                                Await helper.SaveFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda.NombreUsar, listaUltimasOfertas)
                             End If
                         End If
                     End If
@@ -301,5 +304,43 @@ Module Ordenar
         Return precio
 
     End Function
+
+    Private Async Sub ComprobacionesTiendas(tienda As String)
+
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaComprobacionesTiendas As New List(Of Comprobacion)
+
+        If Await helper.FileExistsAsync("comprobaciones") = True Then
+            listaComprobacionesTiendas = Await helper.ReadFileAsync(Of List(Of Comprobacion))("comprobaciones")
+        End If
+
+        Dim añadirComprobacion As Boolean = True
+
+        For Each comprobacion In listaComprobacionesTiendas
+            If comprobacion.Tienda = tienda Then
+                comprobacion.Dias = DateTime.Today.DayOfYear
+                añadirComprobacion = False
+            End If
+        Next
+
+        If añadirComprobacion = True Then
+            listaComprobacionesTiendas.Add(New Comprobacion(tienda, DateTime.Today.DayOfYear))
+        End If
+
+        Await helper.SaveFileAsync(Of List(Of Comprobacion))("comprobaciones", listaComprobacionesTiendas)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim tiendasMenu As MenuFlyout = pagina.FindName("botonTiendasMenu")
+
+        For Each item As MenuFlyoutItem In tiendasMenu.Items
+            If item.Text.Contains(tienda) Then
+                item.Text = item.Text.Replace(" • Hoy no se ha comprobado", Nothing)
+            End If
+        Next
+
+    End Sub
 
 End Module

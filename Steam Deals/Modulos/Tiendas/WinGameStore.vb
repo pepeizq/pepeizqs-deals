@@ -250,7 +250,7 @@ Namespace pepeizq.Tiendas
             Await helper.SaveFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore", listaDesarrolladores)
             Await helper.SaveFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore", listaImagenes)
 
-            Ordenar.Ofertas(Tienda.NombreUsar, True, False)
+            Ordenar.Ofertas(Tienda, True, False)
 
         End Sub
 
