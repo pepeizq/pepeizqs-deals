@@ -83,7 +83,7 @@ Module Tiendas
                 Dim mensaje As String = String.Empty
 
                 For Each comprobacion In listaComprobacionesTiendas
-                    If comprobacion.Tienda = tienda.NombreUsar Then
+                    If comprobacion.Tienda = tienda.NombreMostrar Then
                         If (comprobacion.Dias < DateTime.Today.DayOfYear) Or DateTime.Today.DayOfYear = 1 Then
                             If Not comprobacion.Dias = DateTime.Today.DayOfYear Then
                                 mensaje = " • Hoy no se ha comprobado"
@@ -95,7 +95,6 @@ Module Tiendas
                 tiendasMenu.Items.Add(AñadirMenuTienda(tienda, mensaje))
 
                 gvTiendas.Items.Add(AñadirBotonTienda(tienda))
-
                 gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
                 spCupones.Children.Add(AñadirCuponTienda(tienda))
             End If
@@ -283,7 +282,7 @@ Module Tiendas
         End If
 
         Dim menuItem As New MenuFlyoutItem With {
-            .Text = tienda.NombreMostrar,
+            .Text = texto,
             .Tag = tienda
         }
 

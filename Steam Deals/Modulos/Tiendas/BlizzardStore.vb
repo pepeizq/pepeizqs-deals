@@ -140,7 +140,8 @@ Namespace pepeizq.Tiendas
                 "call-of-duty-mw",
                 "diablo-ii",
                 "warcraft-iii",
-                "call-of-duty"
+                "call-of-duty",
+                "call-of-duty-mw2cr"
             }
 
             Return lista
