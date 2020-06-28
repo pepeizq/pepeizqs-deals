@@ -162,9 +162,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Steam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                            Await pepeizqdeals.RedesSociales.GrupoSteam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
                         Catch ex As Exception
-                            Notificaciones.Toast("Steam Error Post", Nothing)
+                            Notificaciones.Toast("Grupo Steam Error Post", Nothing)
                         End Try
 
                         Try

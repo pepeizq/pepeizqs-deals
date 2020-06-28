@@ -1,7 +1,7 @@
 ﻿Imports Windows.Storage
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
-    Module Steam
+    Module GrupoSteam
 
         Public Async Function Enviar(titulo As String, imagen As String, enlaceFinal As String, redireccion As String, categoria As Integer) As Task
 
@@ -67,6 +67,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
             AddHandler wv.NavigationCompleted, AddressOf Comprobar2
+            AddHandler wv.NavigationFailed, AddressOf Comprobar3
 
         End Sub
 
@@ -117,6 +118,13 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     End If
                 End If
             End If
+
+        End Sub
+
+        Private Sub Comprobar3(sender As Object, e As WebViewNavigationFailedEventArgs)
+
+            Dim wv As WebView = sender
+            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
         End Sub
 

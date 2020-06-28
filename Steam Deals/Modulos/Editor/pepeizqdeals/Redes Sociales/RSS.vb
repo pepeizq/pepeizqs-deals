@@ -47,7 +47,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 Dim botonSteam As New Button With {
                     .Tag = post,
-                    .Content = "Steam",
+                    .Content = "Grupo Steam",
                     .Margin = New Thickness(30, 0, 0, 0)
                 }
 
@@ -118,7 +118,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim enlaceFinal As String = post.Enlace
 
             Try
-                Await RedesSociales.Steam.Enviar(titulo, post.ImagenFeatured, enlaceFinal, post.Redireccion, categoria)
+                Await RedesSociales.GrupoSteam.Enviar(titulo, post.ImagenFeatured, enlaceFinal, post.Redireccion, categoria)
             Catch ex As Exception
                 Notificaciones.Toast("Steam Error Post", Nothing)
             End Try

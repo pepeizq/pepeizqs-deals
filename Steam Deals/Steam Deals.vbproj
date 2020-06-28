@@ -147,7 +147,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Push.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Reddit.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\RSS.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Steam.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\GrupoSteam.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Referidos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Suscripciones.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Twitter.vb" />
