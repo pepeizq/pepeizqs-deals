@@ -52,9 +52,6 @@ Module Tiendas
 
         Dim recursos As New Resources.ResourceLoader()
 
-        Dim tbTitulo As TextBlock = pagina.FindName("tbTitulo")
-        tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ")"
-
         Dim botonOrdenarMenu As MenuFlyout = pagina.FindName("botonOrdenarMenu")
         botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Discount"), 0))
         botonOrdenarMenu.Items.Add(AñadirMenuOrdenar(recursos.GetString("Title"), 1))

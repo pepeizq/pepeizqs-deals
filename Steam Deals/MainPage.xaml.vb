@@ -99,6 +99,10 @@ Public NotInheritable Class MainPage
 
         '--------------------------------------------------------
 
+        Dim barra As ApplicationViewTitleBar = ApplicationView.GetForCurrentView().TitleBar
+        barra.BackgroundColor = App.Current.Resources("ColorPrimario")
+        barra.ButtonBackgroundColor = App.Current.Resources("ColorPrimario")
+
         Dim transpariencia As New UISettings
         TransparienciaEfectosFinal(transpariencia.AdvancedEffectsEnabled)
         AddHandler transpariencia.AdvancedEffectsEnabledChanged, AddressOf TransparienciaEfectosCambia
@@ -124,8 +128,6 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub GridVisibilidad(grid As Grid, tag As String)
-
-        tbTitulo.Text = Package.Current.DisplayName + " (" + Package.Current.Id.Version.Major.ToString + "." + Package.Current.Id.Version.Minor.ToString + "." + Package.Current.Id.Version.Build.ToString + "." + Package.Current.Id.Version.Revision.ToString + ") - " + tag
 
         gridOfertas.Visibility = Visibility.Collapsed
         gridEditor.Visibility = Visibility.Collapsed

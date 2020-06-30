@@ -17,16 +17,7 @@
             </TransitionCollection>
         </Grid.Transitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid x:Name="gridTitulo" Grid.Row="0" Background="{StaticResource GridTituloBackground}">
-            <TextBlock x:Name="tbTitulo" Margin="15,0,0,0" FontSize="13" Foreground="White" VerticalAlignment="Center"/>
-        </Grid>
-
-        <NavigationView x:Name="nvPrincipal" Grid.Row="1" ItemInvoked="Nv_ItemInvoked"
+        <NavigationView x:Name="nvPrincipal" ItemInvoked="Nv_ItemInvoked"
                         AlwaysShowHeader="False" IsSettingsVisible="False" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="itemPrincipal" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">

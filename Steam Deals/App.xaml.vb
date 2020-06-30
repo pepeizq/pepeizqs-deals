@@ -17,7 +17,7 @@ NotInheritable Class App
         ' Mostrar información de generación de perfiles de gráficos durante la depuración.
         If Debugger.IsAttached Then
             ' Mostrar los contadores de velocidad de marcos actual
-            Me.DebugSettings.EnableFrameRateCounter = True
+            Me.DebugSettings.EnableFrameRateCounter = False
         End If
 #End If
 
