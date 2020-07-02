@@ -3,6 +3,9 @@ Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
 
 Namespace pepeizq.Tiendas
+
+    'https://www.gog.com/games/ajax/filtered?mediaType=game&page=1&price=discounted&sort=popularity
+
     Module GOG
 
         Dim WithEvents Bw As New BackgroundWorker
