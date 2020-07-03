@@ -81,7 +81,7 @@
         Private Function CargarLista()
 
             Dim lista As New List(Of Clases.LogosJuegos) From {
-                New Clases.LogosJuegos("Anno", "Assets\LogosJuegos\anno.png", 500),
+                New Clases.LogosJuegos("Anno", "Assets\LogosJuegos\anno.png", 300),
                 New Clases.LogosJuegos("ARK Survival Evolved", "Assets\LogosJuegos\ark.png", 200),
                 New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", 380),
                 New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 350),
