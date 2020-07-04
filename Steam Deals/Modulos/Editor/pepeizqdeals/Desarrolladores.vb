@@ -195,7 +195,7 @@
                 New Clases.Desarrolladores("Crows Crows Crows", "@crowsx3", Nothing, Nothing),
                 New Clases.Desarrolladores("Crytek", "@Crytek", "Assets\LogosPublishers\crytek.png", Nothing),
                 New Clases.Desarrolladores("Crytivo", "@Crytivo", Nothing, Nothing),
-                New Clases.Desarrolladores("Curve Digital", "@CurveDigital", "Assets\LogosPublishers\curvedigital.png", 400),
+                New Clases.Desarrolladores("Curve Digital", "@CurveDigital", "Assets\LogosPublishers\curvedigital.png", 230),
                 New Clases.Desarrolladores("Cyan Worlds Inc", "@cyanworlds", Nothing, Nothing),
                 New Clases.Desarrolladores("Cyanide Studio", "@CyanideStudio", Nothing, Nothing),
                 New Clases.Desarrolladores("CyberCoconut", "@TWLgame", Nothing, Nothing),
