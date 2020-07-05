@@ -382,18 +382,20 @@ Namespace pepeizq.Tiendas
                     Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
 
                     If Not datos Is Nothing Then
-                        If Not datos.Datos.Desarrolladores Is Nothing Then
-                            If datos.Datos.Desarrolladores.Count > 0 Then
-                                Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
-                                juego.Desarrolladores = desarrolladores
-                                juego.Tipo = datos.Datos.Tipo
-                                listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores(0), datos.Datos.Tipo))
-                            ElseIf datos.Datos.Desarrolladores.Count = 0 Then
-                                If datos.Datos.Desarrolladores2.Count > 0 Then
-                                    Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores2(0)}, Nothing)
+                        If Not datos.Datos Is Nothing Then
+                            If Not datos.Datos.Desarrolladores Is Nothing Then
+                                If datos.Datos.Desarrolladores.Count > 0 Then
+                                    Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
                                     juego.Desarrolladores = desarrolladores
                                     juego.Tipo = datos.Datos.Tipo
-                                    listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores2(0), datos.Datos.Tipo))
+                                    listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores(0), datos.Datos.Tipo))
+                                ElseIf datos.Datos.Desarrolladores.Count = 0 Then
+                                    If datos.Datos.Desarrolladores2.Count > 0 Then
+                                        Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores2(0)}, Nothing)
+                                        juego.Desarrolladores = desarrolladores
+                                        juego.Tipo = datos.Datos.Tipo
+                                        listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores2(0), datos.Datos.Tipo))
+                                    End If
                                 End If
                             End If
                         End If

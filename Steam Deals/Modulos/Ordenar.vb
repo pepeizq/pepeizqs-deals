@@ -189,8 +189,12 @@ Module Ordenar
                     enseñarImagen = False
                 End If
 
+                Dim i As Integer = 0
                 For Each juegoGrid In listaGrids
-                    lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
+                    i += 1
+                    If i < 6000 Then
+                        lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
+                    End If
 
                     If Not juegoGrid.Desarrolladores Is Nothing Then
                         If juegoGrid.Desarrolladores.Desarrolladores.Count > 0 Then
