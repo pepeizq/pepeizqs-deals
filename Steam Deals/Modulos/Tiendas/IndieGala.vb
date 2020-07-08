@@ -113,7 +113,15 @@ Namespace pepeizq.Tiendas
 
                                 Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoIG.Desarrollador}, Nothing)
 
-                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
+                                Dim tipo As String = "juego"
+
+                                If Not juegoIG.DLC = Nothing Then
+                                    If juegoIG.DLC.ToLower.Trim = "true" Then
+                                        tipo = "dlc"
+                                    End If
+                                End If
+
+                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -240,6 +248,9 @@ Namespace pepeizq.Tiendas
 
         <XmlElement("discountEnd")>
         Public Fecha As String
+
+        <XmlElement("isDLC")>
+        Public DLC As String
 
     End Class
 End Namespace

@@ -202,6 +202,10 @@ Namespace pepeizq.Interfaz
                 If juego.Tipo = "dlc" Then
                     añadir = False
                 End If
+            ElseIf juego.Tienda.NombreUsar = "IndieGala" Then
+                If juego.Tipo = "dlc" Then
+                    añadir = False
+                End If
             End If
 
             Return añadir
