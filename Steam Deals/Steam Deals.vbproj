@@ -323,6 +323,7 @@
     <Content Include="Assets\LogosPublishers\konami.png" />
     <Content Include="Assets\LogosPublishers\maximum.png" />
     <Content Include="Assets\LogosPublishers\mergegames.png" />
+    <Content Include="Assets\LogosPublishers\nacon.png" />
     <Content Include="Assets\LogosPublishers\neocore.png" />
     <Content Include="Assets\LogosPublishers\nightdive.png" />
     <Content Include="Assets\LogosPublishers\paradox.png" />
