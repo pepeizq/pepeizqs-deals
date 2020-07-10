@@ -64,6 +64,7 @@ Namespace pepeizq.Tiendas
                             titulo = WebUtility.HtmlDecode(titulo)
                             titulo = titulo.Replace("(Mac/Pc)", Nothing)
                             titulo = titulo.Replace("(ROW)", Nothing)
+                            titulo = titulo.Replace("(DLC)", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoVoidu.Enlace

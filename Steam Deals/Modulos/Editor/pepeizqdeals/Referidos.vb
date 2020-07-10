@@ -37,7 +37,8 @@
                 'enlace = "http://www.tkqlhce.com/click-8883540-10912384?url=" + enlace
                 enlace = enlace + "?tap_a=1964-996bbb&tap_s=608263-a851ee"
             ElseIf enlace.Contains("voidu.com") Then
-                enlace = "http://www.tkqlhce.com/click-8883540-13157501?url=" + enlace + "?ref=e8f2c4e5-81e9"
+                'enlace = "http://www.tkqlhce.com/click-8883540-13157501?url=" + enlace + "?ref=e8f2c4e5-81e9"
+                enlace = enlace + "?ref=e8f2c4e5-81e9"
                 'ElseIf enlace.Contains("2game.com") Then
                 '    enlace = "http://www.tkqlhce.com/click-8883540-13129874?url=" + enlace
             ElseIf enlace.Contains("yuplay.ru") Then

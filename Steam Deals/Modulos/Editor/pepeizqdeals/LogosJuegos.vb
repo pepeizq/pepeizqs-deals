@@ -68,10 +68,10 @@
                         tbImagen.Text = String.Empty
                     End If
 
-                    Dim tbDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+                    Dim tbAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
 
                     If Not juego2.LogoAncho = Nothing Then
-                        tbDimensiones.Text = juego2.LogoAncho
+                        tbAncho.Text = juego2.LogoAncho
                     End If
                 End If
             End If
@@ -81,42 +81,41 @@
         Private Function CargarLista()
 
             Dim lista As New List(Of Clases.LogosJuegos) From {
-                New Clases.LogosJuegos("Anno", "Assets\LogosJuegos\anno.png", 300),
-                New Clases.LogosJuegos("ARK Survival Evolved", "Assets\LogosJuegos\ark.png", 200),
-                New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", 380),
-                New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 350),
-                New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 380),
-                New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 350),
-                New Clases.LogosJuegos("Cities Skylines", "Assets\LogosJuegos\citiesskylines.png", 240),
-                New Clases.LogosJuegos("Company of Heroes", "Assets\LogosJuegos\companyofheroes.png", 430),
-                New Clases.LogosJuegos("Darksiders", "Assets\LogosJuegos\darksiders.png", 350),
-                New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", 340),
-                New Clases.LogosJuegos("DiRT", "Assets\LogosJuegos\dirt.png", 300),
-                New Clases.LogosJuegos("Deus EX", "Assets\LogosJuegos\deusex.png", 380),
-                New Clases.LogosJuegos("DRAGON BALL", "Assets\LogosJuegos\dragonball.png", 420),
-                New Clases.LogosJuegos("Fallout", "Assets\LogosJuegos\fallout.png", 300),
-                New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 320),
-                New Clases.LogosJuegos("Forza", "Assets\LogosJuegos\forza.png", 220),
-                New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 250),
+                New Clases.LogosJuegos("Anno", "Assets\LogosJuegos\anno.png", 290),
+                New Clases.LogosJuegos("ARK Survival Evolved", "Assets\LogosJuegos\ark.png", 150),
+                New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", 290),
+                New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 230),
+                New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 260),
+                New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 250),
+                New Clases.LogosJuegos("Cities Skylines", "Assets\LogosJuegos\citiesskylines.png", 220),
+                New Clases.LogosJuegos("Company of Heroes", "Assets\LogosJuegos\companyofheroes.png", 290),
+                New Clases.LogosJuegos("Darksiders", "Assets\LogosJuegos\darksiders.png", 290),
+                New Clases.LogosJuegos("Dark Souls", "Assets\LogosJuegos\darksouls.png", 290),
+                New Clases.LogosJuegos("DiRT", "Assets\LogosJuegos\dirt.png", 210),
+                New Clases.LogosJuegos("Deus EX", "Assets\LogosJuegos\deusex.png", 280),
+                New Clases.LogosJuegos("DRAGON BALL", "Assets\LogosJuegos\dragonball.png", 270),
+                New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 250),
+                New Clases.LogosJuegos("Forza", "Assets\LogosJuegos\forza.png", 150),
+                New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 200),
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 290),
-                New Clases.LogosJuegos("Metal Gear", "Assets\LogosJuegos\metalgearsolid.png", 300),
-                New Clases.LogosJuegos("Overcooked", "Assets\LogosJuegos\overcooked.png", Nothing),
-                New Clases.LogosJuegos("Project CARS", "Assets\LogosJuegos\projectcars.png", 350),
+                New Clases.LogosJuegos("Metal Gear", "Assets\LogosJuegos\metalgearsolid.png", 290),
+                New Clases.LogosJuegos("Overcooked", "Assets\LogosJuegos\overcooked.png", 240),
+                New Clases.LogosJuegos("Project CARS", "Assets\LogosJuegos\projectcars.png", 250),
                 New Clases.LogosJuegos("Resident Evil", "Assets\LogosJuegos\residentevil.png", 280),
-                New Clases.LogosJuegos("Serious Sam", "Assets\LogosJuegos\serioussam.png", 360),
-                New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 450),
-                New Clases.LogosJuegos("Sonic", "Assets\LogosJuegos\sonic.png", 340),
-                New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 320),
-                New Clases.LogosJuegos("The Sims 4", "Assets\LogosJuegos\thesims4.png", 300),
-                New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 380),
-                New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 380),
-                New Clases.LogosJuegos("Tom Clancy's Rainbow Six Siege", "Assets\LogosJuegos\rainbowsiege.png", 420),
-                New Clases.LogosJuegos("Tomb Raider", "Assets\LogosJuegos\tombraider.png", 340),
-                New Clases.LogosJuegos("Total War", "Assets\LogosJuegos\totalwar.png", 310),
-                New Clases.LogosJuegos("Warhammer", "Assets\LogosJuegos\warhammer.png", 350),
-                New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 450),
-                New Clases.LogosJuegos("Wolfenstein", "Assets\LogosJuegos\wolfenstein.png", 380),
-                New Clases.LogosJuegos("XCOM", "Assets\LogosJuegos\xcom.png", 350)
+                New Clases.LogosJuegos("Serious Sam", "Assets\LogosJuegos\serioussam.png", 290),
+                New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 290),
+                New Clases.LogosJuegos("Sonic", "Assets\LogosJuegos\sonic.png", 220),
+                New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 210),
+                New Clases.LogosJuegos("The Sims 4", "Assets\LogosJuegos\thesims4.png", 220),
+                New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 240),
+                New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 290),
+                New Clases.LogosJuegos("Tom Clancy's Rainbow Six Siege", "Assets\LogosJuegos\rainbowsiege.png", 290),
+                New Clases.LogosJuegos("Tomb Raider", "Assets\LogosJuegos\tombraider.png", 290),
+                New Clases.LogosJuegos("Total War", "Assets\LogosJuegos\totalwar.png", 290),
+                New Clases.LogosJuegos("Warhammer", "Assets\LogosJuegos\warhammer.png", 290),
+                New Clases.LogosJuegos("Watch_Dogs", "Assets\LogosJuegos\watchdogs.png", 290),
+                New Clases.LogosJuegos("Wolfenstein", "Assets\LogosJuegos\wolfenstein.png", 250),
+                New Clases.LogosJuegos("XCOM", "Assets\LogosJuegos\xcom.png", 240)
             }
 
             Return lista

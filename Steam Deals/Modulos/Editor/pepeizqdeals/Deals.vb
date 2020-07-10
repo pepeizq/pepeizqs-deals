@@ -1,6 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.ApplicationModel.DataTransfer
-Imports Windows.Devices.Display.Core
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
 Imports Windows.Storage.Streams
@@ -26,8 +25,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
             cbCabeceraLogosJuegos.SelectedIndex = 0
 
-            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
-            tbCabeceraImagenDimensiones.Text = String.Empty
+            'Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            'tbCabeceraImagenDimensiones.Text = String.Empty
 
             Dim gridEnlace As Grid = pagina.FindName("gridEditorEnlacepepeizqdeals")
             Dim gridImagen As Grid = pagina.FindName("gridEditorImagenpepeizqdeals")
@@ -888,8 +887,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
             cbCabeceraLogosJuegos.IsEnabled = estado
 
-            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
-            tbCabeceraImagenDimensiones.IsEnabled = estado
+            'Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            'tbCabeceraImagenDimensiones.IsEnabled = estado
 
             Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
             botonCabeceraImagen.IsEnabled = estado
