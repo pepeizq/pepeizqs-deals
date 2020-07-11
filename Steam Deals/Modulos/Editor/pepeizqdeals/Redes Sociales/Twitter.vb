@@ -8,7 +8,7 @@ Imports Windows.Storage.Streams
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Twitter
 
-        Public Async Function Enviar(mensaje As String, enlace As String, imagen As String, categoria As Integer) As Task
+        Public Async Function Enviar(mensaje As String, enlace As String, imagen As String) As Task
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -22,24 +22,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             If Not mensaje = Nothing Then
                 mensaje = mensaje.Trim
-                mensaje = Twitter.ReemplazarTiendaTitulo(mensaje)
-                mensaje = mensaje + Twitter.AñadirTag(mensaje)
-
-                If categoria = 3 Or categoria = 1218 Then
-                    Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
-
-                    If Not cb.SelectedIndex = 0 Then
-                        Dim publisher As TextBlock = cb.SelectedItem
-
-                        If Not publisher Is Nothing Then
-                            Dim publisher2 As Clases.Desarrolladores = publisher.Tag
-
-                            If Not publisher2 Is Nothing Then
-                                mensaje = mensaje + " " + publisher2.Twitter
-                            End If
-                        End If
-                    End If
-                End If
             End If
 
             If Not usuarioGuardado Is Nothing Then
@@ -54,10 +36,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim estado As Boolean = Await servicio.Provider.LoginAsync
 
             If estado = True Then
-                Dim usuario As TwitterUser = Nothing
-
                 If Not usuarioGuardado Is Nothing Then
-                    usuario = Await servicio.Provider.GetUserAsync(usuarioGuardado.ScreenName)
+                    Dim usuario As TwitterUser = Await servicio.Provider.GetUserAsync(usuarioGuardado.ScreenName)
 
                     Dim stream As FileRandomAccessStream = Nothing
 
@@ -80,7 +60,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         Await servicio.TweetStatusAsync(mensaje + " " + enlace, stream.AsStream)
                     End If
                 Else
-                    usuario = Await servicio.GetUserAsync
+                    Dim usuario As TwitterUser = Await servicio.GetUserAsync
 
                     Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
                     imagenAvatar.Source = usuario.ProfileImageUrlHttps
@@ -94,7 +74,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         End Function
 
-        Private Function ReemplazarTiendaTitulo(titulo As String)
+        Public Function GenerarTitulo(titulo As String)
 
             If titulo.Contains("• 2Game") Then
                 titulo = titulo.Replace("• 2Game", "• @2game")
@@ -142,26 +122,25 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• WinGameStore", "• @wingamestore")
             End If
 
-            Return titulo
-        End Function
-
-        Private Function AñadirTag(mensaje As String)
+            '--------------------------------------------------
 
             Dim tag As String = String.Empty
 
-            If mensaje.Contains("@humble Store") Then
+            If titulo.Contains("@humble Store") Then
                 tag = "HumbleStore"
-            ElseIf mensaje.Contains("@steam_games") Then
+            ElseIf titulo.Contains("@steam_games") Then
                 tag = "SteamDeals"
-            ElseIf mensaje.Contains("• Free •") Then
+            ElseIf titulo.Contains("• Free •") Then
                 tag = "FreeGames"
             End If
 
             If Not tag = String.Empty Then
-                tag = " #" + tag
+                titulo = titulo + " #" + tag
             End If
 
-            Return tag
+            '--------------------------------------------------
+
+            Return titulo
         End Function
 
     End Module

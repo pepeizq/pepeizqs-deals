@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
@@ -25,8 +26,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
             cbCabeceraLogosJuegos.SelectedIndex = 0
 
-            'Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
-            'tbCabeceraImagenDimensiones.Text = String.Empty
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+            tbCabeceraImagenAncho.Text = String.Empty
 
             Dim gridEnlace As Grid = pagina.FindName("gridEditorEnlacepepeizqdeals")
             Dim gridImagen As Grid = pagina.FindName("gridEditorImagenpepeizqdeals")
@@ -73,6 +74,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             RemoveHandler tbTitulo.TextChanged, AddressOf ModificarTitulo
             AddHandler tbTitulo.TextChanged, AddressOf ModificarTitulo
+
+            Dim tbTituloTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+            tbTituloTwitter.Text = String.Empty
 
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.Text = String.Empty
@@ -184,6 +188,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbTitulo.Text = publisherFinal + " "
                 Else
                     cbPublishers.SelectedIndex = 0
+                    tbCabeceraImagen.Text = String.Empty
+                    tbCabeceraImagenAncho.Text = String.Empty
                 End If
 
                 listaDescuento.Sort()
@@ -212,6 +218,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda.NombreMostrar
                 tbEnlace.Text = String.Empty
+            End If
+
+            If tbTitulo.Text.Trim.Length > 0 Then
+                tbTituloTwitter.Text = Twitter.GenerarTitulo(tbTitulo.Text.Trim)
+
+                Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+
+                If Not cb.SelectedIndex = 0 Then
+                    Dim publisher As TextBlock = cb.SelectedItem
+
+                    If Not publisher Is Nothing Then
+                        Dim publisher2 As Clases.Desarrolladores = publisher.Tag
+
+                        If Not publisher2 Is Nothing Then
+                            tbTituloTwitter.Text = tbTituloTwitter.Text + " " + publisher2.Twitter
+                        End If
+                    End If
+                End If
             End If
 
             Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
@@ -362,6 +386,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTituloTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
@@ -436,7 +461,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text, contenidoEnlaces, categoria, listaEtiquetas, cosas.Descuento, precioFinal, tiendaNombre, tiendaIcono,
+            Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, contenidoEnlaces, categoria, listaEtiquetas, cosas.Descuento, precioFinal, tiendaNombre, tiendaIcono,
                                redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString, cosas.ListaJuegos, tbComentario.Text)
 
             BloquearControles(True)
@@ -748,6 +773,21 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+
+            If Not tbTwitter.Text = Nothing Then
+                If tbTwitter.Text.Trim.Length > 0 Then
+                    Dim temp As String
+                    Dim int, int2 As Integer
+
+                    int = tbTitulo.Text.IndexOf("•")
+                    temp = tbTitulo.Text.Remove(int, tbTitulo.Text.Length - int)
+
+                    int2 = tbTwitter.Text.IndexOf("•")
+                    tbTwitter.Text = temp + tbTwitter.Text.Remove(0, int2)
+                End If
+            End If
+
             Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If gridUnJuego.Visibility = Visibility.Visible Then
@@ -866,6 +906,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             tbTitulo.IsEnabled = estado
 
+            Dim tbTituloTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+            tbTituloTwitter.IsEnabled = estado
+
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             tbEnlace.IsEnabled = estado
 
@@ -887,8 +930,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
             cbCabeceraLogosJuegos.IsEnabled = estado
 
-            'Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
-            'tbCabeceraImagenDimensiones.IsEnabled = estado
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+            tbCabeceraImagenAncho.IsEnabled = estado
 
             Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
             botonCabeceraImagen.IsEnabled = estado

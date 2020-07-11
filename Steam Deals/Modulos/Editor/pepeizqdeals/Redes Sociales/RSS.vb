@@ -92,13 +92,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim titulo As String = post.Titulo.Rendered
             titulo = WebUtility.HtmlDecode(titulo)
+            titulo = GenerarTitulo(titulo)
 
             Dim enlaceFinal As String = post.Enlace
 
             Dim categoria As Integer = post.Categorias(0)
 
             Try
-                Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenFeatured, categoria)
+                Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenFeatured)
             Catch ex As Exception
                 Notificaciones.Toast("Twitter Error Post", Nothing)
             End Try

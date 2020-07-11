@@ -197,8 +197,12 @@
                     <Grid x:Name="gridEditorpepeizqdeals" Padding="20" Margin="20" BorderBrush="{StaticResource BrushPrimario}" BorderThickness="1">
                         <ScrollViewer x:Name="svEditorpepeizqdealsDeals" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock x:Uid="Title2"/>
+                                <TextBlock Text="Título"/>
                                 <TextBox x:Name="tbEditorTitulopepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
+                                <TextBlock Text="Twitter"/>
+                                <TextBox x:Name="tbEditorTituloTwitterpepeizqdeals" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
                                 <Grid x:Name="gridEditorEnlacepepeizqdealsDosJuegos" Margin="0,0,0,15">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
@@ -470,7 +474,7 @@
                                                         </controls:DropShadowPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="35" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="300"/>
+                                                            <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="600"/>
                                                         </controls:DropShadowPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="35" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">

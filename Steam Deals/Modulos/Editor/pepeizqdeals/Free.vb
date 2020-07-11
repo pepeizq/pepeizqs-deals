@@ -179,7 +179,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ", " ",
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, " ", 12, New List(Of Integer) From {9999}, " ", " ", " ", " ",
                                tbEnlace.Text.Trim, botonImagen, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)

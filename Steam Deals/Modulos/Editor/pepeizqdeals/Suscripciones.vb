@@ -261,7 +261,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
                                " ", botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)

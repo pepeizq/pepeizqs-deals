@@ -2,6 +2,7 @@
 Imports Imgur.API.Endpoints.Impl
 Imports Imgur.API.Models
 Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 Imports Windows.ApplicationModel.Core
 Imports Windows.Storage
 Imports Windows.System
@@ -11,7 +12,7 @@ Imports WordPressPCL
 Namespace pepeizq.Editor.pepeizqdeals
     Module Posts
 
-        Public Async Function Enviar(titulo As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
+        Public Async Function Enviar(titulo As String, tituloTwitter As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
                                      descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
                                      redireccion As String, imagen As Button, tituloComplemento As String,
                                      analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Juego), comentario As String) As Task
@@ -162,13 +163,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         Try
-                            Await pepeizqdeals.RedesSociales.GrupoSteam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                            Await GrupoSteam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
                         Catch ex As Exception
                             Notificaciones.Toast("Grupo Steam Error Post", Nothing)
                         End Try
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Twitter.Enviar(titulo, enlaceFinal, imagenUrl.Trim, categoria)
+                            If tituloTwitter = Nothing Then
+                                tituloTwitter = Twitter.GenerarTitulo(titulo)
+                            End If
+
+                            Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenUrl.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
