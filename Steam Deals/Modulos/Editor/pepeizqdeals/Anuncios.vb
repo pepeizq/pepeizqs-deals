@@ -92,7 +92,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbImagenComentario.Text = "New Games Added"
                 Else
                     tbTitulo.Text = "--- • News"
-                    tbImagenTitulo.Text = "News"
                 End If
             End If
 
