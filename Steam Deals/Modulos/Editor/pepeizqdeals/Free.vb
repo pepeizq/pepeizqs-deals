@@ -127,7 +127,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     Next
 
-                ElseIf enlace.Contains("https://register.ubisoft.com/") Then
+                ElseIf enlace.Contains("https://register.ubisoft.com/") Or enlace.Contains("https://www.ubisoft.com/") Then
                     cosas = Await Uplay()
 
                     tbImagenTienda.Text = "Assets/Tiendas/uplay.png"
