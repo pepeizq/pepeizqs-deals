@@ -5,7 +5,7 @@ Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Namespace pepeizq.Suscripciones
     Module Html
 
-        Public Async Sub Generar(tiendaSuscripcion As String, enlaceSuscripcion As String, mensaje As String, listaJuegos As List(Of JuegoSuscripcion), titulo As Boolean)
+        Public Async Sub Generar(tiendaSuscripcion As String, enlaceSuscripcion As String, imagenSuscripcion As String, listaJuegos As List(Of JuegoSuscripcion), titulo As Boolean)
 
             Dim listaAnalisis As New List(Of JuegoAnalisis)
 
@@ -60,32 +60,25 @@ Namespace pepeizq.Suscripciones
 
                     Dim html As String = String.Empty
 
-                    html = "[vc_row bg_type=" + ChrW(34) + "bg_color" + ChrW(34) + " bg_color_value=" + ChrW(34) + "#004E7a" + ChrW(34) + "][vc_column][vc_row_inner el_class=" + ChrW(34) + "filaSuscripcionesComprar" + ChrW(34) + "][vc_column_inner][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:" + enlaceSuscripcion + "||target: %20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + "]"
-
-                    If Not mensaje = Nothing Then
-                        html = html + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " el_class=" + ChrW(34) + "tope" + ChrW(34) + "]" + mensaje + "[/us_message]"
-                    End If
-
-                    html = html + "[/vc_column_inner][/vc_row_inner]"
+                    html = "[vc_row][vc_column width=" + ChrW(34) + "2/3" + ChrW(34) + " el_class=" + ChrW(34) + "columnaIzquierda" + ChrW(34) + "]"
 
                     For Each juego In listaJuegos
-                        html = html + "[vc_row_inner content_placement=" + ChrW(34) + "middle" + ChrW(34) + " el_class=" + ChrW(34) + "filaSuscripcionesJuego" + ChrW(34) + "]"
-                        html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text]"
-                        html = html + "<a href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) + " src=" + ChrW(34) + juego.Imagen + ChrW(34) + "></a><div class=" + ChrW(34) + "filaSuscripcionesJuegoTitulo" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + juego.Titulo + "</a></div>"
+                        html = html + "[us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "40px" + ChrW(34) + "]"
+                        html = html + "[vc_column_text]<a href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) + " src=" + ChrW(34) + juego.Imagen + ChrW(34) + " /></a>[/vc_column_text]"
+                        html = html + "[us_vwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "20px" + ChrW(34) + "]"
+                        html = html + "[vc_column_text]<div class=" + ChrW(34) + "suscripcionesJuegoTitulo" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + juego.Titulo + "</a></div>[/vc_column_text]"
 
                         Dim ana As JuegoAnalisis = Analisis.BuscarJuego(juego.Titulo, listaAnalisis, juego.ID)
 
                         If Not ana Is Nothing Then
                             If ana.Porcentaje > 74 Then
-                                html = html + "<div class=" + ChrW(34) + "filaSuscripcionesJuegoAnalisis" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews in Steam</div>"
+                                html = html + "[vc_column_text]<div class=" + ChrW(34) + "suscripcionesJuegoAnalisis" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews</a></div>[/vc_column_text]"
                             ElseIf ana.Porcentaje > 49 And ana.Porcentaje < 75 Then
-                                html = html + "<div class=" + ChrW(34) + "filaSuscripcionesJuegoAnalisis" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews in Steam</div>"
+                                html = html + "[vc_column_text]<div class=" + ChrW(34) + "suscripcionesJuegoAnalisis" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews</a></div>[/vc_column_text]"
                             ElseIf ana.Porcentaje < 50 Then
-                                html = html + "<div class=" + ChrW(34) + "filaSuscripcionesJuegoAnalisis" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews in Steam</div>"
+                                html = html + "[vc_column_text]<div class=" + ChrW(34) + "suscripcionesJuegoAnalisis" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + " style=" + ChrW(34) + "margin: 0 3px;" + ChrW(34) + "/></span> " + ana.Porcentaje + "% - " + ana.Cantidad + " Reviews</a></div>[/vc_column_text]"
                             End If
                         End If
-
-                        html = html + "[/vc_column_text][us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "25px" + ChrW(34) + "]"
 
                         If tiendaSuscripcion = "Microsoft Store" Then
                             If Not ana Is Nothing Then
@@ -97,10 +90,10 @@ Namespace pepeizq.Suscripciones
                             html = html + BotonHtml(tiendaSuscripcion, enlaceSuscripcion) + BotonHtml("Steam", juego.Enlace)
                         End If
 
-                        html = html + "[/us_hwrapper][/vc_column_inner]"
+                        html = html + "[/us_vwrapper][/us_hwrapper]"
 
                         If Not juego.Video = Nothing Then
-                            html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + juego.Video + ChrW(34) + "][/vc_column_text][/vc_column_inner]"
+                            html = html + "[us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " el_class=" + ChrW(34) + "suscripcionesVideo" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + juego.Video + ChrW(34) + "][/vc_column_text][/us_hwrapper]"
                         Else
                             If Not ana Is Nothing Then
                                 Dim id As String = ana.Enlace
@@ -116,7 +109,7 @@ Namespace pepeizq.Suscripciones
 
                                 Dim video As String = String.Empty
 
-                                Dim htmlBuscar As String = await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
+                                Dim htmlBuscar As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
 
                                 If Not htmlBuscar = Nothing Then
                                     Dim temp3 As String
@@ -139,15 +132,16 @@ Namespace pepeizq.Suscripciones
                                 End If
 
                                 If Not video = String.Empty Then
-                                    html = html + "[vc_column_inner width=" + ChrW(34) + "1/2" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + video + ChrW(34) + "][/vc_column_text][/vc_column_inner]"
+                                    html = html + "[us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " el_class=" + ChrW(34) + "suscripcionesVideo" + ChrW(34) + "][vc_column_text][video webm=" + ChrW(34) + video + ChrW(34) + "][/vc_column_text][/us_hwrapper]"
                                 End If
                             End If
                         End If
 
-                        html = html + "[/vc_row_inner]"
+                        html = html + "[vc_column_text]<hr class=" + ChrW(34) + "suscripcionesSeparador" + ChrW(34) + " />[/vc_column_text]"
                     Next
 
-                    html = html + "[/vc_column][/vc_row]"
+                    html = html + "[/vc_column]"
+                    html = html + "[vc_column sticky=" + ChrW(34) + "1" + ChrW(34) + " width=" + ChrW(34) + "1/3" + ChrW(34) + " el_class=" + ChrW(34) + "columnaDerecha" + ChrW(34) + "][vc_column_text el_class=" + ChrW(34) + "suscripcionesLogo" + ChrW(34) + "]<a href=" + ChrW(34) + enlaceSuscripcion + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img class=" + ChrW(34) + "suscripcionesLogo2" + ChrW(34) + " src=" + ChrW(34) + imagenSuscripcion + ChrW(34) + " /></a>[/vc_column_text][us_btn label=" + ChrW(34) + "Buy Subscription" + ChrW(34) + " link=" + ChrW(34) + "url:" + enlaceSuscripcion + "||target:%20_blank|" + ChrW(34) + " style=" + ChrW(34) + "4" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + " el_class=" + ChrW(34) + "suscripcionBoton" + ChrW(34) + "][us_sharing providers=" + ChrW(34) + "email,facebook,twitter,whatsapp,reddit" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + " counters=" + ChrW(34) + "hide" + ChrW(34) + " el_class=" + ChrW(34) + "compartirRedesSociales" + ChrW(34) + "][us_grid taxonomy_category=" + ChrW(34) + "announcements" + ChrW(34) + " items_quantity=" + ChrW(34) + ChrW(34) + " no_items_message=" + ChrW(34) + ChrW(34) + " items_layout=" + ChrW(34) + "26976" + ChrW(34) + " columns=" + ChrW(34) + "1" + ChrW(34) + " items_gap=" + ChrW(34) + "20px" + ChrW(34) + " overriding_link=" + ChrW(34) + "post" + ChrW(34) + "][/vc_column][/vc_row]"
 
                     cosas.Html = html
 
@@ -163,7 +157,7 @@ Namespace pepeizq.Suscripciones
 
             Dim html As String = String.Empty
 
-            html = html + "[us_btn label=" + ChrW(34) + "Go to " + tienda + ChrW(34) + " link=" + ChrW(34) + "url:" + enlace + "||target:%20_blank|" + ChrW(34) + " style=" + ChrW(34) + "5" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34) + " css=" + ChrW(34) + "%7B%22default%22%3A%7B%22margin-top%22%3A%2220px%22%7D%7D" + ChrW(34)
+            html = html + "[us_btn label=" + ChrW(34) + "Go to " + tienda + ChrW(34) + " link=" + ChrW(34) + "url:" + enlace + "||target:%20_blank|" + ChrW(34) + " style=" + ChrW(34) + "5" + ChrW(34) + " align=" + ChrW(34) + "center" + ChrW(34)
 
             If tienda = "Steam" Then
                 html = html + " icon=" + ChrW(34) + "fab|steam" + ChrW(34)

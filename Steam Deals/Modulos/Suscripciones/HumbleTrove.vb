@@ -72,9 +72,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaHumbleTroveSuscripcion", listaIDs)
 
-            Dim mensaje As String = "To access these games, just pay for the Humble Choice Lite plan."
-
-            Html.Generar("Humble Trove", Referidos.Generar("https://www.humblebundle.com/subscription/trove"), mensaje, listaJuegos, True)
+            Html.Generar("Humble Trove", Referidos.Generar("https://www.humblebundle.com/subscription/trove"), "https://i.imgur.com/eIKQFsR.png", listaJuegos, True)
 
             BloquearControles(True)
 

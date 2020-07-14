@@ -126,7 +126,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("Twitch Prime", Referidos.Generar("https://twitch.amazon.com/tp/loot"), Nothing, listaJuegos, False)
+            Html.Generar("Twitch Prime", Referidos.Generar("https://twitch.amazon.com/tp/loot"), "https://i.imgur.com/YOSfGYd.png", listaJuegos, False)
 
             BloquearControles(True)
 

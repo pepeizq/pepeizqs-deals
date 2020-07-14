@@ -126,9 +126,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Dim mensaje As String = "In order to purchase these games, Humble Choice has 2 payment tiers: Basic Plan where you can choose up to 3 games, and Premium Plan where you can choose up to 9 games."
-
-            Html.Generar("Humble Choice", Referidos.Generar("https://www.humblebundle.com/subscription"), mensaje, listaJuegos, False)
+            Html.Generar("Humble Choice", Referidos.Generar("https://www.humblebundle.com/subscription"), "https://i.imgur.com/VEDXuM8.png", listaJuegos, False)
 
             BloquearControles(True)
 

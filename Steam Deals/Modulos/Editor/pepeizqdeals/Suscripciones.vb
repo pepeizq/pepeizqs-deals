@@ -1,7 +1,6 @@
 ﻿Imports System.Globalization
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Newtonsoft.Json
 Imports Windows.ApplicationModel.DataTransfer
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -34,6 +33,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
             tbIDs.Text = String.Empty
             tbIDs.Visibility = Visibility.Collapsed
+
+            RemoveHandler tbIDs.TextChanged, AddressOf LimpiarTexto
+            AddHandler tbIDs.TextChanged, AddressOf LimpiarTexto
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = String.Empty
@@ -265,6 +267,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                                " ", botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
+
+        End Sub
+
+        Private Sub LimpiarTexto(sender As Object, e As TextChangedEventArgs)
+
+            Dim tb As TextBox = sender
+
+            tb.Text = tb.Text.Replace("https://store.steampowered.com/app/", Nothing)
+            tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
 
         End Sub
 

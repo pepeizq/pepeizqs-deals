@@ -138,9 +138,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Dim mensaje As String = "You can play your Steam games for free with Geforce NOW, but if you become Founders you will have priority access and you can play without limitations."
-
-            Html.Generar("Geforce NOW", "https://www.nvidia.com/en-us/geforce-now/", mensaje, listaJuegos, False)
+            Html.Generar("Geforce NOW", "https://www.nvidia.com/en-us/geforce-now/", "https://i.imgur.com/3zW1nu5.png", listaJuegos, False)
 
             BloquearControles(True)
 
