@@ -75,6 +75,16 @@
                     End If
 
                 End If
+            Else
+                Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+
+                If tbTwitter.Text.Trim.Length > 0 Then
+                    If tbTwitter.Text.Contains("@") Then
+                        Dim int As Integer = tbTwitter.Text.IndexOf("@")
+                        tbTwitter.Text = tbTwitter.Text.Remove(int, tbTwitter.Text.Length - int)
+                        tbTwitter.Text = tbTwitter.Text.Trim
+                    End If
+                End If
             End If
 
         End Sub
