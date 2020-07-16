@@ -275,7 +275,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tb As TextBox = sender
 
             tb.Text = tb.Text.Replace("https://store.steampowered.com/app/", Nothing)
+            tb.Text = tb.Text.Replace("https://steamdb.info/app/", Nothing)
             tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
+            tb.Text = tb.Text.Replace("/", Nothing)
 
         End Sub
 
