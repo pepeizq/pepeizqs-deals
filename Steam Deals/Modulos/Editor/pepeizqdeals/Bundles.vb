@@ -66,6 +66,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             tbIDs.Text = String.Empty
 
+            RemoveHandler tbIDs.TextChanged, AddressOf LimpiarTexto
+            AddHandler tbIDs.TextChanged, AddressOf LimpiarTexto
+
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
             tbImagenesJuegos.Text = String.Empty
 
@@ -412,6 +415,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Next
 
             BloquearControles(True)
+
+        End Sub
+
+        Private Sub LimpiarTexto(sender As Object, e As TextChangedEventArgs)
+
+            Dim tb As TextBox = sender
+
+            tb.Text = tb.Text.Replace("https://store.steampowered.com/app/", Nothing)
+            tb.Text = tb.Text.Replace("https://steamdb.info/app/", Nothing)
+            tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
+            tb.Text = tb.Text.Replace("/", Nothing)
 
         End Sub
 
