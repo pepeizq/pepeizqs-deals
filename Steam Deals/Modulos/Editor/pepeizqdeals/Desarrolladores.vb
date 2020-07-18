@@ -80,7 +80,7 @@
 
                 If tbTwitter.Text.Trim.Length > 0 Then
                     If tbTwitter.Text.Contains("@") Then
-                        Dim int As Integer = tbTwitter.Text.IndexOf("@")
+                        Dim int As Integer = tbTwitter.Text.LastIndexOf("@")
                         tbTwitter.Text = tbTwitter.Text.Remove(int, tbTwitter.Text.Length - int)
                         tbTwitter.Text = tbTwitter.Text.Trim
                     End If
@@ -421,7 +421,7 @@
                 New Clases.Desarrolladores("Merge Games", "@MergeGamesLtd", "Assets\LogosPublishers\mergegames.png", 240),
                 New Clases.Desarrolladores("messhof", "@messhof", Nothing, Nothing),
                 New Clases.Desarrolladores("Mi-Clos Studio", "@Mi_Clos", Nothing, Nothing),
-                New Clases.Desarrolladores("Microids", "@Microids_off", Nothing, Nothing),
+                New Clases.Desarrolladores("Microids", "@Microids_off", "Assets\LogosPublishers\microids.png", 290),
                 New Clases.Desarrolladores("Micropsia Games", "@micropsiagames", Nothing, Nothing),
                 New Clases.Desarrolladores("Midgar Studio", "@MidgarStudio", Nothing, Nothing),
                 New Clases.Desarrolladores("mif2000", "@mif2000", Nothing, Nothing),

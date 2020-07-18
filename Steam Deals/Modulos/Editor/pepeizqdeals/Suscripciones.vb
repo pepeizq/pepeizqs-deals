@@ -93,7 +93,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+            Dim imagenTienda As Image = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -105,7 +105,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = "Assets\Tiendas\humblechoice.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/humblechoice.png"))
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
@@ -124,7 +124,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = "Assets\Tiendas\twitchprime.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/twitchprime.png"))
 
                 cosas.Tienda = "Twitch"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
@@ -142,7 +142,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\xboxgamepass.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/xboxgamepass.png"))
 
                 cosas.Tienda = "Microsoft Store"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
@@ -158,7 +158,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\originaccessbasic.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/originaccessbasic.png"))
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access Basic • New Games Added • " + cosas.Juegos
@@ -174,7 +174,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\originaccesspremier.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/originaccesspremier.png"))
 
                 cosas.Tienda = "Origin"
                 cosas.Titulo = "Origin Access Premier • New Games Added • " + cosas.Juegos
@@ -190,7 +190,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\humbletrove.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/humbletrove.png"))
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Titulo = "Humble Trove • New Games Added • " + cosas.Juegos
@@ -206,7 +206,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "Assets\Tiendas\geforcenow.png"
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/geforcenow3.png"))
 
                 cosas.Tienda = "Geforce"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"

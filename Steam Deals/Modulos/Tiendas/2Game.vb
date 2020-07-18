@@ -126,94 +126,97 @@ Namespace pepeizq.Tiendas
                                 temp9 = temp2.Remove(0, int9)
 
                                 int9 = temp9.IndexOf("£")
-                                temp9 = temp9.Remove(0, int9)
 
-                                int10 = temp9.IndexOf("</span>")
-                                temp10 = temp9.Remove(int10, temp9.Length - int10)
+                                If Not int9 = -1 Then
+                                    temp9 = temp9.Remove(0, int9)
 
-                                Dim precioRebajado As String = temp10.Trim
+                                    int10 = temp9.IndexOf("</span>")
+                                    temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                                Dim temp11, temp12 As String
-                                Dim int11, int12 As Integer
+                                    Dim precioRebajado As String = temp10.Trim
 
-                                int11 = temp2.IndexOf("Regular Price:</span>")
+                                    Dim temp11, temp12 As String
+                                    Dim int11, int12 As Integer
 
-                                If Not int11 = -1 Then
-                                    temp11 = temp2.Remove(0, int11)
+                                    int11 = temp2.IndexOf("Regular Price:</span>")
 
-                                    int11 = temp11.IndexOf("£")
-                                    temp11 = temp11.Remove(0, int11)
+                                    If Not int11 = -1 Then
+                                        temp11 = temp2.Remove(0, int11)
 
-                                    int12 = temp11.IndexOf("</span>")
-                                    temp12 = temp11.Remove(int12, temp11.Length - int12)
+                                        int11 = temp11.IndexOf("£")
+                                        temp11 = temp11.Remove(0, int11)
 
-                                    Dim precioBase As String = temp12.Trim
+                                        int12 = temp11.IndexOf("</span>")
+                                        temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                                    Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                                        Dim precioBase As String = temp12.Trim
 
-                                    If Not cuponPorcentaje = Nothing Then
-                                        precioRebajado = precioRebajado.Replace(",", ".")
-                                        precioRebajado = precioRebajado.Replace("£", Nothing)
-                                        precioRebajado = precioRebajado.Trim
+                                        Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                                        Dim dprecio As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                        precioRebajado = Math.Round(dprecio, 2).ToString
-                                        descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
-                                    End If
+                                        If Not cuponPorcentaje = Nothing Then
+                                            precioRebajado = precioRebajado.Replace(",", ".")
+                                            precioRebajado = precioRebajado.Replace("£", Nothing)
+                                            precioRebajado = precioRebajado.Trim
 
-                                    precioRebajado = CambioMoneda(precioRebajado, libra)
-
-                                    Dim drm As String = String.Empty
-
-                                    Dim temp13, temp14 As String
-                                    Dim int13, int14 As Integer
-
-                                    int13 = temp2.IndexOf("<img class=" + ChrW(34) + "icon-platform")
-
-                                    If Not int13 = -1 Then
-                                        temp13 = temp2.Remove(0, int13)
-
-                                        int13 = temp13.IndexOf("alt=")
-                                        temp13 = temp13.Remove(0, int13 + 5)
-
-                                        int14 = temp13.IndexOf(ChrW(34))
-                                        temp14 = temp13.Remove(int14, temp13.Length - int14)
-
-                                        drm = temp14.Trim
-                                    End If
-
-                                    Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                                    Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                                    Dim añadir As Boolean = True
-                                    Dim k As Integer = 0
-                                    While k < listaJuegos.Count
-                                        If listaJuegos(k).Enlace = juego.Enlace Then
-                                            añadir = False
+                                            Dim dprecio As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                            precioRebajado = Math.Round(dprecio, 2).ToString
+                                            descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                                         End If
-                                        k += 1
-                                    End While
 
-                                    If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
-                                        If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                                            If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juego.Descuento Then
+                                        precioRebajado = CambioMoneda(precioRebajado, libra)
+
+                                        Dim drm As String = String.Empty
+
+                                        Dim temp13, temp14 As String
+                                        Dim int13, int14 As Integer
+
+                                        int13 = temp2.IndexOf("<img class=" + ChrW(34) + "icon-platform")
+
+                                        If Not int13 = -1 Then
+                                            temp13 = temp2.Remove(0, int13)
+
+                                            int13 = temp13.IndexOf("alt=")
+                                            temp13 = temp13.Remove(0, int13 + 5)
+
+                                            int14 = temp13.IndexOf(ChrW(34))
+                                            temp14 = temp13.Remove(int14, temp13.Length - int14)
+
+                                            drm = temp14.Trim
+                                        End If
+
+                                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+
+                                        Dim juego As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+
+                                        Dim añadir As Boolean = True
+                                        Dim k As Integer = 0
+                                        While k < listaJuegos.Count
+                                            If listaJuegos(k).Enlace = juego.Enlace Then
                                                 añadir = False
                                             End If
-                                        End If
-                                    End If
+                                            k += 1
+                                        End While
 
-                                    If añadir = True Then
-                                        For Each desarrollador In listaDesarrolladores
-                                            If desarrollador.ID = juego.Enlace Then
-                                                juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                                Exit For
+                                        If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
+                                            If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                                                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juego.Descuento Then
+                                                    añadir = False
+                                                End If
                                             End If
-                                        Next
+                                        End If
 
-                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                                        If añadir = True Then
+                                            For Each desarrollador In listaDesarrolladores
+                                                If desarrollador.ID = juego.Enlace Then
+                                                    juego.Desarrolladores = New JuegoDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                    Exit For
+                                                End If
+                                            Next
 
-                                        listaJuegos.Add(juego)
+                                            juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
+                                            listaJuegos.Add(juego)
+                                        End If
                                     End If
                                 End If
                             End If
