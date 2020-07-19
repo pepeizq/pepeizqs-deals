@@ -109,6 +109,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = "Humble Bundle"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
+                cosas.Enlace = Referidos.Generar("https://www.humblebundle.com/subscription")
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)
@@ -264,7 +265,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
-                               " ", botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -274,8 +275,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tb As TextBox = sender
 
-            tb.Text = tb.Text.Replace("https://store.steampowered.com/app/", Nothing)
-            tb.Text = tb.Text.Replace("https://steamdb.info/app/", Nothing)
+            tb.Text = tb.Text.Replace("https://", Nothing)
+            tb.Text = tb.Text.Replace("http://", Nothing)
+            tb.Text = tb.Text.Replace("store.steampowered.com/app/", Nothing)
+            tb.Text = tb.Text.Replace("steamdb.info/app/", Nothing)
             tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
             tb.Text = tb.Text.Replace("/", Nothing)
 

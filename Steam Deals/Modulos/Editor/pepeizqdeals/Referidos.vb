@@ -4,52 +4,108 @@
         Public Function Generar(enlace As String)
 
             If enlace.Contains("store.steampowered.com") Then
-                If Not enlace.Contains("?") Then
-                    enlace = enlace + "?curator_clanid=33500256"
+                Dim referido As String = "?curator_clanid=33500256"
+
+                If Not enlace.Contains(referido) Then
+                    If Not enlace.Contains("?") Then
+                        enlace = enlace + referido
+                    End If
                 End If
             ElseIf enlace.Contains("gamesplanet.com") Then
-                enlace = enlace + "?ref=pepeizq"
+                Dim referido As String = "?ref=pepeizq"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
             ElseIf enlace.Contains("gamersgate.com") Then
-                enlace = enlace + "?caff=6704538"
+                Dim referido As String = "?caff=6704538"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
             ElseIf enlace.Contains("wingamestore.com") Then
-                enlace = enlace + "?ars=pepeizqdeals"
+                Dim referido As String = "?ars=pepeizqdeals"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
             ElseIf enlace.Contains("macgamestore.com") Then
-                enlace = enlace + "?ars=pepeizqdeals"
+                Dim referido As String = "?ars=pepeizqdeals"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
             ElseIf enlace.Contains("amazon.com") Then
-                If Not enlace.Contains("?") Then
-                    enlace = enlace + "?tag=ofedeunpan-20"
-                Else
-                    enlace = enlace + "&tag=ofedeunpan-20"
+                Dim referido As String = "tag=ofedeunpan-20"
+
+                If Not enlace.Contains(referido) Then
+                    If Not enlace.Contains("?") Then
+                        enlace = enlace + "?" + referido
+                    Else
+                        enlace = enlace + "&" + referido
+                    End If
                 End If
             ElseIf enlace.Contains("amazon.es") Then
-                If Not enlace.Contains("?") Then
-                    enlace = enlace + "?tag=ofedeunpan-21"
-                Else
-                    enlace = enlace + "&tag=ofedeunpan-21"
+                Dim referido As String = "tag=ofedeunpan-21"
+
+                If Not enlace.Contains(referido) Then
+                    If Not enlace.Contains("?") Then
+                        enlace = enlace + "?" + referido
+                    Else
+                        enlace = enlace + "&" + referido
+                    End If
                 End If
             ElseIf enlace.Contains("humblebundle.com") Then
-                enlace = enlace + "?partner=pepeizq"
-            ElseIf enlace.Contains("fanatical.com") Then
-                enlace = enlace + "?ref=pepeizq"
-            ElseIf enlace.Contains("indiegala.com") Then
-                enlace = enlace + "?ref=pepeizq"
-            ElseIf enlace.Contains("greenmangaming.com") Then
-                'enlace = "http://www.tkqlhce.com/click-8883540-10912384?url=" + enlace
-                enlace = enlace + "?tap_a=1964-996bbb&tap_s=608263-a851ee"
-            ElseIf enlace.Contains("voidu.com") Then
-                'enlace = "http://www.tkqlhce.com/click-8883540-13157501?url=" + enlace + "?ref=e8f2c4e5-81e9"
-                enlace = enlace + "?ref=e8f2c4e5-81e9"
-                'ElseIf enlace.Contains("2game.com") Then
-                '    enlace = "http://www.tkqlhce.com/click-8883540-13129874?url=" + enlace
-            ElseIf enlace.Contains("yuplay.ru") Then
-                enlace = enlace + "?partner=19b1d908fe49e597"
-            ElseIf enlace.Contains("microsoft.com") Then
-                Dim int As Integer = enlace.LastIndexOf("/")
-                Dim id As String = enlace.Remove(0, int + 1)
+                Dim referido As String = "?partner=pepeizq"
 
-                enlace = "http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku=" + id + "&u=" + enlace
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
+            ElseIf enlace.Contains("fanatical.com") Then
+                Dim referido As String = "?ref=pepeizq"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
+            ElseIf enlace.Contains("indiegala.com") Then
+                Dim referido As String = "?ref=pepeizq"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
+            ElseIf enlace.Contains("greenmangaming.com") Then
+                Dim referido As String = "?tap_a=1964-996bbb&tap_s=608263-a851ee"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
+            ElseIf enlace.Contains("voidu.com") Then
+                Dim referido As String = "?ref=e8f2c4e5-81e9"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
+            ElseIf enlace.Contains("yuplay.ru") Then
+                Dim referido As String = "?partner=19b1d908fe49e597"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
+            ElseIf enlace.Contains("microsoft.com") Then
+                Dim referido As String = "http://microsoft.msafflnk.net/c/1382810/465091/7791?prodsku="
+
+                If Not enlace.Contains(referido) Then
+                    Dim int As Integer = enlace.LastIndexOf("/")
+                    Dim id As String = enlace.Remove(0, int + 1)
+
+                    enlace = referido + id + "&u=" + enlace
+                End If
             ElseIf enlace.Contains("gamebillet.com") Then
-                enlace = enlace + "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
+                Dim referido As String = "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
+
+                If Not enlace.Contains(referido) Then
+                    enlace = enlace + referido
+                End If
             End If
 
             Return enlace

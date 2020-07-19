@@ -780,10 +780,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim temp As String
                     Dim int, int2 As Integer
 
-                    int = tbTitulo.Text.IndexOf("•")
+                    int = tbTitulo.Text.LastIndexOf("•")
                     temp = tbTitulo.Text.Remove(int, tbTitulo.Text.Length - int)
 
-                    int2 = tbTwitter.Text.IndexOf("•")
+                    int2 = tbTwitter.Text.LastIndexOf("•")
                     tbTwitter.Text = temp + tbTwitter.Text.Remove(0, int2)
                 End If
             End If
