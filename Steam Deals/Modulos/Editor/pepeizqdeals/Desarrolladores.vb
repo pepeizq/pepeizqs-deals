@@ -74,6 +74,11 @@
                         tbAncho.Text = publisher2.LogoAncho
                     End If
 
+                    Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+
+                    If Not publisher2.Twitter = Nothing Then
+                        tbTwitter.Text = tbTwitter.Text + " " + publisher2.Twitter
+                    End If
                 End If
             Else
                 Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
