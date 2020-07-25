@@ -85,9 +85,18 @@
 
                 If tbTwitter.Text.Trim.Length > 0 Then
                     If tbTwitter.Text.Contains("@") Then
-                        Dim int As Integer = tbTwitter.Text.LastIndexOf("@")
-                        tbTwitter.Text = tbTwitter.Text.Remove(int, tbTwitter.Text.Length - int)
-                        tbTwitter.Text = tbTwitter.Text.Trim
+                        Dim int As Integer = 0
+                        For Each letra In tbTwitter.Text
+                            If letra = "@" Then
+                                int += 1
+                            End If
+                        Next
+
+                        If int > 1 Then
+                            Dim int2 As Integer = tbTwitter.Text.LastIndexOf("@")
+                            tbTwitter.Text = tbTwitter.Text.Remove(int2, tbTwitter.Text.Length - int2)
+                            tbTwitter.Text = tbTwitter.Text.Trim
+                        End If
                     End If
                 End If
             End If
