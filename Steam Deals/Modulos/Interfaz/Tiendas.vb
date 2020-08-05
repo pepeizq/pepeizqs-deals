@@ -2,7 +2,6 @@
 Imports Microsoft.Toolkit.Uwp.UI.Animations
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.Storage
-Imports Windows.Storage.FileProperties
 Imports Windows.UI
 Imports Windows.UI.Core
 
@@ -93,7 +92,7 @@ Module Tiendas
 
                 gvTiendas.Items.Add(AñadirBotonTienda(tienda))
                 gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
-                spCupones.Children.Add(AñadirCuponTienda(tienda))
+                spCupones.Children.Add(Await AñadirCuponTienda(tienda))
             End If
         Next
 
@@ -314,7 +313,15 @@ Module Tiendas
 
     End Function
 
-    Private Function AñadirCuponTienda(tienda As Tienda)
+    Private Async Function AñadirCuponTienda(tienda As Tienda) As Task(Of Grid)
+
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaCupones As New List(Of TiendaCupon)
+
+        If Await helper.FileExistsAsync("cupones") = True Then
+            listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+        End If
 
         Dim gridTienda As New Grid With {
             .Name = "gridCuponTienda" + tienda.NombreUsar,
@@ -358,8 +365,14 @@ Module Tiendas
         }
         tbPorcentajeCupon.SetValue(Grid.ColumnProperty, 1)
 
-        If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar) Is Nothing Then
-            tbPorcentajeCupon.Text = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar)
+        If listaCupones.Count > 0 Then
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If Not cupon.Porcentaje = Nothing Then
+                        tbPorcentajeCupon.Text = cupon.Porcentaje.ToString
+                    End If
+                End If
+            Next
         End If
 
         AddHandler tbPorcentajeCupon.TextChanged, AddressOf CuponTiendaTextoPorcentajeCuponCambia
@@ -376,8 +389,14 @@ Module Tiendas
         }
         tbCodigoCupon.SetValue(Grid.ColumnProperty, 2)
 
-        If Not ApplicationData.Current.LocalSettings.Values("codigoCupon" + tienda.NombreUsar) Is Nothing Then
-            tbCodigoCupon.Text = ApplicationData.Current.LocalSettings.Values("codigoCupon" + tienda.NombreUsar)
+        If listaCupones.Count > 0 Then
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If Not cupon.Codigo = Nothing Then
+                        tbCodigoCupon.Text = cupon.Codigo
+                    End If
+                End If
+            Next
         End If
 
         AddHandler tbCodigoCupon.TextChanged, AddressOf CuponTiendaTextoCodigoCuponCambia
@@ -392,8 +411,14 @@ Module Tiendas
         }
         tbComentario.SetValue(Grid.ColumnProperty, 3)
 
-        If Not ApplicationData.Current.LocalSettings.Values("comentario" + tienda.NombreUsar) Is Nothing Then
-            tbComentario.Text = ApplicationData.Current.LocalSettings.Values("comentario" + tienda.NombreUsar)
+        If listaCupones.Count > 0 Then
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If Not cupon.Comentario = Nothing Then
+                        tbComentario.Text = cupon.Comentario
+                    End If
+                End If
+            Next
         End If
 
         AddHandler tbComentario.TextChanged, AddressOf CuponTiendaTextoComentarioCambia
@@ -403,30 +428,135 @@ Module Tiendas
 
     End Function
 
-    Private Sub CuponTiendaTextoPorcentajeCuponCambia(sender As Object, e As TextChangedEventArgs)
+    Private Async Sub CuponTiendaTextoPorcentajeCuponCambia(sender As Object, e As TextChangedEventArgs)
 
         Dim tb As TextBox = sender
         Dim tienda As Tienda = tb.Tag
 
-        ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar) = tb.Text.Trim
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaCupones As New List(Of TiendaCupon)
+
+        If Await helper.FileExistsAsync("cupones") = True Then
+            listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+        End If
+
+        If listaCupones.Count > 0 Then
+            Dim añadir As Boolean = True
+
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tb.Text.Trim.Length > 0 Then
+                        cupon.Porcentaje = tb.Text.Trim
+                        añadir = False
+                    End If
+                End If
+            Next
+
+            If añadir = True Then
+                If tb.Text.Trim.Length > 0 Then
+                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, tb.Text.Trim, Nothing, Nothing))
+                End If
+            End If
+        Else
+            If tb.Text.Trim.Length > 0 Then
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, tb.Text.Trim, Nothing, Nothing))
+            End If
+        End If
+
+        Try
+            Await helper.SaveFileAsync(Of List(Of TiendaCupon))("cupones", listaCupones)
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
-    Private Sub CuponTiendaTextoCodigoCuponCambia(sender As Object, e As TextChangedEventArgs)
+    Private Async Sub CuponTiendaTextoCodigoCuponCambia(sender As Object, e As TextChangedEventArgs)
 
         Dim tb As TextBox = sender
         Dim tienda As Tienda = tb.Tag
 
-        ApplicationData.Current.LocalSettings.Values("codigoCupon" + tienda.NombreUsar) = tb.Text.Trim
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaCupones As New List(Of TiendaCupon)
+
+        If Await helper.FileExistsAsync("cupones") = True Then
+            listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+        End If
+
+        If listaCupones.Count > 0 Then
+            Dim añadir As Boolean = True
+
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tb.Text.Trim.Length > 0 Then
+                        cupon.Codigo = tb.Text.Trim
+                        añadir = False
+                    End If
+                End If
+            Next
+
+            If añadir = True Then
+                If tb.Text.Trim.Length > 0 Then
+                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, tb.Text.Trim, Nothing))
+                End If
+            End If
+        Else
+            If tb.Text.Trim.Length > 0 Then
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, tb.Text.Trim, Nothing))
+            End If
+        End If
+
+        Try
+            Await helper.SaveFileAsync(Of List(Of TiendaCupon))("cupones", listaCupones)
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
-    Private Sub CuponTiendaTextoComentarioCambia(sender As Object, e As TextChangedEventArgs)
+    Private Async Sub CuponTiendaTextoComentarioCambia(sender As Object, e As TextChangedEventArgs)
 
         Dim tb As TextBox = sender
         Dim tienda As Tienda = tb.Tag
 
-        ApplicationData.Current.LocalSettings.Values("comentario" + tienda.NombreUsar) = tb.Text.Trim
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaCupones As New List(Of TiendaCupon)
+
+        If Await helper.FileExistsAsync("cupones") = True Then
+            listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+        End If
+
+        If listaCupones.Count > 0 Then
+            Dim añadir As Boolean = True
+
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tb.Text.Trim.Length > 0 Then
+                        cupon.Comentario = tb.Text.Trim
+                        añadir = False
+                    End If
+                End If
+            Next
+
+            If añadir = True Then
+                If tb.Text.Trim.Length > 0 Then
+                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, tb.Text.Trim))
+                End If
+            End If
+        Else
+            If tb.Text.Trim.Length > 0 Then
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, tb.Text.Trim))
+            End If
+        End If
+
+        Try
+            Await helper.SaveFileAsync(Of List(Of TiendaCupon))("cupones", listaCupones)
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 

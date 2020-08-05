@@ -81,6 +81,12 @@
                     End If
                 End If
             Else
+                Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+
+                If Not tbImagen.Text = Nothing Then
+                    tbImagen.Text = String.Empty
+                End If
+
                 Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
 
                 If tbTwitter.Text.Trim.Length > 0 Then

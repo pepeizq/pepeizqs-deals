@@ -103,6 +103,7 @@
                 New Clases.LogosJuegos("Project CARS", "Assets\LogosJuegos\projectcars.png", 250),
                 New Clases.LogosJuegos("Resident Evil", "Assets\LogosJuegos\residentevil.png", 280),
                 New Clases.LogosJuegos("Serious Sam", "Assets\LogosJuegos\serioussam.png", 290),
+                New Clases.LogosJuegos("Shovel Knight", "Assets\LogosJuegos\shovelknight.png", 290),
                 New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 290),
                 New Clases.LogosJuegos("Sonic", "Assets\LogosJuegos\sonic.png", 220),
                 New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 210),

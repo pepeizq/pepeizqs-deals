@@ -35,18 +35,30 @@ Namespace pepeizq.Tiendas
             Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
             tb.Text = "0%"
 
-            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
-                    cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                    cuponPorcentaje = cuponPorcentaje.Trim
+            Dim listaCupones As New List(Of TiendaCupon)
 
-                    If cuponPorcentaje.Length = 1 Then
-                        cuponPorcentaje = "0,0" + cuponPorcentaje
-                    Else
-                        cuponPorcentaje = "0," + cuponPorcentaje
+            If Await helper.FileExistsAsync("cupones") = True Then
+                listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+            End If
+
+            If listaCupones.Count > 0 Then
+                For Each cupon In listaCupones
+                    If Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                        If Not cupon.Porcentaje = Nothing Then
+                            If cupon.Porcentaje > 0 Then
+                                cuponPorcentaje = cupon.Porcentaje
+                                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                                cuponPorcentaje = cuponPorcentaje.Trim
+
+                                If cuponPorcentaje.Length = 1 Then
+                                    cuponPorcentaje = "0,0" + cuponPorcentaje
+                                Else
+                                    cuponPorcentaje = "0," + cuponPorcentaje
+                                End If
+                            End If
+                        End If
                     End If
-                End If
+                Next
             End If
 
             listaJuegos.Clear()

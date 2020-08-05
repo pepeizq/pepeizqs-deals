@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
@@ -9,11 +10,19 @@ Imports Windows.System
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
 
-        Public Sub GenerarDatos(listaFinal As List(Of Juego), listaAnalisis As List(Of Juego), cantidadJuegos As String)
+        Public Async Sub GenerarDatos(listaFinal As List(Of Juego), listaAnalisis As List(Of Juego), cantidadJuegos As String)
 
             BloquearControles(False)
             Desarrolladores.GenerarDatos()
             LogosJuegos.GenerarDatos()
+
+            Dim helper As New LocalObjectStorageHelper
+
+            Dim listaCupones As New List(Of TiendaCupon)
+
+            If Await helper.FileExistsAsync("cupones") = True Then
+                listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+            End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -92,25 +101,27 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
             tbComentario.Text = String.Empty
 
-            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing And Not ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 And ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                    tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) + "</b>"
+            For Each cupon In listaCupones
+                If listaFinal(0).Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If Not cupon.Porcentaje = Nothing Then
+                        If cupon.Porcentaje > 0 Then
+                            tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + cupon.Codigo + "</b>"
 
-                    If listaFinal.Count = 1 Then
-                        tbTituloComplemento.Text = "Discount Code: " + ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar)
+                            If listaFinal.Count = 1 Then
+                                tbTituloComplemento.Text = "Discount Code: " + cupon.Codigo
+                            End If
+                        End If
+                    End If
+
+                    If Not cupon.Comentario = Nothing Then
+                        If tbComentario.Text.Trim.Length = 0 Then
+                            tbComentario.Text = cupon.Comentario
+                        Else
+                            tbComentario.Text = tbComentario.Text + " " + cupon.Comentario
+                        End If
                     End If
                 End If
-            End If
-
-            If Not ApplicationData.Current.LocalSettings.Values("comentario" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("comentario" + listaFinal(0).Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                    If tbComentario.Text.Trim.Length = 0 Then
-                        tbComentario.Text = ApplicationData.Current.LocalSettings.Values("comentario" + listaFinal(0).Tienda.NombreUsar).ToString.Trim
-                    Else
-                        tbComentario.Text = tbComentario.Text + ". " + ApplicationData.Current.LocalSettings.Values("comentario" + listaFinal(0).Tienda.NombreUsar).ToString.Trim
-                    End If
-                End If
-            End If
+            Next
 
             Dim listaDescuento As New List(Of String)
             Dim precioFinal As String = String.Empty
@@ -320,10 +331,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbDescuentoCodigo.Text = String.Empty
 
             If tbDescuentoCodigo.Visibility = Visibility.Visible Then
-                If Not ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar) Is Nothing Then
-                    tbDescuentoCodigo.Text = ApplicationData.Current.LocalSettings.Values("codigoCupon" + listaFinal(0).Tienda.NombreUsar)
-                    ModificarDescuento()
-                End If
+                For Each cupon In listaCupones
+                    If listaFinal(0).Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                        If Not cupon.Codigo Is Nothing Then
+                            tbDescuentoCodigo.Text = cupon.Codigo
+                            ModificarDescuento()
+                        End If
+                    End If
+                Next
             End If
 
             AddHandler tbDescuentoCodigo.TextChanged, AddressOf ModificarDescuento
