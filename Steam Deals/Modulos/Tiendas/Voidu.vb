@@ -77,6 +77,14 @@ Namespace pepeizq.Tiendas
                             titulo = titulo.Replace("(Mac/Pc)", Nothing)
                             titulo = titulo.Replace("(ROW)", Nothing)
                             titulo = titulo.Replace("(DLC)", Nothing)
+                            titulo = titulo.Replace("- ASIA+EMEA", Nothing)
+                            titulo = titulo.Replace("- EMEA", Nothing)
+                            titulo = titulo.Replace("- ANZ+EMEA", Nothing)
+                            titulo = titulo.Replace("- PC", Nothing)
+                            titulo = titulo.Replace("- ANZ + EU", Nothing)
+                            titulo = titulo.Replace("- EMEA + ANZ", Nothing)
+                            titulo = titulo.Replace("(STEAM)", Nothing)
+                            titulo = titulo.Replace("(EPIC GAMES)", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoVoidu.Enlace
