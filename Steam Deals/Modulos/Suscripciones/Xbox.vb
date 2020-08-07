@@ -81,36 +81,32 @@ Namespace pepeizq.Suscripciones
                                 If imagen.Proposito = "Poster" Then
                                     imagenLista = imagen.Enlace
 
-                                    If Not imagenLista.Contains("http:") Then
-                                        imagenLista = "http:" + imagenLista
+                                    If Not imagenLista.Contains("https:") Then
+                                        imagenLista = "https:" + imagenLista
                                     End If
                                 End If
                             Next
 
                             If Not imagenLista = Nothing Then
-                                If Not juego.Propiedades.Detalles Is Nothing Then
-                                    For Each detalle In juego.Propiedades.Detalles
-                                        If Not detalle.Plataformas Is Nothing Then
-                                            For Each plataforma In detalle.Plataformas
-                                                If plataforma = "Desktop" Then
-                                                    Dim añadir As Boolean = True
+                                If Not juego.Propiedades2(0).Disponible(0).Plataforma.Cliente.Permitidas(0).Plataforma Is Nothing Then
+                                    Dim plataforma As String = juego.Propiedades2(0).Disponible(0).Plataforma.Cliente.Permitidas(0).Plataforma
 
-                                                    For Each juegolista In listaJuegos
-                                                        If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
-                                                            añadir = False
-                                                        End If
-                                                    Next
+                                    If plataforma = "Windows.Desktop" Then
+                                        Dim añadir As Boolean = True
 
-                                                    If añadir = True Then
-                                                        Dim titulo As String = juego.Detalles(0).Titulo.Trim
-                                                        titulo = LimpiarTitulo(titulo)
+                                        For Each juegolista In listaJuegos
+                                            If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                                                añadir = False
+                                            End If
+                                        Next
 
-                                                        listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
-                                                    End If
-                                                End If
-                                            Next
+                                        If añadir = True Then
+                                            Dim titulo As String = juego.Detalles(0).Titulo.Trim
+                                            titulo = LimpiarTitulo(titulo)
+
+                                            listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
                                         End If
-                                    Next
+                                    End If
                                 End If
                             End If
                         Next
@@ -169,9 +165,6 @@ Namespace pepeizq.Suscripciones
             <JsonProperty("LocalizedProperties")>
             Public Detalles As List(Of MicrosoftStoreBBDDDetallesJuego2)
 
-            <JsonProperty("Properties")>
-            Public Propiedades As MicrosoftStoreBBDDDetallesPropiedades
-
             <JsonProperty("ProductId")>
             Public ID As String
 
@@ -200,20 +193,6 @@ Namespace pepeizq.Suscripciones
 
         End Class
 
-        Public Class MicrosoftStoreBBDDDetallesPropiedades
-
-            <JsonProperty("Attributes")>
-            Public Detalles As List(Of MicrosoftStoreBBDDDetallesPropiedadesDetalles)
-
-        End Class
-
-        Public Class MicrosoftStoreBBDDDetallesPropiedadesDetalles
-
-            <JsonProperty("ApplicablePlatforms")>
-            Public Plataformas As List(Of String)
-
-        End Class
-
         Public Class MicrosoftStoreBBDDDetallesPropiedades2
 
             <JsonProperty("Availabilities")>
@@ -225,6 +204,9 @@ Namespace pepeizq.Suscripciones
 
             <JsonProperty("OrderManagementData")>
             Public Datos As MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadDatos
+
+            <JsonProperty("Conditions")>
+            Public Plataforma As MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadPlataforma
 
         End Class
 
@@ -242,6 +224,27 @@ Namespace pepeizq.Suscripciones
 
             <JsonProperty("MSRP")>
             Public PrecioBase As String
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadPlataforma
+
+            <JsonProperty("ClientConditions")>
+            Public Cliente As MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadPlataformaCliente
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadPlataformaCliente
+
+            <JsonProperty("AllowedPlatforms")>
+            Public Permitidas As List(Of MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadPlataformaClientePermitida)
+
+        End Class
+
+        Public Class MicrosoftStoreBBDDDetallesPropiedades2DisponibilidadPlataformaClientePermitida
+
+            <JsonProperty("PlatformName")>
+            Public Plataforma As String
 
         End Class
 
