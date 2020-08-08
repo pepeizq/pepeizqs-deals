@@ -8,6 +8,7 @@ Imports Windows.System.UserProfile
 'https://www.humblebundle.com/store/api/search?sort=discount&filter=all&search=american&request=1
 'https://www.humblebundle.com/api/v1/trove/chunk?index=4
 'https://www.humblebundle.com/api/v1/subscriptions/humble_monthly/subscription_products_with_gamekeys/
+'https://www.humblebundle.com/api/v1/subscriptions/humble_monthly/history?from_product=july_2020_choice
 'https://www.humblebundle.com/store/api/lookup?products[]=sonic-mania&request=1
 
 Namespace pepeizq.Tiendas
