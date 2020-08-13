@@ -250,14 +250,6 @@ Namespace pepeizq.Tiendas
                             añadir = False
                         End If
 
-                        If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
-                            If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juegoFinal.Descuento Then
-                                    añadir = False
-                                End If
-                            End If
-                        End If
-
                         If añadir = True Then
                             juegoFinal.Precio = Ordenar.PrecioPreparar(juegoFinal.Precio)
 
