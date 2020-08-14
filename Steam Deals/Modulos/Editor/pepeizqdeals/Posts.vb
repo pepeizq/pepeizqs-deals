@@ -173,7 +173,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 tituloTwitter = Twitter.GenerarTitulo(titulo)
                             End If
 
-                            Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenUrl.Trim)
+                            'Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenUrl.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try

@@ -1,9 +1,12 @@
 ﻿Imports Microsoft.Toolkit.Services.Twitter
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Tweetinvi
+Imports Tweetinvi.Models
 Imports Windows.Networking.BackgroundTransfer
 Imports Windows.Storage
 Imports Windows.Storage.Streams
+Imports Windows.System
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Twitter
@@ -14,63 +17,77 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim pagina As Page = frame.Content
 
             Dim helper As New LocalObjectStorageHelper
-            Dim usuarioGuardado As TwitterUser = Nothing
 
-            If helper.KeyExists("usuarioTwitter") Then
-                usuarioGuardado = helper.Read(Of TwitterUser)("usuarioTwitter")
-            End If
+            'Dim appCredenciales As New TwitterCredentials("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc")
 
-            If Not mensaje = Nothing Then
-                mensaje = mensaje.Trim
-            End If
+            'Dim contexto As IAuthenticationContext = AuthFlow.InitAuthentication(appCredenciales)
 
-            If Not usuarioGuardado Is Nothing Then
-                ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = usuarioGuardado.ScreenName
-            Else
-                ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = Nothing
-            End If
+            'Process.Start(contexto.AuthorizationURL)
 
-            Dim servicio As New TwitterService
-            servicio.Initialize("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc", "https://pepeizqapps.com/")
+            'Dim pin As String = Console.ReadLine
 
-            Dim estado As Boolean = Await servicio.Provider.LoginAsync
+            'Dim usuarioCredenciales As ITwitterCredentials = AuthFlow.CreateCredentialsFromVerifierCode(pin, contexto)
 
-            If estado = True Then
-                If Not usuarioGuardado Is Nothing Then
-                    Dim usuario As TwitterUser = Await servicio.Provider.GetUserAsync(usuarioGuardado.ScreenName)
+            'Auth.SetCredentials(usuarioCredenciales)
 
-                    Dim stream As FileRandomAccessStream = Nothing
 
-                    If Not imagen = String.Empty Then
-                        Dim ficheroImagen As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagentwitter", CreationCollisionOption.ReplaceExisting)
-                        Dim descargador As New BackgroundDownloader
-                        Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri(imagen), ficheroImagen)
-                        descarga.Priority = BackgroundTransferPriority.High
-                        Await descarga.StartAsync
+            'Dim usuarioGuardado As TwitterUser = Nothing
 
-                        Dim ficheroDescargado As IStorageFile = descarga.ResultFile
-                        If Not ficheroDescargado Is Nothing Then
-                            stream = Await ficheroDescargado.OpenAsync(FileAccessMode.Read)
-                        End If
-                    End If
+            'If helper.KeyExists("usuarioTwitterE") Then
+            '    usuarioGuardado = helper.Read(Of TwitterUser)("usuarioTwitterE")
+            'End If
 
-                    If stream Is Nothing Then
-                        Await servicio.TweetStatusAsync(mensaje + " " + enlace)
-                    Else
-                        Await servicio.TweetStatusAsync(mensaje + " " + enlace, stream.AsStream)
-                    End If
-                Else
-                    Dim usuario As TwitterUser = Await servicio.GetUserAsync
+            'If Not mensaje = Nothing Then
+            '    mensaje = mensaje.Trim
+            'End If
 
-                    Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
-                    imagenAvatar.Source = usuario.ProfileImageUrlHttps
+            'If Not usuarioGuardado Is Nothing Then
+            '    ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = usuarioGuardado.ScreenName
+            'Else
+            '    ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = Nothing
+            'End If
 
-                    Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
-                    tbUsuario.Text = usuario.ScreenName
+            'Dim servicio As New TwitterService
+            'servicio.Initialize("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc", "https://pepeizqapps.com/")
 
-                    helper.Save("usuarioTwitter", usuario)
-                End If
-            End If
+            'Dim estado As Boolean = Await servicio.LoginAsync
+
+            'If estado = True Then
+            '    If Not usuarioGuardado Is Nothing Then
+            '        Dim usuario As TwitterUser = Await servicio.GetUserAsync(usuarioGuardado.ScreenName)
+
+            '        Dim stream As FileRandomAccessStream = Nothing
+
+            '        If Not imagen = String.Empty Then
+            '            Dim ficheroImagen As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagentwitter", CreationCollisionOption.ReplaceExisting)
+            '            Dim descargador As New BackgroundDownloader
+            '            Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri(imagen), ficheroImagen)
+            '            descarga.Priority = BackgroundTransferPriority.High
+            '            Await descarga.StartAsync
+
+            '            Dim ficheroDescargado As IStorageFile = descarga.ResultFile
+            '            If Not ficheroDescargado Is Nothing Then
+            '                stream = Await ficheroDescargado.OpenAsync(FileAccessMode.Read)
+            '            End If
+            '        End If
+
+            '        If stream Is Nothing Then
+            '            Await servicio.TweetStatusAsync(mensaje + " " + enlace)
+            '        Else
+            '            Await servicio.TweetStatusAsync(mensaje + " " + enlace, stream.AsStream)
+            '        End If
+            '    Else
+            '        Dim usuario As TwitterUser = Await servicio.GetUserAsync
+
+            '        Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
+            '        imagenAvatar.Source = usuario.ProfileImageUrlHttps
+
+            '        Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
+            '        tbUsuario.Text = usuario.ScreenName
+
+            '        helper.Save("usuarioTwitterE", usuario)
+            '    End If
+            'End If
 
         End Function
 

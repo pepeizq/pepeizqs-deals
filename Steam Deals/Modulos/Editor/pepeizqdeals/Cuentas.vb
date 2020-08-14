@@ -45,8 +45,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim helper As New LocalObjectStorageHelper
 
-            If helper.KeyExists("usuarioTwitter") Then
-                Dim usuario As TwitterUser = helper.Read(Of TwitterUser)("usuarioTwitter")
+            If helper.KeyExists("usuarioTwitterE") Then
+                Dim usuario As TwitterUser = helper.Read(Of TwitterUser)("usuarioTwitterE")
 
                 If Not usuario Is Nothing Then
                     Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
