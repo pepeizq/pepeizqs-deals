@@ -1,93 +1,100 @@
-﻿Imports Microsoft.Toolkit.Services.Twitter
-Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Tweetinvi
+﻿Imports Tweetinvi
 Imports Tweetinvi.Models
+Imports Tweetinvi.Parameters
 Imports Windows.Networking.BackgroundTransfer
 Imports Windows.Storage
-Imports Windows.Storage.Streams
-Imports Windows.System
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Twitter
 
-        Public Async Function Enviar(mensaje As String, enlace As String, imagen As String) As Task
+        Public Sub Cargar()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim helper As New LocalObjectStorageHelper
+            Dim tbCodigo As TextBox = pagina.FindName("tbEditorTwitterCodigo")
 
-            'Dim appCredenciales As New TwitterCredentials("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc")
+            Dim wvTwitter As WebView = pagina.FindName("wvEditorTwitterpepeizqdeals")
+            AddHandler wvTwitter.NavigationCompleted, AddressOf Comprobar
 
-            'Dim contexto As IAuthenticationContext = AuthFlow.InitAuthentication(appCredenciales)
+            Dim appCredenciales As New TwitterCredentials("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc")
 
-            'Process.Start(contexto.AuthorizationURL)
+            Dim contexto As IAuthenticationContext = AuthFlow.InitAuthentication(appCredenciales)
 
-            'Dim pin As String = Console.ReadLine
+            wvTwitter.Source = New Uri(contexto.AuthorizationURL)
+            tbCodigo.Tag = contexto
 
-            'Dim usuarioCredenciales As ITwitterCredentials = AuthFlow.CreateCredentialsFromVerifierCode(pin, contexto)
+        End Sub
 
-            'Auth.SetCredentials(usuarioCredenciales)
+        Private Async Sub Comprobar(sender As Object, e As WebViewNavigationCompletedEventArgs)
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
 
-            'Dim usuarioGuardado As TwitterUser = Nothing
+            Dim tbCodigo As TextBox = pagina.FindName("tbEditorTwitterCodigo")
 
-            'If helper.KeyExists("usuarioTwitterE") Then
-            '    usuarioGuardado = helper.Read(Of TwitterUser)("usuarioTwitterE")
-            'End If
+            Dim wvTwitter As WebView = sender
 
-            'If Not mensaje = Nothing Then
-            '    mensaje = mensaje.Trim
-            'End If
+            If wvTwitter.Source.AbsoluteUri.Contains("https://api.twitter.com/oauth/authorize") Then
+                Try
+                    Await wvTwitter.InvokeScriptAsync("eval", New String() {"document.getElementById('allow').click();"})
+                Catch ex As Exception
 
-            'If Not usuarioGuardado Is Nothing Then
-            '    ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = usuarioGuardado.ScreenName
-            'Else
-            '    ApplicationData.Current.LocalSettings.Values("TwitterScreenName") = Nothing
-            'End If
+                End Try
 
-            'Dim servicio As New TwitterService
-            'servicio.Initialize("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc", "https://pepeizqapps.com/")
+                Try
+                    Dim html As String = Await wvTwitter.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
 
-            'Dim estado As Boolean = Await servicio.LoginAsync
+                    If html.Contains("<code>") Then
+                        Dim int As Integer = html.IndexOf("<code>")
+                        Dim temp As String = html.Remove(0, int + 6)
 
-            'If estado = True Then
-            '    If Not usuarioGuardado Is Nothing Then
-            '        Dim usuario As TwitterUser = Await servicio.GetUserAsync(usuarioGuardado.ScreenName)
+                        Dim int2 As Integer = temp.IndexOf("</code>")
+                        Dim temp2 As String = temp.Remove(int2, temp.Length - int2)
 
-            '        Dim stream As FileRandomAccessStream = Nothing
+                        tbCodigo.Text = temp2
 
-            '        If Not imagen = String.Empty Then
-            '            Dim ficheroImagen As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagentwitter", CreationCollisionOption.ReplaceExisting)
-            '            Dim descargador As New BackgroundDownloader
-            '            Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri(imagen), ficheroImagen)
-            '            descarga.Priority = BackgroundTransferPriority.High
-            '            Await descarga.StartAsync
+                        Dim contexto As IAuthenticationContext = tbCodigo.Tag
 
-            '            Dim ficheroDescargado As IStorageFile = descarga.ResultFile
-            '            If Not ficheroDescargado Is Nothing Then
-            '                stream = Await ficheroDescargado.OpenAsync(FileAccessMode.Read)
-            '            End If
-            '        End If
+                        Dim usuarioCredenciales As ITwitterCredentials = AuthFlow.CreateCredentialsFromVerifierCode(tbCodigo.Text.Trim, contexto)
 
-            '        If stream Is Nothing Then
-            '            Await servicio.TweetStatusAsync(mensaje + " " + enlace)
-            '        Else
-            '            Await servicio.TweetStatusAsync(mensaje + " " + enlace, stream.AsStream)
-            '        End If
-            '    Else
-            '        Dim usuario As TwitterUser = Await servicio.GetUserAsync
+                        Auth.SetCredentials(usuarioCredenciales)
+                    End If
 
-            '        Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
-            '        imagenAvatar.Source = usuario.ProfileImageUrlHttps
+                Catch ex As Exception
 
-            '        Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
-            '        tbUsuario.Text = usuario.ScreenName
+                End Try
 
-            '        helper.Save("usuarioTwitterE", usuario)
-            '    End If
-            'End If
+            End If
+
+        End Sub
+
+        Public Async Function Enviar(mensaje As String, enlace As String, imagen As String) As Task
+
+            If imagen = String.Empty Then
+                Tweet.PublishTweet(mensaje + " " + enlace)
+            Else
+                Dim ficheroImagen As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagentwitter", CreationCollisionOption.ReplaceExisting)
+                Dim descargador As New BackgroundDownloader
+                Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri(imagen), ficheroImagen)
+                descarga.Priority = BackgroundTransferPriority.High
+                Await descarga.StartAsync
+
+                Dim ficheroDescargado As IStorageFile = descarga.ResultFile
+                If Not ficheroDescargado Is Nothing Then
+                    Dim ficheroBinario As Byte() = File.ReadAllBytes(ficheroDescargado.Path)
+                    Dim media As IMedia = Upload.UploadBinary(ficheroBinario)
+
+                    Dim parametros As New PublishTweetOptionalParameters
+
+                    Dim imagenes As New List(Of IMedia) From {
+                        media
+                    }
+                    parametros.Medias = imagenes
+
+                    Tweet.PublishTweet(mensaje + " " + enlace, parametros)
+                End If
+            End If
 
         End Function
 

@@ -110,6 +110,9 @@
             Dim svAmazonCom As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAmazonCom")
             svAmazonCom.Visibility = Visibility.Collapsed
 
+            Dim svTwitter As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
+            svTwitter.Visibility = Visibility.Collapsed
+
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
 

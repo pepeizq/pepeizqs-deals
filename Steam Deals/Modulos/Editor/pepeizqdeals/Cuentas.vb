@@ -43,20 +43,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Dim helper As New LocalObjectStorageHelper
-
-            If helper.KeyExists("usuarioTwitterE") Then
-                Dim usuario As TwitterUser = helper.Read(Of TwitterUser)("usuarioTwitterE")
-
-                If Not usuario Is Nothing Then
-                    Dim imagenAvatar As ImageEx = pagina.FindName("imagenEditorTwitterpepeizqdeals")
-                    imagenAvatar.Source = usuario.ProfileImageUrlHttps
-
-                    Dim tbUsuario As TextBlock = pagina.FindName("tbEditorTwitterpepeizqdeals")
-                    tbUsuario.Text = usuario.ScreenName
-                End If
-            End If
-
             Dim usuarioPepeizqSteam As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsSteam")
 
             If Not usuarioPepeizqSteam Is Nothing Then

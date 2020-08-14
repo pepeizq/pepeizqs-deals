@@ -81,6 +81,7 @@
                             <MenuFlyoutItem x:Name="menuItemConfigDatos" Text="Datos" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigGrupoSteam" Text="Grupo Steam" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAmazonCom" Text="Amazon.com" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigTwitter" Text="Twitter" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
@@ -928,18 +929,6 @@
                                         <PasswordBox x:Name="tbEditorContraseñapepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
 
-                                    <TextBlock Text="Twitter" Margin="0,30,0,10"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="botonEditorTwitterpepeizqdeals" VerticalAlignment="Top" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                            <Button.Content>
-                                                <TextBlock x:Uid="Login" Foreground="White"/>
-                                            </Button.Content>
-                                        </Button>
-
-                                        <controls:ImageEx x:Name="imagenEditorTwitterpepeizqdeals" Width="32" Height="32" IsCacheEnabled="True" Margin="20,0,10,0"/>
-                                        <TextBlock x:Name="tbEditorTwitterpepeizqdeals" VerticalAlignment="Center"/>
-                                    </StackPanel>
-
                                     <TextBlock Text="Discord" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="Hook Ofertas" HorizontalAlignment="Left"/>
@@ -1012,6 +1001,16 @@
                                 </StackPanel>
 
                                 <WebView x:Name="wvEditorAmazonpepeizqdeals" MinWidth="700" MinHeight="700"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <ScrollViewer x:Name="svEditorpepeizqdealsTwitter" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
+                                    <TextBox x:Name="tbEditorTwitterCodigo" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <WebView x:Name="wvEditorTwitterpepeizqdeals" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
                         </ScrollViewer>
 

@@ -85,6 +85,10 @@ Module Configuracion
         RemoveHandler itemAmazonCom.Click, AddressOf ConfigAbrirAmazonCom
         AddHandler itemAmazonCom.Click, AddressOf ConfigAbrirAmazonCom
 
+        Dim itemTwitter As MenuFlyoutItem = pagina.FindName("menuItemConfigTwitter")
+        RemoveHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
+        AddHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
+
         Dim itemAssets As MenuFlyoutItem = pagina.FindName("menuItemConfigAssets")
         RemoveHandler itemAssets.Click, AddressOf ConfigAbrirAssets
         AddHandler itemAssets.Click, AddressOf ConfigAbrirAssets
@@ -194,6 +198,16 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAmazonCom")
+        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+
+    End Sub
+
+    Private Sub ConfigAbrirTwitter(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
         pepeizq.Interfaz.Pestañas.Visibilidad(sv)
 
     End Sub
