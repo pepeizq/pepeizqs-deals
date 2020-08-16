@@ -252,6 +252,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If imagen.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
                     imagen = imagen.Replace("header", "library_600x900")
+                ElseIf imagen.Contains(pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/") Then
+                    imagen = imagen.Replace("header", "library_600x900")
                 End If
 
                 Dim imagenJuego As New ImageEx With {

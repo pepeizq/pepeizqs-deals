@@ -270,7 +270,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Dim int As Integer = fondo.IndexOf("/")
                         fondo = fondo.Remove(int, fondo.Length - int)
 
-                        fondo = "https://steamcdn-a.akamaihd.net/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
+                        fondo = pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
 
                         tbImagenFondo.Text = fondo
                     End If

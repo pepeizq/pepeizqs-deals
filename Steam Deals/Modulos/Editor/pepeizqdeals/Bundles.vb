@@ -780,7 +780,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not juegoChrono.DRM Is Nothing Then
                         If juegoChrono.DRM.Count > 0 Then
                             If juegoChrono.DRM(0).Tipo = "steam_app" Then
-                                cosas.Imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
+                                cosas.Imagen = pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
                             End If
                         End If
                     End If

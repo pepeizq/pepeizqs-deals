@@ -67,7 +67,7 @@ Namespace pepeizq.Tiendas
                         If juegoChrono.DRM.Count > 0 Then
                             If juegoChrono.DRM(0).Tipo.Contains("steam_app") Then
                                 idSteam = juegoChrono.DRM(0).ID
-                                imagen = "https://steamcdn-a.akamaihd.net/steam/apps/" + idSteam + "/header.jpg"
+                                imagen = Steam.dominioImagenes + "/steam/apps/" + idSteam + "/header.jpg"
                                 drm = "steam"
                             End If
                         End If

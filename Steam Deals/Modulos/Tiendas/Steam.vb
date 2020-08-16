@@ -5,6 +5,8 @@ Imports Newtonsoft.Json
 Namespace pepeizq.Tiendas
     Module Steam
 
+        Public dominioImagenes As String = "https://cdn.cloudflare.steamstatic.com"
+
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
