@@ -89,10 +89,6 @@ Module Configuracion
         RemoveHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
         AddHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
 
-        Dim itemYuplay As MenuFlyoutItem = pagina.FindName("menuItemConfigYuplay")
-        RemoveHandler itemYuplay.Click, AddressOf ConfigAbrirYuplay
-        AddHandler itemYuplay.Click, AddressOf ConfigAbrirYuplay
-
         Dim itemAssets As MenuFlyoutItem = pagina.FindName("menuItemConfigAssets")
         RemoveHandler itemAssets.Click, AddressOf ConfigAbrirAssets
         AddHandler itemAssets.Click, AddressOf ConfigAbrirAssets
@@ -212,16 +208,6 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
-
-    End Sub
-
-    Private Sub ConfigAbrirYuplay(sender As Object, e As RoutedEventArgs)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsYuplay")
         pepeizq.Interfaz.Pestañas.Visibilidad(sv)
 
     End Sub

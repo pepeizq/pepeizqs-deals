@@ -10,6 +10,7 @@ Namespace pepeizq.Tiendas
         Dim listaJuegos As New List(Of Juego)
         Dim listaAnalisis As New List(Of JuegoAnalisis)
         Dim listaBloqueo As New List(Of YuplayBloqueo)
+        Dim listaBuscar As New List(Of YuplayBloqueo)
         Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
         Dim listaIdiomas As New List(Of YuplayIdiomas)
         Dim Tienda As Tienda = Nothing
@@ -36,6 +37,12 @@ Namespace pepeizq.Tiendas
                 listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay")
             Else
                 listaBloqueo = New List(Of YuplayBloqueo)
+            End If
+
+            If Await helper.FileExistsAsync("listaBuscarYuplay") Then
+                listaBuscar = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay")
+            Else
+                listaBuscar = New List(Of YuplayBloqueo)
             End If
 
             If Await helper.FileExistsAsync("listaDesarrolladoresYuplay") Then
@@ -293,12 +300,12 @@ Namespace pepeizq.Tiendas
                                                             End If
                                                         Else
                                                             Notificaciones.Toast(titulo, "Buscar en SteamDB")
-                                                            Dim bloqueo As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
-                                                            listaBloqueo.Add(bloqueo)
+                                                            Dim buscar As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
+                                                            listaBuscar.Add(buscar)
                                                         End If
                                                     End If
                                                 Else
-                                                    Notificaciones.Toast(titulo, enlace)
+                                                    Notificaciones.Toast(titulo, "No tiene SteamID")
                                                     Dim bloqueo As New YuplayBloqueo(titulo, enlace, True, "---")
                                                     listaBloqueo.Add(bloqueo)
                                                 End If
@@ -430,6 +437,7 @@ Namespace pepeizq.Tiendas
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
+            Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay", listaBuscar)
             Await helper.SaveFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay", listaDesarrolladores)
             Await helper.SaveFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay", listaIdiomas)
 

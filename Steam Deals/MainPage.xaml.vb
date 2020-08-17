@@ -95,7 +95,6 @@ Public NotInheritable Class MainPage
         pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()
         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
         pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Cargar()
-        pepeizq.Editor.pepeizqdeals.Yuplay.Cargar()
         pepeizq.Editor.pepeizqdeals.Posts.Borrar()
         pepeizq.Editor.pepeizqdeals.Assets.Cargar()
 
