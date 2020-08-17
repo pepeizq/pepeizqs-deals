@@ -291,6 +291,10 @@ Namespace pepeizq.Tiendas
                                                             If bloqueo.Bloqueo = False Then
                                                                 añadirJuegoLista = True
                                                             End If
+                                                        Else
+                                                            Notificaciones.Toast(titulo, "Buscar en SteamDB")
+                                                            Dim bloqueo As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
+                                                            listaBloqueo.Add(bloqueo)
                                                         End If
                                                     End If
                                                 Else

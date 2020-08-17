@@ -82,6 +82,7 @@
                             <MenuFlyoutItem x:Name="menuItemConfigGrupoSteam" Text="Grupo Steam" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAmazonCom" Text="Amazon.com" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigTwitter" Text="Twitter" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigYuplay" Text="Yuplay" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
@@ -1011,6 +1012,21 @@
                                 </StackPanel>
 
                                 <WebView x:Name="wvEditorTwitterpepeizqdeals" MinWidth="700" MinHeight="700"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <ScrollViewer x:Name="svEditorpepeizqdealsYuplay" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <Button x:Name="botonEditorpepeizqdealsYuplayBuscarSteamDB" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <fa:FontAwesome Icon="Search" Foreground="White"/>
+                                            <TextBlock Text="Buscar en SteamDB" Foreground="White" Margin="10,0,0,0"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+
+                                <TextBox x:Name="tbEditorpepeizedealsYuplayResultados" TextWrapping="Wrap" Margin="0,30,0,0"/>
                             </StackPanel>
                         </ScrollViewer>
 

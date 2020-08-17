@@ -151,6 +151,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Referidos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Suscripciones.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Twitter.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Yuplay.vb" />
     <Compile Include="Modulos\Editor\Reddit.vb" />
     <Compile Include="Modulos\Editor\VayaAnsias.vb" />
     <Compile Include="Modulos\Gratis\EpicGames.vb" />
