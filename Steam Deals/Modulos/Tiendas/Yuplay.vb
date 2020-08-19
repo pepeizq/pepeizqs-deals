@@ -299,9 +299,21 @@ Namespace pepeizq.Tiendas
                                                                 añadirJuegoLista = True
                                                             End If
                                                         Else
-                                                            Notificaciones.Toast(titulo, "Buscar en SteamDB")
-                                                            Dim buscar As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
-                                                            listaBuscar.Add(buscar)
+                                                            Dim añadir2 As Boolean = True
+
+                                                            If listaBuscar.Count > 0 Then
+                                                                For Each buscar2 In listaBuscar
+                                                                    If buscar2.Enlace = enlace Then
+                                                                        añadir2 = False
+                                                                    End If
+                                                                Next
+                                                            End If
+
+                                                            If añadir2 = True Then
+                                                                Notificaciones.Toast(titulo, "Buscar en SteamDB")
+                                                                Dim buscar As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
+                                                                listaBuscar.Add(buscar)
+                                                            End If
                                                         End If
                                                     End If
                                                 Else
