@@ -242,6 +242,7 @@
     <Content Include="Assets\LogosJuegos\batman.png" />
     <Content Include="Assets\LogosJuegos\battlefield.png" />
     <Content Include="Assets\LogosJuegos\borderlands.png" />
+    <Content Include="Assets\LogosJuegos\callofduty.png" />
     <Content Include="Assets\LogosJuegos\castlevania.png" />
     <Content Include="Assets\LogosJuegos\citiesskylines.png" />
     <Content Include="Assets\LogosJuegos\companyofheroes.png" />

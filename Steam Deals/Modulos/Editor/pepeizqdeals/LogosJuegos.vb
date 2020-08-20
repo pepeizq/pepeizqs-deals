@@ -87,6 +87,7 @@
                 New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 230),
                 New Clases.LogosJuegos("Battlefield", "Assets\LogosJuegos\battlefield.png", 250),
                 New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 260),
+                New Clases.LogosJuegos("Call of Duty", "Assets\LogosJuegos\callofduty.png", 260),
                 New Clases.LogosJuegos("Castlevania", "Assets\LogosJuegos\castlevania.png", 250),
                 New Clases.LogosJuegos("Cities Skylines", "Assets\LogosJuegos\citiesskylines.png", 220),
                 New Clases.LogosJuegos("Company of Heroes", "Assets\LogosJuegos\companyofheroes.png", 290),
