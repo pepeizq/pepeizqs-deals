@@ -445,6 +445,16 @@ Namespace pepeizq.Tiendas
         <JsonProperty("movies")>
         Public Videos As List(Of SteamMasDatosAmpliadoVideo)
 
+        <JsonProperty("price_overview")>
+        Public Precio As SteamMasDatosPrecio
+
+    End Class
+
+    Public Class SteamMasDatosPrecio
+
+        <JsonProperty("final_formatted")>
+        Public Formateado As String
+
     End Class
 
     Public Class SteamMasDatosAmpliadoVideo

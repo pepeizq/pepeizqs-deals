@@ -129,7 +129,7 @@ Module Analisis
                 int4 = temp4.IndexOf(">")
                 temp4 = temp4.Remove(0, int4 + 1)
 
-                Dim titulo As String = LimpiarTitulo(temp4)
+                Dim titulo As String = Busqueda.Limpiar(temp4)
 
                 Dim temp5, temp6 As String
                 Dim int5, int6 As Integer
@@ -220,7 +220,7 @@ Module Analisis
 
         Dim analisis As JuegoAnalisis = Nothing
 
-        titulo = LimpiarTitulo(titulo)
+        titulo = Busqueda.Limpiar(titulo)
 
         If Not lista Is Nothing Then
             If lista.Count > 0 Then
@@ -257,34 +257,6 @@ Module Analisis
         End If
 
         Return analisis
-    End Function
-
-    Private Function LimpiarTitulo(titulo As String)
-
-        titulo = titulo.Trim
-
-        If titulo.Contains("DLC") Then
-            Dim int As Integer = titulo.IndexOf("DLC")
-
-            If int = titulo.Length - 3 Then
-                titulo = titulo.Remove(titulo.Length - 3, 3)
-            End If
-        End If
-
-        titulo = WebUtility.HtmlDecode(titulo)
-
-        Dim listaCaracteres As New List(Of String) From {"Early Access", " ", "•", ">", "<", "¿", "?", "!", "¡", ":",
-            ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´", "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34),
-            "@", "^", "[", "]", "ª", "«"}
-
-        For Each item In listaCaracteres
-            titulo = titulo.Replace(item, Nothing)
-        Next
-
-        titulo = titulo.ToLower
-        titulo = titulo.Trim
-
-        Return titulo
     End Function
 
 End Module

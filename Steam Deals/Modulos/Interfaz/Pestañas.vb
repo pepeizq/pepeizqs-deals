@@ -101,6 +101,9 @@
             Dim svAnuncios As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAnuncios")
             svAnuncios.Visibility = Visibility.Collapsed
 
+            Dim svNuevosJuegos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsNuevosJuegos")
+            svNuevosJuegos.Visibility = Visibility.Collapsed
+
             Dim svConfig As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")
             svConfig.Visibility = Visibility.Collapsed
 
@@ -154,6 +157,9 @@
 
             Dim itemAnuncios As NavigationViewItem = pagina.FindName("itemAnuncios")
             itemAnuncios.IsEnabled = estado
+
+            Dim itemNuevosJuegos As NavigationViewItem = pagina.FindName("itemNuevosJuegos")
+            itemNuevosJuegos.IsEnabled = estado
 
             Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
             itemConfig.IsEnabled = estado

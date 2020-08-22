@@ -66,6 +66,11 @@ Public NotInheritable Class MainPage
                 GridVisibilidad(gridEditor, item.Text)
                 pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsAnuncios)
 
+            ElseIf item.Text = "Nuevos Juegos" Then
+
+                GridVisibilidad(gridEditor, item.Text)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsNuevosJuegos)
+
             End If
         End If
 
@@ -92,6 +97,8 @@ Public NotInheritable Class MainPage
         pepeizq.Editor.pepeizqdeals.Free.Cargar()
         pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
         pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
+        pepeizq.Editor.pepeizqdeals.NuevosJuegos.Cargar()
+        'pepeizq.Editor.pepeizqdeals.NuevosJuegos.ActualizarJuegos()
         pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()
         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
         pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Cargar()

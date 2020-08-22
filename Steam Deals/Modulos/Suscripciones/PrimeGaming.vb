@@ -3,7 +3,7 @@ Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
 Namespace pepeizq.Suscripciones
-    Module TwitchPrime
+    Module PrimeGaming
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of JuegoSuscripcion)
@@ -103,9 +103,9 @@ Namespace pepeizq.Suscripciones
             Dim mes As String = DateTime.Now.ToString("MMMM", ci)
 
             If listaJuegos.Count = 1 Then
-                titulo = "Twitch Prime • " + mes + " • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
+                titulo = "Prime Gaming • " + mes + " • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
             Else
-                titulo = "Twitch Prime • " + mes + " • "
+                titulo = "Prime Gaming • " + mes + " • "
 
                 Dim tituloJuegos As String = String.Empty
                 Dim i As Integer = 0
@@ -126,7 +126,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("Twitch Prime", Referidos.Generar("https://twitch.amazon.com/tp/loot"), "https://i.imgur.com/YOSfGYd.png", listaJuegos, False)
+            Html.Generar("Prime Gaming", Referidos.Generar("https://gaming.amazon.com/"), "https://i.imgur.com/DPDkKNq.png", listaJuegos, False)
 
             BloquearControles(True)
 

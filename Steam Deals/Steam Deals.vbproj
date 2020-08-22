@@ -114,6 +114,7 @@
     <Compile Include="Clases\Editor\pepeizqdeals\Deals.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Assets.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\LogosJuegos.vb" />
+    <Compile Include="Clases\Editor\pepeizqdeals\NuevoJuego.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Pestañas.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Post.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Free.vb" />
@@ -140,6 +141,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Free.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\DealsImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\LogosJuegos.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\NuevosJuegos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
@@ -154,6 +156,7 @@
     <Compile Include="Modulos\Editor\Reddit.vb" />
     <Compile Include="Modulos\Editor\VayaAnsias.vb" />
     <Compile Include="Modulos\Gratis\EpicGames.vb" />
+    <Compile Include="Modulos\Herramientas\Busqueda.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\IGDB.vb" />
@@ -166,7 +169,7 @@
     <Compile Include="Modulos\Suscripciones\HumbleTrove.vb" />
     <Compile Include="Modulos\Suscripciones\OriginBasic.vb" />
     <Compile Include="Modulos\Suscripciones\OriginPremier.vb" />
-    <Compile Include="Modulos\Suscripciones\TwitchPrime.vb" />
+    <Compile Include="Modulos\Suscripciones\PrimeGaming.vb" />
     <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Tiendas\2Game.vb" />
     <Compile Include="Modulos\Tiendas\AmazonCom.vb" />
@@ -389,6 +392,7 @@
     <Content Include="Assets\Tiendas\origin2.png" />
     <Content Include="Assets\Tiendas\originaccessbasic.png" />
     <Content Include="Assets\Tiendas\originaccesspremier.png" />
+    <Content Include="Assets\Tiendas\primegaming.png" />
     <Content Include="Assets\Tiendas\robotcache.png" />
     <Content Include="Assets\Tiendas\robotcache2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
@@ -410,7 +414,6 @@
     <Content Include="Assets\Tiendas\steam.ico" />
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
-    <Content Include="Assets\Tiendas\twitchprime.png" />
     <Content Include="Assets\Tiendas\uplay.png" />
     <Content Include="Assets\Tiendas\uplayplus.png" />
     <Content Include="Assets\Tiendas\voidu.ico" />

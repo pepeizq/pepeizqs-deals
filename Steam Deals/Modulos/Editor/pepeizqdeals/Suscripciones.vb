@@ -18,7 +18,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             cbTiendas.Items.Add("--")
             cbTiendas.Items.Add("Humble Choice")
-            cbTiendas.Items.Add("Twitch Prime")
+            cbTiendas.Items.Add("Prime Gaming")
             cbTiendas.Items.Add("Xbox Game Pass")
             cbTiendas.Items.Add("Origin Access Basic")
             cbTiendas.Items.Add("Origin Access Premier")
@@ -125,17 +125,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/twitchprime.png"))
+                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/primegaming.png"))
 
-                cosas.Tienda = "Twitch"
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_twitch.png"
+                cosas.Tienda = "Amazon"
+                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/08/tienda_amazon.jpg"
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)
                 cosas.Mensaje = mes
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.TwitchPrime.GenerarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.TwitchPrime.GenerarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.PrimeGaming.GenerarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.PrimeGaming.GenerarJuegos
 
                 fechaDefecto = fechaDefecto.AddMonths(1)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
@@ -356,7 +356,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaPicker As DatePicker = sender
 
             If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
-                Notificaciones.Toast("Same Day", Nothing)
+                Notificaciones.Toast("Hoy es el mismo dia", Nothing)
             End If
 
         End Sub

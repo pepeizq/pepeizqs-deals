@@ -63,7 +63,7 @@ Namespace pepeizq.Suscripciones
                     html = "[vc_row][vc_column width=" + ChrW(34) + "2/3" + ChrW(34) + " el_class=" + ChrW(34) + "columnaIzquierda" + ChrW(34) + "]"
 
                     For Each juego In listaJuegos
-                        html = html + "[us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "40px" + ChrW(34) + "]"
+                        html = html + "[us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "60px" + ChrW(34) + "]"
                         html = html + "[vc_column_text]<a href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) + " src=" + ChrW(34) + juego.Imagen + ChrW(34) + " /></a>[/vc_column_text]"
                         html = html + "[us_vwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "20px" + ChrW(34) + "]"
                         html = html + "[vc_column_text]<div class=" + ChrW(34) + "suscripcionesJuegoTitulo" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + juego.Titulo + "</a></div>[/vc_column_text]"
