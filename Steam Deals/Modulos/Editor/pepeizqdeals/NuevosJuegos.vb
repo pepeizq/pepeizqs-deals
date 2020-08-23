@@ -27,11 +27,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbBuscar.TextChanged, AddressOf HabilitarBotonBuscar
             AddHandler tbBuscar.TextChanged, AddressOf HabilitarBotonBuscar
 
-            Dim tbPostID As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosPostID")
-
-            RemoveHandler tbPostID.TextChanged, AddressOf HabilitarBotonGenerar
-            AddHandler tbPostID.TextChanged, AddressOf HabilitarBotonGenerar
-
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
 
             RemoveHandler botonGenerar.Click, AddressOf GenerarFichero
@@ -310,25 +305,28 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Dim juego As Clases.NuevoJuego = Await helper.ReadFileAsync(Of Clases.NuevoJuego)(fichero.Name)
 
                         If juego.PostID = Nothing Then
-                            Dim postNuevo As New Clases.Post With {
-                                .Titulo = New Models.Title(juego.Titulo),
-                                .Categorias = New List(Of Integer),
-                                .ImagenFeatured = juego.ImagenJuego,
-                                .FechaTermina = juego.FechaTermina,
-                                .Contenido = New Models.Content(juego.Titulo)
+                            Dim postNuevo As New Models.Post With {
+                                .Title = New Models.Title(juego.Titulo + " • Available stores where to buy the game"),
+                                .Categories = New Integer() {1258},
+                                .Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
                             }
 
-                            postNuevo.Categorias.Add(1258)
+                            Dim postString As String = JsonConvert.SerializeObject(postNuevo)
+
+                            Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
+                            postNuevo2.FechaOriginal = DateTime.Now
+                            postNuevo2.ImagenFeatured = juego.ImagenJuego
+                            postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.ImagenJuego + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                            postNuevo2.FechaTermina = juego.FechaTermina
 
                             Dim resultado As Clases.Post = Nothing
-                            Notificaciones.Toast(juego.PostID, postNuevo.Categorias(0).ToString)
 
                             Try
-                                resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/posts", postNuevo)
+                                resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/posts", postNuevo2)
                             Catch ex As Exception
 
                             End Try
-                            Notificaciones.Toast("yolo", postNuevo.Categorias(0).ToString)
+
                             If Not resultado Is Nothing Then
                                 Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
@@ -374,19 +372,84 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Next
 
                             Await helper.SaveFileAsync(Of Clases.NuevoJuego)(fichero.Name, juego)
+
+                            Dim entrada As Models.Post = Await cliente.Posts.GetByID(juego.PostID)
+                            entrada.Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
+
+                            Await cliente.Posts.Update(entrada)
+
+                            Notificaciones.Toast("actualizado", juego.Titulo)
                         End If
-
-
-
-
-
                     End If
                 Next
             End If
 
-
-
         End Sub
+
+        Private Function GenerarHtmlEntrada(juego As Clases.NuevoJuego, enlaces As List(Of Clases.NuevoJuegoTienda))
+
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
+
+            Dim html As String = String.Empty
+
+            enlaces.Sort(Function(x As Clases.NuevoJuegoTienda, y As Clases.NuevoJuegoTienda)
+                             Dim resultado As Integer = x.Precio.CompareTo(y.Precio)
+                             Return resultado
+                         End Function)
+
+            Dim i As Integer = 0
+
+            html = html + "[vc_row][vc_column width=" + ChrW(34) + "2/3" + ChrW(34) + "]"
+
+            For Each enlace In enlaces
+                Dim idImagenTienda As String = String.Empty
+
+                For Each tienda In listaTiendas
+                    If enlace.NombreUsar = tienda.NombreUsar Then
+                        idImagenTienda = tienda.LogoWebServidorID
+                    End If
+                Next
+
+                Dim mensaje As String = "Open"
+
+                If Not enlace.Codigo = Nothing Then
+                    mensaje = "Discount Code: " + enlace.Codigo
+                End If
+
+                If enlace.NombreUsar = "Humble" Then
+                    mensaje = "You must have active Humble Choice"
+                End If
+
+                If i = 0 Or i = 3 Or i = 6 Or i = 9 Or i = 12 Or i = 15 Then
+                    html = html + "[vc_row_inner content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" + ChrW(34) + "]"
+                End If
+
+                html = html + "[vc_column_inner width=" + ChrW(34) + "1/3" + ChrW(34) + "][us_flipbox front_title=" + ChrW(34) + enlace.Precio + ChrW(34) + " front_title_size=" + ChrW(34) + "25px" + ChrW(34) + "  front_title_tag=" +
+                       ChrW(34) + "div" + ChrW(34) + " front_bgcolor=" + ChrW(34) + "#004e7a" + ChrW(34) + " front_textcolor=" + ChrW(34) + "#ffffff" + ChrW(34) + " front_icon_type=" + ChrW(34) + "image" + ChrW(34) + " front_icon_image=" +
+                       ChrW(34) + idImagenTienda + ChrW(34) + " front_icon_image_width=" + ChrW(34) + "150px" + ChrW(34) + " back_title=" + ChrW(34) + mensaje + ChrW(34) + " back_title_size=" + ChrW(34) + "22px" + ChrW(34) +
+                       " back_title_tag=" + ChrW(34) + "div" + ChrW(34) + " back_bgcolor=" + ChrW(34) + "#003b5c" + ChrW(34) + " back_textcolor=" + ChrW(34) + "#ffffff" + ChrW(34) + " link_type=" + ChrW(34) + "container" + ChrW(34) +
+                       " link=" + ChrW(34) + "url:" + Referidos.Generar(enlace.Enlace) + "||target:%20_blank|" + ChrW(34) + " direction=" + ChrW(34) + "e" + ChrW(34) + "][/vc_column_inner]"
+
+                If i = 2 Or i = 5 Or i = 8 Or i = 11 Or i = 14 Or i = 17 Then
+                    html = html + "[/vc_row_inner]"
+                Else
+                    If i = enlaces.Count - 1 Then
+                        html = html + "[/vc_row_inner]"
+                    End If
+                End If
+
+                i += 1
+            Next
+
+            Dim imagen As String = juego.ImagenJuego
+            imagen = imagen.Replace("library_600x900", "capsule_616x353")
+
+            html = html + "[/vc_column][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) + " sticky=" + ChrW(34) + "1" + ChrW(34) + "][vc_column_text]<img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) +
+                   " src=" + ChrW(34) + imagen + ChrW(34) + " />[/vc_column_text][/vc_column][/vc_row]"
+
+            Return html
+
+        End Function
 
         Private Sub HabilitarBotonBuscar(sender As Object, e As TextChangedEventArgs)
 
@@ -401,23 +464,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.IsEnabled = True
             Else
                 botonBuscar.IsEnabled = False
-            End If
-
-        End Sub
-
-        Private Sub HabilitarBotonGenerar(sender As Object, e As TextChangedEventArgs)
-
-            Dim tb As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
-
-            If tb.Text.Trim.Length > 0 Then
-                botonGenerar.IsEnabled = True
-            Else
-                botonGenerar.IsEnabled = False
             End If
 
         End Sub
@@ -442,9 +488,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbBuscar As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosBuscar")
             tbBuscar.IsEnabled = estado
-
-            Dim tbPostID As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosPostID")
-            tbPostID.IsEnabled = estado
 
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
             botonGenerar.IsEnabled = estado

@@ -96,7 +96,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = tienda.LogoWeb
+                            tbImagenTienda.Text = tienda.LogoWebApp
                         End If
                     Next
 
@@ -105,7 +105,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = tienda.LogoWeb
+                            tbImagenTienda.Text = tienda.LogoWebApp
                         End If
                     Next
 
@@ -114,7 +114,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = tienda.LogoWeb
+                            tbImagenTienda.Text = tienda.LogoWebApp
                         End If
                     Next
 
@@ -123,7 +123,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = tienda.LogoWeb
+                            tbImagenTienda.Text = tienda.LogoWebApp
                         End If
                     Next
 

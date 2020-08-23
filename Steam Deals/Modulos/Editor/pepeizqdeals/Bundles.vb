@@ -179,11 +179,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = "Humble Store" And cosas.Tienda = "Humble Bundle" Then
-                            tiendaLogo = tienda.LogoWeb
+                            tiendaLogo = tienda.LogoWebApp
                         End If
 
                         If tienda.NombreUsar = cosas.Tienda.Replace(" ", Nothing) Then
-                            tiendaLogo = tienda.LogoWeb
+                            tiendaLogo = tienda.LogoWebApp
                         End If
                     Next
 
