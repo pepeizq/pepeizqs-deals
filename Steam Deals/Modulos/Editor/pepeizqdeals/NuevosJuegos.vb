@@ -378,7 +378,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             Await cliente.Posts.Update(entrada)
 
-                            Notificaciones.Toast("actualizado", juego.Titulo)
+                            'Notificaciones.Toast("actualizado", juego.Titulo)
                         End If
                     End If
                 Next
@@ -406,7 +406,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 For Each tienda In listaTiendas
                     If enlace.NombreUsar = tienda.NombreUsar Then
-                        idImagenTienda = tienda.LogoWebServidorID
+                        idImagenTienda = tienda.LogoWebServidorID300x80
                     End If
                 Next
 
@@ -426,7 +426,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 html = html + "[vc_column_inner width=" + ChrW(34) + "1/3" + ChrW(34) + "][us_flipbox front_title=" + ChrW(34) + enlace.Precio + ChrW(34) + " front_title_size=" + ChrW(34) + "25px" + ChrW(34) + "  front_title_tag=" +
                        ChrW(34) + "div" + ChrW(34) + " front_bgcolor=" + ChrW(34) + "#004e7a" + ChrW(34) + " front_textcolor=" + ChrW(34) + "#ffffff" + ChrW(34) + " front_icon_type=" + ChrW(34) + "image" + ChrW(34) + " front_icon_image=" +
-                       ChrW(34) + idImagenTienda + ChrW(34) + " front_icon_image_width=" + ChrW(34) + "150px" + ChrW(34) + " back_title=" + ChrW(34) + mensaje + ChrW(34) + " back_title_size=" + ChrW(34) + "22px" + ChrW(34) +
+                       ChrW(34) + idImagenTienda + ChrW(34) + " front_icon_image_width=" + ChrW(34) + "150px" + ChrW(34) + " back_title=" + ChrW(34) + mensaje + ChrW(34) + " back_title_size=" + ChrW(34) + "20px" + ChrW(34) +
                        " back_title_tag=" + ChrW(34) + "div" + ChrW(34) + " back_bgcolor=" + ChrW(34) + "#003b5c" + ChrW(34) + " back_textcolor=" + ChrW(34) + "#ffffff" + ChrW(34) + " link_type=" + ChrW(34) + "container" + ChrW(34) +
                        " link=" + ChrW(34) + "url:" + Referidos.Generar(enlace.Enlace) + "||target:%20_blank|" + ChrW(34) + " direction=" + ChrW(34) + "e" + ChrW(34) + "][/vc_column_inner]"
 
