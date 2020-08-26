@@ -901,13 +901,8 @@
 
                         <ScrollViewer x:Name="svEditorpepeizqdealsNuevosJuegos" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Button x:Name="botonEditorpepeizqdealsNuevosJuegosBuscar" Grid.Column="0" Margin="0,0,20,0" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="botonEditorpepeizqdealsNuevosJuegosBuscar" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <fa:FontAwesome Icon="Search" Foreground="White"/>
@@ -916,8 +911,12 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosBuscar" Grid.Column="1" VerticalAlignment="Center" MinWidth="120"/>
-                                </Grid>
+                                    <TextBlock Text="ID Steam:" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosBuscar" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
+
+                                    <TextBlock Text="Titulo Alternativo:" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosTituloAlternativo" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
+                                </StackPanel>
 
                                 <Grid Margin="0,30,0,0">
                                     <Grid.ColumnDefinitions>
@@ -930,7 +929,10 @@
                                         <TextBlock x:Name="tbEditorpepeizqdealsNuevosJuegosFicha" Margin="0,20,0,0" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
                                         <StackPanel x:Name="spEditorpepeizqdealsNuevosJuegosGenerar" Orientation="Vertical" Margin="0,40,0,0" Visibility="Collapsed">
-                                            <DatePicker x:Name="fechaEditorpepeizqdealsNuevosJuegos" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="Fecha Lanzamiento" HorizontalAlignment="Center"/>
+                                            <TextBlock x:Name="tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+
+                                            <DatePicker x:Name="fechaEditorpepeizqdealsNuevosJuegos" Margin="0,30,0,0" HorizontalAlignment="Center"/>
                                             <TimePicker x:Name="horaEditorpepeizqdealsNuevosJuegos" Margin="0,10,0,0" HorizontalAlignment="Center"/>
 
                                             <Button x:Name="botonEditorpepeizqdealsNuevosJuegosGenerar" Margin="0,40,0,0" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" HorizontalAlignment="Center" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
@@ -945,8 +947,6 @@
                                     </StackPanel>
 
                                     <StackPanel x:Name="spEditorpepeizqdealsNuevosJuegosTiendas" Grid.Column="1" Orientation="Vertical" Margin="40,0,0,0"/>
-
-
                                 </Grid> 
                             </StackPanel>                            
                         </ScrollViewer> 

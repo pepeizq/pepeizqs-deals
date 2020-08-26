@@ -72,13 +72,26 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not datos Is Nothing Then
                         Dim imagenS As String = datos.Datos.Imagen
-                        imagenS = imagenS.Replace("header", "library_600x900")
+
+                        If datos.Datos.Tipo = "game" Then
+                            imagenS = imagenS.Replace("header", "library_600x900")
+                        End If
 
                         Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsNuevosJuegosFicha")
                         imagen.Source = imagenS
 
                         Dim tbTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFicha")
                         tbTitulo.Text = datos.Datos.Titulo
+
+                        Dim tbTituloAlternativo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
+                        Dim tituloAlternativo As String = String.Empty
+
+                        If tbTituloAlternativo.Text.Trim.Length > 0 Then
+                            tituloAlternativo = tbTituloAlternativo.Text.Trim
+                        End If
+
+                        Dim tbFecha As TextBlock = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
+                        tbFecha.Text = datos.Datos.FechaLanzamiento.Fecha
 
                         Dim spTiendas As StackPanel = pagina.FindName("spEditorpepeizqdealsNuevosJuegosTiendas")
                         spTiendas.Children.Clear()
@@ -104,18 +117,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 añadido = True
                             End If
 
-                            Dim listaJuegos As New List(Of Juego)
+                            If añadido = False Then
+                                Dim listaJuegos As New List(Of Juego)
 
-                            If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
-                                listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda.NombreUsar)
-                            End If
-
-                            For Each juego In listaJuegos
-                                If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
-                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, listaCupones)
-                                    añadido = True
+                                If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
+                                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda.NombreUsar)
                                 End If
-                            Next
+
+                                For Each juego In listaJuegos
+                                    If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
+                                        GenerarXaml(tienda, juego.Enlace, juego.Precio, listaCupones)
+                                        añadido = True
+                                    ElseIf Not tituloAlternativo = String.Empty Then
+                                        If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
+                                            If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
+                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, listaCupones)
+                                                añadido = True
+                                            End If
+                                        End If
+                                    End If
+                                Next
+                            End If
 
                             If añadido = False Then
                                 GenerarXaml(tienda, Nothing, Nothing, listaCupones)
@@ -249,6 +271,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsNuevosJuegosFicha")
                 Dim imagenS As String = imagen.Source
 
+                Dim tbFecha As TextBlock = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
+
                 Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsNuevosJuegos")
                 Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsNuevosJuegos")
 
@@ -280,7 +304,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenS, Nothing, steamID, fechaFinal.ToString, enlaces)
+                Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenS, Nothing, steamID, tbFecha.Text, fechaFinal.ToString, enlaces)
 
                 Await helper.SaveFileAsync(Of Clases.NuevoJuego)("nuevoJuego" + steamID, nuevoJuego)
             End If
@@ -335,6 +359,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Await helper.SaveFileAsync(Of Clases.NuevoJuego)(fichero.Name, juego)
                             End If
                         Else
+                            Dim actualizar As Boolean = False
+
                             Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
                             Dim listaCupones As New List(Of TiendaCupon)
@@ -351,34 +377,47 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 For Each juego2 In listaJuegos
-                                    If Busqueda.Limpiar(juego2.Titulo) = Busqueda.Limpiar(juego.Titulo) Then
-                                        For Each tienda2 In juego.Enlaces
-                                            If tienda.NombreUsar = tienda2.NombreUsar Then
-                                                tienda2.Precio = juego2.Precio
-
-                                                If listaCupones.Count > 0 Then
-                                                    For Each cupon In listaCupones
-                                                        If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                                                            If Not cupon.Codigo = Nothing Then
-                                                                tienda2.Codigo = cupon.Codigo
-                                                            End If
-                                                        End If
-                                                    Next
-                                                End If
+                                    For Each juegoBBDD In juego.Enlaces
+                                        If juego2.Enlace = juegoBBDD.Enlace Then
+                                            If Not juegoBBDD.Precio = juego2.Precio Then
+                                                actualizar = True
                                             End If
-                                        Next
-                                    End If
+
+                                            juegoBBDD.Precio = juego2.Precio
+
+                                            If listaCupones.Count > 0 Then
+                                                For Each cupon In listaCupones
+                                                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                                                        If Not cupon.Codigo = Nothing Then
+                                                            juegoBBDD.Codigo = cupon.Codigo
+                                                        End If
+                                                    End If
+                                                Next
+                                            End If
+                                        End If
+                                    Next
                                 Next
                             Next
 
-                            Await helper.SaveFileAsync(Of Clases.NuevoJuego)(fichero.Name, juego)
+                            If actualizar = True Then
+                                Await helper.SaveFileAsync(Of Clases.NuevoJuego)(fichero.Name, juego)
 
-                            Dim entrada As Models.Post = Await cliente.Posts.GetByID(juego.PostID)
-                            entrada.Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
+                                Dim entrada As Models.Post = Await cliente.Posts.GetByID(juego.PostID)
+                                entrada.Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
 
-                            Await cliente.Posts.Update(entrada)
+                                Dim postString As String = JsonConvert.SerializeObject(entrada)
 
-                            'Notificaciones.Toast("actualizado", juego.Titulo)
+                                Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
+                                postNuevo2.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
+                                                      "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+                                postNuevo2.ImagenFeatured = juego.ImagenJuego
+                                postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.ImagenJuego + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                                postNuevo2.FechaTermina = juego.FechaTermina
+
+                                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + juego.PostID, postNuevo2)
+
+                                Notificaciones.Toast("Actualizado", juego.Titulo)
+                            End If
                         End If
                     End If
                 Next
@@ -445,7 +484,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             imagen = imagen.Replace("library_600x900", "capsule_616x353")
 
             html = html + "[/vc_column][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) + " sticky=" + ChrW(34) + "1" + ChrW(34) + "][vc_column_text]<img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) +
-                   " src=" + ChrW(34) + imagen + ChrW(34) + " />[/vc_column_text][/vc_column][/vc_row]"
+                   " src=" + ChrW(34) + imagen + ChrW(34) + " /><div style=" + ChrW(34) + "text-align: center; color: white; font-size: 17px;" + ChrW(34) + "><span style=" + ChrW(34) + "display: block;margin-bottom:5px;" + ChrW(34) + ">Release Date</span><span style=" + ChrW(34) + "display: block;" + ChrW(34) + ">" +
+                   juego.FechaLanzamiento + "</span></div>[/vc_column_text][/vc_column][/vc_row]"
 
             Return html
 
@@ -488,6 +528,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbBuscar As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosBuscar")
             tbBuscar.IsEnabled = estado
+
+            Dim tbTituloAlternativo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
+            tbTituloAlternativo.IsEnabled = estado
 
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
             botonGenerar.IsEnabled = estado

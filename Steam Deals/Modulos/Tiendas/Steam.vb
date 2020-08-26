@@ -371,7 +371,7 @@ Namespace pepeizq.Tiendas
                     id = id.Remove(int, id.Length - int)
                 End If
 
-                Dim htmlMas As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
+                Dim htmlMas As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id + "&l=english"))
 
                 If Not htmlMas = Nothing Then
                     Dim temp As String
@@ -448,6 +448,9 @@ Namespace pepeizq.Tiendas
         <JsonProperty("price_overview")>
         Public Precio As SteamMasDatosPrecio
 
+        <JsonProperty("release_date")>
+        Public FechaLanzamiento As SteamMasDatosFechaLanzamiento
+
     End Class
 
     Public Class SteamMasDatosPrecio
@@ -474,6 +477,13 @@ Namespace pepeizq.Tiendas
 
         <JsonProperty("max")>
         Public Max As String
+
+    End Class
+
+    Public Class SteamMasDatosFechaLanzamiento
+
+        <JsonProperty("date")>
+        Public Fecha As String
 
     End Class
 

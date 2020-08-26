@@ -5,14 +5,17 @@
         Public Property ImagenJuego As String
         Public Property PostID As String
         Public Property SteamID As String
+        Public Property FechaLanzamiento As String
         Public Property FechaTermina As String
         Public Property Enlaces As List(Of NuevoJuegoTienda)
 
-        Public Sub New(ByVal titulo As String, ByVal imagenJuego As String, ByVal postID As String, ByVal steamID As String, ByVal fechaTermina As String, ByVal enlaces As List(Of NuevoJuegoTienda))
+        Public Sub New(ByVal titulo As String, ByVal imagenJuego As String, ByVal postID As String, ByVal steamID As String,
+                       ByVal fechaLanzamiento As String, ByVal fechaTermina As String, ByVal enlaces As List(Of NuevoJuegoTienda))
             Me.Titulo = titulo
             Me.ImagenJuego = imagenJuego
             Me.PostID = postID
             Me.SteamID = steamID
+            Me.FechaLanzamiento = fechaLanzamiento
             Me.FechaTermina = fechaTermina
             Me.Enlaces = enlaces
         End Sub
