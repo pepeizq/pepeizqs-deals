@@ -307,6 +307,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenS, Nothing, steamID, tbFecha.Text, fechaFinal.ToString, enlaces)
 
                 Await helper.SaveFileAsync(Of Clases.NuevoJuego)("nuevoJuego" + steamID, nuevoJuego)
+
+                Notificaciones.Toast("Fichero Creado", titulo)
             End If
 
         End Sub
@@ -339,7 +341,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
                             postNuevo2.FechaOriginal = DateTime.Now
-                            postNuevo2.ImagenFeatured = juego.ImagenJuego
+                            'postNuevo2.ImagenFeatured = juego.ImagenJuego
                             postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.ImagenJuego + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                             postNuevo2.FechaTermina = juego.FechaTermina
 
@@ -359,6 +361,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Await helper.SaveFileAsync(Of Clases.NuevoJuego)(fichero.Name, juego)
                             End If
                         Else
+                            Dim fechaTermina As Date = Nothing
+
+                            Try
+                                fechaTermina = Date.Parse(juego.FechaTermina)
+                            Catch ex As Exception
+
+                            End Try
+
+                            If Not fechaTermina = Nothing Then
+                                Dim fechaAhora As Date = Date.Now
+
+                                If fechaTermina < fechaAhora Then
+                                    Await fichero.DeleteAsync
+                                End If
+                            End If
+
                             Dim actualizar As Boolean = False
 
                             Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
@@ -377,8 +395,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 For Each juego2 In listaJuegos
+                                    Dim encontrado As Boolean = False
+
                                     For Each juegoBBDD In juego.Enlaces
                                         If juego2.Enlace = juegoBBDD.Enlace Then
+                                            encontrado = True
+
                                             If Not juegoBBDD.Precio = juego2.Precio Then
                                                 actualizar = True
                                             End If
@@ -396,6 +418,36 @@ Namespace pepeizq.Editor.pepeizqdeals
                                             End If
                                         End If
                                     Next
+
+                                    If encontrado = False Then
+                                        Dim añadir As Boolean = True
+
+                                        If tienda.NombreUsar = "Steam" Then
+                                            añadir = False
+                                        ElseIf tienda.NombreUsar = "AmazonEs" Then
+                                            añadir = False
+                                        End If
+
+                                        If añadir = True Then
+                                            If Busqueda.Limpiar(juego2.Titulo) = Busqueda.Limpiar(juego.Titulo) Then
+                                                Dim codigo As String = String.Empty
+
+                                                If listaCupones.Count > 0 Then
+                                                    For Each cupon In listaCupones
+                                                        If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                                                            If Not cupon.Codigo = Nothing Then
+                                                                codigo = cupon.Codigo
+                                                            End If
+                                                        End If
+                                                    Next
+                                                End If
+
+                                                Dim juegoBBDD As New Clases.NuevoJuegoTienda(tienda.NombreUsar, juego2.Precio, codigo, juego2.Enlace)
+                                                juego.Enlaces.Add(juegoBBDD)
+                                                actualizar = True
+                                            End If
+                                        End If
+                                    End If
                                 Next
                             Next
 
@@ -410,7 +462,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
                                 postNuevo2.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
                                                       "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
-                                postNuevo2.ImagenFeatured = juego.ImagenJuego
+                                'postNuevo2.ImagenFeatured = juego.ImagenJuego
                                 postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.ImagenJuego + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                                 postNuevo2.FechaTermina = juego.FechaTermina
 
