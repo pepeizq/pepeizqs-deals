@@ -457,6 +457,13 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub BotonEditorpepeizqdealsGenerarImagenNuevosJuegos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenNuevosJuegos.Click
+
+        Dim boton As Button = sender
+        pepeizq.Editor.ImagenFichero.Exportar(boton)
+
+    End Sub
+
     Private Sub BotonEditorpepeizqdealsFondoRedesSociales_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsFondoRedesSociales.Click
 
         Dim boton As Button = sender

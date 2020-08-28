@@ -191,9 +191,19 @@ Module Ordenar
 
                 Dim i As Integer = 0
                 For Each juegoGrid In listaGrids
-                    i += 1
                     If i < 6000 Then
-                        lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
+                        Dim mostrar As Boolean = True
+
+                        If juegoGrid.Descuento = "0%" Then
+                            mostrar = False
+                        ElseIf juegoGrid.Descuento = "00%" Then
+                            mostrar = False
+                        End If
+
+                        If mostrar = True Then
+                            i += 1
+                            lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
+                        End If
                     End If
 
                     If Not juegoGrid.Desarrolladores Is Nothing Then

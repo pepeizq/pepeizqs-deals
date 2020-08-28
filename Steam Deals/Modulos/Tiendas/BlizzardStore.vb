@@ -67,6 +67,10 @@ Namespace pepeizq.Tiendas
 
                         Dim precio As String = juegoFamilia.Precio.PrecioRebajado
 
+                        If precio = Nothing Then
+                            precio = juegoFamilia.Precio.PrecioBase
+                        End If
+
                         If Not precio = Nothing Then
                             precio = precio.Replace("EUR", Nothing)
 
@@ -91,10 +95,6 @@ Namespace pepeizq.Tiendas
                                 End If
                                 k += 1
                             End While
-
-                            If juego.Descuento = Nothing Then
-                                añadir = False
-                            End If
 
                             If añadir = True Then
                                 juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
@@ -141,7 +141,8 @@ Namespace pepeizq.Tiendas
                 "diablo-ii",
                 "warcraft-iii",
                 "call-of-duty",
-                "call-of-duty-mw2cr"
+                "call-of-duty-mw2cr",
+                "call-of-duty-black-ops-cold-war"
             }
 
             Return lista

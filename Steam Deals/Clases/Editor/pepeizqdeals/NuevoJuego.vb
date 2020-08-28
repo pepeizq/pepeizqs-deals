@@ -2,22 +2,34 @@
     Public Class NuevoJuego
 
         Public Property Titulo As String
-        Public Property ImagenJuego As String
+        Public Property Imagenes As NuevoJuegoImagenes
         Public Property PostID As String
         Public Property SteamID As String
         Public Property FechaLanzamiento As String
         Public Property FechaTermina As String
         Public Property Enlaces As List(Of NuevoJuegoTienda)
 
-        Public Sub New(ByVal titulo As String, ByVal imagenJuego As String, ByVal postID As String, ByVal steamID As String,
+        Public Sub New(ByVal titulo As String, ByVal imagenes As NuevoJuegoImagenes, ByVal postID As String, ByVal steamID As String,
                        ByVal fechaLanzamiento As String, ByVal fechaTermina As String, ByVal enlaces As List(Of NuevoJuegoTienda))
             Me.Titulo = titulo
-            Me.ImagenJuego = imagenJuego
+            Me.Imagenes = imagenes
             Me.PostID = postID
             Me.SteamID = steamID
             Me.FechaLanzamiento = fechaLanzamiento
             Me.FechaTermina = fechaTermina
             Me.Enlaces = enlaces
+        End Sub
+
+    End Class
+
+    Public Class NuevoJuegoImagenes
+
+        Public Property Vertical As String
+        Public Property Horizontal As String
+
+        Public Sub New(ByVal vertical As String, ByVal horizontal As String)
+            Me.Vertical = vertical
+            Me.Horizontal = horizontal
         End Sub
 
     End Class

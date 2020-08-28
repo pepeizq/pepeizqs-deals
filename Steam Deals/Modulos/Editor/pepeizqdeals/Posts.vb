@@ -284,7 +284,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Function SubirImagen(imagen As Button, codigo As String, cliente As WordPressClient) As Task(Of String)
+        Public Async Function SubirImagen(imagen As Button, codigo As String, cliente As WordPressClient) As Task(Of String)
 
             Dim urlImagen As String = String.Empty
 
