@@ -198,6 +198,8 @@ Module Ordenar
                             mostrar = False
                         ElseIf juegoGrid.Descuento = "00%" Then
                             mostrar = False
+                        ElseIf juegoGrid.Descuento = Nothing Then
+                            mostrar = False
                         End If
 
                         If mostrar = True Then

@@ -91,63 +91,53 @@ Namespace pepeizq.Tiendas
 
                             Dim descuento As String = juegoGOG.Descuento.Trim + "%"
 
-                            If descuento = "0%" Then
-                                descuento = Nothing
-                            End If
-
                             If titulo.Contains("Soundtrack") Then
-                                descuento = Nothing
+                                descuento = "00%"
                             End If
 
-                            If Not descuento = Nothing Then
-                                If descuento.Length = 2 Then
-                                    descuento = "0" + descuento
+                            If descuento.Length = 2 Then
+                                descuento = "0" + descuento
+                            End If
+
+                            Dim windows As Boolean = False
+
+                            If juegoGOG.Windows = "1" Then
+                                windows = True
+                            End If
+
+                            Dim mac As Boolean = False
+
+                            If juegoGOG.Mac = "1" Then
+                                mac = True
+                            End If
+
+                            Dim linux As Boolean = False
+
+                            If juegoGOG.Linux = "1" Then
+                                linux = True
+                            End If
+
+                            Dim sistemas As New JuegoSistemas(windows, mac, linux)
+
+                            Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+
+                            Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoGOG.Publisher}, Nothing)
+
+                            Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+
+                            Dim añadir As Boolean = True
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Enlace = juego.Enlace Then
+                                    añadir = False
                                 End If
+                                k += 1
+                            End While
 
-                                Dim windows As Boolean = False
+                            If añadir = True Then
+                                juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
-                                If juegoGOG.Windows = "1" Then
-                                    windows = True
-                                End If
-
-                                Dim mac As Boolean = False
-
-                                If juegoGOG.Mac = "1" Then
-                                    mac = True
-                                End If
-
-                                Dim linux As Boolean = False
-
-                                If juegoGOG.Linux = "1" Then
-                                    linux = True
-                                End If
-
-                                Dim sistemas As New JuegoSistemas(windows, mac, linux)
-
-                                Dim ana As JuegoAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                                Dim desarrolladores As New JuegoDesarrolladores(New List(Of String) From {juegoGOG.Publisher}, Nothing)
-
-                                Dim juego As New Juego(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
-
-                                Dim tituloBool As Boolean = False
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Titulo = juego.Titulo Then
-                                        tituloBool = True
-                                    End If
-                                    k += 1
-                                End While
-
-                                If juego.Descuento = Nothing Then
-                                    tituloBool = True
-                                End If
-
-                                If tituloBool = False Then
-                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
-
-                                    listaJuegos.Add(juego)
-                                End If
+                                listaJuegos.Add(juego)
                             End If
                         Next
                     End If

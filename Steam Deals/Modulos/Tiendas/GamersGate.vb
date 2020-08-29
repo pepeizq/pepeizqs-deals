@@ -1,8 +1,6 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.Storage
-
 Namespace pepeizq.Tiendas
     Module GamersGate
 
@@ -231,10 +229,6 @@ Namespace pepeizq.Tiendas
                             descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                         End If
 
-                        If descuento = "00%" Then
-                            descuento = Nothing
-                        End If
-
                         Dim juegoFinal As New Juego(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
                         Dim añadir As Boolean = True
@@ -245,10 +239,6 @@ Namespace pepeizq.Tiendas
                             End If
                             k += 1
                         End While
-
-                        If juegoFinal.Descuento = Nothing Then
-                            añadir = False
-                        End If
 
                         If añadir = True Then
                             juegoFinal.Precio = Ordenar.PrecioPreparar(juegoFinal.Precio)

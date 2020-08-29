@@ -70,10 +70,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
-            Dim listaCupones As New List(Of TiendaCupon)
+            Dim cupones As New List(Of TiendaCupon)
 
             If Await helper.FileExistsAsync("cupones") = True Then
-                listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+                cupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+            End If
+
+            Dim cuponesReservas As New List(Of TiendaCupon)
+
+            If Await helper.FileExistsAsync("cuponesReservas") = True Then
+                cuponesReservas = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cuponesReservas")
             End If
 
             Dim tbTituloAlternativo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
@@ -135,12 +141,23 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         For Each tienda In listaTiendas
                             Dim añadido As Boolean = False
+                            Dim cupon As String = String.Empty
+
+                            If cupones.Count > 0 Then
+                                For Each subcupon In cupones
+                                    If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
+                                        If Not subcupon.Codigo = Nothing Then
+                                            cupon = subcupon.Codigo
+                                        End If
+                                    End If
+                                Next
+                            End If
 
                             If tienda.NombreUsar = "Steam" Then
                                 Dim precio As String = datos.Datos.Precio.Formateado
                                 precio = precio.Replace("€", " €")
 
-                                GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", precio, listaCupones)
+                                GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", precio, Nothing)
                                 añadido = True
                             End If
 
@@ -152,13 +169,41 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 For Each juego In listaJuegos
+                                    If cupon = String.Empty Then
+                                        If juego.Descuento = Nothing Or juego.Descuento = "0%" Or juego.Descuento = "00%" Then
+                                            If cuponesReservas.Count > 0 Then
+                                                For Each subcupon In cuponesReservas
+                                                    If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
+                                                        If Not subcupon.Codigo = Nothing Then
+                                                            cupon = subcupon.Codigo
+
+                                                            Dim cuponPorcentaje As String = String.Empty
+                                                            cuponPorcentaje = subcupon.Porcentaje
+                                                            cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                                                            cuponPorcentaje = cuponPorcentaje.Trim
+
+                                                            If cuponPorcentaje.Length = 1 Then
+                                                                cuponPorcentaje = "0,0" + cuponPorcentaje
+                                                            Else
+                                                                cuponPorcentaje = "0," + cuponPorcentaje
+                                                            End If
+
+                                                            Dim dprecioEU As Double = Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                                            juego.Precio = Math.Round(dprecioEU, 2).ToString + " €"
+                                                        End If
+                                                    End If
+                                                Next
+                                            End If
+                                        End If
+                                    End If
+
                                     If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
-                                        GenerarXaml(tienda, juego.Enlace, juego.Precio, listaCupones)
+                                        GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
                                         añadido = True
                                     ElseIf Not tituloAlternativo = String.Empty Then
                                         If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
                                             If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
-                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, listaCupones)
+                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
                                                 añadido = True
                                             End If
                                         End If
@@ -167,7 +212,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
 
                             If añadido = False Then
-                                GenerarXaml(tienda, Nothing, Nothing, listaCupones)
+                                GenerarXaml(tienda, Nothing, Nothing, cupon)
                             End If
                         Next
                     End If
@@ -178,6 +223,17 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each tienda In listaTiendas
                         Dim añadido As Boolean = False
+                        Dim cupon As String = String.Empty
+
+                        If cupones.Count > 0 Then
+                            For Each subcupon In cupones
+                                If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
+                                    If Not subcupon.Codigo = Nothing Then
+                                        cupon = subcupon.Codigo
+                                    End If
+                                End If
+                            Next
+                        End If
 
                         Dim listaJuegos As New List(Of Juego)
 
@@ -187,13 +243,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         For Each juego In listaJuegos
                             If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
-                                GenerarXaml(tienda, juego.Enlace, juego.Precio, listaCupones)
+                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
                                 añadido = True
                             End If
                         Next
 
                         If añadido = False Then
-                            GenerarXaml(tienda, Nothing, Nothing, listaCupones)
+                            GenerarXaml(tienda, Nothing, Nothing, cupon)
                         End If
                     Next
                 End If
@@ -217,7 +273,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub GenerarXaml(tienda As Tienda, enlace As String, precio As String, listaCupones As List(Of TiendaCupon))
+        Private Sub GenerarXaml(tienda As Tienda, enlace As String, precio As String, cupon As String)
 
             Dim gridTienda As New Grid With {
                 .Name = "gridNuevoJuegoTienda" + tienda.NombreUsar,
@@ -276,14 +332,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             }
             tbCodigo.SetValue(Grid.ColumnProperty, 2)
 
-            If listaCupones.Count > 0 Then
-                For Each cupon In listaCupones
-                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                        If Not cupon.Codigo = Nothing Then
-                            tbCodigo.Text = cupon.Codigo
-                        End If
-                    End If
-                Next
+            If Not cupon = Nothing Then
+                tbCodigo.Text = cupon
             End If
 
             gridTienda.Children.Add(tbCodigo)
@@ -336,6 +386,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Sub GenerarEntrada(sender As Object, e As RoutedEventArgs)
 
+            BloquearControles(False)
+
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
@@ -386,10 +438,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim helper As New LocalObjectStorageHelper
 
                 Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenes, Nothing, steamID, tbFecha.Text, fechaFinal.ToString, enlaces)
-
-                'Await helper.SaveFileAsync(Of Clases.NuevoJuego)("nuevoJuego" + steamID, nuevoJuego)
-
-                'Notificaciones.Toast("Fichero Creado", titulo)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -465,6 +513,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
             End If
+
+            BloquearControles(True)
 
         End Sub
 
