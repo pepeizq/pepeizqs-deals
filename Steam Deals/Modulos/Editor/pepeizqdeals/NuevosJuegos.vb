@@ -428,7 +428,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     Dim tbEnlace As TextBox = grid.Children(3)
 
-                    Dim nuevoJuegoTienda As New Clases.NuevoJuegoTienda(tienda.NombreUsar, tbPrecio.Text, tbCodigo.Text, tbEnlace.Text)
+                    Dim nuevoJuegoTienda As New Clases.NuevoJuegoTienda(tienda.NombreUsar, Nothing, tbPrecio.Text, tbCodigo.Text, tbEnlace.Text)
 
                     If Not nuevoJuegoTienda.Enlace = Nothing Then
                         enlaces.Add(nuevoJuegoTienda)
@@ -437,7 +437,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenes, Nothing, steamID, tbFecha.Text, fechaFinal.ToString, enlaces)
+                Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenes, Nothing, steamID, Nothing, tbFecha.Text, fechaFinal.ToString, enlaces)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -580,6 +580,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                 actualizar = True
                                             End If
 
+                                            juegoBBDD.Descuento = juego2.Descuento
                                             juegoBBDD.Precio = juego2.Precio
 
                                             If listaCupones.Count > 0 Then
@@ -617,7 +618,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                     Next
                                                 End If
 
-                                                Dim juegoBBDD As New Clases.NuevoJuegoTienda(tienda.NombreUsar, juego2.Precio, codigo, juego2.Enlace)
+                                                Dim juegoBBDD As New Clases.NuevoJuegoTienda(tienda.NombreUsar, juego2.Descuento, juego2.Precio, codigo, juego2.Enlace)
                                                 juego.Enlaces.Add(juegoBBDD)
                                                 actualizar = True
                                             End If
@@ -637,7 +638,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
                                 postNuevo2.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
                                                       "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
-                                'postNuevo2.ImagenFeatured = juego.ImagenJuego
                                 postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                                 postNuevo2.FechaTermina = juego.FechaTermina
 
