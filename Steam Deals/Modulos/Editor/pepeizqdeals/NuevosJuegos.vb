@@ -437,7 +437,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.NuevoJuego(titulo, imagenes, Nothing, steamID, Nothing, tbFecha.Text, fechaFinal.ToString, enlaces)
+                Dim nuevoJuego As New Clases.NuevoJuego(titulo, Nothing, imagenes, Nothing, steamID, Nothing, tbFecha.Text, fechaFinal.ToString, enlaces)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -469,7 +469,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim resultado As Clases.Post = Nothing
 
                     Try
-                        resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/posts", postNuevo2)
+                        resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio", postNuevo2)
                     Catch ex As Exception
 
                     End Try
@@ -481,35 +481,35 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         Await helper.SaveFileAsync(Of Clases.NuevoJuego)("nuevoJuego" + steamID, nuevoJuego)
 
-                        Dim enlaceFinal As String = String.Empty
+                        'Dim enlaceFinal As String = String.Empty
 
-                        If Not resultado.Enlace = Nothing Then
-                            enlaceFinal = resultado.Enlace
-                        End If
+                        'If Not resultado.Enlace = Nothing Then
+                        '    enlaceFinal = resultado.Enlace
+                        'End If
 
-                        Try
-                            Await GrupoSteam.Enviar(titulo2, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Grupo Steam Error Post", Nothing)
-                        End Try
+                        'Try
+                        '    Await GrupoSteam.Enviar(titulo2, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                        'Catch ex As Exception
+                        '    Notificaciones.Toast("Grupo Steam Error Post", Nothing)
+                        'End Try
 
-                        Try
-                            Await Twitter.Enviar(titulo2, enlaceFinal, imagenUrl.Trim)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Twitter Error Post", Nothing)
-                        End Try
+                        'Try
+                        '    Await Twitter.Enviar(titulo2, enlaceFinal, imagenUrl.Trim)
+                        'Catch ex As Exception
+                        '    Notificaciones.Toast("Twitter Error Post", Nothing)
+                        'End Try
 
-                        Try
-                            Await RedesSociales.Reddit.Enviar(titulo2 + " • Incoming", enlaceFinal, Nothing, categoria, "/r/pepeizqdeals", Nothing, 0)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
-                        End Try
+                        'Try
+                        '    Await RedesSociales.Reddit.Enviar(titulo2 + " • Incoming", enlaceFinal, Nothing, categoria, "/r/pepeizqdeals", Nothing, 0)
+                        'Catch ex As Exception
+                        '    Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
+                        'End Try
 
-                        Try
-                            Await RedesSociales.Discord.Enviar(titulo2, enlaceFinal, categoria, imagenUrl.Trim)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Discord Error Post", Nothing)
-                        End Try
+                        'Try
+                        '    Await RedesSociales.Discord.Enviar(titulo2, enlaceFinal, categoria, imagenUrl.Trim)
+                        'Catch ex As Exception
+                        '    Notificaciones.Toast("Discord Error Post", Nothing)
+                        'End Try
                     End If
                 End If
             End If
@@ -535,7 +535,49 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If fichero.Name.Contains("nuevoJuego") Then
                         Dim juego As Clases.NuevoJuego = Await helper.ReadFileAsync(Of Clases.NuevoJuego)(fichero.Name)
 
-                        If Not juego.PostID = Nothing Then
+                        If juego.PostID = Nothing Then
+                            Dim titulo2 As String = juego.Titulo + " • Available stores where to buy the game"
+                            Dim categoria As Integer = 1258
+
+                            Dim postNuevo As New Models.Post With {
+                                .Title = New Models.Title(titulo2),
+                                .Slug = juego.Titulo,
+                                .Categories = New Integer() {categoria},
+                                .Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
+                            }
+
+                            Dim postString As String = JsonConvert.SerializeObject(postNuevo)
+
+                            Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
+                            postNuevo2.FechaOriginal = DateTime.Now
+                            postNuevo2.ImagenFeatured = juego.Imagenes.Vertical
+                            postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                            postNuevo2.FechaTermina = juego.FechaTermina
+
+                            postNuevo2.JuegoTitulo = juego.Titulo
+                            postNuevo2.JuegoImagenVertical = juego.Imagenes.Vertical
+                            postNuevo2.JuegoImagenHorizontal = juego.Imagenes.Horizontal
+                            postNuevo2.JuegoFechaLanzamiento = juego.FechaLanzamiento
+                            postNuevo2.JuegoPrecioMinimo = DevolverPrecioMinimo(juego.Enlaces)
+                            postNuevo2.JuegoDRM = juego.DRM
+
+                            Dim resultado As Clases.Post = Nothing
+
+                            Try
+                                resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio", postNuevo2)
+                            Catch ex As Exception
+
+                            End Try
+
+                            If Not resultado Is Nothing Then
+                                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
+
+                                juego.PostID = resultado.Id.ToString
+
+                                Await helper.SaveFileAsync(Of Clases.NuevoJuego)("nuevoJuego" + juego.SteamID, juego)
+                            End If
+
+                        Else
                             Dim fechaTermina As Date = Nothing
 
                             Try
@@ -641,7 +683,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                                 postNuevo2.FechaTermina = juego.FechaTermina
 
-                                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + juego.PostID, postNuevo2)
+                                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, postNuevo2)
 
                                 Notificaciones.Toast("Actualizado", juego.Titulo)
                             End If
@@ -714,6 +756,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                    juego.FechaLanzamiento + "</span></div>[/vc_column_text][/vc_column][/vc_row]"
 
             Return html
+
+        End Function
+
+        Private Function DevolverPrecioMinimo(enlaces As List(Of Clases.NuevoJuegoTienda))
+
+            enlaces.Sort(Function(x As Clases.NuevoJuegoTienda, y As Clases.NuevoJuegoTienda)
+                             Dim resultado As Integer = x.Precio.CompareTo(y.Precio)
+                             Return resultado
+                         End Function)
+
+            Return enlaces(0).Precio
 
         End Function
 

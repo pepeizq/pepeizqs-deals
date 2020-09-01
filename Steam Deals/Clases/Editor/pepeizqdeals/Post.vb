@@ -62,6 +62,8 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("liveblog_likes")>
         Public Likes As Integer
 
+        '-------------------------------------------
+
         <JsonProperty("redirect")>
         Public Redireccion As String
 
@@ -71,10 +73,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("fifu_image_url")>
         Public ImagenFeatured As String
 
-        <JsonProperty("imagen_v2")>
+        <JsonProperty("image_v2")>
         Public Imagenv2 As String
 
-        <JsonProperty("imagen_v2_anuncios")>
+        <JsonProperty("image_v2_announcements")>
         Public Imagenv2Anuncios As String
 
         <JsonProperty("discount")>
@@ -83,10 +85,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("price")>
         Public Precio As String
 
-        <JsonProperty("tienda_nombre")>
+        <JsonProperty("store_name")>
         Public TiendaNombre As String
 
-        <JsonProperty("storeicon")>
+        <JsonProperty("store_icon")>
         Public TiendaIcono As String
 
         <JsonProperty("title2")>
@@ -98,8 +100,28 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("review2")>
         Public ReviewPuntuacion As String
 
-        <JsonProperty("dateends")>
+        <JsonProperty("date_ends")>
         Public FechaTermina As String
+
+        '-------------------------------------------
+
+        <JsonProperty("game_title")>
+        Public JuegoTitulo As String
+
+        <JsonProperty("game_image_vertical")>
+        Public JuegoImagenVertical As String
+
+        <JsonProperty("game_image_horizontal")>
+        Public JuegoImagenHorizontal As String
+
+        <JsonProperty("game_date_release")>
+        Public JuegoFechaLanzamiento As String
+
+        <JsonProperty("game_price_lowest")>
+        Public JuegoPrecioMinimo As String
+
+        <JsonProperty("game_drm")>
+        Public JuegoDRM As String
 
     End Class
 End Namespace
