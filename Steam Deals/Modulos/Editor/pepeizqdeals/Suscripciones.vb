@@ -129,6 +129,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = "Amazon"
                 cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/08/tienda_amazon.jpg"
+                cosas.Enlace = Referidos.Generar("https://gaming.amazon.com/")
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)

@@ -98,7 +98,7 @@ Public NotInheritable Class MainPage
         pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
         pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
         pepeizq.Editor.pepeizqdeals.NuevosJuegos.Cargar()
-        'pepeizq.Editor.pepeizqdeals.NuevosJuegos.ActualizarJuegos()
+        pepeizq.Editor.pepeizqdeals.NuevosJuegos.ActualizarJuegos()
         pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()
         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
         pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Cargar()
@@ -451,13 +451,6 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGenerarImagenAnuncios_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenAnuncios.Click
-
-        Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGenerarImagenNuevosJuegos_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenNuevosJuegos.Click
 
         Dim boton As Button = sender
         pepeizq.Editor.ImagenFichero.Exportar(boton)

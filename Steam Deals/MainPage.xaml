@@ -916,6 +916,9 @@
 
                                     <TextBlock Text="Titulo Alternativo:" Margin="30,0,0,0" VerticalAlignment="Center"/>
                                     <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosTituloAlternativo" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
+
+                                    <TextBlock Text="DRM:" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="cbEditorpepeizqdealsNuevosJuegosDRMs" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
                                 </StackPanel>
 
                                 <Grid Margin="0,30,0,0">
@@ -958,55 +961,6 @@
                                 </Grid>
 
                                 <StackPanel x:Name="spEditorpepeizqdealsNuevosJuegosTiendas" Orientation="Vertical" Margin="0,30,0,0"/>
-
-                                <Button x:Name="botonEditorpepeizqdealsGenerarImagenNuevosJuegos" Margin="0,30,0,0" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
-                                    <Button.Resources>
-                                        <ResourceDictionary>
-                                            <ResourceDictionary.ThemeDictionaries>
-                                                <ResourceDictionary x:Key="Light">
-                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
-                                                </ResourceDictionary>
-                                            </ResourceDictionary.ThemeDictionaries>
-                                        </ResourceDictionary>
-                                    </Button.Resources>
-
-                                    <Button.Content>
-                                        <Grid Width="740">
-                                            <Grid.Background>
-                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                    <GradientStop Color="#003553" Offset="0.5" />
-                                                    <GradientStop Color="#001c2c" Offset="1.0" />
-                                                </LinearGradientBrush>
-                                            </Grid.Background>
-
-                                            <Grid Padding="40,40,40,30">
-                                                <Grid.Background>
-                                                    <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenNuevosJuegos" Stretch="UniformToFill" Opacity="0.8"/>
-                                                </Grid.Background>
-
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-
-                                                <controls:DropShadowPanel Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <controls:ImageEx x:Name="imagenEditorpepeizqdealsImagenEntradaNuevosJuegos" IsCacheEnabled="True" MaxWidth="400"/>
-                                                </controls:DropShadowPanel>
-
-                                                <TextBlock Grid.Row="1" Foreground="White" Margin="0,40" FontSize="26" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" Text="Available stores where to buy the game"/>
-
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaNuevosJuegosTiendas" Grid.Row="2" HorizontalAlignment="Center" DesiredWidth="200">
-                                                    <GridView.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
-                                                        </ItemsPanelTemplate>
-                                                    </GridView.ItemsPanel>
-                                                </controls:AdaptiveGridView>
-                                            </Grid>                                                                                                                                  
-                                        </Grid> 
-                                    </Button.Content> 
-                                </Button> 
                             </StackPanel>                            
                         </ScrollViewer> 
 

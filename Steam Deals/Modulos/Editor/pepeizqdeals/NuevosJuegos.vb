@@ -1,7 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 Imports Windows.Storage
 Imports Windows.System
 Imports WordPressPCL
@@ -26,15 +25,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbBuscar.TextChanged, AddressOf HabilitarBotonBuscar
             AddHandler tbBuscar.TextChanged, AddressOf HabilitarBotonBuscar
 
+            Dim cbDRMs As ComboBox = pagina.FindName("cbEditorpepeizqdealsNuevosJuegosDRMs")
+            cbDRMs.Items.Clear()
+            cbDRMs.Items.Add("Steam")
+            cbDRMs.Items.Add("Battle.net")
+
             Dim tbImagenVertical As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenVertical")
 
             RemoveHandler tbImagenVertical.TextChanged, AddressOf ImagenVertical
             AddHandler tbImagenVertical.TextChanged, AddressOf ImagenVertical
-
-            Dim tbImagenHorizontal As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenHorizontal")
-
-            RemoveHandler tbImagenHorizontal.TextChanged, AddressOf ImagenHorizontal
-            AddHandler tbImagenHorizontal.TextChanged, AddressOf ImagenHorizontal
 
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
 
@@ -351,9 +350,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbEnlace.Text = enlace
             End If
 
-            RemoveHandler tbEnlace.TextChanged, AddressOf MostrarGridViewBoton
-            AddHandler tbEnlace.TextChanged, AddressOf MostrarGridViewBoton
-
             gridTienda.Children.Add(tbEnlace)
 
             '---------------------------
@@ -404,6 +400,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim imagenes As New Clases.NuevoJuegoImagenes(tbImagenVertical.Text.Trim, tbImagenHorizontal.Text.Trim)
 
+                Dim cbDRMs As ComboBox = pagina.FindName("cbEditorpepeizqdealsNuevosJuegosDRMs")
+                Dim drm As String = cbDRMs.SelectedValue.ToString
+
                 Dim tbFecha As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
 
                 Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsNuevosJuegos")
@@ -437,7 +436,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.NuevoJuego(titulo, Nothing, imagenes, Nothing, steamID, Nothing, tbFecha.Text, fechaFinal.ToString, enlaces)
+                Dim nuevoJuego As New Clases.NuevoJuego(titulo, Nothing, imagenes, Nothing, steamID, drm, tbFecha.Text, fechaFinal.ToString, enlaces)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -450,11 +449,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim imagenUrl As String = Await SubirImagen(botonImagen, "NuevoJuego", cliente)
 
                     Dim titulo2 As String = nuevoJuego.Titulo + " • Available stores where to buy the game"
-                    Dim categoria As Integer = 1258
 
                     Dim postNuevo As New Models.Post With {
                         .Title = New Models.Title(titulo2),
-                        .Categories = New Integer() {categoria},
+                        .Slug = nuevoJuego.Titulo,
                         .Content = New Models.Content(GenerarHtmlEntrada(nuevoJuego, nuevoJuego.Enlaces))
                     }
 
@@ -462,9 +460,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
                     postNuevo2.FechaOriginal = DateTime.Now
-                    postNuevo2.ImagenFeatured = imagenUrl
+                    postNuevo2.ImagenFeatured = nuevoJuego.Imagenes.Vertical
                     postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + nuevoJuego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                     postNuevo2.FechaTermina = nuevoJuego.FechaTermina
+
+                    postNuevo2.JuegoTitulo = nuevoJuego.Titulo
+                    postNuevo2.JuegoImagenVertical = nuevoJuego.Imagenes.Vertical
+                    postNuevo2.JuegoImagenHorizontal = "<img src=" + ChrW(34) + nuevoJuego.Imagenes.Horizontal + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                    postNuevo2.JuegoFechaLanzamiento = nuevoJuego.FechaLanzamiento
+                    postNuevo2.JuegoPrecioMinimo = DevolverPrecioMinimo(nuevoJuego.Enlaces)
+                    postNuevo2.JuegoDRM = DevolverDRM(nuevoJuego.DRM)
 
                     Dim resultado As Clases.Post = Nothing
 
@@ -480,36 +485,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                         nuevoJuego.PostID = resultado.Id.ToString
 
                         Await helper.SaveFileAsync(Of Clases.NuevoJuego)("nuevoJuego" + steamID, nuevoJuego)
-
-                        'Dim enlaceFinal As String = String.Empty
-
-                        'If Not resultado.Enlace = Nothing Then
-                        '    enlaceFinal = resultado.Enlace
-                        'End If
-
-                        'Try
-                        '    Await GrupoSteam.Enviar(titulo2, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
-                        'Catch ex As Exception
-                        '    Notificaciones.Toast("Grupo Steam Error Post", Nothing)
-                        'End Try
-
-                        'Try
-                        '    Await Twitter.Enviar(titulo2, enlaceFinal, imagenUrl.Trim)
-                        'Catch ex As Exception
-                        '    Notificaciones.Toast("Twitter Error Post", Nothing)
-                        'End Try
-
-                        'Try
-                        '    Await RedesSociales.Reddit.Enviar(titulo2 + " • Incoming", enlaceFinal, Nothing, categoria, "/r/pepeizqdeals", Nothing, 0)
-                        'Catch ex As Exception
-                        '    Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
-                        'End Try
-
-                        'Try
-                        '    Await RedesSociales.Discord.Enviar(titulo2, enlaceFinal, categoria, imagenUrl.Trim)
-                        'Catch ex As Exception
-                        '    Notificaciones.Toast("Discord Error Post", Nothing)
-                        'End Try
                     End If
                 End If
             End If
@@ -531,18 +506,18 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
+                Dim entradas As List(Of Clases.Post) = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/us_portfolio/?per_page=100")
+
                 For Each fichero As StorageFile In Await carpeta.GetFilesAsync
                     If fichero.Name.Contains("nuevoJuego") Then
                         Dim juego As Clases.NuevoJuego = Await helper.ReadFileAsync(Of Clases.NuevoJuego)(fichero.Name)
 
                         If juego.PostID = Nothing Then
                             Dim titulo2 As String = juego.Titulo + " • Available stores where to buy the game"
-                            Dim categoria As Integer = 1258
 
                             Dim postNuevo As New Models.Post With {
                                 .Title = New Models.Title(titulo2),
                                 .Slug = juego.Titulo,
-                                .Categories = New Integer() {categoria},
                                 .Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
                             }
 
@@ -556,10 +531,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             postNuevo2.JuegoTitulo = juego.Titulo
                             postNuevo2.JuegoImagenVertical = juego.Imagenes.Vertical
-                            postNuevo2.JuegoImagenHorizontal = juego.Imagenes.Horizontal
+                            postNuevo2.JuegoImagenHorizontal = "<img src=" + ChrW(34) + juego.Imagenes.Horizontal + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                             postNuevo2.JuegoFechaLanzamiento = juego.FechaLanzamiento
                             postNuevo2.JuegoPrecioMinimo = DevolverPrecioMinimo(juego.Enlaces)
-                            postNuevo2.JuegoDRM = juego.DRM
+                            postNuevo2.JuegoDRM = DevolverDRM(juego.DRM)
 
                             Dim resultado As Clases.Post = Nothing
 
@@ -660,9 +635,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                     Next
                                                 End If
 
-                                                Dim juegoBBDD As New Clases.NuevoJuegoTienda(tienda.NombreUsar, juego2.Descuento, juego2.Precio, codigo, juego2.Enlace)
-                                                juego.Enlaces.Add(juegoBBDD)
-                                                actualizar = True
+                                                Dim añadir2 As Boolean = True
+
+                                                For Each enlace In juego.Enlaces
+                                                    If tienda.NombreUsar = enlace.NombreUsar Then
+                                                        añadir2 = False
+                                                    End If
+                                                Next
+
+                                                If añadir2 = True Then
+                                                    Dim juegoBBDD As New Clases.NuevoJuegoTienda(tienda.NombreUsar, juego2.Descuento, juego2.Precio, codigo, juego2.Enlace)
+                                                    juego.Enlaces.Add(juegoBBDD)
+                                                    actualizar = True
+                                                End If
                                             End If
                                         End If
                                     End If
@@ -672,20 +657,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                             If actualizar = True Then
                                 Await helper.SaveFileAsync(Of Clases.NuevoJuego)(fichero.Name, juego)
 
-                                Dim entrada As Models.Post = Await cliente.Posts.GetByID(juego.PostID)
-                                entrada.Content = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
+                                For Each entrada In entradas
+                                    If entrada.Id = juego.PostID Then
+                                        entrada.Contenido = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
 
-                                Dim postString As String = JsonConvert.SerializeObject(entrada)
+                                        entrada.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
+                                                                   "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
 
-                                Dim postNuevo2 As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
-                                postNuevo2.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
-                                                      "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
-                                postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + juego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
-                                postNuevo2.FechaTermina = juego.FechaTermina
+                                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, entrada)
 
-                                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, postNuevo2)
-
-                                Notificaciones.Toast("Actualizado", juego.Titulo)
+                                        Notificaciones.Toast("Actualizado", juego.Titulo)
+                                    End If
+                                Next
                             End If
                         End If
                     End If
@@ -749,11 +732,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             Next
 
-            Dim imagen As String = juego.Imagenes.Horizontal
-
-            html = html + "[/vc_column][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) + " sticky=" + ChrW(34) + "1" + ChrW(34) + "][vc_column_text]<img style=" + ChrW(34) + "display: block; margin-left: auto; margin-right: auto; max-height: 300px;" + ChrW(34) +
-                   " src=" + ChrW(34) + imagen + ChrW(34) + " /><div style=" + ChrW(34) + "text-align: center; color: white; font-size: 17px;" + ChrW(34) + "><span style=" + ChrW(34) + "display: block;margin-bottom:5px;" + ChrW(34) + ">Release Date</span><span style=" + ChrW(34) + "display: block;" + ChrW(34) + ">" +
-                   juego.FechaLanzamiento + "</span></div>[/vc_column_text][/vc_column][/vc_row]"
+            html = html + "[/vc_column][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) + " sticky=" + ChrW(34) + "1" + ChrW(34) + "][us_post_custom_field key=" +
+                   ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_image_horizontal" + ChrW(34) + "][us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) +
+                   " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "30px" + ChrW(34) + " el_class=" + ChrW(34) + "tope" + ChrW(34) +
+                   "][us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_date_release" + ChrW(34) + " text_before=" + ChrW(34) +
+                   "Release Date<br/>" + ChrW(34) + "][us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_drm" + ChrW(34) +
+                   "][/us_hwrapper][/vc_column][/vc_row]"
 
             Return html
 
@@ -767,6 +751,26 @@ Namespace pepeizq.Editor.pepeizqdeals
                          End Function)
 
             Return enlaces(0).Precio
+
+        End Function
+
+        Private Function DevolverDRM(drm As String)
+
+            Dim icono As String = String.Empty
+
+            If Not drm = Nothing Then
+                If drm.ToLower.Contains("steam") Then
+                    icono = "steam"
+                ElseIf drm.ToLower.Contains("battle") Then
+                    icono = "battle-net"
+                End If
+            End If
+
+            If Not icono = String.Empty Then
+                icono = "<i class=" + ChrW(34) + "fab fa-" + icono + ChrW(34) + " style=" + ChrW(34) + "font-size:32px" + ChrW(34) + "><span></span></i>"
+            End If
+
+            Return icono
 
         End Function
 
@@ -784,55 +788,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Catch ex As Exception
 
             End Try
-
-        End Sub
-
-        Private Sub ImagenHorizontal(sender As Object, e As TextChangedEventArgs)
-
-            Dim tb As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaNuevosJuegos")
-
-            Try
-                imagen.Source = tb.Text.Trim
-            Catch ex As Exception
-
-            End Try
-
-        End Sub
-
-        Private Sub MostrarGridViewBoton(sender As Object, e As TextChangedEventArgs)
-
-            Dim tb As TextBox = sender
-
-            If tb.Text.Trim.Length > 0 Then
-                If tb.Text.Contains("http://") Or tb.Text.Contains("https://") Then
-                    Dim tienda As Tienda = tb.Tag
-
-                    Dim frame As Frame = Window.Current.Content
-                    Dim pagina As Page = frame.Content
-
-                    Dim gvTiendas As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaNuevosJuegosTiendas")
-                    gvTiendas.Items.Clear()
-
-                    Dim listaTiendasImagenes As List(Of ImageEx) = gvTiendas.Tag
-
-                    For Each tiendaImagen In listaTiendasImagenes
-                        Dim subTienda As Tienda = tiendaImagen.Tag
-
-                        If tienda.NombreUsar = subTienda.NombreUsar Then
-                            tiendaImagen.Visibility = Visibility.Visible
-                        End If
-
-                        If tiendaImagen.Visibility = Visibility.Visible Then
-                            gvTiendas.Items.Add(tiendaImagen)
-                        End If
-                    Next
-                End If
-            End If
 
         End Sub
 
@@ -876,6 +831,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbTituloAlternativo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
             tbTituloAlternativo.IsEnabled = estado
+
+            Dim cbDRMs As ComboBox = pagina.FindName("cbEditorpepeizqdealsNuevosJuegosDRMs")
+            cbDRMs.IsEnabled = estado
 
             '------------------------------------------
 
