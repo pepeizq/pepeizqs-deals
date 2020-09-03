@@ -1,7 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
-Imports Steam_Deals.pepeizq.Tiendas
+Imports Steam_Deals.pepeizq.Ofertas
 
 Namespace pepeizq.Suscripciones
     Module OriginBasic

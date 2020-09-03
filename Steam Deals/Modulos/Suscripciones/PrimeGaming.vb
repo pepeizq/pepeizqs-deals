@@ -57,7 +57,7 @@ Namespace pepeizq.Suscripciones
                         temp = html.Remove(0, int + 1)
                         temp = temp.Remove(temp.Length - 1, 1)
 
-                        Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                        Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
 
                         Dim idBool As Boolean = False
                         Dim k As Integer = 0

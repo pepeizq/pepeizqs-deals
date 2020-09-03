@@ -73,7 +73,7 @@ Namespace pepeizq.Suscripciones
                                         temp = htmlID.Remove(0, int + 1)
                                         temp = temp.Remove(temp.Length - 1, 1)
 
-                                        Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                                        Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
 
                                         Dim video As String = Nothing
 

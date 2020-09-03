@@ -3,7 +3,7 @@ Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Gratis
-Imports Steam_Deals.pepeizq.Tiendas
+Imports Steam_Deals.pepeizq.Ofertas
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Free
@@ -343,8 +343,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not html = Nothing Then
                     Dim stream As New StringReader(html)
-                    Dim xml As New XmlSerializer(GetType(Tiendas.GOGCatalogo))
-                    Dim listaJuegosGOG As Tiendas.GOGCatalogo = xml.Deserialize(stream)
+                    Dim xml As New XmlSerializer(GetType(Ofertas.GOGCatalogo))
+                    Dim listaJuegosGOG As Ofertas.GOGCatalogo = xml.Deserialize(stream)
 
                     If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
                         Exit While

@@ -8,8 +8,8 @@ Namespace pepeizq.Interfaz
             If Not item Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("filtrado") Is Nothing Then
                     If ApplicationData.Current.LocalSettings.Values("filtrado") = 1 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Porcentaje > 49 Then
@@ -21,8 +21,8 @@ Namespace pepeizq.Interfaz
                             End If
                         End If
                     ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 2 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Porcentaje > 74 Then
@@ -34,8 +34,8 @@ Namespace pepeizq.Interfaz
                             End If
                         End If
                     ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 3 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Porcentaje > 79 Then
@@ -47,8 +47,8 @@ Namespace pepeizq.Interfaz
                             End If
                         End If
                     ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 4 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Porcentaje > 84 Then
@@ -60,8 +60,8 @@ Namespace pepeizq.Interfaz
                             End If
                         End If
                     ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 5 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Porcentaje > 89 Then
@@ -73,8 +73,8 @@ Namespace pepeizq.Interfaz
                             End If
                         End If
                     ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 6 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Cantidad.Length > 2 Then
@@ -94,8 +94,8 @@ Namespace pepeizq.Interfaz
                             End If
                         End If
                     ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 7 Then
-                        If TypeOf item.Tag Is Juego Then
-                            Dim juego As Juego = item.Tag
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
                                 If juego.Analisis.Cantidad.Length > 4 Then
@@ -121,8 +121,8 @@ Namespace pepeizq.Interfaz
                         Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
 
                         If Not cbDesarrolladores.SelectedIndex = 0 Then
-                            If TypeOf item.Tag Is Juego Then
-                                Dim juego As Juego = item.Tag
+                            If TypeOf item.Tag Is Oferta Then
+                                Dim juego As Oferta = item.Tag
 
                                 If Not juego.Desarrolladores Is Nothing Then
                                     If juego.Desarrolladores.Desarrolladores.Count > 0 Then
@@ -151,7 +151,7 @@ Namespace pepeizq.Interfaz
                                 End If
                             End If
                         Else
-                            Dim juego As Juego = item.Tag
+                            Dim juego As Oferta = item.Tag
                             Dim añadirCheck As Boolean = True
 
                             If FiltrarTiendas(juego) = False Then
@@ -176,7 +176,7 @@ Namespace pepeizq.Interfaz
 
         End Sub
 
-        Private Function FiltrarTiendas(juego As Juego)
+        Private Function FiltrarTiendas(juego As Oferta)
 
             Dim añadir As Boolean = True
 

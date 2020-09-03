@@ -138,11 +138,11 @@ Module Configuracion
 
         ApplicationData.Current.LocalSettings.Values("analisis") = estado
 
-        Dim listaAnalisis As New List(Of JuegoAnalisis)
+        Dim listaAnalisis As New List(Of OfertaAnalisis)
         Dim helper As New LocalObjectStorageHelper
 
         If Await helper.FileExistsAsync("listaAnalisis") Then
-            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
         End If
 
         If estado = True Then

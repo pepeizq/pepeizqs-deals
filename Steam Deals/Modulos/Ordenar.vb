@@ -37,18 +37,18 @@ Module Ordenar
             lv.IsEnabled = False
 
             Dim helper As New LocalObjectStorageHelper
-            Dim listaJuegos As New List(Of Juego)
-            Dim listaUltimasOfertas As New List(Of Juego)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaUltimasOfertas As New List(Of Oferta)
             Dim listaDesarrolladores As New List(Of String)
 
             If buscar = True Then
                 If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
-                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertas" + tienda.NombreUsar)
+                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
                 End If
             Else
                 If cargarUltimas = True Then
                     If Await helper.FileExistsAsync("listaUltimasOfertas" + tienda.NombreUsar) = True Then
-                        listaJuegos = Await helper.ReadFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda.NombreUsar)
+                        listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaUltimasOfertas" + tienda.NombreUsar)
                     End If
                 Else
                     For Each item In lv.Items
@@ -59,7 +59,7 @@ Module Ordenar
             End If
 
             If Not listaJuegos Is Nothing Then
-                listaJuegos.Sort(Function(x As Juego, y As Juego)
+                listaJuegos.Sort(Function(x As Oferta, y As Oferta)
                                      Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                      If resultado = 0 Then
                                          resultado = x.Titulo.CompareTo(y.Titulo)
@@ -67,7 +67,7 @@ Module Ordenar
                                      Return resultado
                                  End Function)
 
-                Dim listaJuegosAntigua As New List(Of Juego)
+                Dim listaJuegosAntigua As New List(Of Oferta)
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
@@ -75,7 +75,7 @@ Module Ordenar
                         ComprobacionesTiendas(tienda.NombreMostrar)
 
                         If Await helper.FileExistsAsync("listaOfertasAntigua" + tienda.NombreUsar) = True Then
-                            listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda.NombreUsar)
+                            listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertasAntigua" + tienda.NombreUsar)
                         End If
 
                         Dim boolBorrar As Boolean = False
@@ -109,13 +109,13 @@ Module Ordenar
                     End If
                 End If
 
-                Dim listaGrids As New List(Of Juego)
+                Dim listaGrids As New List(Of Oferta)
 
                 For Each juego In listaJuegos
                     Dim juegoEncontrado As Boolean = False
                     For Each item In lv.Items
                         Dim grid As Grid = item
-                        Dim juegoComparar As Juego = grid.Tag
+                        Dim juegoComparar As Oferta = grid.Tag
 
                         If juegoComparar.Enlace = juego.Enlace Then
                             juegoEncontrado = True
@@ -165,7 +165,7 @@ Module Ordenar
 
                                 If boolAntiguo = False Then
                                     If listaJuegosAntigua Is Nothing Then
-                                        listaJuegosAntigua = New List(Of Juego)
+                                        listaJuegosAntigua = New List(Of Oferta)
                                     End If
 
                                     listaGrids.Add(juego)
@@ -238,11 +238,11 @@ Module Ordenar
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
-                        Await helper.SaveFileAsync(Of List(Of Juego))("listaOfertasAntigua" + tienda.NombreUsar, listaJuegosAntigua)
+                        Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertasAntigua" + tienda.NombreUsar, listaJuegosAntigua)
 
                         If cargarUltimas = False Then
                             If listaUltimasOfertas.Count > 0 Then
-                                Await helper.SaveFileAsync(Of List(Of Juego))("listaUltimasOfertas" + tienda.NombreUsar, listaUltimasOfertas)
+                                Await helper.SaveFileAsync(Of List(Of Oferta))("listaUltimasOfertas" + tienda.NombreUsar, listaUltimasOfertas)
                             End If
                         End If
                     End If

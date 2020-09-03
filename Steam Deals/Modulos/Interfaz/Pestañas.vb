@@ -3,8 +3,8 @@
 
         Public Sub CargarListadoOfertas(lv As ListView)
 
-            Dim listaFinal As New List(Of Juego)
-            Dim listaAnalisis As New List(Of Juego)
+            Dim listaFinal As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of Oferta)
 
             For Each item In lv.Items
                 Dim grid As Grid = item

@@ -338,7 +338,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             Dim textoIDs As String = tbIDs.Text.Trim
 
-            Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+            Dim listaJuegos As New List(Of Ofertas.SteamMasDatos)
 
             Dim i As Integer = 0
             While i < 100
@@ -366,7 +366,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         temp = htmlID.Remove(0, int + 1)
                         temp = temp.Remove(temp.Length - 1, 1)
 
-                        Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                        Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
 
                         If Not datos Is Nothing Then
                             If Not datos.Datos Is Nothing Then
@@ -628,7 +628,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim int3 As Integer = html.IndexOf(",")
                 html = html.Remove(int3, 1)
 
-                Dim juegosFanatical As List(Of Tiendas.FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of Tiendas.FanaticalJuego))(html)
+                Dim juegosFanatical As List(Of Ofertas.FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of Ofertas.FanaticalJuego))(html)
 
                 For Each juegoFanatical In juegosFanatical
                     Dim enlaceJuego As String = juegoFanatical.Enlace
@@ -765,7 +765,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = Await HttpClient(New Uri("https://api.chrono.gg/sale"))
 
             If Not html = Nothing Then
-                Dim juegoChrono As Tiendas.ChronoJuego = JsonConvert.DeserializeObject(Of Tiendas.ChronoJuego)(html)
+                Dim juegoChrono As Ofertas.ChronoJuego = JsonConvert.DeserializeObject(Of Ofertas.ChronoJuego)(html)
 
                 If Not juegoChrono Is Nothing Then
                     Dim titulo As String = juegoChrono.Titulo.Trim
@@ -780,7 +780,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not juegoChrono.DRM Is Nothing Then
                         If juegoChrono.DRM.Count > 0 Then
                             If juegoChrono.DRM(0).Tipo = "steam_app" Then
-                                cosas.Imagen = pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
+                                cosas.Imagen = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + juegoChrono.DRM(0).ID + "/header.jpg"
                             End If
                         End If
                     End If
@@ -851,7 +851,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 
             If Not html = Nothing Then
-                Dim listaJuegosWGS As List(Of Tiendas.WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of Tiendas.WinGameStoreJuego))(html)
+                Dim listaJuegosWGS As List(Of Ofertas.WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of Ofertas.WinGameStoreJuego))(html)
 
                 Dim id As String = enlace
                 id = id.Replace("https://www.wingamestore.com/product/", Nothing)

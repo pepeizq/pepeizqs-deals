@@ -5,7 +5,7 @@ Imports Windows.UI
 Namespace pepeizq.Editor.pepeizqdeals
     Module DealsImagenEntrada
 
-        Public Sub UnJuegoGenerar(enlaceImagenJuego As String, enlaceImagenFondo As String, juego As Juego, precio As String)
+        Public Sub UnJuegoGenerar(enlaceImagenJuego As String, enlaceImagenFondo As String, juego As Oferta, precio As String)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -112,10 +112,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Sub DosJuegosGenerar(juegos As List(Of Juego), cantidadJuegos As Integer)
+        Public Sub DosJuegosGenerar(juegos As List(Of Oferta), cantidadJuegos As Integer)
 
             If juegos.Count > 0 Then
-                juegos.Sort(Function(x As Juego, y As Juego)
+                juegos.Sort(Function(x As Oferta, y As Oferta)
                                 Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                 If resultado = 0 Then
                                     resultado = x.Titulo.CompareTo(y.Titulo)
@@ -176,7 +176,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '--------------------------------------
 
-            Dim listaFinal As New List(Of Juego)
+            Dim listaFinal As New List(Of Oferta)
 
             Dim tiendasHorizontal As New List(Of String) From {
                 "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin", "Direct2Drive"

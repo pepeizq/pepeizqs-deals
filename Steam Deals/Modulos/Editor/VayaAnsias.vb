@@ -1,9 +1,9 @@
 ﻿Namespace pepeizq.Editor
     Module VayaAnsias
 
-        Public Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
+        Public Sub GenerarDatos(listaFinal As List(Of Oferta), cantidadJuegos As String)
 
-            listaFinal.Sort(Function(x As Juego, y As Juego)
+            listaFinal.Sort(Function(x As Oferta, y As Oferta)
                                 Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                 If resultado = 0 Then
                                     resultado = x.Titulo.CompareTo(y.Titulo)

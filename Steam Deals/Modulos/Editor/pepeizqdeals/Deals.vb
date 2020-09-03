@@ -10,7 +10,7 @@ Imports Windows.System
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
 
-        Public Async Sub GenerarDatos(listaFinal As List(Of Juego), listaAnalisis As List(Of Juego), cantidadJuegos As String)
+        Public Async Sub GenerarDatos(listaFinal As List(Of Oferta), listaAnalisis As List(Of Oferta), cantidadJuegos As String)
 
             BloquearControles(False)
             Desarrolladores.GenerarDatos()
@@ -270,7 +270,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Dim int As Integer = fondo.IndexOf("/")
                         fondo = fondo.Remove(int, fondo.Length - int)
 
-                        fondo = pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
+                        fondo = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
 
                         tbImagenFondo.Text = fondo
                     End If
@@ -458,7 +458,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tituloComplemento = tbTituloComplemento.Text.Trim
             End If
 
-            Dim analisis As JuegoAnalisis = Nothing
+            Dim analisis As OfertaAnalisis = Nothing
 
             If cosas.ListaJuegos.Count = 1 Then
                 If Not cosas.ListaJuegos(0).Analisis Is Nothing Then
@@ -483,7 +483,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Function GenerarHtmlTablaJuegos(listaJuegos As List(Of Juego), tbComentario As TextBox, tienda As Tienda)
+        Private Function GenerarHtmlTablaJuegos(listaJuegos As List(Of Oferta), tbComentario As TextBox, tienda As Tienda)
 
             Dim contenido As String = String.Empty
 

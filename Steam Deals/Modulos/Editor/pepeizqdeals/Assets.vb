@@ -296,7 +296,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tb.Text.Trim.Length > 0 Then
                 Dim textoIDs As String = tb.Text.Trim
 
-                Dim listaJuegos As New List(Of Tiendas.SteamMasDatos)
+                Dim listaJuegos As New List(Of Ofertas.SteamMasDatos)
 
                 Dim i As Integer = 0
                 If Not textoIDs.Contains("http") Then
@@ -325,7 +325,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 temp = htmlID.Remove(0, int + 1)
                                 temp = temp.Remove(temp.Length - 1, 1)
 
-                                Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                                Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
 
                                 Dim idBool As Boolean = False
                                 Dim k As Integer = 0
@@ -358,7 +358,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             temp = htmlID.Remove(0, int + 1)
                             temp = temp.Remove(temp.Length - 1, 1)
 
-                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                            Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
 
                             datos.Datos.Imagen = textoIDs
 

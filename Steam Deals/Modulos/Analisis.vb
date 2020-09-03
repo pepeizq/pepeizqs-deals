@@ -5,14 +5,14 @@ Imports Windows.Storage
 Module Analisis
 
     Dim WithEvents Bw As BackgroundWorker
-    Dim listaAnalisis As New List(Of JuegoAnalisis)
+    Dim listaAnalisis As New List(Of OfertaAnalisis)
 
     Public Async Sub Generar()
 
         Dim helper As New LocalObjectStorageHelper
 
         If Await helper.FileExistsAsync("listaAnalisis") Then
-            listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+            listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
         End If
 
         Dim frame As Frame = Window.Current.Content
@@ -38,7 +38,7 @@ Module Analisis
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
-        Dim numPaginas As Integer = pepeizq.Tiendas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
+        Dim numPaginas As Integer = pepeizq.Ofertas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
         Dim i As Integer = 1
         While i < numPaginas
@@ -111,9 +111,9 @@ Module Analisis
 
     End Sub
 
-    Public Function AñadirAnalisis(html As String, lista As List(Of JuegoAnalisis))
+    Public Function AñadirAnalisis(html As String, lista As List(Of OfertaAnalisis))
 
-        Dim analisis As JuegoAnalisis = Nothing
+        Dim analisis As OfertaAnalisis = Nothing
 
         If Not html = Nothing Then
             If html.Contains("data-tooltip-html=") Then
@@ -184,7 +184,7 @@ Module Analisis
 
                 Dim cantidad As String = temp10.Trim
 
-                analisis = New JuegoAnalisis(titulo, porcentaje, cantidad, enlace)
+                analisis = New OfertaAnalisis(titulo, porcentaje, cantidad, enlace)
 
                 Dim tituloBool As Boolean = False
                 Dim k As Integer = 0
@@ -207,7 +207,7 @@ Module Analisis
                     lista.Add(analisis)
 
                     Dim helper As New LocalObjectStorageHelper
-                    helper.SaveFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis", lista)
+                    helper.SaveFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis", lista)
                 End If
             End If
         End If
@@ -216,9 +216,9 @@ Module Analisis
 
     End Function
 
-    Public Function BuscarJuego(titulo As String, lista As List(Of JuegoAnalisis), idSteam As String)
+    Public Function BuscarJuego(titulo As String, lista As List(Of OfertaAnalisis), idSteam As String)
 
-        Dim analisis As JuegoAnalisis = Nothing
+        Dim analisis As OfertaAnalisis = Nothing
 
         titulo = Busqueda.Limpiar(titulo)
 

@@ -171,7 +171,7 @@ Module Tiendas
 
         For Each grid As Grid In gridOfertasTiendas.Children
             If grid.Visibility = Visibility.Visible Then
-                Dim listaJuegos As New List(Of Juego)
+                Dim listaJuegos As New List(Of Oferta)
                 Dim lvTienda As ListView = grid.Children(0)
 
                 For Each item As Grid In lvTienda.Items
@@ -181,7 +181,7 @@ Module Tiendas
                 lvTienda.Items.Clear()
 
                 If menuItem.Tag = 0 Then
-                    listaJuegos.Sort(Function(x As Juego, y As Juego)
+                    listaJuegos.Sort(Function(x As Oferta, y As Oferta)
                                          Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
                                          If resultado = 0 Then
                                              resultado = x.Titulo.CompareTo(y.Titulo)
@@ -191,7 +191,7 @@ Module Tiendas
                 ElseIf menuItem.Tag = 1 Then
                     listaJuegos.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
                 ElseIf menuItem.Tag = 2 Then
-                    listaJuegos.Sort(Function(x As Juego, y As Juego)
+                    listaJuegos.Sort(Function(x As Oferta, y As Oferta)
                                          Dim analisisX As Integer = 0
 
                                          If Not x.Analisis Is Nothing Then
@@ -578,7 +578,7 @@ Module Tiendas
     Private Sub ListaOfertas_ItemClick(sender As Object, e As ItemClickEventArgs)
 
         Dim grid As Grid = e.ClickedItem
-        Dim juego As Juego = grid.Tag
+        Dim juego As Oferta = grid.Tag
 
         Dim sp As StackPanel = grid.Children(0)
         Dim cb As CheckBox = sp.Children(0)
@@ -654,7 +654,7 @@ Module Tiendas
 
         For Each item In lv.Items
             Dim itemGrid As Grid = item
-            Dim juego As Juego = itemGrid.Tag
+            Dim juego As Oferta = itemGrid.Tag
 
             If Not juego.Desarrolladores Is Nothing Then
                 If Not juego.Desarrolladores.Desarrolladores Is Nothing Then
@@ -713,49 +713,49 @@ Module Tiendas
 
             If ultimosResultados = False Then
                 If tienda.NombreUsar = steamT.NombreUsar Then
-                    pepeizq.Tiendas.Steam.BuscarOfertas(steamT)
+                    pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
                 ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-                    pepeizq.Tiendas.GamersGate.BuscarOfertas(gamersgateT)
+                    pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
                 ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
-                    pepeizq.Tiendas.Humble.BuscarOfertas(humbleT)
+                    pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
                 ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
-                    pepeizq.Tiendas.GamesPlanet.BuscarOfertas(gamesplanetT)
+                    pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
                 ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
-                    pepeizq.Tiendas.Fanatical.BuscarOfertas(fanaticalT)
+                    pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
                 ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                    pepeizq.Tiendas.GOG.BuscarOfertas(gogT, False)
+                    pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
                 ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
-                    pepeizq.Tiendas.WinGameStore.BuscarOfertas(wingamestoreT)
+                    pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
                 ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
-                    pepeizq.Tiendas.Nuuvem.BuscarOfertas(nuuvemT)
+                    pepeizq.Ofertas.Nuuvem.BuscarOfertas(nuuvemT)
                 ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
-                    pepeizq.Tiendas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
+                    pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
                 ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                    pepeizq.Tiendas.Chrono.BuscarOfertas(chronoT)
+                    pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
                 ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
-                    pepeizq.Tiendas.Voidu.BuscarOfertas(voiduT)
+                    pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
                 ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
-                    pepeizq.Tiendas.IndieGala.BuscarOfertas(indiegalaT)
+                    pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
                 ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
-                    pepeizq.Tiendas.GreenManGaming.BuscarOfertas(greenmangamingT)
+                    pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
                 ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
-                    pepeizq.Tiendas.AmazonCom.BuscarOfertas(amazoncomT)
+                    pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
                 ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                    pepeizq.Tiendas.AmazonEsFisico.BuscarOfertas(amazonesT)
+                    pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
                 ElseIf tienda.NombreUsar = amazonesT2.NombreUsar Then
-                    pepeizq.Tiendas.AmazonEsDigital.BuscarOfertas(amazonesT2)
+                    pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
                 ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
-                    pepeizq.Tiendas.Yuplay.BuscarOfertas(yuplayT)
+                    pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
                 ElseIf tienda.NombreUsar = originT.NombreUsar Then
-                    pepeizq.Tiendas.Origin.BuscarOfertas(originT)
+                    pepeizq.Ofertas.Origin.BuscarOfertas(originT)
                 ElseIf tienda.NombreUsar = gamebilletT.NombreUsar Then
-                    pepeizq.Tiendas.GameBillet.BuscarOfertas(gamebilletT)
+                    pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
                 ElseIf tienda.NombreUsar = _2gameT.NombreUsar Then
-                    pepeizq.Tiendas._2Game.BuscarOfertas(_2gameT)
+                    pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
                 ElseIf tienda.NombreUsar = blizzardT.NombreUsar Then
-                    pepeizq.Tiendas.BlizzardStore.BuscarOfertas(blizzardT)
+                    pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
                 ElseIf tienda.NombreUsar = direct2driveT.NombreUsar Then
-                    pepeizq.Tiendas.Direct2Drive.BuscarOfertas(direct2driveT)
+                    pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
                 End If
             Else
                 Ordenar.Ofertas(tienda, False, True)
@@ -776,7 +776,7 @@ Module Tiendas
 
     End Sub
 
-    Public Function AñadirOfertaListado(lv As ListView, juego As Juego, enseñarImagen As Boolean)
+    Public Function AñadirOfertaListado(lv As ListView, juego As Oferta, enseñarImagen As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -1236,10 +1236,10 @@ Module Tiendas
 
     Public Sub SeñalarImportantes(lv As ListView)
 
-        Dim listaAnalisis As New List(Of Juego)
+        Dim listaAnalisis As New List(Of Oferta)
 
         For Each grid As Grid In lv.Items
-            Dim juego As Juego = grid.Tag
+            Dim juego As Oferta = grid.Tag
             Dim sp As StackPanel = grid.Children(0)
             Dim cb As CheckBox = sp.Children(0)
 
@@ -1263,7 +1263,7 @@ Module Tiendas
         Next
 
         If listaAnalisis.Count > 0 Then
-            listaAnalisis.Sort(Function(x As Juego, y As Juego)
+            listaAnalisis.Sort(Function(x As Oferta, y As Oferta)
 
                                    Dim xAnalisisCantidad As Integer = 0
 
@@ -1294,7 +1294,7 @@ Module Tiendas
         End If
 
         For Each grid As Grid In lv.Items
-            Dim juegoGrid As Juego = grid.Tag
+            Dim juegoGrid As Oferta = grid.Tag
 
             Dim i As Integer = 0
             While i < listaAnalisis.Count
@@ -1387,7 +1387,7 @@ Module Tiendas
         cbSeleccionados.Visibility = Visibility.Visible
 
         Dim cbAnalisis As CheckBox = sender
-        Dim juego As Juego = cbAnalisis.Tag
+        Dim juego As Oferta = cbAnalisis.Tag
 
         Dim añadir As Boolean = True
 
@@ -1444,7 +1444,7 @@ Module Tiendas
         End If
 
         Dim cbAnalisis As CheckBox = sender
-        Dim juego As Juego = cbAnalisis.Tag
+        Dim juego As Oferta = cbAnalisis.Tag
 
         Dim quitar As Boolean = False
 
@@ -1504,7 +1504,7 @@ Module Tiendas
 
                 For Each item In lv.Items
                     Dim itemGrid As Grid = item
-                    Dim juego As Juego = itemGrid.Tag
+                    Dim juego As Oferta = itemGrid.Tag
 
                     Dim sp As StackPanel = itemGrid.Children(0)
                     Dim cb As CheckBox = sp.Children(0)

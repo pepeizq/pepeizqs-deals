@@ -1,7 +1,7 @@
 ﻿Namespace pepeizq.Editor
     Module Reddit
 
-        Public Sub GenerarDatos(listaFinal As List(Of Juego), cantidadJuegos As String)
+        Public Sub GenerarDatos(listaFinal As List(Of Oferta), cantidadJuegos As String)
 
             Dim recursos As New Resources.ResourceLoader()
 
@@ -34,7 +34,7 @@
 
         End Sub
 
-        Public Function GenerarTexto(listaFinal As List(Of Juego))
+        Public Function GenerarTexto(listaFinal As List(Of Oferta))
 
             Dim contenidoEnlaces As String = String.Empty
 

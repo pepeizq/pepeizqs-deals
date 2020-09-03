@@ -7,12 +7,12 @@ Namespace pepeizq.Suscripciones
 
         Public Async Sub Generar(tiendaSuscripcion As String, enlaceSuscripcion As String, imagenSuscripcion As String, listaJuegos As List(Of JuegoSuscripcion), titulo As Boolean)
 
-            Dim listaAnalisis As New List(Of JuegoAnalisis)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
 
             Dim helper As New LocalObjectStorageHelper
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoAnalisis))("listaAnalisis")
+                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
             End If
 
             Dim frame As Frame = Window.Current.Content
@@ -68,7 +68,7 @@ Namespace pepeizq.Suscripciones
                         html = html + "[us_vwrapper alignment=" + ChrW(34) + "center" + ChrW(34) + " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "20px" + ChrW(34) + "]"
                         html = html + "[vc_column_text]<div class=" + ChrW(34) + "suscripcionesJuegoTitulo" + ChrW(34) + "><a style=" + ChrW(34) + "color: white;" + ChrW(34) + " href=" + ChrW(34) + juego.Enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + ">" + juego.Titulo + "</a></div>[/vc_column_text]"
 
-                        Dim ana As JuegoAnalisis = Analisis.BuscarJuego(juego.Titulo, listaAnalisis, juego.ID)
+                        Dim ana As OfertaAnalisis = Analisis.BuscarJuego(juego.Titulo, listaAnalisis, juego.ID)
 
                         If Not ana Is Nothing Then
                             If ana.Porcentaje > 74 Then
@@ -119,7 +119,7 @@ Namespace pepeizq.Suscripciones
                                     temp3 = htmlBuscar.Remove(0, int3 + 1)
                                     temp3 = temp3.Remove(temp3.Length - 1, 1)
 
-                                    Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp3)
+                                    Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp3)
 
                                     If Not datos.Datos.Videos Is Nothing Then
                                         video = datos.Datos.Videos(0).Calidad.Max

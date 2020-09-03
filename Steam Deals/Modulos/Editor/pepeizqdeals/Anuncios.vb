@@ -230,7 +230,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             temp = htmlID.Remove(0, int + 1)
                             temp = temp.Remove(temp.Length - 1, 1)
 
-                            Dim datos As Tiendas.SteamMasDatos = JsonConvert.DeserializeObject(Of Tiendas.SteamMasDatos)(temp)
+                            Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
 
                             If Not datos Is Nothing Then
                                 If Not datos.Datos Is Nothing Then
@@ -252,7 +252,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If imagen.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
                     imagen = imagen.Replace("header", "library_600x900")
-                ElseIf imagen.Contains(pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/") Then
+                ElseIf imagen.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
                     imagen = imagen.Replace("header", "library_600x900")
                 End If
 

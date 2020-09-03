@@ -15,7 +15,7 @@ Namespace pepeizq.Editor.pepeizqdeals
         Public Async Function Enviar(titulo As String, tituloTwitter As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
                                      descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
                                      redireccion As String, imagen As Button, tituloComplemento As String,
-                                     analisis As JuegoAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Juego), comentario As String) As Task
+                                     analisis As OfertaAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Oferta), comentario As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT

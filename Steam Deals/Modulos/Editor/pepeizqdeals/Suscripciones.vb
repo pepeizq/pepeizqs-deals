@@ -332,7 +332,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If enlace.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
                         enlace = enlace.Replace("header", "library_600x900")
-                    ElseIf enlace.Contains(pepeizq.Tiendas.Steam.dominioImagenes + "/steam/apps/") Then
+                    ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
                         enlace = enlace.Replace("header", "library_600x900")
                     End If
 
