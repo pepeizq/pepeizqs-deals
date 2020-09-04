@@ -116,11 +116,20 @@
                             <TextBlock x:Uid="SelectStore2" Margin="0,0,0,10" HorizontalAlignment="Center"/>
                             <GridView x:Name="gvOfertasTiendas" ItemContainerStyle="{StaticResource GridViewEstilo1}" IsItemClickEnabled="True" Margin="50,0,50,0"/>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,30,0,0" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="0,30,0,40" HorizontalAlignment="Center">
                                 <CheckBox x:Name="cbUltimosResultados" Content="Mostrar Últimos Resultados" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                                 <CheckBox x:Name="cbUltimaVisita" Content="Cargar Última Visita" Margin="20,0" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                                 <CheckBox x:Name="cbMostrarImagenes" Content="Mostrar Imágenes" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             </StackPanel>
+
+                            <Button x:Name="botonEditorBuscarTodasOfertas" Background="{StaticResource BrushPrimario}" Padding="15,10" HorizontalAlignment="Center" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:FontAwesome Icon="Search" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock Foreground="White" Text="Buscar Todas Ofertas"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
                     </Grid>
 

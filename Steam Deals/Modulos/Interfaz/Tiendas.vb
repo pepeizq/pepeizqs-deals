@@ -117,6 +117,10 @@ Module Tiendas
         RemoveHandler cbMostrarImagenes.Unchecked, AddressOf CbMostrarImagenesUnChecked
         AddHandler cbMostrarImagenes.Unchecked, AddressOf CbMostrarImagenesUnChecked
 
+        Dim botonBuscarTodasOfertas As Button = pagina.FindName("botonEditorBuscarTodasOfertas")
+        RemoveHandler botonBuscarTodasOfertas.Click, AddressOf BuscarTodasOfertas
+        AddHandler botonBuscarTodasOfertas.Click, AddressOf BuscarTodasOfertas
+
     End Sub
 
     Private Sub UsuarioClickeaTienda(sender As Object, e As ItemClickEventArgs)
@@ -773,6 +777,38 @@ Module Tiendas
                 spEditor.Visibility = Visibility.Visible
             End If
         End If
+
+    End Sub
+
+    Private Sub BuscarTodasOfertas(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
+        gridProgreso.Visibility = Visibility.Visible
+
+        pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+        pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
+        pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
+        pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
+        pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
+        pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
+        pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
+        pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
+        pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
+        pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+        pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
+        pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
+        pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
+        pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
+        pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
+        pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
+        pepeizq.Ofertas.Origin.BuscarOfertas(originT)
+        pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
+        pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
+        pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
+        pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
 
     End Sub
 

@@ -164,15 +164,13 @@ Namespace pepeizq.Ofertas
                 Dim añadir As Boolean = True
                 Dim k As Integer = 0
                 While k < listaJuegos.Count
-                    If listaJuegos(k).Titulo = juego.Titulo Then
+                    If listaJuegos(k).Enlace = juego.Enlace Then
                         añadir = False
                     End If
                     k += 1
                 End While
 
-                If juego.Descuento = Nothing Then
-                    añadir = False
-                Else
+                If añadir = True Then
                     If Not juegoFanatical.Regiones Is Nothing Then
                         If juegoFanatical.Regiones.Count > 0 Then
                             añadir = False
@@ -184,27 +182,21 @@ Namespace pepeizq.Ofertas
                         End If
                     End If
 
-                    If juego.Descuento = "00%" Then
-                        añadir = False
-                    ElseIf juego.Descuento = "null%" Then
-                        añadir = False
-                    ElseIf juego.Descuento.Contains("-") Then
-                        añadir = False
-                    End If
-
-                    If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
-                        If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                            If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim + "%" = juego.Descuento Then
-                                añadir = False
-                            End If
+                    If juego.Descuento = Nothing Then
+                        juego.Descuento = "00%"
+                    Else
+                        If juego.Descuento = "null%" Then
+                            juego.Descuento = "00%"
+                        ElseIf juego.Descuento.Contains("-") Then
+                            juego.Descuento = "00%"
                         End If
                     End If
-                End If
 
-                If añadir = True Then
-                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                    If añadir = True Then
+                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
-                    listaJuegos.Add(juego)
+                        listaJuegos.Add(juego)
+                    End If
                 End If
             Next
 

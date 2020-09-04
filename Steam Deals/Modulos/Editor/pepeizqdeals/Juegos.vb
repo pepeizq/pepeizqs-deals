@@ -81,12 +81,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cuponesReservas = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cuponesReservas")
             End If
 
-            Dim tbTituloAlternativo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
-            Dim tituloAlternativo As String = String.Empty
-
-            If tbTituloAlternativo.Text.Trim.Length > 0 Then
-                tituloAlternativo = tbTituloAlternativo.Text.Trim
-            End If
+            Dim tbTitulosAlternativos As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
+            Dim titulosAlternativos As List(Of String) = DevolverTitulosAlternativos(tbTitulosAlternativos.Text.Trim)
 
             Dim spGenerar As StackPanel = pagina.FindName("spEditorpepeizqdealsNuevosJuegosGenerar")
 
@@ -189,13 +185,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
                                         GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
                                         añadido = True
-                                    ElseIf Not tituloAlternativo = String.Empty Then
-                                        If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
-                                            If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
-                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
-                                                añadido = True
+                                    ElseIf titulosAlternativos.Count > 0 Then
+                                        For Each tituloA In titulosAlternativos
+                                            If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloA) Then
+                                                If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloA) Then
+                                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
+                                                    añadido = True
+                                                End If
                                             End If
-                                        End If
+                                        Next
                                     End If
                                 Next
                             End If
@@ -206,6 +204,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                     If Not resultado Is Nothing Then
                                         GenerarXaml(tienda, resultado.Enlace, resultado.Precio, cupon)
+                                    Else
+                                        GenerarXaml(tienda, Nothing, Nothing, cupon)
                                     End If
                                 Else
                                     GenerarXaml(tienda, Nothing, Nothing, cupon)
@@ -215,7 +215,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
             Else
-                If tituloAlternativo.Length > 0 Then
+                If titulosAlternativos.Count > 0 Then
                     spTiendas.Children.Clear()
 
                     For Each tienda In listaTiendas
@@ -239,10 +239,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         For Each juego In listaJuegos
-                            If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloAlternativo) Then
-                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
-                                añadido = True
-                            End If
+                            For Each tituloA In titulosAlternativos
+                                If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloA) Then
+                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
+                                    añadido = True
+                                End If
+                            Next
                         Next
 
                         If añadido = False Then
@@ -380,6 +382,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim tbTitulo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTitulo")
                 Dim titulo As String = tbTitulo.Text
 
+                Dim tbTitulosAlternativos As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
+                Dim titulosAlternativos As List(Of String) = DevolverTitulosAlternativos(tbTitulosAlternativos.Text.Trim)
+
                 Dim tbImagenVertical As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenVertical")
                 Dim tbImagenHorizontal As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenHorizontal")
 
@@ -425,7 +430,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.Juego(titulo, Nothing, imagenes, Nothing, steamID, drm, tbFecha.Text, fechaFinal.ToString, enlaces)
+                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text, fechaFinal.ToString, enlaces)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -617,6 +622,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         entrada.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
                                                                "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
 
+                                        entrada.JuegoPrecioMinimo = DevolverPrecioMinimo(juego.Enlaces)
+
                                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, entrada)
 
                                         Notificaciones.Toast("Actualizado", juego.Titulo)
@@ -637,7 +644,19 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = String.Empty
 
             enlaces.Sort(Function(x As Clases.JuegoTienda, y As Clases.JuegoTienda)
-                             Dim resultado As Integer = x.Precio.CompareTo(y.Precio)
+                             Dim precioX As String = x.Precio
+
+                             If precioX.Length = 6 Then
+                                 precioX = "0" + precioX
+                             End If
+
+                             Dim precioY As String = y.Precio
+
+                             If precioY.Length = 6 Then
+                                 precioY = "0" + precioY
+                             End If
+
+                             Dim resultado As Integer = precioX.CompareTo(precioY)
                              Return resultado
                          End Function)
 
@@ -696,10 +715,56 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
+        Private Function DevolverTitulosAlternativos(tbTitulosAlternativos As String)
+
+            Dim titulosAlternativos As New List(Of String)
+
+            If tbTitulosAlternativos.Trim.Length > 0 Then
+                Dim temp As String = tbTitulosAlternativos.Trim
+
+                Dim i As Integer = 0
+                While i < 100
+                    If temp.Trim.Length > 0 Then
+                        Dim tituloA As String = String.Empty
+
+                        If temp.Contains(",") Then
+                            Dim int As Integer = temp.IndexOf(",")
+                            tituloA = temp.Remove(int, temp.Length - int)
+
+                            temp = temp.Remove(0, int + 1)
+                        Else
+                            tituloA = temp
+                            temp = String.Empty
+                        End If
+
+                        tituloA = temp.Trim
+
+                        titulosAlternativos.Add(tituloA)
+                    End If
+                    i += 1
+                End While
+            End If
+
+            Return titulosAlternativos
+
+        End Function
+
         Private Function DevolverPrecioMinimo(enlaces As List(Of Clases.JuegoTienda))
 
             enlaces.Sort(Function(x As Clases.JuegoTienda, y As Clases.JuegoTienda)
-                             Dim resultado As Integer = x.Precio.CompareTo(y.Precio)
+                             Dim precioX As String = x.Precio
+
+                             If precioX.Length = 6 Then
+                                 precioX = "0" + precioX
+                             End If
+
+                             Dim precioY As String = y.Precio
+
+                             If precioY.Length = 6 Then
+                                 precioY = "0" + precioY
+                             End If
+
+                             Dim resultado As Integer = precioX.CompareTo(precioY)
                              Return resultado
                          End Function)
 

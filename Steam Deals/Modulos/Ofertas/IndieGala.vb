@@ -41,11 +41,11 @@ Namespace pepeizq.Ofertas
 
             Dim numPaginas As Integer = 0
 
-            numPaginas = GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?page=1&sale=true"))
+            numPaginas = GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?page=1"))
 
             Dim i As Integer = 1
             While i < numPaginas
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.indiegala.com/store_games_rss?page=" + i.ToString + "&sale=true"))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.indiegala.com/store_games_rss?page=" + i.ToString))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
@@ -94,15 +94,10 @@ Namespace pepeizq.Ofertas
 
                                 precio = precio + "€"
 
-                                Dim descuento As String = juegoIG.Descuento
+                                Dim descuento As String = Calculadora.GenerarDescuento(juegoIG.PrecioBase, juegoIG.PrecioDescontado)
 
-                                If descuento.Contains(".") Then
-                                    Dim int As Integer = descuento.IndexOf(".")
-                                    descuento = descuento.Remove(int, descuento.Length - int)
-                                End If
-
-                                If Not descuento = Nothing Then
-                                    descuento = descuento + "%"
+                                If descuento = Nothing Then
+                                    descuento = "00%"
                                 End If
 
                                 Dim drm As String = juegoIG.DRM
@@ -135,10 +130,6 @@ Namespace pepeizq.Ofertas
                                     End If
                                     k += 1
                                 End While
-
-                                If juego.Descuento = Nothing Then
-                                    añadir = False
-                                End If
 
                                 If añadir = True Then
                                     juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
@@ -231,6 +222,9 @@ Namespace pepeizq.Ofertas
 
         <XmlElement("link")>
         Public Enlace As String
+
+        <XmlElement("priceEUR")>
+        Public PrecioBase As String
 
         <XmlElement("discountPriceEUR")>
         Public PrecioDescontado As String
