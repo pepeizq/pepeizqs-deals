@@ -70,6 +70,9 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("us_tile_link")>
         Public Redireccion2 As String
 
+        <JsonProperty("us_tile_size")>
+        Public TamañoTile As String
+
         <JsonProperty("fifu_image_url")>
         Public ImagenFeatured As String
 

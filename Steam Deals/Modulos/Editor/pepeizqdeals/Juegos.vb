@@ -139,10 +139,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
 
                             If tienda.NombreUsar = "Steam" Then
-                                Dim precio As String = datos.Datos.Precio.Formateado
-                                precio = precio.Replace("€", " €")
+                                Dim precio As String = String.Empty
 
-                                GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", precio, Nothing)
+                                If Not datos.Datos.Precio Is Nothing Then
+                                    precio = datos.Datos.Precio.Formateado
+                                    precio = precio.Replace("€", " €")
+
+                                    GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", precio, Nothing)
+                                Else
+                                    GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", Nothing, Nothing)
+                                End If
+
                                 añadido = True
                             End If
 

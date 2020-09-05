@@ -44,6 +44,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim postEditor As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
                 postEditor.FechaOriginal = DateTime.Now
+                postEditor.TamañoTile = "2x1"
 
                 If Not etiquetas Is Nothing Then
                     If etiquetas.Count > 0 Then
