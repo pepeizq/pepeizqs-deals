@@ -119,56 +119,46 @@ Namespace pepeizq.Ofertas
 
                             Dim descuento As String = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, juegoGMG.PrecioRebajado)
 
-                            If descuento = "00%" Then
-                                descuento = Nothing
+                            If descuento = Nothing Then
+                                descuento = "00%"
                             End If
 
-                            If Not descuento = Nothing Then
-                                If Not cuponPorcentaje = Nothing Then
-                                    precioRebajado = precioRebajado.Replace(",", ".")
-                                    precioRebajado = precioRebajado.Replace("€", Nothing)
-                                    precioRebajado = precioRebajado.Trim
+                            If Not cuponPorcentaje = Nothing Then
+                                precioRebajado = precioRebajado.Replace(",", ".")
+                                precioRebajado = precioRebajado.Replace("€", Nothing)
+                                precioRebajado = precioRebajado.Trim
 
-                                    Dim dprecio2 As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                    precioRebajado = Math.Round(dprecio2, 2).ToString + " €"
-                                    descuento = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, precioRebajado)
-                                End If
+                                Dim dprecio2 As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                precioRebajado = Math.Round(dprecio2, 2).ToString + " €"
+                                descuento = Calculadora.GenerarDescuento(juegoGMG.PrecioBase, precioRebajado)
+                            End If
 
-                                Dim drm As String = juegoGMG.DRM
+                            Dim drm As String = juegoGMG.DRM
 
-                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
+                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
 
-                                Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                Dim añadir As Boolean = True
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Enlace = juego.Enlace Then
-                                        añadir = False
-                                    End If
-                                    k += 1
-                                End While
-
-                                If juego.Descuento = Nothing Then
+                            Dim añadir As Boolean = True
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Enlace = juego.Enlace Then
                                     añadir = False
-                                Else
-                                    If juego.Descuento = "00%" Then
-                                        añadir = False
+                                End If
+                                k += 1
+                            End While
+
+                            If añadir = True Then
+                                For Each desarrollador In listaDesarrolladores
+                                    If desarrollador.Enlace = juego.Enlace Then
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                        Exit For
                                     End If
-                                End If
+                                Next
 
-                                If añadir = True Then
-                                    For Each desarrollador In listaDesarrolladores
-                                        If desarrollador.Enlace = juego.Enlace Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                            Exit For
-                                        End If
-                                    Next
+                                juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
-                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
-
-                                    listaJuegos.Add(juego)
-                                End If
+                                listaJuegos.Add(juego)
                             End If
                         Next
                     End If
