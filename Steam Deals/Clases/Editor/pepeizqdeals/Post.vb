@@ -121,7 +121,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public JuegoFechaLanzamiento As String
 
         <JsonProperty("game_price_lowest")>
-        Public JuegoPrecioMinimo As String
+        Public JuegoPrecioMinimoActual As String
+
+        <JsonProperty("game_price_lowest2")>
+        Public JuegoPrecioMinimoHistorico As String
 
         <JsonProperty("game_drm")>
         Public JuegoDRM As String

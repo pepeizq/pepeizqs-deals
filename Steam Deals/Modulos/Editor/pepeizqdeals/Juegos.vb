@@ -437,7 +437,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text, fechaFinal.ToString, enlaces)
+                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text, fechaFinal.ToString, Nothing, enlaces)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -464,12 +464,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postNuevo2.ImagenFeatured = nuevoJuego.Imagenes.Vertical
                     postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + nuevoJuego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                     postNuevo2.FechaTermina = nuevoJuego.FechaTermina
+                    postNuevo2.TamañoTile = "1x1"
 
                     postNuevo2.JuegoTitulo = nuevoJuego.Titulo
                     postNuevo2.JuegoImagenVertical = nuevoJuego.Imagenes.Vertical
                     postNuevo2.JuegoImagenHorizontal = "<img src=" + ChrW(34) + nuevoJuego.Imagenes.Horizontal + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                     postNuevo2.JuegoFechaLanzamiento = nuevoJuego.FechaLanzamiento
-                    postNuevo2.JuegoPrecioMinimo = DevolverPrecioMinimo(nuevoJuego.Enlaces)
+                    postNuevo2.JuegoPrecioMinimoActual = DevolverPrecioMinimoActual(nuevoJuego.Enlaces)
+                    postNuevo2.JuegoPrecioMinimoHistorico = postNuevo2.JuegoPrecioMinimoActual
                     postNuevo2.JuegoDRM = DevolverDRM(nuevoJuego.DRM)
 
                     Dim resultado As Clases.Post = Nothing
@@ -547,72 +549,74 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
                                 End If
 
-                                For Each juego2 In listaJuegos
-                                    Dim encontrado As Boolean = False
+                                If listaJuegos.Count > 0 Then
+                                    For Each juego2 In listaJuegos
+                                        Dim encontrado As Boolean = False
 
-                                    For Each juegoBBDD In juego.Enlaces
-                                        If juego2.Enlace = juegoBBDD.Enlace Then
-                                            encontrado = True
+                                        For Each juegoBBDD In juego.Enlaces
+                                            If juego2.Enlace = juegoBBDD.Enlace Then
+                                                encontrado = True
 
-                                            If Not juegoBBDD.Precio = juego2.Precio Then
-                                                actualizar = True
-                                            End If
+                                                If Not juegoBBDD.Precio = juego2.Precio Then
+                                                    actualizar = True
+                                                End If
 
-                                            juegoBBDD.Descuento = juego2.Descuento
-                                            juegoBBDD.Precio = juego2.Precio
-
-                                            If listaCupones.Count > 0 Then
-                                                For Each cupon In listaCupones
-                                                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                                                        If Not cupon.Codigo = Nothing Then
-                                                            juegoBBDD.Codigo = cupon.Codigo
-                                                        End If
-                                                    End If
-                                                Next
-                                            End If
-                                        End If
-                                    Next
-
-                                    If encontrado = False Then
-                                        Dim añadir As Boolean = True
-
-                                        If tienda.NombreUsar = "Steam" Then
-                                            añadir = False
-                                        ElseIf tienda.NombreUsar = "AmazonEs" Then
-                                            añadir = False
-                                        End If
-
-                                        If añadir = True Then
-                                            If Busqueda.Limpiar(juego2.Titulo) = Busqueda.Limpiar(juego.Titulo) Then
-                                                Dim codigo As String = String.Empty
+                                                juegoBBDD.Descuento = juego2.Descuento
+                                                juegoBBDD.Precio = juego2.Precio
 
                                                 If listaCupones.Count > 0 Then
                                                     For Each cupon In listaCupones
                                                         If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                                                             If Not cupon.Codigo = Nothing Then
-                                                                codigo = cupon.Codigo
+                                                                juegoBBDD.Codigo = cupon.Codigo
                                                             End If
                                                         End If
                                                     Next
                                                 End If
+                                            End If
+                                        Next
 
-                                                Dim añadir2 As Boolean = True
+                                        If encontrado = False Then
+                                            Dim añadir As Boolean = True
 
-                                                For Each enlace In juego.Enlaces
-                                                    If tienda.NombreUsar = enlace.NombreUsar Then
-                                                        añadir2 = False
+                                            If tienda.NombreUsar = "Steam" Then
+                                                añadir = False
+                                            ElseIf tienda.NombreUsar = "AmazonEs" Then
+                                                añadir = False
+                                            End If
+
+                                            If añadir = True Then
+                                                If Busqueda.Limpiar(juego2.Titulo) = Busqueda.Limpiar(juego.Titulo) Then
+                                                    Dim codigo As String = String.Empty
+
+                                                    If listaCupones.Count > 0 Then
+                                                        For Each cupon In listaCupones
+                                                            If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                                                                If Not cupon.Codigo = Nothing Then
+                                                                    codigo = cupon.Codigo
+                                                                End If
+                                                            End If
+                                                        Next
                                                     End If
-                                                Next
 
-                                                If añadir2 = True Then
-                                                    Dim juegoBBDD As New Clases.JuegoTienda(tienda.NombreUsar, juego2.Descuento, juego2.Precio, codigo, juego2.Enlace)
-                                                    juego.Enlaces.Add(juegoBBDD)
-                                                    actualizar = True
+                                                    Dim añadir2 As Boolean = True
+
+                                                    For Each enlace In juego.Enlaces
+                                                        If tienda.NombreUsar = enlace.NombreUsar Then
+                                                            añadir2 = False
+                                                        End If
+                                                    Next
+
+                                                    If añadir2 = True Then
+                                                        Dim juegoBBDD As New Clases.JuegoTienda(tienda.NombreUsar, juego2.Descuento, juego2.Precio, codigo, juego2.Enlace)
+                                                        juego.Enlaces.Add(juegoBBDD)
+                                                        actualizar = True
+                                                    End If
                                                 End If
                                             End If
                                         End If
-                                    End If
-                                Next
+                                    Next
+                                End If
                             Next
 
                             For Each entrada In entradas
@@ -622,6 +626,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     End If
 
                                     If actualizar = True Then
+                                        Dim precioMinimoActual As String = DevolverPrecioMinimoActual(juego.Enlaces)
+                                        Dim precioMinimoHistorisco As String = DevolverPrecioMinimoHistorico(precioMinimoActual, juego.Enlaces)
+
+                                        juego.PreciosMinimo = New Clases.JuegoPrecioMinimo(precioMinimoActual, precioMinimoHistorisco)
+
                                         Await helper.SaveFileAsync(Of Clases.Juego)(fichero.Name, juego)
 
                                         entrada.Contenido = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
@@ -629,7 +638,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         entrada.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
                                                                "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
 
-                                        entrada.JuegoPrecioMinimo = DevolverPrecioMinimo(juego.Enlaces)
+                                        entrada.JuegoPrecioMinimoActual = precioMinimoActual
+                                        entrada.JuegoPrecioMinimoHistorico = precioMinimoHistorisco
 
                                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, entrada)
 
@@ -756,7 +766,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function DevolverPrecioMinimo(enlaces As List(Of Clases.JuegoTienda))
+        Private Function DevolverPrecioMinimoActual(enlaces As List(Of Clases.JuegoTienda))
 
             enlaces.Sort(Function(x As Clases.JuegoTienda, y As Clases.JuegoTienda)
                              Dim precioX As String = x.Precio
@@ -776,6 +786,35 @@ Namespace pepeizq.Editor.pepeizqdeals
                          End Function)
 
             Return enlaces(0).Precio
+
+        End Function
+
+        Private Function DevolverPrecioMinimoHistorico(precio As String, enlaces As List(Of Clases.JuegoTienda))
+
+            Dim enlaces2 As List(Of Clases.JuegoTienda) = enlaces
+
+            If Not precio = Nothing Then
+                enlaces2.Add(New Clases.JuegoTienda(Nothing, Nothing, precio, Nothing, Nothing))
+            End If
+
+            enlaces2.Sort(Function(x As Clases.JuegoTienda, y As Clases.JuegoTienda)
+                              Dim precioX As String = x.Precio
+
+                              If precioX.Length = 6 Then
+                                  precioX = "0" + precioX
+                              End If
+
+                              Dim precioY As String = y.Precio
+
+                              If precioY.Length = 6 Then
+                                  precioY = "0" + precioY
+                              End If
+
+                              Dim resultado As Integer = precioX.CompareTo(precioY)
+                              Return resultado
+                          End Function)
+
+            Return enlaces2(0).Precio
 
         End Function
 

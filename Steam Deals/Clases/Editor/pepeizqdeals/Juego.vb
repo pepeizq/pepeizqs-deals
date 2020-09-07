@@ -9,11 +9,12 @@
         Public Property DRM As String
         Public Property FechaLanzamiento As String
         Public Property FechaTermina As String
+        Public Property PreciosMinimo As JuegoPrecioMinimo
         Public Property Enlaces As List(Of JuegoTienda)
 
         Public Sub New(ByVal titulo As String, ByVal titulosAlternativos As List(Of String), ByVal imagenes As JuegoImagenes,
                        ByVal postID As String, ByVal steamID As String, ByVal drm As String, ByVal fechaLanzamiento As String,
-                       ByVal fechaTermina As String, ByVal enlaces As List(Of JuegoTienda))
+                       ByVal fechaTermina As String, ByVal preciosMinimo As JuegoPrecioMinimo, ByVal enlaces As List(Of JuegoTienda))
             Me.Titulo = titulo
             Me.TitulosAlternativos = titulosAlternativos
             Me.Imagenes = imagenes
@@ -22,6 +23,7 @@
             Me.DRM = drm
             Me.FechaLanzamiento = fechaLanzamiento
             Me.FechaTermina = fechaTermina
+            Me.PreciosMinimo = preciosMinimo
             Me.Enlaces = enlaces
         End Sub
 
@@ -54,6 +56,18 @@
             Me.Precio = precio
             Me.Codigo = codigo
             Me.Enlace = enlace
+        End Sub
+
+    End Class
+
+    Public Class JuegoPrecioMinimo
+
+        Public Property Actual As String
+        Public Property Historico As String
+
+        Public Sub New(ByVal actual As String, ByVal historico As String)
+            Me.Actual = actual
+            Me.Historico = historico
         End Sub
 
     End Class

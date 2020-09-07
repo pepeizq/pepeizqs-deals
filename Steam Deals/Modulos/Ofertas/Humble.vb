@@ -56,7 +56,7 @@ Namespace pepeizq.Ofertas
         Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&filter=onsale&request=2&page_size=20&page=0"))
+            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&request=2&page_size=20&page=0"))
             Dim htmlPaginas As String = htmlPaginas_.Result
 
             If Not htmlPaginas = Nothing Then
@@ -71,7 +71,7 @@ Namespace pepeizq.Ofertas
 
             Dim i As Integer = 0
             While i < (numPaginas + 1)
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&filter=onsale&request=2&page_size=20&page=" + i.ToString))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&request=2&page_size=20&page=" + i.ToString))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
