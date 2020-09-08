@@ -19,9 +19,10 @@ Namespace pepeizq.Ofertas
 
             Tienda = tienda_
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
             If modoRuso_ = True Then
-                Dim frame As Frame = Window.Current.Content
-                Dim pagina As Page = frame.Content
                 Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
                 rublo = tbRublo.Text
                 modoRuso = modoRuso_
@@ -32,6 +33,9 @@ Namespace pepeizq.Ofertas
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
             End If
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Visible
 
             listaJuegos.Clear()
 
@@ -153,12 +157,21 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-            tb.Text = e.ProgressPercentage.ToString
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
+            pb.Value = e.ProgressPercentage
+
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
+            tb.Text = e.ProgressPercentage.ToString + "%"
 
         End Sub
 
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Collapsed
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)

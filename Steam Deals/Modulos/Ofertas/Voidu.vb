@@ -47,6 +47,12 @@ Namespace pepeizq.Ofertas
                 Next
             End If
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Visible
+
             listaJuegos.Clear()
 
             Bw.WorkerReportsProgress = True
@@ -147,11 +153,7 @@ Namespace pepeizq.Ofertas
                             End While
 
                             If juego.Descuento = Nothing Then
-                                añadir = False
-                            Else
-                                If juego.Descuento = "00%" Then
-                                    añadir = False
-                                End If
+                                juego.Descuento = "00%"
                             End If
 
                             If añadir = True Then
@@ -171,6 +173,12 @@ Namespace pepeizq.Ofertas
         End Sub
 
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Collapsed
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)

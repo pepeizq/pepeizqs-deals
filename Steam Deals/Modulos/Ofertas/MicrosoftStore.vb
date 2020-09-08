@@ -11,6 +11,12 @@ Namespace pepeizq.Ofertas
 
         Public Async Sub BuscarOfertas(tienda As Tienda)
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Visible
+
             Dim helper As New LocalObjectStorageHelper
 
             Dim listaJuegos As New List(Of Oferta)
@@ -193,7 +199,7 @@ Namespace pepeizq.Ofertas
                                 End While
 
                                 If juego.Descuento = Nothing Then
-                                    añadir = False
+                                    juego.Descuento = "00%"
                                 End If
 
                                 If añadir = True Then
@@ -206,6 +212,8 @@ Namespace pepeizq.Ofertas
                     End If
                 End If
             End If
+
+            spProgreso.Visibility = Visibility.Collapsed
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of MicrosoftStoreImagen))("listaImagenesMicrosoftStore", listaImagenes)

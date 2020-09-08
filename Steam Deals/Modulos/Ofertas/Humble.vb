@@ -39,8 +39,8 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
-            tb.Text = "0%"
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Visible
 
             listaJuegos.Clear()
 
@@ -56,7 +56,7 @@ Namespace pepeizq.Ofertas
         Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&request=2&page_size=20&page=0"))
+            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0"))
             Dim htmlPaginas As String = htmlPaginas_.Result
 
             If Not htmlPaginas = Nothing Then
@@ -71,7 +71,7 @@ Namespace pepeizq.Ofertas
 
             Dim i As Integer = 0
             While i < (numPaginas + 1)
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?sort=discount&request=2&page_size=20&page=" + i.ToString))
+                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + i.ToString))
                 Dim html As String = html_.Result
 
                 If Not html = Nothing Then
@@ -187,14 +187,10 @@ Namespace pepeizq.Ofertas
                         End While
 
                         If juego.Descuento = Nothing Then
-                            añadir = False
+                            juego.Descuento = "00%"
                         Else
-                            If juego.Descuento = "00%" Then
-                                añadir = False
-                            End If
-
                             If juego.Descuento.Contains("-") Then
-                                añadir = False
+                                juego.Descuento = "00%"
                             End If
                         End If
 
@@ -249,12 +245,21 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBlock = pagina.FindName("tbOfertasProgreso")
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
+            pb.Value = e.ProgressPercentage
+
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
             tb.Text = e.ProgressPercentage.ToString + "%"
 
         End Sub
 
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Collapsed
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)

@@ -207,7 +207,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             If añadido = False Then
                                 If tienda.NombreUsar = "Humble" Then
-                                    Dim resultado As Clases.JuegoTienda = Await pepeizq.Juegos.Humble.Buscar(datos.Datos.Titulo)
+                                    Dim resultado As Clases.JuegoTienda = Await pepeizq.Juegos.Humble.BuscarTitulo(datos.Datos.Titulo)
 
                                     If Not resultado Is Nothing Then
                                         GenerarXaml(tienda, resultado.Enlace, resultado.Precio, cupon)
@@ -446,9 +446,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
                 If Await cliente.IsValidJWToken = True Then
-                    Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenNuevosJuegos")
-                    Dim imagenUrl As String = Await SubirImagen(botonImagen, "NuevoJuego", cliente)
-
                     Dim titulo2 As String = nuevoJuego.Titulo + " • Available stores where to buy the game"
 
                     Dim postNuevo As New Models.Post With {
@@ -585,6 +582,21 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                 añadir = False
                                             End If
 
+                                            If tienda.NombreUsar = "Humble" Then
+                                                For Each juegoBBDD In juego.Enlaces
+                                                    If juegoBBDD.NombreUsar = "Humble" Then
+                                                        Dim resultado As Clases.JuegoTienda = Await Juegos.Humble.BuscarEnlace(juegoBBDD.Enlace)
+
+                                                        juegoBBDD.Descuento = resultado.Descuento
+                                                        juegoBBDD.Precio = resultado.Precio
+
+                                                        actualizar = True
+                                                    End If
+                                                Next
+
+                                                añadir = False
+                                            End If
+
                                             If añadir = True Then
                                                 If Busqueda.Limpiar(juego2.Titulo) = Busqueda.Limpiar(juego.Titulo) Then
                                                     Dim codigo As String = String.Empty
@@ -627,7 +639,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                     If actualizar = True Then
                                         Dim precioMinimoActual As String = DevolverPrecioMinimoActual(juego.Enlaces)
-                                        Dim precioMinimoHistorisco As String = DevolverPrecioMinimoHistorico(precioMinimoActual, juego.Enlaces)
+                                        Dim precioMinimoHistorisco As String = DevolverPrecioMinimoHistorico(entrada.JuegoPrecioMinimoHistorico, juego.Enlaces)
 
                                         juego.PreciosMinimo = New Clases.JuegoPrecioMinimo(precioMinimoActual, precioMinimoHistorisco)
 
@@ -791,11 +803,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Function DevolverPrecioMinimoHistorico(precio As String, enlaces As List(Of Clases.JuegoTienda))
 
-            Dim enlaces2 As List(Of Clases.JuegoTienda) = enlaces
+            Dim enlaces2 As New List(Of Clases.JuegoTienda)
 
             If Not precio = Nothing Then
                 enlaces2.Add(New Clases.JuegoTienda(Nothing, Nothing, precio, Nothing, Nothing))
             End If
+
+            For Each enlace In enlaces
+                enlaces2.Add(enlace)
+            Next
 
             enlaces2.Sort(Function(x As Clases.JuegoTienda, y As Clases.JuegoTienda)
                               Dim precioX As String = x.Precio

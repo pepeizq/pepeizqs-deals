@@ -59,6 +59,9 @@ Module Tiendas
         Dim gridOfertas As Grid = pagina.FindName("gridOfertas")
         gridOfertas.Visibility = Visibility.Visible
 
+        Dim spProgreso As StackPanel = pagina.FindName("spOfertasProgreso")
+        spProgreso.Children.Clear()
+
         Dim gvTiendas As GridView = pagina.FindName("gvOfertasTiendas")
         AddHandler gvTiendas.ItemClick, AddressOf UsuarioClickeaTienda
 
@@ -91,6 +94,7 @@ Module Tiendas
                 tiendasMenu.Items.Add(AñadirMenuTienda(tienda, mensaje))
 
                 gvTiendas.Items.Add(AñadirBotonTienda(tienda))
+                spProgreso.Children.Add(AñadirProgresoTienda(tienda))
                 gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
                 spCupones.Children.Add(Await AñadirCuponTienda(tienda))
             End If
@@ -270,6 +274,44 @@ Module Tiendas
         AddHandler boton.PointerExited, AddressOf UsuarioSaleBoton
 
         Return boton
+
+    End Function
+
+    Private Function AñadirProgresoTienda(tienda As Tienda)
+
+        Dim sp As New StackPanel With {
+            .Orientation = Orientation.Horizontal,
+            .Tag = tienda,
+            .Name = "spTiendaProgreso" + tienda.NombreUsar,
+            .Visibility = Visibility.Collapsed,
+            .Margin = New Thickness(0, 5, 0, 5)
+        }
+
+        Dim icono As New ImageEx With {
+            .IsCacheEnabled = True,
+            .Source = tienda.IconoApp,
+            .Height = 16,
+            .Width = 16,
+            .Margin = New Thickness(0, 0, 20, 0)
+        }
+
+        sp.Children.Add(icono)
+
+        Dim pb As New ProgressBar With {
+            .Width = 200,
+            .Margin = New Thickness(0, 0, 20, 0),
+            .Name = "pbTiendaProgreso" + tienda.NombreUsar
+        }
+
+        sp.Children.Add(pb)
+
+        Dim tb As New TextBlock With {
+            .Name = "tbTiendaProgreso" + tienda.NombreUsar
+        }
+
+        sp.Children.Add(tb)
+
+        Return sp
 
     End Function
 
@@ -784,6 +826,9 @@ Module Tiendas
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
+
+        Dim gridSeleccionar As Grid = pagina.FindName("gridOfertasSeleccionar")
+        gridSeleccionar.Visibility = Visibility.Collapsed
 
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible

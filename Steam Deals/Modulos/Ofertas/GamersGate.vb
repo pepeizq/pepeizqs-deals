@@ -54,6 +54,9 @@ Namespace pepeizq.Ofertas
                 Next
             End If
 
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Visible
+
             listaJuegos.Clear()
 
             Bw.WorkerReportsProgress = True
@@ -70,7 +73,7 @@ Namespace pepeizq.Ofertas
             Dim xml As New XmlSerializer(GetType(GamersGateJuegos))
 
             Dim listaJuegosES As GamersGateJuegos = Nothing
-            Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?country=esp"))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -79,7 +82,7 @@ Namespace pepeizq.Ofertas
             End If
 
             Dim listaJuegosUK As GamersGateJuegos = Nothing
-            Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
+            Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?country=gbr"))
             Dim htmlUK As String = htmlUK_.Result
 
             If Not htmlUK = Nothing Then
@@ -253,6 +256,12 @@ Namespace pepeizq.Ofertas
         End Sub
 
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            spProgreso.Visibility = Visibility.Collapsed
 
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)

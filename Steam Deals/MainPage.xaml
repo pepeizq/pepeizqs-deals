@@ -189,8 +189,9 @@
                     </Grid>
 
                     <Grid x:Name="gridProgreso" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                        <ProgressRing x:Name="prOfertasProgreso" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushPrimario}"/>
-                        <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <ProgressRing x:Name="prOfertasProgreso" Visibility="Collapsed" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushPrimario}"/>
+                        <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                        <StackPanel x:Name="spOfertasProgreso" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
 
                     <Grid x:Name="gridNoOfertas" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
