@@ -189,8 +189,6 @@
                     </Grid>
 
                     <Grid x:Name="gridProgreso" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
-                        <ProgressRing x:Name="prOfertasProgreso" Visibility="Collapsed" IsActive="True" Height="54" Width="54" Foreground="{StaticResource BrushPrimario}"/>
-                        <TextBlock x:Name="tbOfertasProgreso" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
                         <StackPanel x:Name="spOfertasProgreso" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
 
@@ -911,26 +909,42 @@
 
                         <ScrollViewer x:Name="svEditorpepeizqdealsNuevosJuegos" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="botonEditorpepeizqdealsNuevosJuegosBuscar" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                        <Button x:Name="botonEditorpepeizqdealsNuevosJuegosBuscar" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <fa:FontAwesome Icon="Search" Foreground="White"/>
+                                                    <TextBlock Text="Buscar" Margin="10,0,0,0" Foreground="White"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <TextBlock Text="ID Steam:" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosBuscar" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
+
+                                        <TextBlock Text="Titulo Alternativo:" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosTituloAlternativo" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
+
+                                        <TextBlock Text="DRM:" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                                        <ComboBox x:Name="cbEditorpepeizqdealsNuevosJuegosDRMs" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
+                                    </StackPanel>
+
+                                    <Button x:Name="botonEditorpepeizqdealsNuevosJuegosActualizar" Grid.Column="1" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
-                                                <fa:FontAwesome Icon="Search" Foreground="White"/>
-                                                <TextBlock Text="Buscar" Margin="10,0,0,0" Foreground="White"/>
+                                                <fa:FontAwesome Icon="Refresh" Foreground="White"/>
+                                                <TextBlock Text="Actualizar" Margin="10,0,0,0" Foreground="White"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-
-                                    <TextBlock Text="ID Steam:" Margin="20,0,0,0" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosBuscar" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
-
-                                    <TextBlock Text="Titulo Alternativo:" Margin="30,0,0,0" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosTituloAlternativo" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
-
-                                    <TextBlock Text="DRM:" Margin="30,0,0,0" VerticalAlignment="Center"/>
-                                    <ComboBox x:Name="cbEditorpepeizqdealsNuevosJuegosDRMs" Margin="10,0,0,0" VerticalAlignment="Center" MinWidth="120"/>
-                                </StackPanel>
-
+                                </Grid>
+                                                                                                                         
                                 <Grid Margin="0,30,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -953,12 +967,6 @@
 
                                         <TextBlock Text="Fecha Lanzamiento:" Margin="0,10,0,0"/>
                                         <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento" Margin="0,10,0,0"/>
-
-                                        <TextBlock Text="Fecha Termina:" Margin="0,10,0,0"/>
-                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                            <DatePicker x:Name="fechaEditorpepeizqdealsNuevosJuegos" VerticalAlignment="Center"/>
-                                            <TimePicker x:Name="horaEditorpepeizqdealsNuevosJuegos" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                        </StackPanel>
 
                                         <Button x:Name="botonEditorpepeizqdealsNuevosJuegosGenerar" Margin="0,30,0,0" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>

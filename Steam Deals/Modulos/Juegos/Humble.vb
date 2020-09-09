@@ -33,9 +33,13 @@ Namespace pepeizq.Juegos
             Dim html As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + enlace + "&request=1"))
 
             If Not html = Nothing Then
-                Dim juego As HumbleJuego = JsonConvert.DeserializeObject(Of HumbleJuego)(html)
+                Dim resultados As HumbleJuegoDatos2 = JsonConvert.DeserializeObject(Of HumbleJuegoDatos2)(html)
 
-                Return Buscar(juego)
+                If Not resultados Is Nothing Then
+                    If resultados.Resultados.Count > 0 Then
+                        Return Buscar(resultados.Resultados(0))
+                    End If
+                End If
             End If
 
             Return Nothing
@@ -76,21 +80,22 @@ Namespace pepeizq.Juegos
                 End If
             End If
 
-            Dim cuponPorcentaje As String = String.Empty
+            Dim mensaje As String = String.Empty
 
-            If juego.DescuentoMonthly = 0.1 Then
-                cuponPorcentaje = "0,2"
-            ElseIf juego.DescuentoMonthly = 0.05 Then
-                cuponPorcentaje = "0,2"
-            ElseIf juego.DescuentoMonthly = 0.03 Then
-                cuponPorcentaje = "0,13"
-            ElseIf juego.DescuentoMonthly = 0.02 Then
-                cuponPorcentaje = "0,12"
-            ElseIf juego.DescuentoMonthly = 0 Then
-                cuponPorcentaje = "0,1"
+            Dim cuponPorcentaje As String = String.Empty
+            cuponPorcentaje = DescuentoMonthly(juego.DescuentoMonthly)
+
+            If Not juego.CosasIncompatibles Is Nothing Then
+                If juego.CosasIncompatibles.Count > 0 Then
+                    If juego.CosasIncompatibles(0) = "subscriber-discount-coupons" Then
+                        cuponPorcentaje = String.Empty
+                    End If
+                End If
             End If
 
             If Not cuponPorcentaje = String.Empty Then
+                mensaje = "You must have active Humble Choice"
+
                 If Not precio = String.Empty Then
                     precio = precio.Replace(",", ".")
                     precio = precio.Replace("€", Nothing)
@@ -103,7 +108,7 @@ Namespace pepeizq.Juegos
                 End If
             End If
 
-            Dim resultado As New JuegoTienda("Humble", descuento, precio, Nothing, enlace)
+            Dim resultado As New JuegoTienda("Humble", descuento, precio, mensaje, enlace)
             Return resultado
 
         End Function

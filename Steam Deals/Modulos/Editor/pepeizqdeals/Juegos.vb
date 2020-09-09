@@ -30,6 +30,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbDRMs.Items.Add("Steam")
             cbDRMs.Items.Add("Battle.net")
 
+            Dim botonActualizar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosActualizar")
+
+            RemoveHandler botonActualizar.Click, AddressOf ActualizarJuegos
+            AddHandler botonActualizar.Click, AddressOf ActualizarJuegos
+
             Dim tbImagenVertical As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenVertical")
 
             RemoveHandler tbImagenVertical.TextChanged, AddressOf ImagenVertical
@@ -39,18 +44,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             RemoveHandler botonGenerar.Click, AddressOf GenerarEntrada
             AddHandler botonGenerar.Click, AddressOf GenerarEntrada
-
-            Dim fechaDefecto As DateTime = DateTime.Now
-            fechaDefecto = fechaDefecto.AddDays(15)
-
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsNuevosJuegos")
-            fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
-
-            RemoveHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
-            AddHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
-
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsNuevosJuegos")
-            horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
             BloquearControles(True)
 
@@ -406,12 +399,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim tbFecha As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
 
-                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsNuevosJuegos")
-                Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsNuevosJuegos")
-
-                Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
-                fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
-
                 Dim spTiendas As StackPanel = pagina.FindName("spEditorpepeizqdealsNuevosJuegosTiendas")
 
                 Dim enlaces As New List(Of Clases.JuegoTienda)
@@ -437,7 +424,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text, fechaFinal.ToString, Nothing, enlaces)
+                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text, Nothing, enlaces)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -460,7 +447,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postNuevo2.FechaOriginal = DateTime.Now
                     postNuevo2.ImagenFeatured = nuevoJuego.Imagenes.Vertical
                     postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + nuevoJuego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
-                    postNuevo2.FechaTermina = nuevoJuego.FechaTermina
                     postNuevo2.TamañoTile = "1x1"
 
                     postNuevo2.JuegoTitulo = nuevoJuego.Titulo
@@ -493,7 +479,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Async Sub ActualizarJuegos()
+        Public Async Sub ActualizarJuegos(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -546,10 +534,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
                                 End If
 
+                                Dim encontrado As Boolean = False
+
                                 If listaJuegos.Count > 0 Then
                                     For Each juego2 In listaJuegos
-                                        Dim encontrado As Boolean = False
-
                                         For Each juegoBBDD In juego.Enlaces
                                             If juego2.Enlace = juegoBBDD.Enlace Then
                                                 encontrado = True
@@ -570,6 +558,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                         End If
                                                     Next
                                                 End If
+
+                                                Exit For
                                             End If
                                         Next
 
@@ -579,21 +569,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                             If tienda.NombreUsar = "Steam" Then
                                                 añadir = False
                                             ElseIf tienda.NombreUsar = "AmazonEs" Then
-                                                añadir = False
-                                            End If
-
-                                            If tienda.NombreUsar = "Humble" Then
-                                                For Each juegoBBDD In juego.Enlaces
-                                                    If juegoBBDD.NombreUsar = "Humble" Then
-                                                        Dim resultado As Clases.JuegoTienda = Await Juegos.Humble.BuscarEnlace(juegoBBDD.Enlace)
-
-                                                        juegoBBDD.Descuento = resultado.Descuento
-                                                        juegoBBDD.Precio = resultado.Precio
-
-                                                        actualizar = True
-                                                    End If
-                                                Next
-
                                                 añadir = False
                                             End If
 
@@ -629,6 +604,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         End If
                                     Next
                                 End If
+
+                                If encontrado = False And actualizar = True Then
+                                    If tienda.NombreUsar = "Humble" Then
+                                        For Each juegoBBDD In juego.Enlaces
+                                            If juegoBBDD.NombreUsar = "Humble" Then
+                                                If Not juegoBBDD.Enlace = Nothing Then
+                                                    Dim resultado As Clases.JuegoTienda = Await Juegos.Humble.BuscarEnlace(juegoBBDD.Enlace)
+
+                                                    juegoBBDD.Descuento = resultado.Descuento
+                                                    juegoBBDD.Precio = resultado.Precio
+                                                    juegoBBDD.Codigo = resultado.Codigo
+
+                                                    actualizar = True
+                                                    Exit For
+                                                End If
+                                            End If
+                                        Next
+                                    End If
+                                End If
                             Next
 
                             For Each entrada In entradas
@@ -663,6 +657,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 Next
             End If
+
+            BloquearControles(True)
 
         End Sub
 
@@ -709,7 +705,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 If enlace.NombreUsar = "Humble" Then
-                    mensaje = "You must have active Humble Choice"
+                    If Not enlace.Codigo = Nothing Then
+                        mensaje = enlace.Codigo
+                    End If
                 End If
 
                 If i = 0 Or i = 3 Or i = 6 Or i = 9 Or i = 12 Or i = 15 Then
@@ -888,16 +886,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub CambioFechaAviso(sender As Object, e As DatePickerSelectedValueChangedEventArgs)
-
-            Dim fechaPicker As DatePicker = sender
-
-            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
-                Notificaciones.Toast("Hoy es el mismo dia", Nothing)
-            End If
-
-        End Sub
-
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -915,6 +903,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbDRMs As ComboBox = pagina.FindName("cbEditorpepeizqdealsNuevosJuegosDRMs")
             cbDRMs.IsEnabled = estado
 
+            Dim botonActualizar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosActualizar")
+            botonActualizar.IsEnabled = estado
+
             '------------------------------------------
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTitulo")
@@ -928,12 +919,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbFechaLanzamiento As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
             tbFechaLanzamiento.IsEnabled = estado
-
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsNuevosJuegos")
-            fechaPicker.IsEnabled = estado
-
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsNuevosJuegos")
-            horaPicker.IsEnabled = estado
 
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
             botonGenerar.IsEnabled = estado

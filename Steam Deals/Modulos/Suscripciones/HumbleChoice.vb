@@ -103,24 +103,41 @@ Namespace pepeizq.Suscripciones
             Dim mes As String = DateTime.Now.ToString("MMMM", ci)
 
             If listaJuegos.Count = 1 Then
-                titulo = "Humble Choice • " + mes + " • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
+                titulo = "Humble Choice • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
             Else
                 titulo = "Humble Choice • " + mes + " • "
 
                 Dim tituloJuegos As String = String.Empty
-                Dim i As Integer = 0
-                While i < listaJuegos.Count
-                    If i = 0 Then
-                        tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                    ElseIf i >= 1 And i <= 3 Then
-                        tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                    Else
-                        Exit While
-                    End If
-                    i += 1
-                End While
 
-                titulo = titulo + tituloJuegos + " and more games"
+                If listaJuegos.Count < 6 Then
+                    Dim i As Integer = 0
+                    While i < listaJuegos.Count
+                        If i = 0 Then
+                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        ElseIf i >= 1 Then
+                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        ElseIf (i + 1) = listaJuegos.Count Then
+                            tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        End If
+                        i += 1
+                    End While
+                Else
+                    Dim i As Integer = 0
+                    While i < listaJuegos.Count
+                        If i = 0 Then
+                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        ElseIf i >= 1 And i <= 3 Then
+                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        Else
+                            Exit While
+                        End If
+                        i += 1
+                    End While
+
+                    tituloJuegos = tituloJuegos + " and more games"
+                End If
+
+                titulo = titulo + tituloJuegos
             End If
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")

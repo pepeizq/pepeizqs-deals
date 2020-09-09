@@ -117,17 +117,14 @@ Namespace pepeizq.Ofertas
                         End If
 
                         Dim cuponPorcentaje As String = String.Empty
+                        cuponPorcentaje = DescuentoMonthly(juegoHumble.DescuentoMonthly)
 
-                        If juegoHumble.DescuentoMonthly = 0.1 Then
-                            cuponPorcentaje = "0,2"
-                        ElseIf juegoHumble.DescuentoMonthly = 0.05 Then
-                            cuponPorcentaje = "0,2"
-                        ElseIf juegoHumble.DescuentoMonthly = 0.03 Then
-                            cuponPorcentaje = "0,13"
-                        ElseIf juegoHumble.DescuentoMonthly = 0.02 Then
-                            cuponPorcentaje = "0,12"
-                        ElseIf juegoHumble.DescuentoMonthly = 0 Then
-                            cuponPorcentaje = "0,1"
+                        If Not juegoHumble.CosasIncompatibles Is Nothing Then
+                            If juegoHumble.CosasIncompatibles.Count > 0 Then
+                                If juegoHumble.CosasIncompatibles(0) = "subscriber-discount-coupons" Then
+                                    cuponPorcentaje = String.Empty
+                                End If
+                            End If
                         End If
 
                         If Not cuponPorcentaje = String.Empty Then
@@ -269,6 +266,26 @@ Namespace pepeizq.Ofertas
 
         End Sub
 
+        Public Function DescuentoMonthly(descuento As Double)
+
+            Dim cuponPorcentaje As String = String.Empty
+
+            If descuento = 0.1 Then
+                cuponPorcentaje = "0,2"
+            ElseIf descuento = 0.05 Then
+                cuponPorcentaje = "0,15"
+            ElseIf descuento = 0.03 Then
+                cuponPorcentaje = "0,13"
+            ElseIf descuento = 0.02 Then
+                cuponPorcentaje = "0,12"
+            ElseIf descuento = 0 Then
+                cuponPorcentaje = Nothing
+            End If
+
+            Return cuponPorcentaje
+
+        End Function
+
     End Module
 
     Public Class HumblePaginas
@@ -320,6 +337,9 @@ Namespace pepeizq.Ofertas
         <JsonProperty("rewards_split")>
         Public DescuentoMonthly As Double
 
+        <JsonProperty("incompatible_features")>
+        Public CosasIncompatibles As List(Of String)
+
     End Class
 
     Public Class HumbleJuegoPrecio
@@ -351,6 +371,13 @@ Namespace pepeizq.Ofertas
 
     End Class
 
+    Public Class HumbleJuegoDatos2
+
+        <JsonProperty("result")>
+        Public Resultados As List(Of HumbleJuego)
+
+    End Class
+
     Public Class HumbleJuegoDatosResultado
 
         <JsonProperty("publishers")>
@@ -367,5 +394,6 @@ Namespace pepeizq.Ofertas
         Public Nombre As String
 
     End Class
+
 End Namespace
 

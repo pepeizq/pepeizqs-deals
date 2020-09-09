@@ -833,6 +833,8 @@ Module Tiendas
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
 
+        pepeizq.Interfaz.Pestañas.Botones(False)
+
         pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
         pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
         pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)

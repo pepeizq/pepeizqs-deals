@@ -18,9 +18,6 @@ Module Ordenar
         Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
         gridProgreso.Visibility = Visibility.Visible
 
-        Dim tbProgreso As TextBlock = pagina.FindName("tbOfertasProgreso")
-        tbProgreso.Text = String.Empty
-
         Dim gridOfertas As Grid = pagina.FindName("gridOfertasTiendas")
         gridOfertas.Visibility = Visibility.Visible
 
@@ -109,7 +106,7 @@ Module Ordenar
                     End If
                 End If
 
-                Dim listaGrids As New List(Of Oferta)
+                Dim listaGrid As New List(Of Oferta)
 
                 For Each juego In listaJuegos
                     Dim juegoEncontrado As Boolean = False
@@ -168,29 +165,29 @@ Module Ordenar
                                         listaJuegosAntigua = New List(Of Oferta)
                                     End If
 
-                                    listaGrids.Add(juego)
+                                    listaGrid.Add(juego)
                                     listaJuegosAntigua.Add(juego)
                                     listaUltimasOfertas.Add(juego)
                                 End If
                             End If
 
                             If ApplicationData.Current.LocalSettings.Values("ultimavisita") = False Then
-                                listaGrids.Add(juego)
+                                listaGrid.Add(juego)
                             End If
                         Else
-                            listaGrids.Add(juego)
+                            listaGrid.Add(juego)
                         End If
                     End If
                 Next
 
                 Dim enseñarImagen As Boolean = True
 
-                If listaGrids.Count > 500 Then
+                If listaGrid.Count > 500 Then
                     enseñarImagen = False
                 End If
 
                 Dim i As Integer = 0
-                For Each juegoGrid In listaGrids
+                For Each juegoGrid In listaGrid
                     If i < 6000 Then
                         Dim mostrar As Boolean = True
 
@@ -235,6 +232,7 @@ Module Ordenar
                 Next
 
                 Tiendas.SeñalarImportantes(lv)
+                MenuItemCantidad(tienda.NombreMostrar, listaGrid.Count)
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
@@ -249,50 +247,61 @@ Module Ordenar
                 End If
             End If
 
-            If lv.Items.Count = 0 Then
-                gridOfertas.Visibility = Visibility.Collapsed
-                gridNoOfertas.Visibility = Visibility.Visible
+            Dim spProgreso As StackPanel = pagina.FindName("spOfertasProgreso")
+            Dim visualizar As Boolean = True
 
-                spEditor.Visibility = Visibility.Collapsed
-
-                numOfertasCargadas.Visibility = Visibility.Visible
-                numOfertasCargadas.Text = "(" + listaJuegos.Count.ToString + ")"
-            Else
-                gridOfertas.Visibility = Visibility.Visible
-                gridNoOfertas.Visibility = Visibility.Collapsed
-
-                spEditor.Visibility = Visibility.Visible
-
-                Dim cbAnalisis As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
-                cbAnalisis.SelectedIndex = 0
-
-                Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
-
-                If listaDesarrolladores.Count > 0 Then
-                    listaDesarrolladores.Sort()
-
-                    For Each desarrollador In listaDesarrolladores
-                        If Not desarrollador = Nothing Then
-                            cbDesarrolladores.Items.Add(desarrollador)
-                        End If
-                    Next
+            For Each hijo As StackPanel In spProgreso.Children
+                If hijo.Visibility = Visibility.Visible Then
+                    visualizar = False
                 End If
-
-                cbDesarrolladores.SelectedIndex = 0
-
-                numOfertasCargadas2.Text = lv.Items.Count.ToString
-            End If
-
-            For Each item In lv.Items
-                item.Opacity = 1
             Next
 
-            lv.IsEnabled = True
+            If visualizar = True Then
+                If lv.Items.Count = 0 Then
+                    gridOfertas.Visibility = Visibility.Collapsed
+                    gridNoOfertas.Visibility = Visibility.Visible
+
+                    spEditor.Visibility = Visibility.Collapsed
+
+                    numOfertasCargadas.Visibility = Visibility.Visible
+                    numOfertasCargadas.Text = "(" + listaJuegos.Count.ToString + ")"
+                Else
+                    gridOfertas.Visibility = Visibility.Visible
+                    gridNoOfertas.Visibility = Visibility.Collapsed
+
+                    spEditor.Visibility = Visibility.Visible
+
+                    Dim cbAnalisis As ComboBox = pagina.FindName("cbFiltradoEditorAnalisis")
+                    cbAnalisis.SelectedIndex = 0
+
+                    Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
+
+                    If listaDesarrolladores.Count > 0 Then
+                        listaDesarrolladores.Sort()
+
+                        For Each desarrollador In listaDesarrolladores
+                            If Not desarrollador = Nothing Then
+                                cbDesarrolladores.Items.Add(desarrollador)
+                            End If
+                        Next
+                    End If
+
+                    cbDesarrolladores.SelectedIndex = 0
+
+                    numOfertasCargadas2.Text = lv.Items.Count.ToString
+                End If
+
+                For Each item In lv.Items
+                    item.Opacity = 1
+                Next
+
+                lv.IsEnabled = True
+
+                pepeizq.Interfaz.Pestañas.Botones(True)
+
+                gridProgreso.Visibility = Visibility.Collapsed
+            End If
         End If
-
-        pepeizq.Interfaz.Pestañas.Botones(True)
-
-        gridProgreso.Visibility = Visibility.Collapsed
 
     End Sub
 
@@ -331,20 +340,39 @@ Module Ordenar
             listaComprobacionesTiendas = Await helper.ReadFileAsync(Of List(Of Comprobacion))("comprobaciones")
         End If
 
-        Dim añadirComprobacion As Boolean = True
+        If Not listaComprobacionesTiendas Is Nothing Then
+            Dim añadirComprobacion As Boolean = True
 
-        For Each comprobacion In listaComprobacionesTiendas
-            If comprobacion.Tienda = tienda Then
-                comprobacion.Dias = DateTime.Today.DayOfYear
-                añadirComprobacion = False
+            If listaComprobacionesTiendas.Count > 0 Then
+                For Each comprobacion In listaComprobacionesTiendas
+                    If comprobacion.Tienda = tienda Then
+                        comprobacion.Dias = DateTime.Today.DayOfYear
+                        añadirComprobacion = False
+                    End If
+                Next
             End If
-        Next
 
-        If añadirComprobacion = True Then
-            listaComprobacionesTiendas.Add(New Comprobacion(tienda, DateTime.Today.DayOfYear))
+            If añadirComprobacion = True Then
+                listaComprobacionesTiendas.Add(New Comprobacion(tienda, DateTime.Today.DayOfYear))
+            End If
+
+            Await helper.SaveFileAsync(Of List(Of Comprobacion))("comprobaciones", listaComprobacionesTiendas)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tiendasMenu As MenuFlyout = pagina.FindName("botonTiendasMenu")
+
+            For Each item As MenuFlyoutItem In tiendasMenu.Items
+                If item.Text.Contains(tienda) Then
+                    item.Text = item.Text.Replace(" • Hoy no se ha comprobado", Nothing)
+                End If
+            Next
         End If
 
-        Await helper.SaveFileAsync(Of List(Of Comprobacion))("comprobaciones", listaComprobacionesTiendas)
+    End Sub
+
+    Private Sub MenuItemCantidad(tienda As String, cantidad As Integer)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -354,6 +382,14 @@ Module Ordenar
         For Each item As MenuFlyoutItem In tiendasMenu.Items
             If item.Text.Contains(tienda) Then
                 item.Text = item.Text.Replace(" • Hoy no se ha comprobado", Nothing)
+
+                If item.Text.Contains("•") Then
+                    Dim int As Integer = item.Text.IndexOf("•")
+                    item.Text = item.Text.Remove(int, item.Text.Length - int)
+                    item.Text = item.Text.Trim
+                End If
+
+                item.Text = item.Text + " • " + cantidad.ToString
             End If
         Next
 
