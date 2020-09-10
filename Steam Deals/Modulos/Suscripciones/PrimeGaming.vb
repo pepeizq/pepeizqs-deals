@@ -1,6 +1,6 @@
 ﻿Imports System.Globalization
-Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Suscripciones
     Module PrimeGaming
@@ -46,45 +46,33 @@ Namespace pepeizq.Suscripciones
 
                     clave = clave.Trim
 
-                    Dim html_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
-                    Dim html As String = html_.Result
+                    Dim datos As SteamAPIJson = BuscarAPIJson(clave).Result
 
-                    If Not html = Nothing Then
-                        Dim temp As String
-                        Dim int As Integer
-
-                        int = html.IndexOf(":")
-                        temp = html.Remove(0, int + 1)
-                        temp = temp.Remove(temp.Length - 1, 1)
-
-                        Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
-
-                        Dim idBool As Boolean = False
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).ID = datos.Datos.ID Then
-                                idBool = True
-                                Exit While
-                            End If
-                            k += 1
-                        End While
-
-                        If idBool = False Then
-                            Dim video As String = Nothing
-
-                            If Not datos.Datos.Videos Is Nothing Then
-                                video = datos.Datos.Videos(0).Calidad.Max
-
-                                If video.Contains("?") Then
-                                    Dim int2 As Integer = video.IndexOf("?")
-                                    video = video.Remove(int2, video.Length - int2)
-                                End If
-                            End If
-
-                            listaJuegos.Add(New JuegoSuscripcion(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, Referidos.Generar("https://store.steampowered.com/app/" + clave), video))
-                        Else
+                    Dim idBool As Boolean = False
+                    Dim k As Integer = 0
+                    While k < listaJuegos.Count
+                        If listaJuegos(k).ID = datos.Datos.ID Then
+                            idBool = True
                             Exit While
                         End If
+                        k += 1
+                    End While
+
+                    If idBool = False Then
+                        Dim video As String = Nothing
+
+                        If Not datos.Datos.Videos Is Nothing Then
+                            video = datos.Datos.Videos(0).Calidad.Max
+
+                            If video.Contains("?") Then
+                                Dim int2 As Integer = video.IndexOf("?")
+                                video = video.Remove(int2, video.Length - int2)
+                            End If
+                        End If
+
+                        listaJuegos.Add(New JuegoSuscripcion(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, Referidos.Generar("https://store.steampowered.com/app/" + clave), video))
+                    Else
+                        Exit While
                     End If
                 End If
                 i += 1

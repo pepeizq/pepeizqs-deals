@@ -3,6 +3,7 @@ Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Gratis
+Imports Steam_Deals.pepeizq.Juegos
 Imports Steam_Deals.pepeizq.Ofertas
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -262,23 +263,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 id = id.Remove(int, id.Length - int)
             End If
 
-            Dim html As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
+            Dim datos As SteamAPIJson = Await BuscarAPIJson(id)
 
-            If Not html = Nothing Then
-                Dim temp As String
-                Dim int As Integer
-
-                int = html.IndexOf(":")
-                temp = html.Remove(0, int + 1)
-                temp = temp.Remove(temp.Length - 1, 1)
-
-                Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
-
-                If Not datos Is Nothing Then
-                    cosas.Titulo = datos.Datos.Titulo
-                    cosas.ImagenJuego = datos.Datos.Imagen
-                    cosas.ImagenFondo = datos.Datos.Fondo
-                End If
+            If Not datos Is Nothing Then
+                cosas.Titulo = datos.Datos.Titulo
+                cosas.ImagenJuego = datos.Datos.Imagen
+                cosas.ImagenFondo = datos.Datos.Fondo
             End If
 
             Return cosas
@@ -407,23 +397,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
 
             If Not textoID = Nothing Then
-                Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + textoID))
+                Dim datos As SteamAPIJson = Await BuscarAPIJson(textoID)
 
-                If Not htmlID = Nothing Then
-                    Dim temp As String
-                    Dim int As Integer
+                If Not datos Is Nothing Then
+                    tbImagenJuego.Text = datos.Datos.Imagen
 
-                    int = htmlID.IndexOf(":")
-                    temp = htmlID.Remove(0, int + 1)
-                    temp = temp.Remove(temp.Length - 1, 1)
-
-                    Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
-
-                    If Not datos Is Nothing Then
-                        tbImagenJuego.Text = datos.Datos.Imagen
-
-                        tbImagenFondo.Text = datos.Datos.Fondo
-                    End If
+                    tbImagenFondo.Text = datos.Datos.Fondo
                 End If
             End If
 

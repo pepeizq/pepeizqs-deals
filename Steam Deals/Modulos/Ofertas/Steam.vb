@@ -257,7 +257,15 @@ Namespace pepeizq.Ofertas
 
                                         If buscarAPI = True Then
                                             If Not juego Is Nothing Then
-                                                juego = SteamMas(juego).Result
+                                                juego = pepeizq.Juegos.Steam.BuscarOferta(juego).Result
+
+                                                Dim desarrolladores As String = String.Empty
+
+                                                If Not juego.Desarrolladores Is Nothing Then
+                                                    desarrolladores = juego.Desarrolladores.Desarrolladores(0)
+                                                End If
+
+                                                listaAPI.Add(New SteamAPI(juego.Enlace, desarrolladores, juego.Tipo))
                                             End If
                                         End If
 
@@ -368,133 +376,7 @@ Namespace pepeizq.Ofertas
             Return numPaginas
         End Function
 
-        Public Async Function SteamMas(juego As Oferta) As Task(Of Oferta)
-
-            Dim id As String = juego.Enlace
-
-            If id.Contains("https://store.steampowered.com/app/") Then
-                id = id.Replace("https://store.steampowered.com/app/", Nothing)
-
-                If id.Contains("/") Then
-                    Dim int As Integer = id.IndexOf("/")
-                    id = id.Remove(int, id.Length - int)
-                End If
-
-                Dim htmlMas As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id + "&l=english"))
-
-                If Not htmlMas = Nothing Then
-                    Dim temp As String
-                    Dim int As Integer
-
-                    int = htmlMas.IndexOf(":")
-                    temp = htmlMas.Remove(0, int + 1)
-                    temp = temp.Remove(temp.Length - 1, 1)
-
-                    Dim datos As SteamMasDatos = JsonConvert.DeserializeObject(Of SteamMasDatos)(temp)
-
-                    If Not datos Is Nothing Then
-                        If Not datos.Datos Is Nothing Then
-                            If Not datos.Datos.Desarrolladores Is Nothing Then
-                                If datos.Datos.Desarrolladores.Count > 0 Then
-                                    Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores(0)}, Nothing)
-                                    juego.Desarrolladores = desarrolladores
-                                    juego.Tipo = datos.Datos.Tipo
-                                    listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores(0), datos.Datos.Tipo))
-                                ElseIf datos.Datos.Desarrolladores.Count = 0 Then
-                                    If datos.Datos.Desarrolladores2.Count > 0 Then
-                                        Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {datos.Datos.Desarrolladores2(0)}, Nothing)
-                                        juego.Desarrolladores = desarrolladores
-                                        juego.Tipo = datos.Datos.Tipo
-                                        listaAPI.Add(New SteamAPI(juego.Enlace, datos.Datos.Desarrolladores2(0), datos.Datos.Tipo))
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-
-            End If
-
-            Return juego
-
-        End Function
-
     End Module
-
-    Public Class SteamMasDatos
-
-        <JsonProperty("data")>
-        Public Datos As SteamMasDatosAmpliado
-
-    End Class
-
-    Public Class SteamMasDatosAmpliado
-
-        <JsonProperty("type")>
-        Public Tipo As String
-
-        <JsonProperty("name")>
-        Public Titulo As String
-
-        <JsonProperty("header_image")>
-        Public Imagen As String
-
-        <JsonProperty("steam_appid")>
-        Public ID As String
-
-        <JsonProperty("publishers")>
-        Public Desarrolladores As List(Of String)
-
-        <JsonProperty("developers")>
-        Public Desarrolladores2 As List(Of String)
-
-        <JsonProperty("background")>
-        Public Fondo As String
-
-        <JsonProperty("movies")>
-        Public Videos As List(Of SteamMasDatosAmpliadoVideo)
-
-        <JsonProperty("price_overview")>
-        Public Precio As SteamMasDatosPrecio
-
-        <JsonProperty("release_date")>
-        Public FechaLanzamiento As SteamMasDatosFechaLanzamiento
-
-    End Class
-
-    Public Class SteamMasDatosPrecio
-
-        <JsonProperty("final_formatted")>
-        Public Formateado As String
-
-    End Class
-
-    Public Class SteamMasDatosAmpliadoVideo
-
-        <JsonProperty("thumbnail")>
-        Public Captura As String
-
-        <JsonProperty("webm")>
-        Public Calidad As SteamMasDatosAmpliadoVideoCalidad
-
-    End Class
-
-    Public Class SteamMasDatosAmpliadoVideoCalidad
-
-        <JsonProperty("480")>
-        Public _480 As String
-
-        <JsonProperty("max")>
-        Public Max As String
-
-    End Class
-
-    Public Class SteamMasDatosFechaLanzamiento
-
-        <JsonProperty("date")>
-        Public Fecha As String
-
-    End Class
 
     Public Class SteamAPI
 

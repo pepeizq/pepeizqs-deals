@@ -459,7 +459,7 @@
                 New Clases.Desarrolladores("Monstrum Games", "@monstersden", Nothing, Nothing),
                 New Clases.Desarrolladores("Motion Twin", "@motiontwin", Nothing, Nothing),
                 New Clases.Desarrolladores("Mystery Corgi", "@MysteryCorgi", Nothing, Nothing),
-                New Clases.Desarrolladores("Nacon", "@nacon", "Assets\LogosPublishers\nacon.png", 290),
+                New Clases.Desarrolladores("Nacon", "@nacon", "Assets\LogosPublishers\nacon.png", 260),
                 New Clases.Desarrolladores("Nadeo", "@Maniaplanet", Nothing, Nothing),
                 New Clases.Desarrolladores("Nami Tentou", "@NAMITENTOU", Nothing, Nothing),
                 New Clases.Desarrolladores("narayana games", "@jashan", Nothing, Nothing),

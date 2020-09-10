@@ -103,6 +103,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not tituloComplemento = Nothing Then
                     If tituloComplemento.Trim.Length > 0 Then
                         postEditor.TituloComplemento = tituloComplemento.Trim
+                        postEditor.SEODescripcion = tituloComplemento.Trim
                     End If
                 End If
 
@@ -136,6 +137,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not puntuacionReview = Nothing Then
                         postEditor.ReviewPuntuacion = puntuacionReview
+                        postEditor.SEODescripcion = puntuacionReview
                     End If
                 End If
 

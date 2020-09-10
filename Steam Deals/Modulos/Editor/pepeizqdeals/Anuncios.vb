@@ -1,5 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Anuncios
@@ -220,22 +220,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If enlace.Contains("http") Then
                         listaJuegos.Add(enlace)
                     Else
-                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + enlace))
+                        Dim datos As SteamAPIJson = Await BuscarAPIJson(enlace)
 
-                        If Not htmlID = Nothing Then
-                            Dim temp As String
-                            Dim int As Integer
-
-                            int = htmlID.IndexOf(":")
-                            temp = htmlID.Remove(0, int + 1)
-                            temp = temp.Remove(temp.Length - 1, 1)
-
-                            Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
-
-                            If Not datos Is Nothing Then
-                                If Not datos.Datos Is Nothing Then
-                                    listaJuegos.Add(datos.Datos.Imagen)
-                                End If
+                        If Not datos Is Nothing Then
+                            If Not datos.Datos Is Nothing Then
+                                listaJuegos.Add(datos.Datos.Imagen)
                             End If
                         End If
                     End If

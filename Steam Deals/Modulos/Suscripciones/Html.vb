@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Suscripciones
     Module Html
@@ -109,25 +109,14 @@ Namespace pepeizq.Suscripciones
 
                                 Dim video As String = String.Empty
 
-                                Dim htmlBuscar As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + id))
+                                Dim datos As SteamAPIJson = Await BuscarAPIJson(id)
 
-                                If Not htmlBuscar = Nothing Then
-                                    Dim temp3 As String
-                                    Dim int3 As Integer
+                                If Not datos.Datos.Videos Is Nothing Then
+                                    video = datos.Datos.Videos(0).Calidad.Max
 
-                                    int3 = htmlBuscar.IndexOf(":")
-                                    temp3 = htmlBuscar.Remove(0, int3 + 1)
-                                    temp3 = temp3.Remove(temp3.Length - 1, 1)
-
-                                    Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp3)
-
-                                    If Not datos.Datos.Videos Is Nothing Then
-                                        video = datos.Datos.Videos(0).Calidad.Max
-
-                                        If video.Contains("?") Then
-                                            Dim int4 As Integer = video.IndexOf("?")
-                                            video = video.Remove(int4, video.Length - int4)
-                                        End If
+                                    If video.Contains("?") Then
+                                        Dim int4 As Integer = video.IndexOf("?")
+                                        video = video.Remove(int4, video.Length - int4)
                                     End If
                                 End If
 

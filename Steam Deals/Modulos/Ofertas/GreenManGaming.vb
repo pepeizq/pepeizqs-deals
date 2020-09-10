@@ -89,6 +89,7 @@ Namespace pepeizq.Ofertas
                             Dim titulo As String = WebUtility.HtmlDecode(juegoGMG.Titulo)
                             titulo = titulo.Replace("(MAC)", Nothing)
                             titulo = titulo.Replace("(PC)", Nothing)
+                            titulo = titulo.Replace("(STEAM)", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoGMG.Enlace.Trim

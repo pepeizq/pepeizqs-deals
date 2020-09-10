@@ -232,7 +232,7 @@ Module Ordenar
                 Next
 
                 Tiendas.SeñalarImportantes(lv)
-                MenuItemCantidad(tienda.NombreMostrar, listaGrid.Count)
+                MenuItemCantidad(tienda.NombreMostrar, i)
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then

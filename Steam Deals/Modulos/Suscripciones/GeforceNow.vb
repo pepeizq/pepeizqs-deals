@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Suscripciones
     Module GeforceNow
@@ -62,39 +63,27 @@ Namespace pepeizq.Suscripciones
                                         imagen = imagen.Remove(int, imagen.Length - int)
                                     End If
 
-                                    Dim htmlID_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + imagen))
-                                    Dim htmlID As String = htmlID_.Result
+                                    Dim datos As SteamAPIJson = BuscarAPIJson(imagen).Result
 
-                                    If Not htmlID = Nothing Then
-                                        Dim temp As String
-                                        Dim int As Integer
+                                    Dim video As String = Nothing
 
-                                        int = htmlID.IndexOf(":")
-                                        temp = htmlID.Remove(0, int + 1)
-                                        temp = temp.Remove(temp.Length - 1, 1)
+                                    If Not datos.Datos Is Nothing Then
+                                        If Not datos.Datos.Videos Is Nothing Then
+                                            video = datos.Datos.Videos(0).Calidad.Max
 
-                                        Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
-
-                                        Dim video As String = Nothing
-
-                                        If Not datos.Datos Is Nothing Then
-                                            If Not datos.Datos.Videos Is Nothing Then
-                                                video = datos.Datos.Videos(0).Calidad.Max
-
-                                                If video.Contains("?") Then
-                                                    Dim int2 As Integer = video.IndexOf("?")
-                                                    video = video.Remove(int2, video.Length - int2)
-                                                End If
+                                            If video.Contains("?") Then
+                                                Dim int2 As Integer = video.IndexOf("?")
+                                                video = video.Remove(int2, video.Length - int2)
                                             End If
-
-                                            Dim titulo As String = juego.Titulo.Trim
-                                            titulo = titulo.Replace("®", Nothing)
-                                            titulo = titulo.Replace("™", Nothing)
-                                            titulo = titulo.Replace("– Steam", Nothing)
-                                            titulo = titulo.Trim
-
-                                            listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
                                         End If
+
+                                        Dim titulo As String = juego.Titulo.Trim
+                                        titulo = titulo.Replace("®", Nothing)
+                                        titulo = titulo.Replace("™", Nothing)
+                                        titulo = titulo.Replace("– Steam", Nothing)
+                                        titulo = titulo.Trim
+
+                                        listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
                                     End If
                                 End If
                             End If

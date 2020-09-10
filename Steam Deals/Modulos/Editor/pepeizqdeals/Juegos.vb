@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Juegos
 Imports Windows.Storage
 Imports Windows.System
 Imports WordPressPCL
@@ -82,137 +83,129 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbBuscar As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosBuscar")
 
             If tbBuscar.Text.Trim.Length > 0 Then
-                Dim html As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + tbBuscar.Text.Trim))
+                Dim datos As SteamAPIJson = Await BuscarAPIJson(tbBuscar.Text.Trim)
 
-                If Not html = Nothing Then
-                    Dim temp As String
-                    Dim int As Integer
+                If Not datos Is Nothing Then
+                    Dim tbTitulo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTitulo")
+                    tbTitulo.Text = datos.Datos.Titulo.Trim
 
-                    int = html.IndexOf(":")
-                    temp = html.Remove(0, int + 1)
-                    temp = temp.Remove(temp.Length - 1, 1)
+                    Dim imagenV As String = datos.Datos.Imagen
+                    Dim imagenH As String = datos.Datos.Imagen
 
-                    Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
+                    If datos.Datos.Tipo = "game" Then
+                        imagenV = imagenV.Replace("header", "library_600x900")
+                        imagenH = imagenH.Replace("header", "capsule_616x353")
+                    End If
 
-                    If Not datos Is Nothing Then
-                        Dim tbTitulo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTitulo")
-                        tbTitulo.Text = datos.Datos.Titulo.Trim
+                    Dim tbImagenVertical As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenVertical")
+                    tbImagenVertical.Text = imagenV
 
-                        Dim imagenV As String = datos.Datos.Imagen
-                        Dim imagenH As String = datos.Datos.Imagen
+                    Dim tbImagenHorizontal As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenHorizontal")
+                    tbImagenHorizontal.Text = imagenH
 
-                        If datos.Datos.Tipo = "game" Then
-                            imagenV = imagenV.Replace("header", "library_600x900")
-                            imagenH = imagenH.Replace("header", "capsule_616x353")
+                    Dim tbFecha As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
+                    tbFecha.Text = datos.Datos.FechaLanzamiento.Fecha
+
+                    Dim tbDescripcionSEO As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcionSEO")
+                    tbDescripcionSEO.Text = datos.Datos.DescripcionCorta
+
+                    spTiendas.Children.Clear()
+
+                    For Each tienda In listaTiendas
+                        Dim añadido As Boolean = False
+                        Dim cupon As String = String.Empty
+
+                        If cupones.Count > 0 Then
+                            For Each subcupon In cupones
+                                If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
+                                    If Not subcupon.Codigo = Nothing Then
+                                        cupon = subcupon.Codigo
+                                    End If
+                                End If
+                            Next
                         End If
 
-                        Dim tbImagenVertical As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenVertical")
-                        tbImagenVertical.Text = imagenV
+                        If tienda.NombreUsar = "Steam" Then
+                            Dim precio As String = String.Empty
 
-                        Dim tbImagenHorizontal As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosImagenHorizontal")
-                        tbImagenHorizontal.Text = imagenH
+                            If Not datos.Datos.Precio Is Nothing Then
+                                precio = datos.Datos.Precio.Formateado
+                                precio = precio.Replace("€", " €")
 
-                        Dim tbFecha As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
-                        tbFecha.Text = datos.Datos.FechaLanzamiento.Fecha
-
-                        spTiendas.Children.Clear()
-
-                        For Each tienda In listaTiendas
-                            Dim añadido As Boolean = False
-                            Dim cupon As String = String.Empty
-
-                            If cupones.Count > 0 Then
-                                For Each subcupon In cupones
-                                    If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
-                                        If Not subcupon.Codigo = Nothing Then
-                                            cupon = subcupon.Codigo
-                                        End If
-                                    End If
-                                Next
+                                GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", precio, Nothing)
+                            Else
+                                GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", Nothing, Nothing)
                             End If
 
-                            If tienda.NombreUsar = "Steam" Then
-                                Dim precio As String = String.Empty
+                            añadido = True
+                        End If
 
-                                If Not datos.Datos.Precio Is Nothing Then
-                                    precio = datos.Datos.Precio.Formateado
-                                    precio = precio.Replace("€", " €")
+                        If añadido = False Then
+                            Dim listaJuegos As New List(Of Oferta)
 
-                                    GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", precio, Nothing)
-                                Else
-                                    GenerarXaml(tienda, "https://store.steampowered.com/app/" + datos.Datos.ID + "/", Nothing, Nothing)
-                                End If
-
-                                añadido = True
+                            If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
+                                listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
                             End If
 
-                            If añadido = False Then
-                                Dim listaJuegos As New List(Of Oferta)
+                            For Each juego In listaJuegos
+                                If cupon = String.Empty Then
+                                    If juego.Descuento = Nothing Or juego.Descuento = "0%" Or juego.Descuento = "00%" Then
+                                        If cuponesReservas.Count > 0 Then
+                                            For Each subcupon In cuponesReservas
+                                                If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
+                                                    If Not subcupon.Codigo = Nothing Then
+                                                        cupon = subcupon.Codigo
 
-                                If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
-                                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
-                                End If
+                                                        Dim cuponPorcentaje As String = String.Empty
+                                                        cuponPorcentaje = subcupon.Porcentaje
+                                                        cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                                                        cuponPorcentaje = cuponPorcentaje.Trim
 
-                                For Each juego In listaJuegos
-                                    If cupon = String.Empty Then
-                                        If juego.Descuento = Nothing Or juego.Descuento = "0%" Or juego.Descuento = "00%" Then
-                                            If cuponesReservas.Count > 0 Then
-                                                For Each subcupon In cuponesReservas
-                                                    If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
-                                                        If Not subcupon.Codigo = Nothing Then
-                                                            cupon = subcupon.Codigo
-
-                                                            Dim cuponPorcentaje As String = String.Empty
-                                                            cuponPorcentaje = subcupon.Porcentaje
-                                                            cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                                                            cuponPorcentaje = cuponPorcentaje.Trim
-
-                                                            If cuponPorcentaje.Length = 1 Then
-                                                                cuponPorcentaje = "0,0" + cuponPorcentaje
-                                                            Else
-                                                                cuponPorcentaje = "0," + cuponPorcentaje
-                                                            End If
-
-                                                            Dim dprecioEU As Double = Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                                            juego.Precio = Math.Round(dprecioEU, 2).ToString + " €"
+                                                        If cuponPorcentaje.Length = 1 Then
+                                                            cuponPorcentaje = "0,0" + cuponPorcentaje
+                                                        Else
+                                                            cuponPorcentaje = "0," + cuponPorcentaje
                                                         End If
+
+                                                        Dim dprecioEU As Double = Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                                        juego.Precio = Math.Round(dprecioEU, 2).ToString + " €"
                                                     End If
-                                                Next
-                                            End If
+                                                End If
+                                            Next
                                         End If
                                     End If
+                                End If
 
-                                    If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
-                                        GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
-                                        añadido = True
-                                    ElseIf titulosAlternativos.Count > 0 Then
-                                        For Each tituloA In titulosAlternativos
-                                            If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloA) Then
-                                                If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloA) Then
-                                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
-                                                    añadido = True
-                                                End If
+                                If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
+                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
+                                    añadido = True
+                                ElseIf titulosAlternativos.Count > 0 Then
+                                    For Each tituloA In titulosAlternativos
+                                        If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloA) Then
+                                            If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloA) Then
+                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
+                                                añadido = True
                                             End If
-                                        Next
-                                    End If
-                                Next
-                            End If
+                                        End If
+                                    Next
+                                End If
+                            Next
+                        End If
 
-                            If añadido = False Then
-                                If tienda.NombreUsar = "Humble" Then
-                                    Dim resultado As Clases.JuegoTienda = Await pepeizq.Juegos.Humble.BuscarTitulo(datos.Datos.Titulo)
+                        If añadido = False Then
+                            If tienda.NombreUsar = "Humble" Then
+                                Dim resultado As Clases.JuegoTienda = Await Humble.BuscarTitulo(datos.Datos.Titulo)
 
-                                    If Not resultado Is Nothing Then
-                                        GenerarXaml(tienda, resultado.Enlace, resultado.Precio, cupon)
-                                    Else
-                                        GenerarXaml(tienda, Nothing, Nothing, cupon)
-                                    End If
+                                If Not resultado Is Nothing Then
+                                    GenerarXaml(tienda, resultado.Enlace, resultado.Precio, cupon)
                                 Else
                                     GenerarXaml(tienda, Nothing, Nothing, cupon)
                                 End If
+                            Else
+                                GenerarXaml(tienda, Nothing, Nothing, cupon)
                             End If
-                        Next
-                    End If
+                        End If
+                    Next
                 End If
             Else
                 If titulosAlternativos.Count > 0 Then
@@ -424,7 +417,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text, Nothing, enlaces)
+                Dim tbDescripcionSEO As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcionSEO")
+
+                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text.Trim, Nothing, enlaces, tbDescripcionSEO.Text.Trim)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -456,6 +451,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postNuevo2.JuegoPrecioMinimoActual = DevolverPrecioMinimoActual(nuevoJuego.Enlaces)
                     postNuevo2.JuegoPrecioMinimoHistorico = postNuevo2.JuegoPrecioMinimoActual
                     postNuevo2.JuegoDRM = DevolverDRM(nuevoJuego.DRM)
+                    postNuevo2.SEODescripcion = nuevoJuego.DescripcionSEO
 
                     Dim resultado As Clases.Post = Nothing
 
@@ -606,11 +602,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 If encontrado = False And actualizar = True Then
-                                    If tienda.NombreUsar = "Humble" Then
+                                    If tienda.NombreUsar = "Steam" Then
+                                        For Each juegoBBDD In juego.Enlaces
+                                            If juegoBBDD.NombreUsar = "Steam" Then
+                                                If Not juegoBBDD.Enlace = Nothing Then
+                                                    Dim resultado As Clases.JuegoTienda = Await Steam.BuscarJuego(juego.SteamID)
+
+                                                    juegoBBDD.Descuento = resultado.Descuento
+                                                    juegoBBDD.Precio = resultado.Precio
+
+                                                    actualizar = True
+                                                    Exit For
+                                                End If
+                                            End If
+                                        Next
+                                    ElseIf tienda.NombreUsar = "Humble" Then
                                         For Each juegoBBDD In juego.Enlaces
                                             If juegoBBDD.NombreUsar = "Humble" Then
                                                 If Not juegoBBDD.Enlace = Nothing Then
-                                                    Dim resultado As Clases.JuegoTienda = Await Juegos.Humble.BuscarEnlace(juegoBBDD.Enlace)
+                                                    Dim resultado As Clases.JuegoTienda = Await Humble.BuscarEnlace(juegoBBDD.Enlace)
 
                                                     juegoBBDD.Descuento = resultado.Descuento
                                                     juegoBBDD.Precio = resultado.Precio
@@ -919,6 +929,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbFechaLanzamiento As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
             tbFechaLanzamiento.IsEnabled = estado
+
+            Dim tbDescripcionSEO As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcionSEO")
+            tbDescripcionSEO.IsEnabled = estado
 
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
             botonGenerar.IsEnabled = estado

@@ -968,6 +968,9 @@
                                         <TextBlock Text="Fecha Lanzamiento:" Margin="0,10,0,0"/>
                                         <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento" Margin="0,10,0,0"/>
 
+                                        <TextBlock Text="Descripción SEO:" Margin="0,10,0,0"/>
+                                        <TextBox x:Name="tbEditorpepeizqdealsNuevosJuegosDescripcionSEO" Margin="0,10,0,0" TextWrapping="Wrap"/>
+
                                         <Button x:Name="botonEditorpepeizqdealsNuevosJuegosGenerar" Margin="0,30,0,0" IsEnabled="False" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">

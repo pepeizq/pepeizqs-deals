@@ -80,6 +80,7 @@ Namespace pepeizq.Ofertas
                             Dim titulo As String = juegoVoidu.Titulo.Trim
                             titulo = WebUtility.HtmlDecode(titulo)
                             titulo = titulo.Replace("(Mac/Pc)", Nothing)
+                            titulo = titulo.Replace("[Mac]", Nothing)
                             titulo = titulo.Replace("(ROW)", Nothing)
                             titulo = titulo.Replace("(DLC)", Nothing)
                             titulo = titulo.Replace("- ASIA+EMEA", Nothing)

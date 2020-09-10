@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Newtonsoft.Json
+Imports Steam_Deals.pepeizq.Juegos
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
 Imports Windows.UI
@@ -296,7 +296,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tb.Text.Trim.Length > 0 Then
                 Dim textoIDs As String = tb.Text.Trim
 
-                Dim listaJuegos As New List(Of Ofertas.SteamMasDatos)
+                Dim listaJuegos As New List(Of SteamAPIJson)
 
                 Dim i As Integer = 0
                 If Not textoIDs.Contains("http") Then
@@ -315,51 +315,33 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             clave = clave.Trim
 
-                            Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=" + clave))
+                            Dim datos As SteamAPIJson = Await BuscarAPIJson(clave)
 
-                            If Not htmlID = Nothing Then
-                                Dim temp As String
-                                Dim int As Integer
-
-                                int = htmlID.IndexOf(":")
-                                temp = htmlID.Remove(0, int + 1)
-                                temp = temp.Remove(temp.Length - 1, 1)
-
-                                Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
-
-                                Dim idBool As Boolean = False
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
+                            Dim idBool As Boolean = False
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If Not datos Is Nothing Then
                                     If listaJuegos(k).Datos.ID = datos.Datos.ID Then
                                         idBool = True
                                         Exit While
                                     End If
-                                    k += 1
-                                End While
-
-                                If idBool = False Then
-                                    listaJuegos.Add(datos)
-                                Else
-                                    Exit While
                                 End If
+                                k += 1
+                            End While
+
+                            If idBool = False Then
+                                listaJuegos.Add(datos)
+                            Else
+                                Exit While
                             End If
                         End If
                         i += 1
                     End While
                 Else
                     If textoIDs.Length > 0 Then
-                        Dim htmlID As String = Await HttpClient(New Uri("https://store.steampowered.com/api/appdetails/?appids=220"))
+                        Dim datos As SteamAPIJson = Await BuscarAPIJson("220")
 
-                        If Not htmlID = Nothing Then
-                            Dim temp As String
-                            Dim int As Integer
-
-                            int = htmlID.IndexOf(":")
-                            temp = htmlID.Remove(0, int + 1)
-                            temp = temp.Remove(temp.Length - 1, 1)
-
-                            Dim datos As Ofertas.SteamMasDatos = JsonConvert.DeserializeObject(Of Ofertas.SteamMasDatos)(temp)
-
+                        If Not datos Is Nothing Then
                             datos.Datos.Imagen = textoIDs
 
                             listaJuegos.Add(datos)

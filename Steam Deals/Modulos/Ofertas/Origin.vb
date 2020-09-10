@@ -149,11 +149,7 @@ Namespace pepeizq.Ofertas
                                     End While
 
                                     If juego.Descuento = Nothing Then
-                                        añadir = False
-                                    Else
-                                        If juego.Descuento = "00%" Then
-                                            añadir = False
-                                        End If
+                                        juego.Descuento = "00%"
                                     End If
 
                                     If añadir = True Then
