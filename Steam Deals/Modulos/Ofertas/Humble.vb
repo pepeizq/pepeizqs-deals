@@ -279,7 +279,7 @@ Namespace pepeizq.Ofertas
             ElseIf descuento = 0.02 Then
                 cuponPorcentaje = "0,12"
             ElseIf descuento = 0 Then
-                cuponPorcentaje = Nothing
+                cuponPorcentaje = "0,10"
             End If
 
             Return cuponPorcentaje
