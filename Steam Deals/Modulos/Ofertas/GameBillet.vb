@@ -105,6 +105,8 @@ Namespace pepeizq.Ofertas
                             temp5 = temp5.Replace("Show details for ", Nothing)
 
                             Dim titulo As String = WebUtility.HtmlDecode(temp5.Trim)
+                            titulo = titulo.Replace("(DLC)", Nothing)
+                            titulo = titulo.Trim
 
                             Dim temp6, temp7 As String
                             Dim int6, int7 As Integer
@@ -252,6 +254,8 @@ Namespace pepeizq.Ofertas
                                 temp5 = temp5.Replace("Show details for ", Nothing)
 
                                 Dim titulo As String = WebUtility.HtmlDecode(temp5.Trim)
+                                titulo = titulo.Replace("(DLC)", Nothing)
+                                titulo = titulo.Trim
 
                                 Dim temp6, temp7 As String
                                 Dim int6, int7 As Integer
@@ -323,10 +327,10 @@ Namespace pepeizq.Ofertas
                                     End While
 
                                     If juego.Descuento = Nothing Then
-                                        añadir = False
+                                        juego.Descuento = "00%"
                                     Else
                                         If juego.Descuento = "0%" Then
-                                            añadir = False
+                                            juego.Descuento = "00%"
                                         End If
                                     End If
 

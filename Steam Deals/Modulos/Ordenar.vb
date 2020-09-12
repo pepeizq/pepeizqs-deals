@@ -356,7 +356,11 @@ Module Ordenar
                 listaComprobacionesTiendas.Add(New Comprobacion(tienda, DateTime.Today.DayOfYear))
             End If
 
-            Await helper.SaveFileAsync(Of List(Of Comprobacion))("comprobaciones", listaComprobacionesTiendas)
+            Try
+                Await helper.SaveFileAsync(Of List(Of Comprobacion))("comprobaciones", listaComprobacionesTiendas)
+            Catch ex As Exception
+
+            End Try
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
