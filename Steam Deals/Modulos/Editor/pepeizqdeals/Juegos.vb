@@ -603,19 +603,32 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                 If encontrado = False And actualizar = True Then
                                     If tienda.NombreUsar = "Steam" Then
+                                        Dim encontradoSteam As Boolean = False
+
                                         For Each juegoBBDD In juego.Enlaces
                                             If juegoBBDD.NombreUsar = "Steam" Then
-                                                If Not juegoBBDD.Enlace = Nothing Then
+                                                If Not juego.SteamID = Nothing Then
                                                     Dim resultado As Clases.JuegoTienda = Await Steam.BuscarJuego(juego.SteamID)
 
                                                     juegoBBDD.Descuento = resultado.Descuento
                                                     juegoBBDD.Precio = resultado.Precio
 
                                                     actualizar = True
+                                                    encontradoSteam = True
                                                     Exit For
                                                 End If
                                             End If
                                         Next
+
+                                        If encontradoSteam = False Then
+                                            Dim resultado As Clases.JuegoTienda = Await Steam.BuscarJuego(juego.SteamID)
+                                            resultado.Codigo = Nothing
+
+                                            juego.Enlaces.Add(resultado)
+
+                                            actualizar = True
+                                        End If
+
                                     ElseIf tienda.NombreUsar = "Humble" Then
                                         For Each juegoBBDD In juego.Enlaces
                                             If juegoBBDD.NombreUsar = "Humble" Then

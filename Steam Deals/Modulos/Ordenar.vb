@@ -40,7 +40,11 @@ Module Ordenar
 
             If buscar = True Then
                 If Await helper.FileExistsAsync("listaOfertas" + tienda.NombreUsar) = True Then
-                    listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
+                    Try
+                        listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar)
+                    Catch ex As Exception
+
+                    End Try
                 End If
             Else
                 If cargarUltimas = True Then
