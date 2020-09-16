@@ -240,7 +240,11 @@ Module Ordenar
 
                 If buscar = True Then
                     If ApplicationData.Current.LocalSettings.Values("ultimavisita") = True Then
-                        Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertasAntigua" + tienda.NombreUsar, listaJuegosAntigua)
+                        Try
+                            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertasAntigua" + tienda.NombreUsar, listaJuegosAntigua)
+                        Catch ex As Exception
+
+                        End Try
 
                         If cargarUltimas = False Then
                             If listaUltimasOfertas.Count > 0 Then
