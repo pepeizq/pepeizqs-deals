@@ -54,7 +54,7 @@ Namespace pepeizq.Juegos
 
         End Function
 
-        Public Async Function BuscarJuego(id As String) As Task(Of Clases.JuegoTienda)
+        Public Async Function BuscarJuego(id As String) As Task(Of SteamAPIJson)
 
             If Not id = String.Empty Then
                 id = id.Replace("https://store.steampowered.com/app/", Nothing)
@@ -62,14 +62,7 @@ Namespace pepeizq.Juegos
                 Dim datos As SteamAPIJson = Await ExtraerDatos(id)
 
                 If Not datos Is Nothing Then
-                    Dim precio As String = datos.Datos.Precio.Formateado
-
-                    precio = precio.Replace(".", ",")
-                    precio = precio.Replace("€", Nothing)
-                    precio = precio.Trim + " €"
-
-                    Dim resultado As New Clases.JuegoTienda("Steam", "00%", precio, datos.Datos.DescripcionCorta, "https://store.steampowered.com/app/" + id + "/")
-                    Return resultado
+                    Return datos
                 End If
             End If
 

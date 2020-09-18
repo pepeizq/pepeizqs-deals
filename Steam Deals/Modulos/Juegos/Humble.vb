@@ -108,8 +108,20 @@ Namespace pepeizq.Juegos
                 End If
             End If
 
-            Dim resultado As New JuegoTienda("Humble", descuento, precio, mensaje, enlace)
-            Return resultado
+            Dim devolver As Boolean = True
+
+            If juego.DRM.Count = 1 Then
+                If juego.DRM(0).ToLower = "epic" Then
+                    devolver = False
+                End If
+            End If
+
+            If devolver = True Then
+                Dim resultado As New JuegoTienda("Humble", descuento, precio, mensaje, enlace)
+                Return resultado
+            Else
+                Return Nothing
+            End If
 
         End Function
 

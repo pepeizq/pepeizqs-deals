@@ -40,7 +40,7 @@ Namespace pepeizq.Ofertas
 
             Dim paginas As Integer = 0
 
-            Dim htmlP_ As Task(Of String) = HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?onsale=true&pageindex=1&pagesize=25&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
+            Dim htmlP_ As Task(Of String) = HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=1&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
             Dim htmlP As String = htmlP_.Result
 
             If Not htmlP = Nothing Then
@@ -58,7 +58,7 @@ Namespace pepeizq.Ofertas
             If paginas > 0 Then
                 Dim i As Integer = 1
                 While i <= paginas
-                    Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?onsale=true&pageindex=" + i.ToString + "&pagesize=25&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
+                    Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=" + i.ToString + "&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
                     Dim html As String = html_.Result
 
                     If Not html = Nothing Then
@@ -106,11 +106,7 @@ Namespace pepeizq.Ofertas
                                     End While
 
                                     If juego.Descuento = Nothing Then
-                                        añadir = False
-                                    Else
-                                        If juego.Descuento = "00%" Then
-                                            añadir = False
-                                        End If
+                                        juego.Descuento = "00%"
                                     End If
 
                                     If añadir = True Then

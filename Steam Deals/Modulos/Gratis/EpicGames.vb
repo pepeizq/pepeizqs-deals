@@ -27,10 +27,16 @@ Namespace pepeizq.Gratis
                 If enlace.Contains("/product/") Then
                     Dim juegoEpic As EpicGamesJuego = JsonConvert.DeserializeObject(Of EpicGamesJuego)(html)
 
-                    Dim titulo As String = juegoEpic.Titulo
-                    cosas.Titulo = titulo.Trim
+                    If Not juegoEpic Is Nothing Then
+                        Dim titulo As String = juegoEpic.Titulo
 
-                    cosas.ImagenJuego = juegoEpic.Paginas(0).Datos.Imagenes.FondoHorizontal
+                        If Not titulo = String.Empty Then
+                            cosas.Titulo = titulo.Trim
+                        End If
+
+                        cosas.ImagenJuego = juegoEpic.Paginas(0).Datos.Imagenes.FondoHorizontal
+                    End If
+
                 ElseIf enlace.Contains("/bundles/") Then
                     Dim juegoEpic As EpicGamesBundle = JsonConvert.DeserializeObject(Of EpicGamesBundle)(html)
 

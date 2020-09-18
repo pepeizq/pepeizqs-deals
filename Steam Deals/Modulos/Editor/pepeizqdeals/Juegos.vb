@@ -29,6 +29,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbDRMs As ComboBox = pagina.FindName("cbEditorpepeizqdealsNuevosJuegosDRMs")
             cbDRMs.Items.Clear()
             cbDRMs.Items.Add("Steam")
+            cbDRMs.Items.Add("EA Desktop")
             cbDRMs.Items.Add("Battle.net")
 
             Dim botonActualizar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosActualizar")
@@ -106,8 +107,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tbFecha As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
                     tbFecha.Text = datos.Datos.FechaLanzamiento.Fecha
 
-                    Dim tbDescripcionSEO As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcionSEO")
-                    tbDescripcionSEO.Text = datos.Datos.DescripcionCorta
+                    Dim tbDescripcion As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcion")
+                    tbDescripcion.Text = datos.Datos.DescripcionCorta
+
+                    Dim tbVideo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosVideo")
+
+                    If Not datos.Datos.Videos Is Nothing Then
+                        Dim video As String = datos.Datos.Videos(0).Calidad.Max
+                        video = video.Replace("http://", "https://")
+                        tbVideo.Text = video
+                    Else
+                        tbVideo.Text = String.Empty
+                    End If
 
                     spTiendas.Children.Clear()
 
@@ -417,9 +428,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim helper As New LocalObjectStorageHelper
 
-                Dim tbDescripcionSEO As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcionSEO")
+                Dim tbDescripcion As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcion")
 
-                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text.Trim, Nothing, enlaces, tbDescripcionSEO.Text.Trim)
+                Dim tbVideo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosVideo")
+
+                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text.Trim, Nothing, enlaces, tbDescripcion.Text.Trim, tbVideo.Text.Trim, False)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -450,8 +463,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postNuevo2.JuegoFechaLanzamiento = nuevoJuego.FechaLanzamiento
                     postNuevo2.JuegoPrecioMinimoActual = DevolverPrecioMinimoActual(nuevoJuego.Enlaces)
                     postNuevo2.JuegoPrecioMinimoHistorico = postNuevo2.JuegoPrecioMinimoActual
-                    postNuevo2.JuegoDRM = DevolverDRM(nuevoJuego.DRM)
-                    postNuevo2.SEODescripcion = nuevoJuego.DescripcionSEO
+                    postNuevo2.JuegoDRM = nuevoJuego.DRM
+                    postNuevo2.SEODescripcion = nuevoJuego.Descripcion
 
                     Dim resultado As Clases.Post = Nothing
 
@@ -601,6 +614,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     Next
                                 End If
 
+                                'encontrado = False
+                                'actualizar = True
+
                                 If encontrado = False And actualizar = True Then
                                     If tienda.NombreUsar = "Steam" Then
                                         Dim encontradoSteam As Boolean = False
@@ -608,10 +624,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         For Each juegoBBDD In juego.Enlaces
                                             If juegoBBDD.NombreUsar = "Steam" Then
                                                 If Not juego.SteamID = Nothing Then
-                                                    Dim resultado As Clases.JuegoTienda = Await Steam.BuscarJuego(juego.SteamID)
+                                                    Dim resultado As SteamAPIJson = Await Steam.BuscarJuego(juego.SteamID)
 
-                                                    juegoBBDD.Descuento = resultado.Descuento
-                                                    juegoBBDD.Precio = resultado.Precio
+                                                    Dim precio As String = resultado.Datos.Precio.Formateado
+
+                                                    precio = precio.Replace(".", ",")
+                                                    precio = precio.Replace("€", Nothing)
+                                                    precio = precio.Trim + " €"
+
+                                                    juegoBBDD.Precio = precio
+                                                    juegoBBDD.Descuento = "00%"
+
+                                                    juego.Descripcion = resultado.Datos.DescripcionCorta
+
+                                                    If Not resultado.Datos.Videos Is Nothing Then
+                                                        Dim video As String = resultado.Datos.Videos(0).Calidad.Max
+                                                        video = video.Replace("http://", "https://")
+                                                        juego.Video = video
+                                                    End If
 
                                                     actualizar = True
                                                     encontradoSteam = True
@@ -621,29 +651,73 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         Next
 
                                         If encontradoSteam = False Then
-                                            Dim resultado As Clases.JuegoTienda = Await Steam.BuscarJuego(juego.SteamID)
-                                            resultado.Codigo = Nothing
+                                            Dim resultado As SteamAPIJson = Await Steam.BuscarJuego(juego.SteamID)
 
-                                            juego.Enlaces.Add(resultado)
+                                            If Not resultado Is Nothing Then
+                                                juego.Descripcion = resultado.Datos.DescripcionCorta
 
-                                            actualizar = True
+                                                If Not resultado.Datos.Videos Is Nothing Then
+                                                    Dim video As String = resultado.Datos.Videos(0).Calidad.Max
+                                                    video = video.Replace("http://", "https://")
+                                                    juego.Video = video
+                                                End If
+
+                                                If Not resultado.Datos.Precio Is Nothing Then
+                                                    Dim precio As String = resultado.Datos.Precio.Formateado
+
+                                                    precio = precio.Replace(".", ",")
+                                                    precio = precio.Replace("€", Nothing)
+                                                    precio = precio.Trim + " €"
+
+                                                    Dim juegoTienda As New Clases.JuegoTienda("Steam", "00%", precio, Nothing, "https://store.steampowered.com/app/" + juego.SteamID + "/")
+                                                    juego.Enlaces.Add(juegoTienda)
+
+                                                    actualizar = True
+                                                End If
+                                            End If
                                         End If
 
                                     ElseIf tienda.NombreUsar = "Humble" Then
+                                        Dim encontradoHumble As Boolean = False
+
                                         For Each juegoBBDD In juego.Enlaces
                                             If juegoBBDD.NombreUsar = "Humble" Then
                                                 If Not juegoBBDD.Enlace = Nothing Then
                                                     Dim resultado As Clases.JuegoTienda = Await Humble.BuscarEnlace(juegoBBDD.Enlace)
 
-                                                    juegoBBDD.Descuento = resultado.Descuento
-                                                    juegoBBDD.Precio = resultado.Precio
-                                                    juegoBBDD.Codigo = resultado.Codigo
+                                                    If Not resultado Is Nothing Then
+                                                        juegoBBDD.Descuento = resultado.Descuento
+                                                        juegoBBDD.Precio = resultado.Precio
 
-                                                    actualizar = True
-                                                    Exit For
+                                                        If Not resultado.Codigo = String.Empty Then
+                                                            juego.HumbleChoice = True
+                                                        Else
+                                                            juego.HumbleChoice = False
+                                                        End If
+
+                                                        actualizar = True
+                                                        encontradoHumble = True
+                                                        Exit For
+                                                    End If
                                                 End If
                                             End If
                                         Next
+
+                                        If encontradoHumble = False Then
+                                            Dim resultado As Clases.JuegoTienda = Await Humble.BuscarTitulo(juego.Titulo)
+
+                                            If Not resultado Is Nothing Then
+                                                juego.Enlaces.Add(resultado)
+
+                                                If Not resultado.Codigo = String.Empty Then
+                                                    juego.HumbleChoice = True
+                                                Else
+                                                    juego.HumbleChoice = False
+                                                End If
+
+                                                actualizar = True
+                                            End If
+                                        End If
                                     End If
                                 End If
                             Next
@@ -670,9 +744,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         entrada.JuegoPrecioMinimoActual = precioMinimoActual
                                         entrada.JuegoPrecioMinimoHistorico = precioMinimoHistorisco
 
+                                        entrada.SEODescripcion = juego.Descripcion
+                                        entrada.JuegoDRM = juego.DRM
+
                                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, entrada)
 
-                                        Notificaciones.Toast("Actualizado", juego.Titulo)
+                                        'Notificaciones.Toast("Actualizado", juego.Titulo)
                                     End If
                                 End If
                             Next
@@ -728,8 +805,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 If enlace.NombreUsar = "Humble" Then
-                    If Not enlace.Codigo = Nothing Then
-                        mensaje = enlace.Codigo
+                    If juego.HumbleChoice = True Then
+                        mensaje = "You must have active Humble Choice"
                     End If
                 End If
 
@@ -754,12 +831,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             Next
 
+            If Not juego.Video = String.Empty Then
+                html = html + "[vc_tta_tabs layout=" + ChrW(34) + "trendy" + ChrW(34) + " el_class=" + ChrW(34) + "tope" + ChrW(34) + "][vc_tta_section indents=" +
+                              ChrW(34) + "none" + ChrW(34) + " title=" + ChrW(34) + "Video" + ChrW(34) + "][vc_column_text]<video style=" + ChrW(34) + "width:100%;" +
+                              ChrW(34) + " controls><source src=" + ChrW(34) + juego.Video + ChrW(34) + " type=" + ChrW(34) + "video/mp4" + ChrW(34) +
+                              "></video>[/vc_column_text][/vc_tta_section][/vc_tta_tabs]"
+            End If
+
             html = html + "[/vc_column][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) + " sticky=" + ChrW(34) + "1" + ChrW(34) + "][us_post_custom_field key=" +
-                   ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_image_horizontal" + ChrW(34) + "][us_hwrapper alignment=" + ChrW(34) + "center" + ChrW(34) +
-                   " valign=" + ChrW(34) + "middle" + ChrW(34) + " inner_items_gap=" + ChrW(34) + "30px" + ChrW(34) + " el_class=" + ChrW(34) + "tope" + ChrW(34) +
-                   "][us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_date_release" + ChrW(34) + " text_before=" + ChrW(34) +
-                   "Release Date<br/>" + ChrW(34) + "][us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_drm" + ChrW(34) +
-                   "][/us_hwrapper][/vc_column][/vc_row]"
+                   ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_image_horizontal" + ChrW(34) +
+                   "][us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "seo_description" + ChrW(34) + " el_class=" + ChrW(34) + "tope" + ChrW(34) +
+                   "][vc_column_text]<table style=" + ChrW(34) + "margin-top:30px;" + ChrW(34) + "><tr><td>Release Date</td><td style=" + ChrW(34) +
+                   "text-align right;" + ChrW(34) + ">[us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) +
+                   "game_date_release" + ChrW(34) + "]</td></tr>"
+
+            If Not juego.DRM = String.Empty Then
+                html = html + "<tr><td>DRM</td><td style=" + ChrW(34) + "text-align right;" + ChrW(34) +
+                   ">[us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_drm" + ChrW(34) +
+                   "]</td></tr>"
+            End If
+
+            html = html + "</table>[/vc_column_text][/vc_column][/vc_row]"
 
             Return html
 
@@ -855,26 +947,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function DevolverDRM(drm As String)
-
-            Dim icono As String = String.Empty
-
-            If Not drm = Nothing Then
-                If drm.ToLower.Contains("steam") Then
-                    icono = "steam"
-                ElseIf drm.ToLower.Contains("battle") Then
-                    icono = "battle-net"
-                End If
-            End If
-
-            If Not icono = String.Empty Then
-                icono = "<i class=" + ChrW(34) + "fab fa-" + icono + ChrW(34) + " style=" + ChrW(34) + "font-size:32px" + ChrW(34) + "><span></span></i>"
-            End If
-
-            Return icono
-
-        End Function
-
         Private Sub ImagenVertical(sender As Object, e As TextChangedEventArgs)
 
             Dim tb As TextBox = sender
@@ -943,8 +1015,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbFechaLanzamiento As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosFechaLanzamiento")
             tbFechaLanzamiento.IsEnabled = estado
 
-            Dim tbDescripcionSEO As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcionSEO")
-            tbDescripcionSEO.IsEnabled = estado
+            Dim tbDescripcion As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosDescripcion")
+            tbDescripcion.IsEnabled = estado
+
+            Dim tbVideo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosVideo")
+            tbVideo.IsEnabled = estado
 
             Dim botonGenerar As Button = pagina.FindName("botonEditorpepeizqdealsNuevosJuegosGenerar")
             botonGenerar.IsEnabled = estado
