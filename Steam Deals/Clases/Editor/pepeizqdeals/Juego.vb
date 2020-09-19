@@ -12,12 +12,13 @@
         Public Property Enlaces As List(Of JuegoTienda)
         Public Property Descripcion As String
         Public Property Video As String
+        Public Property Reviews As String
         Public Property HumbleChoice As Boolean
 
         Public Sub New(ByVal titulo As String, ByVal titulosAlternativos As List(Of String), ByVal imagenes As JuegoImagenes,
                        ByVal postID As String, ByVal steamID As String, ByVal drm As String, ByVal fechaLanzamiento As String,
                        ByVal preciosMinimo As JuegoPrecioMinimo, ByVal enlaces As List(Of JuegoTienda), ByVal descripcion As String,
-                       ByVal video As String, ByVal humbleChoice As Boolean)
+                       ByVal video As String, ByVal reviews As String, ByVal humbleChoice As Boolean)
             Me.Titulo = titulo
             Me.TitulosAlternativos = titulosAlternativos
             Me.Imagenes = imagenes
@@ -29,6 +30,7 @@
             Me.Enlaces = enlaces
             Me.Descripcion = descripcion
             Me.Video = video
+            Me.Reviews = reviews
             Me.HumbleChoice = humbleChoice
         End Sub
 

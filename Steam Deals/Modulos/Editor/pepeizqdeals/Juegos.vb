@@ -432,7 +432,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim tbVideo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosVideo")
 
-                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text.Trim, Nothing, enlaces, tbDescripcion.Text.Trim, tbVideo.Text.Trim, False)
+                Dim listaAnalisis As New List(Of OfertaAnalisis)
+                Dim reviewsPorcentaje As String = String.Empty
+
+                If Await helper.FileExistsAsync("listaAnalisis") Then
+                    listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
+                End If
+
+                If listaAnalisis.Count > 0 Then
+                    For Each analisis In listaAnalisis
+                        If Not analisis.Enlace Is Nothing Then
+                            If analisis.Enlace.Contains("/" + steamID + "/") Then
+                                reviewsPorcentaje = analisis.Porcentaje + "%"
+                            End If
+                        End If
+                    Next
+                End If
+
+                Dim nuevoJuego As New Clases.Juego(titulo, titulosAlternativos, imagenes, Nothing, steamID, drm, tbFecha.Text.Trim, Nothing, enlaces, tbDescripcion.Text.Trim, tbVideo.Text.Trim, reviewsPorcentaje, False)
 
                 Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                     .AuthMethod = Models.AuthMethod.JWT
@@ -456,6 +473,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postNuevo2.ImagenFeatured = nuevoJuego.Imagenes.Vertical
                     postNuevo2.Imagenv2 = "<img src=" + ChrW(34) + nuevoJuego.Imagenes.Vertical + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
                     postNuevo2.TamañoTile = "1x1"
+                    postNuevo2.ReviewPuntuacion = nuevoJuego.Reviews
 
                     postNuevo2.JuegoTitulo = nuevoJuego.Titulo
                     postNuevo2.JuegoImagenVertical = nuevoJuego.Imagenes.Vertical
@@ -636,6 +654,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                     juegoBBDD.Descuento = "00%"
 
                                                     juego.Descripcion = resultado.Datos.DescripcionCorta
+                                                    juego.FechaLanzamiento = resultado.Datos.FechaLanzamiento.Fecha
 
                                                     If Not resultado.Datos.Videos Is Nothing Then
                                                         Dim video As String = resultado.Datos.Videos(0).Calidad.Max
@@ -729,6 +748,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     End If
 
                                     If actualizar = True Then
+                                        Dim listaAnalisis As New List(Of OfertaAnalisis)
+                                        Dim reviewsPorcentaje As String = String.Empty
+
+                                        If Await helper.FileExistsAsync("listaAnalisis") Then
+                                            listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
+                                        End If
+
+                                        If listaAnalisis.Count > 0 Then
+                                            For Each analisis In listaAnalisis
+                                                If Not analisis.Enlace Is Nothing Then
+                                                    If analisis.Enlace.Contains("/" + juego.SteamID + "/") Then
+                                                        reviewsPorcentaje = analisis.Porcentaje + "%"
+                                                    End If
+                                                End If
+                                            Next
+                                        End If
+
+                                        juego.Reviews = reviewsPorcentaje
+
                                         Dim precioMinimoActual As String = DevolverPrecioMinimoActual(juego.Enlaces)
                                         Dim precioMinimoHistorisco As String = DevolverPrecioMinimoHistorico(entrada.JuegoPrecioMinimoHistorico, juego.Enlaces)
 
@@ -736,6 +774,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                         Await helper.SaveFileAsync(Of Clases.Juego)(fichero.Name, juego)
 
+                                        entrada.ReviewPuntuacion = juego.Reviews
+                                        entrada.JuegoFechaLanzamiento = juego.FechaLanzamiento
                                         entrada.Contenido = New Models.Content(GenerarHtmlEntrada(juego, juego.Enlaces))
 
                                         entrada.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + juego.PostID + "/" + ChrW(34) +
@@ -848,6 +888,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not juego.DRM = String.Empty Then
                 html = html + "<tr><td>DRM</td><td style=" + ChrW(34) + "text-align right;" + ChrW(34) +
                    ">[us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "game_drm" + ChrW(34) +
+                   "]</td></tr>"
+            End If
+
+            If Not juego.Reviews = String.Empty Then
+                html = html + "<tr><td>Reviews on Steam</td><td style=" + ChrW(34) + "text-align right;" + ChrW(34) +
+                   ">[us_post_custom_field key=" + ChrW(34) + "custom" + ChrW(34) + " custom_key=" + ChrW(34) + "review2" + ChrW(34) +
                    "]</td></tr>"
             End If
 

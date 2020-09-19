@@ -1,7 +1,6 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.Storage
 
 Namespace pepeizq.Ofertas
     Module GreenManGaming
