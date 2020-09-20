@@ -86,10 +86,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
-                If enlace.Contains("https://pepeizqdeals.com/rewards/") Then
-                    tbTitulo.Text = "New Games Added to Rewards • News"
-                    tbImagenTitulo.Text = "Rewards"
-                    tbImagenComentario.Text = "New Games Added"
+                If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
+                    tbTitulo.Text = "New Giveaways on SteamGifts • News"
+                    tbImagenTitulo.Text = "Giveaways"
+                    tbImagenComentario.Text = "Join the Steam Group"
                 Else
                     tbTitulo.Text = "--- • News"
                 End If
