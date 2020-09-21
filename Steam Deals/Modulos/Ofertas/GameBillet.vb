@@ -158,7 +158,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Oferta(titulo, "00%", precio, enlace, New OfertaImagenes(imagen, Nothing), drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, "00%", precio, enlace, New OfertaImagenes(imagen, Nothing), drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim l As Integer = 0
@@ -315,7 +315,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, New OfertaImagenes(imagen, Nothing), drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, New OfertaImagenes(imagen, Nothing), drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim l As Integer = 0

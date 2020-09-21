@@ -4,14 +4,10 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module AmazonEsFisico
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -22,31 +18,19 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim listaJuegosAntigua As New List(Of Oferta)
 
-            Dim helper As New LocalObjectStorageHelper
-            If helper.FileExistsAsync("listaOfertasAntiguaAmazonEs").Result = True Then
-                listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Oferta))("listaOfertasAntiguaAmazonEs").Result
+            If Await helper.FileExistsAsync("listaOfertasAntiguaAmazonEs") = True Then
+                listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertasAntiguaAmazonEs")
             End If
 
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=665499031&rh=n%3A599382031%2Cn%3A599383031%2Cn%3A665498031%2Cn%3A665499031%2Cp_6%3AA1AT7YVPFBWXBL%2Cp_n_availability%3A831278031&dc&page=2&fst=as%3Aoff&qid=1554550884&rnid=831270031&ref=sr_pg_2"))
-            Dim htmlPaginas As String = htmlPaginas_.Result
+            Dim htmlPaginas As String = await HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=665499031&rh=n%3A599382031%2Cn%3A599383031%2Cn%3A665498031%2Cn%3A665499031%2Cp_6%3AA1AT7YVPFBWXBL%2Cp_n_availability%3A831278031&dc&page=2&fst=as%3Aoff&qid=1554550884&rnid=831270031&ref=sr_pg_2"))
             Dim numPaginas As Integer = 100
 
             If Not htmlPaginas = Nothing Then
@@ -69,8 +53,7 @@ Namespace pepeizq.Ofertas
 
             Dim i As Integer = 1
             While i < numPaginas + 1
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=665499031&rh=n%3A599382031%2Cn%3A599383031%2Cn%3A665498031%2Cn%3A665499031%2Cp_6%3AA1AT7YVPFBWXBL%2Cp_n_availability%3A831278031&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1554550884&rnid=831270031&ref=sr_pg_2"))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=665499031&rh=n%3A599382031%2Cn%3A599383031%2Cn%3A665498031%2Cn%3A665499031%2Cp_6%3AA1AT7YVPFBWXBL%2Cp_n_availability%3A831278031&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1554550884&rnid=831270031&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
                     Dim j As Integer = 0
@@ -190,7 +173,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -216,39 +199,20 @@ Namespace pepeizq.Ofertas
                         j += 1
                     End While
                 End If
-                Bw.ReportProgress(CInt((100 / numPaginas) * i))
+
+                pb.Value = CInt((100 / numPaginas) * i)
+                tb.Text = CInt((100 / numPaginas) * i).ToString + "%"
+
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
         '----------------------------------------------------------
 

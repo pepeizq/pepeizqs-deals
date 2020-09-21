@@ -1,11 +1,10 @@
-﻿Imports System.Net
-Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Windows.Storage
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 
 Module Analisis
 
     Dim WithEvents Bw As BackgroundWorker
     Dim listaAnalisis As New List(Of OfertaAnalisis)
+    Dim numPaginas As Integer = 0
 
     Public Async Sub Generar()
 
@@ -14,6 +13,8 @@ Module Analisis
         If Await helper.FileExistsAsync("listaAnalisis") Then
             listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
         End If
+
+        numPaginas = Await pepeizq.Ofertas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -37,8 +38,6 @@ Module Analisis
     End Sub
 
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-        Dim numPaginas As Integer = pepeizq.Ofertas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
         Dim i As Integer = 1
         While i < numPaginas

@@ -6,7 +6,7 @@
     Public Property Enlace As String
     Public Property Imagenes As OfertaImagenes
     Public Property DRM As String
-    Public Property Tienda As Tienda
+    Public Property TiendaNombreUsar As String
     Public Property Tipo As String
     Public Property Promocion As String
     Public Property FechaAñadido As DateTime
@@ -16,7 +16,7 @@
     Public Property Desarrolladores As OfertaDesarrolladores
 
     Public Sub New(ByVal titulo As String, ByVal descuento As String, ByVal precio As String, ByVal enlace As String,
-                   ByVal imagenes As OfertaImagenes, ByVal drm As String, ByVal tienda As Tienda, ByVal promocion As String,
+                   ByVal imagenes As OfertaImagenes, ByVal drm As String, ByVal tiendaNombreUsar As String, ByVal promocion As String,
                    ByVal tipo As String, ByVal fechaAñadido As DateTime, ByVal fechaTermina As DateTime,
                    ByVal analisis As OfertaAnalisis, ByVal sistemas As OfertaSistemas, ByVal desarrolladores As OfertaDesarrolladores)
         Me.Titulo = titulo
@@ -25,7 +25,7 @@
         Me.Enlace = enlace
         Me.Imagenes = imagenes
         Me.DRM = drm
-        Me.Tienda = tienda
+        Me.TiendaNombreUsar = tiendaNombreUsar
         Me.Promocion = promocion
         Me.Tipo = tipo
         Me.FechaAñadido = fechaAñadido

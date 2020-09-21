@@ -91,7 +91,7 @@ Namespace pepeizq.Ofertas
 
                             Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0

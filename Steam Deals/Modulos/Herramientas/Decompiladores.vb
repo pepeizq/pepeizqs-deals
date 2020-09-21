@@ -23,6 +23,15 @@ Module Decompiladores
         cliente.Dispose()
 
         Return httpFinal
+
+    End Function
+
+    Public Async Function HttpClient2(url As Uri) As Task(Of String)
+
+        Dim cliente As New HttpClient()
+        Dim resultado As String = Await cliente.GetStringAsync(url)
+        Return resultado
+
     End Function
 
 End Module

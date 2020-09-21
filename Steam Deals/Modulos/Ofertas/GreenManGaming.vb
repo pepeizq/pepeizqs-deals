@@ -5,16 +5,12 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module GreenManGaming
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim listaDesarrolladores As New List(Of GreenManGamingDesarrolladores)
-        Dim Tienda As Tienda = Nothing
-        Dim cuponPorcentaje As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim listaDesarrolladores As New List(Of GreenManGamingDesarrolladores)
+            Dim cuponPorcentaje As String = String.Empty
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -24,8 +20,6 @@ Namespace pepeizq.Ofertas
 
             If Await helper.FileExistsAsync("listaDesarrolladoresGreenManGaming") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of GreenManGamingDesarrolladores))("listaDesarrolladoresGreenManGaming")
-            Else
-                listaDesarrolladores = New List(Of GreenManGamingDesarrolladores)
             End If
 
             Dim listaCupones As New List(Of TiendaCupon)
@@ -60,22 +54,10 @@ Namespace pepeizq.Ofertas
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://api.greenmangaming.com/api/productfeed/prices/current?cc=es&cur=eur&lang=en"))
-
-            Dim html As String = html_.Result
+            Dim html As String = Await HttpClient(New Uri("https://api.greenmangaming.com/api/productfeed/prices/current?cc=es&cur=eur&lang=en"))
 
             If Not html = Nothing Then
                 Dim stream As New StringReader(html)
@@ -137,7 +119,7 @@ Namespace pepeizq.Ofertas
 
                             Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
 
-                            Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -168,8 +150,7 @@ Namespace pepeizq.Ofertas
             Dim i As Integer = 0
             For Each juego In listaJuegos
                 If juego.Desarrolladores Is Nothing Then
-                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
-                    Dim htmlJuego As String = htmlJuego_.Result
+                    Dim htmlJuego As String = Await HttpClient(New Uri(juego.Enlace))
 
                     If Not htmlJuego = Nothing Then
                         If htmlJuego.Contains(ChrW(34) + "Publisher" + ChrW(34)) Then
@@ -188,45 +169,26 @@ Namespace pepeizq.Ofertas
                             juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
 
                             listaDesarrolladores.Add(New GreenManGamingDesarrolladores(juego.Enlace, temp3.Trim))
+                        Else
+                            listaDesarrolladores.Add(New GreenManGamingDesarrolladores(juego.Enlace, "---"))
                         End If
                     End If
                 End If
 
-                Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
-                Bw.ReportProgress(porcentaje)
+                pb.Value = CInt((100 / listaJuegos.Count) * i)
+                tb.Text = CInt((100 / listaJuegos.Count) * i).ToString + "%"
+
                 i += 1
             Next
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of GreenManGamingDesarrolladores))("listaDesarrolladoresGreenManGaming", listaDesarrolladores)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

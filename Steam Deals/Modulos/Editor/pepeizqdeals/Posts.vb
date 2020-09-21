@@ -201,25 +201,15 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         '----------------------------------------------------------------
 
-                        If categoria = 3 Then
-                            Dim caracteres As String = Reddit.GenerarTexto(lista)
+                        If Not lista Is Nothing Then
+                            If categoria = 3 And lista.Count = 1 And tiendaNombre = "Steam" Then
+                                Dim enlaceTemp As String = lista(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
 
-                            If Not comentario = Nothing Then
-                                If comentario.Trim.Length > 0 Then
-                                    caracteres = Reddit.LimpiarComentario(comentario) + Environment.NewLine + Environment.NewLine + caracteres
-                                End If
-                            End If
-
-                            If caracteres.Length < 40000 Then
-                                If categoria = 3 And lista.Count = 1 And tiendaNombre = "Steam" Then
-                                    Dim enlaceTemp As String = lista(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
-
-                                    Try
-                                        Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", caracteres, 0)
-                                    Catch ex As Exception
-                                        Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                                    End Try
-                                End If
+                                Try
+                                    Await Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
+                                Catch ex As Exception
+                                    Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                                End Try
                             End If
                         End If
                     End If

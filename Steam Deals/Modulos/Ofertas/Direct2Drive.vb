@@ -94,7 +94,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoD2D.Publisher}, Nothing)
 
-                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
+                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0

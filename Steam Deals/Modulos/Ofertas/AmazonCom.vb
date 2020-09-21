@@ -4,13 +4,11 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module AmazonCom
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
-        Dim dolar As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim dolar As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -18,111 +16,80 @@ Namespace pepeizq.Ofertas
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
             dolar = tbDolar.Text
 
-            Tienda = tienda_
-
             Dim helper As New LocalObjectStorageHelper
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim numPaginasSteam As Integer = 0
-
-            numPaginasSteam = GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=2&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
+            numPaginasSteam = Await GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=2&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
 
             Dim i As Integer = 1
             While i < numPaginasSteam
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=" + i.ToString + "&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=" + i.ToString + "&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
-                    ExtraerHtml(html, "steam")
+                    ExtraerHtml(html, "steam", listaJuegos, listaAnalisis, dolar, tienda.NombreUsar)
                 End If
-                Bw.ReportProgress(CInt((100 / numPaginasSteam) * i))
+
+                pb.Value = CInt((100 / numPaginasSteam) * i)
+                tb.Text = CInt((100 / numPaginasSteam) * i).ToString + "%"
+
                 i += 1
             End While
 
             Dim numPaginasUplay As Integer = 0
-
-            numPaginasUplay = GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990462011%2Cp_n_availability%3A1238047011&dc&fst=as%3Aoff&qid=1551357209&rnid=1237984011&ref=sr_nr_p_n_availability_2"))
+            numPaginasUplay = Await GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990462011%2Cp_n_availability%3A1238047011&dc&fst=as%3Aoff&qid=1551357209&rnid=1237984011&ref=sr_nr_p_n_availability_2"))
 
             i = 1
             While i < numPaginasUplay
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990462011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1551357215&rnid=1237984011&ref=sr_pg_2"))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990462011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1551357215&rnid=1237984011&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
-                    ExtraerHtml(html, "uplay")
+                    ExtraerHtml(html, "uplay", listaJuegos, listaAnalisis, dolar, tienda.NombreUsar)
                 End If
-                Bw.ReportProgress(CInt((100 / numPaginasUplay) * i))
+
+                pb.Value = CInt((100 / numPaginasUplay) * i)
+                tb.Text = CInt((100 / numPaginasUplay) * i).ToString + "%"
+
                 i += 1
             End While
 
             Dim numPaginasOrigin As Integer = 0
-
-            numPaginasOrigin = GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=2&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
+            numPaginasOrigin = Await GenerarNumPaginas(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=2&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
 
             i = 1
             While i < numPaginasOrigin
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
-                    ExtraerHtml(html, "origin")
+                    ExtraerHtml(html, "origin", listaJuegos, listaAnalisis, dolar, tienda.NombreUsar)
                 End If
-                Bw.ReportProgress(CInt((100 / numPaginasOrigin) * i))
+
+                pb.Value = CInt((100 / numPaginasOrigin) * i)
+                tb.Text = CInt((100 / numPaginasOrigin) * i).ToString + "%"
+
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
         '----------------------------------------------------
 
-        Private Sub ExtraerHtml(html As String, drm As String)
+        Private Sub ExtraerHtml(html As String, drm As String, listaJuegos As List(Of Oferta), listaAnalisis As List(Of OfertaAnalisis), dolar As String, tiendaNombreUsar As String)
 
             Dim j As Integer = 0
             While j < 16
@@ -230,42 +197,42 @@ Namespace pepeizq.Ofertas
 
                         Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                        Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                        Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tiendaNombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                        Dim tituloBool As Boolean = False
+                        Dim añadir As Boolean = True
                         Dim k As Integer = 0
                         While k < listaJuegos.Count
-                            If listaJuegos(k).Titulo = juego.Titulo Then
-                                tituloBool = True
+                            If listaJuegos(k).Enlace = juego.Enlace Then
+                                añadir = False
                             End If
                             k += 1
                         End While
 
                         If juego.Descuento = Nothing Then
-                            tituloBool = True
+                            añadir = False
                         Else
                             If juego.Descuento = "00%" Then
-                                tituloBool = True
+                                añadir = False
                             ElseIf juego.Descuento.Length = 4 Then
-                                tituloBool = True
+                                añadir = False
                             End If
 
                             If juego.Titulo.Contains("Xbox One") Then
-                                tituloBool = True
+                                añadir = False
                             ElseIf juego.Titulo.Contains("PlayStation 3") Then
-                                tituloBool = True
+                                añadir = False
                             ElseIf juego.Titulo.Contains("Playstation 3") Then
-                                tituloBool = True
+                                añadir = False
                             ElseIf juego.Titulo.Contains("PlayStation 4") Then
-                                tituloBool = True
+                                añadir = False
                             ElseIf juego.Titulo.Contains("Playstation 4") Then
-                                tituloBool = True
+                                añadir = False
                             ElseIf juego.Titulo.Contains("Nintendo Switch") Then
-                                tituloBool = True
+                                añadir = False
                             End If
                         End If
 
-                        If tituloBool = False Then
+                        If añadir = True Then
                             juego.Precio = CambioMoneda(juego.Precio, dolar)
                             juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
 
@@ -278,11 +245,10 @@ Namespace pepeizq.Ofertas
 
         End Sub
 
-        Private Function GenerarNumPaginas(url As Uri)
+        Private Async Function GenerarNumPaginas(url As Uri) As Task(Of Integer)
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(url)
-            Dim htmlPaginas As String = htmlPaginas_.Result
+            Dim htmlPaginas As String = Await HttpClient(url)
 
             If Not htmlPaginas = Nothing Then
                 If htmlPaginas.Contains("<li class=" + ChrW(34) + "a-disabled") Then

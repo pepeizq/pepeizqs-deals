@@ -5,22 +5,19 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module GamersGate
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
-        Dim cuponPorcentaje As String = String.Empty
-        Dim libra As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+
+            Dim cuponPorcentaje As String = String.Empty
+            Dim libra As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
             libra = tbLibra.Text
-
-            Tienda = tienda_
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -36,7 +33,7 @@ Namespace pepeizq.Ofertas
 
             If listaCupones.Count > 0 Then
                 For Each cupon In listaCupones
-                    If Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                         If Not cupon.Porcentaje = Nothing Then
                             If cupon.Porcentaje > 0 Then
                                 cuponPorcentaje = cupon.Porcentaje
@@ -54,27 +51,16 @@ Namespace pepeizq.Ofertas
                 Next
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim xml As New XmlSerializer(GetType(GamersGateJuegos))
 
             Dim listaJuegosES As GamersGateJuegos = Nothing
-            Dim html_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?country=esp"))
-            Dim html As String = html_.Result
+            Dim html As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?country=esp"))
 
             If Not html = Nothing Then
                 Dim stream As New StringReader(html)
@@ -82,13 +68,14 @@ Namespace pepeizq.Ofertas
             End If
 
             Dim listaJuegosUK As GamersGateJuegos = Nothing
-            Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("http://gamersgate.com/feeds/products?country=gbr"))
-            Dim htmlUK As String = htmlUK_.Result
+            Dim htmlUK As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?country=gbr"))
 
             If Not htmlUK = Nothing Then
                 Dim streamUK As New StringReader(htmlUK)
                 listaJuegosUK = xml.Deserialize(streamUK)
             End If
+
+            Dim i As Integer = 0
 
             If Not listaJuegosES Is Nothing Then
                 If listaJuegosES.Juegos.Count > 0 Then
@@ -233,7 +220,7 @@ Namespace pepeizq.Ofertas
                             descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                         End If
 
-                        Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+                        Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
@@ -249,26 +236,22 @@ Namespace pepeizq.Ofertas
 
                             listaJuegos.Add(juegoFinal)
                         End If
+
+                        pb.Value = CInt((100 / listaJuegosES.Juegos.Count) * i)
+                        tb.Text = CInt((100 / listaJuegosES.Juegos.Count) * i).ToString + "%"
+
+                        i += 1
                     Next
                 End If
             End If
 
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

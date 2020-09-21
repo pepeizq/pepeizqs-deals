@@ -6,12 +6,13 @@ Namespace pepeizq.Ofertas
     Module GamesPlanet
 
         Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
-        Dim libra As String = String.Empty
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
+
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim libra As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -19,44 +20,29 @@ Namespace pepeizq.Ofertas
             Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
             libra = tbLibra.Text
 
-            Tienda = tienda_
-
             Dim helper As New LocalObjectStorageHelper
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim xml As New XmlSerializer(GetType(GamesPlanetJuegos))
 
-            Dim htmlUK_ As Task(Of String) = HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
-            Dim htmlUK As String = htmlUK_.Result
+            Dim htmlUK As String = await HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamUK As New StringReader(htmlUK)
             Dim listaJuegosUK As GamesPlanetJuegos = xml.Deserialize(streamUK)
 
-            Dim htmlFR_ As Task(Of String) = HttpClient(New Uri("https://fr.gamesplanet.com/api/v1/products/feed.xml"))
-            Dim htmlFR As String = htmlFR_.Result
+            Dim htmlFR As String = await HttpClient(New Uri("https://fr.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamFR As New StringReader(htmlFR)
             Dim listaJuegosFR As GamesPlanetJuegos = xml.Deserialize(streamFR)
 
-            Dim htmlDE_ As Task(Of String) = HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
-            Dim htmlDE As String = htmlDE_.Result
+            Dim htmlDE As String = await HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamDE As New StringReader(htmlDE)
             Dim listaJuegosDE As GamesPlanetJuegos = xml.Deserialize(streamDE)
 
@@ -180,7 +166,7 @@ Namespace pepeizq.Ofertas
                             End If
                         End If
 
-                        Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
+                        Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
 
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
@@ -204,26 +190,13 @@ Namespace pepeizq.Ofertas
                 End If
             End If
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

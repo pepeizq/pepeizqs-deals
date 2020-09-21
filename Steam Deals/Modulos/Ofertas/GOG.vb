@@ -8,24 +8,18 @@ Namespace pepeizq.Ofertas
 
     Module GOG
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
-        Dim modoRuso As Boolean = False
-        Dim rublo As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda, modoRuso As Boolean) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda, modoRuso_ As Boolean)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim rublo As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            If modoRuso_ = True Then
+            If modoRuso = True Then
                 Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
                 rublo = tbRublo.Text
-                modoRuso = modoRuso_
             End If
 
             Dim helper As New LocalObjectStorageHelper
@@ -37,30 +31,18 @@ Namespace pepeizq.Ofertas
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim i As Integer = 1
             While i < 100
-                Dim html_ As Task(Of String) = Nothing
+                Dim html As String = String.Empty
 
                 If modoRuso = False Then
-                    html_ = HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
+                    html = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
                 Else
-                    html_ = HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
+                    html = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
                 End If
-
-                Dim html As String = html_.Result
 
                 If Not html = Nothing Then
                     Dim stream As New StringReader(html)
@@ -127,7 +109,7 @@ Namespace pepeizq.Ofertas
 
                             Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoGOG.Publisher}, Nothing)
 
-                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -146,39 +128,20 @@ Namespace pepeizq.Ofertas
                         Next
                     End If
                 End If
-                Bw.ReportProgress(i)
+
+                pb.Value = i
+                tb.Text = i.ToString
+
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

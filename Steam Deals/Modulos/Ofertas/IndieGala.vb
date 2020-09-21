@@ -5,14 +5,10 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module IndieGala
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -23,30 +19,19 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim numPaginas As Integer = 0
 
-            numPaginas = GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?page=1"))
+            numPaginas = Await GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?page=1"))
 
             Dim i As Integer = 1
             While i < numPaginas
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.indiegala.com/store_games_rss?page=" + i.ToString))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://www.indiegala.com/store_games_rss?page=" + i.ToString))
 
                 If Not html = Nothing Then
                     Dim stream As New StringReader(html)
@@ -120,7 +105,7 @@ Namespace pepeizq.Ofertas
                                     End If
                                 End If
 
-                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, tipo, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
+                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -140,46 +125,26 @@ Namespace pepeizq.Ofertas
                         End If
                     End If
                 End If
-                Bw.ReportProgress(CInt((100 / numPaginas) * i))
+
+                pb.Value = CInt((100 / numPaginas) * i)
+                tb.Text = CInt((100 / numPaginas) * i).ToString + "%"
+
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
-        Private Function GenerarNumPaginas(url As Uri)
+        Private Async Function GenerarNumPaginas(url As Uri) As Task(Of Integer)
 
             Dim numPaginas As Integer = 0
 
-            Dim html_ As Task(Of String) = HttpClient(url)
-            Dim html As String = html_.Result
+            Dim html As String = Await HttpClient(url)
 
             If Not html = Nothing Then
                 Dim stream As New StringReader(html)

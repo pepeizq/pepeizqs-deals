@@ -14,15 +14,11 @@ Imports Windows.System.UserProfile
 Namespace pepeizq.Ofertas
     Module Humble
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim listaDesarrolladores As New List(Of HumbleDesarrolladores)
-        Dim Tienda As Tienda = Nothing
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim listaDesarrolladores As New List(Of HumbleDesarrolladores)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -32,32 +28,19 @@ Namespace pepeizq.Ofertas
 
             If Await helper.FileExistsAsync("listaDesarrolladoresHumble") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble")
-            Else
-                listaDesarrolladores = New List(Of HumbleDesarrolladores)
             End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0"))
-            Dim htmlPaginas As String = htmlPaginas_.Result
+            Dim htmlPaginas As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0"))
 
             If Not htmlPaginas = Nothing Then
                 Dim paginas As HumblePaginas = JsonConvert.DeserializeObject(Of HumblePaginas)(htmlPaginas)
@@ -71,8 +54,7 @@ Namespace pepeizq.Ofertas
 
             Dim i As Integer = 0
             While i < (numPaginas + 1)
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + i.ToString))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + i.ToString))
 
                 If Not html = Nothing Then
                     Dim listaJuegosHumble As HumbleResultados = JsonConvert.DeserializeObject(Of HumbleResultados)(html)
@@ -172,7 +154,7 @@ Namespace pepeizq.Ofertas
 
                         Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                        Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+                        Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
@@ -200,8 +182,7 @@ Namespace pepeizq.Ofertas
                             Next
 
                             If juego.Desarrolladores Is Nothing Then
-                                Dim htmlP_ As Task(Of String) = HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
-                                Dim htmlP As String = htmlP_.Result
+                                Dim htmlP As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
 
                                 If Not htmlP = Nothing Then
                                     Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
@@ -230,41 +211,20 @@ Namespace pepeizq.Ofertas
                 End If
 
                 If numPaginas > 0 Then
-                    Bw.ReportProgress(CInt((100 / numPaginas) * i))
+                    pb.Value = CInt((100 / numPaginas) * i)
+                    tb.Text = CInt((100 / numPaginas) * i).ToString + "%"
                 End If
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
         Public Function DescuentoMonthly(descuento As Double)
 

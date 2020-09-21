@@ -637,7 +637,7 @@ Module Tiendas
 
     End Sub
 
-    Public Sub IniciarTienda(tienda As Tienda, actualizar As Boolean, cambiar As Boolean, ultimosResultados As Boolean)
+    Public Async Sub IniciarTienda(tienda As Tienda, actualizar As Boolean, cambiar As Boolean, ultimosResultados As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -759,41 +759,39 @@ Module Tiendas
 
             If ultimosResultados = False Then
                 If tienda.NombreUsar = steamT.NombreUsar Then
-                    pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+                    Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
                 ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
-                    pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
+                    Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
                 ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
-                    pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
+                    Await pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
                 ElseIf tienda.NombreUsar = gamesplanetT.NombreUsar Then
-                    pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
+                    Await pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
                 ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
-                    pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
+                    Await pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
                 ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                    pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
+                    Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
                 ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
-                    pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
-                ElseIf tienda.NombreUsar = nuuvemT.NombreUsar Then
-                    pepeizq.Ofertas.Nuuvem.BuscarOfertas(nuuvemT)
+                    Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
                 ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
-                    pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
+                    Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
                 ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                    pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
+                    Await pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
                 ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
-                    pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+                    Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
                 ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
-                    pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
+                    Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
                 ElseIf tienda.NombreUsar = greenmangamingT.NombreUsar Then
-                    pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
+                    Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
                 ElseIf tienda.NombreUsar = amazoncomT.NombreUsar Then
-                    pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
+                    Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
                 ElseIf tienda.NombreUsar = amazonesT.NombreUsar Then
-                    pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
+                    Await pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
                 ElseIf tienda.NombreUsar = amazonesT2.NombreUsar Then
-                    pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
+                    Await pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
                 ElseIf tienda.NombreUsar = yuplayT.NombreUsar Then
-                    pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
+                    Await pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
                 ElseIf tienda.NombreUsar = originT.NombreUsar Then
-                    pepeizq.Ofertas.Origin.BuscarOfertas(originT)
+                    Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
                 ElseIf tienda.NombreUsar = gamebilletT.NombreUsar Then
                     pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
                 ElseIf tienda.NombreUsar = _2gameT.NombreUsar Then
@@ -822,7 +820,7 @@ Module Tiendas
 
     End Sub
 
-    Private Sub BuscarTodasOfertas(sender As Object, e As RoutedEventArgs)
+    Private Async Sub BuscarTodasOfertas(sender As Object, e As RoutedEventArgs)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -835,27 +833,27 @@ Module Tiendas
 
         pepeizq.Interfaz.Pestañas.Botones(False)
 
-        pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
-        pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
-        pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
-        pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
-        pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
-        pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
-        pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
-        pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
-        pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
-        pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
-        pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
-        pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
-        pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
-        pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
-        pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
-        pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
-        pepeizq.Ofertas.Origin.BuscarOfertas(originT)
-        pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
-        pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
-        pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
-        pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
+        Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+        Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
+        Await pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
+        Await pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
+        Await pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
+        Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
+        Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
+        Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
+        Await pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
+        Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+        Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
+        Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
+        Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
+        Await pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
+        Await pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
+        Await pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
+        Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
+        'pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
+        'pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
+        'pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
+        'pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
 
     End Sub
 

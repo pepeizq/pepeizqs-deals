@@ -6,26 +6,22 @@ Namespace pepeizq.Ofertas
 
         'https://jsonformatter.org/json-viewer
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim listaBloqueo As New List(Of YuplayBloqueo)
-        Dim listaBuscar As New List(Of YuplayBloqueo)
-        Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
-        Dim listaIdiomas As New List(Of YuplayIdiomas)
-        Dim Tienda As Tienda = Nothing
-        Dim rublo As String = String.Empty
-        Dim contadorDB As Integer = 0
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim listaBloqueo As New List(Of YuplayBloqueo)
+            Dim listaBuscar As New List(Of YuplayBloqueo)
+            Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
+            Dim listaIdiomas As New List(Of YuplayIdiomas)
+            Dim rublo As String = String.Empty
+            Dim contadorDB As Integer = 0
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
             rublo = tbRublo.Text
-
-            Tienda = tienda_
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -57,26 +53,15 @@ Namespace pepeizq.Ofertas
                 listaIdiomas = New List(Of YuplayIdiomas)
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim i As Integer = 1
             While i < 100
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://yuplay.ru/products/?page=" + i.ToString + "&sort_by=released&drm=steam"))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://yuplay.ru/products/?page=" + i.ToString + "&sort_by=released&drm=steam"))
 
                 If Not html = Nothing Then
                     If html.Contains("<ul class=" + ChrW(34) + "games-box") Then
@@ -197,7 +182,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, "steam", Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, "steam", tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -261,8 +246,7 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If buscarBloqueo = True Or buscarDesarrollador = True Or buscarIdioma = True Then
-                                        Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(enlace))
-                                        Dim htmlJuego As String = htmlJuego_.Result
+                                        Dim htmlJuego As String = Await HttpClient(New Uri(enlace))
 
                                         If Not htmlJuego = Nothing Then
                                             If buscarBloqueo = True Then
@@ -282,8 +266,7 @@ Namespace pepeizq.Ofertas
                                                         int16 = temp15.IndexOf("</span>")
                                                         temp16 = temp15.Remove(int16, temp15.Length - int16)
 
-                                                        Dim htmlSteamDB_ As Task(Of String) = HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
-                                                        Dim htmlSteamDB As String = htmlSteamDB_.Result
+                                                        Dim htmlSteamDB As String = Await HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
 
                                                         If Not htmlSteamDB = Nothing Then
                                                             Dim bloqueo As New YuplayBloqueo(titulo, enlace, False, temp16.Trim)
@@ -431,43 +414,24 @@ Namespace pepeizq.Ofertas
                         End While
                     End If
                 End If
-                Bw.ReportProgress(i)
+
+                pb.Value = i
+                tb.Text = i.ToString
+
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
             Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay", listaBuscar)
             Await helper.SaveFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay", listaDesarrolladores)
             Await helper.SaveFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay", listaIdiomas)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

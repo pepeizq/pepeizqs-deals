@@ -9,7 +9,7 @@ Imports Windows.Storage
 Namespace pepeizq.Ofertas
     Module MicrosoftStore
 
-        Public Async Sub BuscarOfertas(tienda As Tienda)
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -38,8 +38,6 @@ Namespace pepeizq.Ofertas
             If Await helper.FileExistsAsync("listaImagenesMicrosoftStore") Then
                 listaImagenes = Await helper.ReadFileAsync(Of List(Of MicrosoftStoreImagen))("listaImagenesMicrosoftStore")
             End If
-
-            listaJuegos.Clear()
 
             Dim ficheroZip As IStorageFile = Nothing
 
@@ -187,7 +185,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim enlace As String = "https://www.microsoft.com/store/apps/" + juego2.ID
 
-                                Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -221,7 +219,7 @@ Namespace pepeizq.Ofertas
 
             Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

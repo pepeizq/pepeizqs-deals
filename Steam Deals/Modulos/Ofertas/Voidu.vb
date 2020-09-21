@@ -5,15 +5,11 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module Voidu
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
-        Dim cuponPorcentaje As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim cuponPorcentaje As String = String.Empty
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -29,7 +25,7 @@ Namespace pepeizq.Ofertas
 
             If listaCupones.Count > 0 Then
                 For Each cupon In listaCupones
-                    If Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                         If Not cupon.Porcentaje = Nothing Then
                             If cupon.Porcentaje > 0 Then
                                 cuponPorcentaje = cupon.Porcentaje
@@ -50,24 +46,10 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.voidu.com/en/comparison?network=cj&currency=EUR"))
-            Dim html As String = html_.Result
+            Dim html As String = Await HttpClient(New Uri("https://www.voidu.com/en/comparison?network=cj&currency=EUR"))
 
             If Not html = Nothing Then
                 Dim xml As New XmlSerializer(GetType(VoiduJuegos))
@@ -142,12 +124,12 @@ Namespace pepeizq.Ofertas
 
                             Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoVoidu.Publisher}, Nothing)
 
-                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
                             While k < listaJuegos.Count
-                                If listaJuegos(k).Titulo = juego.Titulo Then
+                                If listaJuegos(k).Enlace = juego.Enlace Then
                                     añadir = False
                                 End If
                                 k += 1
@@ -167,26 +149,13 @@ Namespace pepeizq.Ofertas
                 End If
             End If
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

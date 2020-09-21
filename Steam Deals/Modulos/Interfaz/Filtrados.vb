@@ -180,7 +180,7 @@ Namespace pepeizq.Interfaz
 
             Dim añadir As Boolean = True
 
-            If juego.Tienda.NombreUsar = "Steam" Then
+            If juego.TiendaNombreUsar = "Steam" Then
                 If juego.Enlace.Contains("store.steampowered.com/bundle/") Then
                     añadir = False
                 ElseIf juego.Enlace.Contains("store.steampowered.com/sub/") Then
@@ -194,15 +194,15 @@ Namespace pepeizq.Interfaz
                 ElseIf juego.Tipo = "music" Then
                     añadir = False
                 End If
-            ElseIf juego.Tienda.NombreUsar = "Fanatical" Then
+            ElseIf juego.TiendaNombreUsar = "Fanatical" Then
                 If juego.Tipo = "dlc" Then
                     añadir = False
                 End If
-            ElseIf juego.Tienda.NombreUsar = "GamersGate" Then
+            ElseIf juego.TiendaNombreUsar = "GamersGate" Then
                 If juego.Tipo = "dlc" Then
                     añadir = False
                 End If
-            ElseIf juego.Tienda.NombreUsar = "IndieGala" Then
+            ElseIf juego.TiendaNombreUsar = "IndieGala" Then
                 If juego.Tipo = "dlc" Then
                     añadir = False
                 End If

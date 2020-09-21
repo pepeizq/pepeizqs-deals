@@ -101,8 +101,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
             tbComentario.Text = String.Empty
 
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
+            Dim tienda As Tienda = Nothing
+
+            For Each subtienda In listaTiendas
+                If subtienda.NombreUsar = listaFinal(0).TiendaNombreUsar Then
+                    tienda = subtienda
+                End If
+            Next
+
             For Each cupon In listaCupones
-                If listaFinal(0).Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                     If Not cupon.Porcentaje = Nothing Then
                         If cupon.Porcentaje > 0 Then
                             tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + cupon.Codigo + "</b>"
@@ -154,7 +163,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + listaFinal(0).Tienda.NombreMostrar
+                tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + tienda.NombreMostrar
             Else
                 Dim publisherFinal As String = Nothing
 
@@ -227,7 +236,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     filtrado = "with at least 1000 reviews "
                 End If
 
-                tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + listaFinal(0).Tienda.NombreMostrar
+                tbTitulo.Text = tbTitulo.Text + "Sale • Up to " + listaDescuento(listaDescuento.Count - 1) + " • " + cantidadJuegos + " deals " + filtrado + "• " + tienda.NombreMostrar
                 tbEnlace.Text = String.Empty
             End If
 
@@ -282,7 +291,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If listaFinal.Count = 1 Then
                 If Not listaFinal(0).Imagenes.Grande = String.Empty Then
-                    If listaFinal(0).Tienda.NombreUsar = "Humble" Then
+                    If tienda.NombreUsar = "Humble" Then
                         tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
                     Else
                         tbImagenJuego.Text = listaFinal(0).Imagenes.Grande
@@ -293,9 +302,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaFinal(0), precioFinal)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaFinal(0), precioFinal, tienda)
             Else
-                DealsImagenEntrada.DosJuegosGenerar(listaAnalisis, listaFinal.Count)
+                DealsImagenEntrada.DosJuegosGenerar(listaAnalisis, listaFinal.Count, tienda)
             End If
 
             AddHandler tbImagenJuego.TextChanged, AddressOf CargarImagenEnlace
@@ -332,7 +341,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbDescuentoCodigo.Visibility = Visibility.Visible Then
                 For Each cupon In listaCupones
-                    If listaFinal(0).Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                         If Not cupon.Codigo Is Nothing Then
                             tbDescuentoCodigo.Text = cupon.Codigo
                             ModificarDescuento()
@@ -346,9 +355,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             tbMensajeContenido.Text = String.Empty
 
             If listaFinal.Count = 1 Then
-                If Not listaFinal(0).Tienda.MensajeUnJuego = Nothing Then
-                    If listaFinal(0).Tienda.MensajeUnJuego.Trim.Length > 0 Then
-                        tbMensajeContenido.Text = listaFinal(0).Tienda.MensajeUnJuego.Trim
+                If Not tienda.MensajeUnJuego = Nothing Then
+                    If tienda.MensajeUnJuego.Trim.Length > 0 Then
+                        tbMensajeContenido.Text = tienda.MensajeUnJuego.Trim
                         ModificarMensaje()
                     End If
                 End If
@@ -368,9 +377,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
 
             If listaFinal.Count = 1 Then
-                botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, listaFinal(0).Descuento, listaFinal(0).Precio)
+                botonSubir.Tag = New Clases.Deals(listaFinal, tienda, listaFinal(0).Descuento, listaFinal(0).Precio)
             Else
-                botonSubir.Tag = New Clases.Deals(listaFinal, listaFinal(0).Tienda, "Up to " + listaDescuento(listaDescuento.Count - 1), cantidadJuegos + " deals")
+                botonSubir.Tag = New Clases.Deals(listaFinal, tienda, "Up to " + listaDescuento(listaDescuento.Count - 1), cantidadJuegos + " deals")
             End If
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -662,8 +671,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim precioFinal As String = tbEnlace.Tag
 
+            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
+            Dim tienda As Tienda = Nothing
+
+            For Each subtienda In listaTiendas
+                If subtienda.NombreUsar = cosas.ListaJuegos(0).TiendaNombreUsar Then
+                    tienda = subtienda
+                End If
+            Next
+
             If tbImagenJuego.Text.Trim.Length > 0 Then
-                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegos(0), precioFinal)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegos(0), precioFinal, tienda)
             End If
 
         End Sub

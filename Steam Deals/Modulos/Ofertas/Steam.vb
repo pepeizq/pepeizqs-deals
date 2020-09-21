@@ -1,21 +1,16 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Newtonsoft.Json
 
 Namespace pepeizq.Ofertas
     Module Steam
 
         Public dominioImagenes As String = "https://cdn.cloudflare.steamstatic.com"
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim listaAPI As New List(Of SteamAPI)
-        Dim Tienda As Tienda = Nothing
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim listaAPI As New List(Of SteamAPI)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -25,37 +20,22 @@ Namespace pepeizq.Ofertas
 
             If Await helper.FileExistsAsync("listaSteamAPI") Then
                 listaAPI = Await helper.ReadFileAsync(Of List(Of SteamAPI))("listaSteamAPI")
-            Else
-                listaAPI = New List(Of SteamAPI)
             End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim numPaginas As Integer = 0
-
-            numPaginas = GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=1&l=english"))
+            Dim numPaginas As Integer = Await GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?sort_by=Price_ASC&specials=1&page=1&l=english"))
 
             Dim i As Integer = 1
             While i < numPaginas
-                Dim html_ As Task(Of String) = HttpClient(New Uri("https://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString + "&l=english"))
-                Dim html As String = html_.Result
+                Dim html As String = Await HttpClient(New Uri("https://store.steampowered.com/search/?cc=fr&sort_by=Price_ASC&specials=1&page=" + i.ToString + "&l=english"))
 
                 If Not html = Nothing Then
                     If Not html.Contains("<!-- List Items -->") Then
@@ -222,7 +202,7 @@ Namespace pepeizq.Ofertas
                                         analisis = AñadirAnalisis(temp2, listaAnalisis)
                                     End If
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -257,7 +237,7 @@ Namespace pepeizq.Ofertas
 
                                         If buscarAPI = True Then
                                             If Not juego Is Nothing Then
-                                                juego = pepeizq.Juegos.Steam.BuscarOferta(juego).Result
+                                                juego = Await pepeizq.Juegos.Steam.BuscarOferta(juego)
 
                                                 Dim desarrolladores As String = String.Empty
 
@@ -279,48 +259,28 @@ Namespace pepeizq.Ofertas
                         End While
                     End If
                 End If
-                Bw.ReportProgress(CInt((100 / numPaginas) * i))
+
+                pb.Value = CInt((100 / numPaginas) * i)
+                tb.Text = CInt((100 / numPaginas) * i).ToString + "%"
+
                 i += 1
             End While
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of SteamAPI))("listaSteamAPI", listaAPI)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
         '----------------------------------------------------
 
-        Public Function GenerarNumPaginas(url As Uri)
+        Public Async Function GenerarNumPaginas(url As Uri) As Task(Of Integer)
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(url)
-            Dim htmlPaginas As String = htmlPaginas_.Result
+            Dim htmlPaginas As String = Await HttpClient(url)
 
             If Not htmlPaginas = Nothing Then
                 If htmlPaginas.Contains("<div class=" + ChrW(34) + "search_pagination_right" + ChrW(34) + ">") Then

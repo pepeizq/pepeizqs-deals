@@ -4,23 +4,19 @@ Imports Newtonsoft.Json
 Namespace pepeizq.Ofertas
     Module WinGameStore
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim listaDesarrolladores As New List(Of WinGameStoreDesarrolladores)
-        Dim listaImagenes As New List(Of WinGameStoreImagenes)
-        Dim Tienda As Tienda = Nothing
-        Dim dolar As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim listaDesarrolladores As New List(Of WinGameStoreDesarrolladores)
+            Dim listaImagenes As New List(Of WinGameStoreImagenes)
+            Dim dolar As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
             dolar = tbDolar.Text
-
-            Tienda = tienda_
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -30,34 +26,19 @@ Namespace pepeizq.Ofertas
 
             If Await helper.FileExistsAsync("listaDesarrolladoresWinGameStore") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore")
-            Else
-                listaDesarrolladores = New List(Of WinGameStoreDesarrolladores)
             End If
 
             If Await helper.FileExistsAsync("listaImagenesWinGameStore") Then
                 listaImagenes = Await helper.ReadFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore")
-            Else
-                listaImagenes = New List(Of WinGameStoreImagenes)
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
-            Dim html As String = html_.Result
+            Dim html As String = await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 
             If Not html = Nothing Then
                 Dim listaJuegosWGS As List(Of WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of WinGameStoreJuego))(html)
@@ -113,7 +94,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoWGS.SteamID)
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -158,8 +139,7 @@ Namespace pepeizq.Ofertas
             Dim i As Integer = 0
             For Each juego In listaJuegos
                 If juego.Desarrolladores Is Nothing Or juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Or juego.Imagenes.Pequeña = "https://www.macgamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
-                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
-                    Dim htmlJuego As String = htmlJuego_.Result
+                    Dim htmlJuego As String = Await HttpClient(New Uri(juego.Enlace))
 
                     If Not htmlJuego = Nothing Then
                         Dim id As String = juego.Enlace
@@ -222,42 +202,21 @@ Namespace pepeizq.Ofertas
                     End If
                 End If
 
-                Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
-                Bw.ReportProgress(porcentaje)
+                pb.Value = CInt((100 / listaJuegos.Count) * i)
+                tb.Text = CInt((100 / listaJuegos.Count) * i).ToString + "%"
+
                 i += 1
             Next
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore", listaDesarrolladores)
             Await helper.SaveFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore", listaImagenes)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

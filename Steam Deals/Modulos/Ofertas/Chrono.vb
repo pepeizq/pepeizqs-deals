@@ -6,13 +6,11 @@ Imports Steam_Deals.pepeizq.Juegos
 Namespace pepeizq.Ofertas
     Module Chrono
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
-        Dim dolar As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim dolar As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -20,32 +18,16 @@ Namespace pepeizq.Ofertas
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
             dolar = tbDolar.Text
 
-            Tienda = tienda_
-
             Dim helper As New LocalObjectStorageHelper
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://api.chrono.gg/sale"))
-            Dim html As String = html_.Result
+            Dim html As String = Await HttpClient(New Uri("https://api.chrono.gg/sale"))
 
             If Not html = Nothing Then
                 Dim juegoChrono As ChronoJuego = JsonConvert.DeserializeObject(Of ChronoJuego)(html)
@@ -106,7 +88,7 @@ Namespace pepeizq.Ofertas
 
                     Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, idSteam)
 
-                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                     Dim añadir As Boolean = True
                     Dim k As Integer = 0
@@ -134,8 +116,7 @@ Namespace pepeizq.Ofertas
                 End If
             End If
 
-            Dim html2_ As Task(Of String) = HttpClient(New Uri("https://www.chrono.gg/"))
-            Dim html2 As String = html2_.Result
+            Dim html2 As String =  Await  HttpClient(New Uri("https://www.chrono.gg/"))
 
             If Not html2 = Nothing Then
                 If html2.Contains("https://store.steampowered.com/app/") Then
@@ -199,7 +180,7 @@ Namespace pepeizq.Ofertas
 
                             Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, temp2.Trim)
 
-                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, "steam", Tienda, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, "steam", tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -220,26 +201,13 @@ Namespace pepeizq.Ofertas
                 End If
             End If
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
         Public Async Function ChronoMas(juego As Oferta) As Task(Of Oferta)
 

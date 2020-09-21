@@ -5,7 +5,7 @@ Imports Windows.UI
 Namespace pepeizq.Editor.pepeizqdeals
     Module DealsImagenEntrada
 
-        Public Sub UnJuegoGenerar(enlaceImagenJuego As String, enlaceImagenFondo As String, juego As Oferta, precio As String)
+        Public Sub UnJuegoGenerar(enlaceImagenJuego As String, enlaceImagenFondo As String, juego As Oferta, precio As String, tienda As Tienda)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -53,8 +53,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2")
 
-            If Not juego.Tienda.LogoWebApp = Nothing Then
-                imagenTienda.Source = juego.Tienda.LogoWebApp
+            If Not tienda.LogoWebApp = Nothing Then
+                imagenTienda.Source = tienda.LogoWebApp
             Else
                 imagenTienda.Source = Nothing
             End If
@@ -112,7 +112,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Sub DosJuegosGenerar(juegos As List(Of Oferta), cantidadJuegos As Integer)
+        Public Sub DosJuegosGenerar(juegos As List(Of Oferta), cantidadJuegos As Integer, tienda As Tienda)
 
             If juegos.Count > 0 Then
                 juegos.Sort(Function(x As Oferta, y As Oferta)
@@ -184,13 +184,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tiendasVertical As Integer = 0
 
-            For Each tienda In tiendasHorizontal
-                If tienda = juegos(0).Tienda.NombreUsar Then
+            For Each subtienda In tiendasHorizontal
+                If subtienda = juegos(0).TiendaNombreUsar Then
                     tiendasVertical = 1
                 End If
             Next
 
-            If juegos(0).Tienda.NombreUsar = "Yuplay" Then
+            If juegos(0).TiendaNombreUsar = "Yuplay" Then
                 tiendasVertical = 2
             End If
 
@@ -330,7 +330,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End While
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            imagenTienda.Source = listaFinal(0).Tienda.LogoWebApp
+            imagenTienda.Source = tienda.LogoWebApp
 
             Dim panelImagenCabecera As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
 

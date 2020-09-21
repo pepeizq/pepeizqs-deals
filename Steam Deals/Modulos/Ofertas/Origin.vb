@@ -9,14 +9,10 @@ Imports Newtonsoft.Json
 Namespace pepeizq.Ofertas
     Module Origin
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -27,27 +23,17 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim html1_ As Task(Of String) = HttpClient(New Uri("https://api3.origin.com/supercat/GB/en_GB/supercat-PCWIN_MAC-GB-en_GB.json.gz"))
-            Dim html1 As String = html1_.Result
+            Dim html1 As String = Await HttpClient2(New Uri("https://api3.origin.com/supercat/GB/en_GB/supercat-PCWIN_MAC-GB-en_GB.json.gz"))
 
             If Not html1 = Nothing Then
                 Dim juegosOrigin As OriginBBDD = JsonConvert.DeserializeObject(Of OriginBBDD)(html1)
+
                 Dim superIDs As String = String.Empty
                 Dim i As Integer = 0
                 Dim total As Integer = 0
@@ -57,111 +43,90 @@ Namespace pepeizq.Ofertas
                         superIDs = superIDs + juegoOrigin.ID + ","
 
                         i += 1
+                        pb.Value = CInt(100 / juegosOrigin.Juegos.Count * i)
+                        tb.Text = CInt(100 / juegosOrigin.Juegos.Count * i).ToString + "%"
 
                         If i = 100 Then
                             total += i
 
                             i = 0
-                            AñadirPrecios(superIDs, juegosOrigin.Juegos)
+                            superIDs = superIDs.Remove(superIDs.Length - 1, 1)
+                            Dim html2 As String = Await HttpClient(New Uri("https://api1.origin.com/supercarp/rating/offers/anonymous?country=ES&locale=es_ES&pid=&currency=EUR&offerIds=" + superIDs))
+
+                            AñadirPrecios(html2, juegosOrigin.Juegos, listaJuegos, listaAnalisis, tienda.NombreUsar)
                             superIDs = String.Empty
                         End If
 
-                        If (total + i) = (juegosOrigin.Juegos.Count) Then
-                            AñadirPrecios(superIDs, juegosOrigin.Juegos)
+                        If (total + i) = juegosOrigin.Juegos.Count Then
+                            superIDs = superIDs.Remove(superIDs.Length - 1, 1)
+                            Dim html2 As String = Await HttpClient(New Uri("https://api1.origin.com/supercarp/rating/offers/anonymous?country=ES&locale=es_ES&pid=&currency=EUR&offerIds=" + superIDs))
+
+                            AñadirPrecios(html2, juegosOrigin.Juegos, listaJuegos, listaAnalisis, tienda.NombreUsar)
                         End If
                     End If
                 Next
             End If
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
-        Private Sub AñadirPrecios(superIDs As String, juegosOrigin As List(Of OriginBBDDJuego))
+        Private Sub AñadirPrecios(html2 As String, juegosOrigin As List(Of OriginBBDDJuego), listaJuegos As List(Of Oferta), listaAnalisis As List(Of OfertaAnalisis), tiendaNombreUsar As String)
 
-            If Not superIDs = String.Empty Then
-                superIDs = superIDs.Remove(superIDs.Length - 1, 1)
+            If Not html2 = Nothing Then
+                Dim stream As New StringReader(html2)
+                Dim xml As New XmlSerializer(GetType(OriginPrecio1))
+                Dim precio1 As OriginPrecio1 = xml.Deserialize(stream)
 
-                Dim html2_ As Task(Of String) = HttpClient(New Uri("https://api1.origin.com/supercarp/rating/offers/anonymous?country=ES&locale=es_ES&pid=&currency=EUR&offerIds=" + superIDs))
-                Dim html2 As String = html2_.Result
+                For Each precioOrigin In precio1.Precio2
+                    If Not precioOrigin.Precio3 Is Nothing Then
+                        Dim precioRebajado As String = precioOrigin.Precio3.PrecioRebajado
+                        Dim precioBase As String = precioOrigin.Precio3.PrecioBase
 
-                If Not html2 = Nothing Then
-                    Dim stream As New StringReader(html2)
-                    Dim xml As New XmlSerializer(GetType(OriginPrecio1))
-                    Dim precio1 As OriginPrecio1 = xml.Deserialize(stream)
+                        Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                    For Each precioOrigin In precio1.Precio2
-                        If Not precioOrigin.Precio3 Is Nothing Then
-                            Dim precioRebajado As String = precioOrigin.Precio3.PrecioRebajado
-                            Dim precioBase As String = precioOrigin.Precio3.PrecioBase
+                        precioRebajado = precioRebajado.Replace(".", ",")
+                        precioRebajado = precioRebajado + " €"
 
-                            Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                        For Each juegoOrigin In juegosOrigin
+                            If precioOrigin.ID = juegoOrigin.ID Then
+                                Dim titulo As String = juegoOrigin.i18n.Titulo
+                                titulo = titulo.Trim
 
-                            precioRebajado = precioRebajado.Replace(".", ",")
-                            precioRebajado = precioRebajado + " €"
+                                Dim imagenes As New OfertaImagenes(juegoOrigin.ImagenRaiz + juegoOrigin.i18n.ImagenPequeña, juegoOrigin.ImagenRaiz + juegoOrigin.i18n.ImagenGrande)
 
-                            For Each juegoOrigin In juegosOrigin
-                                If precioOrigin.ID = juegoOrigin.ID Then
-                                    Dim titulo As String = juegoOrigin.i18n.Titulo
-                                    titulo = titulo.Trim
+                                Dim enlace As String = "https://www.origin.com/store" + juegoOrigin.Enlace
 
-                                    Dim imagenes As New OfertaImagenes(juegoOrigin.ImagenRaiz + juegoOrigin.i18n.ImagenPequeña, juegoOrigin.ImagenRaiz + juegoOrigin.i18n.ImagenGrande)
+                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    Dim enlace As String = "https://www.origin.com/store" + juegoOrigin.Enlace
+                                Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, tiendaNombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, Tienda, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                                    Dim añadir As Boolean = True
-                                    Dim k As Integer = 0
-                                    While k < listaJuegos.Count
-                                        If listaJuegos(k).Titulo = juego.Titulo Then
-                                            añadir = False
-                                        End If
-                                        k += 1
-                                    End While
-
-                                    If juego.Descuento = Nothing Then
-                                        juego.Descuento = "00%"
+                                Dim añadir As Boolean = True
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Enlace = juego.Enlace Then
+                                        añadir = False
                                     End If
+                                    k += 1
+                                End While
 
-                                    If añadir = True Then
-                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
-
-                                        listaJuegos.Add(juego)
-                                    End If
+                                If juego.Descuento = Nothing Then
+                                    juego.Descuento = "00%"
                                 End If
-                            Next
-                        End If
-                    Next
-                End If
+
+                                If añadir = True Then
+                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
+                                    listaJuegos.Add(juego)
+                                End If
+                            End If
+                        Next
+                    End If
+                Next
             End If
 
         End Sub
