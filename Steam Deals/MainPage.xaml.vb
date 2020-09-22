@@ -66,7 +66,7 @@ Public NotInheritable Class MainPage
                 GridVisibilidad(gridEditor, item.Text)
                 pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsAnuncios)
 
-            ElseIf item.Text = "Nuevos Juegos" Then
+            ElseIf item.Text = "Juegos" Then
 
                 GridVisibilidad(gridEditor, item.Text)
                 pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsNuevosJuegos)
@@ -226,78 +226,6 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorActualizarAnalisis.Click
 
         Analisis.Generar()
-
-    End Sub
-
-    Private Sub BotonEditorTituloCopiarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCopiarReddit.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorTituloReddit.Text)
-        Clipboard.SetContent(texto)
-
-    End Sub
-
-    Private Sub BotonEditorTituloCortarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCortarReddit.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorTituloReddit.Text)
-        Clipboard.SetContent(texto)
-
-        tbEditorTituloReddit.Text = String.Empty
-
-    End Sub
-
-    Private Sub BotonEditorEnlacesCopiarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCopiarReddit.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorEnlacesReddit.Tag)
-        Clipboard.SetContent(texto)
-
-    End Sub
-
-    Private Sub BotonEditorEnlacesCortarReddit_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCortarReddit.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorEnlacesReddit.Tag)
-        Clipboard.SetContent(texto)
-
-        tbEditorEnlacesReddit.Text = String.Empty
-
-    End Sub
-
-    Private Sub BotonEditorTituloCopiarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCopiarVayaAnsias.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorTituloVayaAnsias.Text)
-        Clipboard.SetContent(texto)
-
-    End Sub
-
-    Private Sub BotonEditorTituloCortarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorTituloCortarVayaAnsias.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorTituloVayaAnsias.Text)
-        Clipboard.SetContent(texto)
-
-        tbEditorTituloVayaAnsias.Text = String.Empty
-
-    End Sub
-
-    Private Sub BotonEditorEnlacesCopiarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCopiarVayaAnsias.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorEnlacesVayaAnsias.Tag)
-        Clipboard.SetContent(texto)
-
-    End Sub
-
-    Private Sub BotonEditorEnlacesCortarVayaAnsias_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorEnlacesCortarVayaAnsias.Click
-
-        Dim texto As New DataPackage
-        texto.SetText(tbEditorEnlacesVayaAnsias.Tag)
-        Clipboard.SetContent(texto)
-
-        tbEditorEnlacesVayaAnsias.Text = String.Empty
 
     End Sub
 

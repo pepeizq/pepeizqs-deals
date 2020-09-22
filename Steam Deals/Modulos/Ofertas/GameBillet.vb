@@ -8,17 +8,14 @@ Namespace pepeizq.Ofertas
 
         'https://www.gamebillet.com/Product/JsonFeed?store=eu
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim listaImagenes As New List(Of GameBilletImagenes)
-        Dim listaDesarrolladores As New List(Of GameBilletDesarrolladores)
-        Dim Tienda As Tienda = Nothing
-        Dim cuponPorcentaje As String = String.Empty
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim listaImagenes As New List(Of GameBilletImagenes)
+            Dim listaDesarrolladores As New List(Of GameBilletDesarrolladores)
 
-            Tienda = tienda_
+            Dim cuponPorcentaje As String = String.Empty
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -28,19 +25,15 @@ Namespace pepeizq.Ofertas
 
             If Await helper.FileExistsAsync("listaImagenesGameBillet") Then
                 listaImagenes = Await helper.ReadFileAsync(Of List(Of GameBilletImagenes))("listaImagenesGameBillet")
-            Else
-                listaImagenes = New List(Of GameBilletImagenes)
             End If
 
             If Await helper.FileExistsAsync("listaDesarrolladoresGameBillet") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of GameBilletDesarrolladores))("listaDesarrolladoresGameBillet")
-            Else
-                listaDesarrolladores = New List(Of GameBilletDesarrolladores)
             End If
 
-            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar) Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + Tienda.NombreUsar)
+            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar) Is Nothing Then
+                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar).ToString.Trim.Length > 0 Then
+                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar)
                     cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
                     cuponPorcentaje = cuponPorcentaje.Trim
 
@@ -55,24 +48,13 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
-
-            Dim htmlPreorders_ As Task(Of String) = HttpClient(New Uri("https://www.gamebillet.com/preorders"))
-            Dim htmlPreorders As String = htmlPreorders_.Result
+            Dim htmlPreorders As String = await HttpClient(New Uri("https://www.gamebillet.com/preorders"))
 
             If Not htmlPreorders = Nothing Then
                 If htmlPreorders.Contains("<div class=" + ChrW(34) + "grid-items") Then
@@ -158,7 +140,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Oferta(titulo, "00%", precio, enlace, New OfertaImagenes(imagen, Nothing), drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, "00%", precio, enlace, New OfertaImagenes(imagen, Nothing), drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim l As Integer = 0
@@ -189,8 +171,7 @@ Namespace pepeizq.Ofertas
             End If
 
             Dim numPaginas As Integer = 0
-            Dim htmlPaginas_ As Task(Of String) = HttpClient(New Uri("https://gamebillet.com/hotdeals"))
-            Dim htmlPaginas As String = htmlPaginas_.Result
+            Dim htmlPaginas As String = Await HttpClient(New Uri("https://gamebillet.com/hotdeals"))
 
             If Not htmlPaginas = Nothing Then
                 If htmlPaginas.Contains(ChrW(34) + "total-pages" + ChrW(34)) Then
@@ -220,8 +201,7 @@ Namespace pepeizq.Ofertas
 
             Dim j As Integer = 1
             While j < numPaginas + 1
-                Dim htmlPagina_ As Task(Of String) = HttpClient(New Uri("https://gamebillet.com/hotdeals?pagenumber=" + j.ToString))
-                Dim htmlPagina As String = htmlPagina_.Result
+                Dim htmlPagina As String = Await HttpClient(New Uri("https://gamebillet.com/hotdeals?pagenumber=" + j.ToString))
 
                 If Not htmlPagina = Nothing Then
                     If htmlPagina.Contains("<div class=" + ChrW(34) + "grid-items") Then
@@ -315,7 +295,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, New OfertaImagenes(imagen, Nothing), drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, New OfertaImagenes(imagen, Nothing), drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim l As Integer = 0
@@ -352,6 +332,10 @@ Namespace pepeizq.Ofertas
                         End While
                     End If
                 End If
+
+                pb.Value = CInt((100 / numPaginas) * j)
+                tb.Text = CInt((100 / numPaginas) * j).ToString + "%"
+
                 j += 1
             End While
 
@@ -445,8 +429,7 @@ Namespace pepeizq.Ofertas
             Dim i As Integer = 0
             For Each juego In listaJuegos
                 If juego.Imagenes Is Nothing Or juego.Desarrolladores Is Nothing Then
-                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri(juego.Enlace))
-                    Dim htmlJuego As String = htmlJuego_.Result
+                    Dim htmlJuego As String = Await HttpClient(New Uri(juego.Enlace))
 
                     If Not htmlJuego = Nothing Then
                         If juego.Imagenes Is Nothing Then
@@ -494,42 +477,21 @@ Namespace pepeizq.Ofertas
                     End If
                 End If
 
-                Dim porcentaje As Integer = CInt((100 / listaJuegos.Count) * i)
-                Bw.ReportProgress(porcentaje)
+                pb.Value = CInt((100 / listaJuegos.Count) * i)
+                tb.Text = CInt((100 / listaJuegos.Count) * i).ToString + "%"
+
                 i += 1
             Next
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of GameBilletImagenes))("listaImagenesGameBillet", listaImagenes)
             Await helper.SaveFileAsync(Of List(Of GameBilletDesarrolladores))("listaDesarrolladoresGameBillet", listaDesarrolladores)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

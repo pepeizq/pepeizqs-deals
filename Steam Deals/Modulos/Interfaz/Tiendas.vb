@@ -793,13 +793,13 @@ Module Tiendas
                 ElseIf tienda.NombreUsar = originT.NombreUsar Then
                     Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
                 ElseIf tienda.NombreUsar = gamebilletT.NombreUsar Then
-                    pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
+                    Await pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
                 ElseIf tienda.NombreUsar = _2gameT.NombreUsar Then
-                    pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
+                    Await pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
                 ElseIf tienda.NombreUsar = blizzardT.NombreUsar Then
-                    pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
+                    Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
                 ElseIf tienda.NombreUsar = direct2driveT.NombreUsar Then
-                    pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
+                    Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
                 End If
             Else
                 Ordenar.Ofertas(tienda, False, True)
@@ -850,10 +850,10 @@ Module Tiendas
         Await pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
         Await pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
         Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
-        'pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
-        'pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
-        'pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
-        'pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
+        Await pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
+        Await pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
+        Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
+        Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
 
     End Sub
 

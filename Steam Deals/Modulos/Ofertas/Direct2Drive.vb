@@ -4,14 +4,10 @@ Imports Newtonsoft.Json
 Namespace pepeizq.Ofertas
     Module Direct2Drive
 
-        Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim Tienda As Tienda = Nothing
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
-        Public Async Sub BuscarOfertas(tienda_ As Tienda)
-
-            Tienda = tienda_
+            Dim listaJuegos As New List(Of Oferta)
+            Dim listaAnalisis As New List(Of OfertaAnalisis)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -22,26 +18,15 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            listaJuegos.Clear()
-
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
-
-        End Sub
-
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
             Dim paginas As Integer = 0
 
-            Dim htmlP_ As Task(Of String) = HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=1&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
-            Dim htmlP As String = htmlP_.Result
+            Dim htmlP As String = await HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=1&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
 
             If Not htmlP = Nothing Then
                 Try
@@ -58,8 +43,7 @@ Namespace pepeizq.Ofertas
             If paginas > 0 Then
                 Dim i As Integer = 1
                 While i <= paginas
-                    Dim html_ As Task(Of String) = HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=" + i.ToString + "&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
-                    Dim html As String = html_.Result
+                    Dim html As String = Await HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=" + i.ToString + "&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
 
                     If Not html = Nothing Then
                         Dim productos As Direct2DriveProducts = JsonConvert.DeserializeObject(Of Direct2DriveProducts)(html)
@@ -94,7 +78,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoD2D.Publisher}, Nothing)
 
-                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
+                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, Nothing, desarrolladores)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -120,41 +104,20 @@ Namespace pepeizq.Ofertas
                     End If
 
                     If paginas > 0 Then
-                        Bw.ReportProgress(CInt((100 / paginas) * i))
+                        pb.Value = CInt(100 / paginas * i)
+                        tb.Text = CInt(100 / paginas * i).ToString + "%"
                     End If
                     i += 1
                 End While
             End If
 
-        End Sub
-
-        Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
-            pb.Value = e.ProgressPercentage
-
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
-            tb.Text = e.ProgressPercentage.ToString + "%"
-
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Collapsed
 
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
+            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
-        End Sub
+        End Function
 
     End Module
 

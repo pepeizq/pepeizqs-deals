@@ -17,7 +17,9 @@ Namespace pepeizq.Juegos
 
                 If Not resultados Is Nothing Then
                     If resultados.Juegos.Count > 0 Then
-                        Return Buscar(resultados.Juegos(0))
+                        If Busqueda.Limpiar(titulo) = Busqueda.Limpiar(resultados.Juegos(0).Titulo) Then
+                            Return Buscar(resultados.Juegos(0))
+                        End If
                     End If
                 End If
             End If

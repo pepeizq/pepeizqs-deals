@@ -116,7 +116,7 @@ Namespace pepeizq.Ofertas
                 End If
             End If
 
-            Dim html2 As String =  Await  HttpClient(New Uri("https://www.chrono.gg/"))
+            Dim html2 As String = Await HttpClient(New Uri("https://www.chrono.gg/"))
 
             If Not html2 = Nothing Then
                 If html2.Contains("https://store.steampowered.com/app/") Then
@@ -136,7 +136,7 @@ Namespace pepeizq.Ofertas
                         temp2 = temp2.Remove(int2, temp2.Length - int2)
                     End If
 
-                    Dim datos As SteamAPIJson = BuscarAPIJson(temp2.Trim).Result
+                    Dim datos As SteamAPIJson = Await BuscarAPIJson(temp2.Trim)
 
                     If Not datos Is Nothing Then
                         If html2.Contains(ChrW(34) + "normalPrice" + ChrW(34)) And html2.Contains(ChrW(34) + "featuredPrice" + ChrW(34)) Then
