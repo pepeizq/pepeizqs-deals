@@ -49,6 +49,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(True)
 
+            botonBuscar.IsEnabled = False
+
         End Sub
 
         Private Async Sub GenerarDatos(sender As Object, e As RoutedEventArgs)
@@ -510,6 +512,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbInforme As TextBlock = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosInforme")
+
             Dim helper As New LocalObjectStorageHelper
 
             Dim carpeta As StorageFolder = ApplicationData.Current.LocalFolder
@@ -526,6 +533,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 For Each fichero As StorageFile In Await carpeta.GetFilesAsync
                     If fichero.Name.Contains("nuevoJuego") Then
                         Dim juego As Clases.Juego = Await helper.ReadFileAsync(Of Clases.Juego)(fichero.Name)
+
+                        tbInforme.Text = juego.Titulo + " - " + juego.SteamID
 
                         If Not juego.PostID = Nothing Then
                             'Dim fechaTermina As Date = Nothing
@@ -567,26 +576,36 @@ Namespace pepeizq.Editor.pepeizqdeals
                                     For Each juego2 In listaJuegos
                                         For Each juegoBBDD In juego.Enlaces
                                             If juego2.Enlace = juegoBBDD.Enlace Then
-                                                encontrado = True
+                                                Dim drmEpic As Boolean = False
 
-                                                If Not juegoBBDD.Precio = juego2.Precio Then
-                                                    actualizar = True
+                                                If Not juego2.DRM = String.Empty Then
+                                                    If juego2.DRM.ToLower.Contains("epic") Then
+                                                        drmEpic = True
+                                                    End If
                                                 End If
 
-                                                juegoBBDD.Descuento = juego2.Descuento
-                                                juegoBBDD.Precio = juego2.Precio
+                                                If drmEpic = False Then
+                                                    encontrado = True
 
-                                                If listaCupones.Count > 0 Then
-                                                    For Each cupon In listaCupones
-                                                        If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                                                            If Not cupon.Codigo = Nothing Then
-                                                                juegoBBDD.Codigo = cupon.Codigo
+                                                    If Not juegoBBDD.Precio = juego2.Precio Then
+                                                        actualizar = True
+                                                    End If
+
+                                                    juegoBBDD.Descuento = juego2.Descuento
+                                                    juegoBBDD.Precio = juego2.Precio
+
+                                                    If listaCupones.Count > 0 Then
+                                                        For Each cupon In listaCupones
+                                                            If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                                                                If Not cupon.Codigo = Nothing Then
+                                                                    juegoBBDD.Codigo = cupon.Codigo
+                                                                End If
                                                             End If
-                                                        End If
-                                                    Next
-                                                End If
+                                                        Next
+                                                    End If
 
-                                                Exit For
+                                                    Exit For
+                                                End If
                                             End If
                                         Next
 
@@ -620,6 +639,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                             añadir2 = False
                                                         End If
                                                     Next
+
+                                                    If Not juego2.DRM = String.Empty Then
+                                                        If juego2.DRM.ToLower.Contains("epic") Then
+                                                            añadir2 = False
+                                                        End If
+                                                    End If
 
                                                     If añadir2 = True Then
                                                         Dim juegoBBDD As New Clases.JuegoTienda(tienda.NombreUsar, juego2.Descuento, juego2.Precio, codigo, juego2.Enlace)

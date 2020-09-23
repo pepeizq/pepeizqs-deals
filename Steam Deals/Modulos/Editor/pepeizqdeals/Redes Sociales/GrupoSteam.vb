@@ -49,6 +49,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     Try
                         Await wv.InvokeScriptAsync("eval", New List(Of String) From {mensajeHtml})
 
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('checkboxAudienceFollower').click();"})
+
                         Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
                     Catch ex As Exception
 
