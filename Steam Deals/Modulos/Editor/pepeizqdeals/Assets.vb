@@ -33,7 +33,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("BlizzardStore", "Assets/Tiendas/blizzard.ico", "Assets/Tiendas/blizzard2.png", "#0e86ca", "#0e86ca", Nothing, 32, 32),
                 New Clases.Assets("Direct2Drive", "Assets/Tiendas/d2d.ico", "Assets/Tiendas/d2d2.png", "#1a1a1a", "#1a1a1a", Nothing, 32, 32),
                 New Clases.Assets("XboxGamePass", "Assets/Tiendas/xboxgamepass2.png", "Assets/Tiendas/xboxgamepass.png", "#107c10", "#107c10", Nothing, 32, 32),
-                New Clases.Assets("GeforceNOW", "Assets/Tiendas/geforcenow2.png", "Assets/Tiendas/geforcenow.png", "#446b00", "#446b00", Nothing, 32, 32)
+                New Clases.Assets("GeforceNOW", "Assets/Tiendas/geforcenow2.png", "Assets/Tiendas/geforcenow.png", "#446b00", "#446b00", Nothing, 32, 32),
+                New Clases.Assets("Uplay", "Assets/Tiendas/ubi.png", "Assets/Tiendas/ubi2.png", "#008aa4", "#008aa4", Nothing, 32, 32)
             }
 
             Return lista
@@ -50,7 +51,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             AddHandler botonFondo.Click, AddressOf GenerarFondo
 
             Dim tbFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsFondoRedesSociales")
-            tbFondo.Text = "1085660,578080,294100,227300,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,275850,220200,379720,552520,1066780,814380,745920,359320"
+            tbFondo.Text = "1085660,578080,294100,227300,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,1250410,275850,220200,379720,552520,261550,1066780,814380,745920,359320,1097150,1158310,1172620,1151640,412020,230410,359550,945360,813780,286160"
 
         End Sub
 
@@ -357,8 +358,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Dim panel As New DropShadowPanel With {
                             .Margin = New Thickness(5, 5, 5, 5),
                             .ShadowOpacity = 0.9,
-                            .BlurRadius = 20
+                            .BlurRadius = 20,
+                            .IsHitTestVisible = False
                         }
+
+                        juego.Datos.Imagen = juego.Datos.Imagen.Replace("header", "library_600x900")
 
                         Dim imagenJuego As New ImageEx With {
                             .Stretch = Stretch.Uniform,

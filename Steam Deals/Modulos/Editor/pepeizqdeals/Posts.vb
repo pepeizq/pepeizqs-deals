@@ -158,6 +158,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not resultado Is Nothing Then
                     Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
+                    If Not resultado.Redireccion2 = Nothing Then
+                        resultado.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
+                                                 "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                    End If
+
                     If redesSociales = True Then
                         Dim enlaceFinal As String = String.Empty
 
@@ -182,7 +189,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Try
 
                         Try
-                            Await pepeizqdeals.RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+                            Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
                         Catch ex As Exception
                             Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                         End Try
@@ -212,6 +219,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End Try
                             End If
                         End If
+
                     End If
                 End If
             End If

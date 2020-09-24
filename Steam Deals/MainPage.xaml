@@ -1145,10 +1145,10 @@
                                                 </LinearGradientBrush>
                                             </Grid.Background>
 
-                                            <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsFondoRedesSociales" Opacity="0.5" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false">
+                                            <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsFondoRedesSociales" Opacity="0.3" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false" DesiredWidth="80">
                                                 <GridView.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <ItemsWrapGrid MaximumRowsOrColumns="6" Orientation="Horizontal"/>
+                                                        <ItemsWrapGrid MaximumRowsOrColumns="18" Orientation="Horizontal"/>
                                                     </ItemsPanelTemplate>
                                                 </GridView.ItemsPanel>
                                             </controls:AdaptiveGridView>

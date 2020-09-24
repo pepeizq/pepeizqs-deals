@@ -31,11 +31,12 @@ Module Tiendas
     Dim blizzardT As New Tienda("Blizzard Store", "Blizzard", "Assets/Tiendas/blizzard.ico", 23, Nothing, 1219, "https://pepeizqdeals.com/wp-content/uploads/2019/08/tienda_blizzardstore.jpg", "Assets/Tiendas/blizzard2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/blizzard2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/blizzard3.png", "29946", Nothing)
     Dim direct2driveT As New Tienda("Direct2Drive", "Direct2Drive", "Assets/Tiendas/d2d.ico", 24, Nothing, 1238, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/d2d2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/d2d2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/d2d3.png", "31588", Nothing)
     Dim robotcacheT As New Tienda("Robot Cache", "RobotCache", "Assets/Tiendas/robotcache.png", 25, Nothing, 1245, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing, Nothing)
+    Dim ubiT As New Tienda("Ubisoft Store", "Ubisoft", "Assets/Tiendas/ubi.png", 26, Nothing, 1317, "https://pepeizqdeals.com/wp-content/uploads/2020/09/tienda_uplay.jpg", "Assets/Tiendas/ubi2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/ubi2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/ubi3.png", "32092", "* Price with Club Units")
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-        epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT
+        epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT
     }
 
     Public Function Listado()
@@ -800,6 +801,8 @@ Module Tiendas
                     Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
                 ElseIf tienda.NombreUsar = direct2driveT.NombreUsar Then
                     Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
+                ElseIf tienda.NombreUsar = ubiT.NombreUsar Then
+                    Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
                 End If
             Else
                 Ordenar.Ofertas(tienda, False, True)

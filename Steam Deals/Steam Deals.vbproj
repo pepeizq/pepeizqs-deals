@@ -162,6 +162,7 @@
     <Compile Include="Modulos\Interfaz\Pestañas.vb" />
     <Compile Include="Modulos\Juegos\Humble.vb" />
     <Compile Include="Modulos\Juegos\Steam.vb" />
+    <Compile Include="Modulos\Ofertas\Ubisoft.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleChoice.vb" />
@@ -380,6 +381,7 @@
     <Content Include="Assets\Tiendas\300x80\microsoftstore3.png" />
     <Content Include="Assets\Tiendas\300x80\origin3.png" />
     <Content Include="Assets\Tiendas\300x80\steam3.png" />
+    <Content Include="Assets\Tiendas\300x80\ubi3.png" />
     <Content Include="Assets\Tiendas\300x80\voidu3.png" />
     <Content Include="Assets\Tiendas\300x80\wingamestore3.png" />
     <Content Include="Assets\Tiendas\300x80\yuplay3.png" />
@@ -432,6 +434,8 @@
     <Content Include="Assets\Tiendas\steam.ico" />
     <Content Include="Assets\drm_steam.png" />
     <Content Include="Assets\drm_uplay.png" />
+    <Content Include="Assets\Tiendas\ubi.png" />
+    <Content Include="Assets\Tiendas\ubi2.png" />
     <Content Include="Assets\Tiendas\uplay.png" />
     <Content Include="Assets\Tiendas\uplayplus.png" />
     <Content Include="Assets\Tiendas\voidu.ico" />

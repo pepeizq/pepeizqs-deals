@@ -179,7 +179,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaFinal As New List(Of Oferta)
 
             Dim tiendasHorizontal As New List(Of String) From {
-                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin", "Direct2Drive"
+                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin", "Direct2Drive", "Ubisoft"
             }
 
             Dim tiendasVertical As Integer = 0
