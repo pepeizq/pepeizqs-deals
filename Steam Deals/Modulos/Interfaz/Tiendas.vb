@@ -32,11 +32,12 @@ Module Tiendas
     Dim direct2driveT As New Tienda("Direct2Drive", "Direct2Drive", "Assets/Tiendas/d2d.ico", 24, Nothing, 1238, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/d2d2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/d2d2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/d2d3.png", "31588", Nothing)
     Dim robotcacheT As New Tienda("Robot Cache", "RobotCache", "Assets/Tiendas/robotcache.png", 25, Nothing, 1245, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing, Nothing)
     Dim ubiT As New Tienda("Ubisoft Store", "Ubisoft", "Assets/Tiendas/ubi.png", 26, Nothing, 1317, "https://pepeizqdeals.com/wp-content/uploads/2020/09/tienda_uplay.jpg", "Assets/Tiendas/ubi2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/ubi2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/ubi3.png", "32092", "* Price with Club Units")
+    Dim allyouplayT As New Tienda("Allyouplay", "Allyouplay", "Assets/Tiendas/allyouplay.ico", 27, Nothing, 1318, "https://pepeizqdeals.com/wp-content/uploads/2020/09/tienda_allyouplay.jpg", "Assets/Tiendas/allyouplay2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/allyouplay2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/allyouplay3.png", "32170", Nothing)
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
         microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-        epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT
+        epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT
     }
 
     Public Function Listado()
@@ -380,16 +381,19 @@ Module Tiendas
         Dim col2 As New ColumnDefinition
         Dim col3 As New ColumnDefinition
         Dim col4 As New ColumnDefinition
+        Dim col5 As New ColumnDefinition
 
         col1.Width = New GridLength(1, GridUnitType.Auto)
         col2.Width = New GridLength(1, GridUnitType.Auto)
         col3.Width = New GridLength(1, GridUnitType.Auto)
-        col4.Width = New GridLength(1, GridUnitType.Star)
+        col4.Width = New GridLength(1, GridUnitType.Auto)
+        col5.Width = New GridLength(1, GridUnitType.Star)
 
         gridTienda.ColumnDefinitions.Add(col1)
         gridTienda.ColumnDefinitions.Add(col2)
         gridTienda.ColumnDefinitions.Add(col3)
         gridTienda.ColumnDefinitions.Add(col4)
+        gridTienda.ColumnDefinitions.Add(col5)
 
         Dim imagenIcono As New ImageEx With {
             .Source = tienda.IconoApp,
@@ -451,12 +455,35 @@ Module Tiendas
 
         '---------------------------
 
+        Dim cb0PorCiento As New CheckBox With {
+            .Margin = New Thickness(15, 0, 0, 0),
+            .Tag = tienda,
+            .MinWidth = 0
+        }
+        cb0PorCiento.SetValue(Grid.ColumnProperty, 3)
+
+        If listaCupones.Count > 0 Then
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If Not cupon._0PorCiento = Nothing Then
+                        cb0PorCiento.IsChecked = cupon._0PorCiento
+                    End If
+                End If
+            Next
+        End If
+
+        AddHandler cb0PorCiento.Checked, AddressOf Cb0PorCientoChecked
+        AddHandler cb0PorCiento.Unchecked, AddressOf Cb0PorCientoChecked
+        gridTienda.Children.Add(cb0PorCiento)
+
+        '---------------------------
+
         Dim tbComentario As New TextBox With {
             .Margin = New Thickness(15, 0, 0, 0),
             .TextWrapping = TextWrapping.Wrap,
             .Tag = tienda
         }
-        tbComentario.SetValue(Grid.ColumnProperty, 3)
+        tbComentario.SetValue(Grid.ColumnProperty, 4)
 
         If listaCupones.Count > 0 Then
             For Each cupon In listaCupones
@@ -502,12 +529,12 @@ Module Tiendas
 
             If añadir = True Then
                 If tb.Text.Trim.Length > 0 Then
-                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, tb.Text.Trim, Nothing, Nothing))
+                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, tb.Text.Trim, Nothing, Nothing, Nothing))
                 End If
             End If
         Else
             If tb.Text.Trim.Length > 0 Then
-                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, tb.Text.Trim, Nothing, Nothing))
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, tb.Text.Trim, Nothing, Nothing, Nothing))
             End If
         End If
 
@@ -546,13 +573,51 @@ Module Tiendas
 
             If añadir = True Then
                 If tb.Text.Trim.Length > 0 Then
-                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, tb.Text.Trim, Nothing))
+                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, tb.Text.Trim, Nothing, Nothing))
                 End If
             End If
         Else
             If tb.Text.Trim.Length > 0 Then
-                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, tb.Text.Trim, Nothing))
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, tb.Text.Trim, Nothing, Nothing))
             End If
+        End If
+
+        Try
+            Await helper.SaveFileAsync(Of List(Of TiendaCupon))("cupones", listaCupones)
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Async Sub Cb0PorCientoChecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
+
+        Dim cb As CheckBox = sender
+        Dim tienda As Tienda = cb.Tag
+
+        Dim helper As New LocalObjectStorageHelper
+
+        Dim listaCupones As New List(Of TiendaCupon)
+
+        If Await helper.FileExistsAsync("cupones") = True Then
+            listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
+        End If
+
+        If listaCupones.Count > 0 Then
+            Dim añadir As Boolean = True
+
+            For Each cupon In listaCupones
+                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    cupon._0PorCiento = cb.IsChecked
+                    añadir = False
+                End If
+            Next
+
+            If añadir = True Then
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, cb.IsChecked, Nothing))
+            End If
+        Else
+            listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, cb.IsChecked, Nothing))
         End If
 
         Try
@@ -590,12 +655,12 @@ Module Tiendas
 
             If añadir = True Then
                 If tb.Text.Trim.Length > 0 Then
-                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, tb.Text.Trim))
+                    listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, Nothing, tb.Text.Trim))
                 End If
             End If
         Else
             If tb.Text.Trim.Length > 0 Then
-                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, tb.Text.Trim))
+                listaCupones.Add(New TiendaCupon(tienda.NombreUsar, Nothing, Nothing, Nothing, tb.Text.Trim))
             End If
         End If
 
@@ -803,6 +868,8 @@ Module Tiendas
                     Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
                 ElseIf tienda.NombreUsar = ubiT.NombreUsar Then
                     Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
+                ElseIf tienda.NombreUsar = allyouplayT.NombreUsar Then
+                    Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
                 End If
             Else
                 Ordenar.Ofertas(tienda, False, True)

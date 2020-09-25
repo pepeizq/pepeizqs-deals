@@ -72,12 +72,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
             End If
 
-            Dim cuponesReservas As New List(Of TiendaCupon)
-
-            If Await helper.FileExistsAsync("cuponesReservas") = True Then
-                cuponesReservas = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cuponesReservas")
-            End If
-
             Dim tbTitulosAlternativos As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTituloAlternativo")
             Dim titulosAlternativos As List(Of String) = DevolverTitulosAlternativos(tbTitulosAlternativos.Text.Trim)
 
@@ -127,12 +121,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     For Each tienda In listaTiendas
                         Dim añadido As Boolean = False
                         Dim cupon As String = String.Empty
+                        Dim cuponCero As Boolean = False
+                        Dim cuponPorcentaje As String = String.Empty
 
                         If cupones.Count > 0 Then
                             For Each subcupon In cupones
                                 If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
                                     If Not subcupon.Codigo = Nothing Then
                                         cupon = subcupon.Codigo
+                                        cuponCero = subcupon._0PorCiento
+                                        cuponPorcentaje = subcupon.Porcentaje
                                     End If
                                 End If
                             Next
@@ -161,42 +159,46 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
 
                             For Each juego In listaJuegos
-                                If cupon = String.Empty Then
-                                    If juego.Descuento = Nothing Or juego.Descuento = "0%" Or juego.Descuento = "00%" Then
-                                        If cuponesReservas.Count > 0 Then
-                                            For Each subcupon In cuponesReservas
-                                                If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
-                                                    If Not subcupon.Codigo = Nothing Then
-                                                        cupon = subcupon.Codigo
+                                Dim cuponF As String = String.Empty
 
-                                                        Dim cuponPorcentaje As String = String.Empty
-                                                        cuponPorcentaje = subcupon.Porcentaje
-                                                        cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                                                        cuponPorcentaje = cuponPorcentaje.Trim
+                                If Not cupon = String.Empty Then
+                                    If cuponCero = True Then
+                                        If juego.Descuento = Nothing Or juego.Descuento = "0%" Or juego.Descuento = "00%" Then
+                                            cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                                            cuponPorcentaje = cuponPorcentaje.Trim
 
-                                                        If cuponPorcentaje.Length = 1 Then
-                                                            cuponPorcentaje = "0,0" + cuponPorcentaje
-                                                        Else
-                                                            cuponPorcentaje = "0," + cuponPorcentaje
-                                                        End If
-
-                                                        Dim dprecioEU As Double = Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(juego.Precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                                        juego.Precio = Math.Round(dprecioEU, 2).ToString + " €"
-                                                    End If
+                                            If Not cuponPorcentaje.Contains(",") Then
+                                                If cuponPorcentaje.Length = 1 Then
+                                                    cuponPorcentaje = "0,0" + cuponPorcentaje
+                                                Else
+                                                    cuponPorcentaje = "0," + cuponPorcentaje
                                                 End If
-                                            Next
+                                            End If
+
+                                            juego.Precio = juego.Precio.Replace("€", Nothing)
+                                            juego.Precio = juego.Precio.Replace(",", ".")
+                                            juego.Precio = juego.Precio.Trim
+
+                                            Dim dprecio As Double = Double.Parse(juego.Precio, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(juego.Precio, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                            juego.Precio = Math.Round(dprecio, 2).ToString + " €"
+
+                                            cuponF = cupon
+                                        Else
+                                            cuponF = String.Empty
                                         End If
+                                    Else
+                                        cuponF = cupon
                                     End If
                                 End If
 
                                 If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(datos.Datos.Titulo) Then
-                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
+                                    GenerarXaml(tienda, juego.Enlace, juego.Precio, cuponF)
                                     añadido = True
                                 ElseIf titulosAlternativos.Count > 0 Then
                                     For Each tituloA In titulosAlternativos
                                         If Not Busqueda.Limpiar(datos.Datos.Titulo) = Busqueda.Limpiar(tituloA) Then
                                             If Busqueda.Limpiar(juego.Titulo) = Busqueda.Limpiar(tituloA) Then
-                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cupon)
+                                                GenerarXaml(tienda, juego.Enlace, juego.Precio, cuponF)
                                                 añadido = True
                                             End If
                                         End If
@@ -500,6 +502,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                         nuevoJuego.PostID = resultado.Id.ToString
 
                         Await helper.SaveFileAsync(Of Clases.Juego)("nuevoJuego" + steamID, nuevoJuego)
+
+                        postNuevo2.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
+                                                  "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + resultado.Id.ToString, postNuevo2)
                     End If
                 End If
             End If
@@ -594,15 +601,55 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                     juegoBBDD.Descuento = juego2.Descuento
                                                     juegoBBDD.Precio = juego2.Precio
 
+                                                    Dim cupon As String = String.Empty
+                                                    Dim cuponCero As Boolean = False
+                                                    Dim cuponPorcentaje As String = String.Empty
+
                                                     If listaCupones.Count > 0 Then
-                                                        For Each cupon In listaCupones
-                                                            If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                                                                If Not cupon.Codigo = Nothing Then
-                                                                    juegoBBDD.Codigo = cupon.Codigo
+                                                        For Each subcupon In listaCupones
+                                                            If tienda.NombreUsar = subcupon.TiendaNombreUsar Then
+                                                                If Not subcupon.Codigo = Nothing Then
+                                                                    cupon = subcupon.Codigo
+                                                                    cuponCero = subcupon._0PorCiento
+                                                                    cuponPorcentaje = subcupon.Porcentaje
                                                                 End If
                                                             End If
                                                         Next
                                                     End If
+
+                                                    Dim cuponF As String = String.Empty
+
+                                                    If Not cupon = String.Empty Then
+                                                        If cuponCero = True Then
+                                                            If juegoBBDD.Descuento = Nothing Or juegoBBDD.Descuento = "0%" Or juegoBBDD.Descuento = "00%" Then
+                                                                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
+                                                                cuponPorcentaje = cuponPorcentaje.Trim
+
+                                                                If Not cuponPorcentaje.Contains(",") Then
+                                                                    If cuponPorcentaje.Length = 1 Then
+                                                                        cuponPorcentaje = "0,0" + cuponPorcentaje
+                                                                    Else
+                                                                        cuponPorcentaje = "0," + cuponPorcentaje
+                                                                    End If
+                                                                End If
+
+                                                                juegoBBDD.Precio = juegoBBDD.Precio.Replace("€", Nothing)
+                                                                juegoBBDD.Precio = juegoBBDD.Precio.Replace(",", ".")
+                                                                juegoBBDD.Precio = juegoBBDD.Precio.Trim
+
+                                                                Dim dprecio As Double = Double.Parse(juegoBBDD.Precio, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(juegoBBDD.Precio, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                                                juegoBBDD.Precio = Math.Round(dprecio, 2).ToString + " €"
+
+                                                                cuponF = cupon
+                                                            Else
+                                                                cuponF = String.Empty
+                                                            End If
+                                                        Else
+                                                            cuponF = cupon
+                                                        End If
+                                                    End If
+
+                                                    juegoBBDD.Codigo = cuponF
 
                                                     Exit For
                                                 End If
@@ -669,13 +716,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                 If Not juego.SteamID = Nothing Then
                                                     Dim resultado As SteamAPIJson = Await Steam.BuscarJuego(juego.SteamID)
 
-                                                    Dim precio As String = resultado.Datos.Precio.Formateado
+                                                    Dim precio As String = String.Empty
 
-                                                    precio = precio.Replace(".", ",")
-                                                    precio = precio.Replace("€", Nothing)
-                                                    precio = precio.Trim + " €"
+                                                    If Not resultado.Datos.Precio Is Nothing Then
+                                                        precio = resultado.Datos.Precio.Formateado
 
-                                                    juegoBBDD.Precio = precio
+                                                        precio = precio.Replace(".", ",")
+                                                        precio = precio.Replace("€", Nothing)
+                                                        precio = precio.Trim + " €"
+
+                                                        juegoBBDD.Precio = precio
+                                                    End If
+
                                                     juegoBBDD.Descuento = "00%"
 
                                                     juego.Descripcion = resultado.Datos.DescripcionCorta
@@ -730,18 +782,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                                                     Dim resultado As Clases.JuegoTienda = Await Humble.BuscarEnlace(juegoBBDD.Enlace)
 
                                                     If Not resultado Is Nothing Then
-                                                        juegoBBDD.Descuento = resultado.Descuento
-                                                        juegoBBDD.Precio = resultado.Precio
+                                                        If Not resultado.Precio = Nothing Then
+                                                            juegoBBDD.Descuento = resultado.Descuento
+                                                            juegoBBDD.Precio = resultado.Precio
 
-                                                        If Not resultado.Codigo = String.Empty Then
-                                                            juego.HumbleChoice = True
-                                                        Else
-                                                            juego.HumbleChoice = False
+                                                            If Not resultado.Codigo = String.Empty Then
+                                                                juego.HumbleChoice = True
+                                                            Else
+                                                                juego.HumbleChoice = False
+                                                            End If
+
+                                                            actualizar = True
+                                                            encontradoHumble = True
+                                                            Exit For
                                                         End If
-
-                                                        actualizar = True
-                                                        encontradoHumble = True
-                                                        Exit For
                                                     End If
                                                 End If
                                             End If
@@ -751,15 +805,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                                             Dim resultado As Clases.JuegoTienda = Await Humble.BuscarTitulo(juego.Titulo)
 
                                             If Not resultado Is Nothing Then
-                                                juego.Enlaces.Add(resultado)
+                                                If Not resultado.Precio = Nothing Then
+                                                    juego.Enlaces.Add(resultado)
 
-                                                If Not resultado.Codigo = String.Empty Then
-                                                    juego.HumbleChoice = True
-                                                Else
-                                                    juego.HumbleChoice = False
+                                                    If Not resultado.Codigo = String.Empty Then
+                                                        juego.HumbleChoice = True
+                                                    Else
+                                                        juego.HumbleChoice = False
+                                                    End If
+
+                                                    actualizar = True
                                                 End If
-
-                                                actualizar = True
                                             End If
                                         End If
                                     End If
@@ -813,8 +869,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                         entrada.JuegoDRM = juego.DRM
 
                                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_portfolio/" + juego.PostID, entrada)
-
-                                        'Notificaciones.Toast("Actualizado", juego.Titulo)
                                     End If
                                 End If
                             Next
@@ -879,11 +933,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                     html = html + "[vc_row_inner content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" + ChrW(34) + "]"
                 End If
 
-                html = html + "[vc_column_inner width=" + ChrW(34) + "1/3" + ChrW(34) + "][us_flipbox front_title=" + ChrW(34) + enlace.Precio + ChrW(34) + " front_title_size=" + ChrW(34) + "25px" + ChrW(34) + "  front_title_tag=" +
+                If Not enlace.Precio = String.Empty Then
+                    html = html + "[vc_column_inner width=" + ChrW(34) + "1/3" + ChrW(34) + "][us_flipbox front_title=" + ChrW(34) + enlace.Precio + ChrW(34) + " front_title_size=" + ChrW(34) + "25px" + ChrW(34) + "  front_title_tag=" +
                        ChrW(34) + "div" + ChrW(34) + " front_bgcolor=" + ChrW(34) + "#004e7a" + ChrW(34) + " front_textcolor=" + ChrW(34) + "#ffffff" + ChrW(34) + " front_icon_type=" + ChrW(34) + "image" + ChrW(34) + " front_icon_image=" +
                        ChrW(34) + idImagenTienda + ChrW(34) + " front_icon_image_width=" + ChrW(34) + "150px" + ChrW(34) + " back_title=" + ChrW(34) + mensaje + ChrW(34) + " back_title_size=" + ChrW(34) + "20px" + ChrW(34) +
                        " back_title_tag=" + ChrW(34) + "div" + ChrW(34) + " back_bgcolor=" + ChrW(34) + "#003b5c" + ChrW(34) + " back_textcolor=" + ChrW(34) + "#ffffff" + ChrW(34) + " link_type=" + ChrW(34) + "container" + ChrW(34) +
                        " link=" + ChrW(34) + "url:" + Referidos.Generar(enlace.Enlace) + "||target:%20_blank|" + ChrW(34) + " direction=" + ChrW(34) + "e" + ChrW(34) + "][/vc_column_inner]"
+                Else
+                    i = i - 1
+                End If
 
                 If i = 2 Or i = 5 Or i = 8 Or i = 11 Or i = 14 Or i = 17 Then
                     html = html + "[/vc_row_inner]"

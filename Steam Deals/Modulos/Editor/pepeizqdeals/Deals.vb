@@ -112,21 +112,24 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             For Each cupon In listaCupones
                 If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                    If Not cupon.Porcentaje = Nothing Then
-                        If cupon.Porcentaje > 0 Then
-                            tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + cupon.Codigo + "</b>"
+                    If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
+                        If Not cupon.Porcentaje = Nothing Then
+                            If cupon.Porcentaje > 0 Then
 
-                            If listaFinal.Count = 1 Then
-                                tbTituloComplemento.Text = "Discount Code: " + cupon.Codigo
+                                tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + cupon.Codigo + "</b>"
+
+                                If listaFinal.Count = 1 Then
+                                    tbTituloComplemento.Text = "Discount Code: " + cupon.Codigo
+                                End If
                             End If
                         End If
-                    End If
 
-                    If Not cupon.Comentario = Nothing Then
-                        If tbComentario.Text.Trim.Length = 0 Then
-                            tbComentario.Text = cupon.Comentario
-                        Else
-                            tbComentario.Text = tbComentario.Text + " " + cupon.Comentario
+                        If Not cupon.Comentario = Nothing Then
+                            If tbComentario.Text.Trim.Length = 0 Then
+                                tbComentario.Text = cupon.Comentario
+                            Else
+                                tbComentario.Text = tbComentario.Text + " " + cupon.Comentario
+                            End If
                         End If
                     End If
                 End If
@@ -269,19 +272,21 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
             AddHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
 
-            If Not listaFinal(0).Analisis Is Nothing Then
-                If Not listaFinal(0).Analisis.Enlace = Nothing Then
-                    Dim fondo As String = listaFinal(0).Analisis.Enlace
+            If listaFinal.Count = 1 Then
+                If Not listaFinal(0).Analisis Is Nothing Then
+                    If Not listaFinal(0).Analisis.Enlace = Nothing Then
+                        Dim fondo As String = listaFinal(0).Analisis.Enlace
 
-                    If fondo.Contains("https://store.steampowered.com/app/") Then
-                        fondo = fondo.Replace("https://store.steampowered.com/app/", Nothing)
+                        If fondo.Contains("https://store.steampowered.com/app/") Then
+                            fondo = fondo.Replace("https://store.steampowered.com/app/", Nothing)
 
-                        Dim int As Integer = fondo.IndexOf("/")
-                        fondo = fondo.Remove(int, fondo.Length - int)
+                            Dim int As Integer = fondo.IndexOf("/")
+                            fondo = fondo.Remove(int, fondo.Length - int)
 
-                        fondo = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
+                            fondo = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
 
-                        tbImagenFondo.Text = fondo
+                            tbImagenFondo.Text = fondo
+                        End If
                     End If
                 End If
             End If
@@ -343,8 +348,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 For Each cupon In listaCupones
                     If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                         If Not cupon.Codigo Is Nothing Then
-                            tbDescuentoCodigo.Text = cupon.Codigo
-                            ModificarDescuento()
+                            If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
+                                tbDescuentoCodigo.Text = cupon.Codigo
+                                ModificarDescuento()
+                            End If
                         End If
                     End If
                 Next

@@ -10,6 +10,9 @@ Module Ordenar
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
+        Dim pr As ProgressRing = pagina.FindName("prOrdenarProgreso")
+        pr.Visibility = Visibility.Visible
+
         Dim lv As ListView = pagina.FindName("listaTienda" + tienda.NombreUsar)
 
         Dim spEditor As StackPanel = pagina.FindName("spOfertasTiendasEditor")
@@ -310,6 +313,8 @@ Module Ordenar
                 gridProgreso.Visibility = Visibility.Collapsed
             End If
         End If
+
+        pr.Visibility = Visibility.Collapsed
 
     End Sub
 

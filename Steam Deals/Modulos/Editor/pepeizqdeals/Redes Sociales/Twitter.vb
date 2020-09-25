@@ -102,6 +102,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             If titulo.Contains("• 2Game") Then
                 titulo = titulo.Replace("• 2Game", "• @2game")
+            ElseIf titulo.Contains("• Allyouplay") Then
+                titulo = titulo.Replace("• Allyouplay", "• @allyouplay")
             ElseIf titulo.Contains("• Amazon.com") Then
                 titulo = titulo.Replace("• Amazon.com", "• @amazongames")
             ElseIf titulo.Contains("• Amazon.es") Then

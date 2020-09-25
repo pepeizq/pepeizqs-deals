@@ -43,6 +43,7 @@ Namespace pepeizq.Ofertas
                         If listaJuegosIG.Juegos.Count > 0 Then
                             For Each juegoIG In listaJuegosIG.Juegos
                                 Dim titulo As String = WebUtility.HtmlDecode(juegoIG.Titulo)
+                                titulo = titulo.Replace("(Steam)", Nothing)
                                 titulo = titulo.Replace("(Epic)", Nothing)
                                 titulo = titulo.Replace("Â", Nothing)
                                 titulo = titulo.Replace("¢", Nothing)

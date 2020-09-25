@@ -190,6 +190,7 @@
 
                     <Grid x:Name="gridProgreso" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
                         <StackPanel x:Name="spOfertasProgreso" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <ProgressRing x:Name="prOrdenarProgreso" Width="50" Height="50" IsActive="True" Visibility="Collapsed" Foreground="{StaticResource ColorPrimario}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
 
                     <Grid x:Name="gridNoOfertas" Padding="10" Background="IndianRed" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">

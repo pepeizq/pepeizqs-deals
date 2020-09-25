@@ -162,6 +162,7 @@
     <Compile Include="Modulos\Interfaz\Pestañas.vb" />
     <Compile Include="Modulos\Juegos\Humble.vb" />
     <Compile Include="Modulos\Juegos\Steam.vb" />
+    <Compile Include="Modulos\Ofertas\Allyouplay.vb" />
     <Compile Include="Modulos\Ofertas\Ubisoft.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
@@ -366,6 +367,7 @@
     <Content Include="Assets\Tiendas\2game.png" />
     <Content Include="Assets\Tiendas\2game2.png" />
     <Content Include="Assets\Tiendas\300x80\2game3.png" />
+    <Content Include="Assets\Tiendas\300x80\allyouplay3.png" />
     <Content Include="Assets\Tiendas\300x80\amazon3.png" />
     <Content Include="Assets\Tiendas\300x80\blizzard3.png" />
     <Content Include="Assets\Tiendas\300x80\chrono3.png" />
@@ -385,6 +387,8 @@
     <Content Include="Assets\Tiendas\300x80\voidu3.png" />
     <Content Include="Assets\Tiendas\300x80\wingamestore3.png" />
     <Content Include="Assets\Tiendas\300x80\yuplay3.png" />
+    <Content Include="Assets\Tiendas\allyouplay.ico" />
+    <Content Include="Assets\Tiendas\allyouplay2.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\blizzard.ico" />
     <Content Include="Assets\Tiendas\blizzard2.png" />
