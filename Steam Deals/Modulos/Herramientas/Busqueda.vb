@@ -16,7 +16,7 @@ Module Busqueda
 
         texto = WebUtility.HtmlDecode(texto)
 
-        Dim listaCaracteres As New List(Of String) From {"Early Access", "Pre-Purchase", " ", "•", ">", "<", "¿", "?", "!", "¡", ":",
+        Dim listaCaracteres As New List(Of String) From {"Early Access", "Pre Order", "Pre-Purchase", " ", "•", ">", "<", "¿", "?", "!", "¡", ":",
             ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´", "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34),
             "@", "^", "[", "]", "ª", "«"}
 

@@ -912,7 +912,7 @@ Module Tiendas
         Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
         Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
         Await pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
-        Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+        'Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
         Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
         Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
         Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)

@@ -272,38 +272,45 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
             AddHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
 
-            If listaFinal.Count = 1 Then
-                If Not listaFinal(0).Analisis Is Nothing Then
-                    If Not listaFinal(0).Analisis.Enlace = Nothing Then
-                        Dim fondo As String = listaFinal(0).Analisis.Enlace
-
-                        If fondo.Contains("https://store.steampowered.com/app/") Then
-                            fondo = fondo.Replace("https://store.steampowered.com/app/", Nothing)
-
-                            Dim int As Integer = fondo.IndexOf("/")
-                            fondo = fondo.Remove(int, fondo.Length - int)
-
-                            fondo = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + fondo + "/page_bg_generated_v6b.jpg"
-
-                            tbImagenFondo.Text = fondo
-                        End If
-                    End If
-                End If
-            End If
-
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagenJuego.Text = String.Empty
 
             If listaFinal.Count = 1 Then
-                If Not listaFinal(0).Imagenes.Grande = String.Empty Then
-                    If tienda.NombreUsar = "Humble" Then
-                        tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
-                    Else
-                        tbImagenJuego.Text = listaFinal(0).Imagenes.Grande
+                If Not listaFinal(0).Analisis Is Nothing Then
+                    If Not listaFinal(0).Analisis.Enlace = Nothing Then
+                        Dim id As String = listaFinal(0).Analisis.Enlace
+
+                        If id.Contains("https://store.steampowered.com/app/") Then
+                            id = id.Replace("https://store.steampowered.com/app/", Nothing)
+
+                            Dim int As Integer = id.IndexOf("/")
+                            id = id.Remove(int, id.Length - int)
+
+                            Dim fondo As String = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + id + "/page_bg_generated_v6b.jpg"
+                            tbImagenFondo.Text = fondo
+
+                            Dim imagen As String = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + id + "/header.jpg"
+                            tbImagenJuego.Text = imagen
+
+                            If Await helper.FileExistsAsync("nuevoJuego" + id) Then
+                                Dim juego As Clases.Juego = Await helper.ReadFileAsync(Of Clases.Juego)("nuevoJuego" + id)
+                                tbEnlace.Text = "https://pepeizqdeals.com/" + juego.PostID + "/"
+                            End If
+                        End If
                     End If
-                Else
-                    If Not listaFinal(0).Imagenes.Pequeña = String.Empty Then
-                        tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
+                End If
+
+                If tbImagenJuego.Text = String.Empty Then
+                    If Not listaFinal(0).Imagenes.Grande = String.Empty Then
+                        If tienda.NombreUsar = "Humble" Then
+                            tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
+                        Else
+                            tbImagenJuego.Text = listaFinal(0).Imagenes.Grande
+                        End If
+                    Else
+                        If Not listaFinal(0).Imagenes.Pequeña = String.Empty Then
+                            tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
+                        End If
                     End If
                 End If
 

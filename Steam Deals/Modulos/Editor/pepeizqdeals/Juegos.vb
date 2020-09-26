@@ -85,6 +85,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not datos Is Nothing Then
                     Dim tbTitulo As TextBox = pagina.FindName("tbEditorpepeizqdealsNuevosJuegosTitulo")
                     tbTitulo.Text = datos.Datos.Titulo.Trim
+                    tbTitulo.Text = tbTitulo.Text.Replace("™", Nothing)
+                    tbTitulo.Text = tbTitulo.Text.Replace("®", Nothing)
+                    tbTitulo.Text = tbTitulo.Text.Trim
 
                     Dim imagenV As String = datos.Datos.Imagen
                     Dim imagenH As String = datos.Datos.Imagen
@@ -535,7 +538,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim entradas As List(Of Clases.Post) = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/us_portfolio/?per_page=100")
+                Dim entradas As New List(Of Clases.Post)
+
+                Dim i As Integer = 1
+                Dim paginas As Integer = 2
+
+                While i < paginas
+                    Dim entradasT As List(Of Clases.Post) = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/us_portfolio/?per_page=100&page=" + i.ToString)
+
+                    For Each entradaT In entradasT
+                        entradas.Add(entradaT)
+                    Next
+
+                    i += 1
+                End While
 
                 For Each fichero As StorageFile In Await carpeta.GetFilesAsync
                     If fichero.Name.Contains("nuevoJuego") Then
