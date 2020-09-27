@@ -924,6 +924,8 @@ Module Tiendas
         Await pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
         Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
         Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
+        Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
+        Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
 
     End Sub
 
