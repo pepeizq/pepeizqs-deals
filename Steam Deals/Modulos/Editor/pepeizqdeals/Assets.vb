@@ -357,7 +357,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each juego In listaJuegos
                         Dim panel As New DropShadowPanel With {
-                            .Margin = New Thickness(5, 5, 5, 5),
+                            .Margin = New Thickness(15, 15, 15, 15),
                             .ShadowOpacity = 0.9,
                             .BlurRadius = 20,
                             .IsHitTestVisible = False
