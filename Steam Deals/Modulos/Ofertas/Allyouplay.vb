@@ -123,6 +123,8 @@ Namespace pepeizq.Ofertas
                             While k < listaJuegos.Count
                                 If listaJuegos(k).Enlace = juego.Enlace Then
                                     añadir = False
+                                ElseIf listaJuegos(k).Titulo = juego.Titulo Then
+                                    añadir = False
                                 ElseIf listaJuegos(k).Enlace.Contains(id) Then
                                     añadir = False
                                 End If
