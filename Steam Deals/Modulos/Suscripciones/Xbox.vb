@@ -1,8 +1,12 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports System.Globalization
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
 Namespace pepeizq.Suscripciones
+
+    'https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=0
+
     Module Xbox
 
         Dim WithEvents Bw As New BackgroundWorker
@@ -32,7 +36,7 @@ Namespace pepeizq.Suscripciones
 
             Dim listaIDs2 As New List(Of String)
 
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?itemTypes=Devices&DeviceFamily=Windows.Desktop&market=US&language=EN&count=200"))
+            Dim html_ As Task(Of String) = HttpClient(New Uri("https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?DeviceFamily=Windows.Desktop&market=US&language=EN&count=200"))
             Dim html As String = html_.Result
 
             If Not html = Nothing Then
@@ -57,6 +61,50 @@ Namespace pepeizq.Suscripciones
                     Next
                 End If
             End If
+
+            Dim i As Integer = 0
+            While i < 360
+                Dim html2_ As Task(Of String) = HttpClient(New Uri("https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=" + i.ToString))
+                Dim html2 As String = html2_.Result
+
+                If Not html2 = Nothing Then
+                    Dim j As Integer = 0
+                    While j < 90
+                        If html2.Contains("<a href=" + ChrW(34) + "/en-us") Then
+                            Dim temp, temp2 As String
+                            Dim int, int2 As Integer
+
+                            int = html2.IndexOf("<a href=" + ChrW(34) + "/en-us")
+                            temp = html2.Remove(0, int + 2)
+
+                            html2 = temp
+
+                            int2 = temp.IndexOf(ChrW(34) + "pid" + ChrW(34) + ":")
+                            temp2 = temp.Remove(0, int2 + 7)
+
+                            int2 = temp2.IndexOf(ChrW(34))
+                            temp2 = temp2.Remove(int2, temp2.Length - int2)
+
+                            Dim añadir As Boolean = True
+
+                            If Not listaIDs Is Nothing Then
+                                For Each id In listaIDs
+                                    If id = temp2.Trim Then
+                                        añadir = False
+                                    End If
+                                Next
+                            End If
+
+                            If añadir = True Then
+                                listaIDs.Add(temp2.Trim)
+                                listaIDs2.Add(temp2.Trim)
+                            End If
+                        End If
+                        j += 1
+                    End While
+                End If
+                i += 90
+            End While
 
             If listaIDs2.Count > 0 Then
                 Dim ids As String = String.Empty
@@ -88,25 +136,19 @@ Namespace pepeizq.Suscripciones
                             Next
 
                             If Not imagenLista = Nothing Then
-                                If Not juego.Propiedades2(0).Disponible(0).Plataforma.Cliente.Permitidas(0).Plataforma Is Nothing Then
-                                    Dim plataforma As String = juego.Propiedades2(0).Disponible(0).Plataforma.Cliente.Permitidas(0).Plataforma
+                                Dim añadir As Boolean = True
 
-                                    If plataforma = "Windows.Desktop" Then
-                                        Dim añadir As Boolean = True
-
-                                        For Each juegolista In listaJuegos
-                                            If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
-                                                añadir = False
-                                            End If
-                                        Next
-
-                                        If añadir = True Then
-                                            Dim titulo As String = juego.Detalles(0).Titulo.Trim
-                                            titulo = LimpiarTitulo(titulo)
-
-                                            listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
-                                        End If
+                                For Each juegolista In listaJuegos
+                                    If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                                        añadir = False
                                     End If
+                                Next
+
+                                If añadir = True Then
+                                    Dim titulo As String = juego.Detalles(0).Titulo.Trim
+                                    titulo = LimpiarTitulo(titulo)
+
+                                    listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
                                 End If
                             End If
                         Next
@@ -118,10 +160,56 @@ Namespace pepeizq.Suscripciones
 
         Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim titulo As String = String.Empty
+
+            If listaJuegos.Count = 1 Then
+                titulo = "Xbox Game Pass • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
+            Else
+                titulo = "Xbox Game Pass • New Games Added • "
+
+                Dim tituloJuegos As String = String.Empty
+
+                If listaJuegos.Count < 6 Then
+                    Dim i As Integer = 0
+                    While i < listaJuegos.Count
+                        If i = 0 Then
+                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        ElseIf i >= 1 Then
+                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        ElseIf (i + 1) = listaJuegos.Count Then
+                            tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        End If
+                        i += 1
+                    End While
+                Else
+                    Dim i As Integer = 0
+                    While i < listaJuegos.Count
+                        If i = 0 Then
+                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        ElseIf i >= 1 And i <= 3 Then
+                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        Else
+                            Exit While
+                        End If
+                        i += 1
+                    End While
+
+                    tituloJuegos = tituloJuegos + " and more games"
+                End If
+
+                titulo = titulo + tituloJuegos
+            End If
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            tbTitulo.Text = titulo
+
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
 
-            Html.Generar("Microsoft Store", Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), "https://i.imgur.com/mKThm6d.png", listaJuegos, True)
+            Html.Generar("Microsoft Store", Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), "https://i.imgur.com/mKThm6d.png", listaJuegos, False)
 
             BloquearControles(True)
 
@@ -129,9 +217,13 @@ Namespace pepeizq.Suscripciones
 
         Public Function LimpiarTitulo(titulo As String)
 
+            titulo = titulo.Replace("®", Nothing)
+            titulo = titulo.Replace("™", Nothing)
             titulo = titulo.Replace("(PC)", Nothing)
+            titulo = titulo.Replace("(Game Preview)", Nothing)
             titulo = titulo.Replace("for Windows 10", Nothing)
             titulo = titulo.Replace("– Windows 10", Nothing)
+            titulo = titulo.Replace("- Windows 10", Nothing)
             titulo = titulo.Trim
 
             Return titulo
