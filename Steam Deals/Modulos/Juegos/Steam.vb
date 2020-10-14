@@ -1,5 +1,4 @@
 ﻿Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
 Namespace pepeizq.Juegos
     Module Steam

@@ -5,9 +5,6 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module GamesPlanet
 
-        Dim WithEvents Bw As New BackgroundWorker
-
-
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
