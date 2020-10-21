@@ -97,7 +97,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim usuarioGuardado As String = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
 
                 If Not usuarioGuardado = Nothing Then
-                    Dim usuario As String = "document.getElementById('steamAccountName').value = '" + usuarioGuardado + "'"
+                    Dim usuario As String = "document.getElementById('input_username').value = '" + usuarioGuardado + "'"
 
                     If Not usuario = Nothing Then
                         Try
@@ -109,12 +109,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         Dim contraseñaGuardada As String = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
 
                         If Not contraseñaGuardada = Nothing Then
-                            Dim contraseña As String = "document.getElementById('steamPassword').value = '" + contraseñaGuardada + "'"
+                            Dim contraseña As String = "document.getElementById('input_password').value = '" + contraseñaGuardada + "'"
 
                             Try
                                 Await wv.InvokeScriptAsync("eval", New String() {contraseña})
 
-                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('SteamLogin').click();"})
+                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_blue_steamui btn_medium login_btn')[0].click();"})
                             Catch ex As Exception
 
                             End Try
