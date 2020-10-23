@@ -53,8 +53,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2")
 
-            If Not tienda.LogoWebApp = Nothing Then
-                imagenTienda.Source = tienda.LogoWebApp
+            If Not tienda.LogoWebServidorEnlace300x80 = Nothing Then
+                imagenTienda.Source = tienda.LogoWebServidorEnlace300x80
             Else
                 imagenTienda.Source = Nothing
             End If
@@ -330,7 +330,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End While
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            imagenTienda.Source = tienda.LogoWebApp
+            imagenTienda.Source = tienda.LogoWebServidorEnlace300x80
 
             Dim panelImagenCabecera As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
 

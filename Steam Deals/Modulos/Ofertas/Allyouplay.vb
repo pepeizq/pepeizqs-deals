@@ -65,16 +65,16 @@ Namespace pepeizq.Ofertas
                 Dim listaJuegosAllyouplay As AllyouplayJuegos = xml.Deserialize(stream)
 
                 If Not listaJuegosAllyouplay Is Nothing Then
-                    If listaJuegosAllyouplay.Datos1.Datos2.Datos3.Juegos.Count > 0 Then
-                        For Each juegoAllyouplay In listaJuegosAllyouplay.Datos1.Datos2.Datos3.Juegos
-                            Dim titulo As String = WebUtility.HtmlDecode(juegoAllyouplay.Info.Titulo)
+                    If listaJuegosAllyouplay.Juegos.Count > 0 Then
+                        For Each juegoAllyouplay In listaJuegosAllyouplay.Juegos
+                            Dim titulo As String = WebUtility.HtmlDecode(juegoAllyouplay.Titulo)
                             titulo = titulo.Replace("?", Nothing)
                             titulo = titulo.Replace("(Steam)", Nothing)
                             titulo = titulo.Replace("(Epic)", Nothing)
                             titulo = titulo.Trim
 
-                            Dim precioRebajado As String = juegoAllyouplay.Info.PrecioRebajado
-                            Dim precioBase As String = juegoAllyouplay.Info.PrecioBase
+                            Dim precioRebajado As String = juegoAllyouplay.PrecioRebajado
+                            Dim precioBase As String = juegoAllyouplay.PrecioBase
 
                             Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
@@ -88,7 +88,7 @@ Namespace pepeizq.Ofertas
                                 descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                             End If
 
-                            Dim imagenPequeña As String = juegoAllyouplay.Info.Imagen.Datos.Enlace
+                            Dim imagenPequeña As String = juegoAllyouplay.Imagen.Datos.Enlace
                             Dim imagenGrande As String = imagenPequeña
 
                             If imagenGrande.Contains("?") Then
@@ -98,23 +98,11 @@ Namespace pepeizq.Ofertas
 
                             Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 
-                            Dim enlace As String = juegoAllyouplay.Info.Enlace
+                            Dim enlace As String = juegoAllyouplay.Enlace
 
-                            Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {juegoAllyouplay.Info.Desarrollador}, Nothing)
+                            Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {juegoAllyouplay.Desarrollador}, Nothing)
 
                             Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                            Dim id As String = enlace
-
-                            If id.Contains("&dl=") Then
-                                Dim int As Integer = id.IndexOf("&dl=")
-                                id = id.Remove(0, int + 4)
-                            End If
-
-                            If id.Contains("&ws=") Then
-                                Dim int As Integer = id.IndexOf("&ws=")
-                                id = id.Remove(int, id.Length - int)
-                            End If
 
                             Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrollador)
 
@@ -125,14 +113,16 @@ Namespace pepeizq.Ofertas
                                     añadir = False
                                 ElseIf listaJuegos(k).Titulo = juego.Titulo Then
                                     añadir = False
-                                ElseIf listaJuegos(k).Enlace.Contains(id) Then
-                                    añadir = False
                                 End If
                                 k += 1
                             End While
 
                             If juego.Descuento = Nothing Then
                                 juego.Descuento = "00%"
+                            End If
+
+                            If Not juegoAllyouplay.Moneda.ToLower = "eur" Then
+                                añadir = False
                             End If
 
                             If añadir = True Then
@@ -158,36 +148,8 @@ Namespace pepeizq.Ofertas
     <XmlRoot("datafeed")>
     Public Class AllyouplayJuegos
 
-        <XmlElement("programs")>
-        Public Datos1 As AllyouplayJuegosDatos1
-
-    End Class
-
-    Public Class AllyouplayJuegosDatos1
-
-        <XmlElement("program")>
-        Public Datos2 As AllyouplayJuegosDatos2
-
-    End Class
-
-    Public Class AllyouplayJuegosDatos2
-
-        <XmlElement("products")>
-        Public Datos3 As AllyouplayJuegoDatos3
-
-    End Class
-
-    Public Class AllyouplayJuegoDatos3
-
-        <XmlElement("product")>
-        Public Juegos As List(Of AllyouplayJuego)
-
-    End Class
-
-    Public Class AllyouplayJuego
-
         <XmlElement("product_info")>
-        Public Info As AllyouplayJuegoInfo
+        Public Juegos As List(Of AllyouplayJuegoInfo)
 
     End Class
 
@@ -216,6 +178,9 @@ Namespace pepeizq.Ofertas
 
         <XmlElement("images")>
         Public Imagen As AllyouplayJuegoImagen
+
+        <XmlElement("currency")>
+        Public Moneda As String
 
     End Class
 

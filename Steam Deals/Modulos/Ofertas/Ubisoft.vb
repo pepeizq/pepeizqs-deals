@@ -34,15 +34,15 @@ Namespace pepeizq.Ofertas
                 Dim listaJuegosUbi As UbiJuegos = xml.Deserialize(stream)
 
                 If Not listaJuegosUbi Is Nothing Then
-                    If listaJuegosUbi.Datos1.Datos2.Datos3.Juegos.Count > 0 Then
-                        For Each juegoUbi In listaJuegosUbi.Datos1.Datos2.Datos3.Juegos
-                            If juegoUbi.Info.Plataforma = "PC (Download)" Then
-                                Dim titulo As String = WebUtility.HtmlDecode(juegoUbi.Info.Titulo)
+                    If listaJuegosUbi.Juegos.Count > 0 Then
+                        For Each juegoUbi In listaJuegosUbi.Juegos
+                            If juegoUbi.Plataforma = "PC (Download)" Then
+                                Dim titulo As String = WebUtility.HtmlDecode(juegoUbi.Titulo)
                                 titulo = titulo.Replace("?", Nothing)
                                 titulo = titulo.Trim
 
-                                Dim precioRebajado As String = juegoUbi.Info.PrecioRebajado
-                                Dim precioBase As String = juegoUbi.Info.PrecioBase
+                                Dim precioRebajado As String = juegoUbi.PrecioRebajado
+                                Dim precioBase As String = juegoUbi.PrecioBase
 
                                 Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
@@ -56,7 +56,7 @@ Namespace pepeizq.Ofertas
                                     descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                                 End If
 
-                                Dim imagenPequeña As String = juegoUbi.Info.Imagen.Datos.Enlace
+                                Dim imagenPequeña As String = juegoUbi.Imagen.Datos.Enlace
                                 Dim imagenGrande As String = imagenPequeña
 
                                 If imagenGrande.Contains("?") Then
@@ -66,7 +66,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 
-                                Dim enlace As String = juegoUbi.Info.Enlace
+                                Dim enlace As String = juegoUbi.Enlace
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
@@ -109,36 +109,8 @@ Namespace pepeizq.Ofertas
     <XmlRoot("datafeed")>
     Public Class UbiJuegos
 
-        <XmlElement("programs")>
-        Public Datos1 As UbiJuegosDatos1
-
-    End Class
-
-    Public Class UbiJuegosDatos1
-
-        <XmlElement("program")>
-        Public Datos2 As UbiJuegosDatos2
-
-    End Class
-
-    Public Class UbiJuegosDatos2
-
-        <XmlElement("products")>
-        Public Datos3 As UbiJuegoDatos3
-
-    End Class
-
-    Public Class UbiJuegoDatos3
-
-        <XmlElement("product")>
-        Public Juegos As List(Of UbiJuego)
-
-    End Class
-
-    Public Class UbiJuego
-
         <XmlElement("product_info")>
-        Public Info As UbiJuegoInfo
+        Public Juegos As List(Of UbiJuegoInfo)
 
     End Class
 

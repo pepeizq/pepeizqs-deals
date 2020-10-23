@@ -291,11 +291,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                             Dim imagen As String = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + id + "/header.jpg"
                             tbImagenJuego.Text = imagen
-
-                            'If Await helper.FileExistsAsync("nuevoJuego" + id) Then
-                            '    Dim juego As Clases.Juego = Await helper.ReadFileAsync(Of Clases.Juego)("nuevoJuego" + id)
-                            '    tbEnlace.Text = "https://pepeizqdeals.com/" + juego.PostID + "/"
-                            'End If
                         End If
                     End If
                 End If

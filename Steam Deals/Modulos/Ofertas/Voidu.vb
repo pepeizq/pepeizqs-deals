@@ -49,7 +49,7 @@ Namespace pepeizq.Ofertas
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            Dim html As String = Await HttpClient(New Uri("https://www.voidu.com/en/comparison?network=cj&currency=EUR"))
+            Dim html As String = Await HttpClient(New Uri("https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133"))
 
             If Not html = Nothing Then
                 Dim xml As New XmlSerializer(GetType(VoiduJuegos))
@@ -61,6 +61,7 @@ Namespace pepeizq.Ofertas
                         For Each juegoVoidu In listaJuegosVoidu.Juegos
                             Dim titulo As String = juegoVoidu.Titulo.Trim
                             titulo = WebUtility.HtmlDecode(titulo)
+                            titulo = titulo.Replace("?", Nothing)
                             titulo = titulo.Replace("(Mac/Pc)", Nothing)
                             titulo = titulo.Replace("[Mac]", Nothing)
                             titulo = titulo.Replace("(ROW)", Nothing)
@@ -72,15 +73,11 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("- ANZ + EU", Nothing)
                             titulo = titulo.Replace("- EMEA + ANZ", Nothing)
                             titulo = titulo.Replace("(STEAM)", Nothing)
+                            titulo = titulo.Replace("(Steam)", Nothing)
                             titulo = titulo.Replace("(EPIC GAMES)", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoVoidu.Enlace
-
-                            If enlace.Contains("?") Then
-                                Dim intEnlace As Integer = enlace.IndexOf("?")
-                                enlace = enlace.Remove(intEnlace, enlace.Length - intEnlace)
-                            End If
 
                             Dim precio As String = juegoVoidu.PrecioRebajado + " €"
 
@@ -96,35 +93,13 @@ Namespace pepeizq.Ofertas
                                 descuento = Calculadora.GenerarDescuento(juegoVoidu.PrecioBase, precio)
                             End If
 
-                            Dim imagenes As New OfertaImagenes(juegoVoidu.Imagen, Nothing)
+                            Dim imagenes As New OfertaImagenes(juegoVoidu.Imagen.Datos.Enlace, Nothing)
 
-                            Dim drm As String = juegoVoidu.DRM
+                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                            Dim windows As Boolean = False
+                            Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoVoidu.Desarrollador}, Nothing)
 
-                            If juegoVoidu.Sistemas.Contains("windows") Then
-                                windows = True
-                            End If
-
-                            Dim mac As Boolean = False
-
-                            If juegoVoidu.Sistemas.Contains("mac") Then
-                                mac = True
-                            End If
-
-                            Dim linux As Boolean = False
-
-                            If juegoVoidu.Sistemas.Contains("linux") Then
-                                linux = True
-                            End If
-
-                            Dim sistemas As New OfertaSistemas(windows, mac, linux)
-
-                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoVoidu.SteamID)
-
-                            Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoVoidu.Publisher}, Nothing)
-
-                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrolladores)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -137,6 +112,10 @@ Namespace pepeizq.Ofertas
 
                             If juego.Descuento = Nothing Then
                                 juego.Descuento = "00%"
+                            End If
+
+                            If Not juegoVoidu.Moneda.ToLower = "eur" Then
+                                añadir = False
                             End If
 
                             If añadir = True Then
@@ -159,30 +138,27 @@ Namespace pepeizq.Ofertas
 
     End Module
 
-    <XmlRoot("products")>
+    <XmlRoot("datafeed")>
     Public Class VoiduJuegos
 
-        <XmlElement("product")>
-        Public Juegos As List(Of VoiduJuego)
+        <XmlElement("product_info")>
+        Public Juegos As List(Of VoiduJuegoInfo)
 
     End Class
 
-    Public Class VoiduJuego
+    Public Class VoiduJuegoInfo
 
-        <XmlElement("title")>
-        Public Titulo As String
+        <XmlElement("category")>
+        Public Categoria As String
+
+        <XmlElement("sku")>
+        Public ID As String
 
         <XmlElement("link")>
         Public Enlace As String
 
-        <XmlElement("image_main")>
-        Public Imagen As String
-
-        <XmlElement("id")>
-        Public ID As String
-
-        <XmlElement("drm")>
-        Public DRM As String
+        <XmlElement("title")>
+        Public Titulo As String
 
         <XmlElement("price_old")>
         Public PrecioBase As String
@@ -191,13 +167,27 @@ Namespace pepeizq.Ofertas
         Public PrecioRebajado As String
 
         <XmlElement("brand")>
-        Public Publisher As String
+        Public Desarrollador As String
 
-        <XmlElement("platform")>
-        Public Sistemas As String
+        <XmlElement("images")>
+        Public Imagen As VoiduJuegoImagen
 
-        <XmlElement("steamId")>
-        Public SteamID As String
+        <XmlElement("currency")>
+        Public Moneda As String
+
+    End Class
+
+    Public Class VoiduJuegoImagen
+
+        <XmlElement("image")>
+        Public Datos As VoiduJuegoImagenDatos
+
+    End Class
+
+    Public Class VoiduJuegoImagenDatos
+
+        <XmlElement("location")>
+        Public Enlace As String
 
     End Class
 End Namespace

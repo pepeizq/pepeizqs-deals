@@ -381,19 +381,16 @@ Module Tiendas
         Dim col2 As New ColumnDefinition
         Dim col3 As New ColumnDefinition
         Dim col4 As New ColumnDefinition
-        Dim col5 As New ColumnDefinition
 
         col1.Width = New GridLength(1, GridUnitType.Auto)
         col2.Width = New GridLength(1, GridUnitType.Auto)
         col3.Width = New GridLength(1, GridUnitType.Auto)
-        col4.Width = New GridLength(1, GridUnitType.Auto)
-        col5.Width = New GridLength(1, GridUnitType.Star)
+        col4.Width = New GridLength(1, GridUnitType.Star)
 
         gridTienda.ColumnDefinitions.Add(col1)
         gridTienda.ColumnDefinitions.Add(col2)
         gridTienda.ColumnDefinitions.Add(col3)
         gridTienda.ColumnDefinitions.Add(col4)
-        gridTienda.ColumnDefinitions.Add(col5)
 
         Dim imagenIcono As New ImageEx With {
             .Source = tienda.IconoApp,
@@ -455,35 +452,12 @@ Module Tiendas
 
         '---------------------------
 
-        Dim cb0PorCiento As New CheckBox With {
-            .Margin = New Thickness(15, 0, 0, 0),
-            .Tag = tienda,
-            .MinWidth = 0
-        }
-        cb0PorCiento.SetValue(Grid.ColumnProperty, 3)
-
-        If listaCupones.Count > 0 Then
-            For Each cupon In listaCupones
-                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                    If Not cupon._0PorCiento = Nothing Then
-                        cb0PorCiento.IsChecked = cupon._0PorCiento
-                    End If
-                End If
-            Next
-        End If
-
-        AddHandler cb0PorCiento.Checked, AddressOf Cb0PorCientoChecked
-        AddHandler cb0PorCiento.Unchecked, AddressOf Cb0PorCientoChecked
-        gridTienda.Children.Add(cb0PorCiento)
-
-        '---------------------------
-
         Dim tbComentario As New TextBox With {
             .Margin = New Thickness(15, 0, 0, 0),
             .TextWrapping = TextWrapping.Wrap,
             .Tag = tienda
         }
-        tbComentario.SetValue(Grid.ColumnProperty, 4)
+        tbComentario.SetValue(Grid.ColumnProperty, 3)
 
         If listaCupones.Count > 0 Then
             For Each cupon In listaCupones
@@ -912,7 +886,7 @@ Module Tiendas
         Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
         Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
         Await pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
-        'Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+        Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
         Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
         Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
         Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
@@ -926,6 +900,8 @@ Module Tiendas
         Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
         Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
         Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
+
+        Notificaciones.Toast("Escaneo Completo", Nothing)
 
     End Sub
 
