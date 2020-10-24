@@ -184,7 +184,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         If tienda.NombreUsar = cosas.Tienda.Replace(" ", Nothing) Then
-                            tiendaLogo = tienda.LogoWebServidorEnlace300x80
+                            tiendaLogo = tienda.LogoWebApp
                         End If
                     Next
 

@@ -200,11 +200,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Notificaciones.Toast("Discord Error Post", Nothing)
                         End Try
 
-                        'Try
-                        '    Await pepeizqdeals.RedesSociales.Push.Enviar(titulo, enlaceFinal, imagenUrl1.Trim)
-                        'Catch ex As Exception
-                        '    Notificaciones.Toast("Push Error Post", Nothing)
-                        'End Try
+                        Try
+                            Await Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Push Error Post", Nothing)
+                        End Try
 
                         '----------------------------------------------------------------
 

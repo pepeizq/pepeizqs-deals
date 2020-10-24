@@ -21,46 +21,64 @@ Module Divisas
         If Await helper.FileExistsAsync("monedas") Then
             Dim monedas As Monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
 
-            If Not monedas.Dolar.Valor Is Nothing Then
-                Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
-                tbDolar.Text = monedas.Dolar.Valor
-                dolar = New Moneda(monedas.Dolar.Valor, monedas.Dolar.Fecha)
+            If monedas Is Nothing Then
+                buscarDolar = True
+                buscarLibra = True
+                buscarRublo = True
+            Else
+                If Not monedas.Dolar Is Nothing Then
+                    If Not monedas.Dolar.Valor Is Nothing Then
+                        Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+                        tbDolar.Text = monedas.Dolar.Valor
+                        dolar = New Moneda(monedas.Dolar.Valor, monedas.Dolar.Fecha)
 
-                If monedas.Dolar.Fecha = FechaHoy() Then
-                    buscarDolar = False
+                        If monedas.Dolar.Fecha = FechaHoy() Then
+                            buscarDolar = False
+                        Else
+                            buscarDolar = True
+                        End If
+                    Else
+                        buscarDolar = True
+                    End If
                 Else
                     buscarDolar = True
                 End If
-            Else
-                buscarDolar = True
-            End If
 
-            If Not monedas.Libra.Valor Is Nothing Then
-                Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-                tbLibra.Text = monedas.Libra.Valor
-                libra = New Moneda(monedas.Libra.Valor, monedas.Libra.Fecha)
+                If Not monedas.Libra Is Nothing Then
+                    If Not monedas.Libra.Valor Is Nothing Then
+                        Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
+                        tbLibra.Text = monedas.Libra.Valor
+                        libra = New Moneda(monedas.Libra.Valor, monedas.Libra.Fecha)
 
-                If monedas.Libra.Fecha = FechaHoy() Then
-                    buscarLibra = False
+                        If monedas.Libra.Fecha = FechaHoy() Then
+                            buscarLibra = False
+                        Else
+                            buscarLibra = True
+                        End If
+                    Else
+                        buscarLibra = True
+                    End If
                 Else
                     buscarLibra = True
                 End If
-            Else
-                buscarLibra = True
-            End If
 
-            If Not monedas.Rublo.Valor Is Nothing Then
-                Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                tbRublo.Text = monedas.Rublo.Valor
-                rublo = New Moneda(monedas.Rublo.Valor, monedas.Rublo.Fecha)
+                If Not monedas.Rublo Is Nothing Then
+                    If Not monedas.Rublo.Valor Is Nothing Then
+                        Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+                        tbRublo.Text = monedas.Rublo.Valor
+                        rublo = New Moneda(monedas.Rublo.Valor, monedas.Rublo.Fecha)
 
-                If monedas.Rublo.Fecha = FechaHoy() Then
-                    buscarRublo = False
+                        If monedas.Rublo.Fecha = FechaHoy() Then
+                            buscarRublo = False
+                        Else
+                            buscarRublo = True
+                        End If
+                    Else
+                        buscarRublo = True
+                    End If
                 Else
                     buscarRublo = True
                 End If
-            Else
-                buscarRublo = True
             End If
         Else
             buscarDolar = True

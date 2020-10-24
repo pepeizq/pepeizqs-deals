@@ -81,6 +81,18 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 sp.Children.Add(botonDiscord)
 
+                Dim botonPush As New Button With {
+                    .Tag = post,
+                    .Content = "Push",
+                    .Margin = New Thickness(30, 0, 0, 0)
+                }
+
+                AddHandler botonPush.Click, AddressOf Push
+                AddHandler botonPush.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonPush.PointerExited, AddressOf UsuarioSaleBoton
+
+                sp.Children.Add(botonPush)
+
                 lv.Items.Add(sp)
             Next
         End Sub
@@ -164,6 +176,24 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, post.ImagenFeatured)
             Catch ex As Exception
                 Notificaciones.Toast("Discord Error Post", Nothing)
+            End Try
+
+        End Sub
+
+        Private Async Sub Push(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
+            Dim enlaceFinal As String = post.Enlace
+            Await RedesSociales.Push.Enviar(titulo, enlaceFinal, post.ImagenFeatured)
+            Try
+
+            Catch ex As Exception
+                Notificaciones.Toast("Push Error Post", Nothing)
             End Try
 
         End Sub

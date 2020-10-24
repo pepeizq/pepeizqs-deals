@@ -8,11 +8,14 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Push
 
+        'https://docs.microsoft.com/en-us/windows/uwp/monetize/request-ratings-And-reviews
+        'https://docs.microsoft.com/en-us/windows/uwp/monetize/implement-a-trial-version-of-your-app
+
         Private Function Conectar()
 
             Dim config As New FirebaseConfig With {
-                .AuthSecret = "HtabeaAa9uFa0BN0uBQkBjy82MGcnhlVYVXjs1JM",
-                .BasePath = "https://pepeizq-s-deals-android.firebaseio.com"
+                .AuthSecret = "Shoh5YD3VlmXrlrLpuJ3IM7EtOdFC6hyLi94xu2y",
+                .BasePath = "https://pepeizq-s-deals.firebaseio.com"
             }
 
             Dim cliente As New FirebaseClient(config)
@@ -39,8 +42,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                              Dim listaNotificaciones As New List(Of MensajePush)
                                                                                                              Dim helper As New LocalObjectStorageHelper
 
-                                                                                                             If Await helper.FileExistsAsync("listaNotificaciones4") Then
-                                                                                                                 listaNotificaciones = Await helper.ReadFileAsync(Of List(Of MensajePush))("listaNotificaciones4")
+                                                                                                             If Await helper.FileExistsAsync("listaNotificaciones") Then
+                                                                                                                 listaNotificaciones = Await helper.ReadFileAsync(Of List(Of MensajePush))("listaNotificaciones")
                                                                                                              End If
 
                                                                                                              Dim primeraVez As Boolean = False
@@ -64,31 +67,22 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                  Dim i As Integer = 0
                                                                                                                  While i < 500
-                                                                                                                     If Not contenido.Contains(ChrW(34) + "Datos" + ChrW(34)) Then
-                                                                                                                         Exit While
-                                                                                                                     Else
-                                                                                                                         Dim temp, temp2 As String
-                                                                                                                         Dim int, int2 As Integer
-
-                                                                                                                         int = contenido.IndexOf(ChrW(34) + "Datos" + ChrW(34))
-                                                                                                                         temp = contenido.Remove(0, int + 5)
-
-                                                                                                                         contenido = temp
-
-                                                                                                                         int2 = temp.IndexOf("}")
-                                                                                                                         temp2 = temp.Remove(int2, temp.Length - int2)
+                                                                                                                     If Not contenido = String.Empty Then
+                                                                                                                         If Not contenido.Contains(":{" + ChrW(34) + "Enlace") Then
+                                                                                                                             Exit While
+                                                                                                                         End If
 
                                                                                                                          Dim temp3, temp4 As String
                                                                                                                          Dim int3, int4 As Integer
 
-                                                                                                                         int3 = temp2.IndexOf(":")
-                                                                                                                         temp3 = temp2.Remove(0, int3 + 1)
+                                                                                                                         int3 = contenido.IndexOf(":{" + ChrW(34) + "Enlace")
+                                                                                                                         temp3 = contenido.Remove(0, int3 + 1)
 
-                                                                                                                         int3 = temp3.IndexOf(ChrW(34))
-                                                                                                                         temp3 = temp3.Remove(0, int3 + 1)
+                                                                                                                         contenido = temp3
 
-                                                                                                                         int4 = temp3.IndexOf(ChrW(34))
+                                                                                                                         int4 = temp3.IndexOf("}")
                                                                                                                          temp4 = temp3.Remove(int4, temp3.Length - int4)
+                                                                                                                         temp4 = temp4 + "}"
 
                                                                                                                          Dim datos As String = temp4.Trim
 

@@ -86,6 +86,8 @@ Public NotInheritable Class MainPage
         Divisas.Generar()
         CopiaSeguridad.Cargar()
 
+        pepeizq.Editor.pepeizqdeals.RedesSociales.Push.Escuchar()
+
         pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
         pepeizq.Editor.pepeizqdeals.Free.Cargar()
