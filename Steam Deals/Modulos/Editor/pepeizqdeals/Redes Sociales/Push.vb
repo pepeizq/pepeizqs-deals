@@ -8,9 +8,6 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Push
 
-        'https://docs.microsoft.com/en-us/windows/uwp/monetize/request-ratings-And-reviews
-        'https://docs.microsoft.com/en-us/windows/uwp/monetize/implement-a-trial-version-of-your-app
-
         Private Function Conectar()
 
             Dim config As New FirebaseConfig With {
@@ -101,7 +98,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                  listaNotificaciones.Add(New MensajePush(datos))
 
                                                                                                                                  Try
-                                                                                                                                     Await helper.SaveFileAsync(Of List(Of MensajePush))("listaNotificaciones4", listaNotificaciones)
+                                                                                                                                     Await helper.SaveFileAsync(Of List(Of MensajePush))("listaNotificaciones", listaNotificaciones)
                                                                                                                                  Catch ex As Exception
 
                                                                                                                                  End Try
@@ -126,7 +123,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                                                                                     listaNotificaciones.Add(New MensajePush(args.Data))
 
                                                                                                                                                                                                     Try
-                                                                                                                                                                                                        Await helper.SaveFileAsync(Of List(Of MensajePush))("listaNotificaciones4", listaNotificaciones)
+                                                                                                                                                                                                        Await helper.SaveFileAsync(Of List(Of MensajePush))("listaNotificaciones", listaNotificaciones)
                                                                                                                                                                                                     Catch ex As Exception
 
                                                                                                                                                                                                     End Try
