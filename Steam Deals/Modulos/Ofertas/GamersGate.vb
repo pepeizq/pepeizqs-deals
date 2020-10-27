@@ -63,7 +63,7 @@ Namespace pepeizq.Ofertas
             Dim xml As New XmlSerializer(GetType(GamersGateJuegos))
 
             Dim listaJuegosES As GamersGateJuegos = Nothing
-            Dim html As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?country=esp"))
+            Dim html As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
 
             If Not html = Nothing Then
                 Dim stream As New StringReader(html)
@@ -71,7 +71,7 @@ Namespace pepeizq.Ofertas
             End If
 
             Dim listaJuegosUK As GamersGateJuegos = Nothing
-            Dim htmlUK As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?country=gbr"))
+            Dim htmlUK As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
 
             If Not htmlUK = Nothing Then
                 Dim streamUK As New StringReader(htmlUK)

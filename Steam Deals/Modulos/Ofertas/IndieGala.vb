@@ -27,11 +27,11 @@ Namespace pepeizq.Ofertas
 
             Dim numPaginas As Integer = 0
 
-            numPaginas = Await GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?page=1"))
+            numPaginas = Await GenerarNumPaginas(New Uri("https://www.indiegala.com/store_games_rss?&sale=true&page=1"))
 
             Dim i As Integer = 1
             While i < numPaginas
-                Dim html As String = Await HttpClient(New Uri("https://www.indiegala.com/store_games_rss?page=" + i.ToString))
+                Dim html As String = Await HttpClient(New Uri("https://www.indiegala.com/store_games_rss?&sale=true&page=" + i.ToString))
 
                 If Not html = Nothing Then
                     Dim stream As New StringReader(html)
