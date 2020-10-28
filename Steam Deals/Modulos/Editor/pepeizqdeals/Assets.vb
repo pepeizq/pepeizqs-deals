@@ -17,7 +17,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("GOG", "Assets/Tiendas/gog.ico", "Assets/Tiendas/gog2.png", "#7f3694", "#7f3694", Nothing, 32, 32),
                 New Clases.Assets("Fanatical", "Assets/Tiendas/fanatical.ico", "Assets/Tiendas/fanatical2.png", "#ffcf89", "#8a5200", Nothing, 32, 32),
                 New Clases.Assets("WinGameStore", "Assets/Tiendas/wingamestore.png", "Assets/Tiendas/wingamestore2.png", "#265c92", "#265c92", Nothing, 32, 32),
-                New Clases.Assets("Chrono", "Assets/Tiendas/chrono.png", "Assets/Tiendas/chrono2.png", "#322a46", "#322a46", Nothing, 32, 32),
+                New Clases.Assets("Nexus", "Assets/Tiendas/nexus.png", "Assets/Tiendas/nexus2.png", "#7f7f7f", "#7f7f7f", Nothing, 32, 32),
                 New Clases.Assets("MicrosoftStore", "Assets/Tiendas/microsoft.ico", "Assets/Tiendas/microsoftstore2.png", "#333333", "#333333", Nothing, 32, 32),
                 New Clases.Assets("Voidu", "Assets/Tiendas/voidu.ico", "Assets/Tiendas/voidu2.png", "#fbd3b6", "#f37720", Nothing, 32, 32),
                 New Clases.Assets("IndieGala", "Assets/Tiendas/indiegala.ico", "Assets/Tiendas/indiegala2.png", "#ffccd4", "#620d11", Nothing, 32, 32),
@@ -52,7 +52,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             AddHandler botonFondo.Click, AddressOf GenerarFondo
 
             Dim tbFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsFondoRedesSociales")
-            tbFondo.Text = "1085660,578080,294100,227300,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,1250410,275850,220200,379720,552520,261550,1066780,814380,745920,359320,1097150,1158310,1172620,1151640,412020,230410,359550,945360,813780,286160"
+            tbFondo.Text = "1085660,578080,294100,227300,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,1250410,275850,220200,379720,552520,261550,1066780,814380,745920,359320,1172620,1151640,412020,230410,359550,945360,813780,286160,1057090,337000,730,1086940,1158310,8500,480490,578650,208650,750920,1286830"
 
         End Sub
 
@@ -357,7 +357,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     For Each juego In listaJuegos
                         Dim panel As New DropShadowPanel With {
-                            .Margin = New Thickness(15, 15, 15, 15),
+                            .Margin = New Thickness(10, 10, 10, 10),
                             .ShadowOpacity = 0.9,
                             .BlurRadius = 20,
                             .IsHitTestVisible = False

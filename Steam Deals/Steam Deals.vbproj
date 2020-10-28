@@ -178,7 +178,7 @@
     <Compile Include="Modulos\Ofertas\AmazonEsFisico.vb" />
     <Compile Include="Modulos\Ofertas\AmazonUk.vb" />
     <Compile Include="Modulos\Ofertas\BlizzardStore.vb" />
-    <Compile Include="Modulos\Ofertas\Chrono.vb" />
+    <Compile Include="Modulos\Ofertas\Nexus.vb" />
     <Compile Include="Modulos\Ofertas\Direct2Drive.vb" />
     <Compile Include="Modulos\Ofertas\Fanatical.vb" />
     <Compile Include="Modulos\Herramientas\Calculadora.vb" />
@@ -381,6 +381,7 @@
     <Content Include="Assets\Tiendas\300x80\humble3.png" />
     <Content Include="Assets\Tiendas\300x80\indiegala3.png" />
     <Content Include="Assets\Tiendas\300x80\microsoftstore3.png" />
+    <Content Include="Assets\Tiendas\300x80\nexus3.png" />
     <Content Include="Assets\Tiendas\300x80\origin3.png" />
     <Content Include="Assets\Tiendas\300x80\steam3.png" />
     <Content Include="Assets\Tiendas\300x80\ubi3.png" />
@@ -392,7 +393,6 @@
     <Content Include="Assets\Tiendas\amazon2.png" />
     <Content Include="Assets\Tiendas\blizzard.ico" />
     <Content Include="Assets\Tiendas\blizzard2.png" />
-    <Content Include="Assets\Tiendas\chrono2.png" />
     <Content Include="Assets\Tiendas\d2d.ico" />
     <Content Include="Assets\Tiendas\d2d2.png" />
     <Content Include="Assets\Tiendas\gamesplanet.png" />
@@ -404,6 +404,8 @@
     <Content Include="Assets\Tiendas\gamebillet2.png" />
     <Content Include="Assets\Tiendas\gog2.png" />
     <Content Include="Assets\Tiendas\humbletrove.png" />
+    <Content Include="Assets\Tiendas\nexus.png" />
+    <Content Include="Assets\Tiendas\nexus2.png" />
     <Content Include="Assets\Tiendas\origin.png" />
     <Content Include="Assets\Tiendas\epicgames.ico" />
     <Content Include="Assets\Tiendas\epicgames2.png" />
@@ -420,7 +422,6 @@
     <Content Include="Assets\Tiendas\robotcache.png" />
     <Content Include="Assets\Tiendas\robotcache2.png" />
     <Content Include="Assets\Tiendas\steam2.png" />
-    <Content Include="Assets\Tiendas\chrono.png" />
     <Content Include="Assets\Tiendas\fanatical.ico" />
     <Content Include="Assets\Analisis\mixed.png" />
     <Content Include="Assets\Analisis\negative.png" />

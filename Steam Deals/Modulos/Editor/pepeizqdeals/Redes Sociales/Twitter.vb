@@ -110,8 +110,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• Amazon.es", "• @AmazonESP")
             ElseIf titulo.Contains("• Blizzard Store") Then
                 titulo = titulo.Replace("• Blizzard Store", "• @Blizzard_Ent Store")
-            ElseIf titulo.Contains("• Chrono") Then
-                titulo = titulo.Replace("• Chrono", "• @chronodeals")
             ElseIf titulo.Contains("• Direct2Drive") Then
                 titulo = titulo.Replace("• Direct2Drive", "• @Direct2Drive")
             ElseIf titulo.Contains("• Epic Games Store") Then
@@ -136,6 +134,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• IndieGala", "• @IndieGala")
             ElseIf titulo.Contains("• Microsoft Store") Then
                 titulo = titulo.Replace("• Microsoft Store", "• @MicrosoftStore")
+            ElseIf titulo.Contains("• My Nexus Store") Then
+                titulo = titulo.Replace("• My Nexus Store", "• My @Join_Nexus Store")
             ElseIf titulo.Contains("• Origin") Then
                 titulo = titulo.Replace("• Origin", "• @OriginInsider")
             ElseIf titulo.Contains("• Steam") Then

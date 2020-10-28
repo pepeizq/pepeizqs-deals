@@ -1053,9 +1053,9 @@
 
                                 <TextBox x:Name="tbEditorpepeizqdealsFondoRedesSociales" Margin="0,30,0,0"/>
 
-                                <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Width="2260" Height="480">
                                     <Button.Content>
-                                        <Grid x:Name="gridEditorpepeizqdealsFondoRedesSociales" Padding="5,5,5,0">
+                                        <Grid x:Name="gridEditorpepeizqdealsFondoRedesSociales" HorizontalAlignment="Stretch">
                                             <Grid.Background>
                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                     <GradientStop Color="#2e4460" Offset="0.5" />
@@ -1063,13 +1063,26 @@
                                                 </LinearGradientBrush>
                                             </Grid.Background>
 
-                                            <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsFondoRedesSociales" Opacity="0.3" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false" DesiredWidth="180">
-                                                <GridView.ItemsPanel>
+                                            <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsFondoRedesSociales" Opacity="0.3" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false" DesiredWidth="140" Padding="5,5,5,0">
+                                                <!--<GridView.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <ItemsWrapGrid MaximumRowsOrColumns="10" Orientation="Horizontal"/>
                                                     </ItemsPanelTemplate>
-                                                </GridView.ItemsPanel>
+                                                </GridView.ItemsPanel>-->
                                             </controls:AdaptiveGridView>
+
+                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <StackPanel Orientation="Vertical" Padding="30,20,30,30">
+                                                    <StackPanel.Background>
+                                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                            <GradientStop Color="#2e4460" Offset="0.5" />
+                                                            <GradientStop Color="#2e4460" Offset="1.0" />
+                                                        </LinearGradientBrush>
+                                                    </StackPanel.Background>
+
+                                                    <TextBlock Text="pepeizqdeals's  Store" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                </StackPanel>
+                                            </controls:DropShadowPanel>
                                         </Grid>
                                     </Button.Content>
                                 </Button>
@@ -1093,6 +1106,12 @@
                                 <ListView x:Name="lvEditorpepeizqdealsRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}"/>
                             </StackPanel>
                         </ScrollViewer>
+
+                        <ScrollViewer x:Name="svEditorpepeizqdealsOtrasCosas" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <WebView x:Name="wvNexus"/>
+                            </StackPanel> 
+                        </ScrollViewer> 
                     </Grid>
                 </Grid>
             </Grid>

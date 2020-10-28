@@ -26,7 +26,7 @@ Namespace pepeizq.Ofertas
 
             Dim paginas As Integer = 0
 
-            Dim htmlP As String = await HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=1&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
+            Dim htmlP As String = Await HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?onsale=true&pageindex=1&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
 
             If Not htmlP = Nothing Then
                 Try
@@ -43,7 +43,7 @@ Namespace pepeizq.Ofertas
             If paginas > 0 Then
                 Dim i As Integer = 1
                 While i <= paginas
-                    Dim html As String = Await HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?pageindex=" + i.ToString + "&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
+                    Dim html As String = Await HttpClient(New Uri("https://www.direct2drive.com/backend/api/productquery/findpage?onsale=true&pageindex=" + i.ToString + "&pagesize=100&platform[]=1100&sort.direction=desc&sort.field=releasedate"))
 
                     If Not html = Nothing Then
                         Dim productos As Direct2DriveProducts = JsonConvert.DeserializeObject(Of Direct2DriveProducts)(html)

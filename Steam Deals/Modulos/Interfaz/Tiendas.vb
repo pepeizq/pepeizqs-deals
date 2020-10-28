@@ -16,7 +16,7 @@ Module Tiendas
     Dim wingamestoreT As New Tienda("WinGameStore", "WinGameStore", "Assets/Tiendas/wingamestore.png", 6, Nothing, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", "Assets/Tiendas/wingamestore2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/wingamestore2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/wingamestore3.png", "29961", Nothing)
     Dim nuuvemT As New Tienda("Nuuvem", "Nuuvem", "Assets/Tiendas/nuuvem.ico", 8, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
     Dim microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore", "Assets/Tiendas/microsoft.ico", 9, Nothing, 16, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_microsoftstore.png", "Assets/Tiendas/microsoftstore2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/microsoftstore2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/microsoftstore3.png", "29957", Nothing)
-    Dim chronoT As New Tienda("Chrono", "Chrono", "Assets/Tiendas/chrono.png", 10, Nothing, 15, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_chrono.png", "Assets/Tiendas/chrono2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/chrono2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/chrono3.png", "29947", Nothing)
+    Dim nexusT As New Tienda("My Nexus Store", "Nexus", "Assets/Tiendas/nexus.png", 10, Nothing, 15, "https://pepeizqdeals.com/wp-content/uploads/2020/10/tienda_nexus.jpg", "Assets/Tiendas/nexus2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/10/nexus2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/10/nexus2.png", "34033", Nothing)
     Dim voiduT As New Tienda("Voidu", "Voidu", "Assets/Tiendas/voidu.ico", 11, Nothing, 18, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_voidu.png", "Assets/Tiendas/voidu2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/voidu2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/voidu3.png", "29971", Nothing)
     Dim indiegalaT As New Tienda("IndieGala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12, Nothing, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", "Assets/Tiendas/indiegala2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/indiegala2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/indiegala3.png", "29956", Nothing)
     Dim greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13, Nothing, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", "Assets/Tiendas/gmg2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/gmg2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/gmg3.png", "29953", Nothing)
@@ -36,7 +36,7 @@ Module Tiendas
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
-        microsoftstoreT, chronoT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
+        microsoftstoreT, nexusT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
         epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT
     }
 
@@ -814,8 +814,8 @@ Module Tiendas
                     Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
                 ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
                     Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
-                ElseIf tienda.NombreUsar = chronoT.NombreUsar Then
-                    Await pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
+                ElseIf tienda.NombreUsar = nexusT.NombreUsar Then
+                    Await pepeizq.Ofertas.Nexus.BuscarOfertas(nexusT)
                 ElseIf tienda.NombreUsar = voiduT.NombreUsar Then
                     Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
                 ElseIf tienda.NombreUsar = indiegalaT.NombreUsar Then
@@ -885,7 +885,7 @@ Module Tiendas
         Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
         Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
         Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
-        Await pepeizq.Ofertas.Chrono.BuscarOfertas(chronoT)
+        Await pepeizq.Ofertas.Nexus.BuscarOfertas(nexusT)
         Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
         Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
         Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
