@@ -224,6 +224,7 @@ Namespace pepeizq.Suscripciones
             titulo = titulo.Replace("for Windows 10", Nothing)
             titulo = titulo.Replace("– Windows 10", Nothing)
             titulo = titulo.Replace("- Windows 10", Nothing)
+            titulo = titulo.Replace("Windows 10", Nothing)
             titulo = titulo.Replace("WIN10", Nothing)
             titulo = titulo.Trim
 

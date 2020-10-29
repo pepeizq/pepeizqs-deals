@@ -1,10 +1,6 @@
-﻿Imports System.Globalization
-Imports System.Net
+﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Juegos
-Imports Windows.Globalization.NumberFormatting
-Imports Windows.System.UserProfile
 
 Namespace pepeizq.Ofertas
     Module Nexus
