@@ -220,6 +220,10 @@ Module Divisas
 
                         If Not temporalEuros.Contains(",") Then
                             temporalEuros = temporalEuros + ",00"
+                        Else
+                            If temporalEuros.IndexOf(",") = temporalEuros.Length - 2 Then
+                                temporalEuros = temporalEuros + "0"
+                            End If
                         End If
 
                         temporalEuros = temporalEuros + " €"
