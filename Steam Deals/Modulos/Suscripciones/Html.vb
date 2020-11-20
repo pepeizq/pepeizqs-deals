@@ -84,12 +84,18 @@ Namespace pepeizq.Suscripciones
 
                         If tiendaSuscripcion = "Microsoft Store" Then
                             If Not ana Is Nothing Then
-                                html = html + BotonHtml(tiendaSuscripcion, juego.Enlace) + BotonHtml("Steam", Referidos.Generar(ana.Enlace.Replace("#app_reviews_hash", Nothing)))
+                                Dim enlaceSteam As String = ana.Enlace
+
+                                If Not enlaceSteam = Nothing Then
+                                    html = html + BotonHtml(tiendaSuscripcion, juego.Enlace) + BotonHtml("Steam", Referidos.Generar(ana.Enlace.Replace("#app_reviews_hash", Nothing)))
+                                Else
+                                    html = html + BotonHtml(tiendaSuscripcion, juego.Enlace)
+                                End If
                             Else
                                 html = html + BotonHtml(tiendaSuscripcion, juego.Enlace)
                             End If
                         Else
-                            html = html + BotonHtml(tiendaSuscripcion, enlaceSuscripcion) + BotonHtml("Steam", juego.Enlace)
+                            html = html + BotonHtml(tiendaSuscripcion, enlaceSuscripcion) + BotonHtml("Steam", Referidos.Generar(juego.Enlace))
                         End If
 
                         html = html + "[/us_vwrapper][/us_hwrapper]"
