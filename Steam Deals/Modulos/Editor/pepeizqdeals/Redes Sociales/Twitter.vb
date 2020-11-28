@@ -72,7 +72,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
         Public Async Function Enviar(mensaje As String, enlace As String, imagen As String) As Task
 
             If imagen = String.Empty Then
-                Tweet.PublishTweet(mensaje + " " + enlace)
+                Tweet.PublishTweet(mensaje + " " + Environment.NewLine + Environment.NewLine + enlace)
             Else
                 Dim ficheroImagen As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("imagentwitter", CreationCollisionOption.ReplaceExisting)
                 Dim descargador As New BackgroundDownloader
@@ -92,7 +92,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     }
                     parametros.Medias = imagenes
 
-                    Tweet.PublishTweet(mensaje + " " + enlace, parametros)
+                    Tweet.PublishTweet(mensaje + " " + Environment.NewLine + Environment.NewLine + enlace, parametros)
                 End If
             End If
 

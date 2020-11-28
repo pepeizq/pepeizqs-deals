@@ -526,6 +526,7 @@
                 New Clases.Desarrolladores("Psyonix", "@PsyonixStudios", Nothing, Nothing),
                 New Clases.Desarrolladores("Puny Human", "@punyhuman", Nothing, Nothing),
                 New Clases.Desarrolladores("Pyrodactyl", "@pyrodactylgames", Nothing, Nothing),
+                New Clases.Desarrolladores("Quantic Dream", "@Quantic_Dream", "Assets\LogosPublishers\quanticdream.png", 240),
                 New Clases.Desarrolladores("Rain Games", "@rain_games", Nothing, Nothing),
                 New Clases.Desarrolladores("Rake in Grass", "@rakeingrass", Nothing, Nothing),
                 New Clases.Desarrolladores("Rat King Entertainment", "@RatKingsLair", Nothing, Nothing),
