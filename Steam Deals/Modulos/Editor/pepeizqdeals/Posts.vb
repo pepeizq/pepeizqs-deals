@@ -27,7 +27,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim imagenUrl As String = Await SubirImagen(imagen, "Web", cliente)
 
                 Dim post As New Models.Post With {
-                    .Title = New Models.Title(titulo.Trim)
+                    .Title = New Models.Title(titulo.Trim),
+                    .CommentStatus = Models.OpenStatus.Closed
                 }
 
                 If redesSociales = True Then
