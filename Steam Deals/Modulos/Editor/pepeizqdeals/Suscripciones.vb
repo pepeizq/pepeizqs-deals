@@ -95,7 +95,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagenTienda As Image = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
+            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 0 Then
                 botonBuscar.Visibility = Visibility.Collapsed
@@ -107,8 +107,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/humblechoice.png"))
 
-                cosas.Tienda = "Humble Bundle"
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
+                cosas.Tienda = Tiendas.humbleT
+                cosas.Tienda.NombreMostrar = "Humble Bundle"
+
                 cosas.Enlace = Referidos.Generar("https://www.humblebundle.com/subscription")
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
@@ -127,8 +128,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/primegaming.png"))
 
-                cosas.Tienda = "Amazon"
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/08/tienda_amazon.jpg"
+                cosas.Tienda = Tiendas.amazoncomT
                 cosas.Enlace = Referidos.Generar("https://gaming.amazon.com/")
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
@@ -146,9 +146,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/xboxgamepass.png"))
 
-                cosas.Tienda = "Microsoft Store"
+                cosas.Tienda = Tiendas.microsoftstoreT
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/02/tienda_xboxgamepass.jpg"
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
@@ -162,9 +161,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/originaccessbasic.png"))
 
-                cosas.Tienda = "Origin"
+                cosas.Tienda = Tiendas.originT
                 cosas.Titulo = "Origin Access Basic • New Games Added • " + cosas.Juegos
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
@@ -178,9 +176,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/originaccesspremier.png"))
 
-                cosas.Tienda = "Origin"
+                cosas.Tienda = Tiendas.originT
                 cosas.Titulo = "Origin Access Premier • New Games Added • " + cosas.Juegos
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png"
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
@@ -194,9 +191,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/humbletrove.png"))
 
-                cosas.Tienda = "Humble Bundle"
+                cosas.Tienda = Tiendas.humbleT
+                cosas.Tienda.NombreMostrar = "Humble Bundle"
+
                 cosas.Titulo = "Humble Trove • New Games Added • " + cosas.Juegos
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png"
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
@@ -210,8 +208,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/geforcenow3.png"))
 
-                cosas.Tienda = "Geforce"
-                cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
+                'cosas.Tienda = "Geforce"
+                'cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
                 cosas.Mensaje = "New Games Supported"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
@@ -265,8 +263,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, cosas.Html, 13, New List(Of Integer) From {9999}, " ", " ", cosas.Tienda, cosas.Icono,
-                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
+                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, Nothing, Nothing)
 
             BloquearControles(True)
 

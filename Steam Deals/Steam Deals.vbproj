@@ -113,7 +113,6 @@
     <Compile Include="Clases\Editor\pepeizqdeals\Deals.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Assets.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\LogosJuegos.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Juego.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Pestañas.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Post.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Free.vb" />
@@ -137,10 +136,10 @@
     <Compile Include="Modulos\CopiaSeguridad.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\DealsFormato.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Free.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\DealsImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\LogosJuegos.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\Juegos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
@@ -160,7 +159,6 @@
     <Compile Include="Modulos\Interfaz\Filtrados.vb" />
     <Compile Include="Modulos\Interfaz\Tiendas.vb" />
     <Compile Include="Modulos\Interfaz\Pestañas.vb" />
-    <Compile Include="Modulos\Juegos\Humble.vb" />
     <Compile Include="Modulos\Juegos\Steam.vb" />
     <Compile Include="Modulos\Ofertas\Allyouplay.vb" />
     <Compile Include="Modulos\Ofertas\Ubisoft.vb" />

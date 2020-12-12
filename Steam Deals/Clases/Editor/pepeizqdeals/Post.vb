@@ -82,12 +82,6 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("image_v2_announcements")>
         Public Imagenv2Anuncios As String
 
-        <JsonProperty("discount")>
-        Public Descuento As String
-
-        <JsonProperty("price")>
-        Public Precio As String
-
         <JsonProperty("store_name")>
         Public TiendaNombre As String
 
@@ -97,12 +91,6 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("title2")>
         Public TituloComplemento As String
 
-        <JsonProperty("review")>
-        Public ReviewIcono As String
-
-        <JsonProperty("review2")>
-        Public ReviewPuntuacion As String
-
         <JsonProperty("date_ends")>
         Public FechaTermina As String
 
@@ -111,26 +99,11 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
 
         '-------------------------------------------
 
-        <JsonProperty("game_title")>
-        Public JuegoTitulo As String
+        <JsonProperty("json_deals")>
+        Public JsonOfertas As String
 
-        <JsonProperty("game_image_vertical")>
-        Public JuegoImagenVertical As String
-
-        <JsonProperty("game_image_horizontal")>
-        Public JuegoImagenHorizontal As String
-
-        <JsonProperty("game_date_release")>
-        Public JuegoFechaLanzamiento As String
-
-        <JsonProperty("game_price_lowest")>
-        Public JuegoPrecioMinimoActual As String
-
-        <JsonProperty("game_price_lowest2")>
-        Public JuegoPrecioMinimoHistorico As String
-
-        <JsonProperty("game_drm")>
-        Public JuegoDRM As String
+        <JsonProperty("json_deals_expanded")>
+        Public JsonOfertasExpandido As String
 
     End Class
 End Namespace

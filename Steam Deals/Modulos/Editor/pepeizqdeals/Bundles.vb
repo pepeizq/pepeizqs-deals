@@ -145,10 +145,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     If Not cosas.Titulo = Nothing Then
-                        tbTitulo.Text = cosas.Titulo + " • " + cosas.Precio + " • " + cosas.Tienda
+                        tbTitulo.Text = cosas.Titulo + " • " + cosas.Precio + " • " + cosas.Tienda.NombreMostrar
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
                     Else
-                        tbTitulo.Text = "--- • --- € • " + cosas.Tienda
+                        tbTitulo.Text = "--- • --- € • " + cosas.Tienda.NombreMostrar
                         tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
                     End If
 
@@ -177,11 +177,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tiendaLogo As String = String.Empty
 
                     For Each tienda In listaTiendas
-                        If tienda.NombreMostrar = "Humble Store" And cosas.Tienda = "Humble Bundle" Then
+                        If tienda.NombreMostrar = "Humble Store" And cosas.Tienda.NombreMostrar = "Humble Bundle" Then
                             tiendaLogo = tienda.LogoWebServidorEnlace300x80
                         End If
 
-                        If tienda.NombreUsar = cosas.Tienda.Replace(" ", Nothing) Then
+                        If tienda.NombreUsar = cosas.Tienda.NombreUsar.Replace(" ", Nothing) Then
                             tiendaLogo = tienda.LogoWebApp
                         End If
                     Next
@@ -222,8 +222,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, tbJuegos.Text.Trim, 4, New List(Of Integer) From {cosas.Etiqueta}, " ", " ", cosas.Tienda, cosas.Icono,
-                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 4, New List(Of Integer) From {cosas.Etiqueta}, cosas.Tienda,
+                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, Nothing, Nothing)
 
             BloquearControles(True)
 
@@ -484,7 +484,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Steam(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Steam", 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", Nothing, Nothing)
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, Tiendas.steamT, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", Nothing, Nothing)
 
             If Not enlace.Contains("?l=english") Then
                 enlace = enlace + "?l=english"
@@ -558,7 +558,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Humble(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Humble Bundle", 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, Tiendas.humbleT, 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
+            cosas.Tienda.NombreMostrar = "Humble Bundle"
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -605,7 +606,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Fanatical(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Fanatical", 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", Nothing, Nothing)
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, Tiendas.fanaticalT, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", Nothing, Nothing)
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
 
@@ -704,7 +705,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function IndieGala(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "IndieGala", 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", Nothing, Nothing)
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, Tiendas.indiegalaT, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -748,7 +749,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function GreenManGaming(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "Green Man Gaming", 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", Nothing, Nothing)
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, Tiendas.greenmangamingT, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -795,7 +796,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function WinGameStore(enlace As String) As Task(Of Clases.Bundles)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, "WinGameStore", 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", Nothing, Nothing)
+            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, Tiendas.wingamestoreT, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 

@@ -12,10 +12,10 @@ Imports WordPressPCL
 Namespace pepeizq.Editor.pepeizqdeals
     Module Posts
 
-        Public Async Function Enviar(titulo As String, tituloTwitter As String, contenido As String, categoria As Integer, etiquetas As List(Of Integer),
-                                     descuento As String, precio As String, tiendaNombre As String, tiendaIcono As String,
-                                     redireccion As String, imagen As Button, tituloComplemento As String,
-                                     analisis As OfertaAnalisis, redesSociales As Boolean, fechaTermina As String, lista As List(Of Oferta), comentario As String) As Task
+        Public Async Function Enviar(titulo As String, tituloTwitter As String, categoria As Integer, etiquetas As List(Of Integer),
+                                     tienda As Tienda, redireccion As String, imagen As Button, tituloComplemento As String,
+                                     fechaTermina As String, listaOfertasTotal As List(Of Oferta), listaOfertasSeleccionadas As List(Of Oferta),
+                                     comentario As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -28,14 +28,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 Dim post As New Models.Post With {
                     .Title = New Models.Title(titulo.Trim),
-                    .CommentStatus = Models.OpenStatus.Closed
+                    .CommentStatus = Models.OpenStatus.Closed,
+                    .Status = Models.Status.Publish
                 }
-
-                If redesSociales = True Then
-                    post.Status = Models.Status.Publish
-                Else
-                    post.Status = Models.Status.Draft
-                End If
 
                 If Not categoria = Nothing Then
                     post.Categories = New Integer() {categoria}
@@ -53,29 +48,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not descuento = Nothing Then
-                    If descuento.Trim.Length > 0 Then
-                        postEditor.Descuento = descuento
-                    End If
-                End If
-
-                If Not precio = Nothing Then
-                    If precio.Trim.Length > 0 Then
-                        postEditor.Precio = precio.Trim
-                    End If
-                End If
-
-                If Not tiendaNombre = Nothing Then
-                    If tiendaNombre.Trim.Length > 0 Then
-                        postEditor.TiendaNombre = tiendaNombre.Trim
-                    End If
-                End If
-
-                If Not tiendaIcono = Nothing Then
-                    If tiendaIcono.Trim.Length > 0 Then
-                        tiendaIcono = "<img src=" + ChrW(34) + tiendaIcono.Trim + ChrW(34) + " />"
-                        postEditor.TiendaIcono = tiendaIcono
-                    End If
+                If Not tienda Is Nothing Then
+                    postEditor.TiendaNombre = tienda.NombreMostrar
+                    postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.IconoWeb + ChrW(34) + " />"
                 End If
 
                 If Not redireccion = Nothing Then
@@ -114,37 +89,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                Dim puntuacionReview As String = String.Empty
-
-                If Not analisis Is Nothing Then
-                    Dim iconoReview As String = Nothing
-
-                    If analisis.Porcentaje > 74 Then
-                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_positive.png"
-                    ElseIf analisis.Porcentaje > 49 And analisis.Porcentaje < 75 Then
-                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_mixed.png"
-                    ElseIf analisis.Porcentaje < 50 Then
-                        iconoReview = "https://pepeizqdeals.com/wp-content/uploads/2018/08/review_negative.png"
-                    End If
-
-                    If Not iconoReview = Nothing Then
-                        If iconoReview.Trim.Length > 0 Then
-                            iconoReview = "<img src=" + ChrW(34) + iconoReview.Trim + ChrW(34) + " />"
-                            postEditor.ReviewIcono = iconoReview
-                        End If
-                    End If
-
-                    puntuacionReview = "Rating: " + analisis.Porcentaje + "% - Reviews: " + analisis.Cantidad
-
-                    If Not puntuacionReview = Nothing Then
-                        postEditor.ReviewPuntuacion = puntuacionReview
-                        postEditor.SEODescripcion = puntuacionReview
-                    End If
-                End If
-
-                If Not contenido = Nothing Then
-                    If contenido.Trim.Length > 0 Then
-                        postEditor.Contenido = New Models.Content(contenido.Trim)
+                If Not listaOfertasTotal Is Nothing Then
+                    If listaOfertasTotal.Count = 1 Then
+                        postEditor.JsonOfertasExpandido = DealsFormato.GenerarJson(listaOfertasTotal, comentario, tienda)
+                    ElseIf listaOfertasTotal.Count > 1 Then
+                        postEditor.Contenido = New Models.Content(DealsFormato.GenerarWeb(listaOfertasTotal, comentario, tienda))
+                        postEditor.JsonOfertas = DealsFormato.GenerarJson(listaOfertasSeleccionadas, comentario, tienda)
+                        postEditor.JsonOfertasExpandido = DealsFormato.GenerarJson(listaOfertasTotal, comentario, tienda)
                     End If
                 End If
 
@@ -159,68 +110,65 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not resultado Is Nothing Then
                     Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
-                    If Not resultado.Redireccion2 = Nothing Then
-                        resultado.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
-                                                 "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+                    'If Not resultado.Redireccion2 = Nothing Then
+                    '    resultado.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
+                    '                             "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
 
-                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                    '    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                    'End If
+
+                    Dim enlaceFinal As String = String.Empty
+
+                    If Not resultado.Enlace = Nothing Then
+                        enlaceFinal = resultado.Enlace
                     End If
 
-                    If redesSociales = True Then
-                        Dim enlaceFinal As String = String.Empty
+                    Try
+                        Await GrupoSteam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Grupo Steam Error Post", Nothing)
+                    End Try
 
-                        If Not resultado.Enlace = Nothing Then
-                            enlaceFinal = resultado.Enlace
+                    Try
+                        If tituloTwitter = Nothing Then
+                            tituloTwitter = Twitter.GenerarTitulo(titulo)
                         End If
 
-                        Try
-                            Await GrupoSteam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Grupo Steam Error Post", Nothing)
-                        End Try
+                        Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenUrl.Trim)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Twitter Error Post", Nothing)
+                    End Try
 
-                        Try
-                            If tituloTwitter = Nothing Then
-                                tituloTwitter = Twitter.GenerarTitulo(titulo)
-                            End If
+                    Try
+                        Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
+                    End Try
 
-                            Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenUrl.Trim)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Twitter Error Post", Nothing)
-                        End Try
+                    Try
+                        Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl.Trim)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Discord Error Post", Nothing)
+                    End Try
 
-                        Try
-                            Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
-                        End Try
+                    Try
+                        Await Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Push Error Post", Nothing)
+                    End Try
 
-                        Try
-                            Await pepeizqdeals.RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl.Trim)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Discord Error Post", Nothing)
-                        End Try
+                    '----------------------------------------------------------------
 
-                        Try
-                            Await Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
-                        Catch ex As Exception
-                            Notificaciones.Toast("Push Error Post", Nothing)
-                        End Try
+                    If Not listaOfertasTotal Is Nothing Then
+                        If categoria = 3 And listaOfertasTotal.Count = 1 And tienda.NombreMostrar = "Steam" Then
+                            Dim enlaceTemp As String = listaOfertasTotal(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
 
-                        '----------------------------------------------------------------
-
-                        If Not lista Is Nothing Then
-                            If categoria = 3 And lista.Count = 1 And tiendaNombre = "Steam" Then
-                                Dim enlaceTemp As String = lista(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
-
-                                Try
-                                    Await Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
-                                Catch ex As Exception
-                                    Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                                End Try
-                            End If
+                            Try
+                                Await Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
+                            Catch ex As Exception
+                                Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                            End Try
                         End If
-
                     End If
                 End If
             End If
@@ -299,11 +247,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     carpetaImagenes = Await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\Imagenes")
                 End If
 
-                Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.jpg"
+                Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.png"
                 Dim ficheroImagen As StorageFile = Await carpetaImagenes.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
 
                 If Not ficheroImagen Is Nothing Then
-                    Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight, 0)
+                    Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight)
 
                     Try
                         Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
@@ -320,7 +268,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End Try
 
                     If urlImagen = Nothing Then
-                        Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                        Try
+                            Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+                        Catch ex As Exception
+
+                        End Try
 
                         Dim mes As String = Date.Today.Month.ToString
 

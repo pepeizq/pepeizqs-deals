@@ -117,8 +117,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, " ", 1208, New List(Of Integer) From {9999}, " ", " ", " ", " ",
-                               tbEnlace.Text.Trim, botonImagen, " ", Nothing, True, fechaFinal.ToString, Nothing, Nothing)
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 1208, New List(Of Integer) From {9999}, Nothing,
+                               tbEnlace.Text.Trim, botonImagen, Nothing, fechaFinal.ToString, Nothing, Nothing, Nothing)
 
             BloquearControles(True)
 

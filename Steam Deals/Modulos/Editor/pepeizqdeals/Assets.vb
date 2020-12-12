@@ -401,7 +401,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
             If Not ficheroResultado Is Nothing Then
-                Await ImagenFichero.Generar(ficheroResultado, cosas.Objeto, cosas.ObjetoAncho, cosas.ObjetoAlto, 0)
+                Await ImagenFichero.Generar(ficheroResultado, cosas.Objeto, cosas.ObjetoAncho, cosas.ObjetoAlto)
             End If
 
         End Sub

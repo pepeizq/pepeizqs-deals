@@ -10,7 +10,7 @@ Imports Windows.System
 Namespace pepeizq.Editor.pepeizqdeals
     Module Deals
 
-        Public Async Sub GenerarDatos(listaFinal As List(Of Oferta), listaAnalisis As List(Of Oferta), cantidadJuegos As String)
+        Public Async Sub GenerarDatos(listaTotal As List(Of Oferta), listaSeleccionados As List(Of Oferta), cantidadJuegos As String)
 
             BloquearControles(False)
             Desarrolladores.GenerarDatos()
@@ -48,7 +48,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbMensajeContenido As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
             Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
 
-            If listaFinal.Count = 1 Then
+            If listaTotal.Count = 1 Then
                 gridEnlace.Visibility = Visibility.Visible
                 gridImagen.Visibility = Visibility.Visible
                 cbError.Visibility = Visibility.Visible
@@ -58,7 +58,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbMensaje.Visibility = Visibility.Visible
                 tbMensajeContenido.Visibility = Visibility.Visible
                 gridComplemento.Visibility = Visibility.Collapsed
-            ElseIf listaFinal.Count > 1 Then
+            ElseIf listaTotal.Count > 1 Then
                 gridEnlace.Visibility = Visibility.Collapsed
                 gridImagen.Visibility = Visibility.Collapsed
                 cbError.Visibility = Visibility.Collapsed
@@ -105,7 +105,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tienda As Tienda = Nothing
 
             For Each subtienda In listaTiendas
-                If subtienda.NombreUsar = listaFinal(0).TiendaNombreUsar Then
+                If subtienda.NombreUsar = listaTotal(0).TiendaNombreUsar Then
                     tienda = subtienda
                 End If
             Next
@@ -118,7 +118,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                                 tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + cupon.Codigo + "</b>"
 
-                                If listaFinal.Count = 1 Then
+                                If listaTotal.Count = 1 Then
                                     tbTituloComplemento.Text = "Discount Code: " + cupon.Codigo
                                 End If
                             End If
@@ -138,25 +138,25 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaDescuento As New List(Of String)
             Dim precioFinal As String = String.Empty
 
-            If listaFinal.Count = 1 Then
-                precioFinal = listaFinal(0).Precio
+            If listaTotal.Count = 1 Then
+                precioFinal = listaTotal(0).Precio
                 precioFinal = precioFinal.Replace(".", ",")
                 precioFinal = precioFinal.Replace("€", Nothing)
                 precioFinal = precioFinal.Trim
                 precioFinal = precioFinal + " €"
 
-                tbEnlace.Text = listaFinal(0).Enlace
+                tbEnlace.Text = listaTotal(0).Enlace
                 tbEnlace.Tag = precioFinal
 
-                If Not listaFinal(0).Desarrolladores Is Nothing Then
-                    If listaFinal(0).Desarrolladores.Desarrolladores.Count > 0 Then
-                        If Not listaFinal(0).Desarrolladores.Desarrolladores(0) = Nothing Then
+                If Not listaTotal(0).Desarrolladores Is Nothing Then
+                    If listaTotal(0).Desarrolladores.Desarrolladores.Count > 0 Then
+                        If Not listaTotal(0).Desarrolladores.Desarrolladores(0) = Nothing Then
                             For Each publisher In cbPublishers.Items
                                 If TypeOf publisher Is TextBlock Then
                                     If Not publisher.Text = Nothing Then
                                         Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
 
-                                        If publisherLimpio = Desarrolladores.LimpiarPublisher(listaFinal(0).Desarrolladores.Desarrolladores(0)) Then
+                                        If publisherLimpio = Desarrolladores.LimpiarPublisher(listaTotal(0).Desarrolladores.Desarrolladores(0)) Then
                                             cbPublishers.SelectedItem = publisher
                                         End If
                                     End If
@@ -166,11 +166,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                tbTitulo.Text = LimpiarTitulo(listaFinal(0).Titulo) + " • " + listaFinal(0).Descuento + " • " + precioFinal + " • " + tienda.NombreMostrar
+                tbTitulo.Text = LimpiarTitulo(listaTotal(0).Titulo) + " • " + listaTotal(0).Descuento + " • " + precioFinal + " • " + tienda.NombreMostrar
             Else
                 Dim publisherFinal As String = Nothing
 
-                For Each item In listaFinal
+                For Each item In listaTotal
                     If Not item.Desarrolladores Is Nothing Then
                         If item.Desarrolladores.Desarrolladores.Count > 0 Then
                             If Not item.Desarrolladores.Desarrolladores(0) = Nothing Then
@@ -275,10 +275,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             tbImagenJuego.Text = String.Empty
 
-            If listaFinal.Count = 1 Then
-                If Not listaFinal(0).Analisis Is Nothing Then
-                    If Not listaFinal(0).Analisis.Enlace = Nothing Then
-                        Dim id As String = listaFinal(0).Analisis.Enlace
+            If listaTotal.Count = 1 Then
+                If Not listaTotal(0).Analisis Is Nothing Then
+                    If Not listaTotal(0).Analisis.Enlace = Nothing Then
+                        Dim id As String = listaTotal(0).Analisis.Enlace
 
                         If id.Contains("https://store.steampowered.com/app/") Then
                             id = id.Replace("https://store.steampowered.com/app/", Nothing)
@@ -296,22 +296,22 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 If tbImagenJuego.Text = String.Empty Then
-                    If Not listaFinal(0).Imagenes.Grande = String.Empty Then
+                    If Not listaTotal(0).Imagenes.Grande = String.Empty Then
                         If tienda.NombreUsar = "Humble" Then
-                            tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
+                            tbImagenJuego.Text = listaTotal(0).Imagenes.Pequeña
                         Else
-                            tbImagenJuego.Text = listaFinal(0).Imagenes.Grande
+                            tbImagenJuego.Text = listaTotal(0).Imagenes.Grande
                         End If
                     Else
-                        If Not listaFinal(0).Imagenes.Pequeña = String.Empty Then
-                            tbImagenJuego.Text = listaFinal(0).Imagenes.Pequeña
+                        If Not listaTotal(0).Imagenes.Pequeña = String.Empty Then
+                            tbImagenJuego.Text = listaTotal(0).Imagenes.Pequeña
                         End If
                     End If
                 End If
 
-                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaFinal(0), precioFinal, tienda)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaTotal(0), precioFinal, tienda)
             Else
-                DealsImagenEntrada.DosJuegosGenerar(listaAnalisis, listaFinal.Count, tienda)
+                DealsImagenEntrada.DosJuegosGenerar(listaSeleccionados, listaTotal.Count, tienda)
             End If
 
             AddHandler tbImagenJuego.TextChanged, AddressOf CargarImagenEnlace
@@ -320,8 +320,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim fechaDefecto As DateTime = Nothing
 
-            If Not listaFinal(0).FechaTermina = Nothing Then
-                fechaDefecto = listaFinal(0).FechaTermina
+            If Not listaTotal(0).FechaTermina = Nothing Then
+                fechaDefecto = listaTotal(0).FechaTermina
             Else
                 fechaDefecto = DateTime.Now
                 fechaDefecto = fechaDefecto.AddDays(2)
@@ -363,7 +363,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             tbMensajeContenido.Text = String.Empty
 
-            If listaFinal.Count = 1 Then
+            If listaTotal.Count = 1 Then
                 If Not tienda.MensajeUnJuego = Nothing Then
                     If tienda.MensajeUnJuego.Trim.Length > 0 Then
                         tbMensajeContenido.Text = tienda.MensajeUnJuego.Trim
@@ -385,10 +385,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
 
-            If listaFinal.Count = 1 Then
-                botonSubir.Tag = New Clases.Deals(listaFinal, tienda, listaFinal(0).Descuento, listaFinal(0).Precio)
+            If listaTotal.Count = 1 Then
+                botonSubir.Tag = New Clases.Deals(listaTotal, listaSeleccionados, tienda, listaTotal(0).Descuento, listaTotal(0).Precio)
             Else
-                botonSubir.Tag = New Clases.Deals(listaFinal, tienda, "Up to " + listaDescuento(listaDescuento.Count - 1), cantidadJuegos + " deals")
+                botonSubir.Tag = New Clases.Deals(listaTotal, listaSeleccionados, tienda, "Up to " + listaDescuento(listaDescuento.Count - 1), cantidadJuegos + " deals")
             End If
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -405,7 +405,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             AddHandler botonCopiarForo.Click, AddressOf CopiarForo
 
             listaDescuento.Clear()
-            listaAnalisis.Clear()
 
             BloquearControles(True)
 
@@ -428,40 +427,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cosas As Clases.Deals = boton.Tag
 
-            Dim contenidoEnlaces As String = String.Empty
-            Dim precioFinal As String = String.Empty
-
-            If cosas.ListaJuegos.Count > 1 Then
-                contenidoEnlaces = GenerarHtmlTablaJuegos(cosas.ListaJuegos, tbComentario, cosas.Tienda)
-                precioFinal = cosas.Precio
-            Else
-                precioFinal = cosas.ListaJuegos(0).Precio
-            End If
-
             Dim listaEtiquetas As New List(Of Integer)
 
             If Not cosas.Tienda.EtiquetaWeb = Nothing Then
                 listaEtiquetas.Add(cosas.Tienda.EtiquetaWeb)
-            End If
-
-            Dim tiendaNombre As String = String.Empty
-
-            If Not cosas.Tienda.NombreMostrar = Nothing Then
-                tiendaNombre = cosas.Tienda.NombreMostrar
-            End If
-
-            Dim tiendaIcono As String = String.Empty
-
-            If Not cosas.Tienda.IconoWeb = Nothing Then
-                tiendaIcono = cosas.Tienda.IconoWeb
-            End If
-
-            precioFinal = precioFinal.Replace(".", ",")
-            precioFinal = precioFinal.Replace("€", Nothing)
-            precioFinal = precioFinal.Trim
-
-            If Not precioFinal.Contains("deals") Then
-                precioFinal = precioFinal + " €"
             End If
 
             Dim redireccion As String = String.Empty
@@ -476,14 +445,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tituloComplemento = tbTituloComplemento.Text.Trim
             End If
 
-            Dim analisis As OfertaAnalisis = Nothing
-
-            If cosas.ListaJuegos.Count = 1 Then
-                If Not cosas.ListaJuegos(0).Analisis Is Nothing Then
-                    analisis = cosas.ListaJuegos(0).Analisis
-                End If
-            End If
-
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntradav2")
 
             Dim categoria As Integer = 3
@@ -494,122 +455,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, contenidoEnlaces, categoria, listaEtiquetas, cosas.Descuento, precioFinal, tiendaNombre, tiendaIcono,
-                               redireccion, botonImagen, tituloComplemento, analisis, True, fechaFinal.ToString, cosas.ListaJuegos, tbComentario.Text)
+            Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, categoria, listaEtiquetas, cosas.Tienda,
+                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, cosas.ListaJuegosTotal,
+                               cosas.ListaJuegosSeleccionados, tbComentario.Text)
 
             BloquearControles(True)
 
         End Sub
-
-        Private Function GenerarHtmlTablaJuegos(listaJuegos As List(Of Oferta), tbComentario As TextBox, tienda As Tienda)
-
-            Dim contenido As String = String.Empty
-
-            If listaJuegos.Count > 1 Then
-                contenido = contenido + "[vc_row width=" + ChrW(34) + "full" + ChrW(34) + "][vc_column]"
-
-                If tbComentario.Text.Trim.Length > 0 Then
-                    contenido = contenido + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " el_class=" + ChrW(34) + "mensajeOfertas" + ChrW(34) + " bg_color=" + ChrW(34) + "#002033" + ChrW(34) + " text_color=" + ChrW(34) + "#ffffff" + ChrW(34) + "]<p style=" + ChrW(34) + "font-size: 16px;" + ChrW(34) + ">" + tbComentario.Text.Trim + "</p>[/us_message]"
-                End If
-
-                contenido = contenido + "<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
-                contenido = contenido + "<tbody>" + Environment.NewLine
-                contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
-
-                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Or tienda.NombreUsar = "Direct2Drive" Or tienda.NombreUsar = "MicrosoftStore" Or tienda.NombreUsar = "Ubisoft" Or tienda.NombreUsar = "Allyouplay" Then
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                ElseIf tienda.NombreMostrar = "GOG" Then
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 200px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                Else
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                End If
-
-                contenido = contenido + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=0 perpage=2000 showsearch=1]</td>" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
-                contenido = contenido + "</tr>" + Environment.NewLine
-
-                Dim listaContenido As New List(Of String)
-
-                For Each juego In listaJuegos
-                    Dim contenidoJuego As String = Nothing
-
-                    Dim tituloFinal As String = juego.Titulo
-                    tituloFinal = LimpiarTitulo(tituloFinal)
-
-                    Dim imagenFinal As String = Nothing
-
-                    If Not juego.Imagenes.Pequeña = String.Empty Then
-                        imagenFinal = juego.Imagenes.Pequeña
-                    Else
-                        imagenFinal = juego.Imagenes.Grande
-                    End If
-
-                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row filaOferta' data-href='" + Referidos.Generar(juego.Enlace) + "'>" + Environment.NewLine
-                    contenidoJuego = contenidoJuego + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-juego" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " /></td>" + Environment.NewLine
-
-                    Dim drmFinal As String = Nothing
-
-                    If Not juego.DRM = Nothing Then
-                        If juego.DRM.ToLower.Contains("steam") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_steam.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("origin") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("uplay") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_uplay.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("gog") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_gog.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_bethesda.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("epic") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_epic.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("battle") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2019/04/drm_battlenet.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("microsoft") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2019/04/drm_microsoft.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        End If
-                    End If
-
-                    If Not drmFinal = Nothing Then
-                        drmFinal = "<br/>" + drmFinal
-                    End If
-
-                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + " class=" + ChrW(34) + "ofertaTitulo" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
-                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
-                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio.Replace(".", ",") + "</span></td>" + Environment.NewLine
-
-                    If Not juego.Analisis Is Nothing Then
-                        Dim contenidoAnalisis As String = Nothing
-
-                        If juego.Analisis.Porcentaje > 74 Then
-                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                        ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
-                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                        ElseIf juego.Analisis.Porcentaje < 50 Then
-                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                        End If
-
-                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
-                    Else
-                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">0</td>" + Environment.NewLine
-                    End If
-
-                    contenidoJuego = contenidoJuego + "</tr>" + Environment.NewLine
-                    listaContenido.Add(contenidoJuego)
-                Next
-
-                For Each item In listaContenido
-                    contenido = contenido + item
-                Next
-
-                contenido = contenido + "</tbody>" + Environment.NewLine
-                contenido = contenido + "</table>[/vc_column][/vc_row]" + Environment.NewLine
-            End If
-
-            Return contenido
-
-        End Function
 
         Private Async Sub CargarImagenFicheroUnJuego(sender As Object, e As RoutedEventArgs)
 
@@ -684,13 +536,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tienda As Tienda = Nothing
 
             For Each subtienda In listaTiendas
-                If subtienda.NombreUsar = cosas.ListaJuegos(0).TiendaNombreUsar Then
+                If subtienda.NombreUsar = cosas.ListaJuegosTotal(0).TiendaNombreUsar Then
                     tienda = subtienda
                 End If
             Next
 
             If tbImagenJuego.Text.Trim.Length > 0 Then
-                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegos(0), precioFinal, tienda)
+                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegosTotal(0), precioFinal, tienda)
             End If
 
         End Sub
@@ -751,8 +603,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As Clases.Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
-            If cosas.ListaJuegos.Count > 1 Then
-                textoClipboard = GenerarHtmlTablaJuegos(cosas.ListaJuegos, tbComentario, cosas.Tienda)
+            If cosas.ListaJuegosTotal.Count > 1 Then
+                textoClipboard = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
             End If
 
             If Not textoClipboard = String.Empty Then
@@ -776,8 +628,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cosas As Clases.Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
-            If cosas.ListaJuegos.Count > 0 Then
-                For Each juego In cosas.ListaJuegos
+            If cosas.ListaJuegosTotal.Count > 0 Then
+                For Each juego In cosas.ListaJuegosTotal
                     Dim tituloFinal As String = juego.Titulo
                     tituloFinal = LimpiarTitulo(tituloFinal)
 

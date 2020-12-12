@@ -6,7 +6,7 @@ Imports Windows.Storage.Streams
 Namespace pepeizq.Editor
     Module ImagenFichero
 
-        Public Async Function Generar(fichero As StorageFile, objeto As Object, ancho As Integer, alto As Integer, formato As Integer) As Task
+        Public Async Function Generar(fichero As StorageFile, objeto As Object, ancho As Integer, alto As Integer) As Task
 
             Dim resultadoRender As New RenderTargetBitmap()
             Await resultadoRender.RenderAsync(objeto)
@@ -15,13 +15,9 @@ Namespace pepeizq.Editor
             Dim rawdpi As DisplayInformation = DisplayInformation.GetForCurrentView()
 
             Using stream As IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
-                Dim encoder As BitmapEncoder = Nothing
+                Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
 
-                If formato = 0 Then
-                    encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
-                Else
-                    encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
-                End If
+                'encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
 
                 encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
 
@@ -50,7 +46,7 @@ Namespace pepeizq.Editor
             Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
             If Not ficheroResultado Is Nothing Then
-                Await ImagenFichero.Generar(ficheroResultado, boton, boton.ActualWidth, boton.ActualHeight, 0)
+                Await ImagenFichero.Generar(ficheroResultado, boton, boton.ActualWidth, boton.ActualHeight)
             End If
 
         End Sub

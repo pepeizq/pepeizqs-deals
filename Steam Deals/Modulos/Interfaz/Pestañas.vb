@@ -3,8 +3,8 @@
 
         Public Sub CargarListadoOfertas(lv As ListView)
 
-            Dim listaFinal As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of Oferta)
+            Dim listaTotal As New List(Of Oferta)
+            Dim listaSeleccionados As New List(Of Oferta)
 
             For Each item In lv.Items
                 Dim grid As Grid = item
@@ -12,18 +12,18 @@
                 Dim cb As CheckBox = sp.Children(0)
 
                 If cb.IsChecked = True Then
-                    listaFinal.Add(grid.Tag)
+                    listaTotal.Add(grid.Tag)
                 End If
 
                 Dim sp2 As StackPanel = grid.Children(1)
                 Dim cbAnalisis As CheckBox = sp2.Children(0)
 
                 If cbAnalisis.IsChecked = True Then
-                    listaAnalisis.Add(grid.Tag)
+                    listaSeleccionados.Add(grid.Tag)
                 End If
             Next
 
-            If listaAnalisis.Count = 0 Then
+            If listaSeleccionados.Count = 0 Then
                 SeñalarImportantes(lv)
 
                 For Each item In lv.Items
@@ -32,45 +32,45 @@
                     Dim cbAnalisis As CheckBox = sp2.Children(0)
 
                     If cbAnalisis.IsChecked = True Then
-                        listaAnalisis.Add(grid.Tag)
+                        listaSeleccionados.Add(grid.Tag)
                     End If
                 Next
             End If
 
-            If listaFinal.Count > 0 Then
-                listaFinal.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
+            If listaTotal.Count > 0 Then
+                listaTotal.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
 
                 Dim cantidadJuegos As String = Nothing
 
-                If listaFinal.Count > 99 And listaFinal.Count < 200 Then
+                If listaTotal.Count > 99 And listaTotal.Count < 200 Then
                     cantidadJuegos = "+100"
-                ElseIf listaFinal.Count > 199 And listaFinal.Count < 300 Then
+                ElseIf listaTotal.Count > 199 And listaTotal.Count < 300 Then
                     cantidadJuegos = "+200"
-                ElseIf listaFinal.Count > 299 And listaFinal.Count < 400 Then
+                ElseIf listaTotal.Count > 299 And listaTotal.Count < 400 Then
                     cantidadJuegos = "+300"
-                ElseIf listaFinal.Count > 399 And listaFinal.Count < 500 Then
+                ElseIf listaTotal.Count > 399 And listaTotal.Count < 500 Then
                     cantidadJuegos = "+400"
-                ElseIf listaFinal.Count > 499 And listaFinal.Count < 600 Then
+                ElseIf listaTotal.Count > 499 And listaTotal.Count < 600 Then
                     cantidadJuegos = "+500"
-                ElseIf listaFinal.Count > 599 And listaFinal.Count < 700 Then
+                ElseIf listaTotal.Count > 599 And listaTotal.Count < 700 Then
                     cantidadJuegos = "+600"
-                ElseIf listaFinal.Count > 699 And listaFinal.Count < 800 Then
+                ElseIf listaTotal.Count > 699 And listaTotal.Count < 800 Then
                     cantidadJuegos = "+700"
-                ElseIf listaFinal.Count > 799 And listaFinal.Count < 900 Then
+                ElseIf listaTotal.Count > 799 And listaTotal.Count < 900 Then
                     cantidadJuegos = "+800"
-                ElseIf listaFinal.Count > 899 And listaFinal.Count < 1000 Then
+                ElseIf listaTotal.Count > 899 And listaTotal.Count < 1000 Then
                     cantidadJuegos = "+900"
-                ElseIf listaFinal.Count > 999 And listaFinal.Count < 2000 Then
+                ElseIf listaTotal.Count > 999 And listaTotal.Count < 2000 Then
                     cantidadJuegos = "+1000"
-                ElseIf listaFinal.Count > 1999 And listaFinal.Count < 3000 Then
+                ElseIf listaTotal.Count > 1999 And listaTotal.Count < 3000 Then
                     cantidadJuegos = "+2000"
-                ElseIf listaFinal.Count > 2999 Then
+                ElseIf listaTotal.Count > 2999 Then
                     cantidadJuegos = "+3000"
                 Else
-                    cantidadJuegos = listaFinal.Count.ToString
+                    cantidadJuegos = listaTotal.Count.ToString
                 End If
 
-                Editor.pepeizqdeals.Deals.GenerarDatos(listaFinal, listaAnalisis, cantidadJuegos)
+                Editor.pepeizqdeals.Deals.GenerarDatos(listaTotal, listaSeleccionados, cantidadJuegos)
             End If
 
         End Sub
