@@ -99,6 +99,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
+                postEditor.SEORobots = "nofollow"
+
                 Dim resultado As Clases.Post = Nothing
 
                 Try

@@ -123,7 +123,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                                   int = tituloFinal.LastIndexOf(" • ")
                                                                                                                                   tituloFinal = tituloFinal.Remove(int, 3)
-                                                                                                                                  tituloFinal = tituloFinal.Insert(int, " off/ ")
+                                                                                                                                  tituloFinal = tituloFinal.Insert(int, " off • ")
 
                                                                                                                                   int = tituloFinal.LastIndexOf(" • ")
                                                                                                                                   tituloFinal = tituloFinal.Remove(int, 3)

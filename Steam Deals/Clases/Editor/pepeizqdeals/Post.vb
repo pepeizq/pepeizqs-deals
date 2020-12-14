@@ -94,8 +94,11 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("date_ends")>
         Public FechaTermina As String
 
-        <JsonProperty("seo_description")>
+        <JsonProperty("us_meta_description")>
         Public SEODescripcion As String
+
+        <JsonProperty("us_meta_robots")>
+        Public SEORobots As String
 
         '-------------------------------------------
 
