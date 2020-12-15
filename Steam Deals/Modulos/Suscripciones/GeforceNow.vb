@@ -83,7 +83,7 @@ Namespace pepeizq.Suscripciones
                                         titulo = titulo.Replace("– Steam", Nothing)
                                         titulo = titulo.Trim
 
-                                        listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, Referidos.Generar(juego.SteamEnlace), video))
+                                        listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, juego.SteamEnlace, video))
                                     End If
                                 End If
                             End If

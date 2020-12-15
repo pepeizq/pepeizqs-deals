@@ -88,6 +88,9 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("store_icon")>
         Public TiendaIcono As String
 
+        <JsonProperty("store_logo")>
+        Public TiendaLogo As String
+
         <JsonProperty("title2")>
         Public TituloComplemento As String
 

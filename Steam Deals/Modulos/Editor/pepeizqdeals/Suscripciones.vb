@@ -110,7 +110,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
 
-                cosas.Enlace = Referidos.Generar("https://www.humblebundle.com/subscription")
+                cosas.Enlace = "https://www.humblebundle.com/subscription"
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)
@@ -129,7 +129,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/primegaming.png"))
 
                 cosas.Tienda = Tiendas.amazoncomT
-                cosas.Enlace = Referidos.Generar("https://gaming.amazon.com/")
+                cosas.Enlace = "https://gaming.amazon.com/"
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)

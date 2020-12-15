@@ -51,16 +51,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not tienda Is Nothing Then
                     postEditor.TiendaNombre = tienda.NombreMostrar
                     postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.IconoWeb + ChrW(34) + " />"
+                    postEditor.TiendaLogo = tienda.LogoWebServidorEnlace300x80
                 End If
 
                 If Not redireccion = Nothing Then
                     If redireccion.Trim.Length > 0 Then
                         Dim redireccionFinal As String = redireccion.Trim
-                        redireccionFinal = Referidos.Generar(redireccionFinal)
                         postEditor.Redireccion = redireccionFinal
 
                         postEditor.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + redireccionFinal + ChrW(34) +
-                            "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+                                                  "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
                     End If
                 End If
 
@@ -91,7 +91,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not listaOfertasTotal Is Nothing Then
                     If listaOfertasTotal.Count = 1 Then
-                        postEditor.JsonOfertasExpandido = DealsFormato.GenerarJson(listaOfertasTotal, comentario, tienda)
+                        postEditor.JsonOfertas = DealsFormato.GenerarJson(listaOfertasTotal, comentario, tienda)
                     ElseIf listaOfertasTotal.Count > 1 Then
                         postEditor.Contenido = New Models.Content(DealsFormato.GenerarWeb(listaOfertasTotal, comentario, tienda))
                         postEditor.JsonOfertas = DealsFormato.GenerarJson(listaOfertasSeleccionadas, comentario, tienda)

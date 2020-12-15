@@ -77,7 +77,9 @@
                     Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
 
                     If Not publisher2.Twitter = Nothing Then
-                        tbTwitter.Text = tbTwitter.Text + " " + publisher2.Twitter
+                        If Not tbTwitter.Text.Contains(publisher2.Twitter) Then
+                            tbTwitter.Text = tbTwitter.Text + " " + publisher2.Twitter
+                        End If
                     End If
                 End If
             Else
@@ -497,7 +499,7 @@
                 New Clases.Desarrolladores("Oxymoron Games", "@oxymoron_games", Nothing, Nothing),
                 New Clases.Desarrolladores("Paper Castle Games", "@Underherodevs", Nothing, Nothing),
                 New Clases.Desarrolladores("Paradox Development Studio", "@PDX_Dev_Studio", Nothing, Nothing),
-                New Clases.Desarrolladores("Paradox", "@PdxInteractive", "Assets\LogosPublishers\paradox.png", 290),
+                New Clases.Desarrolladores("Paradox", "@PdxInteractive", "Assets\LogosPublishers\paradox.png", 270),
                 New Clases.Desarrolladores("Pathea Games", "@PatheaGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Pathos Interactive", "@PathosInteract", Nothing, Nothing),
                 New Clases.Desarrolladores("Patriot Game", "@GameOfPatriot", Nothing, Nothing),

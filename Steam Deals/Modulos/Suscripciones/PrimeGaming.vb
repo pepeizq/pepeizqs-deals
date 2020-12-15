@@ -70,7 +70,7 @@ Namespace pepeizq.Suscripciones
                             End If
                         End If
 
-                        listaJuegos.Add(New JuegoSuscripcion(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, Referidos.Generar("https://store.steampowered.com/app/" + clave), video))
+                        listaJuegos.Add(New JuegoSuscripcion(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, "https://store.steampowered.com/app/" + clave, video))
                     Else
                         Exit While
                     End If
@@ -131,7 +131,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("Prime Gaming", Referidos.Generar("https://gaming.amazon.com/"), "https://i.imgur.com/DPDkKNq.png", listaJuegos, False)
+            Html.Generar("Prime Gaming", "https://gaming.amazon.com/", "https://i.imgur.com/DPDkKNq.png", listaJuegos, False)
 
             BloquearControles(True)
 

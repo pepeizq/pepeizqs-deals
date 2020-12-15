@@ -9,17 +9,17 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim añadir As Boolean = True
 
-            If subreddit = "/r/pepeizqdeals" Then
-                If titulo.Contains("Humble Bundle") Then
-                    añadir = False
-                ElseIf titulo.Contains("Humble Store") Then
-                    añadir = False
-                ElseIf titulo.Contains("Humble Monthly") Then
-                    añadir = False
-                ElseIf titulo.Contains("Humble Choice") Then
-                    añadir = False
-                End If
-            End If
+            'If subreddit = "/r/pepeizqdeals" Then
+            '    If titulo.Contains("Humble Bundle") Then
+            '        añadir = False
+            '    ElseIf titulo.Contains("Humble Store") Then
+            '        añadir = False
+            '    ElseIf titulo.Contains("Humble Monthly") Then
+            '        añadir = False
+            '    ElseIf titulo.Contains("Humble Choice") Then
+            '        añadir = False
+            '    End If
+            'End If
 
             If añadir = True Then
                 Dim tituloFinal As String = titulo

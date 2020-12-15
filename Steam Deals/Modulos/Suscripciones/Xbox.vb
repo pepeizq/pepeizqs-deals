@@ -148,7 +148,7 @@ Namespace pepeizq.Suscripciones
                                     Dim titulo As String = juego.Detalles(0).Titulo.Trim
                                     titulo = LimpiarTitulo(titulo)
 
-                                    listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, Referidos.Generar("https://www.microsoft.com/store/apps/" + juego.ID), Nothing))
+                                    listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, "https://www.microsoft.com/store/apps/" + juego.ID, Nothing))
                                 End If
                             End If
                         Next
@@ -209,7 +209,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
 
-            Html.Generar("Microsoft Store", Referidos.Generar("https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8"), "https://i.imgur.com/mKThm6d.png", listaJuegos, False)
+            Html.Generar("Microsoft Store", "https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8", "https://i.imgur.com/mKThm6d.png", listaJuegos, False)
 
             BloquearControles(True)
 
