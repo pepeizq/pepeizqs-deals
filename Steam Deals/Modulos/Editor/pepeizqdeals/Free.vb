@@ -1,10 +1,8 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
-Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Gratis
 Imports Steam_Deals.pepeizq.Juegos
-Imports Steam_Deals.pepeizq.Ofertas
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Free
@@ -87,6 +85,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
+            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
 
             If tbEnlace.Text.Trim.Length > 0 Then
                 Dim cosas As Clases.Free = Nothing
@@ -131,7 +130,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 ElseIf enlace.Contains("https://register.ubisoft.com/") Or enlace.Contains("https://www.ubisoft.com/") Then
                     cosas = Await Uplay()
 
-                    tbImagenTienda.Text = "Assets/Tiendas/uplay.png"
+                    tbImagenTienda.Text = "https://pepeizqdeals.com/wp-content/uploads/2020/12/ubiconnect.png"
 
                 Else
                     Dim cosas2 As New Clases.Free("--", Nothing, Nothing, "--")
@@ -155,6 +154,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not cosas.ImagenFondo = Nothing Then
                         tbImagenFondo.Text = cosas.ImagenFondo
                     End If
+
+                    botonSubir.Tag = cosas
                 End If
             End If
 
@@ -169,6 +170,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim boton As Button = sender
+
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
@@ -180,8 +183,25 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 12, New List(Of Integer) From {9999}, Nothing,
-                               tbEnlace.Text.Trim, botonImagen, " ", fechaFinal.ToString, Nothing, Nothing, Nothing)
+            Dim tienda As Tienda = Nothing
+            Dim json As String = String.Empty
+
+            If tbTitulo.Text.Trim.Length > 0 Then
+                If tbTitulo.Text.Trim.Contains("•") Then
+                    Dim int As Integer = tbTitulo.Text.LastIndexOf("•")
+                    Dim tiendaS As String = tbTitulo.Text.Remove(0, int + 1)
+                    tiendaS = tiendaS.Trim
+
+                    Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFreev2")
+                    tienda = New Tienda(tiendaS, tiendaS, Nothing, 0, Nothing, 0, Nothing, Nothing, Nothing, imagenTienda.Source, Nothing, Nothing)
+
+                    Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
+                    json = DealsFormato.GenerarJsonGratis(imagenJuego.Source)
+                End If
+            End If
+
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 12, New List(Of Integer) From {9999}, tienda,
+                               tbEnlace.Text.Trim, botonImagen, " ", fechaFinal.ToString, Nothing, json, Nothing)
 
             BloquearControles(True)
 
@@ -367,7 +387,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Private Async Function Uplay() As Task(Of Clases.Free)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Uplay")
+            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Ubisoft Connect")
 
             Return cosas
         End Function

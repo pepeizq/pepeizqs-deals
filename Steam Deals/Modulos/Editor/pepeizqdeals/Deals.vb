@@ -455,9 +455,23 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
+            Dim html As String = String.Empty
+            Dim json As String = String.Empty
+            Dim jsonExpandido As String = String.Empty
+
+            If Not cosas.ListaJuegosTotal Is Nothing Then
+                If cosas.ListaJuegosTotal.Count = 1 Then
+                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
+                ElseIf cosas.ListaJuegosTotal.Count > 1 Then
+                    html = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
+                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosSeleccionados, tbComentario.Text, cosas.Tienda)
+                    jsonExpandido = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
+                End If
+            End If
+
+
             Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, categoria, listaEtiquetas, cosas.Tienda,
-                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, cosas.ListaJuegosTotal,
-                               cosas.ListaJuegosSeleccionados, tbComentario.Text)
+                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, html, json, jsonExpandido)
 
             BloquearControles(True)
 

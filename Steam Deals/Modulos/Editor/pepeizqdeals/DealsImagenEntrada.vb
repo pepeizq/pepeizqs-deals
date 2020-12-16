@@ -28,6 +28,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim imagenJuego As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuegov2")
             imagenJuego.Source = enlaceImagenJuego
+            juego.Imagenes.Grande = enlaceImagenJuego
+            juego.Imagenes.Pequeña = enlaceImagenJuego
 
             '--------------------------------------
 

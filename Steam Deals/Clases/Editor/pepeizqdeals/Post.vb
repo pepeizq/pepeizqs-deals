@@ -105,11 +105,11 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
 
         '-------------------------------------------
 
-        <JsonProperty("json_deals")>
-        Public JsonOfertas As String
+        <JsonProperty("json")>
+        Public Json As String
 
-        <JsonProperty("json_deals_expanded")>
-        Public JsonOfertasExpandido As String
+        <JsonProperty("json_expanded")>
+        Public JsonExpandido As String
 
     End Class
 End Namespace

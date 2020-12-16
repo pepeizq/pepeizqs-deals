@@ -222,8 +222,24 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
+            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            Dim json As String = String.Empty
+
+            If Not tbImagenesJuegos.Text = String.Empty Then
+                If tbImagenesJuegos.Text.Trim.Length > 0 Then
+                    Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
+                    Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
+
+                    If gridMasJuegos.Visibility = Visibility.Visible Then
+                        json = DealsFormato.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, True)
+                    Else
+                        json = DealsFormato.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, False)
+                    End If
+                End If
+            End If
+
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 4, New List(Of Integer) From {cosas.Etiqueta}, cosas.Tienda,
-                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing)
 
             BloquearControles(True)
 
@@ -298,13 +314,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
 
             Dim cb As CheckBox = sender
 
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
+                tbJuegos.Text = tbJuegos.Text + " and more games"
             Else
                 gridMasJuegos.Visibility = Visibility.Collapsed
+                tbJuegos.Text = tbJuegos.Text.Replace("and more games", Nothing)
+                tbJuegos.Text = tbJuegos.Text.Trim
             End If
 
         End Sub
@@ -381,7 +401,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             End While
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
-
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
 
             i = 0

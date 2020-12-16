@@ -14,8 +14,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Async Function Enviar(titulo As String, tituloTwitter As String, categoria As Integer, etiquetas As List(Of Integer),
                                      tienda As Tienda, redireccion As String, imagen As Button, tituloComplemento As String,
-                                     fechaTermina As String, listaOfertasTotal As List(Of Oferta), listaOfertasSeleccionadas As List(Of Oferta),
-                                     comentario As String) As Task
+                                     fechaTermina As String, html As String, json As String, jsonExpandido As String) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -89,14 +88,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not listaOfertasTotal Is Nothing Then
-                    If listaOfertasTotal.Count = 1 Then
-                        postEditor.JsonOfertas = DealsFormato.GenerarJson(listaOfertasTotal, comentario, tienda)
-                    ElseIf listaOfertasTotal.Count > 1 Then
-                        postEditor.Contenido = New Models.Content(DealsFormato.GenerarWeb(listaOfertasTotal, comentario, tienda))
-                        postEditor.JsonOfertas = DealsFormato.GenerarJson(listaOfertasSeleccionadas, comentario, tienda)
-                        postEditor.JsonOfertasExpandido = DealsFormato.GenerarJson(listaOfertasTotal, comentario, tienda)
-                    End If
+                If Not html = String.Empty Then
+                    postEditor.Contenido = New Models.Content(html)
+                End If
+
+                If Not json = String.Empty Then
+                    postEditor.Json = json
+                End If
+
+                If Not jsonExpandido = String.Empty Then
+                    postEditor.JsonExpandido = jsonExpandido
                 End If
 
                 postEditor.SEORobots = "nofollow"
@@ -161,15 +162,17 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     '----------------------------------------------------------------
 
-                    If Not listaOfertasTotal Is Nothing Then
-                        If categoria = 3 And listaOfertasTotal.Count = 1 And tienda.NombreMostrar = "Steam" Then
-                            Dim enlaceTemp As String = listaOfertasTotal(0).Enlace + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
+                    If Not redireccion = Nothing Then
+                        If Not tienda Is Nothing Then
+                            If categoria = 3 And tienda.NombreMostrar = "Steam" Then
+                                Dim enlaceTemp As String = redireccion + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
 
-                            Try
-                                Await Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
-                            Catch ex As Exception
-                                Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                            End Try
+                                Try
+                                    Await Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
+                                Catch ex As Exception
+                                    Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                                End Try
+                            End If
                         End If
                     End If
                 End If

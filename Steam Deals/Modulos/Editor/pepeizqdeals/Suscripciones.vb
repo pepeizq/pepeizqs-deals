@@ -20,8 +20,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("Humble Choice")
             cbTiendas.Items.Add("Prime Gaming")
             cbTiendas.Items.Add("Xbox Game Pass")
-            cbTiendas.Items.Add("Origin Access Basic")
-            cbTiendas.Items.Add("Origin Access Premier")
+            cbTiendas.Items.Add("EA Play")
+            cbTiendas.Items.Add("EA Play Pro")
             cbTiendas.Items.Add("Humble Trove")
             cbTiendas.Items.Add("Geforce Now")
 
@@ -93,7 +93,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
 
-            Dim imagenTienda As Image = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -105,7 +105,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/humblechoice.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
 
                 cosas.Tienda = Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
@@ -126,7 +126,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/primegaming.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
 
                 cosas.Tienda = Tiendas.amazoncomT
                 cosas.Enlace = "https://gaming.amazon.com/"
@@ -144,7 +144,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/xboxgamepass.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/xboxgamepass.png"
 
                 cosas.Tienda = Tiendas.microsoftstoreT
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
@@ -159,10 +159,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/originaccessbasic.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png"
 
                 cosas.Tienda = Tiendas.originT
-                cosas.Titulo = "Origin Access Basic • New Games Added • " + cosas.Juegos
+                cosas.Titulo = "EA Play • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
@@ -174,10 +174,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/originaccesspremier.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplaypro.png"
 
                 cosas.Tienda = Tiendas.originT
-                cosas.Titulo = "Origin Access Premier • New Games Added • " + cosas.Juegos
+                cosas.Titulo = "EA Play Pro • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
@@ -189,7 +189,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/humbletrove.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humbletrove.png"
 
                 cosas.Tienda = Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
@@ -206,7 +206,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/geforcenow3.png"))
+                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/geforcenow3.png"
 
                 'cosas.Tienda = "Geforce"
                 'cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
@@ -252,8 +252,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
             Dim cosas As Clases.Suscripciones = tbTitulo.Tag
+            cosas.Tienda.LogoWebServidorEnlace300x80 = imagenTienda.Source
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
@@ -261,7 +263,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim json As String = String.Empty
+
+            If tbImagenesGrid.Text.Length > 0 Then
+                json = DealsFormato.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim)
+            End If
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
                                cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, Nothing, Nothing)

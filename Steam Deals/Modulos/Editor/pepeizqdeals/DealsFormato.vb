@@ -111,7 +111,7 @@
 
         End Function
 
-        Public Function GenerarJson(listaJuegos As List(Of Oferta), comentario As String, tienda As Tienda)
+        Public Function GenerarJsonOfertas(listaJuegos As List(Of Oferta), comentario As String, tienda As Tienda)
 
             Dim contenido As String = String.Empty
 
@@ -153,6 +153,105 @@
                                               ChrW(34) + "revw1" + ChrW(34) + ":" + ChrW(34) + analisisPorcentaje + ChrW(34) + "," +
                                               ChrW(34) + "revw2" + ChrW(34) + ":" + ChrW(34) + analisisCantidad + ChrW(34) + "," +
                                               ChrW(34) + "revw3" + ChrW(34) + ":" + ChrW(34) + analisisEnlace + ChrW(34) +
+                                        "},"
+            Next
+
+            contenido = contenido.Remove(contenido.Length - 1, 1)
+            contenido = contenido + "]}"
+
+            Return contenido
+
+        End Function
+
+        Public Function GenerarJsonBundles(imagenes As String, precio As String, masJuegos As Boolean)
+
+            Dim listaImagenes As New List(Of String)
+
+            Dim i As Integer = 0
+            While i < 100
+                If imagenes.Length > 0 Then
+                    Dim enlace As String = String.Empty
+
+                    If imagenes.Contains(",") Then
+                        Dim int As Integer = imagenes.IndexOf(",")
+                        enlace = imagenes.Remove(int, imagenes.Length - int)
+
+                        imagenes = imagenes.Remove(0, int + 1)
+                    Else
+                        enlace = imagenes
+                    End If
+
+                    enlace = enlace.Trim
+                    listaImagenes.Add(enlace)
+                End If
+                i += 1
+            End While
+
+            Dim contenido As String = String.Empty
+
+            contenido = "{" + ChrW(34) + "moregames" + ChrW(34) + ":"
+
+            If masJuegos = True Then
+                contenido = contenido + ChrW(34) + "true" + ChrW(34)
+            Else
+                contenido = contenido + "null"
+            End If
+
+            contenido = contenido + "," + ChrW(34) + "price" + ChrW(34) + ":" + ChrW(34) + precio + ChrW(34)
+            contenido = contenido + "," + ChrW(34) + "games" + ChrW(34) + ":["
+
+            For Each imagen In listaImagenes
+                contenido = contenido + "{" + ChrW(34) + "image" + ChrW(34) + ":" + ChrW(34) + imagen + ChrW(34) +
+                                        "},"
+            Next
+
+            contenido = contenido.Remove(contenido.Length - 1, 1)
+            contenido = contenido + "]}"
+
+            Return contenido
+
+        End Function
+
+        Public Function GenerarJsonGratis(imagen As String)
+
+            Dim contenido As String = String.Empty
+
+            contenido = "{" + ChrW(34) + "image" + ChrW(34) + ":" + ChrW(34) + imagen + ChrW(34) + "}"
+
+            Return contenido
+
+        End Function
+
+        Public Function GenerarJsonSuscripciones(imagenes As String)
+
+            Dim listaImagenes As New List(Of String)
+
+            Dim i As Integer = 0
+            While i < 100
+                If imagenes.Length > 0 Then
+                    Dim enlace As String = String.Empty
+
+                    If imagenes.Contains(",") Then
+                        Dim int As Integer = imagenes.IndexOf(",")
+                        enlace = imagenes.Remove(int, imagenes.Length - int)
+
+                        imagenes = imagenes.Remove(0, int + 1)
+                    Else
+                        enlace = imagenes
+                    End If
+
+                    enlace = enlace.Trim
+                    listaImagenes.Add(enlace)
+                End If
+                i += 1
+            End While
+
+            Dim contenido As String = String.Empty
+
+            contenido = "{" + ChrW(34) + "games" + ChrW(34) + ":["
+
+            For Each imagen In listaImagenes
+                contenido = contenido + "{" + ChrW(34) + "image" + ChrW(34) + ":" + ChrW(34) + imagen + ChrW(34) +
                                         "},"
             Next
 
