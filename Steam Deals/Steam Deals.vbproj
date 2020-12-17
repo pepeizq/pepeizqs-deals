@@ -166,8 +166,8 @@
     <Compile Include="Modulos\Suscripciones\Html.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleChoice.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleTrove.vb" />
-    <Compile Include="Modulos\Suscripciones\OriginBasic.vb" />
-    <Compile Include="Modulos\Suscripciones\OriginPremier.vb" />
+    <Compile Include="Modulos\Suscripciones\EAPlay.vb" />
+    <Compile Include="Modulos\Suscripciones\EAPlayPro.vb" />
     <Compile Include="Modulos\Suscripciones\PrimeGaming.vb" />
     <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Ofertas\2Game.vb" />

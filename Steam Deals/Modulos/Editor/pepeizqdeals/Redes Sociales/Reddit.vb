@@ -147,69 +147,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         End Function
 
-        'Public Function GenerarTexto(listaFinal As List(Of Oferta))
-
-        '    Dim contenidoEnlaces As String = String.Empty
-
-        '    If listaFinal(0).Tienda.NombreMostrar = "Steam" Or listaFinal(0).Tienda.NombreMostrar = "GOG" Or listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Or listaFinal(0).Tienda.NombreMostrar = "Origin" Or listaFinal(0).Tienda.NombreMostrar = "Blizzard Store" Then
-        '        contenidoEnlaces = contenidoEnlaces + "**Title** | **Discount** | **Price** | **Rating**" + Environment.NewLine
-        '        contenidoEnlaces = contenidoEnlaces + ":--------|:---------:|:---------:|:---------:" + Environment.NewLine
-        '    Else
-        '        contenidoEnlaces = contenidoEnlaces + "**Title** | **DRM** | **Discount** | **Price** | **Rating**" + Environment.NewLine
-        '        contenidoEnlaces = contenidoEnlaces + ":--------|:--------:|:---------:|:---------:|:---------:" + Environment.NewLine
-        '    End If
-
-        '    For Each juego In listaFinal
-        '        Dim drm As String = Nothing
-        '        If Not juego.DRM = Nothing Then
-        '            If juego.DRM.ToLower.Contains("steam") Then
-        '                drm = "Steam"
-        '            ElseIf juego.DRM.ToLower.Contains("uplay") Then
-        '                drm = "Uplay"
-        '            ElseIf juego.DRM.ToLower.Contains("origin") Then
-        '                drm = "Origin"
-        '            ElseIf juego.DRM.ToLower.Contains("gog") Then
-        '                drm = "GOG"
-        '            ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-        '                drm = "Bethesda"
-        '            ElseIf juego.DRM.ToLower.Contains("epic") Then
-        '                drm = "Epic Games"
-        '            ElseIf juego.DRM.ToLower.Contains("battlenet") Then
-        '                drm = "Battle.net"
-        '            ElseIf juego.DRM.ToLower.Contains("microsoft") Then
-        '                drm = "Microsoft"
-        '            End If
-        '        End If
-
-        '        Dim analisis As String = Nothing
-
-        '        If Not juego.Analisis Is Nothing Then
-        '            If Not juego.Analisis.Enlace = Nothing Then
-        '                analisis = "[" + juego.Analisis.Porcentaje + "](" + juego.Analisis.Enlace + ")"
-        '            Else
-        '                analisis = juego.Analisis.Porcentaje
-        '            End If
-        '        Else
-        '            analisis = "--"
-        '        End If
-
-        '        Dim linea As String = Nothing
-
-        '        If listaFinal(0).Tienda.NombreMostrar = "Steam" Or listaFinal(0).Tienda.NombreMostrar = "GOG" Or listaFinal(0).Tienda.NombreMostrar = "Microsoft Store" Or listaFinal(0).Tienda.NombreMostrar = "Origin" Or listaFinal(0).Tienda.NombreMostrar = "Blizzard Store" Then
-        '            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace + ") | " + juego.Descuento + " | " + juego.Precio + " | " + analisis
-        '        Else
-        '            linea = linea + "[" + juego.Titulo + "](" + juego.Enlace + ") | " + drm + " | " + juego.Descuento + " | " + juego.Precio + " | " + analisis
-        '        End If
-
-        '        If Not linea = Nothing Then
-        '            contenidoEnlaces = contenidoEnlaces + linea + Environment.NewLine
-        '        End If
-        '    Next
-
-        '    Return contenidoEnlaces
-
-        'End Function
-
         Public Function LimpiarComentario(comentario As String)
 
             Dim i As Integer = 0

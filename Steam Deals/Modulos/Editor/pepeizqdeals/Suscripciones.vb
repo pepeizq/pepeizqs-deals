@@ -109,7 +109,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
-
                 cosas.Enlace = "https://www.humblebundle.com/subscription"
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
@@ -164,9 +163,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = Tiendas.originT
                 cosas.Titulo = "EA Play • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
+                cosas.Enlace = "https://www.origin.com/store/ea-play"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginBasic.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlay.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlay.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
@@ -179,9 +179,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Tienda = Tiendas.originT
                 cosas.Titulo = "EA Play Pro • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
+                cosas.Enlace = "https://www.origin.com/store/ea-play"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.OriginPremier.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlayPro.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlayPro.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
@@ -271,7 +272,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
-                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, Nothing, Nothing)
+                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing)
 
             BloquearControles(True)
 

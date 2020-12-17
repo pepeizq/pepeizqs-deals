@@ -119,12 +119,16 @@ Namespace pepeizq.Suscripciones
 
                                 Dim datos As SteamAPIJson = Await BuscarAPIJson(id)
 
-                                If Not datos.Datos.Videos Is Nothing Then
-                                    video = datos.Datos.Videos(0).Calidad.Max
+                                If Not datos Is Nothing Then
+                                    If Not datos.Datos Is Nothing Then
+                                        If Not datos.Datos.Videos Is Nothing Then
+                                            video = datos.Datos.Videos(0).Calidad.Max
 
-                                    If video.Contains("?") Then
-                                        Dim int4 As Integer = video.IndexOf("?")
-                                        video = video.Remove(int4, video.Length - int4)
+                                            If video.Contains("?") Then
+                                                Dim int4 As Integer = video.IndexOf("?")
+                                                video = video.Remove(int4, video.Length - int4)
+                                            End If
+                                        End If
                                     End If
                                 End If
 

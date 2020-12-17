@@ -4,7 +4,7 @@ Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Steam_Deals.pepeizq.Ofertas
 
 Namespace pepeizq.Suscripciones
-    Module OriginBasic
+    Module EAPlay
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaIDs As New List(Of String)
@@ -69,7 +69,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaOriginBasicSuscripcion", listaIDs)
 
-            Html.Generar("Origin Access Basic", "https://www.origin.com/store/origin-access", "https://i.imgur.com/ja5lcme.png", listaJuegos, True)
+            Html.Generar("EA Play", "https://www.origin.com/store/ea-play", "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png", listaJuegos, True)
 
             BloquearControles(True)
 

@@ -126,6 +126,15 @@
             contenido = contenido + "," + ChrW(34) + "games" + ChrW(34) + ":["
 
             For Each juego In listaJuegos
+                Dim titulo As String = juego.Titulo
+                titulo = titulo.Replace(ChrW(34), Nothing)
+
+                Dim imagen As String = juego.Imagenes.Grande
+
+                If imagen = String.Empty Then
+                    imagen = juego.Imagenes.Pequeña
+                End If
+
                 Dim drm As String = juego.DRM
 
                 If drm = String.Empty Then
@@ -144,8 +153,8 @@
                     analisisEnlace = juego.Analisis.Enlace
                 End If
 
-                contenido = contenido + "{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + juego.Titulo + ChrW(34) + "," +
-                                              ChrW(34) + "image" + ChrW(34) + ":" + ChrW(34) + juego.Imagenes.Grande + ChrW(34) + "," +
+                contenido = contenido + "{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + titulo + ChrW(34) + "," +
+                                              ChrW(34) + "image" + ChrW(34) + ":" + ChrW(34) + imagen + ChrW(34) + "," +
                                               ChrW(34) + "dscnt" + ChrW(34) + ":" + ChrW(34) + juego.Descuento + ChrW(34) + "," +
                                               ChrW(34) + "price" + ChrW(34) + ":" + ChrW(34) + juego.Precio + ChrW(34) + "," +
                                               ChrW(34) + "link" + ChrW(34) + ":" + ChrW(34) + juego.Enlace + ChrW(34) + "," +
@@ -177,12 +186,15 @@
                         enlace = imagenes.Remove(int, imagenes.Length - int)
 
                         imagenes = imagenes.Remove(0, int + 1)
+
+                        enlace = enlace.Trim
+                        listaImagenes.Add(enlace)
                     Else
                         enlace = imagenes
+                        enlace = enlace.Trim
+                        listaImagenes.Add(enlace)
+                        Exit While
                     End If
-
-                    enlace = enlace.Trim
-                    listaImagenes.Add(enlace)
                 End If
                 i += 1
             End While
@@ -236,12 +248,15 @@
                         enlace = imagenes.Remove(int, imagenes.Length - int)
 
                         imagenes = imagenes.Remove(0, int + 1)
+
+                        enlace = enlace.Trim
+                        listaImagenes.Add(enlace)
                     Else
                         enlace = imagenes
+                        enlace = enlace.Trim
+                        listaImagenes.Add(enlace)
+                        Exit While
                     End If
-
-                    enlace = enlace.Trim
-                    listaImagenes.Add(enlace)
                 End If
                 i += 1
             End While
