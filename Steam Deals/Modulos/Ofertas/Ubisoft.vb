@@ -9,7 +9,7 @@ Namespace pepeizq.Ofertas
 
             Dim listaJuegos As New List(Of Oferta)
             Dim listaAnalisis As New List(Of OfertaAnalisis)
-            Dim cuponPorcentaje As String = "0,2"
+            Dim cuponPorcentaje As String = "0,21"
 
             Dim helper As New LocalObjectStorageHelper
 

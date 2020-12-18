@@ -268,7 +268,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim json As String = String.Empty
 
             If tbImagenesGrid.Text.Length > 0 Then
-                json = DealsFormato.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim)
+                json = DealsFormato.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim.Replace("header", "library_600x900"))
             End If
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
