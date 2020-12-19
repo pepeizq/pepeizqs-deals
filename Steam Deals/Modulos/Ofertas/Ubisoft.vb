@@ -66,7 +66,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 
-                                Dim enlace As String = juegoUbi.Enlace
+                                Dim enlace As String = "https://store.ubi.com/es/game?pid=" + juegoUbi.ID
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
