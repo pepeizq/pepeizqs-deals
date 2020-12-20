@@ -21,11 +21,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         End Function
 
-        Public Async Function Enviar(titulo As String, enlace As String, imagen As String) As Task
+        Public Async Function Enviar(titulo As String, enlace As String, imagen As String, dia As String) As Task
 
             Dim cliente As FirebaseClient = Conectar()
 
-            Dim mensaje As New MensajePush(titulo + "••" + enlace + "••" + imagen)
+            Dim mensaje As New MensajePush(titulo + "••" + enlace + "••" + imagen + "••" + dia)
 
             Await cliente.PushAsync(Of MensajePush)("mensajes/", mensaje)
 
@@ -129,7 +129,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                                                                                     End Try
 
                                                                                                                                                                                                     If primeraVez = False Then
-                                                                                                                                                                                                        Dim temp5, temp6, temp7 As String
+                                                                                                                                                                                                        Dim temp5, temp7 As String
                                                                                                                                                                                                         Dim int5, int6, int7 As Integer
 
                                                                                                                                                                                                         int5 = args.Data.IndexOf("••")
@@ -137,16 +137,25 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                                                                                                         Dim titulo As String = temp5.Trim
 
-                                                                                                                                                                                                        temp6 = args.Data.Remove(0, int5 + 2)
-                                                                                                                                                                                                        int6 = temp6.IndexOf("••")
-                                                                                                                                                                                                        temp6 = temp6.Remove(int6, temp6.Length - int6)
+                                                                                                                                                                                                        int5 = args.Data.IndexOf("••")
+                                                                                                                                                                                                        int6 = args.Data.IndexOf("••", int5 + 2)
+                                                                                                                                                                                                        temp5 = args.Data.Remove(int6, args.Data.Length - int6)
+                                                                                                                                                                                                        temp5 = temp5.Remove(0, int5 + 2)
 
-                                                                                                                                                                                                        Dim enlace As String = temp6.Trim
+                                                                                                                                                                                                        Dim enlace As String = temp5.Trim
+
+                                                                                                                                                                                                        int5 = args.Data.IndexOf("••", int6 + 2)
+                                                                                                                                                                                                        int6 = args.Data.LastIndexOf("••")
+                                                                                                                                                                                                        temp5 = args.Data.Remove(int6, args.Data.Length - int6)
+                                                                                                                                                                                                        int5 = temp5.LastIndexOf("••")
+                                                                                                                                                                                                        temp5 = temp5.Remove(0, int5 + 2)
+
+                                                                                                                                                                                                        Dim imagen As String = temp5.Trim
 
                                                                                                                                                                                                         int7 = args.Data.LastIndexOf("••")
                                                                                                                                                                                                         temp7 = args.Data.Remove(0, int7 + 2)
 
-                                                                                                                                                                                                        Dim imagen As String = temp7.Trim
+                                                                                                                                                                                                        Dim dia As String = temp7.Trim
 
                                                                                                                                                                                                         Notificaciones.ToastOferta(titulo, enlace, imagen)
                                                                                                                                                                                                     End If

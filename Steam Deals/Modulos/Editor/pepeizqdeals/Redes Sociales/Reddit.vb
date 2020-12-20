@@ -107,7 +107,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       End Try
 
                                                                                                                       Try
-                                                                                                                          If subreddit = "/r/steamdeals" Then
+                                                                                                                          If subreddit = "/r/steamdeals" Or subreddit = "/r/GameDeals" Then
+                                                                                                                              enlaceFinal = enlaceFinal + "?reddit=" + Date.Today.Year.ToString + "-" + Date.Today.Month.ToString + "-" + Date.Today.Day.ToString
+
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subreddit)
 
                                                                                                                               If modo = 0 Then
@@ -125,7 +127,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                   tituloFinal = tituloFinal.Remove(int, 3)
                                                                                                                                   tituloFinal = tituloFinal.Insert(int, " off • ")
 
-                                                                                                                                  int = tituloFinal.LastIndexOf(" • ")
+                                                                                                                                  int = tituloFinal.IndexOf(" • ")
                                                                                                                                   tituloFinal = tituloFinal.Remove(int, 3)
                                                                                                                                   tituloFinal = tituloFinal.Insert(int, " (")
 

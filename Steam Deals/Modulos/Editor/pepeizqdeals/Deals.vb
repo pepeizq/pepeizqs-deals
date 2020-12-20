@@ -422,7 +422,18 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
             Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+
             Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
+            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+
+            Dim mensaje As String = String.Empty
+
+            If tbMensaje.Text.Trim.Length = 0 Then
+                mensaje = tbComentario.Text.Trim
+            Else
+                mensaje = tbMensaje.Text.Trim
+            End If
+
             Dim boton As Button = sender
 
             Dim cosas As Clases.Deals = boton.Tag
@@ -461,14 +472,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not cosas.ListaJuegosTotal Is Nothing Then
                 If cosas.ListaJuegosTotal.Count = 1 Then
-                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
+                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
                 ElseIf cosas.ListaJuegosTotal.Count > 1 Then
-                    html = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
-                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosSeleccionados, tbComentario.Text, cosas.Tienda)
-                    jsonExpandido = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
+                    html = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
+                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosSeleccionados, mensaje, cosas.Tienda)
+                    jsonExpandido = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
                 End If
             End If
-
 
             Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, categoria, listaEtiquetas, cosas.Tienda,
                                redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, html, json, jsonExpandido)

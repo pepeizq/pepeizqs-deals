@@ -155,7 +155,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End Try
 
                     Try
-                        Await Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
+                        Await Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim, Date.Today.DayOfYear)
                     Catch ex As Exception
                         Notificaciones.Toast("Push Error Post", Nothing)
                     End Try
@@ -165,10 +165,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not redireccion = Nothing Then
                         If Not tienda Is Nothing Then
                             If categoria = 3 And tienda.NombreMostrar = "Steam" Then
-                                Dim enlaceTemp As String = redireccion + "?reddit=" + Date.Today.Year.ToString + Date.Today.DayOfYear.ToString
-
                                 Try
-                                    Await Reddit.Enviar(titulo, enlaceTemp, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
+                                    Await Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
                                 Catch ex As Exception
                                     Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                 End Try
