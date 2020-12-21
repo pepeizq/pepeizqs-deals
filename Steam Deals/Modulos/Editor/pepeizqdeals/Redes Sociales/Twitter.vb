@@ -150,6 +150,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• WinGameStore", "• @wingamestore")
             End If
 
+            If titulo.Contains("Prime Gaming •") Then
+                titulo = titulo.Replace("Prime Gaming •", "Amazon @primegaming •")
+            End If
+
             '--------------------------------------------------
 
             Dim tag As String = String.Empty

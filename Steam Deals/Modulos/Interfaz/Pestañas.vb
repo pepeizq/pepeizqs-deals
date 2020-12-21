@@ -1,4 +1,6 @@
-﻿Namespace pepeizq.Interfaz
+﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
+
+Namespace pepeizq.Interfaz
     Module Pestañas
 
         Public Sub CargarListadoOfertas(lv As ListView)
@@ -123,6 +125,12 @@
             svRss.Visibility = Visibility.Collapsed
 
             sv.Visibility = Visibility.Visible
+
+            '---------------------------------------
+
+            If sv.Name = "svEditorpepeizqdealsRss" Then
+                RSS.Generar()
+            End If
 
         End Sub
 

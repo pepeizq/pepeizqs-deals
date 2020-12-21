@@ -10,12 +10,16 @@ Namespace pepeizq.Ofertas
             Dim listaJuegos As New List(Of Oferta)
             Dim listaAnalisis As New List(Of OfertaAnalisis)
             Dim libra As String = String.Empty
+            Dim dolar As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
             libra = tbLibra.Text
+
+            Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
+            dolar = tbDolar.Text
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -42,6 +46,10 @@ Namespace pepeizq.Ofertas
             Dim htmlDE As String = await HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamDE As New StringReader(htmlDE)
             Dim listaJuegosDE As GamesPlanetJuegos = xml.Deserialize(streamDE)
+
+            Dim htmlUS As String = Await HttpClient(New Uri("https://us.gamesplanet.com/api/v1/products/feed.xml"))
+            Dim streamUS As New StringReader(htmlUS)
+            Dim listaJuegosUS As GamesPlanetJuegos = xml.Deserialize(streamUS)
 
             If Not listaJuegosUK Is Nothing Then
                 If listaJuegosUK.Juegos.Count > 0 Then
@@ -93,6 +101,20 @@ Namespace pepeizq.Ofertas
                             End If
                         Next
 
+                        Dim enlaceUS As String = String.Empty
+                        Dim precioUS As String = String.Empty
+                        For Each juegoUS In listaJuegosUS.Juegos
+                            If juegoUS.ID = juegoUK.ID Then
+                                enlaceUS = juegoUS.Enlace
+
+                                precioUS = juegoUS.PrecioDescontado
+                                If Not precioUS.Contains(".") Then
+                                    precioUS = precioUS + ".00"
+                                End If
+                                precioUS = Divisas.CambioMoneda(precioUS, dolar)
+                            End If
+                        Next
+
                         Dim imagenPequeña As String = juegoUK.ImagenPequeña
                         Dim imagenGrande As String = juegoUK.ImagenGrande
                         Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
@@ -111,56 +133,72 @@ Namespace pepeizq.Ofertas
                         precio = precio.Replace(",", ".")
                         precioFR = precioFR.Replace(",", ".")
                         precioDE = precioDE.Replace(",", ".")
+                        precioUS = precioUS.Replace(",", ".")
 
-                        Dim dprecioUK As Double = 1000000
+                        Dim dprecioUK As New GamesPlanetMoneda
 
                         If Not precio = Nothing Then
-                            dprecioUK = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                            dprecioUK.Precio = 1000000
+                            dprecioUK.Pais = "uk"
+
+                            dprecioUK.Precio = Double.Parse(precio.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                         End If
 
-                        Dim dprecioFR As Double = 1000000
+                        Dim dprecioFR As New GamesPlanetMoneda
 
                         If Not precioFR = Nothing Then
-                            dprecioFR = Double.Parse(precioFR.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                            dprecioFR.Precio = 1000000
+                            dprecioFR.Pais = "fr"
+
+                            dprecioFR.Precio = Double.Parse(precioFR.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                         End If
 
-                        Dim dprecioDE As Double = 1000000
+                        Dim dprecioDE As New GamesPlanetMoneda
 
                         If Not precioDE = Nothing Then
-                            dprecioDE = Double.Parse(precioDE.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                            dprecioDE.Precio = 1000000
+                            dprecioDE.Pais = "de"
+
+                            dprecioDE.Precio = Double.Parse(precioDE.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                         End If
 
-                        If dprecioUK < dprecioFR And dprecioUK < dprecioDE Then
+                        Dim dprecioUS As New GamesPlanetMoneda
+
+                        If Not precioUS = Nothing Then
+                            dprecioUS.Precio = 1000000
+                            dprecioUS.Pais = "us"
+
+                            dprecioUS.Precio = Double.Parse(precioUS.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
+                        End If
+
+                        Dim dprecioFinal As New GamesPlanetMoneda
+
+                        If dprecioUK.Precio < dprecioDE.Precio Then
+                            dprecioFinal = dprecioUK
+                        Else
+                            dprecioFinal = dprecioDE
+                        End If
+
+                        If dprecioFinal.Precio > dprecioFR.Precio Then
+                            dprecioFinal = dprecioFR
+                        End If
+
+                        If dprecioFinal.Precio > dprecioUS.Precio Then
+                            dprecioFinal = dprecioUS
+                        End If
+
+                        If dprecioFinal.Pais = "uk" Then
                             precio = precio
                             enlace = enlace
-                        Else
-                            If dprecioDE < dprecioFR Then
-                                precio = precioDE
-                                enlace = enlaceDE
-                            Else
-                                precio = precioFR
-                                enlace = enlaceFR
-                            End If
-
-                            If precioFR = Nothing Then
-                                If dprecioDE < dprecioUK Then
-                                    precio = precioDE
-                                    enlace = enlaceDE
-                                Else
-                                    precio = precio
-                                    enlace = enlace
-                                End If
-                            End If
-
-                            If precioDE = Nothing Then
-                                If dprecioFR < dprecioUK Then
-                                    precio = precioFR
-                                    enlace = enlaceFR
-                                Else
-                                    precio = precio
-                                    enlace = enlace
-                                End If
-                            End If
+                        ElseIf dprecioFinal.Pais = "fr" Then
+                            precio = precioFR
+                            enlace = enlaceFR
+                        ElseIf dprecioFinal.Pais = "de" Then
+                            precio = precioDE
+                            enlace = enlaceDE
+                        ElseIf dprecioFinal.Pais = "us" Then
+                            precio = precioUS
+                            enlace = enlaceUS
                         End If
 
                         Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
@@ -252,6 +290,14 @@ Namespace pepeizq.Ofertas
 
         <XmlElement("linux")>
         Public Linux As Boolean
+
+    End Class
+
+    Public Class GamesPlanetMoneda
+
+        Public Precio As Double
+
+        Public Pais As String
 
     End Class
 End Namespace

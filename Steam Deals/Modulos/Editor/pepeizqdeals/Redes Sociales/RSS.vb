@@ -1,7 +1,5 @@
 ﻿Imports System.Net
-Imports Discord
 Imports Newtonsoft.Json
-Imports Windows.Storage
 Imports Windows.UI.Core
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
@@ -11,6 +9,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
+
+            Dim botonActualizar As Button = pagina.FindName("botonEditorpepeizqdealsGenerarRSS")
+            botonActualizar.IsEnabled = False
 
             Dim lv As ListView = pagina.FindName("lvEditorpepeizqdealsRSS")
             lv.Items.Clear()
@@ -107,6 +108,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 lv.Items.Add(sp)
             Next
+
+            botonActualizar.IsEnabled = True
+
         End Sub
 
         Private Async Sub Twitter(sender As Object, e As RoutedEventArgs)

@@ -1103,7 +1103,7 @@
                                     </Button.Content>
                                 </Button>
 
-                                <ListView x:Name="lvEditorpepeizqdealsRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}"/>
+                                <ListView x:Name="lvEditorpepeizqdealsRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}" Margin="0,30,0,0"/>
                             </StackPanel>
                         </ScrollViewer>
 
