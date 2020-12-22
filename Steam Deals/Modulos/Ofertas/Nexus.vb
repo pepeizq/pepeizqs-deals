@@ -26,78 +26,67 @@ Namespace pepeizq.Ofertas
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            Dim html As String = Await HttpClient(New Uri("https://store.nexus.gg/creator/url/pepeizq"))
+            Dim html As String = Await HttpClient(New Uri("https://store.nexus.gg/product/list/372?onlyActive="))
 
             If Not html = Nothing Then
-                Dim juegosNexus As NexusJuegos = JsonConvert.DeserializeObject(Of NexusJuegos)(html)
+                Dim juegosNexus As List(Of NexusJuego) = JsonConvert.DeserializeObject(Of List(Of NexusJuego))(html)
 
                 If Not juegosNexus Is Nothing Then
-                    If Not juegosNexus.Juegos Is Nothing Then
-                        If juegosNexus.Juegos.Count > 0 Then
-                            For Each juegoNexus In juegosNexus.Juegos
-                                Dim titulo As String = juegoNexus.Datos.Titulo.Trim
-                                titulo = WebUtility.HtmlDecode(titulo)
-                                titulo = titulo.Replace("- NA/AUS", Nothing)
-                                titulo = titulo.Replace("- NA/ROW", Nothing)
-                                titulo = titulo.Replace("- ROW", Nothing)
+                    If juegosNexus.Count > 0 Then
+                        For Each juegoNexus In juegosNexus
+                            Dim titulo As String = juegoNexus.Datos.Titulo.Trim
+                            titulo = WebUtility.HtmlDecode(titulo)
+                            titulo = titulo.Replace("- NA/AUS", Nothing)
+                            titulo = titulo.Replace("- NA/ROW", Nothing)
+                            titulo = titulo.Replace("- ROW", Nothing)
 
-                                Dim enlace As String = "https://www.nexus.gg/pepeizq/" + juegoNexus.Enlace
+                            Dim enlace As String = "https://www.nexus.gg/pepeizq/" + juegoNexus.Enlace
 
-                                Dim precioBase As String = juegoNexus.Datos.PrecioBase
+                            Dim precioBase As String = juegoNexus.Datos.PrecioBase
 
-                                Dim precioRebajado As String = juegoNexus.Datos.PrecioRebajado
+                            Dim precioRebajado As String = juegoNexus.Datos.PrecioRebajado
 
-                                If Not precioRebajado = Nothing Then
-                                    Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                            If Not precioRebajado = Nothing Then
+                                Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                                    Dim imagen As String = "https://cdn.nexus.gg/assets/vidya/" + juegoNexus.Datos.HashImagen + "/images/game-banner.jpg"
+                                Dim imagen As String = "https://cdn.nexus.gg/assets/vidya/" + juegoNexus.Datos.HashImagen + "/images/game-banner.jpg"
 
-                                    Dim imagenes As New OfertaImagenes(imagen, Nothing)
+                                Dim imagenes As New OfertaImagenes(imagen, Nothing)
 
-                                    Dim drm As String = "steam"
+                                Dim drm As String = "steam"
 
-                                    Dim idSteam As String = juegoNexus.Datos.SteamEnlace
+                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    idSteam = idSteam.Replace("https://store.steampowered.com/app/", Nothing)
+                                Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {juegoNexus.Datos.Desarrollador}, Nothing)
 
-                                    If idSteam.Contains("/") Then
-                                        Dim int As Integer = idSteam.IndexOf("/")
-                                        idSteam = idSteam.Remove(int, idSteam.Length - int)
-                                    End If
+                                precioRebajado = CambioMoneda(precioRebajado, dolar)
 
-                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, idSteam)
+                                Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrollador)
 
-                                    Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {juegoNexus.Datos.Desarrollador}, Nothing)
-
-                                    precioRebajado = CambioMoneda(precioRebajado, dolar)
-
-                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, desarrollador)
-
-                                    Dim añadir As Boolean = True
-                                    Dim k As Integer = 0
-                                    While k < listaJuegos.Count
-                                        If listaJuegos(k).Enlace = juego.Enlace Then
-                                            añadir = False
-                                        End If
-                                        k += 1
-                                    End While
-
-                                    If juego.Descuento = Nothing Then
+                                Dim añadir As Boolean = True
+                                Dim k As Integer = 0
+                                While k < listaJuegos.Count
+                                    If listaJuegos(k).Enlace = juego.Enlace Then
                                         añadir = False
-                                    Else
-                                        If juego.Descuento = "00%" Then
-                                            añadir = False
-                                        End If
                                     End If
+                                    k += 1
+                                End While
 
-                                    If añadir = True Then
-                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
-
-                                        listaJuegos.Add(juego)
+                                If juego.Descuento = Nothing Then
+                                    añadir = False
+                                Else
+                                    If juego.Descuento = "00%" Then
+                                        añadir = False
                                     End If
                                 End If
-                            Next
-                        End If
+
+                                If añadir = True Then
+                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
+                                    listaJuegos.Add(juego)
+                                End If
+                            End If
+                        Next
                     End If
                 End If
             End If
@@ -136,9 +125,6 @@ Namespace pepeizq.Ofertas
 
         <JsonProperty("hash")>
         Public HashImagen As String
-
-        <JsonProperty("url")>
-        Public SteamEnlace As String
 
         <JsonProperty("normalPrice")>
         Public PrecioBase As String
