@@ -877,7 +877,7 @@ Module Tiendas
 
         pepeizq.Interfaz.Pestañas.Botones(False)
 
-        Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+        'Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
         Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
         Await pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
         Await pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
