@@ -20,19 +20,34 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim posts As List(Of Clases.Post) = JsonConvert.DeserializeObject(Of List(Of Clases.Post))(html)
 
             For Each post In posts
-                Dim sp As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(5, 5, 5, 5)
+                Dim grid As New Grid With {
+                    .Padding = New Thickness(10, 10, 10, 10)
                 }
+
+                Dim col1 As New ColumnDefinition
+                Dim col2 As New ColumnDefinition
+
+                col1.Width = New GridLength(1, GridUnitType.Star)
+                col2.Width = New GridLength(1, GridUnitType.Auto)
+
+                grid.ColumnDefinitions.Add(col1)
+                grid.ColumnDefinitions.Add(col2)
 
                 Dim titulo As String = WebUtility.HtmlDecode(post.Titulo.Rendered)
 
                 Dim tbTitulo As New TextBlock With {
                     .Text = titulo,
-                    .VerticalAlignment = VerticalAlignment.Center
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .TextWrapping = TextWrapping.Wrap
                 }
 
-                sp.Children.Add(tbTitulo)
+                tbTitulo.SetValue(Grid.ColumnProperty, 0)
+                grid.Children.Add(tbTitulo)
+
+                Dim spBotones As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Margin = New Thickness(0, 0, 20, 0)
+                }
 
                 Dim botonTwitter As New Button With {
                     .Tag = post,
@@ -44,7 +59,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonTwitter.PointerEntered, AddressOf UsuarioEntraBoton
                 AddHandler botonTwitter.PointerExited, AddressOf UsuarioSaleBoton
 
-                sp.Children.Add(botonTwitter)
+                spBotones.Children.Add(botonTwitter)
 
                 Dim botonSteam As New Button With {
                     .Tag = post,
@@ -56,7 +71,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonSteam.PointerEntered, AddressOf UsuarioEntraBoton
                 AddHandler botonSteam.PointerExited, AddressOf UsuarioSaleBoton
 
-                sp.Children.Add(botonSteam)
+                spBotones.Children.Add(botonSteam)
 
                 Dim botonReddit As New Button With {
                     .Tag = post,
@@ -68,7 +83,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonReddit.PointerEntered, AddressOf UsuarioEntraBoton
                 AddHandler botonReddit.PointerExited, AddressOf UsuarioSaleBoton
 
-                sp.Children.Add(botonReddit)
+                spBotones.Children.Add(botonReddit)
 
                 Dim botonReddit2 As New Button With {
                     .Tag = post,
@@ -80,7 +95,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonReddit2.PointerEntered, AddressOf UsuarioEntraBoton
                 AddHandler botonReddit2.PointerExited, AddressOf UsuarioSaleBoton
 
-                sp.Children.Add(botonReddit2)
+                spBotones.Children.Add(botonReddit2)
 
                 Dim botonDiscord As New Button With {
                     .Tag = post,
@@ -92,7 +107,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonDiscord.PointerEntered, AddressOf UsuarioEntraBoton
                 AddHandler botonDiscord.PointerExited, AddressOf UsuarioSaleBoton
 
-                sp.Children.Add(botonDiscord)
+                spBotones.Children.Add(botonDiscord)
 
                 Dim botonPush As New Button With {
                     .Tag = post,
@@ -104,9 +119,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonPush.PointerEntered, AddressOf UsuarioEntraBoton
                 AddHandler botonPush.PointerExited, AddressOf UsuarioSaleBoton
 
-                sp.Children.Add(botonPush)
+                spBotones.Children.Add(botonPush)
 
-                lv.Items.Add(sp)
+                spBotones.SetValue(Grid.ColumnProperty, 1)
+                grid.Children.Add(spBotones)
+
+                lv.Items.Add(grid)
             Next
 
             botonActualizar.IsEnabled = True
