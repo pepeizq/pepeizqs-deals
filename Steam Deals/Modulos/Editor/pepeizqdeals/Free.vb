@@ -121,6 +121,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 ElseIf enlace.Contains("https://www.epicgames.com/store/") Then
                     cosas = Await EpicGames.Generar(enlace)
 
+                    enlace = enlace.Replace("/en-US/", "/")
+                    enlace = enlace.Replace("/es-ES/", "/")
+
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
                             tbImagenTienda.Text = tienda.LogoWebServidorEnlace300x80
@@ -157,6 +160,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     botonSubir.Tag = cosas
                 End If
+
+                tbEnlace.Text = enlace.Trim
             End If
 
             BloquearControles(True)
