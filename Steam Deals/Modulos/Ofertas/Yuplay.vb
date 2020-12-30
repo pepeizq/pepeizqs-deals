@@ -296,7 +296,6 @@ Namespace pepeizq.Ofertas
                                                             End If
 
                                                             If añadir2 = True Then
-                                                                Notificaciones.Toast(titulo, "Buscar en SteamDB")
                                                                 Dim buscar As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
                                                                 listaBuscar.Add(buscar)
                                                             End If
@@ -421,6 +420,15 @@ Namespace pepeizq.Ofertas
                 i += 1
             End While
 
+            If listaBuscar.Count > 0 Then
+                Dim wv As WebView = pagina.FindName("wvYuplay")
+
+                RemoveHandler wv.NavigationCompleted, AddressOf WvBuscar
+                AddHandler wv.NavigationCompleted, AddressOf WvBuscar
+
+                wv.Navigate(New Uri("https://steamdb.info/sub/" + listaBuscar(0).IDSteam + "/info/"))
+            End If
+
             spProgreso.Visibility = Visibility.Collapsed
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
@@ -432,6 +440,63 @@ Namespace pepeizq.Ofertas
             Ordenar.Ofertas(tienda, True, False)
 
         End Function
+
+        Private Async Sub WvBuscar(sender As Object, e As WebViewNavigationCompletedEventArgs)
+
+            Dim listaBloqueo As New List(Of YuplayBloqueo)
+            Dim listaBuscar As New List(Of YuplayBloqueo)
+
+            Dim helper As New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaBloqueoYuplay2") Then
+                listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay2")
+            Else
+                listaBloqueo = New List(Of YuplayBloqueo)
+            End If
+
+            If Await helper.FileExistsAsync("listaBuscarYuplay") Then
+                listaBuscar = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay")
+            Else
+                listaBuscar = New List(Of YuplayBloqueo)
+            End If
+
+            If listaBuscar.Count > 0 Then
+                Dim wv As WebView = sender
+                Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
+
+                Dim i As Integer = 0
+                For Each busca In listaBuscar
+                    If wv.Source.AbsoluteUri.Contains("/" + busca.IDSteam + "/") Then
+                        Dim bloqueo As New YuplayBloqueo(busca.Titulo, busca.Enlace, False, busca.IDSteam)
+
+                        If html.Contains("This package is only purchasable in specified countries") Then
+                            bloqueo.Bloqueo = True
+                        End If
+
+                        If html.Contains("This package can only be run in specified countries") Then
+                            bloqueo.Bloqueo = True
+                        End If
+                        Notificaciones.Toast(busca.Titulo, bloqueo.Bloqueo)
+                        listaBloqueo.Add(bloqueo)
+                        Exit For
+                    End If
+                    i += 1
+                Next
+                listaBuscar.RemoveAt(i)
+
+                Try
+                    Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay2", listaBloqueo)
+                    Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay", listaBuscar)
+                Catch ex As Exception
+
+                End Try
+
+                If listaBuscar.Count > 0 Then
+                    wv.Navigate(New Uri("https://steamdb.info/sub/" + listaBuscar(0).IDSteam + "/info/"))
+                End If
+            End If
+
+        End Sub
 
     End Module
 

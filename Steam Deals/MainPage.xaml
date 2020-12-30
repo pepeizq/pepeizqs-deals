@@ -1116,5 +1116,7 @@
                 </Grid>
             </Grid>
         </NavigationView>
+
+        <WebView x:Name="wvYuplay" Visibility="Collapsed"/>
     </Grid>
 </Page>
