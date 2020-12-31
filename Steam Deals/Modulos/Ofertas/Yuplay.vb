@@ -448,8 +448,8 @@ Namespace pepeizq.Ofertas
 
             Dim helper As New LocalObjectStorageHelper
 
-            If Await helper.FileExistsAsync("listaBloqueoYuplay2") Then
-                listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay2")
+            If Await helper.FileExistsAsync("listaBloqueoYuplay") Then
+                listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay")
             Else
                 listaBloqueo = New List(Of YuplayBloqueo)
             End If
@@ -485,7 +485,7 @@ Namespace pepeizq.Ofertas
                 listaBuscar.RemoveAt(i)
 
                 Try
-                    Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay2", listaBloqueo)
+                    Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
                     Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay", listaBuscar)
                 Catch ex As Exception
 
