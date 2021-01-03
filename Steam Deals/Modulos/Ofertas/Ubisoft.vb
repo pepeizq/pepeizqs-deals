@@ -5,6 +5,8 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module Ubisoft
 
+        'https://store.ubi.com/s/es_ubisoft/dw/shop/v19_8/products/591567f6ca1a6460388b456a?expand=images,prices,availability,variations,promotions&client_id=2a3b13e8-a80b-4795-853a-4cd52645919b
+
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
