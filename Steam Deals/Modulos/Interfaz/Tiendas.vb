@@ -989,7 +989,8 @@ Module Tiendas
                         .Stretch = Stretch.Uniform,
                         .IsCacheEnabled = True,
                         .MaxHeight = 160,
-                        .MaxWidth = 200
+                        .MaxWidth = 200,
+                        .EnableLazyLoading = True
                     }
 
                     Try
