@@ -162,6 +162,12 @@ Namespace pepeizq.Ofertas
                             dprecioDE.Precio = Double.Parse(precioDE.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                         End If
 
+                        If drm = "origin" Then
+                            precioUS = Nothing
+                        ElseIf drm = "bethesdanet" Then
+                            precioUS = Nothing
+                        End If
+
                         Dim dprecioUS As New GamesPlanetMoneda
 
                         If Not precioUS = Nothing Then
