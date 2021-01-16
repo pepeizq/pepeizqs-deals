@@ -51,10 +51,15 @@ Namespace pepeizq.Ofertas
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
             html = "[" + html + "]"
-            html = html.Replace("{" + ChrW(34) + "features", ",{" + ChrW(34) + "features")
+            html = html.Replace("{" + ChrW(34) + "title" + ChrW(34) + ":", ",{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
+            html = html.Replace("[,{" + ChrW(34) + "title" + ChrW(34) + ":", "[{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
 
-            Dim int3 As Integer = html.IndexOf(",")
-            html = html.Remove(int3, 1)
+            html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
+            html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":")
+
+            Dim datos As New DataTransfer.DataPackage
+            datos.SetText(html)
+            DataTransfer.Clipboard.SetContent(datos)
 
             Dim juegosFanatical As List(Of FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of FanaticalJuego))(html)
 

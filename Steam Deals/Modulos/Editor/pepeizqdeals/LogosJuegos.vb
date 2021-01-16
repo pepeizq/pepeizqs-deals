@@ -96,7 +96,7 @@
                 New Clases.LogosJuegos("DiRT", "Assets\LogosJuegos\dirt.png", 210),
                 New Clases.LogosJuegos("Deus EX", "Assets\LogosJuegos\deusex.png", 280),
                 New Clases.LogosJuegos("DRAGON BALL", "Assets\LogosJuegos\dragonball.png", 270),
-                New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 250),
+                New Clases.LogosJuegos("Far Cry", "Assets\LogosJuegos\farcry.png", 220),
                 New Clases.LogosJuegos("Forza", "Assets\LogosJuegos\forza.png", 150),
                 New Clases.LogosJuegos("FIFA 19", "Assets\LogosJuegos\fifa19.png", 200),
                 New Clases.LogosJuegos("Hitman", "Assets\LogosJuegos\hitman.png", 290),

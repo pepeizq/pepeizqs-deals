@@ -114,7 +114,7 @@ Namespace pepeizq.Ofertas
                                 Dim temp7, temp8 As String
                                 Dim int7, int8 As Integer
 
-                                int7 = temp4.IndexOf("<a href=")
+                                int7 = temp4.IndexOf("data-id=")
                                 temp7 = temp4.Remove(0, int7)
 
                                 int7 = temp7.IndexOf(ChrW(34))
@@ -123,7 +123,7 @@ Namespace pepeizq.Ofertas
                                 int8 = temp7.IndexOf(ChrW(34))
                                 temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                Dim enlace As String = "https://yuplay.ru" + temp8.Trim
+                                Dim enlace As String = "https://yuplay.ru/product/" + temp8.Trim + "/"
 
                                 Dim temp9, temp10 As String
                                 Dim int9, int10 As Integer
@@ -302,7 +302,7 @@ Namespace pepeizq.Ofertas
                                                         End If
                                                     End If
                                                 Else
-                                                    Notificaciones.Toast(titulo, "No tiene SteamID")
+                                                    'Notificaciones.Toast(titulo, "No tiene SteamID")
                                                     Dim bloqueo As New YuplayBloqueo(titulo, enlace, True, "---")
                                                     listaBloqueo.Add(bloqueo)
                                                 End If
