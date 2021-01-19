@@ -1,4 +1,5 @@
-﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
+﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 
 Namespace pepeizq.Interfaz
     Module Pestañas
@@ -124,12 +125,17 @@ Namespace pepeizq.Interfaz
             Dim svRss As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
             svRss.Visibility = Visibility.Collapsed
 
+            Dim svSteamGifts As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamGifts")
+            svSteamGifts.Visibility = Visibility.Collapsed
+
             sv.Visibility = Visibility.Visible
 
             '---------------------------------------
 
             If sv.Name = "svEditorpepeizqdealsRss" Then
                 RSS.Generar()
+            ElseIf sv.Name = "svEditorpepeizqdealsSteamGifts" Then
+                SteamGifts.Generar()
             End If
 
         End Sub

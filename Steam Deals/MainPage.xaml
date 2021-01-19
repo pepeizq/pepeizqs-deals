@@ -86,6 +86,7 @@
                             <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigCarpetaBBDD" Text="Carpeta BBDD" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigSteamGifts" Text="SteamGifts" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                         </MenuFlyout> 
                     </FlyoutBase.AttachedFlyout>
                 </NavigationViewItem>
@@ -1104,6 +1105,12 @@
                                 </Button>
 
                                 <ListView x:Name="lvEditorpepeizqdealsRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}" Margin="0,30,0,0"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <ScrollViewer x:Name="svEditorpepeizqdealsSteamGifts" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <WebView x:Name="wvSteamGifts" MinWidth="500" MinHeight="1200"/>
                             </StackPanel>
                         </ScrollViewer>
 

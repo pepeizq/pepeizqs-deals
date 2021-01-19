@@ -105,6 +105,10 @@ Module Configuracion
         RemoveHandler itemCarpetaBBDD.Click, AddressOf ConfigAbrirCarpetaBBDD
         AddHandler itemCarpetaBBDD.Click, AddressOf ConfigAbrirCarpetaBBDD
 
+        Dim itemSteamGifts As MenuFlyoutItem = pagina.FindName("menuItemConfigSteamGifts")
+        RemoveHandler itemSteamGifts.Click, AddressOf ConfigAbrirSteamGifts
+        AddHandler itemSteamGifts.Click, AddressOf ConfigAbrirSteamGifts
+
     End Sub
 
     Public Sub UltimaVisitaFiltrar(estado As Boolean)
@@ -245,6 +249,16 @@ Module Configuracion
     Private Async Sub ConfigAbrirCarpetaBBDD(sender As Object, e As RoutedEventArgs)
 
         Await Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder)
+
+    End Sub
+
+    Private Sub ConfigAbrirSteamGifts(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamGifts")
+        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
 
     End Sub
 

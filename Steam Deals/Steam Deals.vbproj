@@ -149,6 +149,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\RSS.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\GrupoSteam.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Referidos.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\SteamGifts.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Suscripciones.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Twitter.vb" />
     <Compile Include="Modulos\Gratis\EpicGames.vb" />
