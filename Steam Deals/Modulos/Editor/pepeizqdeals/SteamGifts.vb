@@ -78,7 +78,7 @@
                 Dim mensaje As String = String.Empty
                 mensaje = mensaje + "If you like the giveaway, I encourage you to visit my website:\n\n"
                 mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
-                mensaje = mensaje + "But the web has no ads, affiliates or collectors to sell your data. It is financed exclusively through this app:\n\n"
+                mensaje = mensaje + "But the web has no ads, affiliates or collectors to sell your data. The web and the giveaways are financed exclusively through this app:\n\n"
                 mensaje = mensaje + "https://pepeizqapps.com/pepeizqs-deals-microsoft-store/"
 
                 Try
@@ -90,7 +90,7 @@
             ElseIf wv.Source.AbsoluteUri = "https://www.steamgifts.com/" Then
                 Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
 
-                If html.Contains(" Sign in through STEAM") Then
+                If html.Contains("Sign in through STEAM") Then
                     wv.Navigate(New Uri("https://www.steamgifts.com/?login"))
                 Else
                     wv.Navigate(New Uri("https://www.steamgifts.com/giveaways/new"))

@@ -88,11 +88,15 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     wv.Navigate(New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate"))
                 End If
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals#announcements" Then
-                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+                VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals#announcements/" Then
-                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+                VolverCrearAnuncio(wv)
+            ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements" Then
+                VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/" Then
-                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+                VolverCrearAnuncio(wv)
+            ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/listing" Then
+                VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate" Then
                 Dim usuarioGuardado As String = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
 
@@ -128,6 +132,24 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
         Private Sub Comprobar3(sender As Object, e As WebViewNavigationFailedEventArgs)
 
             Dim wv As WebView = sender
+            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+
+        End Sub
+
+        Private Async Sub VolverCrearAnuncio(wv As WebView)
+
+            Dim i As Integer = 0
+            While i < 20
+                Try
+                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();"})
+                Catch ex As Exception
+
+                End Try
+
+                i += 2
+            End While
+
+            Await Task.Delay(1000)
             wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
         End Sub
