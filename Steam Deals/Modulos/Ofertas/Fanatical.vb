@@ -57,10 +57,6 @@ Namespace pepeizq.Ofertas
             html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
             html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":")
 
-            Dim datos As New DataTransfer.DataPackage
-            datos.SetText(html)
-            DataTransfer.Clipboard.SetContent(datos)
-
             Dim juegosFanatical As List(Of FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of FanaticalJuego))(html)
 
             For Each juegoFanatical In juegosFanatical

@@ -239,7 +239,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             While i < listaJuegos.Count
                 Dim imagen As String = listaJuegos(i)
 
-                If imagen.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
+                If imagen.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
                     imagen = imagen.Replace("header", "library_600x900")
                 ElseIf imagen.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
                     imagen = imagen.Replace("header", "library_600x900")

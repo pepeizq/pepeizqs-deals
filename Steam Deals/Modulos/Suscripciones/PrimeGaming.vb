@@ -87,13 +87,10 @@ Namespace pepeizq.Suscripciones
 
             Dim titulo As String = String.Empty
 
-            Dim ci As CultureInfo = New CultureInfo("en-US")
-            Dim mes As String = DateTime.Now.ToString("MMMM", ci)
-
             If listaJuegos.Count = 1 Then
                 titulo = "Prime Gaming • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
             Else
-                titulo = "Prime Gaming • " + mes + " • "
+                titulo = "Prime Gaming • New Games Added • "
 
                 Dim tituloJuegos As String = String.Empty
 

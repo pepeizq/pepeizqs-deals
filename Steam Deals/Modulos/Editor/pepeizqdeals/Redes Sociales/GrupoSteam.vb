@@ -97,6 +97,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/listing" Then
                 VolverCrearAnuncio(wv)
+            ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/listing/" Then
+                VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate" Then
                 Dim usuarioGuardado As String = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
 

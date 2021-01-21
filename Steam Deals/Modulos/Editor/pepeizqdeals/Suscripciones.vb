@@ -129,10 +129,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 cosas.Tienda = Tiendas.amazoncomT
                 cosas.Enlace = "https://gaming.amazon.com/"
-
-                Dim ci As CultureInfo = New CultureInfo("en-US")
-                Dim mes As String = DateTime.Now.ToString("MMMM", ci)
-                cosas.Mensaje = mes
+                cosas.Mensaje = "test"
 
                 RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.PrimeGaming.GenerarJuegos
                 AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.PrimeGaming.GenerarJuegos
@@ -301,6 +298,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
             Dim enlaces As String = tbImagenesGrid.Text.Trim
+            Dim listaEnlaces As New List(Of String)
 
             Dim i As Integer = 0
             While i < 100
@@ -318,43 +316,60 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     enlace = enlace.Trim
+                    listaEnlaces.Add(enlace)
+                End If
+                i += 1
+            End While
 
-                    Dim panel As New DropShadowPanel With {
-                        .BlurRadius = 10,
-                        .ShadowOpacity = 0.9,
-                        .Color = Windows.UI.Colors.Black,
-                        .Margin = New Thickness(10, 10, 10, 10),
-                        .HorizontalAlignment = HorizontalAlignment.Stretch,
-                        .VerticalAlignment = VerticalAlignment.Stretch
-                    }
+            For Each enlace In listaEnlaces
+                Dim panel As New DropShadowPanel With {
+                    .BlurRadius = 10,
+                    .ShadowOpacity = 1,
+                    .Color = Windows.UI.Colors.Black,
+                    .Margin = New Thickness(15, 15, 15, 15),
+                    .HorizontalAlignment = HorizontalAlignment.Stretch,
+                    .VerticalAlignment = VerticalAlignment.Stretch
+                }
 
-                    Dim colorFondo2 As New SolidColorBrush With {
-                        .Color = "#2e4460".ToColor
-                    }
+                Dim colorFondo2 As New SolidColorBrush With {
+                    .Color = "#2e4460".ToColor
+                }
 
-                    Dim gridContenido As New Grid With {
-                        .Background = colorFondo2
-                    }
+                Dim gridContenido As New Grid With {
+                    .Background = colorFondo2
+                }
 
-                    If enlace.Contains("steamcdn-a.akamaihd.net/steam/apps/") Then
+                If listaEnlaces.Count > 2 Then
+                    If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
                         enlace = enlace.Replace("header", "library_600x900")
                     ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
                         enlace = enlace.Replace("header", "library_600x900")
                     End If
-
-                    Dim imagenJuego2 As New ImageEx With {
-                        .Stretch = Stretch.Uniform,
-                        .IsCacheEnabled = True,
-                        .Source = enlace,
-                        .MaxHeight = 250
-                    }
-
-                    gridContenido.Children.Add(imagenJuego2)
-                    panel.Content = gridContenido
-                    gv.Items.Add(panel)
                 End If
-                i += 1
-            End While
+
+                Dim imagenJuego2 As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .Source = enlace,
+                    .MaxHeight = 320,
+                    .MaxWidth = 600
+                }
+
+                gridContenido.Children.Add(imagenJuego2)
+                panel.Content = gridContenido
+                gv.Items.Add(panel)
+            Next
+
+            Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
+            Dim mensaje As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+
+            If cbTiendas.SelectedIndex = 2 Then
+                If listaEnlaces.Count = 1 Then
+                    mensaje.Text = "New Game Added"
+                Else
+                    mensaje.Text = "New Games Added"
+                End If
+            End If
 
         End Sub
 

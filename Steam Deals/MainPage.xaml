@@ -373,11 +373,12 @@
 
                                         <Button.Content>
                                             <StackPanel>
-                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuegov2" Width="850" Height="300">
+                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnJuegov2" Width="1300" Height="400">
                                                     <Grid.Background>
                                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                            <GradientStop Color="#2e4460" Offset="0.5" />
-                                                            <GradientStop Color="#1b2838" Offset="1.0" />
+                                                            <GradientStop Color="#2e4460" Offset="0.6"/>
+                                                            <GradientStop Color="#283b53" Offset="0.8"/>
+                                                            <GradientStop Color="#1b2838" Offset="1.0"/>
                                                         </LinearGradientBrush>
                                                     </Grid.Background>
 
@@ -392,26 +393,26 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="15" HorizontalAlignment="Center">
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2" MaxWidth="200" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelMensajeErrorPreciov2" Color="Black" Margin="0,30,0,0" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <Grid Padding="10" Background="IndianRed">
-                                                                    <TextBlock Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="22" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <controls:DropShadowPanel x:Name="panelMensajeErrorPreciov2" Color="Black" Margin="0,30,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                                <Grid Padding="15,10,15,15" Background="IndianRed">
+                                                                    <TextBlock Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="10,30,10,0" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <TextBlock x:Name="tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="20" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <controls:DropShadowPanel x:Name="panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="10,30,10,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                                <TextBlock x:Name="tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="10,30,10,0" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <TextBlock x:Name="tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="20" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="10,30,10,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                                <TextBlock x:Name="tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </controls:DropShadowPanel>
                                                         </StackPanel>
 
-                                                        <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
+                                                        <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40">
                                                             <Grid>
                                                                 <Grid.Background>
                                                                     <SolidColorBrush Color="#2e4460" Opacity="0.8"/>
@@ -438,11 +439,11 @@
                                                                     </StackPanel>
 
                                                                     <Grid x:Name="gridDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Grid.Column="2" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                        <TextBox x:Name="tbDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="30" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                     </Grid>
 
                                                                     <StackPanel Grid.Column="3" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="26" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                        <TextBox x:Name="tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="30" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                     </StackPanel>
                                                                 </Grid>
                                                             </Grid>
@@ -450,11 +451,12 @@
                                                     </Grid>
                                                 </Grid>
 
-                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegosv2" Width="850" Visibility="Collapsed">
+                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosJuegosv2" Width="1300" Visibility="Collapsed">
                                                     <Grid.Background>
                                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                            <GradientStop Color="#2e4460" Offset="0.5" />
-                                                            <GradientStop Color="#1b2838" Offset="1.0" />
+                                                            <GradientStop Color="#2e4460" Offset="0.6"/>
+                                                            <GradientStop Color="#283b53" Offset="0.8"/>
+                                                            <GradientStop Color="#1b2838" Offset="1.0"/>
                                                         </LinearGradientBrush>
                                                     </Grid.Background>
 
@@ -470,23 +472,23 @@
                                                             <ColumnDefinition Width="*"/>
                                                         </Grid.ColumnDefinitions>
 
-                                                        <controls:DropShadowPanel Grid.Column="0" Margin="60,30" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="200" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:DropShadowPanel Grid.Column="0" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="35" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="600"/>
+                                                        <controls:DropShadowPanel x:Name="panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="35" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="60" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </controls:DropShadowPanel>
                                                     </Grid>
 
-                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradav2" Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10"/>
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradav2" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0"/>
 
                                                     <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
-                                                        <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                     </Grid>
                                                 </Grid>
                                             </StackPanel>
@@ -565,11 +567,12 @@
                                         </Button.Resources>
 
                                         <Button.Content>
-                                            <Grid Width="850">
+                                            <Grid Width="1300">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.5" />
-                                                        <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
+                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
@@ -586,24 +589,24 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                                                        <controls:DropShadowPanel x:Name="panelImagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" Margin="60,30" Color="Black" ShadowOpacity="0.9" BlurRadius="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="200" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:DropShadowPanel x:Name="panelImagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
                                                         <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,10">
-                                                            <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="14,8,14,8" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="35" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
                                                     </StackPanel>
 
-                                                    <controls:DropShadowPanel Grid.Column="1" Margin="20,30,20,20" Color="Black" ShadowOpacity="0.9" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <controls:DropShadowPanel Grid.Column="1" Margin="20,30,20,20" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                                                         <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
                                                 </Grid>
 
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="260" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
+                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
 
                                                 <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
-                                                    <TextBlock Text="And More Games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                    <TextBlock Text="And More Games" Foreground="White" FontSize="45" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>
@@ -659,11 +662,12 @@
                                         </Button.Resources>
 
                                         <Button.Content>
-                                            <Grid Width="850" Height="300">
+                                            <Grid Width="1300" Height="400">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.5" />
-                                                        <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
+                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
@@ -678,16 +682,16 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
-                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFreev2" MaxWidth="200" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFreev2" MaxWidth="280" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
                                                         <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                                            <TextBlock Text="Free" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="15,8,15,8" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
                                                     </StackPanel>
 
-                                                    <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30">
+                                                    <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="60">
                                                         <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFreev2" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
                                                 </Grid>
@@ -772,11 +776,12 @@
                                         </Button.Resources>
 
                                         <Button.Content>
-                                            <Grid Width="850">
+                                            <Grid Width="1300">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.5" />
-                                                        <GradientStop Color="#1b2838" Offset="1.0" />
+                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
+                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
@@ -792,15 +797,15 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50,50,50,40">
-                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxWidth="400" MaxHeight="70" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxWidth="450" MaxHeight="80" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
 
-                                                    <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="0,30,50,30">
-                                                        <TextBlock x:Name="mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Foreground="White" FontSize="32" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                    <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="20,30,50,30">
+                                                        <TextBlock x:Name="mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Foreground="White" FontSize="35" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                     </controls:DropShadowPanel>
                                                 </Grid>
 
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptionsv2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="160" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="20,0,20,20"/>
+                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptionsv2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="20,0,20,10"/>
                                             </Grid>
                                         </Button.Content>
                                     </Button>
@@ -866,15 +871,16 @@
                                         </Button.Resources>
 
                                         <Button.Content>
-                                            <Grid Width="740" Height="280">
+                                            <Grid Width="1300" Height="480">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#003553" Offset="0.5" />
-                                                        <GradientStop Color="#001c2c" Offset="1.0" />
+                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
+                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="160" Opacity="0.2"/>
+                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="325" Opacity="0.2"/>
                                                 <Grid>
                                                     <Grid.Background>
                                                         <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenAnuncios" Stretch="UniformToFill" Opacity="0.2"/>
@@ -886,15 +892,15 @@
                                                     </Grid.RowDefinitions>
 
                                                     <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosTitulo" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" FontSize="50" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" FontSize="90" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
                                                     </controls:DropShadowPanel>
 
                                                     <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosTituloImagen" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <controls:ImageEx x:Name="imagenEditorpepeizqdealsImagenEntradaAnunciosTitulo" IsCacheEnabled="True" MaxWidth="400" MaxHeight="130"/>
+                                                        <controls:ImageEx x:Name="imagenEditorpepeizqdealsImagenEntradaAnunciosTitulo" IsCacheEnabled="True" MaxWidth="500" MaxHeight="180"/>
                                                     </controls:DropShadowPanel>
 
                                                     <Grid Grid.Row="1" Margin="0,0,0,20">
-                                                        <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosComentario" HorizontalAlignment="Center" FontSize="32" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosComentario" HorizontalAlignment="Center" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

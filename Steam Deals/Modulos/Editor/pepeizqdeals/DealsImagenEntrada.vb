@@ -241,11 +241,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     If tiendasVertical = 1 Then
-                        panel.Margin = New Thickness(35, 10, 35, 10)
+                        panel.Margin = New Thickness(35, 10, 35, 30)
                     ElseIf tiendasVertical = 2 Then
-                        panel.Margin = New Thickness(20, 10, 20, 10)
+                        panel.Margin = New Thickness(20, 10, 20, 30)
                     Else
-                        panel.Margin = New Thickness(10, 10, 10, 10)
+                        panel.Margin = New Thickness(20, 10, 20, 30)
                     End If
 
                     Dim colorFondo2 As New SolidColorBrush With {
@@ -288,7 +288,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tbDescuento As New TextBlock With {
                         .Text = listaFinal(i).Descuento,
                         .Foreground = New SolidColorBrush(Colors.White),
-                        .FontSize = 25,
+                        .FontSize = 30,
                         .FontWeight = Text.FontWeights.SemiBold,
                         .Padding = New Thickness(14, 8, 14, 8),
                         .VerticalAlignment = VerticalAlignment.Center,
@@ -309,7 +309,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim tbPrecio As New TextBlock With {
                         .Text = listaFinal(i).Precio,
                         .Foreground = New SolidColorBrush(Colors.White),
-                        .FontSize = 25,
+                        .FontSize = 30,
                         .FontWeight = Text.FontWeights.SemiBold,
                         .Padding = New Thickness(14, 8, 14, 8),
                         .VerticalAlignment = VerticalAlignment.Center,
