@@ -327,7 +327,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .ShadowOpacity = 1,
                     .Color = Windows.UI.Colors.Black,
                     .Margin = New Thickness(15, 15, 15, 15),
-                    .HorizontalAlignment = HorizontalAlignment.Stretch,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
                     .VerticalAlignment = VerticalAlignment.Stretch
                 }
 
@@ -339,7 +339,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .Background = colorFondo2
                 }
 
-                If listaEnlaces.Count > 2 Then
+                If listaEnlaces.Count > 3 Then
                     If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
                         enlace = enlace.Replace("header", "library_600x900")
                     ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
@@ -352,7 +352,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .IsCacheEnabled = True,
                     .Source = enlace,
                     .MaxHeight = 320,
-                    .MaxWidth = 600
+                    .MaxWidth = 400
                 }
 
                 gridContenido.Children.Add(imagenJuego2)

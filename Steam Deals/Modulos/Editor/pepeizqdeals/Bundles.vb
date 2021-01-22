@@ -474,7 +474,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .ShadowOpacity = 1,
                     .Color = Windows.UI.Colors.Black,
                     .Margin = New Thickness(15, 15, 15, 15),
-                    .HorizontalAlignment = HorizontalAlignment.Stretch,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
                     .VerticalAlignment = VerticalAlignment.Stretch
                 }
 

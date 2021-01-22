@@ -271,6 +271,7 @@
     <Content Include="Assets\LogosJuegos\starwars.png" />
     <Content Include="Assets\LogosJuegos\thesims4.png" />
     <Content Include="Assets\LogosJuegos\tombraider.png" />
+    <Content Include="Assets\LogosJuegos\tomclancy.png" />
     <Content Include="Assets\LogosJuegos\totalwar.png" />
     <Content Include="Assets\LogosJuegos\warhammer.png" />
     <Content Include="Assets\LogosJuegos\watchdogs.png" />

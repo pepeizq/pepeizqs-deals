@@ -236,7 +236,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         .BlurRadius = 10,
                         .ShadowOpacity = 0.9,
                         .Color = Colors.Black,
-                        .HorizontalAlignment = HorizontalAlignment.Stretch,
+                        .HorizontalAlignment = HorizontalAlignment.Center,
                         .VerticalAlignment = VerticalAlignment.Stretch
                     }
 
@@ -269,7 +269,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim imagenJuego As New ImageEx With {
                         .Stretch = Stretch.Uniform,
                         .IsCacheEnabled = True,
-                        .Source = imagenUrl
+                        .Source = imagenUrl,
+                        .MaxHeight = 340
                     }
 
                     imagenJuego.SetValue(Grid.RowProperty, 0)

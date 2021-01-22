@@ -593,7 +593,7 @@
                                                             <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,10">
+                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,30,30,20">
                                                             <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="35" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
                                                     </StackPanel>

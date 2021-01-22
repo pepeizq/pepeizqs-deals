@@ -111,6 +111,7 @@
                 New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 310),
                 New Clases.LogosJuegos("The Sims 4", "Assets\LogosJuegos\thesims4.png", 320),
                 New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 340),
+                New Clases.LogosJuegos("Tom Clancy's", "Assets\LogosJuegos\tomclancy.png", 420),
                 New Clases.LogosJuegos("Tom Clancy's Ghost Recon", "Assets\LogosJuegos\ghostrecon.png", 390),
                 New Clases.LogosJuegos("Tom Clancy's Rainbow Six Siege", "Assets\LogosJuegos\rainbowsiege.png", 390),
                 New Clases.LogosJuegos("Tomb Raider", "Assets\LogosJuegos\tombraider.png", 390),
