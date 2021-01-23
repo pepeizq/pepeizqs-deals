@@ -78,8 +78,9 @@
                 Dim mensaje As String = String.Empty
                 mensaje = mensaje + "If you like the giveaway, I encourage you to visit my website:\n\n"
                 mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
-                mensaje = mensaje + "But the web has no ads, affiliates or collectors to sell your data. The web and the giveaways are financed exclusively through this app:\n\n"
-                mensaje = mensaje + "https://pepeizqapps.com/pepeizqs-deals-microsoft-store/"
+                mensaje = mensaje + "The web has no ads, affiliates or collectors to sell your data. The web and the giveaways are financed exclusively through this app:\n\n"
+                mensaje = mensaje + "https://pepeizqapps.com/pepeizqs-deals-microsoft-store/ \n\n"
+                mensaje = mensaje + "PS: Although you can't afford it, you can always download the free version and give it 5 stars :P"
 
                 Try
                     Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByName('description')[0].value=" + ChrW(34) + mensaje + ChrW(34) + ";"})

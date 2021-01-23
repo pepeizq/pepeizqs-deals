@@ -96,6 +96,7 @@ Public NotInheritable Class MainPage
         pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()
         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
         pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Cargar()
+        pepeizq.Editor.pepeizqdeals.RedesSociales.Mastodon.Cargar()
         pepeizq.Editor.pepeizqdeals.Posts.Borrar()
         pepeizq.Editor.pepeizqdeals.Assets.Cargar()
 
@@ -251,6 +252,22 @@ Public NotInheritable Class MainPage
 
         If tbEditorContraseñapepeizqdealsReddit.Password.Trim.Length > 0 Then
             ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit") = tbEditorContraseñapepeizqdealsReddit.Password.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorUsuariopepeizqdealsMastodon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsMastodon.TextChanged
+
+        If tbEditorUsuariopepeizqdealsMastodon.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqMastodon") = tbEditorUsuariopepeizqdealsMastodon.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbEditorContraseñapepeizqdealsMastodon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsMastodon.PasswordChanged
+
+        If tbEditorContraseñapepeizqdealsMastodon.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqMastodon") = tbEditorContraseñapepeizqdealsMastodon.Password.Trim
         End If
 
     End Sub

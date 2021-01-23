@@ -52,7 +52,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim botonTwitter As New Button With {
                     .Tag = post,
                     .Content = "Twitter",
-                    .Margin = New Thickness(30, 0, 0, 0)
+                    .Margin = New Thickness(20, 0, 0, 0)
                 }
 
                 AddHandler botonTwitter.Click, AddressOf Twitter
@@ -64,7 +64,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim botonSteam As New Button With {
                     .Tag = post,
                     .Content = "Grupo Steam",
-                    .Margin = New Thickness(30, 0, 0, 0)
+                    .Margin = New Thickness(20, 0, 0, 0)
                 }
 
                 AddHandler botonSteam.Click, AddressOf Steam
@@ -76,7 +76,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim botonReddit As New Button With {
                     .Tag = post,
                     .Content = "Reddit r/pepeizqdeals",
-                    .Margin = New Thickness(30, 0, 0, 0)
+                    .Margin = New Thickness(20, 0, 0, 0)
                 }
 
                 AddHandler botonReddit.Click, AddressOf Redditpepeizq
@@ -88,7 +88,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim botonReddit2 As New Button With {
                     .Tag = post,
                     .Content = "Reddit r/GameDeals",
-                    .Margin = New Thickness(30, 0, 0, 0)
+                    .Margin = New Thickness(20, 0, 0, 0)
                 }
 
                 AddHandler botonReddit2.Click, AddressOf RedditGameDeals
@@ -100,7 +100,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim botonDiscord As New Button With {
                     .Tag = post,
                     .Content = "Discord",
-                    .Margin = New Thickness(30, 0, 0, 0)
+                    .Margin = New Thickness(20, 0, 0, 0)
                 }
 
                 AddHandler botonDiscord.Click, AddressOf Discord
@@ -112,7 +112,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim botonPush As New Button With {
                     .Tag = post,
                     .Content = "Push",
-                    .Margin = New Thickness(30, 0, 0, 0)
+                    .Margin = New Thickness(20, 0, 0, 0)
                 }
 
                 AddHandler botonPush.Click, AddressOf Push
@@ -120,6 +120,18 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonPush.PointerExited, AddressOf UsuarioSaleBoton
 
                 spBotones.Children.Add(botonPush)
+
+                Dim botonMastodon As New Button With {
+                    .Tag = post,
+                    .Content = "Mastodon",
+                    .Margin = New Thickness(20, 0, 0, 0)
+                }
+
+                AddHandler botonMastodon.Click, AddressOf Mastodon
+                AddHandler botonMastodon.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonMastodon.PointerExited, AddressOf UsuarioSaleBoton
+
+                spBotones.Children.Add(botonMastodon)
 
                 spBotones.SetValue(Grid.ColumnProperty, 1)
                 grid.Children.Add(spBotones)
@@ -250,6 +262,24 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Await RedesSociales.Push.Enviar(titulo, enlaceFinal, post.ImagenFeatured, Date.Today.DayOfYear)
             Catch ex As Exception
                 Notificaciones.Toast("Push Error Post", Nothing)
+            End Try
+
+        End Sub
+
+        Private Async Sub Mastodon(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
+            Dim enlaceFinal As String = post.Enlace
+
+            Try
+                Await RedesSociales.Mastodon.Enviar(titulo, enlaceFinal, post.ImagenFeatured)
+            Catch ex As Exception
+                Notificaciones.Toast("Mastodon Error Post", Nothing)
             End Try
 
         End Sub

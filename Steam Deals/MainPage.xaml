@@ -82,6 +82,7 @@
                             <MenuFlyoutItem x:Name="menuItemConfigGrupoSteam" Text="Grupo Steam" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAmazonCom" Text="Amazon.com" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigTwitter" Text="Twitter" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigMastodon" Text="Mastodon" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
@@ -939,10 +940,18 @@
 
                                     <TextBlock Text="Reddit" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Correo" VerticalAlignment="Center"/>
                                         <TextBox x:Name="tbEditorUsuariopepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
                                         <PasswordBox x:Name="tbEditorContraseñapepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="Mastodon" Margin="0,30,0,10"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbEditorUsuariopepeizqdealsMastodon" Margin="10,0" MinWidth="150"/>
+                                        <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
+                                        <PasswordBox x:Name="tbEditorContraseñapepeizqdealsMastodon" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
 
                                     <TextBlock Text="Discord" Margin="0,30,0,10"/>
@@ -1027,6 +1036,16 @@
                                 </StackPanel>
 
                                 <WebView x:Name="wvEditorTwitterpepeizqdeals" MinWidth="700" MinHeight="700"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <ScrollViewer x:Name="svEditorpepeizqdealsMastodon" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
+                                    <TextBox x:Name="tbEditorMastodonCodigo" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <WebView x:Name="wvEditorMastodonpepeizqdeals" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
                         </ScrollViewer>
 

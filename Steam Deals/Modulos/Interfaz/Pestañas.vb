@@ -116,6 +116,9 @@ Namespace pepeizq.Interfaz
             Dim svTwitter As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
             svTwitter.Visibility = Visibility.Collapsed
 
+            Dim svMastodon As ScrollViewer = pagina.FindName("svEditorpepeizqdealsMastodon")
+            svMastodon.Visibility = Visibility.Collapsed
+
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
 
