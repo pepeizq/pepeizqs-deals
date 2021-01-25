@@ -87,6 +87,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 If wv.DocumentTitle.Contains("Error") Then
                     wv.Navigate(New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate"))
                 End If
+            ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals" Then
+                VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals#announcements" Then
                 VolverCrearAnuncio(wv)
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals#announcements/" Then

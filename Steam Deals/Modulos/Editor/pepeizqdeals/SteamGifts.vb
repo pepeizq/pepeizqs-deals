@@ -7,6 +7,11 @@
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim botonNuevoSorteo As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsNuevoSorteo")
+
+            RemoveHandler botonNuevoSorteo.Click, AddressOf AbrirNuevoSorteo
+            AddHandler botonNuevoSorteo.Click, AddressOf AbrirNuevoSorteo
+
             Dim wv As WebView = pagina.FindName("wvSteamGifts")
             wv.Navigate(New Uri("https://www.steamgifts.com/giveaways/new"))
 
@@ -18,6 +23,12 @@
         Private Async Sub NavegadorCargaCompleta(sender As Object, e As NavigationEventArgs)
 
             Dim wv As WebView = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbEnlace As TextBox = pagina.FindName("tbEditorpepeizqdealsSteamGiftsEnlace")
+            tbEnlace.Text = wv.Source.AbsoluteUri
 
             If wv.Source.AbsoluteUri = "https://www.steamgifts.com/giveaways/new" Then
 
@@ -163,6 +174,16 @@
             Return fechaTexto
 
         End Function
+
+        Private Sub AbrirNuevoSorteo(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim wv As WebView = pagina.FindName("wvSteamGifts")
+            wv.Navigate(New Uri("https://www.steamgifts.com/giveaways/new"))
+
+        End Sub
 
     End Module
 

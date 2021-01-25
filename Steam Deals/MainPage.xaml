@@ -1134,9 +1134,31 @@
                         </ScrollViewer>
 
                         <ScrollViewer x:Name="svEditorpepeizqdealsSteamGifts" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
-                            <StackPanel Orientation="Vertical">
-                                <WebView x:Name="wvSteamGifts" MinWidth="500" MinHeight="1200"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Margin="0,0,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Nuevo Sorteo" Foreground="White"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                </Grid>
+                                
+                                <WebView x:Name="wvSteamGifts" Grid.Row="1"/>
+                            </Grid>
                         </ScrollViewer>
 
                         <ScrollViewer x:Name="svEditorpepeizqdealsOtrasCosas" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">

@@ -115,9 +115,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim ficheroDescargado As IStorageFile = descarga.ResultFile
 
                 If Not ficheroDescargado Is Nothing Then
-                    'Dim ficheroBinario As Byte() = File.ReadAllBytes(ficheroDescargado.Path)
-
                     Using st As New FileStream(ficheroDescargado.Path, FileMode.Open, FileAccess.Read)
+                        Dim enviarTexto As Boolean = False
+
                         Dim parametrosImagen As New Dictionary(Of String, Object) From {
                             {"file", st}
                         }
@@ -130,11 +130,26 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         parametros.Add("media_ids", New List(Of Long) From {imagenFinal.Id})
 
                         Await tokens.Statuses.PostAsync(parametros)
+
+                        Try
+
+                        Catch ex As System.Exception
+                            enviarTexto = True
+                        End Try
+
+                        If enviarTexto = True Then
+                            'Try
+                            '    Dim parametros As New Dictionary(Of String, Object) From {
+                            '        {"status", titulo + Environment.NewLine + enlace}
+                            '    }
+
+                            '    Await tokens.Statuses.PostAsync(parametros)
+                            'Catch ex As system.Exception
+
+                            'End Try
+                        End If
                     End Using
-
-
                 End If
-
             End If
 
         End Function

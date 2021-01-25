@@ -46,7 +46,7 @@
                         imagenFinal = juego.Imagenes.Grande
                     End If
 
-                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row filaOferta' data-href='" + juego.Enlace + "'>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<tr style=" + ChrW(34) + "cursor: pointer;" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " class='clickable-row filaOferta' data-href='" + Referidos.Generar(juego.Enlace) + "'>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td><img src=" + ChrW(34) + imagenFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-juego" + ChrW(34) + " title=" + ChrW(34) + tituloFinal + ChrW(34) + " /></td>" + Environment.NewLine
 
                     Dim drmFinal As String = Nothing
