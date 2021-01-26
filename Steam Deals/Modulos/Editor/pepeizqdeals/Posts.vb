@@ -173,14 +173,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
                         End If
                     End If
-
-                    '----------------------------------------------------------------
-
-                    Try
-                        Await Mastodon.Enviar(titulo, enlaceFinal, imagenUrl.Trim)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Mastodon Error Post", Nothing)
-                    End Try
                 End If
             End If
 

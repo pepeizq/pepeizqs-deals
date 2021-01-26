@@ -215,6 +215,12 @@ Namespace pepeizq.Ofertas
 
                                     If juego.Descuento = Nothing Then
                                         añadir = False
+                                    ElseIf juego.Descuento = "51%" Then
+                                        If juego.Precio = "0,49€" Or juego.Precio = "0.49€" Then
+                                            añadir = False
+                                        End If
+                                    ElseIf juego.Titulo.ToLower.Contains("hentai") = True Then
+                                        añadir = False
                                     End If
 
                                     If añadir = True Then

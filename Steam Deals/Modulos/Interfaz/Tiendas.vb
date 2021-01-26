@@ -877,29 +877,143 @@ Module Tiendas
 
         pepeizq.Interfaz.Pestañas.Botones(False)
 
-        Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
-        Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
-        Await pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
-        Await pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
-        Await pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
-        Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
-        Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
-        Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
-        Await pepeizq.Ofertas.Nexus.BuscarOfertas(nexusT)
-        Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
-        Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
-        Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
-        Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
-        Await pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
-        Await pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
-        Await pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
-        Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
-        Await pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
-        Await pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
-        Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
-        Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
-        Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
-        Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
+        Try
+            Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Nexus.BuscarOfertas(nexusT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
+        Catch ex As Exception
+
+        End Try
+
+        Try
+            Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
+        Catch ex As Exception
+
+        End Try
 
         Notificaciones.Toast("Escaneo Completo", Nothing)
 
