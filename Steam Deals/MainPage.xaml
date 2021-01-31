@@ -404,11 +404,11 @@
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="10,30,10,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <controls:DropShadowPanel x:Name="panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="50,50,50,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
                                                                 <TextBlock x:Name="tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="10,30,10,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" Color="Black" Margin="50,50,50,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
                                                                 <TextBlock x:Name="tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                             </controls:DropShadowPanel>
                                                         </StackPanel>
