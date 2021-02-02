@@ -319,10 +319,8 @@
                                     <DatePicker x:Name="fechaEditorpepeizqdealsDeals" Margin="0,0,20,0"/>
                                     <TimePicker x:Name="horaEditorpepeizqdealsDeals" Margin="0,0,30,0"/>
                                     <CheckBox x:Name="cbEditorErrorPreciopepeizqdealsDeals" Content="Error Precio" Margin="0,0,30,0"/>
-                                    <TextBlock x:Name="tbDescuentoMensajepepeizqdealsDeals" Text="Codigo Descuento" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="tbDescuentoCodigopepeizqdealsDeals" MinWidth="80" Margin="0,0,30,0"/>
-                                    <TextBlock x:Name="tbMensajepepeizqdealsDeals" Grid.Column="5" Text="Mensaje" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="tbMensajeContenidopepeizqdealsDeals" Grid.Column="6" MinWidth="80"/>
+                                    <TextBlock x:Name="tbMensajepepeizqdealsDeals" Text="Mensaje" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbMensajeContenidopepeizqdealsDeals" MinWidth="160"/>
                                 </StackPanel>
 
                                 <Grid HorizontalAlignment="Stretch" Margin="0,30">

@@ -880,139 +880,139 @@ Module Tiendas
         Try
             Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + gamersgateT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Humble.BuscarOfertas(humbleT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + humbleT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.GamesPlanet.BuscarOfertas(gamesplanetT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + gamesplanetT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + fanaticalT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + gogT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + wingamestoreT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + microsoftstoreT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Nexus.BuscarOfertas(nexusT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + nexusT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + voiduT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.IndieGala.BuscarOfertas(indiegalaT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + indiegalaT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.GreenManGaming.BuscarOfertas(greenmangamingT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + greenmangamingT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.AmazonCom.BuscarOfertas(amazoncomT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + amazoncomT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.AmazonEsFisico.BuscarOfertas(amazonesT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + amazonesT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.AmazonEsDigital.BuscarOfertas(amazonesT2)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + amazonesT2.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Yuplay.BuscarOfertas(yuplayT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + yuplayT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Origin.BuscarOfertas(originT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + originT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.GameBillet.BuscarOfertas(gamebilletT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + gamebilletT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas._2Game.BuscarOfertas(_2gameT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + _2gameT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.BlizzardStore.BuscarOfertas(blizzardT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + blizzardT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Direct2Drive.BuscarOfertas(direct2driveT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + direct2driveT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + ubiT.NombreMostrar, Nothing)
         End Try
 
         Try
             Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
         Catch ex As Exception
-
+            Notificaciones.Toast("Error " + allyouplayT.NombreMostrar, Nothing)
         End Try
 
         Notificaciones.Toast("Escaneo Completo", Nothing)

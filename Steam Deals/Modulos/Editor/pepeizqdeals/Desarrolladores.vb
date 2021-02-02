@@ -476,7 +476,7 @@
                 New Clases.Desarrolladores("Night Dive", "@NightdiveStudio", "Assets\LogosPublishers\nightdive.png", 320),
                 New Clases.Desarrolladores("Ninja Kiwi Games", "@ninjakiwigames", Nothing, Nothing),
                 New Clases.Desarrolladores("Ninja Theory", "@NinjaTheory", Nothing, Nothing),
-                New Clases.Desarrolladores("NIS America", "@NISAmerica", Nothing, Nothing),
+                New Clases.Desarrolladores("NIS America", "@NISAmerica", "Assets\LogosPublishers\nisamerica.png", 280),
                 New Clases.Desarrolladores("No More Robots", "@nomorerobotshq", Nothing, Nothing),
                 New Clases.Desarrolladores("No Goblin", "@no_goblin", Nothing, Nothing),
                 New Clases.Desarrolladores("Nomad Games", "@Nomadgames", Nothing, Nothing),

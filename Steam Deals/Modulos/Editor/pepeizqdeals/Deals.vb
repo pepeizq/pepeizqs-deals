@@ -42,8 +42,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim gridImagen As Grid = pagina.FindName("gridEditorImagenpepeizqdeals")
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
             Dim gridDosJuegos As Grid = pagina.FindName("gridEditorEnlacepepeizqdealsDosJuegos")
-            Dim tbDescuentoMensaje As TextBlock = pagina.FindName("tbDescuentoMensajepepeizqdealsDeals")
-            Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
             Dim tbMensaje As TextBlock = pagina.FindName("tbMensajepepeizqdealsDeals")
             Dim tbMensajeContenido As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
             Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
@@ -53,8 +51,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridImagen.Visibility = Visibility.Visible
                 cbError.Visibility = Visibility.Visible
                 gridDosJuegos.Visibility = Visibility.Collapsed
-                tbDescuentoMensaje.Visibility = Visibility.Visible
-                tbDescuentoCodigo.Visibility = Visibility.Visible
                 tbMensaje.Visibility = Visibility.Visible
                 tbMensajeContenido.Visibility = Visibility.Visible
                 gridComplemento.Visibility = Visibility.Collapsed
@@ -63,8 +59,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridImagen.Visibility = Visibility.Collapsed
                 cbError.Visibility = Visibility.Collapsed
                 gridDosJuegos.Visibility = Visibility.Visible
-                tbDescuentoMensaje.Visibility = Visibility.Collapsed
-                tbDescuentoCodigo.Visibility = Visibility.Collapsed
                 tbMensaje.Visibility = Visibility.Collapsed
                 tbMensajeContenido.Visibility = Visibility.Collapsed
                 gridComplemento.Visibility = Visibility.Visible
@@ -344,30 +338,31 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
             AddHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
 
-            tbDescuentoCodigo.Text = String.Empty
-
-            If tbDescuentoCodigo.Visibility = Visibility.Visible Then
-                For Each cupon In listaCupones
-                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                        If Not cupon.Codigo Is Nothing Then
-                            If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
-                                tbDescuentoCodigo.Text = cupon.Codigo
-                                ModificarDescuento()
-                            End If
-                        End If
-                    End If
-                Next
-            End If
-
-            AddHandler tbDescuentoCodigo.TextChanged, AddressOf ModificarDescuento
-
             tbMensajeContenido.Text = String.Empty
 
-            If listaTotal.Count = 1 Then
-                If Not tienda.MensajeUnJuego = Nothing Then
-                    If tienda.MensajeUnJuego.Trim.Length > 0 Then
-                        tbMensajeContenido.Text = tienda.MensajeUnJuego.Trim
-                        ModificarMensaje()
+            If tbMensajeContenido.Visibility = Visibility.Visible Then
+                If listaTotal.Count = 1 Then
+                    For Each cupon In listaCupones
+                        If tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                            If Not cupon.Codigo Is Nothing Then
+                                If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
+                                    tbMensajeContenido.Text = "Discount code: " + cupon.Codigo
+                                    ModificarMensaje()
+                                End If
+                            End If
+                        End If
+                    Next
+
+                    If Not tienda.MensajeUnJuego = Nothing Then
+                        If tienda.MensajeUnJuego.Trim.Length > 0 Then
+                            If tbMensajeContenido.Text = String.Empty Then
+                                tbMensajeContenido.Text = tienda.MensajeUnJuego.Trim
+                            Else
+                                tbMensajeContenido.Text = tbMensajeContenido.Text + ". " + tienda.MensajeUnJuego.Trim
+                            End If
+
+                            ModificarMensaje()
+                        End If
                     End If
                 End If
             End If
@@ -755,29 +750,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub ModificarDescuento()
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
-
-            Dim panelDescuento As DropShadowPanel = pagina.FindName("panelDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
-
-            If tbDescuento.Text.Trim.Length > 0 Then
-                panelDescuento.Visibility = Visibility.Visible
-
-                Dim tbDescuento2 As TextBlock = pagina.FindName("tbDescuentoCodigoEditorpepeizqdealsImagenEntradaUnJuegov2")
-
-                If Not tbDescuento2 Is Nothing Then
-                    tbDescuento2.Text = "Discount Code: " + tbDescuento.Text
-                End If
-            Else
-                panelDescuento.Visibility = Visibility.Collapsed
-            End If
-
-        End Sub
-
         Private Sub ModificarMensaje()
 
             Dim frame As Frame = Window.Current.Content
@@ -880,9 +852,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
             cbError.IsEnabled = estado
-
-            Dim tbDescuentoCodigo As TextBox = pagina.FindName("tbDescuentoCodigopepeizqdealsDeals")
-            tbDescuentoCodigo.IsEnabled = estado
 
             Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
             tbMensaje.IsEnabled = estado
