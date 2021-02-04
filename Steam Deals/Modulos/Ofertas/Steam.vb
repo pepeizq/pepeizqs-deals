@@ -223,6 +223,8 @@ Namespace pepeizq.Ofertas
                                         añadir = False
                                     ElseIf juego.Titulo.ToLower.Contains("hentai") = True Then
                                         añadir = False
+                                    ElseIf juego.Titulo.ToLower.Contains("achievement") = True Then
+                                        añadir = False
                                     End If
 
                                     If añadir = True Then

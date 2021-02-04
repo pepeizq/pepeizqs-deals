@@ -266,6 +266,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End Using
 
                         urlImagen = imagenImgur.Link
+
+                        urlImagen = urlImagen.Replace(".png", ".webp")
+                        urlImagen = urlImagen.Replace(".jpg", ".webp")
+                        urlImagen = urlImagen.Replace(".jpeg", ".webp")
                     Catch ex As Exception
 
                     End Try

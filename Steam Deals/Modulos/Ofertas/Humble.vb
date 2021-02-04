@@ -125,7 +125,12 @@ Namespace pepeizq.Ofertas
                         Dim drm As String = String.Empty
 
                         For Each itemDRM In juegoHumble.DRM
-                            drm = drm + " " + itemDRM
+                            If itemDRM.ToLower.Contains("steam") Then
+                                drm = "steam"
+                                Exit For
+                            Else
+                                drm = itemDRM
+                            End If
                         Next
 
                         Dim windows As Boolean = False

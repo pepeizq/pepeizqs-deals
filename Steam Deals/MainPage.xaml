@@ -796,7 +796,7 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50,50,50,40">
-                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxWidth="450" MaxHeight="80" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxWidth="400" MaxHeight="80" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
 
                                                     <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="20,30,50,30">
