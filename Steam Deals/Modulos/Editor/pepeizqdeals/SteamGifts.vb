@@ -159,13 +159,19 @@
             fechaTexto = fechaTexto + " " + fechaDate.Day.ToString + ", " + fechaDate.Year.ToString + " "
 
             If semana = False Then
+                Dim minuto As String = fechaDate.Minute.ToString
+
+                If minuto.Length = 1 Then
+                    minuto = "0" + minuto
+                End If
+
                 Dim hora As Integer = fechaDate.Hour
 
                 If hora > 12 Then
                     hora = hora - 12
-                    fechaTexto = fechaTexto + hora.ToString + ":" + fechaDate.Minute.ToString + "pm"
+                    fechaTexto = fechaTexto + hora.ToString + ":" + minuto + "pm"
                 Else
-                    fechaTexto = fechaTexto + hora.ToString + ":" + fechaDate.Minute.ToString + "am"
+                    fechaTexto = fechaTexto + hora.ToString + ":" + minuto + "am"
                 End If
             Else
                 fechaTexto = fechaTexto + "9:00am"

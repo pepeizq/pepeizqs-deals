@@ -355,14 +355,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .MaxWidth = 400
                 }
 
-                If listaEnlaces.Count < 4 Then
-                    imagenJuego2.Margin = New Thickness(0, 0, 0, 10)
-                End If
-
                 gridContenido.Children.Add(imagenJuego2)
                 panel.Content = gridContenido
                 gv.Items.Add(panel)
             Next
+
+            If listaEnlaces.Count < 4 Then
+                gv.Margin = New Thickness(0, 0, 0, 10)
+            End If
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
             Dim mensaje As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")

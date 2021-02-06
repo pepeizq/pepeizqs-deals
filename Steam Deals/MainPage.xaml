@@ -583,8 +583,8 @@
 
                                                 <Grid Grid.Row="0">
                                                     <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1*"/>
                                                         <ColumnDefinition Width="2*"/>
-                                                        <ColumnDefinition Width="3*"/>
                                                     </Grid.ColumnDefinitions>
 
                                                     <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
@@ -598,7 +598,7 @@
                                                     </StackPanel>
 
                                                     <controls:DropShadowPanel Grid.Column="1" Margin="40,40,40,20" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="650"/>
                                                     </controls:DropShadowPanel>
                                                 </Grid>
 
