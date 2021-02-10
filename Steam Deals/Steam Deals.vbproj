@@ -145,7 +145,8 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Desarrolladores.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Discord.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Mastodon.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Push.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\PushFirebase.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\PushWeb.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Reddit.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\RSS.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\GrupoSteam.vb" />

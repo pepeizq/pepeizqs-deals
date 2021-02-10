@@ -86,7 +86,7 @@ Public NotInheritable Class MainPage
         Divisas.Generar()
         CopiaSeguridad.Cargar()
 
-        pepeizq.Editor.pepeizqdeals.RedesSociales.Push.Escuchar()
+        pepeizq.Editor.pepeizqdeals.RedesSociales.PushFirebase.Escuchar()
 
         pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
@@ -96,7 +96,8 @@ Public NotInheritable Class MainPage
         pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()
         pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
         pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Cargar()
-        pepeizq.Editor.pepeizqdeals.RedesSociales.Mastodon.Cargar()
+        'pepeizq.Editor.pepeizqdeals.RedesSociales.Mastodon.Cargar()
+        pepeizq.Editor.pepeizqdeals.RedesSociales.PushWeb.Cargar()
         pepeizq.Editor.pepeizqdeals.Posts.Borrar()
         pepeizq.Editor.pepeizqdeals.Assets.Cargar()
 
@@ -256,21 +257,21 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub TbEditorUsuariopepeizqdealsMastodon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsMastodon.TextChanged
+    'Private Sub TbEditorUsuariopepeizqdealsMastodon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsMastodon.TextChanged
 
-        If tbEditorUsuariopepeizqdealsMastodon.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqMastodon") = tbEditorUsuariopepeizqdealsMastodon.Text.Trim
-        End If
+    '    If tbEditorUsuariopepeizqdealsMastodon.Text.Trim.Length > 0 Then
+    '        ApplicationData.Current.LocalSettings.Values("usuarioPepeizqMastodon") = tbEditorUsuariopepeizqdealsMastodon.Text.Trim
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Private Sub TbEditorContraseñapepeizqdealsMastodon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsMastodon.PasswordChanged
+    'Private Sub TbEditorContraseñapepeizqdealsMastodon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsMastodon.PasswordChanged
 
-        If tbEditorContraseñapepeizqdealsMastodon.Password.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqMastodon") = tbEditorContraseñapepeizqdealsMastodon.Password.Trim
-        End If
+    '    If tbEditorContraseñapepeizqdealsMastodon.Password.Trim.Length > 0 Then
+    '        ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqMastodon") = tbEditorContraseñapepeizqdealsMastodon.Password.Trim
+    '    End If
 
-    End Sub
+    'End Sub
 
     Private Sub TbEditorUsuariopepeizqdealsSteam_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsSteam.TextChanged
 

@@ -6,7 +6,7 @@ Imports Windows.ApplicationModel.Core
 Imports Windows.UI.Core
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
-    Module Push
+    Module PushFirebase
 
         Private Function Conectar()
 

@@ -56,8 +56,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not redireccion = Nothing Then
                     If redireccion.Trim.Length > 0 Then
                         Dim redireccionFinal As String = redireccion.Trim
-                        postEditor.Redireccion = redireccionFinal
+                        redireccionFinal = Referidos.Generar(redireccionFinal)
 
+                        postEditor.Redireccion = redireccionFinal
                         postEditor.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + redireccionFinal + ChrW(34) +
                                                   "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
                     End If
@@ -113,12 +114,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not resultado Is Nothing Then
                     Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
 
-                    'If Not resultado.Redireccion2 = Nothing Then
-                    '    resultado.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
-                    '                             "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+                    If Not resultado.Redireccion2 = Nothing Then
+                        resultado.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
+                                                 "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
 
-                    '    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
-                    'End If
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                    End If
 
                     Dim enlaceFinal As String = String.Empty
 
@@ -143,7 +144,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End Try
 
                     Try
-                        Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+                        Dim enlaceReddit As String = String.Empty
+
+                        If tienda.NombreUsar = "Humble" Then
+                            enlaceReddit = redireccion
+                        Else
+                            enlaceReddit = enlaceFinal
+                        End If
+
+                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                     End Try
@@ -155,9 +164,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End Try
 
                     Try
-                        Await Push.Enviar(titulo, enlaceFinal, imagenUrl.Trim, Date.Today.DayOfYear)
+                        Await PushFirebase.Enviar(titulo, enlaceFinal, imagenUrl.Trim, Date.Today.DayOfYear)
                     Catch ex As Exception
-                        Notificaciones.Toast("Push Error Post", Nothing)
+                        Notificaciones.Toast("Push Firebase Error Post", Nothing)
                     End Try
 
                     '----------------------------------------------------------------
@@ -173,6 +182,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                             End If
                         End If
                     End If
+
+                    '----------------------------------------------------------------
+
+                    Try
+                        PushWeb.Enviar(titulo, categoria, imagenUrl.Trim, enlaceFinal)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Push Web Error Post", Nothing)
+                    End Try
                 End If
             End If
 

@@ -79,13 +79,16 @@
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem x:Name="menuItemConfigDatos" Text="Datos" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigGrupoSteam" Text="Grupo Steam" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigAmazonCom" Text="Amazon.com" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigTwitter" Text="Twitter" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-                            <MenuFlyoutItem x:Name="menuItemConfigMastodon" Text="Mastodon" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigPushWeb" Text="Push Web" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-                            <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-                            <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigCarpetaBBDD" Text="Carpeta BBDD" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigSteamGifts" Text="SteamGifts" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                         </MenuFlyout> 
@@ -944,13 +947,13 @@
                                         <PasswordBox x:Name="tbEditorContraseñapepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
 
-                                    <TextBlock Text="Mastodon" Margin="0,30,0,10"/>
+                                    <!--<TextBlock Text="Mastodon" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
                                         <TextBox x:Name="tbEditorUsuariopepeizqdealsMastodon" Margin="10,0" MinWidth="150"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
                                         <PasswordBox x:Name="tbEditorContraseñapepeizqdealsMastodon" Margin="10,0" MinWidth="150"/>
-                                    </StackPanel>
+                                    </StackPanel>-->
 
                                     <TextBlock Text="Discord" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Vertical">
@@ -1037,7 +1040,7 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsMastodon" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <!--<ScrollViewer x:Name="svEditorpepeizqdealsMastodon" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
                                     <TextBox x:Name="tbEditorMastodonCodigo" TextWrapping="Wrap" VerticalAlignment="Center"/>
@@ -1045,6 +1048,19 @@
 
                                 <WebView x:Name="wvEditorMastodonpepeizqdeals" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
+                        </ScrollViewer>-->
+
+                        <ScrollViewer x:Name="svEditorpepeizqdealsPushWeb" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBox x:Name="tbEditorpepeizqdealsPushWebEnlace" Grid.Row="0" Margin="0,0,0,20"/>
+
+                                <WebView x:Name="wvEditorPushWebpepeizqdeals" Grid.Row="1"/>
+                            </Grid>
                         </ScrollViewer>
 
                         <ScrollViewer x:Name="svEditorpepeizqdealsIconos" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">

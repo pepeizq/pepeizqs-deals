@@ -100,13 +100,13 @@ Namespace pepeizq.Ofertas
 
                             Dim enlace As String = juegoAllyouplay.Enlace
 
-                            If enlace.Contains("&dl=") Then
-                                Dim int As Integer = enlace.IndexOf("&dl=")
-                                enlace = enlace.Remove(0, int + 4)
+                            'If enlace.Contains("&dl=") Then
+                            '    Dim int As Integer = enlace.IndexOf("&dl=")
+                            '    enlace = enlace.Remove(0, int + 4)
 
-                                enlace = enlace.Replace("&ws=", Nothing)
-                                enlace = "https://www.allyouplay.com/" + enlace
-                            End If
+                            '    enlace = enlace.Replace("&ws=", Nothing)
+                            '    enlace = "https://www.allyouplay.com/" + enlace
+                            'End If
 
                             Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {juegoAllyouplay.Desarrollador}, Nothing)
 

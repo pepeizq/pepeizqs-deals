@@ -89,9 +89,13 @@ Module Configuracion
         RemoveHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
         AddHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
 
-        Dim itemMastodon As MenuFlyoutItem = pagina.FindName("menuItemConfigMastodon")
-        RemoveHandler itemMastodon.Click, AddressOf ConfigAbrirMastodon
-        AddHandler itemMastodon.Click, AddressOf ConfigAbrirMastodon
+        'Dim itemMastodon As MenuFlyoutItem = pagina.FindName("menuItemConfigMastodon")
+        'RemoveHandler itemMastodon.Click, AddressOf ConfigAbrirMastodon
+        'AddHandler itemMastodon.Click, AddressOf ConfigAbrirMastodon
+
+        Dim itemPushWeb As MenuFlyoutItem = pagina.FindName("menuItemConfigPushWeb")
+        RemoveHandler itemPushWeb.Click, AddressOf ConfigAbrirPushWeb
+        AddHandler itemPushWeb.Click, AddressOf ConfigAbrirPushWeb
 
         Dim itemAssets As MenuFlyoutItem = pagina.FindName("menuItemConfigAssets")
         RemoveHandler itemAssets.Click, AddressOf ConfigAbrirAssets
@@ -226,6 +230,16 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsMastodon")
+        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+
+    End Sub
+
+    Private Sub ConfigAbrirPushWeb(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsPushWeb")
         pepeizq.Interfaz.Pestañas.Visibilidad(sv)
 
     End Sub

@@ -185,12 +185,14 @@ Namespace pepeizq.Ofertas
                             dprecioFinal = dprecioDE
                         End If
 
-                        If dprecioFinal.Precio > dprecioFR.Precio Then
+                        If dprecioFinal.Precio >= dprecioFR.Precio Then
                             dprecioFinal = dprecioFR
                         End If
 
-                        If dprecioFinal.Precio > dprecioUS.Precio Then
-                            dprecioFinal = dprecioUS
+                        If Not precioUS = Nothing Then
+                            If dprecioFinal.Precio > dprecioUS.Precio Then
+                                dprecioFinal = dprecioUS
+                            End If
                         End If
 
                         If dprecioFinal.Pais = "uk" Then

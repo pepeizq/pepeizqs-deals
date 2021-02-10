@@ -111,7 +111,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 Dim botonPush As New Button With {
                     .Tag = post,
-                    .Content = "Push",
+                    .Content = "Push Firebase",
                     .Margin = New Thickness(20, 0, 0, 0)
                 }
 
@@ -121,17 +121,17 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 spBotones.Children.Add(botonPush)
 
-                Dim botonMastodon As New Button With {
+                Dim botonPush2 As New Button With {
                     .Tag = post,
-                    .Content = "Mastodon",
+                    .Content = "Push Web",
                     .Margin = New Thickness(20, 0, 0, 0)
                 }
 
-                AddHandler botonMastodon.Click, AddressOf Mastodon
-                AddHandler botonMastodon.PointerEntered, AddressOf UsuarioEntraBoton
-                AddHandler botonMastodon.PointerExited, AddressOf UsuarioSaleBoton
+                AddHandler botonPush2.Click, AddressOf PushWeb
+                AddHandler botonPush2.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonPush2.PointerExited, AddressOf UsuarioSaleBoton
 
-                spBotones.Children.Add(botonMastodon)
+                spBotones.Children.Add(botonPush2)
 
                 spBotones.SetValue(Grid.ColumnProperty, 1)
                 grid.Children.Add(spBotones)
@@ -259,7 +259,27 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim enlaceFinal As String = post.Enlace
 
             Try
-                Await RedesSociales.Push.Enviar(titulo, enlaceFinal, post.ImagenFeatured, Date.Today.DayOfYear)
+                Await RedesSociales.PushFirebase.Enviar(titulo, enlaceFinal, post.ImagenFeatured, Date.Today.DayOfYear)
+            Catch ex As Exception
+                Notificaciones.Toast("Push Error Post", Nothing)
+            End Try
+
+        End Sub
+
+        Private Async Sub PushWeb(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
+            Dim categoria As Integer = post.Categorias(0)
+
+            Dim enlace As String = post.Enlace
+
+            Try
+                RedesSociales.PushWeb.Enviar(titulo, categoria, post.ImagenFeatured, enlace)
             Catch ex As Exception
                 Notificaciones.Toast("Push Error Post", Nothing)
             End Try

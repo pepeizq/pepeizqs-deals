@@ -442,7 +442,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim redireccion As String = String.Empty
 
             If tbEnlace.Text.Trim.Length > 0 Then
-                redireccion = Referidos.Generar(tbEnlace.Text.Trim)
+                redireccion = tbEnlace.Text.Trim
             End If
 
             Dim tituloComplemento As String = String.Empty
