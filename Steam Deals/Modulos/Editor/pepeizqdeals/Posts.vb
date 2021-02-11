@@ -146,8 +146,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Try
                         Dim enlaceReddit As String = String.Empty
 
-                        If tienda.NombreUsar = "Humble" Then
-                            enlaceReddit = redireccion
+                        If Not tienda Is Nothing Then
+                            If tienda.NombreUsar = "Humble" Then
+                                If Not redireccion = Nothing Then
+                                    enlaceReddit = redireccion
+                                Else
+                                    enlaceReddit = enlaceFinal
+                                End If
+                            Else
+                                enlaceReddit = enlaceFinal
+                            End If
                         Else
                             enlaceReddit = enlaceFinal
                         End If

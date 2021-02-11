@@ -61,6 +61,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
+            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
+            cbOpacidad.IsChecked = False
+
+            RemoveHandler cbOpacidad.Click, AddressOf CambiarOpacidad
+            AddHandler cbOpacidad.Click, AddressOf CambiarOpacidad
+
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -270,6 +276,23 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub CambiarOpacidad(sender As Object, e As RoutedEventArgs)
+
+            Dim cb As CheckBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenAnuncios")
+
+            If cb.IsChecked = False Then
+                fondo.Opacity = 0.2
+            Else
+                fondo.Opacity = 1
+            End If
+
+        End Sub
+
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -301,6 +324,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.IsEnabled = estado
+
+            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
+            cbOpacidad.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
             botonSubir.IsEnabled = estado

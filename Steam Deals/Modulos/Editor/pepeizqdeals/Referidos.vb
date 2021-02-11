@@ -1,6 +1,24 @@
 ﻿Namespace pepeizq.Editor.pepeizqdeals
     Module Referidos
 
+        '2Game
+        'https://gamecenturydigital.tapfiliate.com/dashboard/
+
+        'Fanatical
+        'https://partners.fanatical.com/dashboard/
+
+        'Green Man Gaming
+        'https://greenmangaming.tapfiliate.com/dashboard/
+
+        'Indie Gala
+        'https://affiliate.indiegala.com/dashboard/
+
+        'Microsoft
+        'https://cli.linksynergy.com/cli/publisher/home.php
+
+        'Ubisoft Allyouplay Voidu
+        'https://my.daisycon.com/dashboard
+
         Public Function Generar(enlace As String)
 
             If Not enlace = Nothing Then

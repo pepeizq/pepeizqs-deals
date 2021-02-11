@@ -849,6 +849,8 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                     <DatePicker x:Name="fechaEditorpepeizqdealsAnuncios" Margin="0,0,20,0"/>
                                     <TimePicker x:Name="horaEditorpepeizqdealsAnuncios" Margin="0,0,30,0"/>
+
+                                    <CheckBox x:Name="cbEditorpepeizqdealsAnuncioImagenOpacidad" Content="Imagen Fondo Opacidad"/>
                                 </StackPanel>
 
                                 <Button x:Name="botonEditorSubirpepeizqdealsAnuncios" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">

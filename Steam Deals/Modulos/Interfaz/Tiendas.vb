@@ -799,7 +799,7 @@ Module Tiendas
 
             If ultimosResultados = False Then
                 If tienda.NombreUsar = steamT.NombreUsar Then
-                    Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+                    'Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
                 ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
                     Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
                 ElseIf tienda.NombreUsar = humbleT.NombreUsar Then

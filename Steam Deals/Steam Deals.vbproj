@@ -241,6 +241,7 @@
     <Content Include="Assets\drm_bethesda.ico" />
     <Content Include="Assets\drm_gog.ico" />
     <Content Include="Assets\drm_origin.png" />
+    <Content Include="Assets\LogosJuegos\ageofempires.png" />
     <Content Include="Assets\LogosJuegos\anno.png" />
     <Content Include="Assets\LogosJuegos\ark.png" />
     <Content Include="Assets\LogosJuegos\assassinscreed.png" />
@@ -334,6 +335,7 @@
     <Content Include="Assets\LogosPublishers\maximum.png" />
     <Content Include="Assets\LogosPublishers\mergegames.png" />
     <Content Include="Assets\LogosPublishers\microids.png" />
+    <Content Include="Assets\LogosPublishers\milestone.png" />
     <Content Include="Assets\LogosPublishers\nacon.png" />
     <Content Include="Assets\LogosPublishers\neocore.png" />
     <Content Include="Assets\LogosPublishers\nightdive.png" />
