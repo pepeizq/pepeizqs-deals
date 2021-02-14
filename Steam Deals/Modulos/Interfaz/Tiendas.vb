@@ -799,7 +799,7 @@ Module Tiendas
 
             If ultimosResultados = False Then
                 If tienda.NombreUsar = steamT.NombreUsar Then
-                    'Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+                    Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
                 ElseIf tienda.NombreUsar = gamersgateT.NombreUsar Then
                     Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
                 ElseIf tienda.NombreUsar = humbleT.NombreUsar Then
@@ -878,7 +878,7 @@ Module Tiendas
         pepeizq.Interfaz.Pestañas.Botones(False)
 
         Try
-            Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+            'Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
         End Try

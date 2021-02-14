@@ -81,7 +81,7 @@
                         enlace = enlace + referido
                     End If
                 ElseIf enlace.Contains("fanatical.com") Then
-                    Dim referido As String = "?ref=pepeizq"
+                    Dim referido As String = "?ref=pepeizq&refer_a_friend=NTYxZGE0NThkM2IwNTA5YzM4OGM0MDE1"
 
                     If Not enlace.Contains(referido) Then
                         enlace = enlace + referido
