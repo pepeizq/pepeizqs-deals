@@ -21,6 +21,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If enlaceImagenFondo.Trim.Length > 0 Then
+                If enlaceImagenFondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes) Then
+                    imagenFondo.Opacity = 1
+                Else
+                    imagenFondo.Opacity = 0.2
+                End If
+
                 imagenFondo.ImageSource = New BitmapImage(New Uri(enlaceImagenFondo))
             End If
 
@@ -99,7 +105,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_bethesda2.jpg"
                 ElseIf juego.DRM.ToLower.Contains("epic") Then
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_epic2.jpg"
-                ElseIf juego.DRM.ToLower.Contains("battle") Then
+                ElseIf juego.DRM.ToLower.Contains("battle") Or juego.DRM.ToLower.Contains("blizzard") Then
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_battlenet2.png"
                 ElseIf juego.DRM.ToLower.Contains("microsoft") Then
                     imagenDRMString = "ms-appx:///Assets/DRMs/drm_microsoft2.png"
@@ -243,7 +249,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If tiendasVertical = 1 Then
                         panel.Margin = New Thickness(35, 10, 35, 30)
                     ElseIf tiendasVertical = 2 Then
-                        panel.Margin = New Thickness(20, 10, 20, 30)
+                        panel.Margin = New Thickness(65, 10, 65, 30)
                     Else
                         panel.Margin = New Thickness(20, 10, 20, 30)
                     End If

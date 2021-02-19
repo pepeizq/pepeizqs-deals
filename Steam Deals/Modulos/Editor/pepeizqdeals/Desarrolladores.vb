@@ -519,7 +519,7 @@
                 New Clases.Desarrolladores("PlayFig", "@PlayFig", Nothing, Nothing),
                 New Clases.Desarrolladores("PLAYISM", "@playismEN", Nothing, Nothing),
                 New Clases.Desarrolladores("Playsaurus", "@ClickerHeroes", Nothing, Nothing),
-                New Clases.Desarrolladores("Plug In Digital", "@plugindigital", "Assets\LogosPublishers\plugin.png", 310),
+                New Clases.Desarrolladores("Plug In Digital", "@plugindigital", "Assets\LogosPublishers\plugin.png", 240),
                 New Clases.Desarrolladores("Pocketwatch Games", "@PocketwatchG", Nothing, Nothing),
                 New Clases.Desarrolladores("Popcannibal", "@popcannibal", Nothing, Nothing),
                 New Clases.Desarrolladores("Portable Moose", "@PortableMoose", Nothing, Nothing),

@@ -577,6 +577,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbImagenFondo.Text.Trim.Length > 0 Then
                 Try
+                    If tbImagenFondo.Text.Trim.Contains(pepeizq.Ofertas.Steam.dominioImagenes) Then
+                        fondo.Opacity = 1
+                    Else
+                        fondo.Opacity = 0.2
+                    End If
+
                     fondo.ImageSource = New BitmapImage(New Uri(tbImagenFondo.Text.Trim))
                 Catch ex As Exception
                     fondo.ImageSource = Nothing
