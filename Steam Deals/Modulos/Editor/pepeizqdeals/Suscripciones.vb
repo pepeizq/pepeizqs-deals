@@ -339,7 +339,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .Background = colorFondo2
                 }
 
-                If listaEnlaces.Count > 3 Then
+                If listaEnlaces.Count > 1 Then
                     If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
                         enlace = enlace.Replace("header", "library_600x900")
                     ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
@@ -360,8 +360,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gv.Items.Add(panel)
             Next
 
-            If listaEnlaces.Count < 4 Then
-                gv.Margin = New Thickness(0, 0, 0, 10)
+            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnaSuscripcion")
+            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosSuscripciones")
+
+            If listaEnlaces.Count = 1 Then
+                gridUnJuego.Visibility = Visibility.Visible
+                gridDosJuegos.Visibility = Visibility.Collapsed
+
+            Else
+                gridUnJuego.Visibility = Visibility.Collapsed
+                gridDosJuegos.Visibility = Visibility.Visible
+
+
             End If
 
             Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")

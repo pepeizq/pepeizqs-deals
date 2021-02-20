@@ -120,7 +120,8 @@ Namespace pepeizq.Ofertas
                 "warcraft-iii",
                 "call-of-duty",
                 "call-of-duty-mw2cr",
-                "call-of-duty-black-ops-cold-war"
+                "call-of-duty-black-ops-cold-war",
+                "crash-bandicoot-4"
             }
 
             Return lista
