@@ -1,5 +1,4 @@
-﻿Imports System.Globalization
-Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
@@ -9,13 +8,14 @@ Namespace pepeizq.Suscripciones
 
     Module Xbox
 
-        Dim WithEvents Bw As New BackgroundWorker
         Dim listaIDs As New List(Of String)
-        Dim listaJuegos As New List(Of JuegoSuscripcion)
+        Dim comprobar As Boolean
 
         Public Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
 
             BloquearControles(False)
+
+            comprobar = False
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -23,21 +23,32 @@ Namespace pepeizq.Suscripciones
                 listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaXboxSuscripcion")
             End If
 
-            Bw.WorkerReportsProgress = True
-            Bw.WorkerSupportsCancellation = True
-
-            If Bw.IsBusy = False Then
-                Bw.RunWorkerAsync()
-            End If
+            BuscarJuegos2(comprobar)
 
         End Sub
 
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+        Public Async Function ComprobarJuegos() As Task
 
+            BloquearControles(False)
+
+            comprobar = True
+
+            Dim helper As New LocalObjectStorageHelper
+
+            If Await helper.FileExistsAsync("listaXboxSuscripcion") Then
+                listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaXboxSuscripcion")
+            End If
+
+            BuscarJuegos2(comprobar)
+
+        End Function
+
+        Private Async Sub BuscarJuegos2(comprobar As Boolean)
+
+            Dim listaJuegos As New List(Of JuegoSuscripcion)
             Dim listaIDs2 As New List(Of String)
 
-            Dim html_ As Task(Of String) = HttpClient(New Uri("https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?DeviceFamily=Windows.Desktop&market=US&language=EN&count=200"))
-            Dim html As String = html_.Result
+            Dim html As String = Await Decompiladores.HttpClient(New Uri("https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?DeviceFamily=Windows.Desktop&market=US&language=EN&count=200"))
 
             If Not html = Nothing Then
                 Dim juegos As MicrosoftStoreBBDDIDs = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDIDs)(html)
@@ -64,8 +75,7 @@ Namespace pepeizq.Suscripciones
 
             Dim i As Integer = 0
             While i < 360
-                Dim html2_ As Task(Of String) = HttpClient(New Uri("https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=" + i.ToString))
-                Dim html2 As String = html2_.Result
+                Dim html2 As String = Await Decompiladores.HttpClient(New Uri("https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=" + i.ToString))
 
                 If Not html2 = Nothing Then
                     Dim j As Integer = 0
@@ -116,8 +126,7 @@ Namespace pepeizq.Suscripciones
                 If ids.Length > 0 Then
                     ids = ids.Remove(ids.Length - 1)
 
-                    Dim htmlJuego_ As Task(Of String) = HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
-                    Dim htmlJuego As String = htmlJuego_.Result
+                    Dim htmlJuego As String = Await Decompiladores.HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
 
                     If Not htmlJuego = Nothing Then
                         Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuego)
@@ -156,60 +165,64 @@ Namespace pepeizq.Suscripciones
                 End If
             End If
 
-        End Sub
-
-        Private Async Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
-
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim titulo As String = String.Empty
+            If comprobar = False Then
+                Dim titulo As String = String.Empty
 
-            If listaJuegos.Count = 1 Then
-                titulo = "Xbox Game Pass • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
-            Else
-                titulo = "Xbox Game Pass • New Games Added • "
-
-                Dim tituloJuegos As String = String.Empty
-
-                If listaJuegos.Count < 6 Then
-                    Dim i As Integer = 0
-                    While i < listaJuegos.Count
-                        If i = 0 Then
-                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                        ElseIf i >= 1 Then
-                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                        ElseIf (i + 1) = listaJuegos.Count Then
-                            tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                        End If
-                        i += 1
-                    End While
+                If listaJuegos.Count = 1 Then
+                    titulo = "Xbox Game Pass • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
                 Else
-                    Dim i As Integer = 0
-                    While i < listaJuegos.Count
-                        If i = 0 Then
-                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                        ElseIf i >= 1 And i <= 3 Then
-                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                        Else
-                            Exit While
-                        End If
-                        i += 1
-                    End While
+                    titulo = "Xbox Game Pass • New Games Added • "
 
-                    tituloJuegos = tituloJuegos + " and more games"
+                    Dim tituloJuegos As String = String.Empty
+
+                    If listaJuegos.Count < 6 Then
+                        i = 0
+                        While i < listaJuegos.Count
+                            If i = 0 Then
+                                tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            ElseIf i >= 1 Then
+                                tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            ElseIf (i + 1) = listaJuegos.Count Then
+                                tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            End If
+                            i += 1
+                        End While
+                    Else
+                        i = 0
+                        While i < listaJuegos.Count
+                            If i = 0 Then
+                                tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            ElseIf i >= 1 And i <= 3 Then
+                                tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            Else
+                                Exit While
+                            End If
+                            i += 1
+                        End While
+
+                        tituloJuegos = tituloJuegos + " and more games"
+                    End If
+
+                    titulo = titulo + tituloJuegos
                 End If
 
-                titulo = titulo + tituloJuegos
+                Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+                tbTitulo.Text = titulo
+
+                Dim helper As New LocalObjectStorageHelper
+                Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
+
+                pepeizq.Suscripciones.Html.Generar("Microsoft Store", "https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8", "https://i.imgur.com/mKThm6d.png", listaJuegos, False)
+            Else
+                If listaJuegos.Count > 0 Then
+                    Notificaciones.Toast("Nuevos Juegos en Xbox Game Pass", Nothing)
+                End If
+
+                pepeizq.Interfaz.Pestañas.Botones(True)
             End If
-
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-            tbTitulo.Text = titulo
-
-            Dim helper As New LocalObjectStorageHelper
-            Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
-
-            Html.Generar("Microsoft Store", "https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8", "https://i.imgur.com/mKThm6d.png", listaJuegos, False)
 
             BloquearControles(True)
 

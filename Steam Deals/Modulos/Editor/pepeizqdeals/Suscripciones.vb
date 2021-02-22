@@ -1,6 +1,7 @@
 ﻿Imports System.Globalization
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.pepeizq.Suscripciones
 Imports Windows.ApplicationModel.DataTransfer
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -46,8 +47,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
             tbImagenesGrid.Text = String.Empty
 
-            RemoveHandler tbImagenesGrid.TextChanged, AddressOf CambiarImagenesGrid
-            AddHandler tbImagenesGrid.TextChanged, AddressOf CambiarImagenesGrid
+            RemoveHandler tbImagenesGrid.TextChanged, AddressOf GenerarImagenesJuegos
+            AddHandler tbImagenesGrid.TextChanged, AddressOf GenerarImagenesJuegos
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddMonths(1)
@@ -93,7 +94,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
+            Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenUnaSuscripcion")
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
             Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -105,7 +107,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
 
                 cosas.Tienda = Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
@@ -115,8 +118,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)
                 cosas.Mensaje = mes
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleChoice.GenerarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleChoice.GenerarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf HumbleChoice.GenerarJuegos
+                AddHandler botonBuscar.Click, AddressOf HumbleChoice.GenerarJuegos
 
                 fechaDefecto = fechaDefecto.AddMonths(1)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
@@ -125,14 +128,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
 
                 cosas.Tienda = Tiendas.amazoncomT
                 cosas.Enlace = "https://gaming.amazon.com/"
-                cosas.Mensaje = "test"
+                cosas.Mensaje = "New Games Added"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.PrimeGaming.GenerarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.PrimeGaming.GenerarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf PrimeGaming.GenerarJuegos
+                AddHandler botonBuscar.Click, AddressOf PrimeGaming.GenerarJuegos
 
                 fechaDefecto = fechaDefecto.AddMonths(1)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
@@ -140,30 +144,33 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/xboxgamepass.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/xboxgamepass.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/xboxgamepass.png"
 
                 cosas.Tienda = Tiendas.microsoftstoreT
+                cosas.Enlace = "https://tinyurl.com/pepexbox"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.Xbox.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos
 
-                fechaDefecto = fechaDefecto.AddDays(7)
+                fechaDefecto = fechaDefecto.AddDays(30)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png"
 
                 cosas.Tienda = Tiendas.originT
                 cosas.Titulo = "EA Play • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
                 cosas.Enlace = "https://www.origin.com/store/ea-play"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlay.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlay.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf EAPlay.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf EAPlay.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
@@ -171,15 +178,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplaypro.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplaypro.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplaypro.png"
 
                 cosas.Tienda = Tiendas.originT
                 cosas.Titulo = "EA Play Pro • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
                 cosas.Enlace = "https://www.origin.com/store/ea-play"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlayPro.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.EAPlayPro.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf EAPlayPro.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf EAPlayPro.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
@@ -187,7 +195,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humbletrove.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humbletrove.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humbletrove.png"
 
                 cosas.Tienda = Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
@@ -195,8 +204,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 cosas.Titulo = "Humble Trove • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.HumbleTrove.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf HumbleTrove.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf HumbleTrove.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
@@ -204,14 +213,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/geforcenow3.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/geforcenow3.png"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/geforcenow3.png"
 
                 'cosas.Tienda = "Geforce"
                 'cosas.Icono = "https://pepeizqdeals.com/wp-content/uploads/2020/03/tienda_geforcenow.jpg"
                 cosas.Mensaje = "New Games Supported"
 
-                RemoveHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
-                AddHandler botonBuscar.Click, AddressOf pepeizq.Suscripciones.GeforceNow.BuscarJuegos
+                RemoveHandler botonBuscar.Click, AddressOf GeforceNow.BuscarJuegos
+                AddHandler botonBuscar.Click, AddressOf GeforceNow.BuscarJuegos
 
                 fechaDefecto = fechaDefecto.AddDays(7)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
@@ -288,13 +298,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub CambiarImagenesGrid(sender As Object, e As TextChangedEventArgs)
+        Private Sub GenerarImagenesJuegos(sender As Object, e As TextChangedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
-
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptionsv2")
-            gv.Items.Clear()
 
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
             Dim enlaces As String = tbImagenesGrid.Text.Trim
@@ -321,67 +328,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
-            For Each enlace In listaEnlaces
-                Dim panel As New DropShadowPanel With {
-                    .BlurRadius = 10,
-                    .ShadowOpacity = 1,
-                    .Color = Windows.UI.Colors.Black,
-                    .Margin = New Thickness(15, 15, 15, 15),
-                    .HorizontalAlignment = HorizontalAlignment.Center,
-                    .VerticalAlignment = VerticalAlignment.Stretch
-                }
-
-                Dim colorFondo2 As New SolidColorBrush With {
-                    .Color = "#2e4460".ToColor
-                }
-
-                Dim gridContenido As New Grid With {
-                    .Background = colorFondo2
-                }
-
-                If listaEnlaces.Count > 1 Then
-                    If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
-                        enlace = enlace.Replace("header", "library_600x900")
-                    ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
-                        enlace = enlace.Replace("header", "library_600x900")
-                    End If
-                End If
-
-                Dim imagenJuego2 As New ImageEx With {
-                    .Stretch = Stretch.Uniform,
-                    .IsCacheEnabled = True,
-                    .Source = enlace,
-                    .MaxHeight = 320,
-                    .MaxWidth = 400
-                }
-
-                gridContenido.Children.Add(imagenJuego2)
-                panel.Content = gridContenido
-                gv.Items.Add(panel)
-            Next
-
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnaSuscripcion")
-            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosSuscripciones")
-
-            If listaEnlaces.Count = 1 Then
-                gridUnJuego.Visibility = Visibility.Visible
-                gridDosJuegos.Visibility = Visibility.Collapsed
-
-            Else
-                gridUnJuego.Visibility = Visibility.Collapsed
-                gridDosJuegos.Visibility = Visibility.Visible
-
-
-            End If
-
-            Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
-            Dim mensaje As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
-
-            If cbTiendas.SelectedIndex = 2 Then
+            If listaEnlaces.Count > 0 Then
                 If listaEnlaces.Count = 1 Then
-                    mensaje.Text = "New Game Added"
+                    ImagenEntrada.UnJuegoGenerar(listaEnlaces(0))
                 Else
-                    mensaje.Text = "New Games Added"
+                    ImagenEntrada.DosJuegosGenerar(listaEnlaces)
                 End If
             End If
 
@@ -391,7 +342,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim fechaPicker As DatePicker = sender
 
-            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
+            If fechaPicker.SelectedDate.Value.Month = DateTime.Today.Month And fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
                 Notificaciones.Toast("Hoy es el mismo dia", Nothing)
             End If
 
@@ -428,6 +379,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
             tbImagenesGrid.IsEnabled = estado
+
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion")
+            tbImagenFondo.IsEnabled = estado
 
             Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
             botonBuscar.IsEnabled = estado

@@ -39,175 +39,186 @@ Namespace pepeizq.Ofertas
                 listaImagenes = Await helper.ReadFileAsync(Of List(Of MicrosoftStoreImagen))("listaImagenesMicrosoftStore")
             End If
 
-            Dim ficheroZip As IStorageFile = Nothing
-
-            Try
-                ficheroZip = Await ApplicationData.Current.LocalFolder.CreateFileAsync("microsoftstore.gz", CreationCollisionOption.ReplaceExisting)
-            Catch ex As Exception
-
-            End Try
-
             Dim listaIDs As New List(Of String)
 
             If Await helper.FileExistsAsync("listaIDsMicrosoftStore") Then
                 listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaIDsMicrosoftStore")
             End If
 
-            If Not ficheroZip Is Nothing Then
-                Dim descargador As New BackgroundDownloader
-                Dim descarga As DownloadOperation = descargador.CreateDownload(New Uri("https://product.impact.com/secure/productservices/catalog/download.irps?p=45x%7B%22networkId%22%3A%221%22%2C%22id%22%3A%22465091%22%2C%22mpId%22%3A%221382810%22%2C%22version%22%3A%22original%22%7DJedYObuX09GGw3LrEjpuZjoBIT8%3D"), ficheroZip)
-                descarga.Priority = BackgroundTransferPriority.Default
-                Await descarga.StartAsync
+            Dim i As Integer = 0
+            While i < 450
+                Dim html As String = Await Decompiladores.HttpClient(New Uri("https://www.microsoft.com/es-es/store/top-paid/games/pc?s=store&skipitems=" + i.ToString))
 
-                If descarga.Progress.Status = BackgroundTransferStatus.Completed Then
-                    Dim ficheroDescargado2 As IStorageFile = descarga.ResultFile
+                If Not html = Nothing Then
+                    Dim j As Integer = 0
 
-                    If Not ficheroDescargado2 Is Nothing Then
-                        Dim dataBuffer As Byte() = New Byte(4095) {}
+                    While j < 90
+                        If html.Contains("data-pid=" + ChrW(34)) Then
+                            Dim int As Integer = html.IndexOf("data-pid=" + ChrW(34))
+                            Dim temp As String = html.Remove(0, int + 10)
 
-                        Using fs As Stream = New FileStream(ApplicationData.Current.LocalFolder.Path + "\microsoftstore.gz", FileMode.Open, FileAccess.Read)
-                            Using gzipStream As New GZipInputStream(fs)
+                            html = temp
 
-                                Dim fnOut As String = Path.Combine(ApplicationData.Current.LocalFolder.Path, Path.GetFileNameWithoutExtension("microsoftstore.gz"))
+                            Dim int2 As Integer = temp.IndexOf(ChrW(34))
+                            Dim temp2 As String = temp.Remove(int2, temp.Length - int2)
 
-                                Using fsOut As FileStream = File.Create(fnOut)
-                                    StreamUtils.Copy(gzipStream, fsOut, dataBuffer)
-                                End Using
-                            End Using
-                        End Using
+                            Dim añadir As Boolean = True
 
-                        If File.Exists(ApplicationData.Current.LocalFolder.Path + "\microsoftstore") Then
-                            Dim ficheroDescomprimido As StorageFile = Await StorageFile.GetFileFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\microsoftstore")
-                            Dim ficheroLineas As IList(Of String) = Await FileIO.ReadLinesAsync(ficheroDescomprimido)
-
-                            Dim i As Integer = 0
-                            For Each linea In ficheroLineas
-                                If i > 0 Then
-                                    Dim chars As Char = Convert.ToChar(9)
-                                    Dim texto As String() = linea.Split(chars)
-
-                                    Dim id As String = texto(0)
-
-                                    Dim titulo As String = texto(1)
-
-                                    Dim precio As String = texto(3)
-                                    precio = precio.Replace(".", ",")
-                                    precio = precio.Replace("EUR", "€")
-
-                                    Dim enlace As String = texto(4)
-                                    enlace = enlace.Replace("%2Fes-es%2F", "%2Fen-us%2F")
-                                    enlace = enlace.Replace("%2F", "/")
-                                    enlace = enlace.Replace("%3A", ":")
-
-                                    If enlace.Contains("&u=") Then
-                                        Dim int As Integer = enlace.IndexOf("&u=")
-                                        enlace = enlace.Remove(0, int + 3)
-                                    End If
-
-                                    If enlace.Contains("/") Then
-                                        Dim int As Integer = enlace.LastIndexOf("/")
-                                        enlace = enlace.Remove(0, int + 1)
-                                    End If
-
-                                    If enlace.Contains("&intsrc") Then
-                                        Dim int As Integer = enlace.IndexOf("&intsrc")
-                                        enlace = enlace.Remove(int, enlace.Length - int)
-                                    End If
-
-                                    Dim añadir As Boolean = True
-
-                                    For Each id In listaIDs
-                                        If id = enlace Then
-                                            añadir = False
-                                        End If
-                                    Next
-
-                                    If añadir = True Then
-                                        listaIDs.Add(enlace)
-                                    End If
+                            For Each id In listaIDs
+                                If id = temp2.Trim Then
+                                    añadir = False
                                 End If
-                                i += 1
                             Next
 
-                            Await ficheroDescomprimido.DeleteAsync
+                            If añadir = True Then
+                                listaIDs.Add(temp2.Trim)
+                            End If
                         End If
-
-                        Await ficheroZip.DeleteAsync
-                    End If
+                        j += 1
+                    End While
                 End If
-            End If
+                i += 90
+            End While
 
             If Not listaIDs Is Nothing Then
                 If listaIDs.Count > 0 Then
-                    Dim ids As String = String.Empty
+                    Dim listaIDsFinal As New List(Of String)
+                    Dim ids1 As String = String.Empty
+                    Dim ids2 As String = String.Empty
+                    Dim ids3 As String = String.Empty
+                    Dim ids4 As String = String.Empty
+                    Dim ids5 As String = String.Empty
+                    Dim ids6 As String = String.Empty
+                    Dim ids7 As String = String.Empty
+                    Dim ids8 As String = String.Empty
+                    Dim ids9 As String = String.Empty
 
+                    Dim j As Integer = 0
                     For Each id In listaIDs
-                        ids = ids + id + ","
+                        If j < 100 Then
+                            ids1 = ids1 + id + ","
+                        ElseIf j > 99 And j < 200 Then
+                            ids2 = ids2 + id + ","
+                        ElseIf j > 199 And j < 300 Then
+                            ids3 = ids3 + id + ","
+                        ElseIf j > 299 And j < 400 Then
+                            ids4 = ids4 + id + ","
+                        ElseIf j > 399 And j < 500 Then
+                            ids5 = ids5 + id + ","
+                        ElseIf j > 499 And j < 600 Then
+                            ids6 = ids6 + id + ","
+                        ElseIf j > 599 And j < 700 Then
+                            ids7 = ids7 + id + ","
+                        ElseIf j > 699 And j < 800 Then
+                            ids8 = ids8 + id + ","
+                        ElseIf j > 799 And j < 900 Then
+                            ids9 = ids9 + id + ","
+                        End If
+
+                        j += 1
                     Next
 
-                    If ids.Length > 0 Then
-                        ids = ids.Remove(ids.Length - 1)
+                    If Not ids1 = String.Empty Then
+                        listaIDsFinal.Add(ids1)
+                    End If
 
-                        Dim htmlJuego As String = Await HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
+                    If Not ids2 = String.Empty Then
+                        listaIDsFinal.Add(ids2)
+                    End If
 
-                        If Not htmlJuego = Nothing Then
-                            Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuego)
+                    If Not ids3 = String.Empty Then
+                        listaIDsFinal.Add(ids3)
+                    End If
 
-                            For Each juego2 In juegos.Juegos
-                                Dim imagen As String = String.Empty
+                    If Not ids4 = String.Empty Then
+                        listaIDsFinal.Add(ids4)
+                    End If
 
-                                For Each imagen2 In juego2.Detalles(0).Imagenes
-                                    If imagen2.Proposito = "Poster" Then
-                                        imagen = imagen2.Enlace
+                    If Not ids5 = String.Empty Then
+                        listaIDsFinal.Add(ids5)
+                    End If
 
-                                        If Not imagen.Contains("http:") Then
-                                            imagen = "http:" + imagen
+                    If Not ids6 = String.Empty Then
+                        listaIDsFinal.Add(ids6)
+                    End If
+
+                    If Not ids7 = String.Empty Then
+                        listaIDsFinal.Add(ids7)
+                    End If
+
+                    If Not ids8 = String.Empty Then
+                        listaIDsFinal.Add(ids8)
+                    End If
+
+                    If Not ids9 = String.Empty Then
+                        listaIDsFinal.Add(ids9)
+                    End If
+
+                    For Each ids In listaIDsFinal
+                        If ids.Length > 0 Then
+                            ids = ids.Remove(ids.Length - 1)
+
+                            Dim htmlJuego As String = Await HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
+
+                            If Not htmlJuego = Nothing Then
+                                Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuego)
+
+                                For Each juego2 In juegos.Juegos
+                                    Dim imagen As String = String.Empty
+
+                                    For Each imagen2 In juego2.Detalles(0).Imagenes
+                                        If imagen2.Proposito = "Poster" Then
+                                            imagen = imagen2.Enlace
+
+                                            If Not imagen.Contains("http:") Then
+                                                imagen = "http:" + imagen
+                                            End If
                                         End If
+                                    Next
+
+                                    Dim imagenes As New OfertaImagenes(imagen, Nothing)
+
+                                    Dim titulo As String = juego2.Detalles(0).Titulo.Trim
+                                    titulo = LimpiarTitulo(titulo)
+
+                                    Dim precioBase As String = juego2.Propiedades2(0).Disponible(0).Datos.Precio.PrecioBase
+                                    precioBase = precioBase.Replace(".", ",")
+                                    precioBase = precioBase + " €"
+
+                                    Dim precioRebajado As String = juego2.Propiedades2(0).Disponible(0).Datos.Precio.PrecioRebajado
+                                    precioRebajado = precioRebajado.Replace(".", ",")
+                                    precioRebajado = precioRebajado + " €"
+
+                                    Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+
+                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+
+                                    Dim enlace As String = "https://www.microsoft.com/store/apps/" + juego2.ID
+
+                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+
+                                    Dim añadir As Boolean = True
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Enlace = juego.Enlace Then
+                                            añadir = False
+                                        End If
+                                        k += 1
+                                    End While
+
+                                    If juego.Descuento = Nothing Then
+                                        juego.Descuento = "00%"
+                                    End If
+
+                                    If añadir = True Then
+                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+
+                                        listaJuegos.Add(juego)
                                     End If
                                 Next
-
-                                Dim imagenes As New OfertaImagenes(imagen, Nothing)
-
-                                Dim titulo As String = juego2.Detalles(0).Titulo.Trim
-                                titulo = LimpiarTitulo(titulo)
-
-                                Dim precioBase As String = juego2.Propiedades2(0).Disponible(0).Datos.Precio.PrecioBase
-                                precioBase = precioBase.Replace(".", ",")
-                                precioBase = precioBase + " €"
-
-                                Dim precioRebajado As String = juego2.Propiedades2(0).Disponible(0).Datos.Precio.PrecioRebajado
-                                precioRebajado = precioRebajado.Replace(".", ",")
-                                precioRebajado = precioRebajado + " €"
-
-                                Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
-
-                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                                Dim enlace As String = "https://www.microsoft.com/store/apps/" + juego2.ID
-
-                                Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                                Dim añadir As Boolean = True
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Enlace = juego.Enlace Then
-                                        añadir = False
-                                    End If
-                                    k += 1
-                                End While
-
-                                If juego.Descuento = Nothing Then
-                                    juego.Descuento = "00%"
-                                End If
-
-                                If añadir = True Then
-                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
-
-                                    listaJuegos.Add(juego)
-                                End If
-                            Next
+                            End If
                         End If
-                    End If
+                    Next
                 End If
             End If
 

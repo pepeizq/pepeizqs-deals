@@ -1,5 +1,4 @@
-﻿Imports System.Globalization
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Suscripciones

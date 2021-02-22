@@ -742,6 +742,17 @@
                                     <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                 </Grid>
 
+                                <Grid x:Name="gridEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion" Margin="0,10,0,15" Visibility="Collapsed">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="Imagen Fondo:" Grid.Column="0" VerticalAlignment="Center"/>
+
+                                    <TextBox x:Name="tbEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                </Grid>
+
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                     <DatePicker x:Name="fechaEditorpepeizqdealsSubscriptions" Margin="0,0,20,0"/>
                                     <TimePicker x:Name="horaEditorpepeizqdealsSubscriptions" Margin="0,0,30,0"/>
@@ -787,11 +798,32 @@
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
-                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnaSuscripcion" Width="1300" Height="400">
-                                                    
+                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnaSuscripcion" Width="1300" Height="400" Visibility="Collapsed">
+                                                    <Grid.Background>
+                                                        <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenUnaSuscripcion" Stretch="UniformToFill"/>
+                                                    </Grid.Background>
+
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
+                                                        <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenUnaSuscripcion" MaxWidth="280" MaxHeight="140" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        </controls:DropShadowPanel>
+
+                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                                            <TextBlock Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+
+                                                    <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">
+                                                        <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenUnaSuscripcion" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                    </controls:DropShadowPanel>
                                                 </Grid>
 
-                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosSuscripciones" Width="1300">
+                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosSuscripciones" Width="1300" Visibility="Collapsed">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="Auto"/>
                                                         <RowDefinition Height="*"/>

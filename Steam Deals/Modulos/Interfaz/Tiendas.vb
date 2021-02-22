@@ -920,7 +920,7 @@ Module Tiendas
         End Try
 
         Try
-            'Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
+            Await pepeizq.Ofertas.MicrosoftStore.BuscarOfertas(microsoftstoreT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + microsoftstoreT.NombreMostrar, Nothing)
         End Try
@@ -1013,6 +1013,12 @@ Module Tiendas
             Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + allyouplayT.NombreMostrar, Nothing)
+        End Try
+
+        Try
+            Await pepeizq.Suscripciones.Xbox.ComprobarJuegos()
+        Catch ex As Exception
+            Notificaciones.Toast("Error Xbox", Nothing)
         End Try
 
         Notificaciones.Toast("Escaneo Completo", Nothing)
