@@ -21,8 +21,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim contexto As IAuthenticationContext = AuthFlow.InitAuthentication(appCredenciales)
 
-            wvTwitter.Source = New Uri(contexto.AuthorizationURL)
-            tbCodigo.Tag = contexto
+            If Not contexto.AuthorizationURL = Nothing Then
+                wvTwitter.Source = New Uri(contexto.AuthorizationURL)
+                tbCodigo.Tag = contexto
+            Else
+                Notificaciones.Toast("Error Logeo Twitter", Nothing)
+            End If
 
         End Sub
 

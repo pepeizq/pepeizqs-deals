@@ -28,8 +28,10 @@
             If wv.Source.AbsoluteUri.Contains("https://pepeizqdeals.com/wp-login.php?redirect_to=") Then
                 Notificaciones.Toast("Logear en Push Web", Nothing)
             Else
-                If Not wv.Source.AbsoluteUri = "https://pepeizqdeals.com/wp-admin/admin.php?page=letspush-send-notification" Then
-                    wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=letspush-send-notification"))
+                If Not wv.Source.AbsoluteUri.Contains("https://pepeizqdeals.com/wp-login.php") Then
+                    If Not wv.Source.AbsoluteUri = "https://pepeizqdeals.com/wp-admin/admin.php?page=letspush-send-notification" Then
+                        wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=letspush-send-notification"))
+                    End If
                 End If
             End If
 

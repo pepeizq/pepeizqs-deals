@@ -26,7 +26,7 @@ Namespace pepeizq.Ofertas
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            Dim html As String = Await HttpClient(New Uri("https://store.nexus.gg/product/list/372?onlyActive="))
+            Dim html As String = Await HttpClient(New Uri("https://store.nexus.gg/sku/creator/372/list"))
 
             If Not html = Nothing Then
                 Dim juegosNexus As List(Of NexusJuego) = JsonConvert.DeserializeObject(Of List(Of NexusJuego))(html)
