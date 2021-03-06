@@ -80,6 +80,10 @@
                     If Not enlace.Contains(referido) Then
                         enlace = enlace + referido
                     End If
+
+                    If enlace.Contains("humblebundle.com/subscription") And enlace.Contains(referido) Then
+                        enlace = enlace + "&refc=gXsa9X"
+                    End If
                 ElseIf enlace.Contains("fanatical.com") Then
                     Dim referido As String = "?ref=pepeizq&refer_a_friend=NTYxZGE0NThkM2IwNTA5YzM4OGM0MDE1"
 
