@@ -160,7 +160,7 @@
                 New Clases.Desarrolladores("Avalanche Studio", "@AvalancheSweden", Nothing, Nothing),
                 New Clases.Desarrolladores("Awesome Games Studio", "@AwesomeGamesStd", Nothing, Nothing),
                 New Clases.Desarrolladores("B Negative Games", "@BNegativeGames", Nothing, Nothing),
-                New Clases.Desarrolladores("Bandai Namco", "@BandaiNamcoEU", "Assets\LogosPublishers\bandainamco.png", 220),
+                New Clases.Desarrolladores("Bandai Namco", "@BandaiNamcoEU", "Assets\LogosPublishers\bandainamco.png", 200),
                 New Clases.Desarrolladores("BadLand Games", "@BadLand_Publish", "Assets\LogosPublishers\badland.png", 390),
                 New Clases.Desarrolladores("BattleGoat Studios", "@BattleGoat", Nothing, Nothing),
                 New Clases.Desarrolladores("Beamdog", "@BeamdogInc", "Assets\LogosPublishers\beamdog.png", 360),
