@@ -5,21 +5,9 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Reddit
 
-        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer, subreddit As String, contenidoTexto As String, modo As Integer) As Task
+        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer, subreddit As String, mensaje As String) As Task
 
             Dim añadir As Boolean = True
-
-            'If subreddit = "/r/pepeizqdeals" Then
-            '    If titulo.Contains("Humble Bundle") Then
-            '        añadir = False
-            '    ElseIf titulo.Contains("Humble Store") Then
-            '        añadir = False
-            '    ElseIf titulo.Contains("Humble Monthly") Then
-            '        añadir = False
-            '    ElseIf titulo.Contains("Humble Choice") Then
-            '        añadir = False
-            '    End If
-            'End If
 
             If añadir = True Then
                 Dim tituloFinal As String = titulo
@@ -100,7 +88,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       Try
                                                                                                                           If subreddit = "/r/pepeizqdeals" Then
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
-                                                                                                                              subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                              Dim post As RedditSharp.Things.Post = subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+
+                                                                                                                              If Not mensaje = Nothing Then
+                                                                                                                                  post.Comment(mensaje)
+                                                                                                                              End If
                                                                                                                           End If
                                                                                                                       Catch ex As Exception
                                                                                                                           Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
@@ -108,36 +100,38 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                       Try
                                                                                                                           If subreddit = "/r/steamdeals" Or subreddit = "/r/GameDeals" Then
-                                                                                                                              enlaceFinal = enlaceFinal + "?reddit=" + Date.Today.Year.ToString + "-" + Date.Today.Month.ToString + "-" + Date.Today.Day.ToString
+                                                                                                                              If subreddit = "/r/steamdeals" Then
+                                                                                                                                  enlaceFinal = enlaceFinal + "?reddit=" + Date.Today.Year.ToString + "-" + Date.Today.Month.ToString + "-" + Date.Today.Day.ToString
+                                                                                                                              End If
 
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subreddit)
 
-                                                                                                                              If modo = 0 Then
-                                                                                                                                  Dim int As Integer = 0
+                                                                                                                              Dim int As Integer = 0
 
-                                                                                                                                  If Not tituloFinal.Contains("Discount Code") Then
-                                                                                                                                      tituloFinal = tituloFinal + ")"
-                                                                                                                                  Else
-                                                                                                                                      int = tituloFinal.LastIndexOf(" • ")
-                                                                                                                                      tituloFinal = tituloFinal.Remove(int, 3)
-                                                                                                                                      tituloFinal = tituloFinal.Insert(int, ") - ")
-                                                                                                                                  End If
-
+                                                                                                                              If Not tituloFinal.Contains("Discount Code") Then
+                                                                                                                                  tituloFinal = tituloFinal + ")"
+                                                                                                                              Else
                                                                                                                                   int = tituloFinal.LastIndexOf(" • ")
                                                                                                                                   tituloFinal = tituloFinal.Remove(int, 3)
-                                                                                                                                  tituloFinal = tituloFinal.Insert(int, " off • ")
+                                                                                                                                  tituloFinal = tituloFinal.Insert(int, ") - ")
+                                                                                                                              End If
 
-                                                                                                                                  int = tituloFinal.IndexOf(" • ")
-                                                                                                                                  tituloFinal = tituloFinal.Remove(int, 3)
-                                                                                                                                  tituloFinal = tituloFinal.Insert(int, " (")
+                                                                                                                              int = tituloFinal.LastIndexOf(" • ")
+                                                                                                                              tituloFinal = tituloFinal.Remove(int, 3)
+                                                                                                                              tituloFinal = tituloFinal.Insert(int, " off • ")
 
-                                                                                                                                  If subreddit = "/r/steamdeals" Then
-                                                                                                                                      tituloFinal = tituloFinal.Replace("[Steam] ", Nothing)
-                                                                                                                                  End If
+                                                                                                                              int = tituloFinal.IndexOf(" • ")
+                                                                                                                              tituloFinal = tituloFinal.Remove(int, 3)
+                                                                                                                              tituloFinal = tituloFinal.Insert(int, " (")
 
-                                                                                                                                  subreddit1.SubmitPost(tituloFinal, enlaceFinal)
-                                                                                                                              ElseIf modo = 1 Then
-                                                                                                                                  subreddit1.SubmitTextPost(tituloFinal, contenidoTexto)
+                                                                                                                              If subreddit = "/r/steamdeals" Then
+                                                                                                                                  tituloFinal = tituloFinal.Replace("[Steam] ", Nothing)
+                                                                                                                              End If
+
+                                                                                                                              Dim post As RedditSharp.Things.Post = subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+
+                                                                                                                              If Not mensaje = Nothing Then
+                                                                                                                                  post.Comment(mensaje)
                                                                                                                               End If
                                                                                                                           End If
                                                                                                                       Catch ex As Exception
@@ -148,25 +142,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             End If
 
         End Function
-
-        Public Function LimpiarComentario(comentario As String)
-
-            Dim i As Integer = 0
-            While i < 100
-                If comentario.Contains("<") And comentario.Contains(">") Then
-                    Dim int As Integer = comentario.IndexOf("<")
-                    Dim int2 As Integer = comentario.IndexOf(">") + 1
-
-                    comentario = comentario.Remove(int, int2 - int)
-                Else
-                    Exit While
-                End If
-                i += 1
-            End While
-
-            Return comentario
-        End Function
-
 
     End Module
 End Namespace

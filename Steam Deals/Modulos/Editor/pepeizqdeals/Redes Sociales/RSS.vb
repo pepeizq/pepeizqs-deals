@@ -75,7 +75,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 Dim botonReddit As New Button With {
                     .Tag = post,
-                    .Content = "Reddit r/pepeizqdeals",
+                    .Content = "Reddit",
                     .Margin = New Thickness(20, 0, 0, 0)
                 }
 
@@ -84,18 +84,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 AddHandler botonReddit.PointerExited, AddressOf UsuarioSaleBoton
 
                 spBotones.Children.Add(botonReddit)
-
-                Dim botonReddit2 As New Button With {
-                    .Tag = post,
-                    .Content = "Reddit r/GameDeals",
-                    .Margin = New Thickness(20, 0, 0, 0)
-                }
-
-                AddHandler botonReddit2.Click, AddressOf RedditGameDeals
-                AddHandler botonReddit2.PointerEntered, AddressOf UsuarioEntraBoton
-                AddHandler botonReddit2.PointerExited, AddressOf UsuarioSaleBoton
-
-                spBotones.Children.Add(botonReddit2)
 
                 Dim botonDiscord As New Button With {
                     .Tag = post,
@@ -198,32 +186,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
+            Dim mensaje As String = DealsFormato.DealsDevolverMensaje(post.Json)
+
             Try
-                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing)
             Catch ex As Exception
                 Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
-            End Try
-
-        End Sub
-
-        Private Async Sub RedditGameDeals(sender As Object, e As RoutedEventArgs)
-
-            Dim boton As Button = sender
-            Dim post As Clases.Post = boton.Tag
-
-            Dim titulo As String = post.Titulo.Rendered
-            titulo = WebUtility.HtmlDecode(titulo)
-
-            Dim enlaceFinal As String = post.Redireccion
-
-            Dim tituloComplemento As String = post.TituloComplemento
-
-            Dim categoria As Integer = post.Categorias(0)
-
-            Try
-                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/GameDeals", Nothing, 0)
-            Catch ex As Exception
-                Notificaciones.Toast("Reddit r/GameDeals Error Post", Nothing)
             End Try
 
         End Sub
@@ -266,7 +234,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         End Sub
 
-        Private Async Sub PushWeb(sender As Object, e As RoutedEventArgs)
+        Private Sub PushWeb(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
             Dim post As Clases.Post = boton.Tag

@@ -73,7 +73,7 @@ Namespace pepeizq.Interfaz
                     cantidadJuegos = listaTotal.Count.ToString
                 End If
 
-                Editor.pepeizqdeals.Deals.GenerarDatos(listaTotal, listaSeleccionados, cantidadJuegos)
+                Deals.GenerarDatos(listaTotal, listaSeleccionados, cantidadJuegos)
             End If
 
         End Sub

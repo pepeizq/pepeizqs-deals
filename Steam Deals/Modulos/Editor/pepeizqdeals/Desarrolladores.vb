@@ -665,7 +665,7 @@
                 New Clases.Desarrolladores("Triverske", "@Triverske", Nothing, Nothing),
                 New Clases.Desarrolladores("Turbo Button", "@TurboButtonInc", Nothing, Nothing),
                 New Clases.Desarrolladores("U Game Me", "@ugameme", Nothing, Nothing),
-                New Clases.Desarrolladores("Ubisoft", "@Ubisoft", "Assets\LogosPublishers\ubisoft.png", 320),
+                New Clases.Desarrolladores("Ubisoft", "@Ubisoft", "Assets\LogosPublishers\ubisoft.png", 240),
                 New Clases.Desarrolladores("unbeGames", "@unbeGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Unbound Creations", "@UnboundCreation", Nothing, Nothing),
                 New Clases.Desarrolladores("UppercutGames", "@UppercutGames", Nothing, Nothing),

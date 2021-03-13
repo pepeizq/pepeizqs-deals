@@ -101,6 +101,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postEditor.JsonExpandido = jsonExpandido
                 End If
 
+                Dim mensajeReddit As String = String.Empty
+
+                If Not json = String.Empty Then
+                    If categoria = 3 Then
+                        mensajeReddit = DealsDevolverMensaje(json)
+                    End If
+                End If
+
                 postEditor.SEORobots = "nofollow"
 
                 Dim resultado As Clases.Post = Nothing
@@ -160,7 +168,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             enlaceReddit = enlaceFinal
                         End If
 
-                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing, 0)
+                        Await RedesSociales.Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, "/r/pepeizqdeals", mensajeReddit)
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                     End Try
@@ -177,27 +185,47 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Notificaciones.Toast("Push Firebase Error Post", Nothing)
                     End Try
 
+                    Try
+                        PushWeb.Enviar(titulo, categoria, imagenUrl.Trim, enlaceFinal)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Push Web Error Post", Nothing)
+                    End Try
+
                     '----------------------------------------------------------------
 
                     If Not redireccion = Nothing Then
                         If Not tienda Is Nothing Then
                             If categoria = 3 And tienda.NombreMostrar = "Steam" Then
                                 Try
-                                    Await Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", Nothing, 0)
+                                    Await RedesSociales.Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", mensajeReddit)
                                 Catch ex As Exception
                                     Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                 End Try
                             End If
+
+                            If categoria = 3 Then
+                                Dim enviar2 As Boolean = True
+
+                                If tienda.NombreMostrar = "Humble Store" Then
+                                    enviar2 = False
+                                ElseIf tienda.NombreMostrar = "My Nexus Store" Then
+                                    enviar2 = False
+                                ElseIf tienda.NombreMostrar = "Yuplay" Then
+                                    enviar2 = False
+                                ElseIf tienda.NombreMostrar = "Ubisoft Store" Then
+                                    enviar2 = False
+                                End If
+
+                                If enviar2 = True Then
+                                    Try
+                                        Await RedesSociales.Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/GameDeals", mensajeReddit)
+                                    Catch ex As Exception
+                                        Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                                    End Try
+                                End If
+                            End If
                         End If
                     End If
-
-                    '----------------------------------------------------------------
-
-                    Try
-                        PushWeb.Enviar(titulo, categoria, imagenUrl.Trim, enlaceFinal)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Push Web Error Post", Nothing)
-                    End Try
                 End If
             End If
 
@@ -312,6 +340,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             mes = "0" + mes
                         End If
 
+                        Notificaciones.Toast("Imagen Subida a pepeizqdeals.com", "Imgur ha fallado")
                         urlImagen = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
                     End If
                 End If
