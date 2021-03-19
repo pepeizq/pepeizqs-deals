@@ -101,14 +101,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     postEditor.JsonExpandido = jsonExpandido
                 End If
 
-                Dim mensajeReddit As String = String.Empty
-
-                If Not json = String.Empty Then
-                    If categoria = 3 Then
-                        mensajeReddit = DealsDevolverMensaje(json)
-                    End If
-                End If
-
                 postEditor.SEORobots = "nofollow"
 
                 Dim resultado As Clases.Post = Nothing
@@ -150,6 +142,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Catch ex As Exception
                         Notificaciones.Toast("Twitter Error Post", Nothing)
                     End Try
+
+                    Dim mensajeReddit As String = String.Empty
+
+                    If Not json = String.Empty Then
+                        If categoria = 3 Then
+                            mensajeReddit = Reddit.GenerarComentarioOfertas(enlaceFinal, json)
+                        End If
+                    End If
 
                     Try
                         Dim enlaceReddit As String = String.Empty
@@ -201,28 +201,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 Catch ex As Exception
                                     Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                 End Try
-                            End If
-
-                            If categoria = 3 Then
-                                Dim enviar2 As Boolean = True
-
-                                If tienda.NombreMostrar = "Humble Store" Then
-                                    enviar2 = False
-                                ElseIf tienda.NombreMostrar = "My Nexus Store" Then
-                                    enviar2 = False
-                                ElseIf tienda.NombreMostrar = "Yuplay" Then
-                                    enviar2 = False
-                                ElseIf tienda.NombreMostrar = "Ubisoft Store" Then
-                                    enviar2 = False
-                                End If
-
-                                If enviar2 = True Then
-                                    Try
-                                        Await RedesSociales.Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/GameDeals", mensajeReddit)
-                                    Catch ex As Exception
-                                        Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                                    End Try
-                                End If
                             End If
                         End If
                     End If

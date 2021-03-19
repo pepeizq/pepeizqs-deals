@@ -1,4 +1,5 @@
-﻿Imports Windows.ApplicationModel.Core
+﻿Imports Newtonsoft.Json
+Imports Windows.ApplicationModel.Core
 Imports Windows.Storage
 Imports Windows.UI.Core
 
@@ -99,10 +100,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       End Try
 
                                                                                                                       Try
-                                                                                                                          If subreddit = "/r/steamdeals" Or subreddit = "/r/GameDeals" Then
-                                                                                                                              If subreddit = "/r/steamdeals" Then
-                                                                                                                                  enlaceFinal = enlaceFinal + "?reddit=" + Date.Today.Year.ToString + "-" + Date.Today.Month.ToString + "-" + Date.Today.Day.ToString
-                                                                                                                              End If
+                                                                                                                          If subreddit = "/r/steamdeals" Then
+                                                                                                                              enlaceFinal = enlaceFinal + "?reddit=" + Date.Today.Year.ToString + "-" + Date.Today.Month.ToString + "-" + Date.Today.Day.ToString
 
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subreddit)
 
@@ -128,11 +127,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                   tituloFinal = tituloFinal.Replace("[Steam] ", Nothing)
                                                                                                                               End If
 
-                                                                                                                              Dim post As RedditSharp.Things.Post = subreddit1.SubmitPost(tituloFinal, enlaceFinal)
-
-                                                                                                                              If Not mensaje = Nothing Then
-                                                                                                                                  post.Comment(mensaje)
-                                                                                                                              End If
+                                                                                                                              subreddit1.SubmitPost(tituloFinal, enlaceFinal)
                                                                                                                           End If
                                                                                                                       Catch ex As Exception
                                                                                                                           Notificaciones.Toast(ex.Message, "Reddit Error " + subreddit)
@@ -143,6 +138,76 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         End Function
 
+        Public Function GenerarComentarioOfertas(enlaceEntrada As String, json As String)
+
+            Dim texto As String = String.Empty
+
+            Dim ofertas As EntradaOfertas = JsonConvert.DeserializeObject(Of EntradaOfertas)(json)
+
+            If Not ofertas Is Nothing Then
+                If Not ofertas.Mensaje = Nothing Then
+                    texto = texto + ofertas.Mensaje + Environment.NewLine + Environment.NewLine
+                End If
+
+                If Not ofertas.Juegos Is Nothing Then
+                    If ofertas.Juegos.Count > 1 Then
+                        For Each juego In ofertas.Juegos
+                            texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + "](" + juego.Enlace + ")" + Environment.NewLine
+                        Next
+
+                        If ofertas.Juegos.Count = 6 Then
+                            texto = texto + Environment.NewLine + Environment.NewLine + "The complete list of deals in this link:" + Environment.NewLine + Environment.NewLine
+                            texto = texto + enlaceEntrada
+                        End If
+                    End If
+                End If
+            End If
+
+            Return texto
+
+        End Function
+
     End Module
+
+    Public Class EntradaOfertas
+
+        <JsonProperty("message")>
+        Public Mensaje As String
+
+        <JsonProperty("games")>
+        Public Juegos As List(Of EntradaOfertasJuego)
+
+    End Class
+
+    Public Class EntradaOfertasJuego
+
+        <JsonProperty("title")>
+        Public Titulo As String
+
+        <JsonProperty("image")>
+        Public Imagen As String
+
+        <JsonProperty("link")>
+        Public Enlace As String
+
+        <JsonProperty("dscnt")>
+        Public Descuento As String
+
+        <JsonProperty("price")>
+        Public Precio As String
+
+        <JsonProperty("drm")>
+        Public DRM As String
+
+        <JsonProperty("revw1")>
+        Public AnalisisPorcentaje As String
+
+        <JsonProperty("revw2")>
+        Public AnalisisCantidad As String
+
+        <JsonProperty("revw3")>
+        Public AnalisisEnlace As String
+
+    End Class
 End Namespace
 

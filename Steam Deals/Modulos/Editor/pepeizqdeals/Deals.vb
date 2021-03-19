@@ -707,6 +707,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            '------------------------------
+
             Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If gridUnJuego.Visibility = Visibility.Visible Then
@@ -735,6 +737,38 @@ Namespace pepeizq.Editor.pepeizqdeals
                 temp4 = temp3.Remove(0, int4 + 1)
 
                 tbPrecio.Text = temp4.Trim
+            End If
+
+            '------------------------------
+
+            Dim semanal As Boolean = False
+
+            If tbTitulo.Text.Contains("Weekly Sale") Then
+                semanal = True
+            ElseIf tbTitulo.Text.Contains("Weeklong Sale") Then
+                semanal = True
+            End If
+
+            If semanal = True Then
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+                Dim fechaFinal As DateTime = DateTime.Today
+                fechaFinal = fechaFinal.AddDays(7)
+                fechaPicker.SelectedDate = fechaFinal
+            End If
+
+            '------------------------------
+
+            Dim medioSemanal As Boolean = False
+
+            If tbTitulo.Text.Contains("Midweek Sale") Then
+                medioSemanal = True
+            End If
+
+            If medioSemanal = True Then
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+                Dim fechaFinal As DateTime = DateTime.Today
+                fechaFinal = fechaFinal.AddDays(3)
+                fechaPicker.SelectedDate = fechaFinal
             End If
 
         End Sub

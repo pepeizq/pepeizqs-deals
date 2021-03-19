@@ -49,6 +49,8 @@ Namespace pepeizq.Ofertas
                             If Not juegoWGS.PrecioRebajado = "0" Then
                                 Dim titulo As String = juegoWGS.Titulo.Trim
                                 titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+                                titulo = titulo.Replace("(Epic)", Nothing)
+                                titulo = titulo.Trim
 
                                 Dim enlace As String = juegoWGS.Enlace
 

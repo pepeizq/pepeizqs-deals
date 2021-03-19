@@ -277,26 +277,6 @@
 
         End Function
 
-        Public Function DealsDevolverMensaje(json As String)
-
-            If Not json = Nothing Then
-                Dim int As Integer = json.IndexOf("{" + ChrW(34) + "message" + ChrW(34) + ":")
-                Dim temp As String = json.Remove(0, int)
-
-                Dim int2 As Integer = temp.IndexOf("," + ChrW(34) + "games" + ChrW(34) + ":[")
-                Dim temp2 As String = temp.Remove(int2, temp.Length - int2)
-
-                If Not temp2.Contains("message" + ChrW(34) + ":null") Then
-                    Dim temp3 As String = temp2.Remove(0, 12)
-                    temp3 = temp3.Remove(temp3.Length - 1, 1)
-                    Return temp3
-                End If
-            End If
-
-            Return Nothing
-
-        End Function
-
     End Module
 End Namespace
 

@@ -186,10 +186,16 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Dim mensaje As String = DealsFormato.DealsDevolverMensaje(post.Json)
+            Dim mensaje As String = String.Empty
+
+            If Not post.Json = String.Empty Then
+                If categoria = 3 Then
+                    mensaje = Reddit.GenerarComentarioOfertas(enlaceFinal, post.Json)
+                End If
+            End If
 
             Try
-                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", Nothing)
+                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", mensaje)
             Catch ex As Exception
                 Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
             End Try

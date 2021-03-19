@@ -282,6 +282,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbImagen.Text.Trim.Length > 0 Then
                 Try
+                    Dim tbImagenAncho As TextBox = pagina.FindName("tbEditorImagenAnchopepeizqdealsBundles")
+
+                    If tbImagenAncho.Text = Nothing Then
+                        tbImagenAncho.Text = 600
+                    End If
+
                     Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
                     imagen.Source = tbImagen.Text
                 Catch ex As Exception
