@@ -627,6 +627,8 @@
                                 <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
                                 <TextBox x:Name="tbEditorImagenFondopepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
+                                <TextBlock Text="Mensaje"/>
+                                <TextBox x:Name="tbEditorMensajepepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                     <DatePicker x:Name="fechaEditorpepeizqdealsFree" Margin="0,0,20,0"/>
@@ -691,6 +693,10 @@
                                                         <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
                                                             <TextBlock Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
+
+                                                        <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenFree" Color="Black" Margin="0,40,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <TextBlock x:Name="tbMensajeEditorpepeizqdealsImagenFree" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        </controls:DropShadowPanel>
                                                     </StackPanel>
 
                                                     <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">

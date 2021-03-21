@@ -41,6 +41,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CambiarImagenFondo
             AddHandler tbImagenFondo.TextChanged, AddressOf CambiarImagenFondo
 
+            Dim tbMensaje As TextBox = pagina.FindName("tbEditorMensajepepeizqdealsFree")
+            tbMensaje.Text = String.Empty
+
+            RemoveHandler tbMensaje.TextChanged, AddressOf MostrarMensaje
+            AddHandler tbMensaje.TextChanged, AddressOf MostrarMensaje
+
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
 
@@ -277,6 +283,26 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub MostrarMensaje(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbMensaje As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim panel As DropShadowPanel = pagina.FindName("panelMensajeEditorpepeizqdealsImagenFree")
+            Dim tbMensaje2 As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenFree")
+
+            If tbMensaje.Text.Trim.Length > 0 Then
+                panel.Visibility = Visibility.Visible
+                tbMensaje2.Text = tbMensaje.Text.Trim
+            Else
+                panel.Visibility = Visibility.Collapsed
+                tbMensaje2.Text = String.Empty
+            End If
+
+        End Sub
+
         Private Async Function Steam(enlace As String) As Task(Of Clases.Free)
 
             Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Steam")
@@ -454,6 +480,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
             tbImagenFondo.IsEnabled = estado
+
+            Dim tbMensaje As TextBox = pagina.FindName("tbEditorMensajepepeizqdealsFree")
+            tbMensaje.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsFree")
             fechaPicker.IsEnabled = estado
