@@ -649,7 +649,7 @@
                 New Clases.Desarrolladores("THQ Nordic", "@THQNordic", "Assets\LogosPublishers\thqnordic.png", 300),
                 New Clases.Desarrolladores("Timeslip Softworks", "@DaithiMcH", Nothing, Nothing),
                 New Clases.Desarrolladores("Tin Man Games", "@TinManGames", Nothing, Nothing),
-                New Clases.Desarrolladores("tinyBuild", "@tinyBuild", Nothing, Nothing),
+                New Clases.Desarrolladores("tinyBuild", "@tinyBuild", "Assets\LogosPublishers\tinybuild.png", 300),
                 New Clases.Desarrolladores("TML-Studios", "@TMLStudios", Nothing, Nothing),
                 New Clases.Desarrolladores("Toge Productions", "@togeproductions", Nothing, Nothing),
                 New Clases.Desarrolladores("Tomorrow Corporation", "@TomorrowCorp", Nothing, Nothing),
