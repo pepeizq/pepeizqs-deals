@@ -86,6 +86,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                   End Try
 
                                                                                                                   If Not reddit.User Is Nothing Then
+                                                                                                                      Dim falloEnlace As Boolean = False
+
                                                                                                                       Try
                                                                                                                           If subreddit = "/r/pepeizqdeals" Then
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
@@ -96,8 +98,21 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                               End If
                                                                                                                           End If
                                                                                                                       Catch ex As Exception
-                                                                                                                          Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
+                                                                                                                          falloEnlace = True
                                                                                                                       End Try
+
+                                                                                                                      If falloEnlace = True Then
+                                                                                                                          Try
+                                                                                                                              Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
+                                                                                                                              Dim post As RedditSharp.Things.Post = subreddit1.SubmitPost(tituloFinal, enlaceFinal + "?=" + DateTime.Today.Month.ToString)
+
+                                                                                                                              If Not mensaje = Nothing Then
+                                                                                                                                  post.Comment(mensaje)
+                                                                                                                              End If
+                                                                                                                          Catch ex As Exception
+                                                                                                                              Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
+                                                                                                                          End Try
+                                                                                                                      End If
 
                                                                                                                       Try
                                                                                                                           If subreddit = "/r/steamdeals" Then
