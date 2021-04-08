@@ -202,7 +202,7 @@ Namespace pepeizq.Ofertas
                                         analisis = AñadirAnalisis(temp2, listaAnalisis)
                                     End If
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -215,11 +215,11 @@ Namespace pepeizq.Ofertas
 
                                     If juego.Descuento = Nothing Then
                                         añadir = False
-                                    ElseIf juego.Precio = "0,49€" Or juego.Precio = "0.49€" Then
+                                    ElseIf juego.Precio1 = "0,49€" Or juego.Precio1 = "0.49€" Then
                                         añadir = False
-                                    ElseIf juego.Precio = "0,39€" Or juego.Precio = "0.39€" Then
+                                    ElseIf juego.Precio1 = "0,39€" Or juego.Precio1 = "0.39€" Then
                                         añadir = False
-                                    ElseIf juego.Precio = "0,44€" Or juego.Precio = "0.44€" Then
+                                    ElseIf juego.Precio1 = "0,44€" Or juego.Precio1 = "0.44€" Then
                                         añadir = False
                                     ElseIf juego.Titulo.ToLower.Contains("hentai") = True Then
                                         añadir = False
@@ -259,7 +259,7 @@ Namespace pepeizq.Ofertas
                                             End If
                                         End If
 
-                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If

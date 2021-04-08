@@ -167,12 +167,19 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 If Not ofertas.Juegos Is Nothing Then
                     If ofertas.Juegos.Count > 1 Then
                         For Each juego In ofertas.Juegos
-                            texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + "](" + juego.Enlace + ")" + Environment.NewLine
+                            Dim precio2 As String = String.Empty
+
+                            If Not juego.Precio2 = Nothing Then
+                                precio2 = " • " + juego.Precio2
+                            End If
+
+                            texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + precio2 + "](" + juego.Enlace + ")" + Environment.NewLine
                         Next
 
                         If ofertas.Juegos.Count = 6 Then
                             texto = texto + Environment.NewLine + Environment.NewLine + "The complete list of deals in this link:" + Environment.NewLine + Environment.NewLine
-                            texto = texto + enlaceEntrada
+                            texto = texto + enlaceEntrada + Environment.NewLine + Environment.NewLine
+                            texto = texto + "Notice: It is possible that Reddit may introduce affiliates in the links without my authorization, so if you want to support me, I recommend entering through my website."
                         End If
                     End If
                 End If
@@ -210,6 +217,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         <JsonProperty("price")>
         Public Precio As String
+
+        <JsonProperty("price2")>
+        Public Precio2 As String
 
         <JsonProperty("drm")>
         Public DRM As String

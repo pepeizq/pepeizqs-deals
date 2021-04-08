@@ -8,19 +8,16 @@ Namespace pepeizq.Ofertas
 
     Module GOG
 
-        Public Async Function BuscarOfertas(tienda As Tienda, modoRuso As Boolean) As Task
+        Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
             Dim listaAnalisis As New List(Of OfertaAnalisis)
-            Dim rublo As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            If modoRuso = True Then
-                Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                rublo = tbRublo.Text
-            End If
+            Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
+            Dim rublo As String = tbRublo.Text
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -28,21 +25,17 @@ Namespace pepeizq.Ofertas
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
             End If
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
             Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
             Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Dim i As Integer = 1
-            While i < 100
-                Dim html As String = String.Empty
+            Dim limitePaginas As Integer = 200
 
-                If modoRuso = False Then
-                    html = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
-                Else
-                    html = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
-                End If
+            Dim i As Integer = 1
+            While i < limitePaginas
+                Dim html As String = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=ES&currency=EUR&page=" + i.ToString))
 
                 If Not html = Nothing Then
                     Dim stream As New StringReader(html)
@@ -70,10 +63,6 @@ Namespace pepeizq.Ofertas
                             Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 
                             Dim precio As String = juegoGOG.Precio
-
-                            If modoRuso = True Then
-                                precio = Divisas.CambioMoneda(precio, rublo)
-                            End If
 
                             Dim descuento As String = juegoGOG.Descuento.Trim + "%"
 
@@ -109,7 +98,7 @@ Namespace pepeizq.Ofertas
 
                             Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoGOG.Publisher}, Nothing)
 
-                            Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
+                            Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrolladores)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -121,7 +110,7 @@ Namespace pepeizq.Ofertas
                             End While
 
                             If añadir = True Then
-                                juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                                juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                 listaJuegos.Add(juego)
                             End If
@@ -134,6 +123,40 @@ Namespace pepeizq.Ofertas
 
                 i += 1
             End While
+
+            i = 1
+            While i < limitePaginas
+                Dim html As String = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
+
+                If Not html = Nothing Then
+                    Dim stream As New StringReader(html)
+                    Dim xml As New XmlSerializer(GetType(GOGCatalogo))
+                    Dim listaJuegosGOG As GOGCatalogo = xml.Deserialize(stream)
+
+                    If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
+                        Exit While
+                    Else
+                        For Each juegoGOG In listaJuegosGOG.Juegos.Juegos
+                            Dim precio As String = juegoGOG.Precio
+                            precio = Divisas.CambioMoneda(precio, rublo)
+
+                            Dim enlace As String = juegoGOG.Enlace
+
+                            For Each juego In listaJuegos
+                                If juego.Enlace = enlace Then
+                                    juego.Precio2 = precio
+                                End If
+                            Next
+                        Next
+                    End If
+                End If
+
+                pb.Value = i
+                tb.Text = i.ToString
+
+                i += 1
+            End While
+
 
             spProgreso.Visibility = Visibility.Collapsed
 

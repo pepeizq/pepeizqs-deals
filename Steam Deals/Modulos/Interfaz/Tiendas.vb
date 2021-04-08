@@ -809,7 +809,7 @@ Module Tiendas
                 ElseIf tienda.NombreUsar = fanaticalT.NombreUsar Then
                     Await pepeizq.Ofertas.Fanatical.BuscarOfertas(fanaticalT)
                 ElseIf tienda.NombreUsar = gogT.NombreUsar Then
-                    Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
+                    Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT)
                 ElseIf tienda.NombreUsar = wingamestoreT.NombreUsar Then
                     Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
                 ElseIf tienda.NombreUsar = microsoftstoreT.NombreUsar Then
@@ -908,7 +908,7 @@ Module Tiendas
         End Try
 
         Try
-            Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT, False)
+            Await pepeizq.Ofertas.GOG.BuscarOfertas(gogT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + gogT.NombreMostrar, Nothing)
         End Try
@@ -1013,12 +1013,6 @@ Module Tiendas
             Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + allyouplayT.NombreMostrar, Nothing)
-        End Try
-
-        Try
-            Await pepeizq.Suscripciones.Xbox.ComprobarJuegos()
-        Catch ex As Exception
-            Notificaciones.Toast("Error Xbox", Nothing)
         End Try
 
         Notificaciones.Toast("Escaneo Completo", Nothing)
@@ -1454,7 +1448,7 @@ Module Tiendas
             .Margin = New Thickness(10, 0, 20, 0)
         }
 
-        Dim precio As String = juego.Precio
+        Dim precio As String = juego.Precio1
 
         If Not precio = String.Empty Then
             If precio.Contains("€") Then

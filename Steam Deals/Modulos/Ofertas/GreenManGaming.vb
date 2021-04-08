@@ -121,7 +121,7 @@ Namespace pepeizq.Ofertas
 
                             Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
 
-                            Dim juego As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -140,7 +140,7 @@ Namespace pepeizq.Ofertas
                                     End If
                                 Next
 
-                                juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                                juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                 listaJuegos.Add(juego)
                             End If

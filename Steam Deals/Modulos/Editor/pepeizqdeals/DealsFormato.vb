@@ -24,9 +24,26 @@
                 End If
 
                 contenido = contenido + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=0 perpage=2000 showsearch=0]</td>" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+
+                Dim dosPrecios As Boolean = False
+
+                If Not listaJuegos(0).Precio2 = Nothing Then
+                    If listaJuegos(0).Precio2.Length > 0 Then
+                        dosPrecios = True
+                    End If
+                End If
+
+                If dosPrecios = False Then
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price (€)</td>" + Environment.NewLine
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                Else
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Price (1)</td>" + Environment.NewLine
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Price (2)</td>" + Environment.NewLine
+                    contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                End If
+
                 contenido = contenido + "</tr>" + Environment.NewLine
 
                 Dim listaContenido As New List(Of String)
@@ -76,7 +93,11 @@
 
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + " class=" + ChrW(34) + "ofertaTitulo" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
-                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio.Replace(".", ",") + "</span></td>" + Environment.NewLine
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio1.Replace(".", ",") + "</span></td>" + Environment.NewLine
+
+                    If dosPrecios = True Then
+                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio2.Replace(".", ",") + "</span></td>" + Environment.NewLine
+                    End If
 
                     If Not juego.Analisis Is Nothing Then
                         Dim contenidoAnalisis As String = Nothing
@@ -152,10 +173,19 @@
                     analisisEnlace = juego.Analisis.Enlace
                 End If
 
+                Dim precio2 As String = String.Empty
+
+                If Not juego.Precio2 = Nothing Then
+                    If juego.Precio2.Length > 0 Then
+                        precio2 = ChrW(34) + "price2" + ChrW(34) + ":" + ChrW(34) + juego.Precio2 + ChrW(34) + ", "
+                    End If
+                End If
+
                 contenido = contenido + "{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + titulo + ChrW(34) + "," +
                                               ChrW(34) + "image" + ChrW(34) + ":" + ChrW(34) + imagen + ChrW(34) + "," +
                                               ChrW(34) + "dscnt" + ChrW(34) + ":" + ChrW(34) + juego.Descuento + ChrW(34) + "," +
-                                              ChrW(34) + "price" + ChrW(34) + ":" + ChrW(34) + juego.Precio + ChrW(34) + "," +
+                                              ChrW(34) + "price" + ChrW(34) + ":" + ChrW(34) + juego.Precio1 + ChrW(34) + "," +
+                                              precio2 +
                                               ChrW(34) + "link" + ChrW(34) + ":" + ChrW(34) + juego.Enlace + ChrW(34) + "," +
                                               ChrW(34) + "drm" + ChrW(34) + ":" + ChrW(34) + drm + ChrW(34) + "," +
                                               ChrW(34) + "revw1" + ChrW(34) + ":" + ChrW(34) + analisisPorcentaje + ChrW(34) + "," +

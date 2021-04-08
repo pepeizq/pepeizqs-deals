@@ -150,7 +150,7 @@ Namespace pepeizq.Ofertas
                                 If listaJuegosAntigua.Count > 0 Then
                                     For Each juegoAntiguo In listaJuegosAntigua
                                         If juegoAntiguo.Enlace = enlace Then
-                                            Dim tempAntiguoPrecio As String = juegoAntiguo.Precio.Replace("€", Nothing)
+                                            Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
                                             tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
                                             Dim tempPrecio As String = precio.Replace("€", Nothing)
@@ -158,7 +158,7 @@ Namespace pepeizq.Ofertas
 
                                             Try
                                                 If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
-                                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio, precio)
+                                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
                                                 Else
                                                     descuento = Nothing
                                                 End If
@@ -184,7 +184,7 @@ Namespace pepeizq.Ofertas
                                                 End If
                                             End If
 
-                                            juegoAntiguo.Precio = precio
+                                            juegoAntiguo.Precio1 = precio
                                             encontrado = True
                                         End If
                                     Next
@@ -196,7 +196,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -212,7 +212,7 @@ Namespace pepeizq.Ofertas
                                 End If
 
                                 If añadir = True Then
-                                    juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                                    juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                     listaJuegos.Add(juego)
                                 End If

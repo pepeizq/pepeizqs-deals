@@ -68,7 +68,8 @@ Namespace pepeizq.Ofertas
 
                         Dim enlace As String = "https://www.humblebundle.com/store/" + juegoHumble.Enlace
 
-                        Dim precio As String = String.Empty
+                        Dim precioChoice As String = String.Empty
+                        Dim precioRebajado As String = String.Empty
 
                         If Not juegoHumble.PrecioDescontado Is Nothing Then
                             If juegoHumble.PrecioDescontado.Cantidad.Trim.Length > 0 Then
@@ -80,7 +81,7 @@ Namespace pepeizq.Ofertas
                                     .Mode = CurrencyFormatterMode.UseSymbol
                                 }
 
-                                precio = formateador.Format(tempDouble)
+                                precioChoice = formateador.Format(tempDouble)
                             End If
                         End If
 
@@ -91,7 +92,7 @@ Namespace pepeizq.Ofertas
                                 Try
                                     Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase.Cantidad, CultureInfo.InvariantCulture).ToString
 
-                                    descuento = Calculadora.GenerarDescuento(tempDescuento, precio)
+                                    descuento = Calculadora.GenerarDescuento(tempDescuento, precioChoice)
                                 Catch ex As Exception
 
                                 End Try
@@ -110,15 +111,17 @@ Namespace pepeizq.Ofertas
                         End If
 
                         If Not cuponPorcentaje = String.Empty Then
-                            If Not precio = String.Empty Then
-                                precio = precio.Replace(",", ".")
-                                precio = precio.Replace("€", Nothing)
-                                precio = precio.Trim
+                            If Not precioChoice = String.Empty Then
+                                precioChoice = precioChoice.Replace(",", ".")
+                                precioChoice = precioChoice.Replace("€", Nothing)
+                                precioChoice = precioChoice.Trim
 
-                                Dim dcupon As Double = Double.Parse(precio, CultureInfo.InvariantCulture) * cuponPorcentaje
-                                Dim dprecio As Double = Double.Parse(precio, CultureInfo.InvariantCulture) - dcupon
-                                precio = Math.Round(dprecio, 2).ToString + " €"
-                                descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase.Cantidad, precio)
+                                precioRebajado = precioChoice
+
+                                Dim dcupon As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) * cuponPorcentaje
+                                Dim dprecio As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) - dcupon
+                                precioChoice = Math.Round(dprecio, 2).ToString + " €"
+                                descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase.Cantidad, precioChoice)
                             End If
                         End If
 
@@ -159,7 +162,7 @@ Namespace pepeizq.Ofertas
 
                         Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                        Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
+                        Dim juego As New Oferta(titulo, descuento, precioChoice, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, ana, sistemas, Nothing)
 
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
@@ -208,7 +211,8 @@ Namespace pepeizq.Ofertas
                                 End If
                             End If
 
-                            juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                            juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                            juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
 
                             listaJuegos.Add(juego)
                         End If

@@ -238,7 +238,7 @@ Namespace pepeizq.Ofertas
                                 descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                             End If
 
-                            Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+                            Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -250,7 +250,7 @@ Namespace pepeizq.Ofertas
                             End While
 
                             If añadir = True Then
-                                juegoFinal.Precio = Ordenar.PrecioPreparar(juegoFinal.Precio)
+                                juegoFinal.Precio1 = Ordenar.PrecioPreparar(juegoFinal.Precio1)
 
                                 listaJuegos.Add(juegoFinal)
                             End If

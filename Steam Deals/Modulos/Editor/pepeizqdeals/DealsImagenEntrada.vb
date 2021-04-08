@@ -314,7 +314,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     }
 
                     Dim tbPrecio As New TextBlock With {
-                        .Text = listaFinal(i).Precio,
+                        .Text = listaFinal(i).Precio1,
                         .Foreground = New SolidColorBrush(Colors.White),
                         .FontSize = 30,
                         .FontWeight = Text.FontWeights.SemiBold,

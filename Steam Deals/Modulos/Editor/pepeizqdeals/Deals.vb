@@ -133,7 +133,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim precioFinal As String = String.Empty
 
             If listaTotal.Count = 1 Then
-                precioFinal = listaTotal(0).Precio
+                precioFinal = listaTotal(0).Precio1
                 precioFinal = precioFinal.Replace(".", ",")
                 precioFinal = precioFinal.Replace("€", Nothing)
                 precioFinal = precioFinal.Trim
@@ -195,10 +195,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     listaDescuento.Add(item.Descuento)
 
-                    item.Precio = item.Precio.Replace(".", ",")
-                    item.Precio = item.Precio.Replace("€", Nothing)
-                    item.Precio = item.Precio.Trim
-                    item.Precio = item.Precio + " €"
+                    item.Precio1 = item.Precio1.Replace(".", ",")
+                    item.Precio1 = item.Precio1.Replace("€", Nothing)
+                    item.Precio1 = item.Precio1.Trim
+                    item.Precio1 = item.Precio1 + " €"
                 Next
 
                 If Not publisherFinal = Nothing Then
@@ -381,7 +381,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
 
             If listaTotal.Count = 1 Then
-                botonSubir.Tag = New Clases.Deals(listaTotal, listaSeleccionados, tienda, listaTotal(0).Descuento, listaTotal(0).Precio)
+                botonSubir.Tag = New Clases.Deals(listaTotal, listaSeleccionados, tienda, listaTotal(0).Descuento, listaTotal(0).Precio1)
             Else
                 botonSubir.Tag = New Clases.Deals(listaTotal, listaSeleccionados, tienda, "Up to " + listaDescuento(listaDescuento.Count - 1), cantidadJuegos + " deals")
             End If
@@ -669,7 +669,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     textoClipboard = textoClipboard + "[img]" + imagen + "[/img]" + Environment.NewLine + Environment.NewLine
-                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio + Environment.NewLine + Environment.NewLine
+                    textoClipboard = textoClipboard + tituloFinal + " • " + juego.Descuento + " • " + juego.Precio1 + Environment.NewLine + Environment.NewLine
                 Next
             End If
 

@@ -182,7 +182,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim juego As New Oferta(titulo, descuento, precio, enlace, imagenes, "steam", tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, "steam", tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -402,8 +402,8 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If añadirJuegoLista = True Then
-                                        juego.Precio = CambioMoneda(juego.Precio, rublo)
-                                        juego.Precio = Ordenar.PrecioPreparar(juego.Precio)
+                                        juego.Precio1 = CambioMoneda(juego.Precio1, rublo)
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If
