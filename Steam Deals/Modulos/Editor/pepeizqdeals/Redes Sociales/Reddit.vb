@@ -178,9 +178,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                         If ofertas.Juegos.Count = 6 Then
                             texto = texto + Environment.NewLine + Environment.NewLine + "The complete list of deals in this link:" + Environment.NewLine + Environment.NewLine
-                            texto = texto + enlaceEntrada + Environment.NewLine + Environment.NewLine
-                            texto = texto + "Notice: It is possible that Reddit may introduce affiliates in the links without my authorization, so if you want to support me, I recommend entering through my website."
+                            texto = texto + enlaceEntrada
                         End If
+
+                        texto = texto + Environment.NewLine + Environment.NewLine + "Notice: It is possible that Reddit may introduce affiliates in the links without my authorization, so if you want to support me, I recommend entering through my website."
                     End If
                 End If
             End If

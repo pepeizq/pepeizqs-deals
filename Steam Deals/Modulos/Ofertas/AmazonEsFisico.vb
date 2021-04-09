@@ -127,42 +127,44 @@ Namespace pepeizq.Ofertas
                                 If listaJuegosAntigua.Count > 0 Then
                                     For Each juegoAntiguo In listaJuegosAntigua
                                         If juegoAntiguo.Enlace = enlace Then
-                                            Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
-                                            tempAntiguoPrecio = tempAntiguoPrecio.Trim
+                                            If Not juegoAntiguo.Precio1 = Nothing Then
+                                                Dim tempAntiguoPrecio As String = juegoAntiguo.Precio1.Replace("€", Nothing)
+                                                tempAntiguoPrecio = tempAntiguoPrecio.Trim
 
-                                            Dim tempPrecio As String = precio.Replace("€", Nothing)
-                                            tempPrecio = tempPrecio.Trim
+                                                Dim tempPrecio As String = precio.Replace("€", Nothing)
+                                                tempPrecio = tempPrecio.Trim
 
-                                            Try
-                                                If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
-                                                    descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
-                                                Else
+                                                Try
+                                                    If Double.Parse(tempAntiguoPrecio) > Double.Parse(tempPrecio) Then
+                                                        descuento = Calculadora.GenerarDescuento(juegoAntiguo.Precio1, precio)
+                                                    Else
+                                                        descuento = Nothing
+                                                    End If
+                                                Catch ex As Exception
                                                     descuento = Nothing
-                                                End If
-                                            Catch ex As Exception
-                                                descuento = Nothing
-                                            End Try
+                                                End Try
 
-                                            If Not descuento = Nothing Then
-                                                If descuento = "00%" Then
-                                                    descuento = Nothing
+                                                If Not descuento = Nothing Then
+                                                    If descuento = "00%" Then
+                                                        descuento = Nothing
+                                                    End If
                                                 End If
+
+                                                If Not descuento = Nothing Then
+                                                    If descuento.Contains("-") Then
+                                                        descuento = Nothing
+                                                    End If
+                                                End If
+
+                                                If Not descuento = Nothing Then
+                                                    If Not descuento.Contains("%") Then
+                                                        descuento = Nothing
+                                                    End If
+                                                End If
+
+                                                juegoAntiguo.Precio1 = precio
+                                                encontrado = True
                                             End If
-
-                                            If Not descuento = Nothing Then
-                                                If descuento.Contains("-") Then
-                                                    descuento = Nothing
-                                                End If
-                                            End If
-
-                                            If Not descuento = Nothing Then
-                                                If Not descuento.Contains("%") Then
-                                                    descuento = Nothing
-                                                End If
-                                            End If
-
-                                            juegoAntiguo.Precio1 = precio
-                                            encontrado = True
                                         End If
                                     Next
                                 End If
