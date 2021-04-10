@@ -108,15 +108,6 @@
                     If Not enlace.Contains(referido) Then
                         enlace = enlace + referido
                     End If
-                    'ElseIf enlace.Contains("microsoft.com") Then
-                    '    Dim referido As String = "https://click.linksynergy.com/deeplink?id=AlDdpr80Ueo&mid=46134&murl="
-
-                    '    If Not enlace.Contains(referido) Then
-                    '        enlace = enlace.Replace("/", "%2F")
-                    '        enlace = enlace.Replace(":", "%3A")
-
-                    '        enlace = referido + enlace
-                    '    End If
                 ElseIf enlace.Contains("gamebillet.com") Then
                     Dim referido As String = "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
 

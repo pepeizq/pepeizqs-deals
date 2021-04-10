@@ -771,6 +771,21 @@ Namespace pepeizq.Editor.pepeizqdeals
                 fechaPicker.SelectedDate = fechaFinal
             End If
 
+            '------------------------------
+
+            Dim finSemanal As Boolean = False
+
+            If tbTitulo.Text.Contains("Weekend Sale") Then
+                finSemanal = True
+            End If
+
+            If finSemanal = True Then
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+                Dim fechaFinal As DateTime = DateTime.Today
+                fechaFinal = fechaFinal.AddDays(4)
+                fechaPicker.SelectedDate = fechaFinal
+            End If
+
         End Sub
 
         Private Sub ActivarErrorPrecio(sender As Object, e As RoutedEventArgs)
