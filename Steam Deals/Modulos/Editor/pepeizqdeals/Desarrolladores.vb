@@ -725,7 +725,7 @@
 
             Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd",
                 "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital",
-                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "Co.",
+                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "Co.", "ENTERTAINMENT",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                 "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
