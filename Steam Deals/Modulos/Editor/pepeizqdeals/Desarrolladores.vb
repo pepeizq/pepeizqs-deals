@@ -427,7 +427,7 @@
                 New Clases.Desarrolladores("Mad Gear Games", "@MadGearGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Make Real", "@MakeRealVR", Nothing, Nothing),
                 New Clases.Desarrolladores("Mandragora Studio", "@MandragoraTeam", Nothing, Nothing),
-                New Clases.Desarrolladores("MangaGamer", "@MangaGamer", Nothing, Nothing),
+                New Clases.Desarrolladores("MangaGamer", "@MangaGamer", "Assets\LogosPublishers\mangagamer.png", 360),
                 New Clases.Desarrolladores("Mango Protocol", "@MangoProtocol", Nothing, Nothing),
                 New Clases.Desarrolladores("Manufacture 43", "@manufacture_43", Nothing, Nothing),
                 New Clases.Desarrolladores("Marcelo Barbosa", "@tchecoforevis", Nothing, Nothing),
