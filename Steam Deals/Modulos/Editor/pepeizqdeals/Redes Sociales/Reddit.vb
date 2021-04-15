@@ -167,13 +167,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 If Not ofertas.Juegos Is Nothing Then
                     If ofertas.Juegos.Count > 1 Then
                         For Each juego In ofertas.Juegos
-                            Dim precio2 As String = String.Empty
-
-                            If Not juego.Precio2 = Nothing Then
-                                precio2 = " • " + juego.Precio2
-                            End If
-
-                            texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + precio2 + "](" + juego.Enlace + ")" + Environment.NewLine
+                            texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + "](" + juego.Enlace + ")" + Environment.NewLine
                         Next
 
                         If ofertas.Juegos.Count = 6 Then

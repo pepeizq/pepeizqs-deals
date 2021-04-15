@@ -111,5 +111,8 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("json_expanded")>
         Public JsonExpandido As String
 
+        <JsonProperty("share")>
+        Public Compartir As String
+
     End Class
 End Namespace

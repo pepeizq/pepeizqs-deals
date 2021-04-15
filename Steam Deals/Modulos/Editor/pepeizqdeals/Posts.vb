@@ -117,6 +117,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not resultado.Redireccion2 = Nothing Then
                         resultado.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + "https://pepeizqdeals.com/" + resultado.Id.ToString + "/" + ChrW(34) +
                                                  "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+                        resultado.Imagenv2 = AñadirTituloImagen(resultado.Imagenv2, titulo)
+                        resultado.Compartir = GenerarCompartir(titulo, resultado.Redireccion2)
 
                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
                     End If
@@ -325,6 +327,34 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Return urlImagen
+
+        End Function
+
+        Private Function AñadirTituloImagen(html As String, titulo As String)
+
+            html = html.Replace("class=" + ChrW(34) + "ajustarImagen" + ChrW(34), "class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " title=" + ChrW(34) + titulo + ChrW(34))
+
+            Return html
+
+        End Function
+
+        Private Function GenerarCompartir(titulo As String, enlace As String)
+
+            titulo = titulo.Replace(" ", "%20")
+            titulo = titulo.Replace(",", "%2C")
+            titulo = titulo.Replace("•", "%E2%80%A2")
+            titulo = titulo.Replace("€", "%E2%82%AC")
+
+            Dim html As String = String.Empty
+
+            html = html + "<div><a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://twitter.com/intent/tweet?text=" + ChrW(34) + titulo +
+                   "&url=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Tweet this" + ChrW(34) + " aria-label=" + ChrW(34) + "Tweet this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-twitter" + ChrW(34) + "></i></a>"
+            html = html + "<div><a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://www.reddit.com/submit?url=" + ChrW(34) + enlace +
+                   "&title=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-reddit" + ChrW(34) + "></i></a>"
+            html = html + "<div><a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "mailto:?subject=" + ChrW(34) + titulo +
+                   "&body=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Email this" + ChrW(34) + " aria-label=" + ChrW(34) + "Email this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-envelope" + ChrW(34) + "></i></a>"
+
+            Return html
 
         End Function
 
