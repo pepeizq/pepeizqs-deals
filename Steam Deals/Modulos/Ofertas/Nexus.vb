@@ -40,7 +40,7 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("- NA/ROW", Nothing)
                             titulo = titulo.Replace("- ROW", Nothing)
 
-                            Dim enlace As String = "https://www.nexus.gg/pepeizq/" + juegoNexus.Enlace
+                            Dim enlace As String = "https://www.nexus.gg/pepeizq/" + juegoNexus.Datos.Enlace
 
                             Dim precioBase As String = juegoNexus.Datos.PrecioBase
 
@@ -57,7 +57,13 @@ Namespace pepeizq.Ofertas
 
                                 Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {juegoNexus.Datos.Desarrollador}, Nothing)
+                                Dim desarrolladorS As String = juegoNexus.Datos.Publisher
+
+                                If desarrolladorS = String.Empty Then
+                                    desarrolladorS = juegoNexus.Datos.Desarrollador
+                                End If
+
+                                Dim desarrollador As New OfertaDesarrolladores(New List(Of String) From {desarrolladorS}, Nothing)
 
                                 precioRebajado = CambioMoneda(precioRebajado, dolar)
 
@@ -101,17 +107,7 @@ Namespace pepeizq.Ofertas
 
     End Module
 
-    Public Class NexusJuegos
-
-        <JsonProperty("products")>
-        Public Juegos As List(Of NexusJuego)
-
-    End Class
-
     Public Class NexusJuego
-
-        <JsonProperty("slug")>
-        Public Enlace As String
 
         <JsonProperty("sku")>
         Public Datos As NexusJuegoDatos
@@ -122,6 +118,9 @@ Namespace pepeizq.Ofertas
 
         <JsonProperty("name")>
         Public Titulo As String
+
+        <JsonProperty("slug")>
+        Public Enlace As String
 
         <JsonProperty("hash")>
         Public HashImagen As String
@@ -134,6 +133,9 @@ Namespace pepeizq.Ofertas
 
         <JsonProperty("developer")>
         Public Desarrollador As String
+
+        <JsonProperty("publisher")>
+        Public Publisher As String
 
     End Class
 

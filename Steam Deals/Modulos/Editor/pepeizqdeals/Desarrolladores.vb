@@ -364,7 +364,7 @@
                 New Clases.Desarrolladores("Hollow Ponds", "@hllwpnds", Nothing, Nothing),
                 New Clases.Desarrolladores("Holospark Games", "@holo_spark", Nothing, Nothing),
                 New Clases.Desarrolladores("Hoplon Infotainment", "@HMM_Hoplon_EN", Nothing, Nothing),
-                New Clases.Desarrolladores("Humble Bundle", "@humble", Nothing, Nothing),
+                New Clases.Desarrolladores("Humble Games", "@humble", "Assets\LogosPublishers\humblegames.png", 200),
                 New Clases.Desarrolladores("HypeTrain Digital", "@HypeTrainD", Nothing, Nothing),
                 New Clases.Desarrolladores("Ice-Pick Lodge", "@IcePickLodge", Nothing, Nothing),
                 New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\LogosPublishers\iceberg.png", 380),
@@ -723,7 +723,7 @@
 
         Public Function LimpiarPublisher(publisher As String)
 
-            Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd",
+            Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd", "Bundle",
                 "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital",
                 "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "Co.", "ENTERTAINMENT",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
