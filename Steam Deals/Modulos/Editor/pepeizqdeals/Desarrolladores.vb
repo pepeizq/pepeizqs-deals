@@ -358,7 +358,7 @@
                 New Clases.Desarrolladores("HeR Interactive", "@HerInteractive", Nothing, Nothing),
                 New Clases.Desarrolladores("Hero Concept", "@doughlings", Nothing, Nothing),
                 New Clases.Desarrolladores("Hidden Path Entertainment", "@HiddenPathEnt", Nothing, Nothing),
-                New Clases.Desarrolladores("HIKARI FIELD", "@hikari_field", Nothing, Nothing),
+                New Clases.Desarrolladores("HIKARI FIELD", "@hikari_field", "Assets\LogosPublishers\hikarifield.png", 130),
                 New Clases.Desarrolladores("Hinterland Studio", "@HinterlandGames", Nothing, Nothing),
                 New Clases.Desarrolladores("HOF Studios", "@depthextinction", Nothing, Nothing),
                 New Clases.Desarrolladores("Hollow Ponds", "@hllwpnds", Nothing, Nothing),
