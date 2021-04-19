@@ -114,5 +114,8 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("share")>
         Public Compartir As String
 
+        <JsonProperty("steam_group")>
+        Public EntradaGrupoSteam As String
+
     End Class
 End Namespace

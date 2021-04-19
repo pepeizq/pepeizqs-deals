@@ -38,7 +38,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     If tipo = 0 Then
                         mensajeHtml = "[url=" + enlaceFinal + "][img]" + imagen + "[/img][/url]\n\n" + enlaceFinal
                     ElseIf tipo = 1 Then
-                        mensajeHtml = redireccion
+                        mensajeHtml = redireccion + "\n\n" + enlaceFinal
                     End If
 
                     mensajeHtml = mensajeHtml.Replace(ChrW(34), Nothing)
@@ -52,6 +52,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('checkboxAudienceFollower').click();"})
 
                         Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
+
+                        wv.Tag = True
                     Catch ex As Exception
 
                     End Try
@@ -142,19 +144,54 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         Private Async Sub VolverCrearAnuncio(wv As WebView)
 
-            Dim i As Integer = 0
-            While i < 20
-                Try
-                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();"})
-                Catch ex As Exception
+            If wv.Tag = Nothing Or wv.Tag = False Then
 
-                End Try
+                Await Task.Delay(1000)
+                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
-                i += 2
-            End While
+            ElseIf wv.Tag = True Then
 
-            Await Task.Delay(1000)
-            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+                wv.Tag = False
+
+                Dim i As Integer = 0
+                While i < 20
+                    Try
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();"})
+                    Catch ex As Exception
+
+                    End Try
+
+                    i += 2
+                End While
+
+                Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
+
+                If Not html = Nothing Then
+                    If html.Contains("https://pepeizqdeals.com/") Then
+                        Dim int As Integer = html.IndexOf("https://pepeizqdeals.com/")
+                        Dim temp As String = html.Remove(0, int + 25)
+
+                        Dim int2 As Integer = temp.IndexOf("/")
+                        Dim temp2 As String = temp.Remove(int2, temp.Length - int2)
+
+                        Dim idWeb As String = temp2.Trim
+
+                        Dim int3 As Integer = html.IndexOf(ChrW(34) + "abody_")
+                        Dim temp3 As String = html.Remove(0, int3 + 7)
+
+                        Dim int4 As Integer = temp3.IndexOf(ChrW(34))
+                        Dim temp4 As String = temp3.Remove(int4, temp3.Length - int4)
+
+                        Dim idGrupoSteam As String = temp4.Trim
+
+                        Posts.AñadirEntradaGrupoSteam(idWeb, idGrupoSteam)
+                    End If
+                End If
+
+                Await Task.Delay(5000)
+                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+
+            End If
 
         End Sub
 

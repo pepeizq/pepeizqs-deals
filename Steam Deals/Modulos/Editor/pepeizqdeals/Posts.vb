@@ -376,5 +376,38 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
+        Public Async Sub AñadirEntradaGrupoSteam(idWeb As String, idGrupoSteam As String)
+
+            Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                .AuthMethod = Models.AuthMethod.JWT
+            }
+
+            Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+            If Await cliente.IsValidJWToken = True Then
+                Dim resultados As List(Of Clases.Post) = Nothing
+
+                Try
+                    resultados = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/posts")
+                Catch ex As Exception
+
+                End Try
+
+                If Not resultados Is Nothing Then
+                    Notificaciones.Toast(idWeb, idGrupoSteam)
+                    For Each resultado In resultados
+                        If resultado.Id.ToString = idWeb Then
+                            If resultado.EntradaGrupoSteam = Nothing Then
+                                resultado.EntradaGrupoSteam = "https://store.steampowered.com/news/group/33500256/view/" + idGrupoSteam
+
+                                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                            End If
+                        End If
+                    Next
+                End If
+            End If
+
+        End Sub
+
     End Module
 End Namespace
