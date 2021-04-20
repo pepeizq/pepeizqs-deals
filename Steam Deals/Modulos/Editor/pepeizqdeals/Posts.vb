@@ -394,7 +394,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End Try
 
                 If Not resultados Is Nothing Then
-                    Notificaciones.Toast(idWeb, idGrupoSteam)
                     For Each resultado In resultados
                         If resultado.Id.ToString = idWeb Then
                             If resultado.EntradaGrupoSteam = Nothing Then

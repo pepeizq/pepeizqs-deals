@@ -53,7 +53,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                         Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
 
-                        wv.Tag = True
+                        wv.Tag = "1"
                     Catch ex As Exception
 
                     End Try
@@ -144,25 +144,15 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
         Private Async Sub VolverCrearAnuncio(wv As WebView)
 
-            If wv.Tag = Nothing Or wv.Tag = False Then
+            If wv.Tag = Nothing Or wv.Tag = "0" Then
 
                 Await Task.Delay(1000)
                 wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
-            ElseIf wv.Tag = True Then
+            ElseIf wv.Tag = "1" Then
+                wv.Tag = "2"
 
-                wv.Tag = False
-
-                Dim i As Integer = 0
-                While i < 20
-                    Try
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();"})
-                    Catch ex As Exception
-
-                    End Try
-
-                    i += 2
-                End While
+                Await Task.Delay(3000)
 
                 Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
 
@@ -170,6 +160,9 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     If html.Contains("https://pepeizqdeals.com/") Then
                         Dim int As Integer = html.IndexOf("https://pepeizqdeals.com/")
                         Dim temp As String = html.Remove(0, int + 25)
+
+                        int = temp.IndexOf("https://pepeizqdeals.com/")
+                        temp = temp.Remove(0, int + 25)
 
                         Dim int2 As Integer = temp.IndexOf("/")
                         Dim temp2 As String = temp.Remove(int2, temp.Length - int2)
@@ -188,7 +181,26 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     End If
                 End If
 
-                Await Task.Delay(5000)
+                Await Task.Delay(3000)
+                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/listing"))
+
+
+            ElseIf wv.Tag = "2" Then
+
+                wv.Tag = "0"
+
+                Dim i As Integer = 0
+                While i < 20
+                    Try
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();"})
+                    Catch ex As Exception
+
+                    End Try
+
+                    i += 2
+                End While
+
+                Await Task.Delay(3000)
                 wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
             End If
