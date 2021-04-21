@@ -170,7 +170,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             enlaceReddit = enlaceFinal
                         End If
 
-                        Await RedesSociales.Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, "/r/pepeizqdeals", mensajeReddit)
+                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, "/r/pepeizqdeals", mensajeReddit)
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                     End Try
@@ -199,7 +199,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If Not tienda Is Nothing Then
                             If categoria = 3 And tienda.NombreMostrar = "Steam" Then
                                 Try
-                                    Await RedesSociales.Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", mensajeReddit)
+                                    Await Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", mensajeReddit)
                                 Catch ex As Exception
                                     Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
                                 End Try
@@ -397,7 +397,19 @@ Namespace pepeizq.Editor.pepeizqdeals
                     For Each resultado In resultados
                         If resultado.Id.ToString = idWeb Then
                             If resultado.EntradaGrupoSteam = Nothing Then
-                                resultado.EntradaGrupoSteam = "https://store.steampowered.com/news/group/33500256/view/" + idGrupoSteam
+                                Dim enlace As String = Referidos.Generar("https://store.steampowered.com/news/group/33500256/view/" + idGrupoSteam)
+
+                                resultado.EntradaGrupoSteam = enlace
+
+                                Dim compartir As String = resultado.Compartir
+
+                                If Not compartir = String.Empty Then
+                                    Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
+                                                         " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
+
+                                    compartir = compartir.Insert(5, html)
+                                    resultado.Compartir = compartir
+                                End If
 
                                 Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
                             End If
