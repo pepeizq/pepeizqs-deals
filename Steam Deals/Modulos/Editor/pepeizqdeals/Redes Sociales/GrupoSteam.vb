@@ -184,7 +184,6 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Await Task.Delay(3000)
                 wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/listing"))
 
-
             ElseIf wv.Tag = "2" Then
 
                 wv.Tag = "0"

@@ -381,7 +381,7 @@
     <Content Include="Assets\Tiendas\300x80\2game3.png" />
     <Content Include="Assets\Tiendas\300x80\allyouplay3.png" />
     <Content Include="Assets\Tiendas\300x80\amazon3.png" />
-    <Content Include="Assets\Tiendas\300x80\blizzard3.png" />
+    <Content Include="Assets\Tiendas\300x80\battlenet3.png" />
     <Content Include="Assets\Tiendas\300x80\chrono3.png" />
     <Content Include="Assets\Tiendas\300x80\d2d3.png" />
     <Content Include="Assets\Tiendas\300x80\epicgames3.png" />
@@ -404,8 +404,8 @@
     <Content Include="Assets\Tiendas\allyouplay.ico" />
     <Content Include="Assets\Tiendas\allyouplay2.png" />
     <Content Include="Assets\Tiendas\amazon2.png" />
-    <Content Include="Assets\Tiendas\blizzard.ico" />
-    <Content Include="Assets\Tiendas\blizzard2.png" />
+    <Content Include="Assets\Tiendas\battlenet.png" />
+    <Content Include="Assets\Tiendas\battlenet2.png" />
     <Content Include="Assets\Tiendas\d2d.ico" />
     <Content Include="Assets\Tiendas\d2d2.png" />
     <Content Include="Assets\Tiendas\gamesplanet.png" />
