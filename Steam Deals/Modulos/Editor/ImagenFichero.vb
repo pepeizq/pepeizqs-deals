@@ -30,7 +30,7 @@ Namespace pepeizq.Editor
 
         End Function
 
-        Public Async Sub Exportar(boton As Button)
+        Public Async Sub Exportar(objeto As Object)
 
             Dim ficheroImagen As New List(Of String) From {
                 ".jpg"
@@ -46,7 +46,7 @@ Namespace pepeizq.Editor
             Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
             If Not ficheroResultado Is Nothing Then
-                Await ImagenFichero.Generar(ficheroResultado, boton, boton.ActualWidth, boton.ActualHeight)
+                Await ImagenFichero.Generar(ficheroResultado, objeto, objeto.ActualWidth, objeto.ActualHeight)
             End If
 
         End Sub

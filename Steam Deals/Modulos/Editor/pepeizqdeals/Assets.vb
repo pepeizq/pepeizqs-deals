@@ -52,7 +52,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             AddHandler botonFondo.Click, AddressOf GenerarFondo
 
             Dim tbFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsFondoRedesSociales")
-            tbFondo.Text = "1085660,578080,294100,227300,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,1250410,275850,220200,379720,552520,261550,1066780,814380,745920,359320,1172620,1151640,412020,230410,359550,945360,813780,286160,1057090,337000,730,1086940,1158310,8500,480490,578650,208650,750920,1286830"
+            tbFondo.Text = "1085660,578080,294100,582010,594570,1039060,489830,976730,1174180,435150,413150,292030,255710,427520,374320,1250410,220200,379720,552520,261550,1066780,814380,359320,1172620,1151640,412020,230410,359550,813780,286160,1057090,337000,730,1086940,1158310,8500,480490,578650,208650,750920,1286830,1237970,252490,105600,1293830"
 
         End Sub
 
@@ -367,7 +367,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         Dim imagenJuego As New ImageEx With {
                             .Stretch = Stretch.Uniform,
-                            .IsCacheEnabled = True,
                             .Source = juego.Datos.Imagen
                         }
 

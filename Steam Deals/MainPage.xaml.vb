@@ -1,4 +1,5 @@
-﻿Imports Windows.Storage
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Windows.Storage
 Imports Windows.UI
 Imports Windows.UI.Core
 
@@ -400,7 +401,8 @@ Public NotInheritable Class MainPage
     Private Sub BotonEditorpepeizqdealsFondoRedesSociales_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsFondoRedesSociales.Click
 
         Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
+        Dim grid As Grid = boton.Content
+        pepeizq.Editor.ImagenFichero.Exportar(grid)
 
     End Sub
 

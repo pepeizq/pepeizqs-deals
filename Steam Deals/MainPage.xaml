@@ -1137,9 +1137,9 @@
                                     </Button.Content>
                                 </Button>
 
-                                <TextBox x:Name="tbEditorpepeizqdealsFondoRedesSociales" Margin="0,30,0,0"/>
+                                <TextBox x:Name="tbEditorpepeizqdealsFondoRedesSociales" Margin="0,30,0,0" AcceptsReturn="True"/>
 
-                                <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Width="2260" Height="480">
+                                <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Width="2260">
                                     <Button.Content>
                                         <Grid x:Name="gridEditorpepeizqdealsFondoRedesSociales" HorizontalAlignment="Stretch">
                                             <Grid.Background>
@@ -1156,19 +1156,6 @@
                                                     </ItemsPanelTemplate>
                                                 </GridView.ItemsPanel>-->
                                             </controls:AdaptiveGridView>
-
-                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="0.9" BlurRadius="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <StackPanel Orientation="Vertical" Padding="30,20,30,30">
-                                                    <StackPanel.Background>
-                                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                            <GradientStop Color="#2e4460" Offset="0.5" />
-                                                            <GradientStop Color="#2e4460" Offset="1.0" />
-                                                        </LinearGradientBrush>
-                                                    </StackPanel.Background>
-
-                                                    <TextBlock Text="pepeizqdeals's  Store" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                </StackPanel>
-                                            </controls:DropShadowPanel>
                                         </Grid>
                                     </Button.Content>
                                 </Button>
