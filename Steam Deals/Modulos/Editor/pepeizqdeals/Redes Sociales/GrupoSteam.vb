@@ -157,8 +157,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
 
                 If Not html = Nothing Then
-                    If html.Contains("https://pepeizqdeals.com/") Then
-                        Dim int As Integer = html.IndexOf("https://pepeizqdeals.com/")
+                    If html.Contains("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/") Then
+                        Dim int As Integer = html.IndexOf("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/")
                         Dim temp As String = html.Remove(0, int + 25)
 
                         int = temp.IndexOf("https://pepeizqdeals.com/")
@@ -169,8 +169,11 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                         Dim idWeb As String = temp2.Trim
 
-                        Dim int3 As Integer = html.IndexOf(ChrW(34) + "abody_")
+                        Dim int3 As Integer = html.IndexOf("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/")
                         Dim temp3 As String = html.Remove(0, int3 + 7)
+
+                        int3 = temp3.IndexOf("/detail/")
+                        temp3 = temp3.Remove(0, int3 + 8)
 
                         Dim int4 As Integer = temp3.IndexOf(ChrW(34))
                         Dim temp4 As String = temp3.Remove(int4, temp3.Length - int4)
