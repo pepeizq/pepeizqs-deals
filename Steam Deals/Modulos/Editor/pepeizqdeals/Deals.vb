@@ -467,7 +467,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not cosas.ListaJuegosTotal Is Nothing Then
                 If cosas.ListaJuegosTotal.Count = 1 Then
-                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
+                    Dim oferta As Oferta = cosas.ListaJuegosTotal(0)
+                    oferta.Imagenes.Grande = tbImagen.Text
+
+                    json = DealsFormato.GenerarJsonOfertas(New List(Of Oferta) From {oferta}, mensaje, cosas.Tienda)
                 ElseIf cosas.ListaJuegosTotal.Count > 1 Then
                     html = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
                     json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosSeleccionados, mensaje, cosas.Tienda)

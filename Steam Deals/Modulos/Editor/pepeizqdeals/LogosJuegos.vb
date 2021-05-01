@@ -109,7 +109,7 @@
                 New Clases.LogosJuegos("Shovel Knight", "Assets\LogosJuegos\shovelknight.png", 390),
                 New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 390),
                 New Clases.LogosJuegos("Sonic", "Assets\LogosJuegos\sonic.png", 320),
-                New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 310),
+                New Clases.LogosJuegos("Star Wars", "Assets\LogosJuegos\starwars.png", 220),
                 New Clases.LogosJuegos("The Sims 4", "Assets\LogosJuegos\thesims4.png", 320),
                 New Clases.LogosJuegos("The Witcher", "Assets\LogosJuegos\witcher.png", 340),
                 New Clases.LogosJuegos("Tom Clancy's", "Assets\LogosJuegos\tomclancy.png", 350),

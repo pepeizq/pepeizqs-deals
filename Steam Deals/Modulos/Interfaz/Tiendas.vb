@@ -21,8 +21,8 @@ Module Tiendas
     Public indiegalaT As New Tienda("IndieGala", "IndieGala", "Assets/Tiendas/indiegala.ico", 12, Nothing, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", "Assets/Tiendas/indiegala2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/indiegala2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/indiegala3.png", "29956", Nothing)
     Public greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming", "Assets/Tiendas/gmg.ico", 13, Nothing, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", "Assets/Tiendas/gmg2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/gmg2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/gmg3.png", "29953", Nothing)
     Public amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png", 15, Nothing, 20, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png", "Assets/Tiendas/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon3.png", "29945", Nothing)
-    Public amazonesT As New Tienda("Amazon.es (Physical Format)", "AmazonEs", "Assets/Tiendas/amazon.png", 16, Nothing, Nothing, Nothing, "Assets/Tiendas/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon3.png", "29945", "This game is in physical format, you will receive the box with the game")
-    Public amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17, Nothing, 1211, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png", "Assets/Tiendas/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon3.png", "29945", Nothing)
+    Public amazonesT As New Tienda("Amazon.es (Physical Format)", "AmazonEs", "Assets/Tiendas/amazon.png", 16, Nothing, Nothing, Nothing, "Assets/Tiendas/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2021/04/amazon3.png", "29945", "This game is in physical format, you will receive the box with the game")
+    Public amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2", "Assets/Tiendas/amazon.png", 17, Nothing, 1211, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_amazon.png", "Assets/Tiendas/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/amazon2.png", "https://pepeizqdeals.com/wp-content/uploads/2021/04/amazon3.png", "29945", Nothing)
     Public yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico", 18, Nothing, 1209, "https://pepeizqdeals.com/wp-content/uploads/2019/01/tienda_yuplay.jpg", "Assets/Tiendas/yuplay2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/yuplay2.png", "https://pepeizqdeals.com/wp-content/uploads/2021/03/yuplay3.png", "29962", "No regional restrictions")
     Public epicT As New Tienda("Epic Games Store", "EpicGamesStore", Nothing, 19, Nothing, Nothing, Nothing, "Assets/Tiendas/epicgames2.png", Nothing, "https://pepeizqdeals.com/wp-content/uploads/2020/12/epicgames3.png", Nothing, Nothing)
     Public originT As New Tienda("Origin", "Origin", "Assets/Tiendas/origin.png", 20, Nothing, 1213, "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png", "Assets/Tiendas/origin2.png", "https://pepeizqdeals.com/wp-content/uploads/2019/09/origin2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/08/origin3.png", "29958", Nothing)
@@ -884,7 +884,7 @@ Module Tiendas
         End Try
 
         Try
-            Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
+            'Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + gamersgateT.NombreMostrar, Nothing)
         End Try
