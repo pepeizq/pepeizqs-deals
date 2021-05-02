@@ -63,19 +63,11 @@ Namespace pepeizq.Ofertas
             Dim xml As New XmlSerializer(GetType(GamersGateJuegos))
 
             Dim listaJuegosES As GamersGateJuegos = Nothing
-            Dim html As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=esp"))
+            Dim html As String = Await HttpClient(New Uri("https://www.gamersgate.com/feeds/products?country=DEU&aff=6704538"))
 
             If Not html = Nothing Then
                 Dim stream As New StringReader(html)
                 listaJuegosES = xml.Deserialize(stream)
-            End If
-
-            Dim listaJuegosUK As GamersGateJuegos = Nothing
-            Dim htmlUK As String = Await HttpClient(New Uri("http://gamersgate.com/feeds/products?filter=offers&country=gbr"))
-
-            If Not htmlUK = Nothing Then
-                Dim streamUK As New StringReader(htmlUK)
-                listaJuegosUK = xml.Deserialize(streamUK)
             End If
 
             Dim i As Integer = 0
@@ -93,10 +85,8 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("(Epic)", Nothing)
                             titulo = titulo.Trim
 
-                            Dim enlaceTemp As String = juego.Enlace
-                            Dim intEnlace As Integer = enlaceTemp.IndexOf("gamersgate.com")
-                            Dim enlace As String = "https://www." + enlaceTemp.Remove(0, intEnlace)
-                            Dim enlaceUK As String = "https://uk." + enlaceTemp.Remove(0, intEnlace)
+                            Dim enlace As String = juego.Enlace
+                            enlace = enlace.Replace("?aff=6704538", Nothing)
 
                             Dim imagenPequeña As String = juego.ImagenPequeña
                             Dim imagenGrande As String = juego.ImagenGrande
@@ -110,31 +100,6 @@ Namespace pepeizq.Ofertas
                             End If
 
                             precioRebajado = precioRebajado + "€"
-
-                            Dim precioBaseUK As String = String.Empty
-                            Dim precioRebajadoUK As String = String.Empty
-
-                            If Not listaJuegosUK Is Nothing Then
-                                For Each juegoUK In listaJuegosUK.Juegos
-                                    If juegoUK.ID = juego.ID Then
-                                        precioBaseUK = juegoUK.PrecioBase
-
-                                        If Not precioBaseUK.Contains(".") Then
-                                            precioBaseUK = precioBaseUK + ".00"
-                                        End If
-
-                                        precioBaseUK = "£" + precioBaseUK.Trim
-
-                                        precioRebajadoUK = juegoUK.PrecioDescontado
-
-                                        If Not precioRebajadoUK.Contains(".") Then
-                                            precioRebajadoUK = precioRebajadoUK + ".00"
-                                        End If
-
-                                        precioRebajadoUK = "£" + precioRebajadoUK.Trim
-                                    End If
-                                Next
-                            End If
 
                             Dim drm As String = juego.DRM
 
@@ -172,71 +137,20 @@ Namespace pepeizq.Ofertas
 
                             Dim descuento As String = String.Empty
 
-                            If Not precioRebajadoUK = Nothing Then
-                                If precioRebajadoUK.Contains("£") Then
-                                    Dim tempPrecioRebajadoUK As String = precioRebajadoUK
-                                    tempPrecioRebajadoUK = tempPrecioRebajadoUK.Replace(",", ".")
-                                    Dim tempDPrecioUK As Double = 0
+                            Dim dprecioEU As Double = 0
 
-                                    If Not cuponPorcentaje = Nothing Then
-                                        If cupon0PorCiento = False Then
-                                            tempDPrecioUK = Double.Parse(tempPrecioRebajadoUK.Replace("£", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(tempPrecioRebajadoUK.Replace("£", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                        Else
-                                            tempDPrecioUK = Double.Parse(tempPrecioRebajadoUK.Replace("£", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                        End If
-                                    Else
-                                        tempDPrecioUK = Double.Parse(tempPrecioRebajadoUK.Replace("£", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                    End If
-
-                                    '--------------------------------
-
-                                    precioRebajadoUK = Divisas.CambioMoneda(precioRebajadoUK, libra)
-
-                                    precioRebajado = precioRebajado.Replace(",", ".")
-                                    precioRebajadoUK = precioRebajadoUK.Replace(",", ".")
-
-                                    Dim dprecioEU As Double = 0
-                                    Dim dprecioUK As Double = 0
-
-                                    If Not cuponPorcentaje = Nothing Then
-                                        If cupon0PorCiento = False Then
-                                            dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                            dprecioUK = Double.Parse(precioRebajadoUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajadoUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                        Else
-                                            dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                            dprecioUK = Double.Parse(precioRebajadoUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                        End If
-                                    Else
-                                        dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                        dprecioUK = Double.Parse(precioRebajadoUK.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                    End If
-
-                                    If dprecioUK < dprecioEU Then
-                                        precioRebajado = Math.Round(dprecioUK, 2).ToString + " €"
-                                        enlace = enlaceUK
-                                        descuento = Calculadora.GenerarDescuento(precioBaseUK, tempDPrecioUK.ToString)
-                                    Else
-                                        precioRebajado = Math.Round(dprecioEU, 2).ToString + " €"
-                                        enlace = enlace
-                                        descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
-                                    End If
-                                End If
-                            Else
-                                Dim dprecioEU As Double = 0
-
-                                If Not cuponPorcentaje = Nothing Then
-                                    If cupon0PorCiento = False Then
-                                        dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                    Else
-                                        dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                    End If
+                            If Not cuponPorcentaje = Nothing Then
+                                If cupon0PorCiento = False Then
+                                    dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
                                 Else
                                     dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                                 End If
-
-                                precioRebajado = Math.Round(dprecioEU, 2).ToString + " €"
-                                descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                            Else
+                                dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                             End If
+
+                            precioRebajado = Math.Round(dprecioEU, 2).ToString + " €"
+                            descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
                             Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
 

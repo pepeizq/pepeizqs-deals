@@ -884,7 +884,7 @@ Module Tiendas
         End Try
 
         Try
-            'Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
+            Await pepeizq.Ofertas.GamersGate.BuscarOfertas(gamersgateT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + gamersgateT.NombreMostrar, Nothing)
         End Try
