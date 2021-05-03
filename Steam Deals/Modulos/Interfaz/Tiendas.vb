@@ -932,7 +932,7 @@ Module Tiendas
         End Try
 
         Try
-            Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
+            'Await pepeizq.Ofertas.Voidu.BuscarOfertas(voiduT)
         Catch ex As Exception
             Notificaciones.Toast("Error " + voiduT.NombreMostrar, Nothing)
         End Try

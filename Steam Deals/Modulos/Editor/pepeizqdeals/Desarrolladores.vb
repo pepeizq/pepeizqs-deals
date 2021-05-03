@@ -500,7 +500,7 @@
                 New Clases.Desarrolladores("Oxymoron Games", "@oxymoron_games", Nothing, Nothing),
                 New Clases.Desarrolladores("Paper Castle Games", "@Underherodevs", Nothing, Nothing),
                 New Clases.Desarrolladores("Paradox Development Studio", "@PDX_Dev_Studio", Nothing, Nothing),
-                New Clases.Desarrolladores("Paradox", "@PdxInteractive", "Assets\LogosPublishers\paradox.png", 320),
+                New Clases.Desarrolladores("Paradox", "@PdxInteractive", "Assets\LogosPublishers\paradox.png", 260),
                 New Clases.Desarrolladores("Pathea Games", "@PatheaGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Pathos Interactive", "@PathosInteract", Nothing, Nothing),
                 New Clases.Desarrolladores("Patriot Game", "@GameOfPatriot", Nothing, Nothing),
