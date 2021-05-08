@@ -250,7 +250,7 @@
                 New Clases.Desarrolladores("Degica", "@DegicaGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Destructive Creations", "@DestCreat_Team", Nothing, Nothing),
                 New Clases.Desarrolladores("Devilish Games", "@devilishgames", Nothing, Nothing),
-                New Clases.Desarrolladores("Devolver Digital", "@devolverdigital", "Assets\LogosPublishers\devolver.png", 340),
+                New Clases.Desarrolladores("Devolver Digital", "@devolverdigital", "Assets\LogosPublishers\devolver.png", 250),
                 New Clases.Desarrolladores("Digital Cybercherries", "@DCybercherries", Nothing, Nothing),
                 New Clases.Desarrolladores("Digital Extremes", "@PlayWarframe", Nothing, Nothing),
                 New Clases.Desarrolladores("Digital Tribe", "@dTribeGames", Nothing, Nothing),
