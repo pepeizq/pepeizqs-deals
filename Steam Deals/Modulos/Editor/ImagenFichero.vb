@@ -17,13 +17,11 @@ Namespace pepeizq.Editor
             Using stream As IRandomAccessStream = Await fichero.OpenAsync(FileAccessMode.ReadWrite)
                 Dim encoder As BitmapEncoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.PngEncoderId, stream)
 
-                'encoder = Await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream)
-
                 encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied, resultadoRender.PixelWidth, resultadoRender.PixelHeight, rawdpi.RawDpiX, rawdpi.RawDpiY, pixeles)
 
-                encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Fant
-                encoder.BitmapTransform.ScaledWidth = ancho
-                encoder.BitmapTransform.ScaledHeight = alto
+                'encoder.BitmapTransform.InterpolationMode = BitmapInterpolationMode.Fant
+                'encoder.BitmapTransform.ScaledWidth = ancho
+                'encoder.BitmapTransform.ScaledHeight = alto
 
                 Await encoder.FlushAsync
             End Using
@@ -33,7 +31,7 @@ Namespace pepeizq.Editor
         Public Async Sub Exportar(objeto As Object)
 
             Dim ficheroImagen As New List(Of String) From {
-                ".jpg"
+                ".png"
             }
 
             Dim guardarPicker As New FileSavePicker With {
