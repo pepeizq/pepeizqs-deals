@@ -323,6 +323,7 @@
     <Content Include="Assets\LogosPublishers\funcom.png" />
     <Content Include="Assets\LogosPublishers\gearbox.png" />
     <Content Include="Assets\LogosPublishers\goodshepherd.png" />
+    <Content Include="Assets\LogosPublishers\h2interactive.png" />
     <Content Include="Assets\LogosPublishers\handygames.png" />
     <Content Include="Assets\LogosPublishers\headup.png" />
     <Content Include="Assets\LogosPublishers\hikarifield.png" />
@@ -345,6 +346,7 @@
     <Content Include="Assets\LogosPublishers\nightdive.png" />
     <Content Include="Assets\LogosPublishers\nisamerica.png" />
     <Content Include="Assets\LogosPublishers\paradox.png" />
+    <Content Include="Assets\LogosPublishers\playsim.png" />
     <Content Include="Assets\LogosPublishers\plugin.png" />
     <Content Include="Assets\LogosPublishers\quanticdream.png" />
     <Content Include="Assets\LogosPublishers\rawfury.png" />
