@@ -138,9 +138,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If cosas.Precio.Contains("$") Then
                             cosas.Precio = Divisas.CambioMoneda(cosas.Precio, tbDolar.Text)
                         ElseIf cosas.Precio.Contains("€") Then
-                            cosas.Precio = cosas.Precio.Replace("€", Nothing)
-                            cosas.Precio = cosas.Precio.Replace(".", ",")
-                            cosas.Precio = cosas.Precio.Trim + " €"
+                            If Not cosas.Precio.Contains("Tiers") Then
+                                cosas.Precio = cosas.Precio.Replace("€", Nothing)
+                                cosas.Precio = cosas.Precio.Replace(".", ",")
+                                cosas.Precio = cosas.Precio.Trim + " €"
+                            End If
                         End If
                     End If
 
@@ -589,12 +591,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = Await HttpClient(New Uri(enlace))
 
             If Not html = Nothing Then
-                If html.Contains("<meta content=") Then
+                If html.Contains(ChrW(34) + "name" + ChrW(34)) Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = html.IndexOf("<meta content=")
+                    int = html.IndexOf(ChrW(34) + "name" + ChrW(34))
                     temp = html.Remove(0, int)
+
+                    int = temp.IndexOf(":")
+                    temp = temp.Remove(0, int + 1)
 
                     int = temp.IndexOf(ChrW(34))
                     temp = temp.Remove(0, int + 1)
@@ -605,15 +610,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                     cosas.Titulo = temp2.Trim
                 End If
 
-                If html.Contains("itemprop=" + ChrW(34) + "image" + ChrW(34)) Then
+                If html.Contains(ChrW(34) + "image" + ChrW(34)) Then
                     Dim temp, temp2 As String
                     Dim int, int2 As Integer
 
-                    int = html.IndexOf("itemprop=" + ChrW(34) + "image" + ChrW(34))
-                    temp = html.Remove(int, html.Length - int)
+                    int = html.IndexOf(ChrW(34) + "image" + ChrW(34))
+                    temp = html.Remove(0, int)
 
-                    int = temp.LastIndexOf("<meta content=")
-                    temp = temp.Remove(0, int)
+                    int = temp.IndexOf(":")
+                    temp = temp.Remove(0, int + 1)
 
                     int = temp.IndexOf(ChrW(34))
                     temp = temp.Remove(0, int + 1)
@@ -621,7 +626,61 @@ Namespace pepeizq.Editor.pepeizqdeals
                     int2 = temp.IndexOf(ChrW(34))
                     temp2 = temp.Remove(int2, temp.Length - int2)
 
+                    temp2 = temp2.Replace("&amp;", "&")
                     cosas.Imagen = temp2.Trim
+                End If
+
+                If html.Contains(ChrW(34) + "lowPrice" + ChrW(34)) Then
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = html.IndexOf(ChrW(34) + "lowPrice" + ChrW(34))
+                    temp = html.Remove(0, int)
+
+                    int = temp.IndexOf(":")
+                    temp = temp.Remove(0, int + 1)
+
+                    int = temp.IndexOf(ChrW(34))
+                    temp = temp.Remove(0, int + 1)
+
+                    int2 = temp.IndexOf(ChrW(34))
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    If Not temp2 = Nothing Then
+                        temp2 = temp2.Replace(".", ",")
+                        temp2 = temp2.Trim + " €"
+
+                        cosas.Precio = temp2
+
+                        Dim tiers As String = String.Empty
+
+                        If html.Contains(ChrW(34) + "offerCount" + ChrW(34)) Then
+                            Dim temp3, temp4 As String
+                            Dim int3, int4 As Integer
+
+                            int3 = html.IndexOf(ChrW(34) + "offerCount" + ChrW(34))
+                            temp3 = html.Remove(0, int3)
+
+                            int3 = temp3.IndexOf(":")
+                            temp3 = temp3.Remove(0, int3 + 1)
+
+                            int3 = temp3.IndexOf(ChrW(34))
+                            temp3 = temp3.Remove(0, int3 + 1)
+
+                            int4 = temp3.IndexOf(ChrW(34))
+                            temp4 = temp3.Remove(int4, temp3.Length - int4)
+
+                            If Not temp4.Trim = Nothing Then
+                                If Not temp4.Trim = "1" Then
+                                    tiers = " (" + temp4.Trim + " Tiers)"
+                                End If
+                            End If
+                        End If
+
+                        If Not tiers = String.Empty Then
+                            cosas.Precio = cosas.Precio + tiers
+                        End If
+                    End If
                 End If
             End If
 

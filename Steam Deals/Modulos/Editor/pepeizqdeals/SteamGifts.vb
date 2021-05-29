@@ -87,10 +87,10 @@
                 End Try
 
                 Dim mensaje As String = String.Empty
-                mensaje = mensaje + "If you like the giveaway and the deals, I encourage you to visit my website:\n\n"
                 mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
-                mensaje = mensaje + "The web has no ads or collectors to sell your data. I also have another website with games and apps that I have created:\n\n"
-                mensaje = mensaje + "https://pepeizqapps.com/ \n\n"
+                mensaje = mensaje + "Thank you for entering a giveaway with free access of pepeizq's deals.\n\n"
+                mensaje = mensaje + "You can also enter more giveaways with better games, but access is restricted to users who contribute to the web:\n\n"
+                mensaje = mensaje + "https://pepeizqdeals.com/giveaways/"
 
                 Try
                     Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByName('description')[0].value=" + ChrW(34) + mensaje + ChrW(34) + ";"})

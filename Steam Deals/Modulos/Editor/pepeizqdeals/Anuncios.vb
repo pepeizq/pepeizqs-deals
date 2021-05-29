@@ -95,7 +95,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
                     tbTitulo.Text = "New Giveaways on SteamGifts • News"
                     tbImagenTitulo.Text = "Giveaways"
-                    tbImagenComentario.Text = "Join the Steam Group"
+                    tbImagenComentario.Text = "Join the Steam group to enter the weekly giveaways"
+
+                    Dim fechaDefecto As DateTime = DateTime.Now
+                    fechaDefecto = fechaDefecto.AddDays(7)
+
+                    Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+                    fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
                 Else
                     tbTitulo.Text = "--- • News"
                 End If

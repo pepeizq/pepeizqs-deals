@@ -121,8 +121,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
 
-                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
-
                     Dim enlaceFinal As String = String.Empty
 
                     If Not resultado.Enlace = Nothing Then
@@ -365,12 +363,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://twitter.com/intent/tweet?text=" + titulo +
                    "&url=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Tweet this" + ChrW(34) + " aria-label=" + ChrW(34) + "Tweet this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-twitter" + ChrW(34) + "></i></a>"
-            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://www.reddit.com/submit?url=" + enlace +
-                   "&title=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-reddit" + ChrW(34) + "></i></a>"
+            'html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://www.reddit.com/submit?url=" + enlace +
+            '       "&title=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-reddit" + ChrW(34) + "></i></a>"
             'html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "mailto:?subject=" + titulo +
             '       "&body=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Email this" + ChrW(34) + " aria-label=" + ChrW(34) + "Email this" + ChrW(34) + "><i class=" + ChrW(34) + "fas fa-envelope" + ChrW(34) + "></i></a>"
             html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://api.whatsapp.com/send?text=" + titulo +
                    "%20" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-whatsapp" + ChrW(34) + "></i></a>"
+            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://t.me/share/url?url=" + enlace +
+                   "&text=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-telegram" + ChrW(34) + "></i></a>"
 
             html = html + "</div>"
 
@@ -396,7 +396,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End Try
 
                 If Not resultados Is Nothing Then
-                    Notificaciones.Toast(idWeb, Nothing)
                     For Each resultado In resultados
                         If resultado.Id.ToString = idWeb Then
                             If resultado.EntradaGrupoSteam = Nothing Then
@@ -415,6 +414,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 End If
 
                                 Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
                             End If
                         End If
                     Next

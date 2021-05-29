@@ -631,7 +631,7 @@
                 New Clases.Desarrolladores("System Era Softworks", "@astroneergame", Nothing, Nothing),
                 New Clases.Desarrolladores("TaleWorlds Entertainment", "@Mount_and_Blade", Nothing, Nothing),
                 New Clases.Desarrolladores("Tamasenco", "@tamasenco", Nothing, Nothing),
-                New Clases.Desarrolladores("Team17", "@Team17Ltd", "Assets\LogosPublishers\team17.png", 290),
+                New Clases.Desarrolladores("Team17", "@Team17Ltd", "Assets\LogosPublishers\team17.png", 260),
                 New Clases.Desarrolladores("Team Reptile", "@ReptileGames", Nothing, Nothing),
                 New Clases.Desarrolladores("teamCOIL GAMES", "@teamCOIL", Nothing, Nothing),
                 New Clases.Desarrolladores("Techland", "@TechlandGames", "Assets\LogosPublishers\techland.png", 340),
