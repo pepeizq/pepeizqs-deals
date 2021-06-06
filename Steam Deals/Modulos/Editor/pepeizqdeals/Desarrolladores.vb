@@ -352,7 +352,7 @@
                 New Clases.Desarrolladores("Hammer&Ravens", "@Ham_Rav", Nothing, Nothing),
                 New Clases.Desarrolladores("Hanako Games", "@HanakoGames", Nothing, Nothing),
                 New Clases.Desarrolladores("HandyGames", "@handy_games", "Assets\LogosPublishers\handygames.png", 240),
-                New Clases.Desarrolladores("Headup Games", "@HeadupGames", "Assets\LogosPublishers\headup.png", 250),
+                New Clases.Desarrolladores("Headup Games", "@HeadupGames", "Assets\LogosPublishers\headup.png", 220),
                 New Clases.Desarrolladores("Heart Shaped Games", "@heartshapedgame", Nothing, Nothing),
                 New Clases.Desarrolladores("Hello Bard", "@hellobard", Nothing, Nothing),
                 New Clases.Desarrolladores("Hemisphere Games", "@HemisphereGames", Nothing, Nothing),

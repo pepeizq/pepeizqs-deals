@@ -19,6 +19,9 @@
         'Ubisoft Allyouplay Voidu
         'https://my.daisycon.com/dashboard
 
+        'DLGamer
+        'https://partner.dlgamer.com/secure/affiliation
+
         Public Function Generar(enlace As String)
 
             If Not enlace = Nothing Then
@@ -110,6 +113,12 @@
                     End If
                 ElseIf enlace.Contains("gamebillet.com") Then
                     Dim referido As String = "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
+
+                    If Not enlace.Contains(referido) Then
+                        enlace = enlace + referido
+                    End If
+                ElseIf enlace.Contains("dlgamer.com") Then
+                    Dim referido As String = "?affil=pepeizqdeals"
 
                     If Not enlace.Contains(referido) Then
                         enlace = enlace + referido

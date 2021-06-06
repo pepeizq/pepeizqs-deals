@@ -164,6 +164,7 @@
     <Compile Include="Modulos\Interfaz\Pestañas.vb" />
     <Compile Include="Modulos\Juegos\Steam.vb" />
     <Compile Include="Modulos\Ofertas\Allyouplay.vb" />
+    <Compile Include="Modulos\Ofertas\DLGamer.vb" />
     <Compile Include="Modulos\Ofertas\Ubisoft.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
     <Compile Include="Modulos\Suscripciones\Html.vb" />
@@ -249,6 +250,7 @@
     <Content Include="Assets\LogosJuegos\batman.png" />
     <Content Include="Assets\LogosJuegos\battlefield.png" />
     <Content Include="Assets\LogosJuegos\borderlands.png" />
+    <Content Include="Assets\LogosJuegos\brokensword.png" />
     <Content Include="Assets\LogosJuegos\callofduty.png" />
     <Content Include="Assets\LogosJuegos\castlevania.png" />
     <Content Include="Assets\LogosJuegos\citiesskylines.png" />
@@ -265,6 +267,7 @@
     <Content Include="Assets\LogosJuegos\ghostrecon.png" />
     <Content Include="Assets\LogosJuegos\hitman.png" />
     <Content Include="Assets\LogosJuegos\metalgearsolid.png" />
+    <Content Include="Assets\LogosJuegos\needforspeed.png" />
     <Content Include="Assets\LogosJuegos\overcooked.png" />
     <Content Include="Assets\LogosJuegos\projectcars.png" />
     <Content Include="Assets\LogosJuegos\rainbowsiege.png" />
@@ -385,7 +388,6 @@
     <Content Include="Assets\Tiendas\300x80\allyouplay3.png" />
     <Content Include="Assets\Tiendas\300x80\amazon3.png" />
     <Content Include="Assets\Tiendas\300x80\battlenet3.png" />
-    <Content Include="Assets\Tiendas\300x80\chrono3.png" />
     <Content Include="Assets\Tiendas\300x80\d2d3.png" />
     <Content Include="Assets\Tiendas\300x80\epicgames3.png" />
     <Content Include="Assets\Tiendas\300x80\fanatical3.png" />

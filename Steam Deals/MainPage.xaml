@@ -483,14 +483,14 @@
                                                         </controls:DropShadowPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="60" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </controls:DropShadowPanel>
                                                     </Grid>
 
                                                     <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradav2" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0"/>
 
                                                     <Grid x:Name="gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
-                                                        <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <TextBlock x:Name="tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                     </Grid>
                                                 </Grid>
                                             </StackPanel>
@@ -572,8 +572,8 @@
                                             <Grid Width="1300">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
-                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.8"/>
+                                                        <GradientStop Color="#283b53" Offset="0.9"/>
                                                         <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
@@ -608,7 +608,7 @@
                                                 <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
 
                                                 <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
-                                                    <TextBlock Text="And More Games" Foreground="White" FontSize="45" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                    <TextBlock Text="And More Games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>
@@ -669,8 +669,8 @@
                                             <Grid Width="1300" Height="400">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
-                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.8"/>
+                                                        <GradientStop Color="#283b53" Offset="0.9"/>
                                                         <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
@@ -798,8 +798,8 @@
                                             <Grid Width="1300">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
-                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.8"/>
+                                                        <GradientStop Color="#283b53" Offset="0.9"/>
                                                         <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
@@ -842,7 +842,7 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50,50,50,40">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxWidth="400" MaxHeight="80" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxHeight="60" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="20,30,50,30">
@@ -922,8 +922,8 @@
                                             <Grid Width="1920" Height="620">
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                                        <GradientStop Color="#2e4460" Offset="0.6"/>
-                                                        <GradientStop Color="#283b53" Offset="0.8"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.8"/>
+                                                        <GradientStop Color="#283b53" Offset="0.9"/>
                                                         <GradientStop Color="#1b2838" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
