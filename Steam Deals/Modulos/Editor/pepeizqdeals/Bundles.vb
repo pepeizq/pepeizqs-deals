@@ -111,7 +111,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsBundles")
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             Dim tbIDsJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+
+            Dim cbImagenTienda As CheckBox = pagina.FindName("cbEditorLogoTiendapepeizqdealsBundles")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2")
+
+            Dim imagenBundle As DropShadowPanel = pagina.FindName("panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2")
+            Dim imagenHumble As StackPanel = pagina.FindName("spImagenEditorpepeizqdealsGenerarImagenBundleHumble")
 
             Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
 
@@ -120,17 +125,65 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim enlace As String = tbEnlace.Text.Trim
 
                 If enlace.Contains("https://store.steampowered.com/bundle/") Then
+
+                    cbImagenTienda.IsChecked = True
+                    imagenTienda.Visibility = Visibility.Visible
+
+                    imagenBundle.Visibility = Visibility.Visible
+                    imagenHumble.Visibility = Visibility.Collapsed
+
                     cosas = Await Steam(enlace)
+
                 ElseIf enlace.Contains("https://www.humblebundle.com/") Then
+
+                    cbImagenTienda.IsChecked = False
+                    imagenTienda.Visibility = Visibility.Collapsed
+
+                    imagenBundle.Visibility = Visibility.Collapsed
+                    imagenHumble.Visibility = Visibility.Visible
+
                     cosas = Await Humble(enlace)
+
                 ElseIf enlace.Contains("https://www.fanatical.com/") Then
+
+                    cbImagenTienda.IsChecked = True
+                    imagenTienda.Visibility = Visibility.Visible
+
+                    imagenBundle.Visibility = Visibility.Visible
+                    imagenHumble.Visibility = Visibility.Collapsed
+
                     cosas = Await Fanatical(enlace)
+
                 ElseIf enlace.Contains("https://www.indiegala.com/") Then
+
+                    cbImagenTienda.IsChecked = True
+                    imagenTienda.Visibility = Visibility.Visible
+
+                    imagenBundle.Visibility = Visibility.Visible
+                    imagenHumble.Visibility = Visibility.Collapsed
+
                     cosas = Await IndieGala(enlace)
+
                 ElseIf enlace.Contains("https://www.greenmangaming.com") Then
+
+                    cbImagenTienda.IsChecked = True
+                    imagenTienda.Visibility = Visibility.Visible
+
+                    imagenBundle.Visibility = Visibility.Visible
+                    imagenHumble.Visibility = Visibility.Collapsed
+
                     cosas = Await GreenManGaming(enlace)
+
                 ElseIf enlace.Contains("https://www.wingamestore.com") Then
+
+                    cbImagenTienda.IsChecked = True
+                    imagenTienda.Visibility = Visibility.Visible
+
+                    imagenBundle.Visibility = Visibility.Visible
+                    imagenHumble.Visibility = Visibility.Collapsed
+
                     cosas = Await WinGameStore(enlace)
+
                 End If
 
                 If Not cosas Is Nothing Then
@@ -286,12 +339,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Try
                     Dim tbImagenAncho As TextBox = pagina.FindName("tbEditorImagenAnchopepeizqdealsBundles")
 
-                    If tbImagenAncho.Text = Nothing Then
-                        tbImagenAncho.Text = 600
+                    Dim imagenBundle As DropShadowPanel = pagina.FindName("panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2")
+                    Dim imagenHumble As StackPanel = pagina.FindName("spImagenEditorpepeizqdealsGenerarImagenBundleHumble")
+
+                    If imagenBundle.Visibility = Visibility.Visible Then
+                        If tbImagenAncho.Text = Nothing Then
+                            tbImagenAncho.Text = 600
+                        End If
+
+                        Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
+                        imagen.Source = tbImagen.Text
+                    Else
+                        If imagenHumble.Visibility = Visibility.Visible Then
+                            If tbImagenAncho.Text = Nothing Then
+                                tbImagenAncho.Text = 300
+                            End If
+
+                            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble")
+                            imagen.Source = tbImagen.Text
+                        End If
                     End If
 
-                    Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
-                    imagen.Source = tbImagen.Text
                 Catch ex As Exception
 
                 End Try
@@ -346,8 +414,18 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbAncho.Text.Trim.Length > 0 Then
                 Try
-                    Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
-                    imagen.Width = tbAncho.Text.Trim
+                    Dim imagenBundle As DropShadowPanel = pagina.FindName("panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2")
+                    Dim imagenHumble As StackPanel = pagina.FindName("spImagenEditorpepeizqdealsGenerarImagenBundleHumble")
+
+                    If imagenBundle.Visibility = Visibility.Visible Then
+                        Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2")
+                        imagen.Width = tbAncho.Text.Trim
+                    Else
+                        If imagenHumble.Visibility = Visibility.Visible Then
+                            Dim imagen As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble")
+                            imagen.Width = tbAncho.Text.Trim
+                        End If
+                    End If
                 Catch ex As Exception
 
                 End Try

@@ -85,7 +85,7 @@
                 New Clases.LogosJuegos("Anno", "Assets\LogosJuegos\anno.png", 390),
                 New Clases.LogosJuegos("ARK Survival Evolved", "Assets\LogosJuegos\ark.png", 250),
                 New Clases.LogosJuegos("Assassin’s Creed", "Assets\LogosJuegos\assassinscreed.png", 270),
-                New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 270),
+                New Clases.LogosJuegos("Batman", "Assets\LogosJuegos\batman.png", 240),
                 New Clases.LogosJuegos("Battlefield", "Assets\LogosJuegos\battlefield.png", 220),
                 New Clases.LogosJuegos("Borderlands", "Assets\LogosJuegos\borderlands.png", 360),
                 New Clases.LogosJuegos("Broken Sword", "Assets\LogosJuegos\brokensword.png", 320),

@@ -417,6 +417,8 @@
     <Content Include="Assets\Tiendas\gamesplanet2.png" />
     <Content Include="Assets\Tiendas\geforcenow2.png" />
     <Content Include="Assets\Tiendas\geforcenow3.png" />
+    <Content Include="Assets\Tiendas\humblebundlemedio1.png" />
+    <Content Include="Assets\Tiendas\humblebundlemedio2.png" />
     <Content Include="Assets\Tiendas\humblechoice.png" />
     <Content Include="Assets\Tiendas\gamebillet.ico" />
     <Content Include="Assets\Tiendas\gamebillet2.png" />

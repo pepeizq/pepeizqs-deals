@@ -143,7 +143,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             ElseIf titulo.Contains("• Origin") Then
                 titulo = titulo.Replace("• Origin", "• @OriginInsider")
             ElseIf titulo.Contains("• Steam") Then
-                titulo = titulo.Replace("• Steam", "• @steam_games")
+                titulo = titulo.Replace("• Steam", "• @steam")
             ElseIf titulo.Contains("• Ubisoft Store") Then
                 titulo = titulo.Replace("• Ubisoft Store", "• @ubisoftstore")
             ElseIf titulo.Contains("• Voidu") Then
@@ -164,7 +164,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             If titulo.Contains("@humble Store") Then
                 tag = "HumbleStore"
-            ElseIf titulo.Contains("@steam_games") Then
+            ElseIf titulo.Contains("@steam") Then
                 tag = "SteamDeals"
             ElseIf titulo.Contains("• Free •") Then
                 tag = "FreeGames"

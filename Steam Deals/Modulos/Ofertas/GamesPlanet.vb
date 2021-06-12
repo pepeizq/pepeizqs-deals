@@ -112,6 +112,12 @@ Namespace pepeizq.Ofertas
                                     precioUS = precioUS + ".00"
                                 End If
                                 precioUS = Divisas.CambioMoneda(precioUS, dolar)
+
+                                If Not juegoUS.Paises = Nothing Then
+                                    If Not juegoUS.Paises.Contains("ES,EU,") Then
+                                        precioUS = Nothing
+                                    End If
+                                End If
                             End If
                         Next
 
@@ -130,14 +136,12 @@ Namespace pepeizq.Ofertas
                         Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoUK.SteamID)
 
                         precio = Divisas.CambioMoneda(precio, libra)
-                        precio = precio.Replace(",", ".")
-                        precioFR = precioFR.Replace(",", ".")
-                        precioDE = precioDE.Replace(",", ".")
-                        precioUS = precioUS.Replace(",", ".")
 
                         Dim dprecioUK As New GamesPlanetMoneda
 
                         If Not precio = Nothing Then
+                            precio = precio.Replace(",", ".")
+
                             dprecioUK.Precio = 1000000
                             dprecioUK.Pais = "uk"
 
@@ -147,6 +151,8 @@ Namespace pepeizq.Ofertas
                         Dim dprecioFR As New GamesPlanetMoneda
 
                         If Not precioFR = Nothing Then
+                            precioFR = precioFR.Replace(",", ".")
+
                             dprecioFR.Precio = 1000000
                             dprecioFR.Pais = "fr"
 
@@ -156,21 +162,19 @@ Namespace pepeizq.Ofertas
                         Dim dprecioDE As New GamesPlanetMoneda
 
                         If Not precioDE = Nothing Then
+                            precioDE = precioDE.Replace(",", ".")
+
                             dprecioDE.Precio = 1000000
                             dprecioDE.Pais = "de"
 
                             dprecioDE.Precio = Double.Parse(precioDE.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
                         End If
 
-                        If drm = "origin" Then
-                            precioUS = Nothing
-                        ElseIf drm = "bethesdanet" Then
-                            precioUS = Nothing
-                        End If
-
                         Dim dprecioUS As New GamesPlanetMoneda
 
                         If Not precioUS = Nothing Then
+                            precioUS = precioUS.Replace(",", ".")
+
                             dprecioUS.Precio = 1000000
                             dprecioUS.Pais = "us"
 
@@ -285,6 +289,9 @@ Namespace pepeizq.Ofertas
 
         <XmlElement("platforms")>
         Public Sistemas As GamesPlanetJuegoSistemas
+
+        <XmlElement("country_whitelist")>
+        Public Paises As String
 
     End Class
 
