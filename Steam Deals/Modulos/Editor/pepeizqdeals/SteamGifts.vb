@@ -166,9 +166,8 @@
 
                 Dim hora As Integer = fechaDate.Hour
 
-                If hora > 12 Then
-                    hora = hora - 12
-                    fechaTexto = fechaTexto + hora.ToString + ":" + minuto + "pm"
+                If hora >= 12 Then
+                    fechaTexto = fechaTexto + hora.ToString + ":" + minuto + " pm"
                 Else
                     fechaTexto = fechaTexto + hora.ToString + ":" + minuto + "am"
                 End If
