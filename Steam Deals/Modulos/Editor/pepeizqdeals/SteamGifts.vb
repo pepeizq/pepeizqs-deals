@@ -30,6 +30,9 @@
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorpepeizqdealsSteamGiftsEnlace")
             tbEnlace.Text = wv.Source.AbsoluteUri
 
+            Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
+            Dim modo As Integer = cbModo.SelectedIndex
+
             If wv.Source.AbsoluteUri = "https://www.steamgifts.com/giveaways/new" Then
 
                 Try
@@ -81,16 +84,25 @@
                 End Try
 
                 Try
-                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[247].click();"})
+                    If modo = 0 Then
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[248].click();"})
+                    ElseIf modo = 1 Then
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[247].click();"})
+                    End If
                 Catch ex As Exception
 
                 End Try
 
                 Dim mensaje As String = String.Empty
-                mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
-                mensaje = mensaje + "Thank you for entering a giveaway with free access of pepeizq's deals.\n\n"
-                mensaje = mensaje + "You can also enter more giveaways with better games, but access is restricted to users who contribute to the web:\n\n"
-                mensaje = mensaje + "https://pepeizqdeals.com/giveaways/"
+
+                If modo = 0 Then
+                    mensaje = mensaje + "https://pepeizqdeals.com/"
+                ElseIf modo = 1 Then
+                    mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
+                    mensaje = mensaje + "Thank you for entering a giveaway with free access of pepeizq's deals.\n\n"
+                    mensaje = mensaje + "You can also enter more giveaways with better games, but access is restricted to users who contribute to the web:\n\n"
+                    mensaje = mensaje + "https://pepeizqdeals.com/giveaways/"
+                End If
 
                 Try
                     Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByName('description')[0].value=" + ChrW(34) + mensaje + ChrW(34) + ";"})

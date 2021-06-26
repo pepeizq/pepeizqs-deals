@@ -1206,10 +1206,16 @@
                                 <Grid Grid.Row="0" Margin="0,0,0,20">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <ComboBox x:Name="cbEditorpepeizqdealsSteamGiftsModo" Grid.Column="0" SelectedIndex="0" VerticalAlignment="Center">
+                                        <ComboBoxItem Content="VIP"/>
+                                        <ComboBoxItem Content="Plebeyos"/>
+                                    </ComboBox>
+
+                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="1" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Nuevo Sorteo" Foreground="White"/>
@@ -1217,7 +1223,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="2" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
                                 
                                 <WebView x:Name="wvSteamGifts" Grid.Row="1"/>
