@@ -19,11 +19,21 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim appCredenciales As New TwitterCredentials("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc")
 
-            Dim contexto As IAuthenticationContext = AuthFlow.InitAuthentication(appCredenciales)
+            Dim contexto As IAuthenticationContext = Nothing
 
-            If Not contexto.AuthorizationURL = Nothing Then
-                wvTwitter.Source = New Uri(contexto.AuthorizationURL)
-                tbCodigo.Tag = contexto
+            Try
+                contexto = AuthFlow.InitAuthentication(appCredenciales)
+            Catch ex As Exception
+
+            End Try
+
+            If Not contexto Is Nothing Then
+                If Not contexto.AuthorizationURL = Nothing Then
+                    wvTwitter.Source = New Uri(contexto.AuthorizationURL)
+                    tbCodigo.Tag = contexto
+                Else
+                    Notificaciones.Toast("Error Logeo Twitter", Nothing)
+                End If
             Else
                 Notificaciones.Toast("Error Logeo Twitter", Nothing)
             End If
