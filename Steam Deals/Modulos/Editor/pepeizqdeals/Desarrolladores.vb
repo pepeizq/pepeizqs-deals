@@ -347,7 +347,7 @@
                 New Clases.Desarrolladores("Grey Alien Games", "@GreyAlien", Nothing, Nothing),
                 New Clases.Desarrolladores("Grip Digital", "@Grip_Digital", Nothing, Nothing),
                 New Clases.Desarrolladores("Groupees", "@groupees1", Nothing, Nothing),
-                New Clases.Desarrolladores("H2 Interactive", "@H2InteractiveJP", "Assets\LogosPublishers\h2interactive.png", 300),
+                New Clases.Desarrolladores("H2 Interactive", "@H2InteractiveJP", "Assets\LogosPublishers\h2interactive.png", 280),
                 New Clases.Desarrolladores("HakJak", "@HakJakGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Hammer&Ravens", "@Ham_Rav", Nothing, Nothing),
                 New Clases.Desarrolladores("Hanako Games", "@HanakoGames", Nothing, Nothing),
