@@ -940,11 +940,10 @@
                                                         <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenAnuncios" Stretch="UniformToFill" Opacity="1"/>
                                                     </Grid.Background>
 
-                                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50">
+                                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50" Margin="20" BorderBrush="#2e4460" BorderThickness="2">
                                                         <Grid.Background>
-                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="0.6">
-                                                                <GradientStop Color="Transparent" Offset="0.0"/>
-                                                                <GradientStop Color="#4e74a2" Offset="0.1"/>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="0.5">
+                                                                <GradientStop Color="#4e74a2" Offset="0.0"/>
                                                                 <GradientStop Color="#2e4460" Offset="0.5"/>
                                                             </LinearGradientBrush>
                                                         </Grid.Background>
