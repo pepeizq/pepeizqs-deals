@@ -11,11 +11,6 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{StaticResource ColorGridPrincipal}">
-        <Grid.Transitions>
-            <TransitionCollection>
-                <EdgeUIThemeTransition Edge="Bottom"/>
-            </TransitionCollection>
-        </Grid.Transitions>
 
         <NavigationView x:Name="nvPrincipal" ItemInvoked="Nv_ItemInvoked"
                         AlwaysShowHeader="False" IsSettingsVisible="False" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed">

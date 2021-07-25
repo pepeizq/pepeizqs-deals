@@ -287,23 +287,33 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not ficheroImagen Is Nothing Then
                     Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight)
 
-                    Try
-                        Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
-                        Dim endPoint As New ImageEndpoint(clienteImgur)
-                        Dim imagenImgur As IImage
+                    Dim i As Integer = 0
+                    While i < 5
+                        Try
+                            Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
+                            Dim endPoint As New ImageEndpoint(clienteImgur)
+                            Dim imagenImgur As IImage
 
-                        Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
-                            imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
-                        End Using
+                            Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
+                                imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
+                            End Using
 
-                        urlImagen = imagenImgur.Link
+                            urlImagen = imagenImgur.Link
 
-                        urlImagen = urlImagen.Replace(".png", ".webp")
-                        urlImagen = urlImagen.Replace(".jpg", ".webp")
-                        urlImagen = urlImagen.Replace(".jpeg", ".webp")
-                    Catch ex As Exception
+                            If Not urlImagen = Nothing Then
+                                urlImagen = urlImagen.Replace(".png", ".webp")
+                                urlImagen = urlImagen.Replace(".jpg", ".webp")
+                                urlImagen = urlImagen.Replace(".jpeg", ".webp")
 
-                    End Try
+                                Exit While
+                            End If
+
+                        Catch ex As Exception
+
+                        End Try
+
+                        i += 1
+                    End While
 
                     If urlImagen = Nothing Then
                         Try
@@ -320,6 +330,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                         Notificaciones.Toast("Imagen Subida a pepeizqdeals.com", "Imgur ha fallado")
                         urlImagen = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
+                        urlImagen = urlImagen.Replace(".png", ".webp")
                     End If
                 End If
             End If
