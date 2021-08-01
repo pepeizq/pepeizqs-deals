@@ -23,7 +23,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim imagenUrl As String = Await SubirImagen(imagen, "Web", cliente)
+                Dim ficheroImagen As StorageFile = Await GenerarFicheroImagen(imagen, "Web")
+                Dim imagenImgur As String = Await SubirImagenImgur(ficheroImagen)
+                Dim imagenPepeizqdeals As String = Await SubirImagenPepeizqdeals(ficheroImagen, cliente)
 
                 Dim post As New Models.Post With {
                     .Title = New Models.Title(titulo.Trim),
@@ -64,14 +66,20 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                If Not imagenUrl = Nothing Then
-                    If imagenUrl.Trim.Length > 0 Then
-                        postEditor.ImagenFeatured = imagenUrl.Trim
+                If Not imagenImgur = Nothing Then
+                    If imagenImgur.Trim.Length > 0 Then
+                        postEditor.ImagenImgur = imagenImgur.Trim
+                    End If
+                End If
 
-                        postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenUrl.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                If Not imagenPepeizqdeals = Nothing Then
+                    If imagenPepeizqdeals.Trim.Length > 0 Then
+                        postEditor.ImagenFeatured = imagenPepeizqdeals.Trim
+                        postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                        postEditor.ImagenPepeizqdeals = imagenPepeizqdeals.Trim
 
                         If categoria = 1208 Then
-                            postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenUrl.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + "/>"
+                            postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
                         End If
                     End If
                 End If
@@ -128,7 +136,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     Try
-                        Await GrupoSteam.Enviar(titulo, imagenUrl.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                        Await GrupoSteam.Enviar(titulo, imagenImgur.Trim, enlaceFinal, resultado.Redireccion, categoria)
                     Catch ex As Exception
                         Notificaciones.Toast("Grupo Steam Error Post", Nothing)
                     End Try
@@ -138,7 +146,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             tituloTwitter = Twitter.GenerarTitulo(titulo)
                         End If
 
-                        Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenUrl.Trim)
+                        Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenPepeizqdeals.Trim)
                     Catch ex As Exception
                         Notificaciones.Toast("Twitter Error Post", Nothing)
                     End Try
@@ -174,36 +182,36 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End Try
 
                     Try
-                        Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenUrl.Trim)
+                        Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
                     Catch ex As Exception
                         Notificaciones.Toast("Discord Error Post", Nothing)
                     End Try
 
                     Try
-                        Await PushFirebase.Enviar(titulo, enlaceFinal, imagenUrl.Trim, Date.Today.DayOfYear)
+                        Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdeals.Trim, Date.Today.DayOfYear)
                     Catch ex As Exception
                         Notificaciones.Toast("Push Firebase Error Post", Nothing)
                     End Try
 
                     Try
-                        PushWeb.Enviar(titulo, categoria, imagenUrl.Trim, enlaceFinal)
+                        PushWeb.Enviar(titulo, categoria, imagenPepeizqdeals.Trim, enlaceFinal)
                     Catch ex As Exception
                         Notificaciones.Toast("Push Web Error Post", Nothing)
                     End Try
 
                     '----------------------------------------------------------------
 
-                    If Not redireccion = Nothing Then
-                        If Not tienda Is Nothing Then
-                            If categoria = 3 And tienda.NombreMostrar = "Steam" Then
-                                Try
-                                    Await Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", mensajeReddit)
-                                Catch ex As Exception
-                                    Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                                End Try
-                            End If
-                        End If
-                    End If
+                    'If Not redireccion = Nothing Then
+                    '    If Not tienda Is Nothing Then
+                    '        If categoria = 3 And tienda.NombreMostrar = "Steam" Then
+                    '            Try
+                    '                Await Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", mensajeReddit)
+                    '            Catch ex As Exception
+                    '                Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
+                    '            End Try
+                    '        End If
+                    '    End If
+                    'End If
                 End If
             End If
 
@@ -268,72 +276,86 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Public Async Function SubirImagen(imagen As Button, codigo As String, cliente As WordPressClient) As Task(Of String)
+        Private Async Function GenerarFicheroImagen(imagen As Button, codigo As String) As Task(Of StorageFile)
+
+            Dim carpetaImagenes As StorageFolder = Nothing
+
+            If Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\Imagenes") = False Then
+                carpetaImagenes = Await ApplicationData.Current.LocalFolder.CreateFolderAsync("Imagenes")
+            Else
+                carpetaImagenes = Await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\Imagenes")
+            End If
+
+            Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.png"
+            Dim ficheroImagen As StorageFile = Await carpetaImagenes.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
+
+            If Not ficheroImagen Is Nothing Then
+                Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight)
+                Return ficheroImagen
+            Else
+                Return Nothing
+            End If
+
+        End Function
+
+        Private Async Function SubirImagenImgur(ficheroImagen As StorageFile) As Task(Of String)
 
             Dim urlImagen As String = String.Empty
 
-            If Not imagen Is Nothing Then
-                Dim carpetaImagenes As StorageFolder = Nothing
+            Dim i As Integer = 0
+            While i < 5
+                Try
+                    Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
+                    Dim endPoint As New ImageEndpoint(clienteImgur)
+                    Dim imagenImgur As IImage
 
-                If Directory.Exists(ApplicationData.Current.LocalFolder.Path + "\Imagenes") = False Then
-                    carpetaImagenes = Await ApplicationData.Current.LocalFolder.CreateFolderAsync("Imagenes")
-                Else
-                    carpetaImagenes = Await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\Imagenes")
-                End If
+                    Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
+                        imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
+                    End Using
 
-                Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.png"
-                Dim ficheroImagen As StorageFile = Await carpetaImagenes.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
+                    urlImagen = imagenImgur.Link
 
-                If Not ficheroImagen Is Nothing Then
-                    Await ImagenFichero.Generar(ficheroImagen, imagen, imagen.ActualWidth, imagen.ActualHeight)
-
-                    Dim i As Integer = 0
-                    While i < 5
-                        Try
-                            Dim clienteImgur As New ImgurClient("68a076ce5dadb1f", "c38ef3f6e552a36a8afc955a685b5c7e6081e202")
-                            Dim endPoint As New ImageEndpoint(clienteImgur)
-                            Dim imagenImgur As IImage
-
-                            Using stream As New FileStream(ficheroImagen.Path, FileMode.Open)
-                                imagenImgur = Await endPoint.UploadImageStreamAsync(stream)
-                            End Using
-
-                            urlImagen = imagenImgur.Link
-
-                            If Not urlImagen = Nothing Then
-                                urlImagen = urlImagen.Replace(".png", ".webp")
-                                urlImagen = urlImagen.Replace(".jpg", ".webp")
-                                urlImagen = urlImagen.Replace(".jpeg", ".webp")
-
-                                Exit While
-                            End If
-
-                        Catch ex As Exception
-
-                        End Try
-
-                        i += 1
-                    End While
-
-                    If urlImagen = Nothing Then
-                        Try
-                            Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
-                        Catch ex As Exception
-
-                        End Try
-
-                        Dim mes As String = Date.Today.Month.ToString
-
-                        If mes.Length = 1 Then
-                            mes = "0" + mes
-                        End If
-
-                        Notificaciones.Toast("Imagen Subida a pepeizqdeals.com", "Imgur ha fallado")
-                        urlImagen = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
+                    If Not urlImagen = Nothing Then
                         urlImagen = urlImagen.Replace(".png", ".webp")
+                        urlImagen = urlImagen.Replace(".jpg", ".webp")
+                        urlImagen = urlImagen.Replace(".jpeg", ".webp")
+
+                        Exit While
                     End If
-                End If
+
+                Catch ex As Exception
+
+                End Try
+
+                i += 1
+            End While
+
+            If urlImagen = Nothing Then
+                Notificaciones.Toast("Imgur ha fallado", "Fallo")
             End If
+
+            Return urlImagen
+
+        End Function
+
+        Private Async Function SubirImagenPepeizqdeals(ficheroImagen As StorageFile, cliente As WordPressClient) As Task(Of String)
+
+            Dim urlImagen As String = String.Empty
+
+            Try
+                Await cliente.Media.Create(ficheroImagen.Path, ficheroImagen.Name)
+            Catch ex As Exception
+
+            End Try
+
+            Dim mes As String = Date.Today.Month.ToString
+
+            If mes.Length = 1 Then
+                mes = "0" + mes
+            End If
+
+            urlImagen = "https://pepeizqdeals.com/wp-content/uploads/" + Date.Today.Year.ToString + "/" + mes + "/" + ficheroImagen.Name
+            urlImagen = urlImagen.Replace(".png", ".webp")
 
             Return urlImagen
 

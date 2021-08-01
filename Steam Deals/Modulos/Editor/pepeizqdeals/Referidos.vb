@@ -57,8 +57,8 @@
                     If Not enlace.Contains(referido) Then
                         enlace = enlace + referido
                     End If
-                ElseIf enlace.Contains("amazon.com") Then
-                    Dim referido As String = "tag=ofedeunpan-20"
+                ElseIf enlace.Contains("amazon.es") Then
+                    Dim referido As String = "tag=ofedeunpan-21"
 
                     If Not enlace.Contains(referido) Then
                         If Not enlace.Contains("?") Then
@@ -67,8 +67,18 @@
                             enlace = enlace + "&" + referido
                         End If
                     End If
-                ElseIf enlace.Contains("amazon.es") Then
+                ElseIf enlace.Contains("gaming.amazon.com") Then
                     Dim referido As String = "tag=ofedeunpan-21"
+
+                    If Not enlace.Contains(referido) Then
+                        If Not enlace.Contains("?") Then
+                            enlace = enlace + "?" + referido
+                        Else
+                            enlace = enlace + "&" + referido
+                        End If
+                    End If
+                ElseIf enlace.Contains("amazon.com") Then
+                    Dim referido As String = "tag=ofedeunpan-20"
 
                     If Not enlace.Contains(referido) Then
                         If Not enlace.Contains("?") Then
@@ -92,6 +102,11 @@
 
                     If Not enlace.Contains(referido) Then
                         enlace = enlace + referido
+
+                        'enlace = enlace.Replace("https://www.fanatical.com/", Nothing)
+                        'enlace = enlace.Replace("/", "%2F")
+
+                        'enlace = "https://lt45.net/c/?si=13482&li=1594588&wi=350618&ws=&dl=" + enlace
                     End If
                 ElseIf enlace.Contains("indiegala.com") Then
                     Dim referido As String = "?ref=pepeizq"

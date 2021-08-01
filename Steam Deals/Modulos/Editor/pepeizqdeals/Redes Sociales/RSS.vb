@@ -165,7 +165,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Dim enlaceFinal As String = post.Enlace
 
             Try
-                Await GrupoSteam.Enviar(titulo, post.ImagenFeatured, enlaceFinal, post.Redireccion, categoria)
+                Await GrupoSteam.Enviar(titulo, post.ImagenImgur, enlaceFinal, post.Redireccion, categoria)
             Catch ex As Exception
                 Notificaciones.Toast("Steam Error Post", Nothing)
             End Try

@@ -82,6 +82,12 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("image_v2_announcements")>
         Public Imagenv2Anuncios As String
 
+        <JsonProperty("image_imgur")>
+        Public ImagenImgur As String
+
+        <JsonProperty("image_pepeizqdeals")>
+        Public ImagenPepeizqdeals As String
+
         <JsonProperty("store_name")>
         Public TiendaNombre As String
 

@@ -5,6 +5,8 @@ Imports Newtonsoft.Json
 Namespace pepeizq.Ofertas
     Module Nexus
 
+        'https://datastudio.google.com/u/0/reporting/0eb86cc6-949a-43f1-baa5-5af2c3e03fdc/page/gKcDC?mc_cid=203ebf6b16&mc_eid=1f2b29ae45
+
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
