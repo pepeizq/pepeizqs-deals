@@ -193,7 +193,7 @@
                 New Clases.Desarrolladores("Buka Entertainment", "@Buka_Ent_Games", Nothing, Nothing),
                 New Clases.Desarrolladores("BURA", "@lgdays", Nothing, Nothing),
                 New Clases.Desarrolladores("Butterscotch", "@BScotchShenani", Nothing, Nothing),
-                New Clases.Desarrolladores("Capcom", "@CapcomUSA_", "Assets\LogosPublishers\capcom.png", 280),
+                New Clases.Desarrolladores("Capcom", "@CapcomUSA_", "Assets\LogosPublishers\capcom.png", 260),
                 New Clases.Desarrolladores("Capybara Games", "@CAPYGAMES", Nothing, Nothing),
                 New Clases.Desarrolladores("Carbon Games", "@CB_Sword", Nothing, Nothing),
                 New Clases.Desarrolladores("Cardboard Sword", "@CarbonGames", Nothing, Nothing),

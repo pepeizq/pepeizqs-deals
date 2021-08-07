@@ -601,7 +601,7 @@
 
                                                     <StackPanel x:Name="spImagenEditorpepeizqdealsGenerarImagenBundleHumble" Grid.Column="1" Margin="40,40,40,20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                                                         <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio1.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
-                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center"/>
+                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
                                                         <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio2.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
                                                     </StackPanel>
                                                 </Grid>
