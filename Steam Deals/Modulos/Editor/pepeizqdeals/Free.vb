@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.pepeizq.Gratis
 Imports Steam_Deals.pepeizq.Juegos
@@ -26,8 +27,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
             tbImagenJuego.Text = String.Empty
 
-            RemoveHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
-            AddHandler tbImagenJuego.TextChanged, AddressOf MostrarImagenJuego
+            RemoveHandler tbImagenJuego.TextChanged, AddressOf CargarImagenesJuegos
+            AddHandler tbImagenJuego.TextChanged, AddressOf CargarImagenesJuegos
 
             Dim tbImagenTienda As TextBox = pagina.FindName("tbEditorImagenTiendapepeizqdealsFree")
             tbImagenTienda.Text = String.Empty
@@ -61,11 +62,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonID As Button = pagina.FindName("botonEditorSubirpepeizqdealsFreeID")
 
-            RemoveHandler botonID.Click, AddressOf GenerarImagenID
-            AddHandler botonID.Click, AddressOf GenerarImagenID
+            RemoveHandler botonID.Click, AddressOf GenerarIDsJuegos
+            AddHandler botonID.Click, AddressOf GenerarIDsJuegos
 
             Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
             tbID.Text = String.Empty
+
+            RemoveHandler tbID.TextChanged, AddressOf LimpiarIDs
+            AddHandler tbID.TextChanged, AddressOf LimpiarIDs
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
 
@@ -218,20 +222,85 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub MostrarImagenJuego(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbImagen As TextBox = sender
+        Private Sub CargarImagenesJuegos(sender As Object, e As TextChangedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            If tbImagen.Text.Trim.Length > 0 Then
-                Try
-                    Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
-                    imagen.Source = tbImagen.Text.Trim
-                Catch ex As Exception
+            Dim tbImagenes As TextBox = sender
+            Dim enlaces As String = tbImagenes.Text.Trim
+            Dim listaEnlaces As New List(Of String)
 
-                End Try
+            Dim i As Integer = 0
+            While i < 100
+                If enlaces.Trim.Length > 0 Then
+                    Dim enlace As String = String.Empty
+
+                    If enlaces.Contains(",") Then
+                        Dim int As Integer = enlaces.IndexOf(",")
+                        enlace = enlaces.Remove(int, enlaces.Length - int)
+
+                        enlaces = enlaces.Remove(0, int + 1)
+                    Else
+                        enlace = enlaces
+                        enlaces = String.Empty
+                    End If
+
+                    enlace = enlace.Trim
+                    listaEnlaces.Add(enlace)
+                End If
+                i += 1
+            End While
+
+            Dim panelUnJuego As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsGenerarImagenFreeUnJuego")
+            Dim gvDosJuegos As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsGenerarImagenFreeDosJuegos")
+
+            If listaEnlaces.Count > 0 Then
+                If listaEnlaces.Count = 1 Then
+                    panelUnJuego.Visibility = Visibility.Visible
+                    gvDosJuegos.Visibility = Visibility.Collapsed
+
+                    Dim imagen As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
+                    imagen.Source = listaEnlaces(0).Trim
+                Else
+                    panelUnJuego.Visibility = Visibility.Collapsed
+                    gvDosJuegos.Visibility = Visibility.Visible
+
+                    For Each enlace In listaEnlaces
+                        Dim panel As New DropShadowPanel With {
+                            .BlurRadius = 10,
+                            .ShadowOpacity = 1,
+                            .Color = Windows.UI.Colors.Black,
+                            .Margin = New Thickness(10, 0, 10, 0),
+                            .HorizontalAlignment = HorizontalAlignment.Center,
+                            .VerticalAlignment = VerticalAlignment.Center
+                        }
+
+                        Dim colorFondo2 As New SolidColorBrush With {
+                            .Color = "#2e4460".ToColor
+                        }
+
+                        Dim gridContenido As New Grid With {
+                            .Background = colorFondo2
+                        }
+
+                        If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
+                            enlace = enlace.Replace("header", "library_600x900")
+                        ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
+                            enlace = enlace.Replace("header", "library_600x900")
+                        End If
+
+                        Dim imagenJuego2 As New ImageEx With {
+                            .Stretch = Stretch.Uniform,
+                            .IsCacheEnabled = True,
+                            .Source = enlace
+                        }
+
+                        gridContenido.Children.Add(imagenJuego2)
+                        panel.Content = gridContenido
+                        gvDosJuegos.Items.Add(panel)
+                    Next
+                End If
             End If
 
         End Sub
@@ -251,6 +320,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If tbImagen.Text.Contains("epicgames") Then
                         imagen.MaxHeight = 90
                     ElseIf tbImagen.Text.Contains("humble") Then
+                        imagen.MaxHeight = 60
+                    ElseIf tbImagen.Text.Contains("gog") Then
                         imagen.MaxHeight = 60
                     Else
                         imagen.MaxHeight = 55
@@ -433,31 +504,82 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Sub GenerarImagenID(sender As Object, e As RoutedEventArgs)
+        Private Async Sub GenerarIDsJuegos(sender As Object, e As RoutedEventArgs)
 
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbID As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
-            Dim textoID As String = tbID.Text.Trim
+            Dim tbIDs As TextBox = pagina.FindName("tbEditorSubirpepeizqdealsFreeID")
+            Dim enlaces As String = tbIDs.Text.Trim
+            Dim listaEnlaces As New List(Of String)
 
+            Dim i As Integer = 0
+            While i < 100
+                If enlaces.Trim.Length > 0 Then
+                    Dim enlace As String = String.Empty
+
+                    If enlaces.Contains(",") Then
+                        Dim int As Integer = enlaces.IndexOf(",")
+                        enlace = enlaces.Remove(int, enlaces.Length - int)
+
+                        enlaces = enlaces.Remove(0, int + 1)
+                    Else
+                        enlace = enlaces
+                        enlaces = String.Empty
+                    End If
+
+                    enlace = enlace.Trim
+                    listaEnlaces.Add(enlace)
+                End If
+                i += 1
+            End While
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
             Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenJuegopepeizqdealsFree")
-
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdealsFree")
 
-            If Not textoID = Nothing Then
-                Dim datos As SteamAPIJson = Await BuscarAPIJson(textoID)
+            If listaEnlaces.Count > 0 Then
+                For Each enlace In listaEnlaces
+                    Dim datos As SteamAPIJson = Await BuscarAPIJson(enlace)
 
-                If Not datos Is Nothing Then
-                    tbImagenJuego.Text = datos.Datos.Imagen
+                    If Not datos Is Nothing Then
+                        If tbImagenJuego.Text = Nothing Then
+                            tbImagenJuego.Text = datos.Datos.Imagen
+                        Else
+                            tbImagenJuego.Text = tbImagenJuego.Text + "," + datos.Datos.Imagen
+                        End If
 
-                    tbImagenFondo.Text = datos.Datos.Fondo
-                End If
+                        If tbImagenFondo.Text = Nothing Then
+                            tbImagenFondo.Text = datos.Datos.Fondo
+                        End If
+
+                        If Not tbTitulo.Text = Nothing Then
+                            If tbTitulo.Text.Contains("-- • Free •") Then
+                                tbTitulo.Text = tbTitulo.Text.Replace("-- • Free •", datos.Datos.Titulo.Trim + " • Free •")
+                            Else
+                                tbTitulo.Text = tbTitulo.Text.Replace("• Free •", "+ " + datos.Datos.Titulo.Trim + " • Free •")
+                            End If
+                        End If
+                    End If
+                Next
             End If
 
             BloquearControles(True)
+
+        End Sub
+
+        Private Sub LimpiarIDs(sender As Object, e As TextChangedEventArgs)
+
+            Dim tb As TextBox = sender
+
+            tb.Text = tb.Text.Replace("https://", Nothing)
+            tb.Text = tb.Text.Replace("http://", Nothing)
+            tb.Text = tb.Text.Replace("store.steampowered.com/app/", Nothing)
+            tb.Text = tb.Text.Replace("steamdb.info/app/", Nothing)
+            tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
+            tb.Text = tb.Text.Replace("/", Nothing)
 
         End Sub
 

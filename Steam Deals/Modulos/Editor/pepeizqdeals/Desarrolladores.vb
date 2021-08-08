@@ -449,7 +449,7 @@
                 New Clases.Desarrolladores("Midgar Studio", "@MidgarStudio", Nothing, Nothing),
                 New Clases.Desarrolladores("mif2000", "@mif2000", Nothing, Nothing),
                 New Clases.Desarrolladores("Might & Delight", "@MightAndDelight", Nothing, Nothing),
-                New Clases.Desarrolladores("Milestone", "@milestoneitaly", "Assets\LogosPublishers\milestone.png", 170),
+                New Clases.Desarrolladores("Milestone", "@milestoneitaly", "Assets\LogosPublishers\milestone.png", 150),
                 New Clases.Desarrolladores("Milkstone Studios", "@milkstone", Nothing, Nothing),
                 New Clases.Desarrolladores("Mimimi", "@MimimiProd", Nothing, Nothing),
                 New Clases.Desarrolladores("MinskWorks", "@MinskWorks", Nothing, Nothing),

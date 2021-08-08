@@ -642,7 +642,7 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <TextBox x:Name="tbEditorSubirpepeizqdealsFreeID" TextWrapping="Wrap" MinWidth="100"/>
+                                    <TextBox x:Name="tbEditorSubirpepeizqdealsFreeID" TextWrapping="Wrap" MinWidth="300"/>
                                 </StackPanel>
 
                                 <Button x:Name="botonEditorSubirpepeizqdealsFree" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
@@ -700,9 +700,11 @@
                                                         </controls:DropShadowPanel>
                                                     </StackPanel>
 
-                                                    <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">
+                                                    <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsGenerarImagenFreeUnJuego" Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">
                                                         <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFreev2" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
+
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsGenerarImagenFreeDosJuegos" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,20,50" ItemHeight="275" Padding="0,10"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>
