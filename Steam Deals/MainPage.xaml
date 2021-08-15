@@ -695,7 +695,7 @@
                                                             <TextBlock Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenFree" Color="Black" Margin="0,40,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                        <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenFree" Color="Black" Margin="0,50,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
                                                             <TextBlock x:Name="tbMensajeEditorpepeizqdealsImagenFree" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </controls:DropShadowPanel>
                                                     </StackPanel>

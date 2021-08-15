@@ -190,12 +190,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             If Not post.Json = String.Empty Then
                 If categoria = 3 Then
-                    mensaje = Reddit.GenerarComentarioOfertas(enlaceFinal, post.Json)
+                    mensaje = Reddit.GenerarTextoPost(enlaceFinal, post.Json)
                 End If
             End If
 
             Try
-                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, "/r/pepeizqdeals", mensaje)
+                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, mensaje)
             Catch ex As Exception
                 Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
             End Try

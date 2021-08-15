@@ -507,7 +507,7 @@
                 New Clases.Desarrolladores("Patriot Game", "@GameOfPatriot", Nothing, Nothing),
                 New Clases.Desarrolladores("Payload Studios", "@TerraTechGame", Nothing, Nothing),
                 New Clases.Desarrolladores("Pea Head Games", "@PeaHeadGames", Nothing, Nothing),
-                New Clases.Desarrolladores("Perfect World", "@PlayArcGames", Nothing, Nothing),
+                New Clases.Desarrolladores("Perfect World", "@PerfectWorld", Nothing, Nothing),
                 New Clases.Desarrolladores("Piko Interactive", "@Pikointeractive", Nothing, Nothing),
                 New Clases.Desarrolladores("Pine Studio", "@PineStudioLLC", Nothing, Nothing),
                 New Clases.Desarrolladores("Pinokl Games", "@PinoklGames", Nothing, Nothing),

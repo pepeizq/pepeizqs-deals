@@ -155,7 +155,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not json = String.Empty Then
                         If categoria = 3 Then
-                            mensajeReddit = Reddit.GenerarComentarioOfertas(enlaceFinal, json)
+                            mensajeReddit = Reddit.GenerarTextoPost(enlaceFinal, json)
                         End If
                     End If
 
@@ -176,7 +176,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             enlaceReddit = enlaceFinal
                         End If
 
-                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, "/r/pepeizqdeals", mensajeReddit)
+                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, mensajeReddit)
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                     End Try
@@ -199,19 +199,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Notificaciones.Toast("Push Web Error Post", Nothing)
                     End Try
 
-                    '----------------------------------------------------------------
-
-                    'If Not redireccion = Nothing Then
-                    '    If Not tienda Is Nothing Then
-                    '        If categoria = 3 And tienda.NombreMostrar = "Steam" Then
-                    '            Try
-                    '                Await Reddit.Enviar(titulo, redireccion, tituloComplemento, categoria, "/r/steamdeals", mensajeReddit)
-                    '            Catch ex As Exception
-                    '                Notificaciones.Toast("Reddit r/steamdeals Error Post", Nothing)
-                    '            End Try
-                    '        End If
-                    '    End If
-                    'End If
                 End If
             End If
 
