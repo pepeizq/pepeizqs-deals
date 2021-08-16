@@ -93,10 +93,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       Try
                                                                                                                           Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
 
-                                                                                                                          If Not mensaje = Nothing Then
-                                                                                                                              subreddit1.SubmitTextPost(tituloFinal, mensaje)
+                                                                                                                          If Not subreddit1 Is Nothing Then
+                                                                                                                              If Not mensaje = Nothing Then
+                                                                                                                                  subreddit1.SubmitTextPost(tituloFinal, mensaje)
+                                                                                                                              Else
+                                                                                                                                  subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                              End If
                                                                                                                           Else
-                                                                                                                              subreddit1.SubmitPost(tituloFinal, enlaceFinal)
+                                                                                                                              falloEnlace = True
                                                                                                                           End If
                                                                                                                       Catch ex As Exception
                                                                                                                           falloEnlace = True
@@ -106,10 +110,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                           Try
                                                                                                                               Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
 
-                                                                                                                              If Not mensaje = Nothing Then
-                                                                                                                                  subreddit1.SubmitTextPost(tituloFinal, mensaje)
+                                                                                                                              If Not subreddit1 Is Nothing Then
+                                                                                                                                  If Not mensaje = Nothing Then
+                                                                                                                                      subreddit1.SubmitTextPost(tituloFinal, mensaje)
+                                                                                                                                  Else
+                                                                                                                                      subreddit1.SubmitPost(tituloFinal, enlaceFinal + "?=" + DateTime.Today.Month.ToString)
+                                                                                                                                  End If
                                                                                                                               Else
-                                                                                                                                  subreddit1.SubmitPost(tituloFinal, enlaceFinal + "?=" + DateTime.Today.Month.ToString)
+                                                                                                                                  Notificaciones.Toast("Error", "Reddit Error /r/pepeizqdeals")
                                                                                                                               End If
                                                                                                                           Catch ex As Exception
                                                                                                                               Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
@@ -136,6 +144,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         If Not ofertas.Mensaje = Nothing Then
                             texto = texto + ofertas.Mensaje + Environment.NewLine + Environment.NewLine
                         End If
+
+                        texto = texto + "Highlighted Deals:"
 
                         For Each juego In ofertas.Juegos
                             texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + "](" + juego.Enlace + ")" + Environment.NewLine

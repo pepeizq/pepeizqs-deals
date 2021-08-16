@@ -160,6 +160,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     Try
+                        Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Discord Error Post", Nothing)
+                    End Try
+
+                    Try
+                        Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdeals.Trim, Date.Today.DayOfYear)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Push Firebase Error Post", Nothing)
+                    End Try
+
+                    Try
+                        PushWeb.Enviar(titulo, categoria, imagenPepeizqdeals.Trim, enlaceFinal)
+                    Catch ex As Exception
+                        Notificaciones.Toast("Push Web Error Post", Nothing)
+                    End Try
+
+                    Try
                         Dim enlaceReddit As String = String.Empty
 
                         If Not tienda Is Nothing Then
@@ -179,24 +197,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, mensajeReddit)
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
-                    End Try
-
-                    Try
-                        Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Discord Error Post", Nothing)
-                    End Try
-
-                    Try
-                        Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdeals.Trim, Date.Today.DayOfYear)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Push Firebase Error Post", Nothing)
-                    End Try
-
-                    Try
-                        PushWeb.Enviar(titulo, categoria, imagenPepeizqdeals.Trim, enlaceFinal)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Push Web Error Post", Nothing)
                     End Try
 
                 End If
