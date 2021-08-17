@@ -145,7 +145,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                             texto = texto + ofertas.Mensaje + Environment.NewLine + Environment.NewLine
                         End If
 
-                        texto = texto + "Highlighted Deals:"
+                        texto = texto + "Highlighted Deals:" + Environment.NewLine
 
                         For Each juego In ofertas.Juegos
                             texto = texto + "* [" + juego.Titulo + " • " + juego.Descuento + " • " + juego.Precio + "](" + juego.Enlace + ")" + Environment.NewLine
