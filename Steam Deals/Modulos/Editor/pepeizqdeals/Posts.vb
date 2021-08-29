@@ -177,28 +177,27 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Notificaciones.Toast("Push Web Error Post", Nothing)
                     End Try
 
-                    Try
-                        Dim enlaceReddit As String = String.Empty
+                    Dim enlaceReddit As String = String.Empty
 
-                        If Not tienda Is Nothing Then
-                            If tienda.NombreUsar = "Humble" Then
-                                If Not redireccion = Nothing Then
-                                    enlaceReddit = redireccion
-                                Else
-                                    enlaceReddit = enlaceFinal
-                                End If
+                    If Not tienda Is Nothing Then
+                        If tienda.NombreUsar = "Humble" Then
+                            If Not redireccion = Nothing Then
+                                enlaceReddit = redireccion
                             Else
                                 enlaceReddit = enlaceFinal
                             End If
                         Else
                             enlaceReddit = enlaceFinal
                         End If
+                    Else
+                        enlaceReddit = enlaceFinal
+                    End If
 
-                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, mensajeReddit)
+                    Try
+                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, mensajeReddit, "/r/pepeizqdeals")
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                     End Try
-
                 End If
             End If
 

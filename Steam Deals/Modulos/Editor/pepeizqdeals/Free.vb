@@ -185,8 +185,6 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim boton As Button = sender
-
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsFree")
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsFree")
 
@@ -556,6 +554,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         If Not tbTitulo.Text = Nothing Then
+                            If tbTitulo.Text.Contains("--- • Free •") Then
+                                tbTitulo.Text = tbTitulo.Text.Replace("--- • Free •", "-- • Free •")
+                            End If
+
                             If tbTitulo.Text.Contains("-- • Free •") Then
                                 tbTitulo.Text = tbTitulo.Text.Replace("-- • Free •", datos.Datos.Titulo.Trim + " • Free •")
                             Else

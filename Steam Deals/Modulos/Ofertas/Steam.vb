@@ -354,7 +354,7 @@ Namespace pepeizq.Ofertas
         Public Property Desarrollador As String
         Public Property Tipo As String
 
-        Public Sub New(ByVal enlace As String, ByVal desarrollador As String, ByVal tipo As String)
+        Public Sub New(enlace As String, desarrollador As String, tipo As String)
             Me.Enlace = enlace
             Me.Desarrollador = desarrollador
             Me.Tipo = tipo

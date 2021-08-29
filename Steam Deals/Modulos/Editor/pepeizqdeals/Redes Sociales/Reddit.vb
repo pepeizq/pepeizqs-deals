@@ -6,7 +6,7 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Reddit
 
-        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer, mensaje As String) As Task
+        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer, mensaje As String, subr As String) As Task
 
             Dim añadir As Boolean = True
 
@@ -91,7 +91,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                       Dim falloEnlace As Boolean = False
 
                                                                                                                       Try
-                                                                                                                          Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
+                                                                                                                          Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subr)
 
                                                                                                                           If Not subreddit1 Is Nothing Then
                                                                                                                               If Not mensaje = Nothing Then
@@ -108,7 +108,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                                                                                                                       If falloEnlace = True Then
                                                                                                                           Try
-                                                                                                                              Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit("/r/pepeizqdeals")
+                                                                                                                              Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subr)
 
                                                                                                                               If Not subreddit1 Is Nothing Then
                                                                                                                                   If Not mensaje = Nothing Then
@@ -117,10 +117,10 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                                       subreddit1.SubmitPost(tituloFinal, enlaceFinal + "?=" + DateTime.Today.Month.ToString)
                                                                                                                                   End If
                                                                                                                               Else
-                                                                                                                                  Notificaciones.Toast("Error", "Reddit Error /r/pepeizqdeals")
+                                                                                                                                  Notificaciones.Toast("Error", "Reddit Error " + subr)
                                                                                                                               End If
                                                                                                                           Catch ex As Exception
-                                                                                                                              Notificaciones.Toast(ex.Message, "Reddit Error /r/pepeizqdeals")
+                                                                                                                              Notificaciones.Toast(ex.Message, "Reddit Error " + subr)
                                                                                                                           End Try
                                                                                                                       End If
 

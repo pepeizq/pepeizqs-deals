@@ -195,7 +195,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             End If
 
             Try
-                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, mensaje)
+                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, mensaje, "/r/pepeizqdeals")
             Catch ex As Exception
                 Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
             End Try

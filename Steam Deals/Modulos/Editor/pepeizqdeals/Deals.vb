@@ -240,10 +240,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tbTitulo.Text.Trim.Length > 0 Then
                 tbTituloTwitter.Text = Twitter.GenerarTitulo(tbTitulo.Text.Trim)
 
-                Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
-
-                If Not cb.SelectedIndex = 0 Then
-                    Dim publisher As TextBlock = cb.SelectedItem
+                If Not cbPublishers.SelectedIndex = 0 Then
+                    Dim publisher As TextBlock = cbPublishers.SelectedItem
 
                     If Not publisher Is Nothing Then
                         Dim publisher2 As Clases.Desarrolladores = publisher.Tag

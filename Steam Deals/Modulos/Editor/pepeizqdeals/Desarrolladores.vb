@@ -11,19 +11,48 @@
             Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
             cb.Items.Clear()
 
-            cb.Items.Add("--")
-
             If listaPublishers.Count > 0 Then
-                For Each publisher In listaPublishers
-                    Dim tb As New TextBlock With {
-                        .Text = publisher.Publisher,
-                        .Tag = publisher
-                    }
+                For Each nuevoPublisher In listaPublishers
+                    If Not nuevoPublisher Is Nothing Then
+                        Dim añadir As Boolean = True
 
-                    cb.Items.Add(tb)
+                        Dim nuevoTb As New TextBlock With {
+                            .Text = nuevoPublisher.Publisher.Trim,
+                            .Tag = nuevoPublisher
+                        }
+
+                        For Each viejoPublisher In cb.Items
+                            Dim viejoTb As TextBlock = viejoPublisher
+
+                            If viejoTb.Text.Trim = nuevoTb.Text.Trim Then
+                                añadir = False
+                            End If
+                        Next
+
+                        If añadir = True Then
+                            cb.Items.Add(nuevoTb)
+                        End If
+                    End If
                 Next
             End If
 
+            If cb.Items.Count > 0 Then
+                Dim listaFinal As New List(Of String)
+
+                For Each publisher In cb.Items
+                    Dim tb As TextBlock = publisher
+                    listaFinal.Add(tb.Text)
+                Next
+
+                cb.Items.Clear()
+                listaFinal.Sort()
+
+                For Each publisher In listaFinal
+                    cb.Items.Add(publisher)
+                Next
+            End If
+
+            cb.Items.Insert(0, "--")
             cb.SelectedIndex = 0
 
             AddHandler cb.SelectionChanged, AddressOf CambiarDatos
@@ -40,10 +69,17 @@
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
 
             If Not cb.SelectedIndex = 0 Then
-                Dim publisher As TextBlock = cb.SelectedItem
+                Dim publisher As String = cb.SelectedItem
 
-                If Not publisher Is Nothing Then
-                    Dim publisher2 As Clases.Desarrolladores = publisher.Tag
+                If Not publisher = Nothing Then
+                    Dim listaPublishers As List(Of Clases.Desarrolladores) = CargarLista()
+                    Dim publisher2 As Clases.Desarrolladores = Nothing
+
+                    For Each publisherLista In listaPublishers
+                        If LimpiarPublisher(publisherLista.Publisher) = LimpiarPublisher(publisher) Then
+                            publisher2 = publisherLista
+                        End If
+                    Next
 
                     If Not tbTitulo.Text = Nothing Then
                         If tbTitulo.Text.Contains("Sale") Then
