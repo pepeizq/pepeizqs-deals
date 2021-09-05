@@ -396,11 +396,17 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
-                tbJuegos.Text = tbJuegos.Text + " and more games"
+
+                If Not tbJuegos.Text = Nothing Then
+                    tbJuegos.Text = tbJuegos.Text + " and more games"
+                End If
             Else
                 gridMasJuegos.Visibility = Visibility.Collapsed
-                tbJuegos.Text = tbJuegos.Text.Replace("and more games", Nothing)
-                tbJuegos.Text = tbJuegos.Text.Trim
+
+                If Not tbJuegos.Text = Nothing Then
+                    tbJuegos.Text = tbJuegos.Text.Replace("and more games", Nothing)
+                    tbJuegos.Text = tbJuegos.Text.Trim
+                End If
             End If
 
         End Sub

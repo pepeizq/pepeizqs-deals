@@ -142,7 +142,12 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                         texto = texto + "[The complete list of deals at pepeizqdeals.com](" + enlaceEntrada + ")" + Environment.NewLine + Environment.NewLine
 
                         If Not ofertas.Mensaje = Nothing Then
-                            texto = texto + ofertas.Mensaje + Environment.NewLine + Environment.NewLine
+                            Dim mensaje As String = ofertas.Mensaje
+
+                            mensaje = mensaje.Replace("<b>", Nothing)
+                            mensaje = mensaje.Replace("</b>", Nothing)
+
+                            texto = texto + mensaje + Environment.NewLine + Environment.NewLine
                         End If
 
                         texto = texto + "Highlighted Deals:" + Environment.NewLine
