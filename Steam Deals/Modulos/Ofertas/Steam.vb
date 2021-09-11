@@ -215,12 +215,26 @@ Namespace pepeizq.Ofertas
 
                                     If juego.Descuento = Nothing Then
                                         añadir = False
-                                    ElseIf juego.Precio1 = "0,49€" Or juego.Precio1 = "0.49€" Then
-                                        añadir = False
-                                    ElseIf juego.Precio1 = "0,39€" Or juego.Precio1 = "0.39€" Then
-                                        añadir = False
-                                    ElseIf juego.Precio1 = "0,44€" Or juego.Precio1 = "0.44€" Then
-                                        añadir = False
+                                    ElseIf juego.Precio1.Contains("0.") Then
+                                        If juego.Precio1.IndexOf("0." = 0) Then
+                                            If juego.Analisis Is Nothing Then
+                                                añadir = False
+                                            Else
+                                                If juego.Analisis.Cantidad.Length < 4 Then
+                                                    añadir = False
+                                                End If
+                                            End If
+                                        End If
+                                    ElseIf juego.Precio1.Contains("1.") Then
+                                        If juego.Precio1.IndexOf("1." = 0) Then
+                                            If juego.Analisis Is Nothing Then
+                                                añadir = False
+                                            Else
+                                                If juego.Analisis.Cantidad.Length < 4 Then
+                                                    añadir = False
+                                                End If
+                                            End If
+                                        End If
                                     ElseIf juego.Titulo.ToLower.Contains("hentai") = True Then
                                         añadir = False
                                     ElseIf juego.Titulo.ToLower.Contains("achievement") = True Then

@@ -398,6 +398,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridMasJuegos.Visibility = Visibility.Visible
 
                 If Not tbJuegos.Text = Nothing Then
+                    If tbJuegos.Text.Contains(" and ") Then
+                        tbJuegos.Text = tbJuegos.Text.Replace(" and ", ", ")
+                    End If
+
                     tbJuegos.Text = tbJuegos.Text + " and more games"
                 End If
             Else

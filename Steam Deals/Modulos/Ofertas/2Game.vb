@@ -61,7 +61,8 @@ Namespace pepeizq.Ofertas
             Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
             Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Dim tope As Integer = 1000
+            Dim tope As Integer = 100
+            Dim viejaPagina As Integer = 0
 
             Dim i As Integer = 1
             While i < tope
@@ -214,9 +215,11 @@ Namespace pepeizq.Ofertas
                         j += 1
                     End While
 
-                    If Not html.Contains("<a class=" + ChrW(34) + "next i-next" + ChrW(34)) Then
+                    If html.Contains("<li class=" + ChrW(34) + "current" + ChrW(34) + ">" + (viejaPagina - 1).ToString + "</li>") Then
                         Exit While
                     End If
+
+                    viejaPagina = i
                 End If
 
                 pb.Value = i

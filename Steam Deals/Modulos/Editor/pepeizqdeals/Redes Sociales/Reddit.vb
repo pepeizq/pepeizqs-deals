@@ -6,7 +6,7 @@ Imports Windows.UI.Core
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module Reddit
 
-        Public Async Function Enviar(titulo As String, enlaceFinal As String, tituloComplemento As String, categoria As Integer, mensaje As String, subr As String) As Task
+        Public Async Function Enviar(titulo As String, enlace As String, tituloComplemento As String, categoria As Integer, json As String, subr As String) As Task
 
             Dim añadir As Boolean = True
 
@@ -44,13 +44,13 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 Dim i As Integer = 0
                 While i < 15
                     If tituloFinal.Length > 290 Then
-                        If categoria = "3" Or categoria = 1218 Then
+                        If categoria = 3 Or categoria = 1218 Then
                             If tituloFinal.Contains(",") Then
                                 Dim int As Integer = tituloFinal.LastIndexOf(",")
                                 tituloFinal = tituloFinal.Remove(int, tituloFinal.Length - int)
                                 tituloFinal = tituloFinal + " and more"
                             End If
-                        ElseIf categoria = "4" Then
+                        ElseIf categoria = 4 Then
                             If tituloFinal.Contains("and") Then
                                 If tituloFinal.Contains(",") Then
                                     Dim int As Integer = tituloFinal.LastIndexOf(",")
@@ -88,49 +88,34 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                                                                                                                   End Try
 
                                                                                                                   If Not reddit.User Is Nothing Then
-                                                                                                                      Dim falloEnlace As Boolean = False
-
                                                                                                                       Try
                                                                                                                           Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subr)
 
                                                                                                                           If Not subreddit1 Is Nothing Then
-                                                                                                                              If Not mensaje = Nothing Then
-                                                                                                                                  subreddit1.SubmitTextPost(tituloFinal, mensaje)
-                                                                                                                              Else
-                                                                                                                                  subreddit1.SubmitPost(tituloFinal, enlaceFinal)
-                                                                                                                              End If
-                                                                                                                          Else
-                                                                                                                              falloEnlace = True
-                                                                                                                          End If
-                                                                                                                      Catch ex As Exception
-                                                                                                                          falloEnlace = True
-                                                                                                                      End Try
+                                                                                                                              If subr = "/r/pepeizqdeals" Then
+                                                                                                                                  Dim mensaje As String = String.Empty
 
-                                                                                                                      If falloEnlace = True Then
-                                                                                                                          Try
-                                                                                                                              Dim subreddit1 As RedditSharp.Things.Subreddit = reddit.GetSubreddit(subr)
+                                                                                                                                  If categoria = 3 Then
+                                                                                                                                      mensaje = GenerarTextoPostpepeizq(enlace, json)
+                                                                                                                                  End If
 
-                                                                                                                              If Not subreddit1 Is Nothing Then
                                                                                                                                   If Not mensaje = Nothing Then
                                                                                                                                       subreddit1.SubmitTextPost(tituloFinal, mensaje)
                                                                                                                                   Else
-                                                                                                                                      subreddit1.SubmitPost(tituloFinal, enlaceFinal + "?=" + DateTime.Today.Month.ToString)
+                                                                                                                                      subreddit1.SubmitPost(tituloFinal, enlace)
                                                                                                                                   End If
-                                                                                                                              Else
-                                                                                                                                  Notificaciones.Toast("Error", "Reddit Error " + subr)
                                                                                                                               End If
-                                                                                                                          Catch ex As Exception
-                                                                                                                              Notificaciones.Toast(ex.Message, "Reddit Error " + subr)
-                                                                                                                          End Try
-                                                                                                                      End If
-
+                                                                                                                          End If
+                                                                                                                      Catch ex As Exception
+                                                                                                                          Notificaciones.Toast(ex.Message, "Reddit Error " + subr)
+                                                                                                                      End Try
                                                                                                                   End If
                                                                                                               End Sub))
             End If
 
         End Function
 
-        Public Function GenerarTextoPost(enlaceEntrada As String, json As String)
+        Private Function GenerarTextoPostpepeizq(enlaceEntrada As String, json As String)
 
             Dim texto As String = String.Empty
 

@@ -75,7 +75,7 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
                 Dim botonReddit As New Button With {
                     .Tag = post,
-                    .Content = "Reddit",
+                    .Content = "Reddit pepeizq",
                     .Margin = New Thickness(20, 0, 0, 0)
                 }
 
@@ -186,16 +186,14 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
 
             Dim categoria As Integer = post.Categorias(0)
 
-            Dim mensaje As String = String.Empty
+            Dim json As String = post.Json
 
-            If Not post.Json = String.Empty Then
-                If categoria = 3 Then
-                    mensaje = Reddit.GenerarTextoPost(enlaceFinal, post.Json)
-                End If
+            If json = String.Empty Then
+                json = post.JsonExpandido
             End If
 
             Try
-                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, mensaje, "/r/pepeizqdeals")
+                Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, json, "/r/pepeizqdeals")
             Catch ex As Exception
                 Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
             End Try

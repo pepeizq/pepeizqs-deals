@@ -151,14 +151,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Notificaciones.Toast("Twitter Error Post", Nothing)
                     End Try
 
-                    Dim mensajeReddit As String = String.Empty
-
-                    If Not json = String.Empty Then
-                        If categoria = 3 Then
-                            mensajeReddit = Reddit.GenerarTextoPost(enlaceFinal, json)
-                        End If
-                    End If
-
                     Try
                         Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
                     Catch ex As Exception
@@ -177,24 +169,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                         Notificaciones.Toast("Push Web Error Post", Nothing)
                     End Try
 
-                    Dim enlaceReddit As String = String.Empty
+                    Dim jsonReddit As String = json
 
-                    If Not tienda Is Nothing Then
-                        If tienda.NombreUsar = "Humble" Then
-                            If Not redireccion = Nothing Then
-                                enlaceReddit = redireccion
-                            Else
-                                enlaceReddit = enlaceFinal
-                            End If
-                        Else
-                            enlaceReddit = enlaceFinal
-                        End If
-                    Else
-                        enlaceReddit = enlaceFinal
+                    If jsonReddit = String.Empty Then
+                        jsonReddit = jsonExpandido
                     End If
 
                     Try
-                        Await Reddit.Enviar(titulo, enlaceReddit, tituloComplemento, categoria, mensajeReddit, "/r/pepeizqdeals")
+                        Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, jsonReddit, "/r/pepeizqdeals")
                     Catch ex As Exception
                         Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                     End Try
