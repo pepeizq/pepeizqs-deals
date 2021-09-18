@@ -263,6 +263,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Else
                     panelUnJuego.Visibility = Visibility.Collapsed
                     gvDosJuegos.Visibility = Visibility.Visible
+                    gvDosJuegos.Items.Clear()
 
                     For Each enlace In listaEnlaces
                         Dim panel As New DropShadowPanel With {

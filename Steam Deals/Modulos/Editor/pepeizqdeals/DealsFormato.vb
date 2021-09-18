@@ -34,20 +34,20 @@
                 End If
 
                 If dosPrecios = False Then
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Price</td>" + Environment.NewLine
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 12%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                    contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                    contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Price</td>" + Environment.NewLine
+                    contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Rating</td>" + Environment.NewLine
                 Else
                     If tienda.NombreMostrar = "Humble Store" Then
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + "><img style=" + ChrW(34) + "height: 16px; margin-top: 4px;" + ChrW(34) + " src=" + ChrW(34) + "https://i.imgur.com/FBTxfQz.webp" + ChrW(34) + " /></td>" + Environment.NewLine
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Normal Price</td>" + Environment.NewLine
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + "><img style=" + ChrW(34) + "height: 16px; margin-top: 4px;" + ChrW(34) + " src=" + ChrW(34) + "https://i.imgur.com/FBTxfQz.webp" + ChrW(34) + " /></td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Normal Price</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Rating</td>" + Environment.NewLine
                     Else
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Discount</td>" + Environment.NewLine
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Price (1)</td>" + Environment.NewLine
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Price (2)</td>" + Environment.NewLine
-                        contenido = contenido + "<td style=" + ChrW(34) + "width: 10%;text-align:center;" + ChrW(34) + ">Rating</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Discount</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Price (1)</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Price (2)</td>" + Environment.NewLine
+                        contenido = contenido + "<td class=" + ChrW(34) + "ancho-columna" + ChrW(34) + ">Rating</td>" + Environment.NewLine
                     End If
                 End If
 
