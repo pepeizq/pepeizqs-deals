@@ -326,7 +326,7 @@ Namespace pepeizq.Ofertas
         Public Property ID As String
         Public Property Desarrollador As String
 
-        Public Sub New(ByVal id As String, ByVal desarrollador As String)
+        Public Sub New(id As String, desarrollador As String)
             Me.ID = id
             Me.Desarrollador = desarrollador
         End Sub

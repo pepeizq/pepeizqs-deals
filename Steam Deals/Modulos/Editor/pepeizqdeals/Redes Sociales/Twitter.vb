@@ -126,6 +126,8 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                 titulo = titulo.Replace("• Battle.net Store", "• Battle.net Store @Blizzard_Ent")
             ElseIf titulo.Contains("• Direct2Drive") Then
                 titulo = titulo.Replace("• Direct2Drive", "• @Direct2Drive")
+            ElseIf titulo.Contains("• DLGamer") Then
+                titulo = titulo.Replace("• DLGamer", "• @DLGamer")
             ElseIf titulo.Contains("• Epic Games Store") Then
                 titulo = titulo.Replace("• Epic Games Store", "• @EpicGames Store")
             ElseIf titulo.Contains("• Fanatical") Then

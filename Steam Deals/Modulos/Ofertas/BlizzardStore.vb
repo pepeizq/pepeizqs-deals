@@ -121,7 +121,9 @@ Namespace pepeizq.Ofertas
                 "call-of-duty",
                 "call-of-duty-mw2cr",
                 "call-of-duty-black-ops-cold-war",
-                "crash-bandicoot-4"
+                "crash-bandicoot-4",
+                "diablo-ii",
+                "call-of-duty-vanguard"
             }
 
             Return lista

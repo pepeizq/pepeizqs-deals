@@ -390,6 +390,7 @@
     <Content Include="Assets\Tiendas\300x80\amazon3.png" />
     <Content Include="Assets\Tiendas\300x80\battlenet3.png" />
     <Content Include="Assets\Tiendas\300x80\d2d3.png" />
+    <Content Include="Assets\Tiendas\300x80\dlgamer3.png" />
     <Content Include="Assets\Tiendas\300x80\epicgames3.png" />
     <Content Include="Assets\Tiendas\300x80\fanatical3.png" />
     <Content Include="Assets\Tiendas\300x80\gamebillet3.png" />
@@ -414,6 +415,8 @@
     <Content Include="Assets\Tiendas\battlenet2.png" />
     <Content Include="Assets\Tiendas\d2d.ico" />
     <Content Include="Assets\Tiendas\d2d2.png" />
+    <Content Include="Assets\Tiendas\dlgamer.png" />
+    <Content Include="Assets\Tiendas\dlgamer2.png" />
     <Content Include="Assets\Tiendas\gamesplanet.png" />
     <Content Include="Assets\Tiendas\gamesplanet2.png" />
     <Content Include="Assets\Tiendas\geforcenow2.png" />

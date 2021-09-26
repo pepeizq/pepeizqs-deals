@@ -33,11 +33,12 @@ Module Tiendas
     Public robotcacheT As New Tienda("Robot Cache", "RobotCache", "Assets/Tiendas/robotcache.png", 25, Nothing, 1245, "https://pepeizqdeals.com/wp-content/uploads/2019/09/tienda_direct2drive.jpg", "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing, Nothing)
     Public ubiT As New Tienda("Ubisoft Store", "Ubisoft", "Assets/Tiendas/ubi.png", 26, Nothing, 1317, "https://pepeizqdeals.com/wp-content/uploads/2020/09/tienda_uplay.jpg", "Assets/Tiendas/ubi2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/ubi2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/ubi3.png", "32092", "Price with Club Units")
     Public allyouplayT As New Tienda("Allyouplay", "Allyouplay", "Assets/Tiendas/allyouplay.ico", 27, Nothing, 1318, "https://pepeizqdeals.com/wp-content/uploads/2020/09/tienda_allyouplay.jpg", "Assets/Tiendas/allyouplay2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/allyouplay2.png", "https://pepeizqdeals.com/wp-content/uploads/2020/09/allyouplay3.png", "32170", Nothing)
+    Public dlgamerT As New Tienda("DLGamer", "DLGamer", "Assets/Tiendas/dlgamer.png", 28, Nothing, 1379, "https://pepeizqdeals.com/wp-content/uploads/2021/09/tienda_dlgamer.webp", "Assets/Tiendas/dlgamer2.png", "https://pepeizqdeals.com/wp-content/uploads/2021/09/dlgamer2.webp", "https://pepeizqdeals.com/wp-content/uploads/2021/09/dlgamer3.webp", "43678", Nothing)
 
     Dim listaTiendas As New List(Of Tienda) From {
         steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
         microsoftstoreT, nexusT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-        epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT
+        epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT, dlgamerT
     }
 
     Public Function Listado()
@@ -844,6 +845,8 @@ Module Tiendas
                     Await pepeizq.Ofertas.Ubisoft.BuscarOfertas(ubiT)
                 ElseIf tienda.NombreUsar = allyouplayT.NombreUsar Then
                     Await pepeizq.Ofertas.Allyouplay.BuscarOfertas(allyouplayT)
+                ElseIf tienda.NombreUsar = dlgamerT.NombreUsar Then
+                    Await pepeizq.Ofertas.DLGamer.BuscarOfertas(dlgamerT)
                 End If
             Else
                 Ordenar.Ofertas(tienda, False, True)

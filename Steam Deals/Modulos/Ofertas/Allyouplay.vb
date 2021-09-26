@@ -211,7 +211,7 @@ Namespace pepeizq.Ofertas
         Public Property Enlace As String
         Public Property DRM As String
 
-        Public Sub New(ByVal enlace As String, ByVal drm As String)
+        Public Sub New(enlace As String, drm As String)
             Me.Enlace = enlace
             Me.DRM = drm
         End Sub

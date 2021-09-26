@@ -35,7 +35,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("XboxGamePass", "Assets/Tiendas/xboxgamepass2.png", "Assets/Tiendas/xboxgamepass.png", "#107c10", "#107c10", Nothing, 32, 32),
                 New Clases.Assets("GeforceNOW", "Assets/Tiendas/geforcenow2.png", "Assets/Tiendas/geforcenow.png", "#446b00", "#446b00", Nothing, 32, 32),
                 New Clases.Assets("Uplay", "Assets/Tiendas/ubi.png", "Assets/Tiendas/ubi2.png", "#008aa4", "#008aa4", Nothing, 32, 32),
-                New Clases.Assets("Allyouplay", "Assets/Tiendas/allyouplay.ico", "Assets/Tiendas/allyouplay2.png", "#370a91", "#370a91", Nothing, 32, 32)
+                New Clases.Assets("Allyouplay", "Assets/Tiendas/allyouplay.ico", "Assets/Tiendas/allyouplay2.png", "#370a91", "#370a91", Nothing, 32, 32),
+                New Clases.Assets("DLGamer", "Assets/Tiendas/dlgamer.png", "Assets/Tiendas/dlgamer2.png", "#523c00", "#523c00", Nothing, 32, 32)
             }
 
             Return lista
