@@ -5,7 +5,7 @@
     Public Property Cantidad As String
     Public Property Enlace As String
 
-    Public Sub New(ByVal titulo As String, ByVal porcentaje As String, ByVal cantidad As String, ByVal enlace As String)
+    Public Sub New(titulo As String, porcentaje As String, cantidad As String, enlace As String)
         Me.Titulo = titulo
         Me.Porcentaje = porcentaje
         Me.Cantidad = cantidad

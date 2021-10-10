@@ -37,7 +37,7 @@ Module Analisis
 
     End Sub
 
-    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+    Private Sub Bw_DoWork(sender As Object, e As DoWorkEventArgs) Handles Bw.DoWork
 
         Dim i As Integer = 1
         While i < numPaginas
@@ -84,7 +84,7 @@ Module Analisis
 
     End Sub
 
-    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
+    Private Sub Bw_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles Bw.ProgressChanged
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -94,7 +94,7 @@ Module Analisis
 
     End Sub
 
-    Private Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+    Private Sub Bw_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
