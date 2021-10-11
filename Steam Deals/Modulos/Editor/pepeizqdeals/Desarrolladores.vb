@@ -24,12 +24,16 @@
                         For Each viejoPublisher In cb.Items
                             Dim viejoTb As TextBlock = viejoPublisher
 
-                            If viejoTb.Text.Trim = nuevoTb.Text.Trim Then
+                            If Limpiar(viejoTb.Text.Trim) = Limpiar(nuevoTb.Text.Trim) Then
                                 añadir = False
                             End If
                         Next
 
                         If añadir = True Then
+                            Dim dev As Clases.Desarrolladores = Buscar(Limpiar(nuevoTb.Text))
+                            nuevoTb.Text = dev.Publisher
+                            nuevoTb.Tag = dev
+
                             cb.Items.Add(nuevoTb)
                         End If
                     End If
@@ -48,7 +52,9 @@
                 listaFinal.Sort()
 
                 For Each publisher In listaFinal
-                    cb.Items.Add(publisher)
+                    If publisher.Trim.Length > 0 Then
+                        cb.Items.Add(publisher.Trim)
+                    End If
                 Next
             End If
 
@@ -76,7 +82,7 @@
                     Dim publisher2 As Clases.Desarrolladores = Nothing
 
                     For Each publisherLista In listaPublishers
-                        If LimpiarPublisher(publisherLista.Publisher) = LimpiarPublisher(publisher) Then
+                        If Limpiar(publisherLista.Publisher) = Limpiar(publisher) Then
                             publisher2 = publisherLista
                         End If
                     Next
@@ -758,7 +764,7 @@
             Return lista
         End Function
 
-        Public Function LimpiarPublisher(publisher As String)
+        Public Function Limpiar(publisher As String)
 
             Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd", "Bundle",
                 "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital",
@@ -774,6 +780,19 @@
             publisher = publisher.Trim
 
             Return publisher
+        End Function
+
+        Public Function Buscar(desarrollador As String)
+
+            Dim lista As List(Of Clases.Desarrolladores) = CargarLista()
+
+            For Each dev In lista
+                If Limpiar(dev.Publisher) = Limpiar(desarrollador) Then
+                    Return dev
+                End If
+            Next
+
+            Return Nothing
         End Function
 
     End Module

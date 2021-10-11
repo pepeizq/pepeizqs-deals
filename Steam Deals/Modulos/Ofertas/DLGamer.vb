@@ -39,6 +39,7 @@ Namespace pepeizq.Ofertas
                         titulo = titulo.Replace("(MAC)", Nothing)
                         titulo = titulo.Replace("(DLC)", Nothing)
                         titulo = titulo.Replace("(ROW)", Nothing)
+                        titulo = titulo.Replace("(EPIC)", Nothing)
                         titulo = titulo.Trim
 
                         Dim imagenes As New OfertaImagenes(juegoDL.Value.Imagen, juegoDL.Value.Imagen)
@@ -91,6 +92,12 @@ Namespace pepeizq.Ofertas
                             End If
 
                             If añadir = True Then
+                                If Not ana Is Nothing Then
+                                    If Not ana.Publisher = Nothing Then
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                    End If
+                                End If
+
                                 juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                 listaJuegos.Add(juego)

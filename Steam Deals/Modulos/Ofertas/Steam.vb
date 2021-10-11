@@ -196,13 +196,13 @@ Namespace pepeizq.Ofertas
 
                                     Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                                    Dim analisis As OfertaAnalisis = Nothing
+                                    Dim ana As OfertaAnalisis = Nothing
 
                                     If temp2.Contains("data-tooltip-html=") Then
-                                        analisis = AñadirAnalisis(temp2, listaAnalisis)
+                                        ana = Analisis.AñadirAnalisis(temp2, listaAnalisis)
                                     End If
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -247,7 +247,7 @@ Namespace pepeizq.Ofertas
                                         For Each api In listaAPI
                                             If api.Enlace = juego.Enlace Then
                                                 If Not api.Desarrollador = Nothing Then
-                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {api.Desarrollador}, Nothing)
+                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {api.Desarrollador.Trim}, Nothing)
                                                 End If
 
                                                 If Not api.Tipo = Nothing Then
@@ -273,6 +273,10 @@ Namespace pepeizq.Ofertas
                                             End If
                                         End If
 
+                                        If Not juego.Desarrolladores Is Nothing Then
+                                            listaAnalisis = Analisis.AñadirDesarrollador(juego.Enlace, juego.Desarrolladores.Desarrolladores(0), listaAnalisis)
+                                        End If
+
                                         juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
@@ -294,6 +298,7 @@ Namespace pepeizq.Ofertas
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of SteamAPI))("listaSteamAPI", listaAPI)
+            Await helper.SaveFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis", listaAnalisis)
 
             Ordenar.Ofertas(tienda, True, False)
 

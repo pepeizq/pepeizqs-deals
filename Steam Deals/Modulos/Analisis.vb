@@ -183,7 +183,7 @@ Module Analisis
 
                 Dim cantidad As String = temp10.Trim
 
-                analisis = New OfertaAnalisis(titulo, porcentaje, cantidad, enlace)
+                analisis = New OfertaAnalisis(titulo, porcentaje, cantidad, enlace, Nothing)
 
                 Dim tituloBool As Boolean = False
                 Dim k As Integer = 0
@@ -212,6 +212,29 @@ Module Analisis
         End If
 
         Return analisis
+
+    End Function
+
+    Public Function AñadirDesarrollador(enlace As String, desarrollador As String, lista As List(Of OfertaAnalisis))
+
+        enlace = enlace.Replace("#app_reviews_hash", Nothing)
+
+        If Not lista Is Nothing Then
+            If lista.Count > 0 Then
+                For Each juego In lista
+                    If Not juego.Enlace = Nothing Then
+                        Dim enlaceJuego As String = juego.Enlace
+                        enlaceJuego = enlaceJuego.Replace("#app_reviews_hash", Nothing)
+
+                        If enlace = enlaceJuego Then
+                            juego.Publisher = desarrollador
+                        End If
+                    End If
+                Next
+            End If
+        End If
+
+        Return lista
 
     End Function
 

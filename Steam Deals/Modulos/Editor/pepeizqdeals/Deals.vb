@@ -146,14 +146,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If listaTotal(0).Desarrolladores.Desarrolladores.Count > 0 Then
                         If Not listaTotal(0).Desarrolladores.Desarrolladores(0) = Nothing Then
                             For Each publisher In cbPublishers.Items
-                                If TypeOf publisher Is TextBlock Then
-                                    If Not publisher.Text = Nothing Then
-                                        Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
+                                Dim publisherLimpio As String = Desarrolladores.Limpiar(publisher)
 
-                                        If publisherLimpio = Desarrolladores.LimpiarPublisher(listaTotal(0).Desarrolladores.Desarrolladores(0)) Then
-                                            cbPublishers.SelectedItem = publisher
-                                        End If
-                                    End If
+                                If publisherLimpio = Desarrolladores.Limpiar(listaTotal(0).Desarrolladores.Desarrolladores(0)) Then
+                                    cbPublishers.SelectedItem = publisher
                                 End If
                             Next
                         End If
@@ -169,23 +165,17 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If item.Desarrolladores.Desarrolladores.Count > 0 Then
                             If Not item.Desarrolladores.Desarrolladores(0) = Nothing Then
                                 For Each publisher In cbPublishers.Items
-                                    If TypeOf publisher Is TextBlock Then
-                                        If Not publisher.Text = Nothing Then
-                                            Dim publisherLimpio As String = Desarrolladores.LimpiarPublisher(publisher.Text)
+                                    Dim publisherLimpio As String = Desarrolladores.Limpiar(publisher)
 
-                                            If publisherLimpio = Desarrolladores.LimpiarPublisher(item.Desarrolladores.Desarrolladores(0)) Then
-                                                If publisherFinal = Nothing Then
-                                                    cbPublishers.SelectedItem = publisher
-                                                    publisherFinal = publisher.Text
-                                                Else
-                                                    If Not publisherLimpio = Desarrolladores.LimpiarPublisher(publisherFinal) Then
-                                                        publisherFinal = Nothing
-                                                        Exit For
-                                                    End If
-                                                End If
-                                            End If
+                                    If publisherLimpio = Desarrolladores.Limpiar(item.Desarrolladores.Desarrolladores(0)) Then
+                                        If publisherFinal = Nothing Then
+                                            cbPublishers.SelectedItem = publisher
+                                            publisherFinal = publisher
                                         Else
-                                            Exit For
+                                            If Not publisherLimpio = Desarrolladores.Limpiar(publisherFinal) Then
+                                                publisherFinal = Nothing
+                                                Exit For
+                                            End If
                                         End If
                                     End If
                                 Next
@@ -241,13 +231,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTituloTwitter.Text = Twitter.GenerarTitulo(tbTitulo.Text.Trim)
 
                 If Not cbPublishers.SelectedIndex = 0 Then
-                    Dim publisher As TextBlock = cbPublishers.SelectedItem
+                    Dim desarrolladorTwitter As String = cbPublishers.SelectedItem
 
-                    If Not publisher Is Nothing Then
-                        Dim publisher2 As Clases.Desarrolladores = publisher.Tag
+                    If Not desarrolladorTwitter Is Nothing Then
+                        Dim desarrolladorTwitterFinal As Clases.Desarrolladores = Desarrolladores.Buscar(desarrolladorTwitter)
 
-                        If Not publisher2 Is Nothing Then
-                            tbTituloTwitter.Text = tbTituloTwitter.Text + " " + publisher2.Twitter
+                        If Not desarrolladorTwitterFinal Is Nothing Then
+                            tbTituloTwitter.Text = tbTituloTwitter.Text + " " + desarrolladorTwitterFinal.Twitter
                         End If
                     End If
                 End If
