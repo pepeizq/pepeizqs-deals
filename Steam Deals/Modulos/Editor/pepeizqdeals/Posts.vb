@@ -27,159 +27,163 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim imagenImgur As String = Await SubirImagenImgur(ficheroImagen)
                 Dim imagenPepeizqdeals As String = Await SubirImagenPepeizqdeals(ficheroImagen, cliente)
 
-                Dim post As New Models.Post With {
-                    .Title = New Models.Title(titulo.Trim),
-                    .CommentStatus = Models.OpenStatus.Closed,
-                    .Status = Models.Status.Publish
-                }
+                If imagenPepeizqdeals = Nothing Then
+                    Notificaciones.Toast("Imagen no subida a pepeizqdeals.com", Nothing)
+                Else
+                    Dim post As New Models.Post With {
+                        .Title = New Models.Title(titulo.Trim),
+                        .CommentStatus = Models.OpenStatus.Closed,
+                        .Status = Models.Status.Publish
+                    }
 
-                If Not categoria = Nothing Then
-                    post.Categories = New Integer() {categoria}
-                End If
-
-                Dim postString As String = JsonConvert.SerializeObject(post)
-
-                Dim postEditor As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
-                postEditor.FechaOriginal = DateTime.Now
-                postEditor.TamañoTile = "2x1"
-
-                If Not etiquetas Is Nothing Then
-                    If etiquetas.Count > 0 Then
-                        postEditor.Etiquetas = etiquetas
+                    If Not categoria = Nothing Then
+                        post.Categories = New Integer() {categoria}
                     End If
-                End If
 
-                If Not tienda Is Nothing Then
-                    postEditor.TiendaNombre = tienda.NombreMostrar
-                    postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.IconoWeb + ChrW(34) + " />"
-                    postEditor.TiendaLogo = tienda.LogoWebServidorEnlace300x80
-                End If
+                    Dim postString As String = JsonConvert.SerializeObject(post)
 
-                If Not redireccion = Nothing Then
-                    If redireccion.Trim.Length > 0 Then
-                        Dim redireccionFinal As String = redireccion.Trim
-                        redireccionFinal = Referidos.Generar(redireccionFinal)
+                    Dim postEditor As Clases.Post = JsonConvert.DeserializeObject(Of Clases.Post)(postString)
+                    postEditor.FechaOriginal = DateTime.Now
+                    postEditor.TamañoTile = "2x1"
 
-                        postEditor.Redireccion = redireccionFinal
-                        postEditor.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + redireccionFinal + ChrW(34) +
-                                                  "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
-                    End If
-                End If
-
-                If Not imagenImgur = Nothing Then
-                    If imagenImgur.Trim.Length > 0 Then
-                        postEditor.ImagenImgur = imagenImgur.Trim
-                    End If
-                End If
-
-                If Not imagenPepeizqdeals = Nothing Then
-                    If imagenPepeizqdeals.Trim.Length > 0 Then
-                        postEditor.ImagenFeatured = imagenPepeizqdeals.Trim
-                        postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
-                        postEditor.ImagenPepeizqdeals = imagenPepeizqdeals.Trim
-
-                        If categoria = 1208 Then
-                            postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                    If Not etiquetas Is Nothing Then
+                        If etiquetas.Count > 0 Then
+                            postEditor.Etiquetas = etiquetas
                         End If
                     End If
-                End If
 
-                If Not tituloComplemento = Nothing Then
-                    If tituloComplemento.Trim.Length > 0 Then
-                        postEditor.TituloComplemento = tituloComplemento.Trim
-                        postEditor.SEODescripcion = tituloComplemento.Trim
-                    End If
-                End If
-
-                If Not fechaTermina = Nothing Then
-                    If fechaTermina.Trim.Length > 0 Then
-                        postEditor.FechaTermina = fechaTermina.Trim
-                    End If
-                End If
-
-                If Not html = String.Empty Then
-                    postEditor.Contenido = New Models.Content(html)
-                End If
-
-                If Not json = String.Empty Then
-                    postEditor.Json = json
-                End If
-
-                If Not jsonExpandido = String.Empty Then
-                    postEditor.JsonExpandido = jsonExpandido
-                End If
-
-                postEditor.SEORobots = "nofollow"
-
-                Dim resultado As Clases.Post = Nothing
-
-                Try
-                    resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/posts", postEditor)
-                Catch ex As Exception
-
-                End Try
-
-                If Not resultado Is Nothing Then
-                    If Not resultado.Redireccion2 = Nothing Then
-                        resultado.Redireccion2 = AñadirRedireccion("https://pepeizqdeals.com/" + resultado.Id.ToString + "/")
+                    If Not tienda Is Nothing Then
+                        postEditor.TiendaNombre = tienda.NombreMostrar
+                        postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.IconoWeb + ChrW(34) + " />"
+                        postEditor.TiendaLogo = tienda.LogoWebServidorEnlace300x80
                     End If
 
-                    resultado.Imagenv2 = AñadirTituloImagen(resultado.Imagenv2, titulo)
-                    resultado.Compartir = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/")
+                    If Not redireccion = Nothing Then
+                        If redireccion.Trim.Length > 0 Then
+                            Dim redireccionFinal As String = redireccion.Trim
+                            redireccionFinal = Referidos.Generar(redireccionFinal)
 
-                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
-
-                    Dim enlaceFinal As String = String.Empty
-
-                    If Not resultado.Enlace = Nothing Then
-                        enlaceFinal = resultado.Enlace
+                            postEditor.Redireccion = redireccionFinal
+                            postEditor.Redireccion2 = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + redireccionFinal + ChrW(34) +
+                                                      "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
+                        End If
                     End If
+
+                    If Not imagenImgur = Nothing Then
+                        If imagenImgur.Trim.Length > 0 Then
+                            postEditor.ImagenImgur = imagenImgur.Trim
+                        End If
+                    End If
+
+                    If Not imagenPepeizqdeals = Nothing Then
+                        If imagenPepeizqdeals.Trim.Length > 0 Then
+                            postEditor.ImagenFeatured = imagenPepeizqdeals.Trim
+                            postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                            postEditor.ImagenPepeizqdeals = imagenPepeizqdeals.Trim
+
+                            If categoria = 1208 Then
+                                postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                            End If
+                        End If
+                    End If
+
+                    If Not tituloComplemento = Nothing Then
+                        If tituloComplemento.Trim.Length > 0 Then
+                            postEditor.TituloComplemento = tituloComplemento.Trim
+                            postEditor.SEODescripcion = tituloComplemento.Trim
+                        End If
+                    End If
+
+                    If Not fechaTermina = Nothing Then
+                        If fechaTermina.Trim.Length > 0 Then
+                            postEditor.FechaTermina = fechaTermina.Trim
+                        End If
+                    End If
+
+                    If Not html = String.Empty Then
+                        postEditor.Contenido = New Models.Content(html)
+                    End If
+
+                    If Not json = String.Empty Then
+                        postEditor.Json = json
+                    End If
+
+                    If Not jsonExpandido = String.Empty Then
+                        postEditor.JsonExpandido = jsonExpandido
+                    End If
+
+                    postEditor.SEORobots = "nofollow"
+
+                    Dim resultado As Clases.Post = Nothing
 
                     Try
-                        Await GrupoSteam.Enviar(titulo, imagenImgur.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                        resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/posts", postEditor)
                     Catch ex As Exception
-                        Notificaciones.Toast("Grupo Steam Error Post", Nothing)
+
                     End Try
 
-                    Try
-                        If tituloTwitter = Nothing Then
-                            tituloTwitter = Twitter.GenerarTitulo(titulo)
+                    If Not resultado Is Nothing Then
+                        If Not resultado.Redireccion2 = Nothing Then
+                            resultado.Redireccion2 = AñadirRedireccion("https://pepeizqdeals.com/" + resultado.Id.ToString + "/")
                         End If
 
-                        Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenPepeizqdeals.Trim)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Twitter Error Post", Nothing)
-                    End Try
+                        resultado.Imagenv2 = AñadirTituloImagen(resultado.Imagenv2, titulo)
+                        resultado.Compartir = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/")
 
-                    Try
-                        Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Discord Error Post", Nothing)
-                    End Try
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
 
-                    Try
-                        Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdeals.Trim, Date.Today.DayOfYear)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Push Firebase Error Post", Nothing)
-                    End Try
+                        Dim enlaceFinal As String = String.Empty
 
-                    Try
-                        PushWeb.Enviar(titulo, categoria, imagenPepeizqdeals.Trim, enlaceFinal)
-                    Catch ex As Exception
-                        Notificaciones.Toast("Push Web Error Post", Nothing)
-                    End Try
+                        If Not resultado.Enlace = Nothing Then
+                            enlaceFinal = resultado.Enlace
+                        End If
 
-                    Dim jsonReddit As String = json
+                        Try
+                            Await GrupoSteam.Enviar(titulo, imagenImgur.Trim, enlaceFinal, resultado.Redireccion, categoria)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Grupo Steam Error Post", Nothing)
+                        End Try
 
-                    If jsonReddit = String.Empty Then
-                        jsonReddit = jsonExpandido
+                        Try
+                            If tituloTwitter = Nothing Then
+                                tituloTwitter = Twitter.GenerarTitulo(titulo)
+                            End If
+
+                            Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenPepeizqdeals.Trim)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Twitter Error Post", Nothing)
+                        End Try
+
+                        Try
+                            Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Discord Error Post", Nothing)
+                        End Try
+
+                        Try
+                            Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdeals.Trim, Date.Today.DayOfYear)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Push Firebase Error Post", Nothing)
+                        End Try
+
+                        Try
+                            PushWeb.Enviar(titulo, categoria, imagenPepeizqdeals.Trim, enlaceFinal)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Push Web Error Post", Nothing)
+                        End Try
+
+                        Dim jsonReddit As String = json
+
+                        If jsonReddit = String.Empty Then
+                            jsonReddit = jsonExpandido
+                        End If
+
+                        Try
+                            Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, jsonReddit, "/r/pepeizqdeals")
+                        Catch ex As Exception
+                            Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
+                        End Try
                     End If
-
-                    Try
-                        Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, jsonReddit, "/r/pepeizqdeals")
-                    Catch ex As Exception
-                        Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
-                    End Try
                 End If
             End If
 
