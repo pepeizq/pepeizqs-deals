@@ -579,7 +579,7 @@
                 New Clases.Desarrolladores("Raw Fury", "@rawfury", "Assets\LogosPublishers\rawfury.png", 170),
                 New Clases.Desarrolladores("Razzart Visual", "@StarlightVega", Nothing, Nothing),
                 New Clases.Desarrolladores("Re-Logic", "@ReLogicGames", Nothing, Nothing),
-                New Clases.Desarrolladores("Rebellion", "@Rebellion", "Assets\LogosPublishers\rebellion.png", 300),
+                New Clases.Desarrolladores("Rebellion", "@Rebellion", "Assets\LogosPublishers\rebellion.png", 200),
                 New Clases.Desarrolladores("Red Barrels", "@TheRedBarrels", Nothing, Nothing),
                 New Clases.Desarrolladores("Red Candle Games", "@redcandlegames", Nothing, Nothing),
                 New Clases.Desarrolladores("Red Hook Studios", "@RedHookStudios", Nothing, Nothing),
