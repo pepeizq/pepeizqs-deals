@@ -37,6 +37,8 @@ Module Ordenar
             lv.IsEnabled = False
 
             Dim helper As New LocalObjectStorageHelper
+
+            Dim listaGrid As New List(Of Oferta)
             Dim listaJuegos As New List(Of Oferta)
             Dim listaUltimasOfertas As New List(Of Oferta)
             Dim listaDesarrolladores As New List(Of String)
@@ -49,16 +51,29 @@ Module Ordenar
 
                     End Try
                 End If
+
+                If lv.Items.Count > 0 Then
+                    For Each item In lv.Items
+                        Dim grid As Grid = item
+                        listaGrid.Add(grid.Tag)
+                        listaJuegos.Add(grid.Tag)
+                        listaUltimasOfertas.Add(grid.Tag)
+                    Next
+                End If
+
+                lv.Items.Clear()
             Else
                 If cargarUltimas = True Then
                     If Await helper.FileExistsAsync("listaUltimasOfertas" + tienda.NombreUsar) = True Then
                         listaJuegos = Await helper.ReadFileAsync(Of List(Of Oferta))("listaUltimasOfertas" + tienda.NombreUsar)
                     End If
                 Else
-                    For Each item In lv.Items
-                        Dim grid As Grid = item
-                        listaJuegos.Add(grid.Tag)
-                    Next
+                    If lv.Items.Count > 0 Then
+                        For Each item In lv.Items
+                            Dim grid As Grid = item
+                            listaJuegos.Add(grid.Tag)
+                        Next
+                    End If
                 End If
             End If
 
@@ -112,8 +127,6 @@ Module Ordenar
                         End If
                     End If
                 End If
-
-                Dim listaGrid As New List(Of Oferta)
 
                 For Each juego In listaJuegos
                     Dim juegoEncontrado As Boolean = False

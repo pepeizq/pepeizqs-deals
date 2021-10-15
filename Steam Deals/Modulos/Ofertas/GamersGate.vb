@@ -164,6 +164,12 @@ Namespace pepeizq.Ofertas
                             End While
 
                             If añadir = True Then
+                                If Not ana Is Nothing Then
+                                    If Not ana.Publisher = Nothing Then
+                                        juegoFinal.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                    End If
+                                End If
+
                                 juegoFinal.Precio1 = Ordenar.PrecioPreparar(juegoFinal.Precio1)
 
                                 listaJuegos.Add(juegoFinal)

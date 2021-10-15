@@ -197,12 +197,20 @@ Namespace pepeizq.Ofertas
                                         End While
 
                                         If añadir = True Then
-                                            For Each desarrollador In listaDesarrolladores
-                                                If desarrollador.ID = juego.Enlace Then
-                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                                    Exit For
+                                            If Not ana Is Nothing Then
+                                                If Not ana.Publisher = Nothing Then
+                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
                                                 End If
-                                            Next
+                                            End If
+
+                                            If juego.Desarrolladores Is Nothing Then
+                                                For Each desarrollador In listaDesarrolladores
+                                                    If desarrollador.ID = juego.Enlace Then
+                                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                        Exit For
+                                                    End If
+                                                Next
+                                            End If
 
                                             juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 

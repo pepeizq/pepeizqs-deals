@@ -37,6 +37,7 @@ Namespace pepeizq.Ofertas
                     For Each juegoDL In productos.Datos
                         Dim titulo As String = juegoDL.Value.Titulo
                         titulo = titulo.Replace("(MAC)", Nothing)
+                        titulo = titulo.Replace("(Mac)", Nothing)
                         titulo = titulo.Replace("(DLC)", Nothing)
                         titulo = titulo.Replace("(ROW)", Nothing)
                         titulo = titulo.Replace("(EPIC)", Nothing)

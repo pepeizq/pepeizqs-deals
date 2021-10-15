@@ -215,19 +215,28 @@ Namespace pepeizq.Ofertas
                                         Next
                                     End If
 
-                                    If Not listaDesarrolladores Is Nothing Then
-                                        For Each juegoDesarrollador In listaDesarrolladores
-                                            If juegoDesarrollador.ID = enlace Then
-                                                If Not juegoDesarrollador.Desarrollador = Nothing Then
-                                                    buscarDesarrollador = False
-                                                End If
+                                    If Not ana Is Nothing Then
+                                        If Not ana.Publisher = Nothing Then
+                                            buscarDesarrollador = False
+                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                        End If
+                                    End If
 
-                                                If juegoDesarrollador.Buscado = True Then
-                                                    buscarDesarrollador = False
-                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDesarrollador.Desarrollador}, Nothing)
+                                    If juego.Desarrolladores Is Nothing Then
+                                        If Not listaDesarrolladores Is Nothing Then
+                                            For Each juegoDesarrollador In listaDesarrolladores
+                                                If juegoDesarrollador.ID = enlace Then
+                                                    If Not juegoDesarrollador.Desarrollador = Nothing Then
+                                                        buscarDesarrollador = False
+                                                    End If
+
+                                                    If juegoDesarrollador.Buscado = True Then
+                                                        buscarDesarrollador = False
+                                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDesarrollador.Desarrollador}, Nothing)
+                                                    End If
                                                 End If
-                                            End If
-                                        Next
+                                            Next
+                                        End If
                                     End If
 
                                     If Not listaIdiomas Is Nothing Then
