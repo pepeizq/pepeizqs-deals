@@ -206,6 +206,14 @@ Module Ordenar
                     enseñarImagen = False
                 End If
 
+                listaGrid.Sort(Function(x As Oferta, y As Oferta)
+                                   Dim resultado As Integer = y.Descuento.CompareTo(x.Descuento)
+                                   If resultado = 0 Then
+                                       resultado = x.Titulo.CompareTo(y.Titulo)
+                                   End If
+                                   Return resultado
+                               End Function)
+
                 Dim i As Integer = 0
                 For Each juegoGrid In listaGrid
                     If i < 6000 Then

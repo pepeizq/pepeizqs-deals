@@ -77,7 +77,10 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("(STEAM)", Nothing)
                             titulo = titulo.Replace("(Steam)", Nothing)
                             titulo = titulo.Replace("(EPIC GAMES)", Nothing)
+                            titulo = titulo.Replace("|EU|", Nothing)
                             titulo = titulo.Replace("|", Nothing)
+                            titulo = titulo.Replace("Pre-order", Nothing)
+                            titulo = titulo.Replace("Pre-Order", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoVoidu.Enlace
