@@ -84,7 +84,7 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoVoidu.Enlace
-                            'a
+
                             Dim precio As String = juegoVoidu.PrecioRebajado + " €"
 
                             Dim descuento As String = Calculadora.GenerarDescuento(juegoVoidu.PrecioBase, juegoVoidu.PrecioRebajado)
