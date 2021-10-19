@@ -1,4 +1,6 @@
-﻿Namespace pepeizq.Editor.pepeizqdeals
+﻿Imports Windows.System
+
+Namespace pepeizq.Editor.pepeizqdeals
 
     Module SteamGifts
 
@@ -6,6 +8,11 @@
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
+
+            Dim botonAbrirHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsAbrirHtml")
+
+            RemoveHandler botonAbrirHtml.Click, AddressOf AbrirHtml
+            AddHandler botonAbrirHtml.Click, AddressOf AbrirHtml
 
             Dim botonNuevoSorteo As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsNuevoSorteo")
 
@@ -198,6 +205,22 @@
 
             Dim wv As WebView = pagina.FindName("wvSteamGifts")
             wv.Navigate(New Uri("https://www.steamgifts.com/giveaways/new"))
+
+        End Sub
+
+        Private Async Sub AbrirHtml(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
+            Dim modo As Integer = cbModo.SelectedIndex
+
+            If modo = 0 Then
+                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=44457&action=edit"))
+            ElseIf modo = 1 Then
+                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=44456&action=edit"))
+            End If
 
         End Sub
 

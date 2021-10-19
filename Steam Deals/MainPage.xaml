@@ -1203,6 +1203,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
@@ -1211,7 +1212,15 @@
                                         <ComboBoxItem Content="Plebeyos"/>
                                     </ComboBox>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="1" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsAbrirHtml" Grid.Column="1" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Abrir Html" Foreground="White"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="2" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Nuevo Sorteo" Foreground="White"/>
@@ -1219,7 +1228,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="2" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="3" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
                                 
                                 <WebView x:Name="wvSteamGifts" Grid.Row="1"/>
