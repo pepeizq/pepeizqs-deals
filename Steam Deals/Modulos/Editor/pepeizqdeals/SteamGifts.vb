@@ -11,7 +11,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonAbrirHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsAbrirHtml")
 
-            'RemoveHandler botonAbrirHtml.Click, AddressOf AbrirHtml
+            RemoveHandler botonAbrirHtml.Click, AddressOf AbrirHtml
             AddHandler botonAbrirHtml.Click, AddressOf AbrirHtml
 
             Dim botonNuevoSorteo As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsNuevoSorteo")
