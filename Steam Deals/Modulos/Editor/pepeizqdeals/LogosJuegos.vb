@@ -107,7 +107,7 @@
                 New Clases.LogosJuegos("Need for Speed", "Assets\LogosJuegos\needforspeed.png", 240),
                 New Clases.LogosJuegos("Overcooked", "Assets\LogosJuegos\overcooked.png", 340),
                 New Clases.LogosJuegos("Project CARS", "Assets\LogosJuegos\projectcars.png", 350),
-                New Clases.LogosJuegos("Resident Evil", "Assets\LogosJuegos\residentevil.png", 380),
+                New Clases.LogosJuegos("Resident Evil", "Assets\LogosJuegos\residentevil.png", 270),
                 New Clases.LogosJuegos("Serious Sam", "Assets\LogosJuegos\serioussam.png", 390),
                 New Clases.LogosJuegos("Shovel Knight", "Assets\LogosJuegos\shovelknight.png", 390),
                 New Clases.LogosJuegos("Sid Meier's Civilization VI", "Assets\LogosJuegos\sidmeiercivilization6.png", 390),
