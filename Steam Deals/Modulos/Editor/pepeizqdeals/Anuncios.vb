@@ -1,5 +1,7 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.pepeizq.Juegos
+Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Anuncios
@@ -38,6 +40,24 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
             AddHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
 
+            Dim cbFondoAzul As CheckBox = pagina.FindName("cbEditorImagenpepeizqdealsAnuncioFondoAzul")
+            cbFondoAzul.IsChecked = True
+
+            RemoveHandler cbFondoAzul.Click, AddressOf CambiarFondoAzul
+            AddHandler cbFondoAzul.Click, AddressOf CambiarFondoAzul
+
+            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
+            cbOpacidad.IsChecked = False
+
+            RemoveHandler cbOpacidad.Click, AddressOf CambiarOpacidad
+            AddHandler cbOpacidad.Click, AddressOf CambiarOpacidad
+
+            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbEditorpepeizqdealsAnuncioOrientacionComentario")
+            cbOrientacionComentario.SelectedIndex = 1
+
+            RemoveHandler cbOrientacionComentario.SelectionChanged, AddressOf CambiarOrientacionComentario
+            AddHandler cbOrientacionComentario.SelectionChanged, AddressOf CambiarOrientacionComentario
+
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
 
             RemoveHandler botonIDs.Click, AddressOf GenerarImagenes
@@ -60,12 +80,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
-
-            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
-            cbOpacidad.IsChecked = False
-
-            RemoveHandler cbOpacidad.Click, AddressOf CambiarOpacidad
-            AddHandler cbOpacidad.Click, AddressOf CambiarOpacidad
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
 
@@ -282,6 +296,29 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
+        Private Sub CambiarFondoAzul(sender As Object, e As RoutedEventArgs)
+
+            Dim cb As CheckBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim grid As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaAnunciosDatos")
+            Dim color1 As GradientStop = pagina.FindName("color1EditorpepeizqdealsImagenEntradaAnuncios")
+            Dim color2 As GradientStop = pagina.FindName("color2EditorpepeizqdealsImagenEntradaAnuncios")
+
+            If cb.IsChecked = True Then
+                grid.BorderBrush = New SolidColorBrush("#2e4460".ToColor)
+                color1.Color = "#4e74a2".ToColor
+                color2.Color = "#2e4460".ToColor
+            Else
+                grid.BorderBrush = New SolidColorBrush(Colors.Transparent)
+                color1.Color = Colors.Transparent
+                color2.Color = Colors.Transparent
+            End If
+
+        End Sub
+
         Private Sub CambiarOpacidad(sender As Object, e As RoutedEventArgs)
 
             Dim cb As CheckBox = sender
@@ -295,6 +332,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                 fondo.Opacity = 0.2
             Else
                 fondo.Opacity = 1
+            End If
+
+        End Sub
+
+        Private Sub CambiarOrientacionComentario(sender As Object, e As SelectionChangedEventArgs)
+
+            Dim cb As ComboBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim panel As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsImagenEntradaAnunciosComentario")
+
+            If cb.SelectedIndex = 0 Then
+                panel.HorizontalAlignment = HorizontalAlignment.Left
+            ElseIf cb.SelectedIndex = 1 Then
+                panel.HorizontalAlignment = HorizontalAlignment.Center
+            ElseIf cb.SelectedIndex = 2 Then
+                panel.HorizontalAlignment = HorizontalAlignment.Right
             End If
 
         End Sub
@@ -319,6 +375,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosFondo")
             tbImagenFondo.IsEnabled = estado
 
+            Dim cbFondoAzul As CheckBox = pagina.FindName("cbEditorImagenpepeizqdealsAnuncioFondoAzul")
+            cbFondoAzul.IsEnabled = estado
+
+            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
+            cbOpacidad.IsEnabled = estado
+
+            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbEditorpepeizqdealsAnuncioOrientacionComentario")
+            cbOrientacionComentario.IsEnabled = estado
+
             Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
             botonIDs.IsEnabled = estado
 
@@ -330,9 +395,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
             horaPicker.IsEnabled = estado
-
-            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
-            cbOpacidad.IsEnabled = estado
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
             botonSubir.IsEnabled = estado
