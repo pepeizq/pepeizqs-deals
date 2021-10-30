@@ -62,7 +62,6 @@ Namespace pepeizq.Ofertas
                             Dim titulo As String = juegoVoidu.Titulo.Trim
                             titulo = WebUtility.HtmlDecode(titulo)
                             titulo = titulo.Replace("?", Nothing)
-                            titulo = titulo.Replace("ROW", Nothing)
                             titulo = titulo.Replace("(Mac/Pc)", Nothing)
                             titulo = titulo.Replace("[Mac]", Nothing)
                             titulo = titulo.Replace("(ROW)", Nothing)
@@ -76,11 +75,13 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("- ROW", Nothing)
                             titulo = titulo.Replace("(STEAM)", Nothing)
                             titulo = titulo.Replace("(Steam)", Nothing)
+                            titulo = titulo.Replace("(Steam Version)", Nothing)
                             titulo = titulo.Replace("(EPIC GAMES)", Nothing)
                             titulo = titulo.Replace("|EU|", Nothing)
                             titulo = titulo.Replace("|", Nothing)
                             titulo = titulo.Replace("Pre-order", Nothing)
                             titulo = titulo.Replace("Pre-Order", Nothing)
+                            titulo = titulo.Replace("ROW", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoVoidu.Enlace
