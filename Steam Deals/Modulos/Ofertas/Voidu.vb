@@ -76,6 +76,7 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("(STEAM)", Nothing)
                             titulo = titulo.Replace("(Steam)", Nothing)
                             titulo = titulo.Replace("(Steam Version)", Nothing)
+                            titulo = titulo.Replace("(Epic Games Version)", Nothing)
                             titulo = titulo.Replace("(EPIC GAMES)", Nothing)
                             titulo = titulo.Replace("|EU|", Nothing)
                             titulo = titulo.Replace("|", Nothing)

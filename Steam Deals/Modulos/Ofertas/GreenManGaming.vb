@@ -73,6 +73,7 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("(STEAM)", Nothing)
                             titulo = titulo.Replace("(EPIC)", Nothing)
                             titulo = titulo.Replace("(Row Edition)", Nothing)
+                            titulo = titulo.Replace("(Ubisoft)", Nothing)
                             titulo = titulo.Trim
 
                             Dim enlace As String = juegoGMG.Enlace.Trim
