@@ -219,6 +219,10 @@ Namespace pepeizq.Ofertas
                                 End If
                             End If
 
+                            If juego.Precio2 = Nothing Then
+                                juego.Precio2 = juego.Precio1
+                            End If
+
                             juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
                             juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
 

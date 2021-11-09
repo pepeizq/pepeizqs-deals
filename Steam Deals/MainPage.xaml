@@ -374,8 +374,8 @@
                                                     <Grid.Background>
                                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                             <GradientStop Color="#2e4460" Offset="0.6"/>
-                                                            <GradientStop Color="#283b53" Offset="0.8"/>
-                                                            <GradientStop Color="#1b2838" Offset="1.0"/>
+                                                            <GradientStop Color="#2e4460" Offset="0.8"/>
+                                                            <GradientStop Color="#2e4460" Offset="1.0"/>
                                                         </LinearGradientBrush>
                                                     </Grid.Background>
 
@@ -452,8 +452,8 @@
                                                     <Grid.Background>
                                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                             <GradientStop Color="#2e4460" Offset="0.6"/>
-                                                            <GradientStop Color="#283b53" Offset="0.8"/>
-                                                            <GradientStop Color="#1b2838" Offset="1.0"/>
+                                                            <GradientStop Color="#2e4460" Offset="0.8"/>
+                                                            <GradientStop Color="#2e4460" Offset="1.0"/>
                                                         </LinearGradientBrush>
                                                     </Grid.Background>
 
@@ -568,8 +568,8 @@
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                         <GradientStop Color="#2e4460" Offset="0.8"/>
-                                                        <GradientStop Color="#283b53" Offset="0.9"/>
-                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.9"/>
+                                                        <GradientStop Color="#2e4460" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
@@ -671,8 +671,8 @@
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                         <GradientStop Color="#2e4460" Offset="0.8"/>
-                                                        <GradientStop Color="#283b53" Offset="0.9"/>
-                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.9"/>
+                                                        <GradientStop Color="#2e4460" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
@@ -802,8 +802,8 @@
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                         <GradientStop Color="#2e4460" Offset="0.8"/>
-                                                        <GradientStop Color="#283b53" Offset="0.9"/>
-                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.9"/>
+                                                        <GradientStop Color="#2e4460" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
@@ -936,8 +936,8 @@
                                                 <Grid.Background>
                                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                         <GradientStop Color="#2e4460" Offset="0.8"/>
-                                                        <GradientStop Color="#283b53" Offset="0.9"/>
-                                                        <GradientStop Color="#1b2838" Offset="1.0"/>
+                                                        <GradientStop Color="#2e4460" Offset="0.9"/>
+                                                        <GradientStop Color="#2e4460" Offset="1.0"/>
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
