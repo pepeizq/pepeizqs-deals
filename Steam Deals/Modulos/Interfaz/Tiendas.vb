@@ -84,15 +84,17 @@ Module Tiendas
             If Not tienda.IconoApp = Nothing Then
                 Dim mensaje As String = String.Empty
 
-                For Each comprobacion In listaComprobacionesTiendas
-                    If comprobacion.Tienda = tienda.NombreMostrar Then
-                        If (comprobacion.Dias < DateTime.Today.DayOfYear) Or DateTime.Today.DayOfYear = 1 Then
-                            If Not comprobacion.Dias = DateTime.Today.DayOfYear Then
-                                mensaje = " • Hoy no se ha comprobado"
+                If Not listaComprobacionesTiendas Is Nothing Then
+                    For Each comprobacion In listaComprobacionesTiendas
+                        If comprobacion.Tienda = tienda.NombreMostrar Then
+                            If (comprobacion.Dias < DateTime.Today.DayOfYear) Or DateTime.Today.DayOfYear = 1 Then
+                                If Not comprobacion.Dias = DateTime.Today.DayOfYear Then
+                                    mensaje = " • Hoy no se ha comprobado"
+                                End If
                             End If
                         End If
-                    End If
-                Next
+                    Next
+                End If
 
                 tiendasMenu.Items.Add(AñadirMenuTienda(tienda, mensaje))
 

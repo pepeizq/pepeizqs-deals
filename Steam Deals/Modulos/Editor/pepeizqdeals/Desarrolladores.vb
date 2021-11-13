@@ -412,7 +412,7 @@
                 New Clases.Desarrolladores("Ice-Pick Lodge", "@IcePickLodge", Nothing, Nothing),
                 New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\LogosPublishers\iceberg.png", 380),
                 New Clases.Desarrolladores("IDALGAME", "@IDALGAME", Nothing, Nothing),
-                New Clases.Desarrolladores("Idea Factory", "@IdeaFactoryIntl", "Assets\LogosPublishers\ideafactory.png", 390),
+                New Clases.Desarrolladores("Idea Factory", "@IdeaFactoryIntl", "Assets\LogosPublishers\ideafactory.png", 290),
                 New Clases.Desarrolladores("Igloo Studio", "@bountybrawlgame", Nothing, Nothing),
                 New Clases.Desarrolladores("Image & Form", "@ImageForm", Nothing, Nothing),
                 New Clases.Desarrolladores("ImaginationOverflow", "@ImaginationOver", Nothing, Nothing),

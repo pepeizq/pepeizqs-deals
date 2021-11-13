@@ -374,6 +374,10 @@ Module Ordenar
             listaComprobacionesTiendas = Await helper.ReadFileAsync(Of List(Of Comprobacion))("comprobaciones")
         End If
 
+        If listaComprobacionesTiendas Is Nothing Then
+            listaComprobacionesTiendas = New List(Of Comprobacion)
+        End If
+
         If Not listaComprobacionesTiendas Is Nothing Then
             Dim añadirComprobacion As Boolean = True
 
