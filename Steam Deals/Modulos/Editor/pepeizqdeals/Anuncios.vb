@@ -100,16 +100,22 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
-            Dim tbImagenTitulo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
-            Dim tbImagenComentario As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
+            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
+            Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
+            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
+            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
 
             Dim enlace As String = tbTexto.Text
 
             If enlace.Trim.Length > 0 Then
                 If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
                     tbTitulo.Text = "New Giveaways on SteamGifts • News"
-                    tbImagenTitulo.Text = "Giveaways"
-                    tbImagenComentario.Text = "Join the Steam groups to enter the weekly giveaways"
+
+                    tbImagenTituloIngles.Text = "Giveaways"
+                    tbImagenComentarioIngles.Text = "Join the Steam groups to enter the weekly giveaways"
+
+                    tbImagenTituloEspañol.Text = "Sorteos"
+                    tbImagenComentarioEspañol.Text = "Únete a los grupos de Steam para entrar a los sorteos semanales"
 
                     Dim fechaDefecto As DateTime = DateTime.Now
                     fechaDefecto = fechaDefecto.AddDays(7)
@@ -143,8 +149,17 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
 
+            Dim traducciones As New List(Of Traduccion) From {
+                    New Traduccion(pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo"),
+                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo"),
+                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")),
+                    New Traduccion(pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosComentario"),
+                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario"),
+                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs"))
+            }
+
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 1208, New List(Of Integer) From {9999}, Nothing,
-                               tbEnlace.Text.Trim, botonImagen, Nothing, fechaFinal.ToString, Nothing, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, Nothing, fechaFinal.ToString, Nothing, Nothing, Nothing, traducciones)
 
             BloquearControles(True)
 
@@ -369,8 +384,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenTitulo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
             tbImagenTitulo.IsEnabled = estado
 
+            Dim tbImagenTituloEs As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
+            tbImagenTituloEs.IsEnabled = estado
+
             Dim tbImagenComentario As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
             tbImagenComentario.IsEnabled = estado
+
+            Dim tbImagenComentarioEs As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
+            tbImagenComentarioEs.IsEnabled = estado
 
             Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosFondo")
             tbImagenFondo.IsEnabled = estado

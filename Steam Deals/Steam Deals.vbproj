@@ -118,6 +118,7 @@
     <Compile Include="Clases\Editor\pepeizqdeals\Free.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Desarrolladores.vb" />
     <Compile Include="Clases\Editor\pepeizqdeals\Suscripciones.vb" />
+    <Compile Include="Clases\Traduccion.vb" />
     <Compile Include="Clases\Oferta.vb" />
     <Compile Include="Clases\OfertaAnalisis.vb" />
     <Compile Include="Clases\OfertaDesarrolladores.vb" />
@@ -210,6 +211,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Banderas\pais_es.png" />
     <Content Include="Assets\DRMs\drm_battlenet2.png" />
     <Content Include="Assets\DRMs\drm_microsoft2.png" />
     <Content Include="Assets\drm_battlenet.ico" />

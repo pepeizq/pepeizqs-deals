@@ -86,7 +86,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public ImagenImgur As String
 
         <JsonProperty("image_pepeizqdeals")>
-        Public ImagenPepeizqdeals As String
+        Public ImagenPepeizqdealsIngles As String
+
+        <JsonProperty("image_pepeizqdeals_es")>
+        Public ImagenPepeizqdealsEspañol As String
 
         <JsonProperty("store_name")>
         Public TiendaNombre As String
@@ -102,6 +105,9 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
 
         <JsonProperty("date_ends")>
         Public FechaTermina As String
+
+        <JsonProperty("us_meta_title")>
+        Public SEOTitulo As String
 
         <JsonProperty("us_meta_description")>
         Public SEODescripcion As String

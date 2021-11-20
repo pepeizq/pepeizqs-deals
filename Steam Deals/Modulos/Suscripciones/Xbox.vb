@@ -1,10 +1,15 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Windows.Storage
+Imports WordPressPCL
 
 Namespace pepeizq.Suscripciones
 
     'https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=0
+    'https://catalog.gamepass.com/sigls/v2?id=fdd9e2a7-0fee-49f6-ad69-4354098401ff&language=en-us&market=US
+    'https://catalog.gamepass.com/sigls/v2?id=1d33fbb9-b895-4732-a8ca-a55c8b99fa2c&language=en-us&market=US
+    'https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?DeviceFamily=Windows.Desktop&market=US&language=EN&count=200
 
     Module Xbox
 
@@ -27,140 +32,327 @@ Namespace pepeizq.Suscripciones
 
         End Sub
 
-        Public Async Function ComprobarJuegos() As Task
-
-            BloquearControles(False)
-
-            comprobar = True
-
-            Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaXboxSuscripcion") Then
-                listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaXboxSuscripcion")
-            End If
-
-            BuscarJuegos2(comprobar)
-
-        End Function
-
         Private Async Sub BuscarJuegos2(comprobar As Boolean)
 
-            Dim listaJuegos As New List(Of JuegoSuscripcion)
-            Dim listaIDs2 As New List(Of String)
+            Dim listaDisponibles As New List(Of String)
+            Dim listaEAPlay As New List(Of String)
+            Dim listaNuevos As New List(Of String)
+            Dim listaNuevos2 As New List(Of JuegoSuscripcion)
 
-            Dim html As String = Await Decompiladores.HttpClient(New Uri("https://reco-public.rec.mp.microsoft.com/channels/Reco/v8.0/lists/collection/XGPPMPRecentlyAdded?DeviceFamily=Windows.Desktop&market=US&language=EN&count=200"))
+            Dim htmlCompleto As String = Await Decompiladores.HttpClient(New Uri("https://catalog.gamepass.com/sigls/v2?id=fdd9e2a7-0fee-49f6-ad69-4354098401ff&language=en-us&market=US"))
 
-            If Not html = Nothing Then
-                Dim juegos As MicrosoftStoreBBDDIDs = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDIDs)(html)
+            If Not htmlCompleto = Nothing Then
+                Dim juegos As List(Of GamePassAPIJuego) = JsonConvert.DeserializeObject(Of List(Of GamePassAPIJuego))(htmlCompleto)
 
                 If Not juegos Is Nothing Then
-                    For Each juego In juegos.Juegos
-                        Dim añadir As Boolean = True
+                    If juegos.Count > 0 Then
+                        juegos.RemoveAt(0)
 
-                        If Not listaIDs Is Nothing Then
-                            For Each id In listaIDs
-                                If id = juego.ID Then
-                                    añadir = False
-                                End If
-                            Next
-                        End If
-
-                        If añadir = True Then
-                            listaIDs.Add(juego.ID)
-                            listaIDs2.Add(juego.ID)
-                        End If
-                    Next
-                End If
-            End If
-
-            Dim i As Integer = 0
-            While i < 360
-                Dim html2 As String = Await Decompiladores.HttpClient(New Uri("https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=" + i.ToString))
-
-                If Not html2 = Nothing Then
-                    Dim j As Integer = 0
-                    While j < 90
-                        If html2.Contains("<a href=" + ChrW(34) + "/en-us") Then
-                            Dim temp, temp2 As String
-                            Dim int, int2 As Integer
-
-                            int = html2.IndexOf("<a href=" + ChrW(34) + "/en-us")
-                            temp = html2.Remove(0, int + 2)
-
-                            html2 = temp
-
-                            int2 = temp.IndexOf(ChrW(34) + "pid" + ChrW(34) + ":")
-                            temp2 = temp.Remove(0, int2 + 7)
-
-                            int2 = temp2.IndexOf(ChrW(34))
-                            temp2 = temp2.Remove(int2, temp2.Length - int2)
-
+                        For Each juego In juegos
                             Dim añadir As Boolean = True
 
                             If Not listaIDs Is Nothing Then
                                 For Each id In listaIDs
-                                    If id = temp2.Trim Then
+                                    If id = juego.ID Then
                                         añadir = False
                                     End If
                                 Next
                             End If
 
+                            listaDisponibles.Add(juego.ID)
+
                             If añadir = True Then
-                                listaIDs.Add(temp2.Trim)
-                                listaIDs2.Add(temp2.Trim)
+                                listaIDs.Add(juego.ID)
+                                listaNuevos.Add(juego.ID)
                             End If
-                        End If
-                        j += 1
-                    End While
+                        Next
+                    End If
                 End If
-                i += 90
-            End While
+            End If
 
-            If listaIDs2.Count > 0 Then
-                Dim ids As String = String.Empty
+            If Not listaDisponibles Is Nothing Then
+                If listaDisponibles.Count > 0 Then
+                    Dim listaTemp As New List(Of String)
+                    Dim ids As String = String.Empty
 
-                For Each id In listaIDs2
-                    ids = ids + id + ","
-                Next
+                    Dim i As Integer = 0
+                    For Each id In listaDisponibles
+                        ids = ids + id + ","
+                        i += 1
 
-                If ids.Length > 0 Then
-                    ids = ids.Remove(ids.Length - 1)
+                        If i = 100 Or i = listaDisponibles.Count Then
+                            listaTemp.Add(ids)
+                            ids = String.Empty
+                        End If
+                    Next
 
-                    Dim htmlJuego As String = Await Decompiladores.HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
+                    Dim listaDisponibles2 As New List(Of JuegoSuscripcion)
 
-                    If Not htmlJuego = Nothing Then
-                        Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuego)
+                    For Each temp In listaTemp
+                        temp = temp.Remove(temp.Length - 1)
 
-                        For Each juego In juegos.Juegos
-                            Dim imagenLista As String = String.Empty
+                        Dim htmlJuegos As String = Await Decompiladores.HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + temp + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp"))
 
-                            For Each imagen In juego.Detalles(0).Imagenes
-                                If imagen.Proposito = "Poster" Then
-                                    imagenLista = imagen.Enlace
+                        If Not htmlJuegos = Nothing Then
 
-                                    If Not imagenLista.Contains("https:") Then
-                                        imagenLista = "https:" + imagenLista
+                            Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuegos)
+
+                            For Each juego In juegos.Juegos
+                                Dim imagenJuego As String = String.Empty
+
+                                For Each imagen In juego.Detalles(0).Imagenes
+                                    If imagen.Proposito = "Poster" Then
+                                        imagenJuego = imagen.Enlace
+
+                                        If Not imagenJuego.Contains("https:") Then
+                                            imagenJuego = "https:" + imagenJuego
+                                        End If
+                                    End If
+                                Next
+
+                                If Not imagenJuego = Nothing Then
+                                    Dim añadir As Boolean = True
+
+                                    For Each juegolista In listaNuevos2
+                                        If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                                            añadir = False
+                                        End If
+                                    Next
+
+                                    If añadir = True Then
+                                        Dim tituloJuego As String = juego.Detalles(0).Titulo.Trim
+                                        tituloJuego = LimpiarTitulo(tituloJuego)
+
+                                        listaDisponibles2.Add(New JuegoSuscripcion(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
                                     End If
                                 End If
                             Next
+                        End If
+                    Next
 
-                            If Not imagenLista = Nothing Then
-                                Dim añadir As Boolean = True
+                    If listaDisponibles2.Count > 0 Then
+                        listaDisponibles2.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
 
-                                For Each juegolista In listaJuegos
-                                    If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                        Dim htmlDisponible As String = String.Empty
+                        htmlDisponible = "<div style=" + ChrW(34) + "display: grid; grid-template-columns: repeat(auto-fill, minmax(10em, 1fr)); grid-gap: 26px;" + ChrW(34) + ">"
+
+                        For Each juego In listaDisponibles2
+                            htmlDisponible = htmlDisponible + FichaHtml(Referidos.Generar(juego.Enlace), juego.Titulo, juego.Imagen)
+                        Next
+
+                        htmlDisponible = htmlDisponible + "</div>"
+
+                        Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                            .AuthMethod = Models.AuthMethod.JWT
+                        }
+
+                        Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                        If Await cliente.IsValidJWToken = True Then
+                            Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/45533")
+
+                            resultado.Contenido = New Models.Content(htmlDisponible)
+
+                            Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/45533", resultado)
+                        End If
+                    End If
+                End If
+            End If
+
+            Dim htmlEAPlay As String = Await Decompiladores.HttpClient(New Uri("https://catalog.gamepass.com/sigls/v2?id=1d33fbb9-b895-4732-a8ca-a55c8b99fa2c&language=en-us&market=US"))
+
+            If Not htmlEAPlay = Nothing Then
+                Dim juegos As List(Of GamePassAPIJuego) = JsonConvert.DeserializeObject(Of List(Of GamePassAPIJuego))(htmlEAPlay)
+
+                If Not juegos Is Nothing Then
+                    If juegos.Count > 0 Then
+                        juegos.RemoveAt(0)
+
+                        For Each juego In juegos
+                            Dim añadir As Boolean = True
+
+                            If Not listaIDs Is Nothing Then
+                                For Each id In listaIDs
+                                    If id = juego.ID Then
                                         añadir = False
                                     End If
                                 Next
+                            End If
 
-                                If añadir = True Then
-                                    Dim titulo As String = juego.Detalles(0).Titulo.Trim
-                                    titulo = LimpiarTitulo(titulo)
+                            listaEAPlay.Add(juego.ID)
 
-                                    listaJuegos.Add(New JuegoSuscripcion(titulo, imagenLista, Nothing, "https://www.microsoft.com/store/apps/" + juego.ID, Nothing))
-                                End If
+                            If añadir = True Then
+                                listaIDs.Add(juego.ID)
+                                listaNuevos.Add(juego.ID)
                             End If
                         Next
+                    End If
+                End If
+            End If
+
+            If Not listaEAPlay Is Nothing Then
+                If listaEAPlay.Count > 0 Then
+                    Dim listaTemp As New List(Of String)
+                    Dim ids As String = String.Empty
+
+                    Dim i As Integer = 0
+                    For Each id In listaEAPlay
+                        ids = ids + id + ","
+                        i += 1
+
+                        If i = 100 Or i = listaEAPlay.Count Then
+                            listaTemp.Add(ids)
+                            ids = String.Empty
+                        End If
+                    Next
+
+                    Dim listaEAPlay2 As New List(Of JuegoSuscripcion)
+
+                    For Each temp In listaTemp
+                        temp = temp.Remove(temp.Length - 1)
+
+                        Dim htmlJuegos As String = Await Decompiladores.HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + temp + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp"))
+
+                        If Not htmlJuegos = Nothing Then
+
+                            Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuegos)
+
+                            For Each juego In juegos.Juegos
+                                Dim imagenJuego As String = String.Empty
+
+                                For Each imagen In juego.Detalles(0).Imagenes
+                                    If imagen.Proposito = "Poster" Then
+                                        imagenJuego = imagen.Enlace
+
+                                        If Not imagenJuego.Contains("https:") Then
+                                            imagenJuego = "https:" + imagenJuego
+                                        End If
+                                    End If
+                                Next
+
+                                If Not imagenJuego = Nothing Then
+                                    Dim añadir As Boolean = True
+
+                                    For Each juegolista In listaNuevos2
+                                        If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                                            añadir = False
+                                        End If
+                                    Next
+
+                                    If añadir = True Then
+                                        Dim tituloJuego As String = juego.Detalles(0).Titulo.Trim
+                                        tituloJuego = LimpiarTitulo(tituloJuego)
+
+                                        listaEAPlay2.Add(New JuegoSuscripcion(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
+                                    End If
+                                End If
+                            Next
+                        End If
+                    Next
+
+                    If listaEAPlay2.Count > 0 Then
+                        listaEAPlay2.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
+
+                        Dim htmlDisponible As String = String.Empty
+                        htmlDisponible = "<div style=" + ChrW(34) + "display: grid; grid-template-columns: repeat(auto-fill, minmax(10em, 1fr)); grid-gap: 26px;" + ChrW(34) + ">"
+
+                        For Each juego In listaEAPlay2
+                            htmlDisponible = htmlDisponible + FichaHtml(Referidos.Generar(juego.Enlace), juego.Titulo, juego.Imagen)
+                        Next
+
+                        htmlDisponible = htmlDisponible + "</div>"
+
+                        Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                            .AuthMethod = Models.AuthMethod.JWT
+                        }
+
+                        Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                        If Await cliente.IsValidJWToken = True Then
+                            Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/45545")
+
+                            resultado.Contenido = New Models.Content(htmlDisponible)
+
+                            Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/45545", resultado)
+                        End If
+                    End If
+                End If
+            End If
+
+            If Not listaNuevos Is Nothing Then
+                If listaNuevos.Count > 0 Then
+                    Dim ids As String = String.Empty
+
+                    For Each id In listaNuevos
+                        ids = ids + id + ","
+                    Next
+
+                    If ids.Length > 0 Then
+                        ids = ids.Remove(ids.Length - 1)
+
+                        Dim htmlJuegos As String = Await Decompiladores.HttpClient(New Uri("https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=" + ids + "&market=US&languages=en-us&MS-CV=DGU1mcuYo0WMMp+F.1"))
+
+                        If Not htmlJuegos = Nothing Then
+                            Dim juegos As MicrosoftStoreBBDDDetalles = JsonConvert.DeserializeObject(Of MicrosoftStoreBBDDDetalles)(htmlJuegos)
+
+                            For Each juego In juegos.Juegos
+                                Dim imagenJuego As String = String.Empty
+
+                                For Each imagen In juego.Detalles(0).Imagenes
+                                    If imagen.Proposito = "Poster" Then
+                                        imagenJuego = imagen.Enlace
+
+                                        If Not imagenJuego.Contains("https:") Then
+                                            imagenJuego = "https:" + imagenJuego
+                                        End If
+                                    End If
+                                Next
+
+                                If Not imagenJuego = Nothing Then
+                                    Dim añadir As Boolean = True
+
+                                    For Each juegolista In listaNuevos2
+                                        If juegolista.Titulo = juego.Detalles(0).Titulo.Trim Then
+                                            añadir = False
+                                        End If
+                                    Next
+
+                                    If añadir = True Then
+                                        Dim tituloJuego As String = juego.Detalles(0).Titulo.Trim
+                                        tituloJuego = LimpiarTitulo(tituloJuego)
+
+                                        listaNuevos2.Add(New JuegoSuscripcion(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
+                                    End If
+                                End If
+                            Next
+                        End If
+                    End If
+                End If
+
+                If listaNuevos2.Count > 0 Then
+                    listaNuevos2.Sort(Function(x, y) x.Titulo.CompareTo(y.Titulo))
+
+                    Dim htmlDisponible As String = String.Empty
+                    htmlDisponible = "<div style=" + ChrW(34) + "display: grid; grid-template-columns: repeat(auto-fill, minmax(10em, 1fr)); grid-gap: 26px;" + ChrW(34) + ">"
+
+                    For Each juego In listaNuevos2
+                        htmlDisponible = htmlDisponible + FichaHtml(Referidos.Generar(juego.Enlace), juego.Titulo, juego.Imagen)
+                    Next
+
+                    htmlDisponible = htmlDisponible + "</div>"
+
+                    Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                        .AuthMethod = Models.AuthMethod.JWT
+                    }
+
+                    Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+                    If Await cliente.IsValidJWToken = True Then
+                        Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/45542")
+
+                        resultado.Contenido = New Models.Content(htmlDisponible)
+
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/45542", resultado)
                     End If
                 End If
             End If
@@ -168,61 +360,61 @@ Namespace pepeizq.Suscripciones
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            If comprobar = False Then
-                Dim titulo As String = String.Empty
+            Dim titulo As String = String.Empty
 
-                If listaJuegos.Count = 1 Then
-                    titulo = "Xbox Game Pass • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
-                Else
-                    titulo = "Xbox Game Pass • New Games Added • "
-
-                    Dim tituloJuegos As String = String.Empty
-
-                    If listaJuegos.Count < 6 Then
-                        i = 0
-                        While i < listaJuegos.Count
-                            If i = 0 Then
-                                tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                            ElseIf i >= 1 Then
-                                tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                            ElseIf (i + 1) = listaJuegos.Count Then
-                                tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                            End If
-                            i += 1
-                        End While
-                    Else
-                        i = 0
-                        While i < listaJuegos.Count
-                            If i = 0 Then
-                                tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                            ElseIf i >= 1 And i <= 3 Then
-                                tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
-                            Else
-                                Exit While
-                            End If
-                            i += 1
-                        End While
-
-                        tituloJuegos = tituloJuegos + " and more games"
-                    End If
-
-                    titulo = titulo + tituloJuegos
-                End If
-
-                Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-                tbTitulo.Text = titulo
-
-                Dim helper As New LocalObjectStorageHelper
-                Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
-
-                pepeizq.Suscripciones.Html.Generar("Microsoft Store", "https://www.microsoft.com/en-us/p/xbox-game-pass-pc-games/cfq7ttc0kgq8", "https://i.imgur.com/mKThm6d.png", listaJuegos, False)
+            If listaNuevos2.Count = 1 Then
+                titulo = "Xbox Game Pass • New Game Added • " + Deals.LimpiarTitulo(listaNuevos2(0).Titulo)
+                ImagenEntrada.UnJuegoGenerar(listaNuevos2(0).Imagen)
             Else
-                If listaJuegos.Count > 0 Then
-                    Notificaciones.Toast("Nuevos Juegos en Xbox Game Pass", Nothing)
+                titulo = "Xbox Game Pass • New Games Added • "
+
+                Dim tituloJuegos As String = String.Empty
+                Dim i As Integer = 0
+
+                If listaNuevos2.Count < 6 Then
+                    i = 0
+                    While i < listaNuevos2.Count
+                        If i = 0 Then
+                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                        ElseIf i >= 1 Then
+                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                        ElseIf (i + 1) = listaNuevos2.Count Then
+                            tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                        End If
+                        i += 1
+                    End While
+                Else
+                    i = 0
+                    While i < listaNuevos2.Count
+                        If i = 0 Then
+                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                        ElseIf i >= 1 And i <= 3 Then
+                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                        Else
+                            Exit While
+                        End If
+                        i += 1
+                    End While
+
+                    tituloJuegos = tituloJuegos + " and more games"
                 End If
 
-                pepeizq.Interfaz.Pestañas.Botones(True)
+                titulo = titulo + tituloJuegos
+
+                Dim listaImagenes As New List(Of String)
+
+                For Each nuevo In listaNuevos2
+                    listaImagenes.Add(nuevo.Imagen)
+                Next
+
+                ImagenEntrada.DosJuegosGenerar(listaImagenes)
             End If
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            tbTitulo.Text = titulo
+
+            Dim helper As New LocalObjectStorageHelper
+            Await helper.SaveFileAsync(Of List(Of String))("listaXboxSuscripcion", listaIDs)
 
             BloquearControles(True)
 
@@ -243,6 +435,24 @@ Namespace pepeizq.Suscripciones
 
             Return titulo
         End Function
+
+        Private Function FichaHtml(enlace As String, titulo As String, imagen As String)
+            Dim html As String = "<div><a href=" + ChrW(34) + enlace + ChrW(34) +
+                                 " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img class=" + ChrW(34) + "zoom" + ChrW(34) +
+                                 " src=" + ChrW(34) + imagen + ChrW(34) + " title=" + ChrW(34) + titulo + ChrW(34) + "/></a></div>"
+            Return html
+        End Function
+
+        '-------------------------
+
+        Public Class GamePassAPIJuego
+
+            <JsonProperty("Id")>
+            Public ID As String
+
+        End Class
+
+        '-------------------------
 
         Public Class MicrosoftStoreBBDDIDs
 

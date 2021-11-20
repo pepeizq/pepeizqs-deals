@@ -143,18 +143,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/xboxgamepass.png"
-                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/xboxgamepass.png"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2021/11/xboxgamepass.webp"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2021/11/xboxgamepass.webp"
 
                 cosas.Tienda = Tiendas.microsoftstoreT
-                cosas.Enlace = "https://tinyurl.com/pepexbox"
+                cosas.Enlace = "https://pepeizqdeals.com/xbox-game-pass/"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos
 
-                fechaDefecto = fechaDefecto.AddDays(30)
+                fechaDefecto = fechaDefecto.AddDays(2)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 botonBuscar.Visibility = Visibility.Visible
@@ -278,7 +278,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
-                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing)
+                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, Nothing)
 
             BloquearControles(True)
 

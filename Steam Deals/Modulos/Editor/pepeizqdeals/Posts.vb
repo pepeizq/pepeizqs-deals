@@ -14,7 +14,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Async Function Enviar(titulo As String, tituloTwitter As String, categoria As Integer, etiquetas As List(Of Integer),
                                      tienda As Tienda, redireccion As String, imagen As Button, tituloComplemento As String,
-                                     fechaTermina As String, html As String, json As String, jsonExpandido As String) As Task
+                                     fechaTermina As String, html As String, json As String, jsonExpandido As String,
+                                     traducciones As List(Of Traduccion)) As Task
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -23,11 +24,30 @@ Namespace pepeizq.Editor.pepeizqdeals
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim ficheroImagen As StorageFile = Await GenerarFicheroImagen(imagen, "Web")
-                Dim imagenImgur As String = Await SubirImagenImgur(ficheroImagen)
-                Dim imagenPepeizqdeals As String = Await SubirImagenPepeizqdeals(ficheroImagen, cliente)
+                Dim ficheroImagenIngles As StorageFile = Await GenerarFicheroImagen(imagen, "Web", "en")
+                Dim ficheroImagenEspañol As StorageFile = Nothing
 
-                If imagenPepeizqdeals = Nothing Then
+                If Not traducciones Is Nothing Then
+                    If traducciones.Count > 0 Then
+                        For Each tb In traducciones
+                            tb.TextoBloque.Text = tb.Español
+                        Next
+
+                        ficheroImagenEspañol = Await GenerarFicheroImagen(imagen, "Web", "es")
+                    End If
+                End If
+
+                Dim imagenImgur As String = Await SubirImagenImgur(ficheroImagenIngles)
+                Dim imagenPepeizqdealsIngles As String = Await SubirImagenPepeizqdeals(ficheroImagenIngles, cliente)
+                Dim imagenPepeizqdealsEspañol As String = String.Empty
+
+                If Not ficheroImagenEspañol Is Nothing Then
+                    imagenPepeizqdealsEspañol = Await SubirImagenPepeizqdeals(ficheroImagenEspañol, cliente)
+                Else
+                    imagenPepeizqdealsEspañol = imagenPepeizqdealsIngles
+                End If
+
+                If imagenPepeizqdealsIngles = Nothing Then
                     Notificaciones.Toast("Imagen no subida a pepeizqdeals.com", Nothing)
                 Else
                     Dim post As New Models.Post With {
@@ -75,14 +95,15 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    If Not imagenPepeizqdeals = Nothing Then
-                        If imagenPepeizqdeals.Trim.Length > 0 Then
-                            postEditor.ImagenFeatured = imagenPepeizqdeals.Trim
-                            postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
-                            postEditor.ImagenPepeizqdeals = imagenPepeizqdeals.Trim
+                    If Not imagenPepeizqdealsIngles = Nothing Then
+                        If imagenPepeizqdealsIngles.Trim.Length > 0 Then
+                            postEditor.ImagenFeatured = imagenPepeizqdealsIngles.Trim
+                            postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenPepeizqdealsIngles.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                            postEditor.ImagenPepeizqdealsIngles = imagenPepeizqdealsIngles.Trim
+                            postEditor.ImagenPepeizqdealsEspañol = imagenPepeizqdealsEspañol.Trim
 
                             If categoria = 1208 Then
-                                postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenPepeizqdeals.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                                postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenPepeizqdealsIngles.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
                             End If
                         End If
                     End If
@@ -128,7 +149,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         resultado.Imagenv2 = AñadirTituloImagen(resultado.Imagenv2, titulo)
-                        resultado.Compartir = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/")
+                        resultado.Compartir = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsIngles)
 
                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
 
@@ -149,25 +170,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                                 tituloTwitter = Twitter.GenerarTitulo(titulo)
                             End If
 
-                            Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenPepeizqdeals.Trim)
+                            Await Twitter.Enviar(tituloTwitter, enlaceFinal, imagenPepeizqdealsIngles.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Twitter Error Post", Nothing)
                         End Try
 
                         Try
-                            Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdeals.Trim)
+                            Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, imagenPepeizqdealsIngles.Trim)
                         Catch ex As Exception
                             Notificaciones.Toast("Discord Error Post", Nothing)
                         End Try
 
                         Try
-                            Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdeals.Trim, Date.Today.DayOfYear)
+                            Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdealsIngles.Trim, Date.Today.DayOfYear)
                         Catch ex As Exception
                             Notificaciones.Toast("Push Firebase Error Post", Nothing)
                         End Try
 
                         Try
-                            PushWeb.Enviar(titulo, categoria, imagenPepeizqdeals.Trim, enlaceFinal)
+                            PushWeb.Enviar(titulo, categoria, imagenPepeizqdealsIngles.Trim, enlaceFinal)
                         Catch ex As Exception
                             Notificaciones.Toast("Push Web Error Post", Nothing)
                         End Try
@@ -248,7 +269,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Function GenerarFicheroImagen(imagen As Button, codigo As String) As Task(Of StorageFile)
+        Private Async Function GenerarFicheroImagen(imagen As Button, codigo As String, idioma As String) As Task(Of StorageFile)
 
             Dim carpetaImagenes As StorageFolder = Nothing
 
@@ -258,7 +279,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 carpetaImagenes = Await StorageFolder.GetFolderFromPathAsync(ApplicationData.Current.LocalFolder.Path + "\Imagenes")
             End If
 
-            Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-en.png"
+            Dim nombreFicheroImagen As String = "imagen" + codigo + Date.Now.DayOfYear.ToString + "-" + Date.Now.Hour.ToString + "-" + Date.Now.Minute.ToString + "-" + Date.Now.Millisecond.ToString + "-" + idioma + ".png"
             Dim ficheroImagen As StorageFile = Await carpetaImagenes.CreateFileAsync(nombreFicheroImagen, CreationCollisionOption.ReplaceExisting)
 
             If Not ficheroImagen Is Nothing Then
@@ -350,7 +371,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function AñadirCompartir(titulo As String, enlace As String)
+        Private Function AñadirCompartir(titulo As String, enlace As String, imagen As String)
 
             titulo = titulo.Replace("%", "%25")
             titulo = titulo.Replace("•", "%E2%80%A2")
@@ -366,8 +387,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             html = html + "<div>"
 
-            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://twitter.com/intent/tweet?text=" + titulo +
-                   "&url=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Tweet this" + ChrW(34) + " aria-label=" + ChrW(34) + "Tweet this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-twitter" + ChrW(34) + "></i></a>"
+            'html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://twitter.com/intent/tweet?text=" + titulo +
+            '       "&url=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Tweet this" + ChrW(34) + " aria-label=" + ChrW(34) + "Tweet this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-twitter" + ChrW(34) + "></i></a>"
             'html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://www.reddit.com/submit?url=" + enlace +
             '       "&title=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-reddit" + ChrW(34) + "></i></a>"
             'html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "mailto:?subject=" + titulo +
@@ -376,6 +397,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                    "%20" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-whatsapp" + ChrW(34) + "></i></a>"
             html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://t.me/share/url?url=" + enlace +
                    "&text=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-telegram" + ChrW(34) + "></i></a>"
+            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " onclick=" + ChrW(34) + "copiar('[url=" + enlace + "][img]" + imagen + "[/img][/url]')" + ChrW(34) +
+                   " title=" + ChrW(34) + "Copy this" + ChrW(34) + " aria-label=" + ChrW(34) + "Copy this" + ChrW(34) + "><i class=" + ChrW(34) + "fas fa-copy" + ChrW(34) + "></i></a>"
 
             html = html + "</div>"
 

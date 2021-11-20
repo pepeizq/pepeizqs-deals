@@ -869,9 +869,49 @@
                                 <TextBlock x:Uid="Url"/>
                                 <TextBox x:Name="tbEditorEnlacepepeizqdealsAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBlock Text="Imagen Titulo"/>
-                                <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosTitulo" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
+                                <Grid Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:ImageEx Source="Assets/Banderas/pais_uk.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
+                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosTitulo" Grid.Column="1" TextWrapping="Wrap"/>
+                                </Grid>
+
+                                <Grid Margin="0,10,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
+                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosTituloEs" Grid.Column="1" TextWrapping="Wrap"/>
+                                </Grid>
+                        
                                 <TextBlock Text="Imagen Comentario"/>
-                                <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosComentario" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
+                                <Grid Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:ImageEx Source="Assets/Banderas/pais_uk.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
+                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosComentario" Grid.Column="1" TextWrapping="Wrap"/>
+                                </Grid>
+
+                                <Grid Margin="0,10,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
+                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosComentarioEs" Grid.Column="1" TextWrapping="Wrap"/>
+                                </Grid>
+
                                 <TextBlock Text="Imagen Fondo"/>
                                 <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosFondo" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
@@ -1214,6 +1254,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
@@ -1222,15 +1263,17 @@
                                         <ComboBoxItem Content="Plebeyos"/>
                                     </ComboBox>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsAbrirHtml" Grid.Column="1" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <TextBlock x:Name="tbEditorpepeizqdealsSteamGiftsPrecargados" Grid.Column="1" Margin="20,0,0,0"/>
+
+                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsActualizarHtml" Grid.Column="2" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Abrir Html" Foreground="White"/>
+                                                <TextBlock Text="Actualizar Html" Foreground="White"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="2" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="3" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Nuevo Sorteo" Foreground="White"/>
@@ -1238,7 +1281,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="3" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
                                 
                                 <WebView x:Name="wvSteamGifts" Grid.Row="1"/>

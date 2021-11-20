@@ -37,6 +37,7 @@
         Dim yuplay As String = "?partner=19b1d908fe49e597"
         Dim gamebillet As String = "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
         Dim dlgamer As String = "?affil=pepeizqdeals"
+        Dim microsoft As String = "https://click.linksynergy.com/link?id=AlDdpr80Ueo&offerid=889916.19023826372&type=2&murl="
 
         Public Function Generar(enlace As String)
 
@@ -116,6 +117,10 @@
                     If Not enlace.Contains(dlgamer) Then
                         enlace = enlace + dlgamer
                     End If
+                ElseIf enlace.Contains("xbox.com") Then
+                    If Not enlace.Contains(microsoft) Then
+                        enlace = microsoft + enlace
+                    End If
                 End If
             End If
 
@@ -187,6 +192,10 @@
                 ElseIf enlace.Contains("dlgamer.com") Then
                     If enlace.Contains(dlgamer) Then
                         enlace = enlace.Replace(dlgamer, Nothing)
+                    End If
+                ElseIf enlace.Contains("xbox.com") Then
+                    If Not enlace.Contains(microsoft) Then
+                        enlace = enlace.Replace(microsoft, Nothing)
                     End If
                 End If
 

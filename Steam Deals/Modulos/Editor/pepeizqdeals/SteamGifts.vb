@@ -1,18 +1,26 @@
-﻿Imports Windows.System
+﻿Imports Windows.Storage
+Imports Windows.System
+Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals
 
     Module SteamGifts
 
+        Dim listaVIP As List(Of String)
+        Dim listaPlebeyos As List(Of String)
+
         Public Sub Generar()
+
+            listaVIP = New List(Of String)
+            listaPlebeyos = New List(Of String)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim botonAbrirHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsAbrirHtml")
+            Dim botonActualizarHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsActualizarHtml")
 
-            RemoveHandler botonAbrirHtml.Click, AddressOf AbrirHtml
-            AddHandler botonAbrirHtml.Click, AddressOf AbrirHtml
+            RemoveHandler botonActualizarHtml.Click, AddressOf ActualizarHtml
+            AddHandler botonActualizarHtml.Click, AddressOf ActualizarHtml
 
             Dim botonNuevoSorteo As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsNuevoSorteo")
 
@@ -39,6 +47,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
             Dim modo As Integer = cbModo.SelectedIndex
+
+            Dim tbPrecargados As TextBlock = pagina.FindName("tbEditorpepeizqdealsSteamGiftsPrecargados")
 
             If wv.Source.AbsoluteUri = "https://www.steamgifts.com/giveaways/new" Then
 
@@ -125,6 +135,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Else
                     wv.Navigate(New Uri("https://www.steamgifts.com/giveaways/new"))
                 End If
+            ElseIf wv.Source.AbsoluteUri.Contains("https://www.steamgifts.com/giveaway/") Then
+                If modo = 0 Then
+                    listaVIP.Add(wv.Source.AbsoluteUri)
+                    tbPrecargados.Text = listaVIP.Count.ToString
+                ElseIf modo = 1 Then
+                    listaPlebeyos.Add(wv.Source.AbsoluteUri)
+                    tbPrecargados.Text = listaPlebeyos.Count.ToString
+                End If
             ElseIf wv.Source.AbsoluteUri.Contains("https://steamcommunity.com/openid/login") Then
                 Try
                     Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('imageLogin').click();"})
@@ -208,7 +226,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Sub AbrirHtml(sender As Object, e As RoutedEventArgs)
+        Private Async Sub ActualizarHtml(sender As Object, e As RoutedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -216,13 +234,60 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
             Dim modo As Integer = cbModo.SelectedIndex
 
-            If modo = 0 Then
-                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=44457&action=edit"))
-            ElseIf modo = 1 Then
-                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=44456&action=edit"))
+            Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                .AuthMethod = Models.AuthMethod.JWT
+            }
+
+            Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+            If Await cliente.IsValidJWToken = True Then
+                Dim id As String = String.Empty
+
+                If modo = 0 Then
+                    id = "44457"
+                ElseIf modo = 1 Then
+                    id = "44456"
+                End If
+
+                If Not id = String.Empty Then
+                    Dim html As String = String.Empty
+
+                    If modo = 0 Then
+                        If listaVIP.Count > 0 Then
+                            For Each sorteo In listaVIP
+                                html = html + SorteoHtml(sorteo)
+                            Next
+                        End If
+                    ElseIf modo = 1 Then
+                        If listaPlebeyos.Count > 0 Then
+                            For Each sorteo In listaPlebeyos
+                                html = html + SorteoHtml(sorteo)
+                            Next
+                        End If
+                    End If
+
+                    If Not html = String.Empty Then
+                        html = "[vc_row][vc_column][vc_column_text]" + html + "[/vc_column_text][/vc_column][/vc_row]"
+
+                        Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + id)
+
+                        resultado.Contenido = New Models.Content(html)
+
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + id, resultado)
+
+                        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + id + "&action=edit"))
+                    End If
+                End If
             End If
 
         End Sub
+
+        Private Function SorteoHtml(enlace As String)
+            Dim html As String = "<p style=" + ChrW(34) + "text-align: center;" + ChrW(34) + "><a href=" + ChrW(34) + enlace + ChrW(34) +
+                                 " target=" + ChrW(34) + "_blank" + ChrW(34) + "><img class=" + ChrW(34) + "zoom" + ChrW(34) +
+                                 " src=" + ChrW(34) + enlace + "/signature.png" + ChrW(34) + "/></a></p>"
+            Return html
+        End Function
 
     End Module
 

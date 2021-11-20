@@ -294,7 +294,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 4, New List(Of Integer) From {cosas.Etiqueta}, cosas.Tienda,
-                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, Nothing)
 
             BloquearControles(True)
 

@@ -467,7 +467,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, categoria, listaEtiquetas, cosas.Tienda,
-                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, html, json, jsonExpandido)
+                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, html, json, jsonExpandido, Nothing)
 
             BloquearControles(True)
 
@@ -550,6 +550,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tienda = subtienda
                 End If
             Next
+
+            If Not tbImagenJuego.Text = String.Empty Then
+                If tbImagenJuego.Text.Contains(pepeizq.Ofertas.Steam.dominioImagenes) = True Then
+                    Dim fondo As String = tbImagenJuego.Text
+                    Dim int As Integer = fondo.LastIndexOf("/")
+                    fondo = fondo.Remove(int, fondo.Length - int)
+                    fondo = fondo + "/page_bg_generated_v6b.jpg"
+                    tbImagenFondo.Text = fondo
+                End If
+            End If
 
             If tbImagenJuego.Text.Trim.Length > 0 Then
                 DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegosTotal(0), precioFinal, tienda)

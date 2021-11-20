@@ -6,7 +6,7 @@
     Public Property _0PorCiento As Boolean
     Public Property Comentario As String
 
-    Public Sub New(ByVal tiendaNombreUsar As String, ByVal porcentaje As Integer, ByVal codigo As String, ByVal _0porCiento As Boolean, ByVal comentario As String)
+    Public Sub New(tiendaNombreUsar As String, porcentaje As Integer, codigo As String, _0porCiento As Boolean, comentario As String)
         Me.TiendaNombreUsar = tiendaNombreUsar
         Me.Porcentaje = porcentaje
         Me.Codigo = codigo
