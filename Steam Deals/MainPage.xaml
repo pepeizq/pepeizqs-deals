@@ -1001,7 +1001,7 @@
                                                         </Grid.RowDefinitions>
 
                                                         <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosTitulo" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" Text="Sorteos" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
                                                         </controls:DropShadowPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosTituloImagen" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
@@ -1263,7 +1263,7 @@
                                         <ComboBoxItem Content="Plebeyos"/>
                                     </ComboBox>
 
-                                    <TextBlock x:Name="tbEditorpepeizqdealsSteamGiftsPrecargados" Grid.Column="1" Margin="20,0,0,0"/>
+                                    <TextBlock x:Name="tbEditorpepeizqdealsSteamGiftsPrecargados" Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center"/>
 
                                     <Button x:Name="botonEditorpepeizqdealsSteamGiftsActualizarHtml" Grid.Column="2" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>

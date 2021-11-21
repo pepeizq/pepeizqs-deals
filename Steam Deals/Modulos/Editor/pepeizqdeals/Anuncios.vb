@@ -149,13 +149,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
 
+            Dim tbImagenTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
+            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
+            Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
+            Dim tbImagenComentario As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosComentario")
+            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
+            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
+
             Dim traducciones As New List(Of Traduccion) From {
-                    New Traduccion(pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo"),
-                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo"),
-                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")),
-                    New Traduccion(pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosComentario"),
-                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario"),
-                                   pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs"))
+                    New Traduccion(tbImagenTitulo, tbImagenTituloIngles.Text, tbImagenTituloEspañol.Text),
+                    New Traduccion(tbImagenComentario, tbImagenComentarioIngles.Text, tbImagenComentarioEspañol.Text)
             }
 
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 1208, New List(Of Integer) From {9999}, Nothing,

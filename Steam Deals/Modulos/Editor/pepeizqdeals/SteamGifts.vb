@@ -135,7 +135,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Else
                     wv.Navigate(New Uri("https://www.steamgifts.com/giveaways/new"))
                 End If
-            ElseIf wv.Source.AbsoluteUri.Contains("https://www.steamgifts.com/giveaway/") Then
+            ElseIf wv.Source.AbsoluteUri.Contains("https://www.steamgifts.com/giveaway/") And Not wv.Source.AbsoluteUri.Contains("/winners") Then
                 If modo = 0 Then
                     listaVIP.Add(wv.Source.AbsoluteUri)
                     tbPrecargados.Text = listaVIP.Count.ToString

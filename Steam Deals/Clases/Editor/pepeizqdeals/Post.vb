@@ -77,10 +77,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public ImagenFeatured As String
 
         <JsonProperty("image_v2")>
-        Public Imagenv2 As String
+        Public ImagenIngles As String
 
-        <JsonProperty("image_v2_announcements")>
-        Public Imagenv2Anuncios As String
+        <JsonProperty("image_v2_es")>
+        Public ImagenEspañol As String
 
         <JsonProperty("image_imgur")>
         Public ImagenImgur As String

@@ -98,13 +98,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     If Not imagenPepeizqdealsIngles = Nothing Then
                         If imagenPepeizqdealsIngles.Trim.Length > 0 Then
                             postEditor.ImagenFeatured = imagenPepeizqdealsIngles.Trim
-                            postEditor.Imagenv2 = "<img src=" + ChrW(34) + imagenPepeizqdealsIngles.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                            postEditor.ImagenIngles = "<img src=" + ChrW(34) + imagenPepeizqdealsIngles.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
+                            postEditor.ImagenEspañol = "<img src=" + ChrW(34) + imagenPepeizqdealsEspañol.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
                             postEditor.ImagenPepeizqdealsIngles = imagenPepeizqdealsIngles.Trim
                             postEditor.ImagenPepeizqdealsEspañol = imagenPepeizqdealsEspañol.Trim
-
-                            If categoria = 1208 Then
-                                postEditor.Imagenv2Anuncios = "<img src=" + ChrW(34) + imagenPepeizqdealsIngles.Trim + ChrW(34) + " class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " loading=" + ChrW(34) + "lazy" + ChrW(34) + "/>"
-                            End If
                         End If
                     End If
 
@@ -148,7 +145,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             resultado.Redireccion2 = AñadirRedireccion("https://pepeizqdeals.com/" + resultado.Id.ToString + "/")
                         End If
 
-                        resultado.Imagenv2 = AñadirTituloImagen(resultado.Imagenv2, titulo)
+                        resultado.ImagenIngles = AñadirTituloImagen(resultado.ImagenIngles, titulo)
                         resultado.Compartir = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsIngles)
 
                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
