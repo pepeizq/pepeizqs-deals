@@ -73,6 +73,8 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("us_tile_size")>
         Public TamañoTile As String
 
+        '-------------------------------------------
+
         <JsonProperty("fifu_image_url")>
         Public ImagenFeatured As String
 
@@ -82,14 +84,16 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         <JsonProperty("image_v2_es")>
         Public ImagenEspañol As String
 
-        <JsonProperty("image_imgur")>
-        Public ImagenImgur As String
-
         <JsonProperty("image_pepeizqdeals")>
         Public ImagenPepeizqdealsIngles As String
 
         <JsonProperty("image_pepeizqdeals_es")>
         Public ImagenPepeizqdealsEspañol As String
+
+        <JsonProperty("image_imgur")>
+        Public ImagenImgur As String
+
+        '-------------------------------------------
 
         <JsonProperty("store_name")>
         Public TiendaNombre As String
@@ -124,7 +128,10 @@ Namespace pepeizq.Editor.pepeizqdeals.Clases
         Public JsonExpandido As String
 
         <JsonProperty("share")>
-        Public Compartir As String
+        Public CompartirIngles As String
+
+        <JsonProperty("share_es")>
+        Public CompartirEspañol As String
 
         <JsonProperty("steam_group")>
         Public EntradaGrupoSteam As String

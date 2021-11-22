@@ -89,12 +89,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    If Not imagenImgur = Nothing Then
-                        If imagenImgur.Trim.Length > 0 Then
-                            postEditor.ImagenImgur = imagenImgur.Trim
-                        End If
-                    End If
-
                     If Not imagenPepeizqdealsIngles = Nothing Then
                         If imagenPepeizqdealsIngles.Trim.Length > 0 Then
                             postEditor.ImagenFeatured = imagenPepeizqdealsIngles.Trim
@@ -146,7 +140,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
 
                         resultado.ImagenIngles = AñadirTituloImagen(resultado.ImagenIngles, titulo)
-                        resultado.Compartir = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsIngles)
+                        resultado.ImagenEspañol = AñadirTituloImagen(resultado.ImagenEspañol, titulo)
+                        resultado.CompartirIngles = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsIngles, "en")
+                        resultado.CompartirEspañol = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsEspañol, "es")
 
                         Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
 
@@ -368,7 +364,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function AñadirCompartir(titulo As String, enlace As String, imagen As String)
+        Private Function AñadirCompartir(titulo As String, enlace As String, imagen As String, idioma As String)
 
             titulo = titulo.Replace("%", "%25")
             titulo = titulo.Replace("•", "%E2%80%A2")
@@ -390,12 +386,23 @@ Namespace pepeizq.Editor.pepeizqdeals
             '       "&title=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-reddit" + ChrW(34) + "></i></a>"
             'html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "mailto:?subject=" + titulo +
             '       "&body=" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Email this" + ChrW(34) + " aria-label=" + ChrW(34) + "Email this" + ChrW(34) + "><i class=" + ChrW(34) + "fas fa-envelope" + ChrW(34) + "></i></a>"
-            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://api.whatsapp.com/send?text=" + titulo +
+
+            If idioma = "en" Then
+                html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://api.whatsapp.com/send?text=" + titulo +
                    "%20" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-whatsapp" + ChrW(34) + "></i></a>"
-            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://t.me/share/url?url=" + enlace +
+                html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://t.me/share/url?url=" + enlace +
                    "&text=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-telegram" + ChrW(34) + "></i></a>"
-            html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " onclick=" + ChrW(34) + "copiar('[url=" + enlace + "][img]" + imagen + "[/img][/url]')" + ChrW(34) +
+                html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " onclick=" + ChrW(34) + "copiar('[url=" + enlace + "][img]" + imagen + "[/img][/url]')" + ChrW(34) +
                    " title=" + ChrW(34) + "Copy this" + ChrW(34) + " aria-label=" + ChrW(34) + "Copy this" + ChrW(34) + "><i class=" + ChrW(34) + "fas fa-copy" + ChrW(34) + "></i></a>"
+            ElseIf idioma = "es" Then
+                html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://api.whatsapp.com/send?text=" + titulo +
+                   "%20" + enlace + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-whatsapp" + ChrW(34) + "></i></a>"
+                html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + "https://t.me/share/url?url=" + enlace +
+                   "&text=" + titulo + ChrW(34) + " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-telegram" + ChrW(34) + "></i></a>"
+                html = html + "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " onclick=" + ChrW(34) + "copiares('[url=" + enlace + "][img]" + imagen + "[/img][/url]')" + ChrW(34) +
+                   " title=" + ChrW(34) + "Copia esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Copia esto" + ChrW(34) + "><i class=" + ChrW(34) + "fas fa-copy" + ChrW(34) + "></i></a>"
+            End If
+
 
             html = html + "</div>"
 
@@ -403,7 +410,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Public Async Sub AñadirEntradaGrupoSteam(idWeb As String, idGrupoSteam As String)
+        Public Async Sub AñadirEntradaGrupoSteam(idWeb As String, idEntradaSteam As String)
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -424,18 +431,28 @@ Namespace pepeizq.Editor.pepeizqdeals
                     For Each resultado In resultados
                         If resultado.Id.ToString = idWeb Then
                             If resultado.EntradaGrupoSteam = Nothing Then
-                                Dim enlace As String = Referidos.Generar("https://store.steampowered.com/news/group/33500256/view/" + idGrupoSteam)
+                                Dim enlace As String = Referidos.Generar("https://store.steampowered.com/news/group/33500256/view/" + idEntradaSteam)
 
                                 resultado.EntradaGrupoSteam = enlace
 
-                                Dim compartir As String = resultado.Compartir
+                                Dim compartirIngles As String = resultado.CompartirIngles
 
-                                If Not compartir = String.Empty Then
+                                If Not compartirIngles = String.Empty Then
                                     Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
                                                          " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
 
-                                    compartir = compartir.Insert(5, html)
-                                    resultado.Compartir = compartir
+                                    compartirIngles = compartirIngles.Insert(5, html)
+                                    resultado.CompartirIngles = compartirIngles
+                                End If
+
+                                Dim compartirEspañol As String = resultado.CompartirEspañol
+
+                                If Not compartirIngles = String.Empty Then
+                                    Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
+                                                         " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
+
+                                    compartirEspañol = compartirEspañol.Insert(5, html)
+                                    resultado.CompartirEspañol = compartirEspañol
                                 End If
 
                                 Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)

@@ -17,6 +17,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
+            cbModo.SelectedIndex = 0
+
+
+
             Dim botonActualizarHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsActualizarHtml")
 
             RemoveHandler botonActualizarHtml.Click, AddressOf ActualizarHtml
