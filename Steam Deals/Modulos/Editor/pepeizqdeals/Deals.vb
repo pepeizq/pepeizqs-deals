@@ -38,30 +38,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
             tbCabeceraImagenAncho.Text = String.Empty
 
-            Dim gridEnlace As Grid = pagina.FindName("gridEditorEnlacepepeizqdeals")
-            Dim gridImagen As Grid = pagina.FindName("gridEditorImagenpepeizqdeals")
-            Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
-            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorEnlacepepeizqdealsDosJuegos")
-            Dim tbMensaje As TextBlock = pagina.FindName("tbMensajepepeizqdealsDeals")
-            Dim tbMensajeContenido As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
-            Dim gridComplemento As Grid = pagina.FindName("gridEditorComplementopepeizqdeals")
+            Dim spUnJuego As StackPanel = pagina.FindName("spEditorpepeizqdealsUnJuego")
+            Dim spDosJuegos As StackPanel = pagina.FindName("spEditorpepeizqdealsDosJuegos")
 
             If listaTotal.Count = 1 Then
-                gridEnlace.Visibility = Visibility.Visible
-                gridImagen.Visibility = Visibility.Visible
-                cbError.Visibility = Visibility.Visible
-                gridDosJuegos.Visibility = Visibility.Collapsed
-                tbMensaje.Visibility = Visibility.Visible
-                tbMensajeContenido.Visibility = Visibility.Visible
-                gridComplemento.Visibility = Visibility.Collapsed
+                spUnJuego.Visibility = Visibility.Visible
+                spDosJuegos.Visibility = Visibility.Collapsed
             ElseIf listaTotal.Count > 1 Then
-                gridEnlace.Visibility = Visibility.Collapsed
-                gridImagen.Visibility = Visibility.Collapsed
-                cbError.Visibility = Visibility.Collapsed
-                gridDosJuegos.Visibility = Visibility.Visible
-                tbMensaje.Visibility = Visibility.Collapsed
-                tbMensajeContenido.Visibility = Visibility.Collapsed
-                gridComplemento.Visibility = Visibility.Visible
+                spUnJuego.Visibility = Visibility.Collapsed
+                spDosJuegos.Visibility = Visibility.Visible
             End If
 
             '----------------------------------------------------
@@ -318,6 +303,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
+            Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
             cbError.IsChecked = False
 
             RemoveHandler cbError.Checked, AddressOf ActivarErrorPrecio
@@ -326,6 +312,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
             AddHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
 
+            Dim tbMensajeContenido As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
             tbMensajeContenido.Text = String.Empty
 
             If tbMensajeContenido.Visibility = Visibility.Visible Then
@@ -466,8 +453,33 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            'Traducciones----------------------
+
+            Dim listaTraducciones As New List(Of Traduccion)
+            Dim panelMensajeUnJuego As DropShadowPanel = pagina.FindName("panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+            If panelMensajeUnJuego.Visibility = Visibility.Visible Then
+                Dim tbMensajeUnJuego As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+
+                If tbMensajeUnJuego.Text.Trim.Length > 0 Then
+                    listaTraducciones.Add(New Traduccion(tbMensajeUnJuego, tbMensajeUnJuego.Text, Traducciones.OfertasUnJuego(tbMensajeUnJuego.Text)))
+                End If
+            End If
+
+            Dim gridMensajeDosJuegos As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+            If gridMensajeDosJuegos.Visibility = Visibility.Visible Then
+                Dim tbMensajeDosJuegos As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+                If tbMensajeDosJuegos.Text.Trim.Length > 0 Then
+                    listaTraducciones.Add(New Traduccion(tbMensajeDosJuegos, tbMensajeDosJuegos.Text, Traducciones.OfertasDosJuegos(tbMensajeDosJuegos.Text)))
+                End If
+            End If
+
+            '----------------------------------
+
             Await Posts.Enviar(tbTitulo.Text, tbTituloTwitter.Text, categoria, listaEtiquetas, cosas.Tienda,
-                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, html, json, jsonExpandido, Nothing)
+                               redireccion, botonImagen, tituloComplemento, fechaFinal.ToString, html, json, jsonExpandido, listaTraducciones)
 
             BloquearControles(True)
 
@@ -822,6 +834,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not tbMensaje2 Is Nothing Then
                     tbMensaje2.Text = tbMensaje.Text
+
+                    Dim mensajeEspañol As String = tbMensaje2.Text
+                    Dim tbMensajeEspañol As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDealsEs")
+                    tbMensajeEspañol.Text = Traducciones.OfertasUnJuego(mensajeEspañol)
                 End If
             Else
                 panelMensaje.Visibility = Visibility.Collapsed
@@ -909,8 +925,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
             cbError.IsEnabled = estado
 
-            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
-            tbMensaje.IsEnabled = estado
+            Dim tbMensajeIngles As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            tbMensajeIngles.IsEnabled = estado
+
+            Dim tbMensajeEspañol As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDealsEs")
+            tbMensajeEspañol.IsEnabled = estado
 
         End Sub
 

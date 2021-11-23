@@ -149,6 +149,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
 
+            'Traducciones----------------------
+
             Dim tbImagenTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
             Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
             Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
@@ -156,13 +158,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
             Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
 
-            Dim traducciones As New List(Of Traduccion) From {
+            Dim listaTraducciones As New List(Of Traduccion) From {
                     New Traduccion(tbImagenTitulo, tbImagenTituloIngles.Text, tbImagenTituloEspañol.Text),
                     New Traduccion(tbImagenComentario, tbImagenComentarioIngles.Text, tbImagenComentarioEspañol.Text)
             }
 
+            '----------------------------------
+
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 1208, New List(Of Integer) From {9999}, Nothing,
-                               tbEnlace.Text.Trim, botonImagen, Nothing, fechaFinal.ToString, Nothing, Nothing, Nothing, traducciones)
+                               tbEnlace.Text.Trim, botonImagen, Nothing, fechaFinal.ToString, Nothing, Nothing, Nothing, listaTraducciones)
 
             BloquearControles(True)
 

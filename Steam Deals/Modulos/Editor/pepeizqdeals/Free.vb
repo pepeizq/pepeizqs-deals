@@ -213,8 +213,26 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            'Traducciones----------------------
+
+            Dim listaTraducciones As New List(Of Traduccion)
+
+            Dim tbGratis As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenGratis")
+            listaTraducciones.Add(New Traduccion(tbGratis, tbGratis.Text, Traducciones.Gratis(tbGratis.Text)))
+
+            Dim tbMensaje As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenFree")
+
+            If tbMensaje.Text.Trim.Length > 0 Then
+                Dim tbMensajeIngles As TextBox = pagina.FindName("tbEditorMensajepepeizqdealsFree")
+                Dim tbMensajeEspañol As TextBox = pagina.FindName("tbEditorMensajepepeizqdealsGratisEs")
+
+                listaTraducciones.Add(New Traduccion(tbMensaje, tbMensajeIngles.Text, tbMensajeEspañol.Text))
+            End If
+
+            '----------------------------------
+
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 12, New List(Of Integer) From {9999}, tienda,
-                               tbEnlace.Text.Trim, botonImagen, " ", fechaFinal.ToString, Nothing, json, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, " ", fechaFinal.ToString, Nothing, json, Nothing, listaTraducciones)
 
             BloquearControles(True)
 
@@ -608,6 +626,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbMensaje As TextBox = pagina.FindName("tbEditorMensajepepeizqdealsFree")
             tbMensaje.IsEnabled = estado
+
+            Dim tbMensajeEs As TextBox = pagina.FindName("tbEditorMensajepepeizqdealsGratisEs")
+            tbMensajeEs.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsFree")
             fechaPicker.IsEnabled = estado

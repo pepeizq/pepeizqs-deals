@@ -278,13 +278,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
+            Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
+
             Dim json As String = String.Empty
 
             If Not tbImagenesJuegos.Text = String.Empty Then
                 If tbImagenesJuegos.Text.Trim.Length > 0 Then
-                    Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
-                    Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
-
                     If gridMasJuegos.Visibility = Visibility.Visible Then
                         json = DealsFormato.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, True)
                     Else
@@ -293,8 +293,25 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
+            'Traducciones----------------------
+
+            Dim listaTraducciones As New List(Of Traduccion)
+
+            If tbPrecio.Text.Contains("Games") Then
+                Dim tbPrecioEspañol As String = tbPrecio.Text
+                tbPrecioEspañol = Traducciones.BundlesSeccion1(tbPrecioEspañol)
+                listaTraducciones.Add(New Traduccion(tbPrecio, tbPrecio.Text, tbPrecioEspañol))
+            End If
+
+            If gridMasJuegos.Visibility = Visibility.Visible Then
+                Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
+                listaTraducciones.Add(New Traduccion(tbMasJuegos, tbMasJuegos.Text, Traducciones.BundlesSeccion2(tbMasJuegos.Text)))
+            End If
+
+            '----------------------------------
+
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 4, New List(Of Integer) From {cosas.Etiqueta}, cosas.Tienda,
-                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, Nothing)
+                               tbEnlace.Text.Trim, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, listaTraducciones)
 
             BloquearControles(True)
 

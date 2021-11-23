@@ -277,8 +277,34 @@ Namespace pepeizq.Editor.pepeizqdeals
                 json = DealsFormato.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim.Replace("header", "library_600x900"))
             End If
 
+            'Traducciones----------------------
+
+            Dim listaTraducciones As New List(Of Traduccion)
+
+            Dim gridUnaSuscripcion As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnaSuscripcion")
+
+            If gridUnaSuscripcion.Visibility = Visibility.Visible Then
+                Dim tbTexto As TextBlock = pagina.FindName("tbEditorpepeizqdealsUnaSuscripcionTexto")
+                listaTraducciones.Add(New Traduccion(tbTexto, tbTexto.Text, Traducciones.SuscripcionesUnJuego(tbTexto.Text)))
+            Else
+                Dim gridDosSuscripciones As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosSuscripciones")
+
+                If gridDosSuscripciones.Visibility = Visibility.Visible Then
+                    Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+
+                    If panelMensaje.Visibility = Visibility.Visible Then
+                        Dim tbMensaje As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+                        Dim mensajeEspañol As String = tbMensaje.Text
+                        mensajeEspañol = Traducciones.SuscripcionesDosJuegos(mensajeEspañol)
+                        listaTraducciones.Add(New Traduccion(tbMensaje, tbMensaje.Text, mensajeEspañol))
+                    End If
+                End If
+            End If
+
+            '----------------------------------
+
             Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
-                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, Nothing)
+                               cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, listaTraducciones)
 
             BloquearControles(True)
 

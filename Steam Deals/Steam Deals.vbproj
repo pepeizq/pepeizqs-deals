@@ -155,6 +155,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\SteamGifts.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Suscripciones.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Redes Sociales\Twitter.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Traducciones.vb" />
     <Compile Include="Modulos\Gratis\EpicGames.vb" />
     <Compile Include="Modulos\Herramientas\Busqueda.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />

@@ -20,7 +20,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
             cbModo.SelectedIndex = 0
 
-
+            RemoveHandler cbModo.SelectionChanged, AddressOf CambiarModo
+            AddHandler cbModo.SelectionChanged, AddressOf CambiarModo
 
             Dim botonActualizarHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsActualizarHtml")
 
@@ -293,6 +294,24 @@ Namespace pepeizq.Editor.pepeizqdeals
                                  " src=" + ChrW(34) + enlace + "/signature.png" + ChrW(34) + "/></a></p>"
             Return html
         End Function
+
+        Private Sub CambiarModo(sender As Object, e As SelectionChangedEventArgs)
+
+            Dim cbModo As ComboBox = sender
+            Dim modo As Integer = cbModo.SelectedIndex
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbPrecargados As TextBlock = pagina.FindName("tbEditorpepeizqdealsSteamGiftsPrecargados")
+
+            If modo = 0 Then
+                tbPrecargados.Text = listaVIP.Count.ToString
+            ElseIf modo = 1 Then
+                tbPrecargados.Text = listaPlebeyos.Count.ToString
+            End If
+
+        End Sub
 
     End Module
 

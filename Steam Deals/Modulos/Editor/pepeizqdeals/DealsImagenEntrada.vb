@@ -374,7 +374,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim tbJuegosRestantes As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
                 If juegosRestantes - limite = 1 Then
-                    tbJuegosRestantes.Text = "And Other 1 Deal"
+                    tbJuegosRestantes.Text = "And Other Deal"
                 Else
                     tbJuegosRestantes.Text = "And Other " + (juegosRestantes - limite).ToString + " Deals"
                 End If
