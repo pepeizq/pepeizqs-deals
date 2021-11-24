@@ -91,7 +91,7 @@ Public NotInheritable Class MainPage
 
         pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
         pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
-        pepeizq.Editor.pepeizqdeals.Free.Cargar()
+        pepeizq.Editor.pepeizqdeals.Gratis.Cargar()
         pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
         pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
         pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()

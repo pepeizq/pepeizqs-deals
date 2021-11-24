@@ -460,9 +460,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If panelMensajeUnJuego.Visibility = Visibility.Visible Then
                 Dim tbMensajeUnJuego As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+                Dim tbMensajeUnJuegoIngles As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+                Dim tbMensajeUnJuegoEspañol As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDealsEs")
 
                 If tbMensajeUnJuego.Text.Trim.Length > 0 Then
-                    listaTraducciones.Add(New Traduccion(tbMensajeUnJuego, tbMensajeUnJuego.Text, Traducciones.OfertasUnJuego(tbMensajeUnJuego.Text)))
+                    listaTraducciones.Add(New Traduccion(tbMensajeUnJuego, tbMensajeUnJuegoIngles.Text, tbMensajeUnJuegoEspañol.Text))
                 End If
             End If
 

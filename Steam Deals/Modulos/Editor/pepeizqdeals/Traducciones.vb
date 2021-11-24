@@ -6,6 +6,7 @@
             mensaje = mensaje.Replace("Discount Code", "Código Descuento")
             mensaje = mensaje.Replace("Price with Humble Choice", "Precio con Humble Choice")
             mensaje = mensaje.Replace("No regional restrictions", "No tiene restricciones regionales")
+            mensaje = mensaje.Replace("This game is in physical format, you will receive the box with the game", "Este juego está en formato físico, recibirás la caja con el juego")
 
             Return mensaje
 
@@ -32,6 +33,7 @@
         Public Function BundlesSeccion2(mensaje As String)
 
             mensaje = mensaje.Replace("And More Games", "Y Más Juegos")
+            mensaje = mensaje.Replace("And More Games to Choose", "Y Más Juegos Para Elegir")
 
             Return mensaje
 

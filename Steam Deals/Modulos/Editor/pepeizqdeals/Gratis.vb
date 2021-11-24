@@ -6,7 +6,7 @@ Imports Steam_Deals.pepeizq.Gratis
 Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Editor.pepeizqdeals
-    Module Free
+    Module Gratis
 
         Public Sub Cargar()
 
@@ -141,7 +141,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Next
 
                 ElseIf enlace.Contains("https://register.ubisoft.com/") Or enlace.Contains("https://www.ubisoft.com/") Then
-                    cosas = Await Uplay()
+                    cosas = Uplay()
 
                     tbImagenTienda.Text = "https://pepeizqdeals.com/wp-content/uploads/2020/12/ubiconnect.png"
 
@@ -504,7 +504,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return cosas
         End Function
 
-        Private Async Function Uplay() As Task(Of Clases.Free)
+        Private Function Uplay() As Clases.Free
 
             Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Ubisoft Connect")
 

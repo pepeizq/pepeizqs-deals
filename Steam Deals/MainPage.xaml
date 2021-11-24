@@ -602,7 +602,7 @@
                                                     </StackPanel>
                                                 </Grid>
 
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
+                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
 
                                                 <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
                                                     <TextBlock x:Name="tbEditorpepeizqdealsBundlesMasJuegos" Text="And More Games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>

@@ -343,6 +343,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
             tbPrecio.Text = precio
 
+            If tbPrecio.Text.Trim.Length > 0 Then
+                If tbPrecio.Text.Contains("Games") Then
+                    Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
+                    tbMasJuegos.Text = tbMasJuegos.Text.Replace("And More Games", "And More Games to Choose")
+                End If
+            End If
+
         End Sub
 
         Private Sub MostrarImagen(sender As Object, e As TextChangedEventArgs)
@@ -520,15 +527,18 @@ Namespace pepeizq.Editor.pepeizqdeals
             For Each juego In listaJuegos
                 juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
 
+                Dim imagenJuego As String = juego.Datos.Imagen
+                imagenJuego = imagenJuego.Replace("header.jpg", "library_600x900.jpg")
+
                 If i = 0 Then
                     tbJuegos.Text = juego.Datos.Titulo.Trim
-                    tbImagenesJuegos.Text = juego.Datos.Imagen
+                    tbImagenesJuegos.Text = imagenJuego
                 ElseIf i = (listaJuegos.Count - 1) Then
                     tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
-                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + juego.Datos.Imagen
+                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + imagenJuego
                 Else
                     tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
-                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + juego.Datos.Imagen
+                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + imagenJuego
                 End If
 
                 i += 1
