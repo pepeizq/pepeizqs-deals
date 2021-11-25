@@ -50,6 +50,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbMasJuegos.Unchecked, AddressOf MostrarMasJuegos
             AddHandler cbMasJuegos.Unchecked, AddressOf MostrarMasJuegos
 
+            Dim cbMasDLCs As CheckBox = pagina.FindName("cbEditorMasDLCspepeizqdealsBundles")
+            cbMasDLCs.IsChecked = False
+
+            RemoveHandler cbMasDLCs.Checked, AddressOf MostrarMasDLCs
+            AddHandler cbMasDLCs.Checked, AddressOf MostrarMasDLCs
+
+            RemoveHandler cbMasDLCs.Unchecked, AddressOf MostrarMasDLCs
+            AddHandler cbMasDLCs.Unchecked, AddressOf MostrarMasDLCs
+
             Dim tbImagenAncho As TextBox = pagina.FindName("tbEditorImagenAnchopepeizqdealsBundles")
             tbImagenAncho.Text = String.Empty
 
@@ -75,6 +84,12 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             RemoveHandler tbImagenesJuegos.TextChanged, AddressOf CambiarImagenesJuegos
             AddHandler tbImagenesJuegos.TextChanged, AddressOf CambiarImagenesJuegos
+
+            Dim tbImagenesDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
+            tbImagenesDLCs.Text = String.Empty
+
+            RemoveHandler tbImagenesDLCs.TextChanged, AddressOf CambiarImagenesDLCs
+            AddHandler tbImagenesDLCs.TextChanged, AddressOf CambiarImagenesDLCs
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(14)
@@ -347,6 +362,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If tbPrecio.Text.Contains("Games") Then
                     Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
                     tbMasJuegos.Text = tbMasJuegos.Text.Replace("And More Games", "And More Games to Choose")
+                ElseIf tbPrecio.Text.Contains("DLCs") Then
+                    Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
+                    tbMasJuegos.Text = tbMasJuegos.Text.Replace("And More DLCs", "And More DLCs to Choose")
                 End If
             End If
 
@@ -414,12 +432,14 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
+            Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
 
             Dim cb As CheckBox = sender
 
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
+                tbMasJuegos.Text = "And More Games"
 
                 If Not tbJuegos.Text = Nothing Then
                     If tbJuegos.Text.Contains(" and ") Then
@@ -433,6 +453,39 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not tbJuegos.Text = Nothing Then
                     tbJuegos.Text = tbJuegos.Text.Replace("and more games", Nothing)
+                    tbJuegos.Text = tbJuegos.Text.Trim
+                End If
+            End If
+
+        End Sub
+
+        Private Sub MostrarMasDLCs(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
+            Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+
+            Dim cb As CheckBox = sender
+
+            If cb.IsChecked = True Then
+                gridMasJuegos.Visibility = Visibility.Visible
+                tbMasJuegos.Text = "And More DLCs"
+
+                If Not tbJuegos.Text = Nothing Then
+                    If tbJuegos.Text.Contains(" and ") Then
+                        tbJuegos.Text = tbJuegos.Text.Replace(" and ", ", ")
+                    End If
+
+                    tbJuegos.Text = tbJuegos.Text + " and more DLCs"
+                End If
+            Else
+                gridMasJuegos.Visibility = Visibility.Collapsed
+
+                If Not tbJuegos.Text = Nothing Then
+                    tbJuegos.Text = tbJuegos.Text.Replace("and more DLCs", Nothing)
                     tbJuegos.Text = tbJuegos.Text.Trim
                 End If
             End If
@@ -475,6 +528,17 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+
+            If tbIDs.Text.Trim.Length > 0 Then
+                If tbIDs.Text.Contains(",") Then
+                    Dim int As Integer = tbIDs.Text.LastIndexOf(",")
+
+                    If int = tbIDs.Text.Length - 1 Then
+                        tbIDs.Text.Remove(int, 1)
+                    End If
+                End If
+            End If
+
             Dim textoIDs As String = tbIDs.Text.Trim
 
             Dim listaJuegos As New List(Of SteamAPIJson)
@@ -522,27 +586,55 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            Dim tbImagenesDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
 
             i = 0
+            Dim dlc As Integer = 0
             For Each juego In listaJuegos
                 juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
 
                 Dim imagenJuego As String = juego.Datos.Imagen
-                imagenJuego = imagenJuego.Replace("header.jpg", "library_600x900.jpg")
 
-                If i = 0 Then
-                    tbJuegos.Text = juego.Datos.Titulo.Trim
-                    tbImagenesJuegos.Text = imagenJuego
-                ElseIf i = (listaJuegos.Count - 1) Then
-                    tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
-                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + imagenJuego
+                If Not juego.Datos.Tipo = "dlc" Then
+                    imagenJuego = imagenJuego.Replace("header.jpg", "library_600x900.jpg")
+
+                    If tbImagenesJuegos.Text.Trim.Length = 0 Then
+                        tbImagenesJuegos.Text = imagenJuego
+                    Else
+                        tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + imagenJuego
+                    End If
                 Else
-                    tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
-                    tbImagenesJuegos.Text = tbImagenesJuegos.Text + "," + imagenJuego
+                    dlc = dlc + 1
+
+                    If tbImagenesDLCs.Text.Trim.Length = 0 Then
+                        tbImagenesDLCs.Text = imagenJuego
+                    Else
+                        tbImagenesDLCs.Text = tbImagenesDLCs.Text + "," + imagenJuego
+                    End If
+                End If
+
+                If Not juego.Datos.Tipo = "dlc" Then
+                    If i = 0 Then
+                        tbJuegos.Text = juego.Datos.Titulo.Trim
+                    ElseIf i = (listaJuegos.Count - 1) Then
+                        tbJuegos.Text = tbJuegos.Text + " and " + juego.Datos.Titulo.Trim
+                    Else
+                        tbJuegos.Text = tbJuegos.Text + ", " + juego.Datos.Titulo.Trim
+                    End If
                 End If
 
                 i += 1
             Next
+
+            If dlc > 0 Then
+                If tbJuegos.Text.Contains(" and ") Then
+                    Dim int As Integer = tbJuegos.Text.LastIndexOf(" and ")
+                    tbJuegos.Text = tbJuegos.Text.Remove(int, 4)
+                    tbJuegos.Text = tbJuegos.Text.Insert(int, ",")
+                End If
+
+                tbJuegos.Text = tbJuegos.Text + " and " + dlc.ToString + " DLCs"
+            End If
 
             BloquearControles(True)
 
@@ -558,6 +650,24 @@ Namespace pepeizq.Editor.pepeizqdeals
             tb.Text = tb.Text.Replace("steamdb.info/app/", Nothing)
             tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
             tb.Text = tb.Text.Replace("/", Nothing)
+
+            If tb.Text.Trim.Length > 0 Then
+                Dim ponerComa As Boolean = True
+
+                If tb.Text.Contains(",") Then
+                    Dim int As Integer = tb.Text.LastIndexOf(",")
+
+                    If int = tb.Text.Length - 1 Then
+                        ponerComa = False
+                    End If
+                End If
+
+                If ponerComa = True Then
+                    tb.Text = tb.Text + ","
+                End If
+            End If
+
+            tb.Select(tb.Text.Length, 0)
 
         End Sub
 
@@ -612,7 +722,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim imagenJuego As New ImageEx With {
                     .Stretch = Stretch.Uniform,
                     .IsCacheEnabled = True,
-                    .Source = juego
+                    .Source = juego,
+                    .MaxHeight = 400
                 }
 
                 gridContenido.Children.Add(imagenJuego)
@@ -621,6 +732,75 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 i += 1
             Next
+
+        End Sub
+
+        Private Sub CambiarImagenesDLCs(sender As Object, e As TextChangedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gv2 As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundlesDLCs")
+            gv2.Items.Clear()
+
+            Dim tbDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
+            Dim textoDLCs As String = tbDLCs.Text.Trim
+
+            Dim listaDLCs As New List(Of String)
+
+            Dim i As Integer = 0
+            While i < 100
+                If textoDLCs.Length > 0 Then
+                    If textoDLCs.Contains(",") Then
+                        Dim int As Integer = textoDLCs.IndexOf(",")
+                        listaDLCs.Add(textoDLCs.Remove(int, textoDLCs.Length - int))
+
+                        textoDLCs = textoDLCs.Remove(0, int + 1)
+                    Else
+                        listaDLCs.Add(textoDLCs)
+                        Exit While
+                    End If
+                End If
+                i += 1
+            End While
+
+            i = 0
+            For Each dlc In listaDLCs
+                Dim panel As New DropShadowPanel With {
+                    .BlurRadius = 10,
+                    .ShadowOpacity = 1,
+                    .Color = Windows.UI.Colors.Black,
+                    .Margin = New Thickness(15, 15, 15, 15),
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .VerticalAlignment = VerticalAlignment.Stretch
+                }
+
+                Dim colorFondo2 As New SolidColorBrush With {
+                    .Color = "#2e4460".ToColor
+                }
+
+                Dim gridContenido As New Grid With {
+                    .Background = colorFondo2
+                }
+
+                Dim imagenDLC As New ImageEx With {
+                    .Stretch = Stretch.Uniform,
+                    .IsCacheEnabled = True,
+                    .Source = dlc
+                }
+
+                gridContenido.Children.Add(imagenDLC)
+                panel.Content = gridContenido
+                gv2.Items.Add(panel)
+
+                i += 1
+            Next
+
+            If gv2.Items.Count > 0 Then
+                gv2.Visibility = Visibility.Visible
+            Else
+                gv2.Visibility = Visibility.Collapsed
+            End If
 
         End Sub
 
@@ -1068,6 +1248,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim cbMasJuegos As CheckBox = pagina.FindName("cbEditorMasJuegospepeizqdealsBundles")
             cbMasJuegos.IsEnabled = estado
 
+            Dim cbMasDLCs As CheckBox = pagina.FindName("cbEditorMasDLCspepeizqdealsBundles")
+            cbMasDLCs.IsEnabled = estado
+
             Dim tbImagenAncho As TextBox = pagina.FindName("tbEditorImagenAnchopepeizqdealsBundles")
             tbImagenAncho.IsEnabled = estado
 
@@ -1082,6 +1265,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
             tbImagenesJuegos.IsEnabled = estado
+
+            Dim tbImagenesDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
+            tbImagenesDLCs.IsEnabled = estado
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             fechaPicker.IsEnabled = estado

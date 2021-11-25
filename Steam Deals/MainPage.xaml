@@ -502,6 +502,7 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
                                     <CheckBox x:Name="cbEditorLogoTiendapepeizqdealsBundles" Content="Mostrar Logo Tienda" VerticalAlignment="Center"/>
                                     <CheckBox x:Name="cbEditorMasJuegospepeizqdealsBundles" Content="Mas Juegos" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                    <CheckBox x:Name="cbEditorMasDLCspepeizqdealsBundles" Content="Mas DLCs" VerticalAlignment="Center"/>
                                     <TextBlock Text="Ancho" Margin="20,0,5,0" VerticalAlignment="Center"/>
                                     <TextBox x:Name="tbEditorImagenAnchopepeizqdealsBundles" MaxWidth="100"/>
                                 </StackPanel>
@@ -527,6 +528,9 @@
 
                                 <TextBlock Text="Imagenes Juegos"/>
                                 <TextBox x:Name="tbEditorJuegosImagenespepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+
+                                <TextBlock Text="Imagenes DLCs"/>
+                                <TextBox x:Name="tbEditorDLCsImagenespepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <Grid HorizontalAlignment="Stretch" Margin="0,10,0,15">
                                     <Grid.ColumnDefinitions>
@@ -573,6 +577,7 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
 
                                                 <Grid Grid.Row="0">
@@ -604,7 +609,9 @@
 
                                                 <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
 
-                                                <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
+                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesDLCs" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10" Visibility="Collapsed"/>
+                                                
+                                                <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
                                                     <TextBlock x:Name="tbEditorpepeizqdealsBundlesMasJuegos" Text="And More Games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                 </Grid>
                                             </Grid>

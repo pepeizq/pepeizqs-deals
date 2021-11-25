@@ -602,6 +602,24 @@ Namespace pepeizq.Editor.pepeizqdeals
             tb.Text = tb.Text.Replace("?curator_clanid=33500256", Nothing)
             tb.Text = tb.Text.Replace("/", Nothing)
 
+            If tb.Text.Trim.Length > 0 Then
+                Dim ponerComa As Boolean = True
+
+                If tb.Text.Contains(",") Then
+                    Dim int As Integer = tb.Text.LastIndexOf(",")
+
+                    If int = tb.Text.Length - 1 Then
+                        ponerComa = False
+                    End If
+                End If
+
+                If ponerComa = True Then
+                    tb.Text = tb.Text + ","
+                End If
+            End If
+
+            tb.Select(tb.Text.Length, 0)
+
         End Sub
 
         Private Sub BloquearControles(estado As Boolean)

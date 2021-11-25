@@ -34,6 +34,8 @@
 
             mensaje = mensaje.Replace("And More Games", "Y Más Juegos")
             mensaje = mensaje.Replace("And More Games to Choose", "Y Más Juegos Para Elegir")
+            mensaje = mensaje.Replace("And More DLCs", "Y Más DLCs")
+            mensaje = mensaje.Replace("And More DLCs to Choose", "Y Más DLCs Para Elegir")
 
             Return mensaje
 
