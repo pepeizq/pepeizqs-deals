@@ -4,6 +4,7 @@
         Public Function OfertasUnJuego(mensaje As String)
 
             mensaje = mensaje.Replace("Discount Code", "Código Descuento")
+            mensaje = mensaje.Replace("Discount code", "Código descuento")
             mensaje = mensaje.Replace("Price with Humble Choice", "Precio con Humble Choice")
             mensaje = mensaje.Replace("No regional restrictions", "No tiene restricciones regionales")
             mensaje = mensaje.Replace("This game is in physical format, you will receive the box with the game", "Este juego está en formato físico, recibirás la caja con el juego")
@@ -17,6 +18,14 @@
             mensaje = mensaje.Replace("And Other Deal", "Y Otra Oferta")
             mensaje = mensaje.Replace("And Other", "Y Otras")
             mensaje = mensaje.Replace("Deals", "Ofertas")
+
+            Return mensaje
+
+        End Function
+
+        Public Function ErrorPrecio(mensaje As String)
+
+            mensaje = mensaje.Replace("Possible price error", "Posible error de precio")
 
             Return mensaje
 

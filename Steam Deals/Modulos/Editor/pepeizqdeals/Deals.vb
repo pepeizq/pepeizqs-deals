@@ -312,16 +312,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
             AddHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
 
-            Dim tbMensajeContenido As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
-            tbMensajeContenido.Text = String.Empty
+            Dim tbMensajeIngles As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            tbMensajeIngles.Text = String.Empty
 
-            If tbMensajeContenido.Visibility = Visibility.Visible Then
+            If tbMensajeIngles.Visibility = Visibility.Visible Then
                 If listaTotal.Count = 1 Then
                     For Each cupon In listaCupones
                         If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                             If Not cupon.Codigo Is Nothing Then
                                 If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
-                                    tbMensajeContenido.Text = "Discount code: " + cupon.Codigo
+                                    tbMensajeIngles.Text = "Discount code: " + cupon.Codigo
                                     ModificarMensaje()
                                 End If
                             End If
@@ -330,10 +330,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not tienda.MensajeUnJuego = Nothing Then
                         If tienda.MensajeUnJuego.Trim.Length > 0 Then
-                            If tbMensajeContenido.Text = String.Empty Then
-                                tbMensajeContenido.Text = tienda.MensajeUnJuego.Trim
+                            If tbMensajeIngles.Text = String.Empty Then
+                                tbMensajeIngles.Text = tienda.MensajeUnJuego.Trim
                             Else
-                                tbMensajeContenido.Text = tbMensajeContenido.Text + ". " + tienda.MensajeUnJuego.Trim
+                                tbMensajeIngles.Text = tbMensajeIngles.Text + ". " + tienda.MensajeUnJuego.Trim
                             End If
 
                             ModificarMensaje()
@@ -342,7 +342,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            AddHandler tbMensajeContenido.TextChanged, AddressOf ModificarMensaje
+            AddHandler tbMensajeIngles.TextChanged, AddressOf ModificarMensaje
 
             '----------------------------------------------------
 
@@ -475,6 +475,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If tbMensajeDosJuegos.Text.Trim.Length > 0 Then
                     listaTraducciones.Add(New Traduccion(tbMensajeDosJuegos, tbMensajeDosJuegos.Text, Traducciones.OfertasDosJuegos(tbMensajeDosJuegos.Text)))
+                End If
+            End If
+
+            Dim panelErrorPrecio As DropShadowPanel = pagina.FindName("panelMensajeErrorPreciov2")
+
+            If panelErrorPrecio.visibility = Visibility.Visible Then
+                Dim tbErrorPrecio As TextBlock = pagina.FindName("tbErrorPrecioEditorpepeizqdealsImagenEntrada")
+
+                If tbErrorPrecio.Text.Trim.Length > 0 Then
+                    listaTraducciones.Add(New Traduccion(tbErrorPrecio, tbErrorPrecio.Text, Traducciones.ErrorPrecio(tbErrorPrecio.Text)))
                 End If
             End If
 

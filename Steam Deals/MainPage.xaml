@@ -392,7 +392,7 @@
 
                                                             <controls:DropShadowPanel x:Name="panelMensajeErrorPreciov2" Color="Black" Margin="0,30,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
                                                                 <Grid Padding="15,10,15,15" Background="IndianRed">
-                                                                    <TextBlock Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                    <TextBlock x:Name="tbErrorPrecioEditorpepeizqdealsImagenEntrada" Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
