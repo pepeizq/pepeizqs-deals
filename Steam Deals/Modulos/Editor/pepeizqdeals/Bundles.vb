@@ -361,10 +361,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tbPrecio.Text.Trim.Length > 0 Then
                 If tbPrecio.Text.Contains("Games") Then
                     Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
-                    tbMasJuegos.Text = tbMasJuegos.Text.Replace("And More Games", "And More Games to Choose")
+                    tbMasJuegos.Text = "And More Games to Choose"
                 ElseIf tbPrecio.Text.Contains("DLCs") Then
                     Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
-                    tbMasJuegos.Text = tbMasJuegos.Text.Replace("And More DLCs", "And More DLCs to Choose")
+                    tbMasJuegos.Text = "And More DLCs to Choose"
                 End If
             End If
 
@@ -586,7 +586,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            tbImagenesJuegos.Text = String.Empty
+
             Dim tbImagenesDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
+            tbImagenesDLCs.Text = String.Empty
 
             i = 0
             Dim dlc As Integer = 0
