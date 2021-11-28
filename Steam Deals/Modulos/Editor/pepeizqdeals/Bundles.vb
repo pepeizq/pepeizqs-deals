@@ -431,6 +431,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
             Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
             Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
@@ -440,6 +441,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
                 tbMasJuegos.Text = "And More Games"
+
+                If tbPrecio.Text.Trim.Length > 0 Then
+                    If tbPrecio.Text.Contains("Games") Then
+                        tbMasJuegos.Text = "And More Games to Choose"
+                    End If
+                End If
 
                 If Not tbJuegos.Text = Nothing Then
                     If tbJuegos.Text.Contains(" and ") Then
@@ -464,6 +471,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
             Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
             Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
             Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
@@ -473,6 +481,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
                 tbMasJuegos.Text = "And More DLCs"
+
+                If tbPrecio.Text.Trim.Length > 0 Then
+                    If tbPrecio.Text.Contains("DLCs") Then
+                        tbMasJuegos.Text = "And More DLCs to Choose"
+                    End If
+                End If
 
                 If Not tbJuegos.Text = Nothing Then
                     If tbJuegos.Text.Contains(" and ") Then
