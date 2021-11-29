@@ -1155,7 +1155,7 @@ Module Tiendas
 
             If juego.DRM.ToLower.Contains("steam") Then
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_steam2.png"))
-            ElseIf juego.DRM.ToLower.Contains("uplay") Then
+            ElseIf juego.DRM.ToLower.Contains("uplay") Or juego.DRM.ToLower.Contains("ubisoft") Then
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_uplay2.png"))
             ElseIf juego.DRM.ToLower.Contains("origin") Then
                 imagenDRM.Source = New BitmapImage(New Uri("ms-appx:///Assets/DRMs/drm_origin2.png"))
