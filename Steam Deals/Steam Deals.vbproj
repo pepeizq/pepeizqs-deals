@@ -136,10 +136,11 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Bundles.vb" />
     <Compile Include="Modulos\CopiaSeguridad.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\Deals.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\DealsFormato.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\Ofertas.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\OfertasEntrada.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\DRM.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Gratis.vb" />
-    <Compile Include="Modulos\Editor\pepeizqdeals\DealsImagenEntrada.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\OfertasImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\LogosJuegos.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Posts.vb" />
     <Compile Include="Modulos\Editor\ImagenFichero.vb" />
@@ -215,8 +216,6 @@
     <Content Include="Assets\Banderas\pais_es.png" />
     <Content Include="Assets\DRMs\drm_battlenet2.png" />
     <Content Include="Assets\DRMs\drm_microsoft2.png" />
-    <Content Include="Assets\drm_battlenet.ico" />
-    <Content Include="Assets\drm_microsoft.png" />
     <Content Include="Assets\Fuentes\OpenSans-Bold.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-BoldItalic.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-ExtraBold.ttf" />
@@ -243,9 +242,6 @@
     <Content Include="Assets\DRMs\drm_origin2.png" />
     <Content Include="Assets\DRMs\drm_steam2.png" />
     <Content Include="Assets\DRMs\drm_uplay2.png" />
-    <Content Include="Assets\drm_bethesda.ico" />
-    <Content Include="Assets\drm_gog.ico" />
-    <Content Include="Assets\drm_origin.png" />
     <Content Include="Assets\LogosJuegos\ageofempires.png" />
     <Content Include="Assets\LogosJuegos\anno.png" />
     <Content Include="Assets\LogosJuegos\ark.png" />
@@ -464,8 +460,6 @@
     <Content Include="Assets\Tiendas\microsoft.ico" />
     <Content Include="Assets\Tiendas\nuuvem.ico" />
     <Content Include="Assets\Tiendas\steam.ico" />
-    <Content Include="Assets\drm_steam.png" />
-    <Content Include="Assets\drm_uplay.png" />
     <Content Include="Assets\Tiendas\ubi.png" />
     <Content Include="Assets\Tiendas\ubi2.png" />
     <Content Include="Assets\Tiendas\uplay.png" />

@@ -227,7 +227,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If Not cosas.Titulo = Nothing Then
-                tbTitulo.Text = Deals.LimpiarTitulo(cosas.Titulo)
+                tbTitulo.Text = Ofertas.LimpiarTitulo(cosas.Titulo)
             End If
 
             Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
@@ -274,7 +274,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim json As String = String.Empty
 
             If tbImagenesGrid.Text.Length > 0 Then
-                json = DealsFormato.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim.Replace("header", "library_600x900"))
+                json = OfertasEntrada.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim.Replace("header", "library_600x900"))
             End If
 
             'Traducciones----------------------

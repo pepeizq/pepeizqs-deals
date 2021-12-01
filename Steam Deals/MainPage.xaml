@@ -612,7 +612,7 @@
                                                 <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesDLCs" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10" Visibility="Collapsed"/>
                                                 
                                                 <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
-                                                    <TextBlock x:Name="tbEditorpepeizqdealsBundlesMasJuegos" Text="And More Games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                    <TextBlock x:Name="tbEditorpepeizqdealsBundlesMasJuegos" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>

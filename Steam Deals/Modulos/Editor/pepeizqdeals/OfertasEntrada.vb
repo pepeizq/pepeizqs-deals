@@ -1,5 +1,5 @@
 ﻿Namespace pepeizq.Editor.pepeizqdeals
-    Module DealsFormato
+    Module OfertasEntrada
 
         Public Function GenerarWeb(listaJuegos As List(Of Oferta), comentario As String, tienda As Tienda)
 
@@ -14,14 +14,7 @@
                 contenido = contenido + "[vc_column_text]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenido = contenido + "<tbody>" + Environment.NewLine
                 contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
-
-                If tienda.NombreUsar = "GamersGate" Or tienda.NombreUsar = "Voidu" Or tienda.NombreUsar = "AmazonCom" Or tienda.NombreUsar = "AmazonEs2" Or tienda.NombreUsar = "GreenManGaming" Or tienda.NombreUsar = "Yuplay" Or tienda.NombreUsar = "Origin" Or tienda.NombreUsar = "Direct2Drive" Or tienda.NombreUsar = "MicrosoftStore" Or tienda.NombreUsar = "Ubisoft" Or tienda.NombreUsar = "Allyouplay" Then
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 150px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                ElseIf tienda.NombreMostrar = "GOG" Then
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 200px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                Else
-                    contenido = contenido + "<td style=" + ChrW(34) + "width: 250px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
-                End If
+                contenido = contenido + "<td style=" + ChrW(34) + "width: " + tienda.AnchoImagenTabla + "px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
 
                 contenido = contenido + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=0 perpage=2000 showsearch=0]</td>" + Environment.NewLine
 
@@ -75,27 +68,11 @@
                     Dim drmFinal As String = Nothing
 
                     If Not juego.DRM = Nothing Then
-                        If juego.DRM.ToLower.Contains("steam") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_steam.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("origin") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_origin.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("uplay") Or juego.DRM.ToLower.Contains("ubisoft") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_uplay.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("gog") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/09/drm_gog.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_bethesda.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("epic") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/12/drm_epic.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("battle") Or juego.DRM.ToLower.Contains("blizzard") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2019/04/drm_battlenet.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        ElseIf juego.DRM.ToLower.Contains("microsoft") Then
-                            drmFinal = "<img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2019/04/drm_microsoft.jpg" + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
-                        End If
+                        drmFinal = DRM.Comprobar(juego.DRM)
                     End If
 
                     If Not drmFinal = Nothing Then
-                        drmFinal = "<br/>" + drmFinal
+                        drmFinal = "<br/><img src=" + ChrW(34) + drmFinal + ChrW(34) + " class=" + ChrW(34) + "imagen-drm2" + ChrW(34) + "/></td>"
                     End If
 
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + " class=" + ChrW(34) + "ofertaTitulo" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine

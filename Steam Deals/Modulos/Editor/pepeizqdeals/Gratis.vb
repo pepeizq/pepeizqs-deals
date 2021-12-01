@@ -153,7 +153,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If Not cosas Is Nothing Then
                     If Not cosas.Titulo = Nothing Then
                         tbTitulo.Text = cosas.Titulo + " • Free • " + cosas.Tienda
-                        tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
+                        tbTitulo.Text = Ofertas.LimpiarTitulo(tbTitulo.Text)
                     Else
                         If Not cosas.Tienda = Nothing Then
                             tbTitulo.Text = "-- • Free • " + cosas.Tienda
@@ -206,10 +206,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tiendaS = tiendaS.Trim
 
                     Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFreev2")
-                    tienda = New Tienda(tiendaS, tiendaS, Nothing, 0, Nothing, 0, Nothing, Nothing, Nothing, imagenTienda.Source, Nothing, Nothing)
+                    tienda = New Tienda(tiendaS, tiendaS, Nothing, 0, Nothing, 0, Nothing, Nothing, Nothing, imagenTienda.Source, Nothing, Nothing, Nothing)
 
                     Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
-                    json = DealsFormato.GenerarJsonGratis(imagenJuego.Source)
+                    json = OfertasEntrada.GenerarJsonGratis(imagenJuego.Source)
                 End If
             End If
 
@@ -301,9 +301,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                             .Background = colorFondo2
                         }
 
-                        If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
+                        If enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
                             enlace = enlace.Replace("header", "library_600x900")
-                        ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
+                        ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
                             enlace = enlace.Replace("header", "library_600x900")
                         End If
 
@@ -472,8 +472,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If Not html = Nothing Then
                     Dim stream As New StringReader(html)
-                    Dim xml As New XmlSerializer(GetType(Ofertas.GOGCatalogo))
-                    Dim listaJuegosGOG As Ofertas.GOGCatalogo = xml.Deserialize(stream)
+                    Dim xml As New XmlSerializer(GetType(pepeizq.Ofertas.GOGCatalogo))
+                    Dim listaJuegosGOG As pepeizq.Ofertas.GOGCatalogo = xml.Deserialize(stream)
 
                     If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
                         Exit While

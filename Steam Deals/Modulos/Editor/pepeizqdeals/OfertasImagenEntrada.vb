@@ -3,7 +3,7 @@ Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
-    Module DealsImagenEntrada
+    Module OfertasImagenEntrada
 
         Public Sub UnJuegoGenerar(enlaceImagenJuego As String, enlaceImagenFondo As String, juego As Oferta, precio As String, tienda As Tienda)
 
@@ -21,7 +21,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If enlaceImagenFondo.Trim.Length > 0 Then
-                If enlaceImagenFondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes) Then
+                If enlaceImagenFondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes1) Then
+                    imagenFondo.Opacity = 1
+                ElseIf enlaceImagenFondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes2) Then
                     imagenFondo.Opacity = 1
                 Else
                     imagenFondo.Opacity = 0.2
@@ -93,23 +95,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenDRMString As String = String.Empty
 
             If Not juego.DRM = Nothing Then
-                If juego.DRM.ToLower.Contains("steam") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_steam2.png"
-                ElseIf juego.DRM.ToLower.Contains("uplay") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_uplay2.png"
-                ElseIf juego.DRM.ToLower.Contains("origin") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_origin2.png"
-                ElseIf juego.DRM.ToLower.Contains("gog") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_gog2.png"
-                ElseIf juego.DRM.ToLower.Contains("bethesda") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_bethesda2.jpg"
-                ElseIf juego.DRM.ToLower.Contains("epic") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_epic2.jpg"
-                ElseIf juego.DRM.ToLower.Contains("battle") Or juego.DRM.ToLower.Contains("blizzard") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_battlenet2.png"
-                ElseIf juego.DRM.ToLower.Contains("microsoft") Then
-                    imagenDRMString = "ms-appx:///Assets/DRMs/drm_microsoft2.png"
-                End If
+                imagenDRMString = DRM.Comprobar(juego.DRM)
             End If
 
             If Not imagenDRMString = String.Empty Then
@@ -374,9 +360,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim tbJuegosRestantes As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
                 If juegosRestantes - limite = 1 Then
-                    tbJuegosRestantes.Text = "And Other Deal"
+                    tbJuegosRestantes.Text = "And other deal"
                 Else
-                    tbJuegosRestantes.Text = "And Other " + (juegosRestantes - limite).ToString + " Deals"
+                    tbJuegosRestantes.Text = "And other " + (juegosRestantes - limite).ToString + " deals"
                 End If
             Else
                 gridJuegosRestantes.Visibility = Visibility.Collapsed

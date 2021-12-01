@@ -216,10 +216,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     If Not cosas.Titulo = Nothing Then
                         tbTitulo.Text = cosas.Titulo + " • " + cosas.Precio + " • " + cosas.Tienda.NombreMostrar
-                        tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
+                        tbTitulo.Text = Ofertas.LimpiarTitulo(tbTitulo.Text)
                     Else
                         tbTitulo.Text = "--- • --- € • " + cosas.Tienda.NombreMostrar
-                        tbTitulo.Text = Deals.LimpiarTitulo(tbTitulo.Text)
+                        tbTitulo.Text = Ofertas.LimpiarTitulo(tbTitulo.Text)
                     End If
 
                     If Not cosas.Imagen = Nothing Then
@@ -301,9 +301,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             If Not tbImagenesJuegos.Text = String.Empty Then
                 If tbImagenesJuegos.Text.Trim.Length > 0 Then
                     If gridMasJuegos.Visibility = Visibility.Visible Then
-                        json = DealsFormato.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, True)
+                        json = OfertasEntrada.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, True)
                     Else
-                        json = DealsFormato.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, False)
+                        json = OfertasEntrada.GenerarJsonBundles(tbImagenesJuegos.Text.Trim, tbPrecio.Text.Trim, False)
                     End If
                 End If
             End If
@@ -361,10 +361,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             If tbPrecio.Text.Trim.Length > 0 Then
                 If tbPrecio.Text.Contains("Games") Then
                     Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
-                    tbMasJuegos.Text = "And More Games to Choose"
+                    tbMasJuegos.Text = "And more games to choose"
                 ElseIf tbPrecio.Text.Contains("DLCs") Then
                     Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
-                    tbMasJuegos.Text = "And More DLCs to Choose"
+                    tbMasJuegos.Text = "And more DLCs to choose"
                 End If
             End If
 
@@ -440,11 +440,11 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If cb.IsChecked = True Then
                 gridMasJuegos.Visibility = Visibility.Visible
-                tbMasJuegos.Text = "And More Games"
+                tbMasJuegos.Text = "And more games"
 
                 If tbPrecio.Text.Trim.Length > 0 Then
                     If tbPrecio.Text.Contains("Games") Then
-                        tbMasJuegos.Text = "And More Games to Choose"
+                        tbMasJuegos.Text = "And more games to choose"
                     End If
                 End If
 
@@ -608,7 +608,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             i = 0
             Dim dlc As Integer = 0
             For Each juego In listaJuegos
-                juego.Datos.Titulo = Deals.LimpiarTitulo(juego.Datos.Titulo)
+                juego.Datos.Titulo = Ofertas.LimpiarTitulo(juego.Datos.Titulo)
 
                 Dim imagenJuego As String = juego.Datos.Imagen
 
@@ -1014,7 +1014,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
                 html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":")
 
-                Dim juegosFanatical As List(Of Ofertas.FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of Ofertas.FanaticalJuego))(html)
+                Dim juegosFanatical As List(Of pepeizq.Ofertas.FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of pepeizq.Ofertas.FanaticalJuego))(html)
 
                 For Each juegoFanatical In juegosFanatical
                     Dim enlaceJuego As String = juegoFanatical.Enlace
@@ -1198,7 +1198,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 
             If Not html = Nothing Then
-                Dim listaJuegosWGS As List(Of Ofertas.WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of Ofertas.WinGameStoreJuego))(html)
+                Dim listaJuegosWGS As List(Of pepeizq.Ofertas.WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of pepeizq.Ofertas.WinGameStoreJuego))(html)
 
                 Dim id As String = enlace
                 id = id.Replace("https://www.wingamestore.com/product/", Nothing)

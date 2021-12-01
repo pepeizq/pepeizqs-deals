@@ -16,8 +16,11 @@
         Public Function OfertasDosJuegos(mensaje As String)
 
             mensaje = mensaje.Replace("And Other Deal", "Y Otra Oferta")
+            mensaje = mensaje.Replace("And other deal", "Y otra oferta")
             mensaje = mensaje.Replace("And Other", "Y Otras")
+            mensaje = mensaje.Replace("And other", "Y otras")
             mensaje = mensaje.Replace("Deals", "Ofertas")
+            mensaje = mensaje.Replace("deals", "ofertas")
 
             Return mensaje
 
@@ -42,9 +45,13 @@
         Public Function BundlesSeccion2(mensaje As String)
 
             mensaje = mensaje.Replace("And More Games to Choose", "Y Más Juegos Para Elegir")
+            mensaje = mensaje.Replace("And more games to choose", "Y más juegos para elegir")
             mensaje = mensaje.Replace("And More Games", "Y Más Juegos")
+            mensaje = mensaje.Replace("And more games", "Y más juegos")
             mensaje = mensaje.Replace("And More DLCs to Choose", "Y Más DLCs Para Elegir")
+            mensaje = mensaje.Replace("And more DLCs to choose", "Y más DLCs para elegir")
             mensaje = mensaje.Replace("And More DLCs", "Y Más DLCs")
+            mensaje = mensaje.Replace("And more DLCs", "Y más DLCs")
 
             Return mensaje
 

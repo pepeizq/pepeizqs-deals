@@ -61,7 +61,7 @@ Namespace pepeizq.Suscripciones
                     html = "[vc_row][vc_column width=" + ChrW(34) + "2/3" + ChrW(34) + " el_class=" + ChrW(34) + "columnaIzquierda" + ChrW(34) + "]"
 
                     For Each juego In listaJuegos
-                        If juego.Imagen.Contains(Ofertas.Steam.dominioImagenes) Then
+                        If juego.Imagen.Contains(Ofertas.Steam.dominioImagenes1) Or juego.Imagen.Contains(Ofertas.Steam.dominioImagenes2) Then
                             juego.Imagen.Replace("header.jpg", "library_600x900.jpg")
                         End If
 

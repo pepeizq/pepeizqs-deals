@@ -4,7 +4,8 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module Steam
 
-        Public dominioImagenes As String = "https://cdn.cloudflare.steamstatic.com"
+        Public dominioImagenes1 As String = "https://cdn.cloudflare.steamstatic.com"
+        Public dominioImagenes2 As String = "https://cdn.akamai.steamstatic.com"
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 

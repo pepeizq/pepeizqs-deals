@@ -105,18 +105,18 @@ Namespace pepeizq.Suscripciones
             Dim titulo As String = String.Empty
 
             If listaJuegos.Count = 1 Then
-                titulo = "Geforce NOW • New Game Supported • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
+                titulo = "Geforce NOW • New Game Supported • " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(0).Titulo)
             ElseIf listaJuegos.Count < 5 Then
                 titulo = "Geforce NOW • New Games Supported • "
 
                 Dim i As Integer = 0
                 While i < listaJuegos.Count
                     If i + 1 = listaJuegos.Count Then
-                        titulo = titulo + " and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        titulo = titulo + " and " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                     ElseIf i = 0 Then
-                        titulo = titulo + " " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        titulo = titulo + " " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                     Else
-                        titulo = titulo + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        titulo = titulo + ", " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                     End If
                     i += 1
                 End While

@@ -87,7 +87,7 @@ Namespace pepeizq.Suscripciones
             Dim titulo As String = String.Empty
 
             If listaJuegos.Count = 1 Then
-                titulo = "Prime Gaming • New Game Added • " + Deals.LimpiarTitulo(listaJuegos(0).Titulo)
+                titulo = "Prime Gaming • New Game Added • " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(0).Titulo)
             Else
                 titulo = "Prime Gaming • New Games Added • "
 
@@ -97,11 +97,11 @@ Namespace pepeizq.Suscripciones
                     Dim i As Integer = 0
                     While i < listaJuegos.Count
                         If i = 0 Then
-                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            tituloJuegos = tituloJuegos + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                         ElseIf i >= 1 Then
-                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            tituloJuegos = tituloJuegos + ", " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                         ElseIf (i + 1) = listaJuegos.Count Then
-                            tituloJuegos = tituloJuegos + "and " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            tituloJuegos = tituloJuegos + "and " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                         End If
                         i += 1
                     End While
@@ -109,9 +109,9 @@ Namespace pepeizq.Suscripciones
                     Dim i As Integer = 0
                     While i < listaJuegos.Count
                         If i = 0 Then
-                            tituloJuegos = tituloJuegos + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            tituloJuegos = tituloJuegos + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                         ElseIf i >= 1 And i <= 3 Then
-                            tituloJuegos = tituloJuegos + ", " + Deals.LimpiarTitulo(listaJuegos(i).Titulo)
+                            tituloJuegos = tituloJuegos + ", " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
                         Else
                             Exit While
                         End If

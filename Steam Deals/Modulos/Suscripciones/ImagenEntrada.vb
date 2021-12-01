@@ -28,9 +28,9 @@ Namespace pepeizq.Suscripciones
 
             Dim fondo As String = enlaceImagen
 
-            If fondo.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
+            If fondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
                 fondo = fondo.Replace("header", "page_bg_generated_v6b")
-            ElseIf fondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
+            ElseIf fondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
                 fondo = fondo.Replace("header", "page_bg_generated_v6b")
             End If
 
@@ -73,9 +73,9 @@ Namespace pepeizq.Suscripciones
                     .Background = colorFondo2
                 }
 
-                If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
+                If enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
                     enlace = enlace.Replace("header", "library_600x900")
-                ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
+                ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
                     enlace = enlace.Replace("header", "library_600x900")
                 End If
 
@@ -106,9 +106,9 @@ Namespace pepeizq.Suscripciones
             Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenUnaSuscripcion")
             imagenFondo.ImageSource = New BitmapImage(New Uri(enlace))
 
-            If enlace.Contains("cdn.akamai.steamstatic.com/steam/apps/") Then
+            If enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
                 imagenFondo.Opacity = 1
-            ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/") Then
+            ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
                 imagenFondo.Opacity = 1
             Else
                 imagenFondo.Opacity = 0.2

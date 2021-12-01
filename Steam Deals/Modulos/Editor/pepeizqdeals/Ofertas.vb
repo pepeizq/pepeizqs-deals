@@ -8,7 +8,7 @@ Imports Windows.Storage.Streams
 Imports Windows.System
 
 Namespace pepeizq.Editor.pepeizqdeals
-    Module Deals
+    Module Ofertas
 
         Public Async Sub GenerarDatos(listaTotal As List(Of Oferta), listaSeleccionados As List(Of Oferta), cantidadJuegos As String)
 
@@ -253,10 +253,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Dim int As Integer = id.IndexOf("/")
                             id = id.Remove(int, id.Length - int)
 
-                            Dim fondo As String = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + id + "/page_bg_generated_v6b.jpg"
+                            Dim fondo As String = pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/" + id + "/page_bg_generated_v6b.jpg"
                             tbImagenFondo.Text = fondo
 
-                            Dim imagen As String = pepeizq.Ofertas.Steam.dominioImagenes + "/steam/apps/" + id + "/header.jpg"
+                            Dim imagen As String = pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/" + id + "/header.jpg"
                             tbImagenJuego.Text = imagen
                         End If
                     End If
@@ -276,9 +276,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
 
-                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaTotal(0), precioFinal, tienda)
+                OfertasImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, listaTotal(0), precioFinal, tienda)
             Else
-                DealsImagenEntrada.DosJuegosGenerar(listaSeleccionados, listaTotal.Count, tienda)
+                OfertasImagenEntrada.DosJuegosGenerar(listaSeleccionados, listaTotal.Count, tienda)
             End If
 
             AddHandler tbImagenJuego.TextChanged, AddressOf CargarImagenEnlace
@@ -445,11 +445,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim oferta As Oferta = cosas.ListaJuegosTotal(0)
                     oferta.Imagenes.Grande = tbImagen.Text
 
-                    json = DealsFormato.GenerarJsonOfertas(New List(Of Oferta) From {oferta}, mensaje, cosas.Tienda)
+                    json = OfertasEntrada.GenerarJsonOfertas(New List(Of Oferta) From {oferta}, mensaje, cosas.Tienda)
                 ElseIf cosas.ListaJuegosTotal.Count > 1 Then
-                    html = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
-                    json = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosSeleccionados, mensaje, cosas.Tienda)
-                    jsonExpandido = DealsFormato.GenerarJsonOfertas(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
+                    html = OfertasEntrada.GenerarWeb(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
+                    json = OfertasEntrada.GenerarJsonOfertas(cosas.ListaJuegosSeleccionados, mensaje, cosas.Tienda)
+                    jsonExpandido = OfertasEntrada.GenerarJsonOfertas(cosas.ListaJuegosTotal, mensaje, cosas.Tienda)
                 End If
             End If
 
@@ -480,7 +480,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim panelErrorPrecio As DropShadowPanel = pagina.FindName("panelMensajeErrorPreciov2")
 
-            If panelErrorPrecio.visibility = Visibility.Visible Then
+            If panelErrorPrecio.Visibility = Visibility.Visible Then
                 Dim tbErrorPrecio As TextBlock = pagina.FindName("tbErrorPrecioEditorpepeizqdealsImagenEntrada")
 
                 If tbErrorPrecio.Text.Trim.Length > 0 Then
@@ -576,7 +576,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Next
 
             If Not tbImagenJuego.Text = String.Empty Then
-                If tbImagenJuego.Text.Contains(pepeizq.Ofertas.Steam.dominioImagenes) = True Then
+                If tbImagenJuego.Text.Contains(pepeizq.Ofertas.Steam.dominioImagenes1) = True Or tbImagenJuego.Text.Contains(pepeizq.Ofertas.Steam.dominioImagenes2) = True Then
                     Dim fondo As String = tbImagenJuego.Text
                     Dim int As Integer = fondo.LastIndexOf("/")
                     fondo = fondo.Remove(int, fondo.Length - int)
@@ -586,7 +586,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If tbImagenJuego.Text.Trim.Length > 0 Then
-                DealsImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegosTotal(0), precioFinal, tienda)
+                OfertasImagenEntrada.UnJuegoGenerar(tbImagenJuego.Text, tbImagenFondo.Text, cosas.ListaJuegosTotal(0), precioFinal, tienda)
             End If
 
         End Sub
@@ -602,7 +602,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbImagenFondo.Text.Trim.Length > 0 Then
                 Try
-                    If tbImagenFondo.Text.Trim.Contains(pepeizq.Ofertas.Steam.dominioImagenes) Then
+                    If tbImagenFondo.Text.Trim.Contains(pepeizq.Ofertas.Steam.dominioImagenes1) Then
+                        fondo.Opacity = 1
+                    ElseIf tbImagenFondo.Text.Trim.Contains(pepeizq.Ofertas.Steam.dominioImagenes2) Then
                         fondo.Opacity = 1
                     Else
                         fondo.Opacity = 0.2
@@ -654,7 +656,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim textoClipboard As String = String.Empty
 
             If cosas.ListaJuegosTotal.Count > 1 Then
-                textoClipboard = DealsFormato.GenerarWeb(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
+                textoClipboard = OfertasEntrada.GenerarWeb(cosas.ListaJuegosTotal, tbComentario.Text, cosas.Tienda)
             End If
 
             If Not textoClipboard = String.Empty Then
