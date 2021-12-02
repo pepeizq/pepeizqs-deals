@@ -76,8 +76,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
             tbIDs.Text = String.Empty
 
-            RemoveHandler tbIDs.TextChanged, AddressOf LimpiarTexto
-            AddHandler tbIDs.TextChanged, AddressOf LimpiarTexto
+            RemoveHandler tbIDs.TextChanged, AddressOf ComprobarIDs
+            AddHandler tbIDs.TextChanged, AddressOf ComprobarIDs
 
             Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
             tbImagenesJuegos.Text = String.Empty
@@ -657,7 +657,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Sub LimpiarTexto(sender As Object, e As TextChangedEventArgs)
+        Private Sub ComprobarIDs(sender As Object, e As TextChangedEventArgs)
 
             Dim tb As TextBox = sender
 
@@ -685,6 +685,35 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             tb.Select(tb.Text.Length, 0)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbContador As TextBlock = pagina.FindName("botonEditorSubirpepeizqdealsBundlesIDsTexto")
+            Dim textoIDs As String = tb.Text
+            Dim listaJuegos As New List(Of String)
+
+            Dim i As Integer = 0
+            While i < 100
+                If textoIDs.Length > 0 Then
+                    Dim clave As String = String.Empty
+
+                    If textoIDs.Contains(",") Then
+                        Dim int As Integer = textoIDs.IndexOf(",")
+                        clave = textoIDs.Remove(int, textoIDs.Length - int)
+
+                        textoIDs = textoIDs.Remove(0, int + 1)
+                    Else
+                        clave = textoIDs
+                    End If
+
+                    clave = clave.Trim
+                    listaJuegos.Add(clave)
+                End If
+                i += 1
+            End While
+
+            tbContador.Text = "Generar " + listaJuegos.Count.ToString + " IDs"
 
         End Sub
 

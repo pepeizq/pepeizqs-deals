@@ -347,7 +347,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function AñadirRedireccion(enlace As String)
+        Public Function AñadirRedireccion(enlace As String)
 
             enlace = "{" + ChrW(34) + "url" + ChrW(34) + ":" + ChrW(34) + enlace + ChrW(34) +
                      "," + ChrW(34) + "target" + ChrW(34) + ":" + ChrW(34) + "_blank" + ChrW(34) + "}"
@@ -356,7 +356,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function AñadirTituloImagen(html As String, titulo As String)
+        Public Function AñadirTituloImagen(html As String, titulo As String)
 
             html = html.Replace("class=" + ChrW(34) + "ajustarImagen" + ChrW(34), "class=" + ChrW(34) + "ajustarImagen" + ChrW(34) + " title=" + ChrW(34) + titulo + ChrW(34))
 
@@ -364,7 +364,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Function AñadirCompartir(titulo As String, enlace As String, imagen As String, idioma As String)
+        Public Function AñadirCompartir(titulo As String, enlace As String, imagen As String, idioma As String)
 
             titulo = titulo.Replace("%", "%25")
             titulo = titulo.Replace("•", "%E2%80%A2")

@@ -307,13 +307,17 @@ Module Ordenar
                     cbAnalisis.SelectedIndex = 0
 
                     Dim cbDesarrolladores As ComboBox = pagina.FindName("cbFiltradoEditorDesarrolladores")
+                    cbDesarrolladores.Items.Clear()
+                    cbDesarrolladores.Items.Add("--")
 
                     If listaDesarrolladores.Count > 0 Then
                         listaDesarrolladores.Sort()
 
                         For Each desarrollador In listaDesarrolladores
                             If Not desarrollador = Nothing Then
-                                cbDesarrolladores.Items.Add(desarrollador)
+                                If desarrollador.Trim.Length > 0 Then
+                                    cbDesarrolladores.Items.Add(desarrollador.Trim)
+                                End If
                             End If
                         Next
                     End If

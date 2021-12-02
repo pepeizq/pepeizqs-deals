@@ -1,6 +1,8 @@
 ﻿Imports System.Net
 Imports Newtonsoft.Json
+Imports Windows.Storage
 Imports Windows.UI.Core
+Imports WordPressPCL
 
 Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
     Module RSS
@@ -48,6 +50,18 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
                     .Orientation = Orientation.Horizontal,
                     .Margin = New Thickness(0, 0, 20, 0)
                 }
+
+                Dim botonDatos As New Button With {
+                    .Tag = post,
+                    .Content = "Datos",
+                    .Margin = New Thickness(20, 0, 0, 0)
+                }
+
+                AddHandler botonDatos.Click, AddressOf Datos
+                AddHandler botonDatos.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonDatos.PointerExited, AddressOf UsuarioSaleBoton
+
+                spBotones.Children.Add(botonDatos)
 
                 Dim botonTwitter As New Button With {
                     .Tag = post,
@@ -128,6 +142,58 @@ Namespace pepeizq.Editor.pepeizqdeals.RedesSociales
             Next
 
             botonActualizar.IsEnabled = True
+
+        End Sub
+
+        Private Async Sub Datos(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+            titulo = GenerarTitulo(titulo)
+
+            If Not post.Redireccion2 = Nothing Then
+                post.Redireccion2 = AñadirRedireccion("https://pepeizqdeals.com/" + post.Id.ToString + "/")
+            End If
+
+            post.ImagenIngles = AñadirTituloImagen(post.ImagenIngles, titulo)
+            post.ImagenEspañol = AñadirTituloImagen(post.ImagenEspañol, titulo)
+            post.CompartirIngles = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + post.Id.ToString + "/", post.ImagenPepeizqdealsIngles, "en")
+            post.CompartirEspañol = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + post.Id.ToString + "/", post.ImagenPepeizqdealsEspañol, "es")
+
+            If Not post.EntradaGrupoSteam = Nothing Then
+                Dim compartirIngles As String = post.CompartirIngles
+
+                If Not compartirIngles = String.Empty Then
+                    Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + post.EntradaGrupoSteam + ChrW(34) +
+                                         " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
+
+                    compartirIngles = compartirIngles.Insert(5, html)
+                    post.CompartirIngles = compartirIngles
+                End If
+
+                Dim compartirEspañol As String = post.CompartirEspañol
+
+                If Not compartirIngles = String.Empty Then
+                    Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + post.EntradaGrupoSteam + ChrW(34) +
+                                         " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
+
+                    compartirEspañol = compartirEspañol.Insert(5, html)
+                    post.CompartirEspañol = compartirEspañol
+                End If
+            End If
+
+            Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                .AuthMethod = Models.AuthMethod.JWT
+            }
+
+            Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+            If Await cliente.IsValidJWToken = True Then
+                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + post.Id.ToString, post)
+            End If
 
         End Sub
 
