@@ -95,7 +95,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenDRMString As String = String.Empty
 
             If Not juego.DRM = Nothing Then
-                imagenDRMString = DRM.Comprobar(juego.DRM)
+                imagenDRMString = DRM.ComprobarApp(juego.DRM)
             End If
 
             If Not imagenDRMString = String.Empty Then

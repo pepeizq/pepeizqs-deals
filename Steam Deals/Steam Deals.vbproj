@@ -176,7 +176,7 @@
     <Compile Include="Modulos\Suscripciones\EAPlay.vb" />
     <Compile Include="Modulos\Suscripciones\EAPlayPro.vb" />
     <Compile Include="Modulos\Suscripciones\PrimeGaming.vb" />
-    <Compile Include="Modulos\Suscripciones\ImagenEntrada.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\SuscripcionesImagenEntrada.vb" />
     <Compile Include="Modulos\Suscripciones\Xbox.vb" />
     <Compile Include="Modulos\Ofertas\2Game.vb" />
     <Compile Include="Modulos\Ofertas\AmazonCom.vb" />

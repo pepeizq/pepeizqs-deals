@@ -16,7 +16,7 @@ Module Tiendas
     Public gamersgateT As New Tienda("GamersGate", "GamersGate", "Assets/Tiendas/gamersgate.ico",
                                      1, Nothing, 7, "https://pepeizqdeals.com/wp-content/uploads/2021/05/tienda_gamersgate.png",
                                      "Assets/Tiendas/gamersgate2.png", "https://pepeizqdeals.com/wp-content/uploads/2021/05/gamersgate2.png",
-                                     "https://pepeizqdeals.com/wp-content/uploads/2021/05/gamersgate3.png", "29951", Nothing, "150")
+                                     "https://pepeizqdeals.com/wp-content/uploads/2021/05/gamersgate3.png", "29951", Nothing, "130")
 
     Public humbleT As New Tienda("Humble Store", "Humble", "Assets/Tiendas/humble.ico",
                                  2, Nothing, 6, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png",
@@ -1258,8 +1258,8 @@ Module Tiendas
         If Not juego.DRM = Nothing Then
             Dim imagenDRM As New ImageEx
 
-            If Not DRM.Comprobar(juego.DRM) = Nothing Then
-                imagenDRM.Source = New BitmapImage(New Uri(DRM.Comprobar(juego.DRM)))
+            If Not DRM.ComprobarApp(juego.DRM) = Nothing Then
+                imagenDRM.Source = New BitmapImage(New Uri(DRM.ComprobarApp(juego.DRM)))
             End If
 
             If Not imagenDRM.Source Is Nothing Then

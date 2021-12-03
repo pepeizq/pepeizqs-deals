@@ -364,7 +364,7 @@ Namespace pepeizq.Suscripciones
 
             If listaNuevos2.Count = 1 Then
                 titulo = "Xbox Game Pass • New Game Added • " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(0).Titulo)
-                ImagenEntrada.UnJuegoGenerar(listaNuevos2(0).Imagen)
+                SuscripcionesImagenEntrada.UnJuegoGenerar(listaNuevos2(0).Imagen)
             Else
                 titulo = "Xbox Game Pass • New Games Added • "
 
@@ -407,7 +407,7 @@ Namespace pepeizq.Suscripciones
                     listaImagenes.Add(nuevo.Imagen)
                 Next
 
-                ImagenEntrada.DosJuegosGenerar(listaImagenes)
+                SuscripcionesImagenEntrada.DosJuegosGenerar(listaImagenes)
             End If
 
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")

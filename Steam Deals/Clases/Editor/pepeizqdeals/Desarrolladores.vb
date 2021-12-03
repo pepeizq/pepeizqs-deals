@@ -1,13 +1,13 @@
 ﻿Namespace pepeizq.Editor.pepeizqdeals.Clases
     Public Class Desarrolladores
 
-        Public Property Publisher As String
+        Public Property Desarrollador As String
         Public Property Twitter As String
         Public Property Logo As String
         Public Property LogoAncho As Integer
 
-        Public Sub New(ByVal publisher As String, ByVal twitter As String, ByVal logo As String, ByVal logoAncho As Integer)
-            Me.Publisher = publisher
+        Public Sub New(desarrollador As String, twitter As String, logo As String, logoAncho As Integer)
+            Me.Desarrollador = desarrollador
             Me.Twitter = twitter
             Me.Logo = logo
             Me.LogoAncho = logoAncho

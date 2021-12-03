@@ -17,7 +17,7 @@
                         Dim añadir As Boolean = True
 
                         Dim nuevoTb As New TextBlock With {
-                            .Text = nuevoPublisher.Publisher.Trim,
+                            .Text = nuevoPublisher.Desarrollador.Trim,
                             .Tag = nuevoPublisher
                         }
 
@@ -31,7 +31,7 @@
 
                         If añadir = True Then
                             Dim dev As Clases.Desarrolladores = Buscar(Limpiar(nuevoTb.Text))
-                            nuevoTb.Text = dev.Publisher
+                            nuevoTb.Text = dev.Desarrollador
                             nuevoTb.Tag = dev
 
                             cb.Items.Add(nuevoTb)
@@ -82,7 +82,7 @@
                     Dim publisher2 As Clases.Desarrolladores = Nothing
 
                     For Each publisherLista In listaPublishers
-                        If Limpiar(publisherLista.Publisher) = Limpiar(publisher) Then
+                        If Limpiar(publisherLista.Desarrollador) = Limpiar(publisher) Then
                             publisher2 = publisherLista
                         End If
                     Next
@@ -90,13 +90,13 @@
                     If Not tbTitulo.Text = Nothing Then
                         If tbTitulo.Text.Contains("Sale") Then
                             If Not publisher2 Is Nothing Then
-                                If Not tbTitulo.Text.Contains(publisher2.Publisher) Then
+                                If Not tbTitulo.Text.Contains(publisher2.Desarrollador) Then
                                     If tbTitulo.Text.Contains("Sale") Then
                                         Dim int As Integer = tbTitulo.Text.IndexOf("Sale")
                                         tbTitulo.Text = tbTitulo.Text.Remove(0, int)
                                     End If
 
-                                    tbTitulo.Text = publisher2.Publisher + " " + tbTitulo.Text
+                                    tbTitulo.Text = publisher2.Desarrollador + " " + tbTitulo.Text
                                 End If
                             End If
                         End If
@@ -483,7 +483,7 @@
                 New Clases.Desarrolladores("Maximum Games", "@MaximumGames", "Assets\LogosPublishers\maximum.png", 220),
                 New Clases.Desarrolladores("Mechanical Boss", "@MechanicalBoss", Nothing, Nothing),
                 New Clases.Desarrolladores("Meridian4", "@Meridian4", Nothing, Nothing),
-                New Clases.Desarrolladores("Merge Games", "@MergeGamesLtd", "Assets\LogosPublishers\mergegames.png", 340),
+                New Clases.Desarrolladores("Merge Games", "@MergeGamesLtd", "Assets\LogosPublishers\mergegames.png", 220),
                 New Clases.Desarrolladores("messhof", "@messhof", Nothing, Nothing),
                 New Clases.Desarrolladores("Mi-Clos Studio", "@Mi_Clos", Nothing, Nothing),
                 New Clases.Desarrolladores("Microids", "@Microids_off", "Assets\LogosPublishers\microids.png", 350),
@@ -767,8 +767,8 @@
         Public Function Limpiar(publisher As String)
 
             Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd", "Bundle",
-                "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital",
-                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "Co.", "ENTERTAINMENT", "(EU)",
+                "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital", "Inc.",
+                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "Co.", "ENTERTAINMENT", "(EU)", "(US)",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                 "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
@@ -787,7 +787,7 @@
             Dim lista As List(Of Clases.Desarrolladores) = CargarLista()
 
             For Each dev In lista
-                If Limpiar(dev.Publisher) = Limpiar(desarrollador) Then
+                If Limpiar(dev.Desarrollador) = Limpiar(desarrollador) Then
                     Return dev
                 End If
             Next

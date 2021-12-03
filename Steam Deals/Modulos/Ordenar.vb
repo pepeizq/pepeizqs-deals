@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Windows.Storage
 
 Module Ordenar
@@ -316,7 +317,30 @@ Module Ordenar
                         For Each desarrollador In listaDesarrolladores
                             If Not desarrollador = Nothing Then
                                 If desarrollador.Trim.Length > 0 Then
-                                    cbDesarrolladores.Items.Add(desarrollador.Trim)
+                                    Dim desarrolladorFinal1 As Clases.Desarrolladores = Desarrolladores.Buscar(desarrollador.Trim)
+                                    Dim desarrolladorFinal2 As String = String.Empty
+
+                                    If Not desarrolladorFinal1 Is Nothing Then
+                                        desarrolladorFinal2 = desarrolladorFinal1.Desarrollador.Trim
+                                    End If
+
+                                    If desarrolladorFinal2 = Nothing Then
+                                        desarrolladorFinal2 = desarrollador.Trim
+                                    End If
+
+                                    Dim añadir As Boolean = True
+
+                                    If cbDesarrolladores.Items.Count > 0 Then
+                                        For Each desarrollador2 In cbDesarrolladores.Items
+                                            If desarrollador2 = desarrolladorFinal2 Then
+                                                añadir = False
+                                            End If
+                                        Next
+                                    End If
+
+                                    If añadir = True Then
+                                        cbDesarrolladores.Items.Add(desarrolladorFinal2)
+                                    End If
                                 End If
                             End If
                         Next

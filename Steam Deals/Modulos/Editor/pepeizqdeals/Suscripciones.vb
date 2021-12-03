@@ -373,9 +373,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If listaEnlaces.Count > 0 Then
                 If listaEnlaces.Count = 1 Then
-                    ImagenEntrada.UnJuegoGenerar(listaEnlaces(0))
+                    SuscripcionesImagenEntrada.UnJuegoGenerar(listaEnlaces(0))
                 Else
-                    ImagenEntrada.DosJuegosGenerar(listaEnlaces)
+                    SuscripcionesImagenEntrada.DosJuegosGenerar(listaEnlaces)
                 End If
             End If
 

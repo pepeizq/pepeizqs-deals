@@ -1,4 +1,5 @@
-﻿Imports Windows.Storage
+﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Windows.Storage
 
 Namespace pepeizq.Interfaz
     Module Filtrados
@@ -126,7 +127,7 @@ Namespace pepeizq.Interfaz
 
                                 If Not juego.Desarrolladores Is Nothing Then
                                     If juego.Desarrolladores.Desarrolladores.Count > 0 Then
-                                        If cbDesarrolladores.SelectedItem = juego.Desarrolladores.Desarrolladores(0) Then
+                                        If Desarrolladores.Limpiar(cbDesarrolladores.SelectedItem) = Desarrolladores.Limpiar(juego.Desarrolladores.Desarrolladores(0)) Then
                                             If Not juego.Descuento = String.Empty Then
                                                 Dim descuento As String = juego.Descuento
                                                 descuento = descuento.Replace("%", Nothing)

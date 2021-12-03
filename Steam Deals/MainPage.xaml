@@ -716,7 +716,7 @@
                                                         <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFreev2" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
 
-                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsGenerarImagenFreeDosJuegos" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,20,50" ItemHeight="275" Padding="0,10"/>
+                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsGenerarImagenFreeDosJuegos" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" ItemHeight="275" Padding="0,10"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>

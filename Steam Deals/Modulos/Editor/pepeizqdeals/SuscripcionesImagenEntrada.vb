@@ -1,8 +1,8 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 
-Namespace pepeizq.Suscripciones
-    Module ImagenEntrada
+Namespace pepeizq.Editor.pepeizqdeals
+    Module SuscripcionesImagenEntrada
 
         Public Sub UnJuegoGenerar(enlaceImagen As String)
 

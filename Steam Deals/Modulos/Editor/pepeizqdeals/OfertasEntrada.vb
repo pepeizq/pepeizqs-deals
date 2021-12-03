@@ -68,7 +68,7 @@
                     Dim drmFinal As String = Nothing
 
                     If Not juego.DRM = Nothing Then
-                        drmFinal = DRM.Comprobar(juego.DRM)
+                        drmFinal = DRM.ComprobarUrl(juego.DRM)
                     End If
 
                     If Not drmFinal = Nothing Then
