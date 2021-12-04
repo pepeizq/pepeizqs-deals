@@ -157,7 +157,7 @@ Namespace pepeizq.Ofertas
                                     End If
                                 End If
 
-                                juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
                                 listaJuegos.Add(juego)
                             End If
@@ -205,7 +205,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of GreenManGamingDesarrolladores))("listaDesarrolladoresGreenManGaming", listaDesarrolladores)
 
-            Ordenar.Ofertas(tienda, True, False)
+            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

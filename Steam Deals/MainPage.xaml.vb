@@ -83,7 +83,7 @@ Public NotInheritable Class MainPage
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         Configuracion.Iniciar()
-        Tiendas.Generar()
+        pepeizq.Interfaz.Tiendas.Generar()
         Divisas.Generar()
         CopiaSeguridad.Cargar()
 
@@ -164,7 +164,7 @@ Public NotInheritable Class MainPage
             gridOfertasTiendas.Visibility = Visibility.Visible
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-            Tiendas.IniciarTienda(tienda, True, False, False)
+            pepeizq.Interfaz.Tiendas.IniciarTienda(tienda, True, False, False)
         End If
 
     End Sub
@@ -177,7 +177,7 @@ Public NotInheritable Class MainPage
             If grid.Visibility = Visibility.Visible Then
                 Dim tienda As Tienda = grid.Tag
 
-                Tiendas.IniciarTienda(tienda, True, True, False)
+                pepeizq.Interfaz.Tiendas.IniciarTienda(tienda, True, True, False)
             End If
         Next
 
@@ -194,7 +194,7 @@ Public NotInheritable Class MainPage
                     pepeizq.Interfaz.Filtrados.Seleccion(itemGrid)
                 Next
 
-                Tiendas.SeñalarImportantes(lv)
+                pepeizq.Interfaz.Tiendas.SeñalarImportantes(lv)
             End If
         Next
 
@@ -214,7 +214,7 @@ Public NotInheritable Class MainPage
                     cb.IsChecked = False
                 Next
 
-                Tiendas.SeñalarImportantes(lv)
+                pepeizq.Interfaz.Tiendas.SeñalarImportantes(lv)
             End If
         Next
 

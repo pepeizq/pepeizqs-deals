@@ -764,22 +764,25 @@
             Return lista
         End Function
 
-        Public Function Limpiar(publisher As String)
+        Public Function Limpiar(desarrollador As String)
 
-            Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Ltd", "Bundle",
-                "S.L.", "LLC", "GAMES", "Inc", "Studio", "The", "LTD", "Software", "Game", "GmbH", "Softworks", "Digital", "Inc.",
-                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "Co.", "ENTERTAINMENT", "(EU)", "(US)",
+            Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Bundle",
+                "S.L.", "LLC", "GAMES", "Studio", "The", "Software", "Game", "GmbH", "Softworks", "Digital",
+                "Co.", "CO.,", "CO.", "International", "Inc", "Inc.", "INC.", "(PP)",
+                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "ENTERTAINMENT", "(EU)", "(US)",
+                "Foundry", "-Soft", "&#174", "SOFTWARE", "Ltd", "Ltd.", "LTD", "LTD.", "UK", "JP", "America", "Europe",
+                "U.S.A.,", "U.S.A,",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                 "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
             For Each item In listaCaracteres
-                publisher = publisher.Replace(item, Nothing)
+                desarrollador = desarrollador.Replace(item, Nothing)
             Next
 
-            publisher = publisher.ToLower
-            publisher = publisher.Trim
+            desarrollador = desarrollador.ToLower
+            desarrollador = desarrollador.Trim
 
-            Return publisher
+            Return desarrollador
         End Function
 
         Public Function Buscar(desarrollador As String)

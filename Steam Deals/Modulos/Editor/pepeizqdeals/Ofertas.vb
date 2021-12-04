@@ -80,7 +80,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
             tbComentario.Text = String.Empty
 
-            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
+            Dim listaTiendas As List(Of Tienda) = pepeizq.Interfaz.Tiendas.Listado
             Dim tienda As Tienda = Nothing
 
             For Each subtienda In listaTiendas
@@ -566,7 +566,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
             Dim precioFinal As String = tbEnlace.Tag
 
-            Dim listaTiendas As List(Of Tienda) = Steam_Deals.Tiendas.Listado
+            Dim listaTiendas As List(Of Tienda) = pepeizq.Interfaz.Tiendas.Listado
             Dim tienda As Tienda = Nothing
 
             For Each subtienda In listaTiendas

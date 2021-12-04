@@ -278,7 +278,7 @@ Namespace pepeizq.Ofertas
                                             listaAnalisis = Analisis.AñadirDesarrollador(juego.Enlace, juego.Desarrolladores.Desarrolladores(0), listaAnalisis)
                                         End If
 
-                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If
@@ -301,7 +301,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of SteamAPI))("listaSteamAPI", listaAPI)
             Await helper.SaveFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis", listaAnalisis)
 
-            Ordenar.Ofertas(tienda, True, False)
+            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

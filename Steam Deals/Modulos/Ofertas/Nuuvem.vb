@@ -195,7 +195,7 @@ Namespace pepeizq.Ofertas
 
                                     If tituloBool = False Then
                                         juego.Precio1 = CambioMoneda(juego.Precio1, dolar)
-                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If
@@ -228,7 +228,7 @@ Namespace pepeizq.Ofertas
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + Tienda.NombreUsar, listaJuegos)
 
-            Ordenar.Ofertas(Tienda, True, False)
+            pepeizq.Interfaz.Ordenar.Ofertas(Tienda, True, False)
 
         End Sub
 

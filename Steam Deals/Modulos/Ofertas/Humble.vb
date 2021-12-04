@@ -223,8 +223,8 @@ Namespace pepeizq.Ofertas
                                 juego.Precio2 = juego.Precio1
                             End If
 
-                            juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
-                            juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
+                            juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                            juego.Precio2 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio2)
 
                             listaJuegos.Add(juego)
                         End If
@@ -243,7 +243,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
 
-            Ordenar.Ofertas(tienda, True, False)
+            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

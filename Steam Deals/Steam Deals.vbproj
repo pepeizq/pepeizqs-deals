@@ -196,7 +196,7 @@
     <Compile Include="Modulos\Ofertas\GreenManGaming.vb" />
     <Compile Include="Modulos\Ofertas\Humble.vb" />
     <Compile Include="Modulos\Notificaciones.vb" />
-    <Compile Include="Modulos\Ordenar.vb" />
+    <Compile Include="Modulos\Interfaz\Ordenar.vb" />
     <Compile Include="Modulos\Ofertas\IndieGala.vb" />
     <Compile Include="Modulos\Ofertas\MicrosoftStore.vb" />
     <Compile Include="Modulos\Ofertas\Nuuvem.vb" />

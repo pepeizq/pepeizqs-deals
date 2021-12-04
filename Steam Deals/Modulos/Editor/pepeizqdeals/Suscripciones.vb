@@ -109,7 +109,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
 
-                cosas.Tienda = Tiendas.humbleT
+                cosas.Tienda = pepeizq.Interfaz.Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
                 cosas.Enlace = "https://www.humblebundle.com/subscription"
 
@@ -130,7 +130,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
 
-                cosas.Tienda = Tiendas.amazoncomT
+                cosas.Tienda = pepeizq.Interfaz.Tiendas.amazoncomT
                 cosas.Enlace = "https://gaming.amazon.com/"
                 cosas.Mensaje = "New Games Added"
 
@@ -146,7 +146,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2021/11/xboxgamepass.webp"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2021/11/xboxgamepass.webp"
 
-                cosas.Tienda = Tiendas.microsoftstoreT
+                cosas.Tienda = pepeizq.Interfaz.Tiendas.microsoftstoreT
                 cosas.Enlace = "https://pepeizqdeals.com/xbox-game-pass/"
                 cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
@@ -163,7 +163,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png"
 
-                cosas.Tienda = Tiendas.originT
+                cosas.Tienda = pepeizq.Interfaz.Tiendas.originT
                 cosas.Titulo = "EA Play • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
                 cosas.Enlace = "https://www.origin.com/store/ea-play"
@@ -180,7 +180,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplaypro.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplaypro.png"
 
-                cosas.Tienda = Tiendas.originT
+                cosas.Tienda = pepeizq.Interfaz.Tiendas.originT
                 cosas.Titulo = "EA Play Pro • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
                 cosas.Enlace = "https://www.origin.com/store/ea-play"
@@ -197,7 +197,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humbletrove.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humbletrove.png"
 
-                cosas.Tienda = Tiendas.humbleT
+                cosas.Tienda = pepeizq.Interfaz.Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
 
                 cosas.Titulo = "Humble Trove • New Games Added • " + cosas.Juegos

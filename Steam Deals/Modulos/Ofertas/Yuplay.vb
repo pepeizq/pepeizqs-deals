@@ -459,7 +459,7 @@ Namespace pepeizq.Ofertas
 
                                     If añadirJuegoLista = True Then
                                         juego.Precio1 = CambioMoneda(juego.Precio1, rublo)
-                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If
@@ -494,7 +494,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of YuplaySteam))("listaYuplaySteam", listaSteam)
             'Await helper.SaveFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay", listaIdiomas)
 
-            Ordenar.Ofertas(tienda, True, False)
+            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 
         End Function
 
