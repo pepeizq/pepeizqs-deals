@@ -28,9 +28,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim fondo As String = enlaceImagen
 
-            If fondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
-                fondo = fondo.Replace("header", "page_bg_generated_v6b")
-            ElseIf fondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
+            If pepeizq.Ofertas.Steam.CompararDominiosImagen(fondo) = True Then
                 fondo = fondo.Replace("header", "page_bg_generated_v6b")
             End If
 
@@ -73,9 +71,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     .Background = colorFondo2
                 }
 
-                If enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
-                    enlace = enlace.Replace("header", "library_600x900")
-                ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
+                If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlace) = True Then
                     enlace = enlace.Replace("header", "library_600x900")
                 End If
 
@@ -104,14 +100,24 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim enlace As String = tb.Text.Trim
 
             Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenUnaSuscripcion")
-            imagenFondo.ImageSource = New BitmapImage(New Uri(enlace))
+            Dim cambiar As Boolean = False
 
-            If enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
-                imagenFondo.Opacity = 1
-            ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
-                imagenFondo.Opacity = 1
+            If imagenFondo.ImageSource Is Nothing Then
+                cambiar = True
             Else
-                imagenFondo.Opacity = 0.2
+                If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlace) = True Then
+                    cambiar = True
+                End If
+            End If
+
+            If cambiar = True Then
+                imagenFondo.ImageSource = New BitmapImage(New Uri(enlace))
+
+                If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlace) = True Then
+                    imagenFondo.Opacity = 1
+                Else
+                    imagenFondo.Opacity = 0.2
+                End If
             End If
 
         End Sub

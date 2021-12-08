@@ -4,8 +4,10 @@ Imports Microsoft.Toolkit.Uwp.Helpers
 Namespace pepeizq.Ofertas
     Module Steam
 
-        Public dominioImagenes1 As String = "https://cdn.cloudflare.steamstatic.com"
-        Public dominioImagenes2 As String = "https://cdn.akamai.steamstatic.com"
+        Public listaDominiosImagenes As New List(Of String) From {
+            "https://cdn.cloudflare.steamstatic.com",
+            "https://cdn.akamai.steamstatic.com"
+        }
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
@@ -364,6 +366,18 @@ Namespace pepeizq.Ofertas
             numPaginas = numPaginas + 1
 
             Return numPaginas
+        End Function
+
+        Public Function CompararDominiosImagen(enlace As String)
+
+            For Each dominio In listaDominiosImagenes
+                If enlace.Contains(dominio + "/steam/apps/") Then
+                    Return True
+                End If
+            Next
+
+            Return False
+
         End Function
 
     End Module

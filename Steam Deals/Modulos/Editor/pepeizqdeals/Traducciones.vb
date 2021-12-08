@@ -77,7 +77,7 @@
 
             mensaje = mensaje.Replace("New Games Added", "Nuevos Juegos Añadidos")
 
-            'mensaje = mensaje.Replace("January", "Enero")
+            mensaje = mensaje.Replace("January", "Enero")
             mensaje = mensaje.Replace("February", "Febrero")
             mensaje = mensaje.Replace("March", "Marzo")
             mensaje = mensaje.Replace("April", "Abril")

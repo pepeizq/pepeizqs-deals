@@ -21,9 +21,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If enlaceImagenFondo.Trim.Length > 0 Then
-                If enlaceImagenFondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes1) Then
-                    imagenFondo.Opacity = 1
-                ElseIf enlaceImagenFondo.Contains(pepeizq.Ofertas.Steam.dominioImagenes2) Then
+                If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlaceImagenFondo) = True Then
                     imagenFondo.Opacity = 1
                 Else
                     imagenFondo.Opacity = 0.2
@@ -172,22 +170,6 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim listaFinal As New List(Of Oferta)
 
-            Dim tiendasHorizontal As New List(Of String) From {
-                "GamersGate", "Voidu", "AmazonCom", "AmazonEs2", "GreenManGaming", "MicrosoftStore", "Origin", "Direct2Drive", "Ubisoft", "Allyouplay"
-            }
-
-            Dim tiendasVertical As Integer = 0
-
-            For Each subtienda In tiendasHorizontal
-                If subtienda = juegos(0).TiendaNombreUsar Then
-                    tiendasVertical = 1
-                End If
-            Next
-
-            If juegos(0).TiendaNombreUsar = "Yuplay" Then
-                tiendasVertical = 2
-            End If
-
             Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
             AddHandler tbCabeceraImagenAncho.TextChanged, AddressOf ModificarCabeceraImagenAncho
 
@@ -232,9 +214,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                         .VerticalAlignment = VerticalAlignment.Stretch
                     }
 
-                    If tiendasVertical = 1 Then
+                    If tienda.TipoImagen = Tienda.FormatoImagen.Vertical Then
                         panel.Margin = New Thickness(35, 10, 35, 30)
-                    ElseIf tiendasVertical = 2 Then
+                    ElseIf tienda.TipoImagen = Tienda.FormatoImagen.Cuadrado Then
                         panel.Margin = New Thickness(65, 10, 65, 30)
                     Else
                         panel.Margin = New Thickness(20, 10, 20, 30)

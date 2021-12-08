@@ -206,7 +206,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tiendaS = tiendaS.Trim
 
                     Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenFreev2")
-                    tienda = New Tienda(tiendaS, tiendaS, Nothing, 0, Nothing, 0, Nothing, Nothing, Nothing, imagenTienda.Source, Nothing, Nothing, Nothing)
+                    tienda = New Tienda(tiendaS, tiendaS, Nothing, 0, Nothing, 0, Nothing, Nothing, Nothing, imagenTienda.Source, Nothing, Nothing, Nothing, Nothing)
 
                     Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenFreev2")
                     json = OfertasEntrada.GenerarJsonGratis(imagenJuego.Source)
@@ -301,9 +301,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                             .Background = colorFondo2
                         }
 
-                        If enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/") Then
-                            enlace = enlace.Replace("header", "library_600x900")
-                        ElseIf enlace.Contains(pepeizq.Ofertas.Steam.dominioImagenes2 + "/steam/apps/") Then
+                        If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlace) = True Then
                             enlace = enlace.Replace("header", "library_600x900")
                         End If
 

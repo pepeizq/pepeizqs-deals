@@ -253,10 +253,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                             Dim int As Integer = id.IndexOf("/")
                             id = id.Remove(int, id.Length - int)
 
-                            Dim fondo As String = pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/" + id + "/page_bg_generated_v6b.jpg"
+                            Dim fondo As String = pepeizq.Ofertas.Steam.listaDominiosImagenes(0) + "/steam/apps/" + id + "/page_bg_generated_v6b.jpg"
                             tbImagenFondo.Text = fondo
 
-                            Dim imagen As String = pepeizq.Ofertas.Steam.dominioImagenes1 + "/steam/apps/" + id + "/header.jpg"
+                            Dim imagen As String = pepeizq.Ofertas.Steam.listaDominiosImagenes(0) + "/steam/apps/" + id + "/header.jpg"
                             tbImagenJuego.Text = imagen
                         End If
                     End If
@@ -576,7 +576,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Next
 
             If Not tbImagenJuego.Text = String.Empty Then
-                If tbImagenJuego.Text.Contains(pepeizq.Ofertas.Steam.dominioImagenes1) = True Or tbImagenJuego.Text.Contains(pepeizq.Ofertas.Steam.dominioImagenes2) = True Then
+                If pepeizq.Ofertas.Steam.CompararDominiosImagen(tbImagenJuego.Text) = True Then
                     Dim fondo As String = tbImagenJuego.Text
                     Dim int As Integer = fondo.LastIndexOf("/")
                     fondo = fondo.Remove(int, fondo.Length - int)
@@ -602,9 +602,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbImagenFondo.Text.Trim.Length > 0 Then
                 Try
-                    If tbImagenFondo.Text.Trim.Contains(pepeizq.Ofertas.Steam.dominioImagenes1) Then
-                        fondo.Opacity = 1
-                    ElseIf tbImagenFondo.Text.Trim.Contains(pepeizq.Ofertas.Steam.dominioImagenes2) Then
+                    If pepeizq.Ofertas.Steam.CompararDominiosImagen(tbImagenFondo.Text.Trim) = True Then
                         fondo.Opacity = 1
                     Else
                         fondo.Opacity = 0.2
