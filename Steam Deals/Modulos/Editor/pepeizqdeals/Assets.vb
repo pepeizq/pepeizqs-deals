@@ -211,9 +211,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     sp.Background = New SolidColorBrush("#5b729a".ToColor)
                     titulo = "drm_battlenet"
                 ElseIf i = 7 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_microsoft.png"))
-                    sp.Background = New SolidColorBrush("#0177d7".ToColor)
-                    titulo = "drm_microsoft"
+                    'imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_microsoft.png"))
+                    'sp.Background = New SolidColorBrush("#0177d7".ToColor)
+                    'titulo = "drm_microsoft"
                 End If
 
                 sp.Children.Add(imagenIcono)
