@@ -358,7 +358,7 @@ Public NotInheritable Class MainPage
 
         pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosTiendas()
         pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosReviews()
-        pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosDRMs()
+        pepeizq.Editor.pepeizqdeals.DRM.GenerarAssets()
         pepeizq.Editor.pepeizqdeals.Assets.GenerarLogosRedditTiendas()
 
     End Sub

@@ -214,8 +214,22 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="Assets\Banderas\pais_es.png" />
+    <Content Include="Assets\DRMs\drm_battlenet.png" />
     <Content Include="Assets\DRMs\drm_battlenet2.png" />
+    <Content Include="Assets\DRMs\drm_bethesda.png" />
+    <Content Include="Assets\DRMs\drm_bethesda2.png" />
+    <Content Include="Assets\DRMs\drm_eaplay.png" />
+    <Content Include="Assets\DRMs\drm_eaplay2.png" />
+    <Content Include="Assets\DRMs\drm_epic.png" />
+    <Content Include="Assets\DRMs\drm_epic2.png" />
+    <Content Include="Assets\DRMs\drm_gog.png" />
+    <Content Include="Assets\DRMs\drm_microsoft.png" />
     <Content Include="Assets\DRMs\drm_microsoft2.png" />
+    <Content Include="Assets\DRMs\drm_rockstar.png" />
+    <Content Include="Assets\DRMs\drm_rockstar2.png" />
+    <Content Include="Assets\DRMs\drm_steam.png" />
+    <Content Include="Assets\DRMs\drm_ubi.png" />
+    <Content Include="Assets\DRMs\drm_ubi2.png" />
     <Content Include="Assets\Fuentes\OpenSans-Bold.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-BoldItalic.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-ExtraBold.ttf" />
@@ -236,12 +250,8 @@
     <Content Include="Assets\Analisis\mixed2.png" />
     <Content Include="Assets\Analisis\negative2.png" />
     <Content Include="Assets\Analisis\positive2.png" />
-    <Content Include="Assets\DRMs\drm_bethesda2.jpg" />
-    <Content Include="Assets\DRMs\drm_epic2.jpg" />
     <Content Include="Assets\DRMs\drm_gog2.png" />
-    <Content Include="Assets\DRMs\drm_origin2.png" />
     <Content Include="Assets\DRMs\drm_steam2.png" />
-    <Content Include="Assets\DRMs\drm_uplay2.png" />
     <Content Include="Assets\LogosJuegos\ageofempires.png" />
     <Content Include="Assets\LogosJuegos\anno.png" />
     <Content Include="Assets\LogosJuegos\ark.png" />

@@ -10,7 +10,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         Public Function ListaTiendas()
             Dim lista As New List(Of Clases.Assets) From {
-                New Clases.Assets("Steam", "Assets/drm_steam.png", "Assets/Tiendas/steam2.png", "#2e4460", "#2e4460", Nothing, 32, 32),
+                New Clases.Assets("Steam", "Assets/Tiendas/steam.ico", "Assets/Tiendas/steam2.png", "#2e4460", "#2e4460", Nothing, 32, 32),
                 New Clases.Assets("Humble", "Assets/Tiendas/humble.ico", "Assets/Tiendas/humble2.png", "#ea9192", "#cb2729", Nothing, 32, 32),
                 New Clases.Assets("GamersGate", "Assets/Tiendas/gamersgate.ico", "Assets/Tiendas/gamersgate2.png", "#232A3E", "#232A3E", Nothing, 32, 32),
                 New Clases.Assets("Gamesplanet", "Assets/Tiendas/gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", "#000", "#000", Nothing, 32, 32),
@@ -27,7 +27,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Clases.Assets("GreenManGaming", "Assets/Tiendas/gmg.ico", "Assets/Tiendas/gmg2.png", "#97ff9a", "#016603", Nothing, 32, 32),
                 New Clases.Assets("EpicGamesStore", "Assets/Tiendas/epicgames.ico", "Assets/Tiendas/epicgames2.png", "#E7E7E7", "#363636", Nothing, 32, 32),
                 New Clases.Assets("Yuplay", "Assets/Tiendas/yuplay.ico", "Assets/Tiendas/yuplay2.png", "#fff0c4", "#8f7e0b", Nothing, 32, 32),
-                New Clases.Assets("Origin", "Assets/drm_origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32),
+                New Clases.Assets("Origin", "Assets/Tiendas/origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32),
                 New Clases.Assets("GameBillet", "Assets/Tiendas/gamebillet.ico", "Assets/Tiendas/gamebillet2.png", "#f8af91", "#f15f22", Nothing, 32, 32),
                 New Clases.Assets("2Game", "Assets/Tiendas/2game.png", "Assets/Tiendas/2game2.png", "#bdafd5", "#34274a", Nothing, 32, 32),
                 New Clases.Assets("BattlenetStore", "Assets/Tiendas/battlenet.png", "Assets/Tiendas/battlenet2.png", "#0e86ca", "#0e86ca", Nothing, 32, 32),
@@ -138,82 +138,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
                     sp.Background = New SolidColorBrush("#835144".ToColor)
                     titulo = "review_negative"
-                End If
-
-                sp.Children.Add(imagenIcono)
-
-                Dim boton As New Button With {
-                    .BorderThickness = New Thickness(0, 0, 0, 0),
-                    .Background = New SolidColorBrush(Colors.Transparent)
-                }
-
-                boton.Content = sp
-                boton.Tag = New Clases.Assets(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
-
-                AddHandler boton.Click, AddressOf GenerarFicheroImagen
-
-                gv.Items.Add(boton)
-
-                i += 1
-            End While
-
-        End Sub
-
-        Public Sub GenerarIconosDRMs()
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosDRMs")
-
-            Dim i As Integer = 0
-            While i < 8
-                Dim imagenIcono As New ImageEx With {
-                    .Width = 16,
-                    .Height = 16,
-                    .IsCacheEnabled = True,
-                    .VerticalAlignment = VerticalAlignment.Center
-                }
-
-                Dim sp As New StackPanel With {
-                    .Padding = New Thickness(8, 8, 8, 8),
-                    .Orientation = Orientation.Horizontal
-                }
-
-                Dim titulo As String = Nothing
-
-                If i = 0 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_steam.png"))
-                    sp.Background = New SolidColorBrush("#a6a6a6".ToColor)
-                    titulo = "drm_steam"
-                ElseIf i = 1 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_origin.png"))
-                    sp.Background = New SolidColorBrush("#ffc680".ToColor)
-                    titulo = "drm_origin"
-                ElseIf i = 2 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_uplay.png"))
-                    sp.Background = New SolidColorBrush("#2088e3".ToColor)
-                    titulo = "drm_uplay"
-                ElseIf i = 3 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_gog.ico"))
-                    sp.Background = New SolidColorBrush("#DA8BF0".ToColor)
-                    titulo = "drm_gog"
-                ElseIf i = 4 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_bethesda.ico"))
-                    sp.Background = New SolidColorBrush("#ededed".ToColor)
-                    titulo = "drm_bethesda"
-                ElseIf i = 5 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/Tiendas/epicgames.ico"))
-                    sp.Background = New SolidColorBrush("#E7E7E7".ToColor)
-                    titulo = "drm_epic"
-                ElseIf i = 6 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_battlenet.ico"))
-                    sp.Background = New SolidColorBrush("#5b729a".ToColor)
-                    titulo = "drm_battlenet"
-                ElseIf i = 7 Then
-                    'imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/drm_microsoft.png"))
-                    'sp.Background = New SolidColorBrush("#0177d7".ToColor)
-                    'titulo = "drm_microsoft"
                 End If
 
                 sp.Children.Add(imagenIcono)
@@ -382,7 +306,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
+        Public Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
             Dim cosas As Clases.Assets = boton.Tag

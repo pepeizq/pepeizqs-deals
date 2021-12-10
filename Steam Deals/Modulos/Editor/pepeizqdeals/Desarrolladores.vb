@@ -766,12 +766,15 @@
 
         Public Function Limpiar(desarrollador As String)
 
-            Dim listaCaracteres As New List(Of String) From {"Games", "Entertainment", "Productions", "Studios", "Bundle",
-                "S.L.", "LLC", "GAMES", "Studio", "The", "Software", "Game", "GmbH", "Softworks", "Digital",
-                "Co.", "CO.,", "CO.", "International", "Inc", "Inc.", "INC.", "(PP)",
-                "Interactive", "Developments", "Publishing", "studios", "Media", "Online", "ENTERTAINMENT", "(EU)", "(US)",
-                "Foundry", "-Soft", "&#174", "SOFTWARE", "Ltd", "Ltd.", "LTD", "LTD.", "UK", "JP", "America", "Europe",
-                "U.S.A.,", "U.S.A,",
+            desarrollador = desarrollador.ToLower
+
+            Dim listaCaracteres As New List(Of String) From {"games", "game",
+                "entertainment", "productions", "studios", "studio", "bundle",
+                "s.l.", "llc", "the", "software", "gmbh", "softworks", "digital",
+                "co.", "co.,", "inc", "inc.", "ltd", "ltd.",
+                "interactive", "developments", "publishing", "media", "online",
+                "foundry", "-soft", "&#174", "(pp)", "international",
+                "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)",
                 " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                 "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
@@ -779,7 +782,6 @@
                 desarrollador = desarrollador.Replace(item, Nothing)
             Next
 
-            desarrollador = desarrollador.ToLower
             desarrollador = desarrollador.Trim
 
             Return desarrollador

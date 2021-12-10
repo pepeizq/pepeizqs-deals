@@ -163,6 +163,20 @@ Namespace pepeizq.Ofertas
                                 k += 1
                             End While
 
+                            If Not cuponPorcentaje = String.Empty Then
+                                Dim descuentoTemp As String = descuento
+                                If descuentoTemp.Length = 1 Then
+                                    descuentoTemp = "0,0" + descuentoTemp
+                                Else
+                                    descuentoTemp = "0," + descuentoTemp
+                                End If
+                                descuentoTemp = descuentoTemp.Replace("%", Nothing)
+
+                                If descuentoTemp = cuponPorcentaje Then
+                                    añadir = False
+                                End If
+                            End If
+
                             If añadir = True Then
                                 If Not ana Is Nothing Then
                                     If Not ana.Publisher = Nothing Then

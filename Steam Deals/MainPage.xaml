@@ -421,8 +421,8 @@
                                                                     </Grid.ColumnDefinitions>
 
                                                                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0">
-                                                                        <controls:ImageEx x:Name="imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuegov2" IsCacheEnabled="True" Stretch="None"/>
-                                                                        <controls:ImageEx x:Name="imagenDRMEditorpepeizqdealsImagenEntradaUnJuegov2" IsCacheEnabled="True" Stretch="None"/>
+                                                                        <controls:ImageEx x:Name="imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuegov2" IsCacheEnabled="True" Stretch="UniformToFill" MaxHeight="32" MaxWidth="32"/>
+                                                                        <controls:ImageEx x:Name="imagenDRMEditorpepeizqdealsImagenEntradaUnJuegov2" IsCacheEnabled="True" Stretch="UniformToFill" MaxHeight="32" MaxWidth="32"/>
                                                                     </StackPanel>
 
                                                                     <Grid x:Name="gridDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2" Grid.Column="2" Background="ForestGreen" VerticalAlignment="Stretch">
