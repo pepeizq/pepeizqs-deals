@@ -5,6 +5,7 @@ Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Windows.Storage
 Imports Windows.UI
 Imports Windows.UI.Core
+Imports ColorHelper = Microsoft.Toolkit.Uwp.Helpers.ColorHelper
 
 Namespace pepeizq.Interfaz
     Module Tiendas
@@ -364,7 +365,7 @@ Namespace pepeizq.Interfaz
                     End If
 
                     For Each juego In listaJuegos
-                        lvTienda.Items.Add(AñadirOfertaListado(lvTienda, juego, enseñarImagen))
+                        lvTienda.Items.Add(AñadirOfertaListado(juego, enseñarImagen))
                     Next
 
                     Tiendas.SeñalarImportantes(lvTienda)
@@ -1162,7 +1163,14 @@ Namespace pepeizq.Interfaz
 
         End Sub
 
-        Public Function AñadirOfertaListado(lv As ListView, juego As Oferta, enseñarImagen As Boolean)
+        Public Function AñadirOfertaListado(juego As Oferta, enseñarImagen As Boolean)
+
+            Dim colorFuente As String = "#000f18"
+
+            Dim escalaCB As New ScaleTransform With {
+                .ScaleX = 1.2,
+                .ScaleY = 1.2
+            }
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -1171,31 +1179,32 @@ Namespace pepeizq.Interfaz
 
             Dim grid As New Grid With {
                 .Tag = juego,
-                .Padding = New Thickness(10, 3, 10, 3)
+                .Padding = New Thickness(10, 10, 10, 10),
+                .Margin = New Thickness(5, 5, 5, 5)
             }
 
-            Dim color1 As New GradientStop With {
-                .Color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor("#e0e0e0"),
-                .Offset = 0.5
-            }
+            'Dim color1 As New GradientStop With {
+            '    .Color = ColorHelper.ToColor("#e0e0e0"),
+            '    .Offset = 0.5
+            '}
 
-            Dim color2 As New GradientStop With {
-                .Color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor("#d6d6d6"),
-                .Offset = 1.0
-            }
+            'Dim color2 As New GradientStop With {
+            '    .Color = ColorHelper.ToColor("#d6d6d6"),
+            '    .Offset = 1.0
+            '}
 
-            Dim coleccion As New GradientStopCollection From {
-                color1,
-                color2
-            }
+            'Dim coleccion As New GradientStopCollection From {
+            '    color1,
+            '    color1
+            '}
 
-            Dim brush As New LinearGradientBrush With {
-                .StartPoint = New Point(0.5, 0),
-                .EndPoint = New Point(0.5, 1),
-                .GradientStops = coleccion
-            }
+            'Dim brush As New LinearGradientBrush With {
+            '    .StartPoint = New Point(0.5, 0),
+            '    .EndPoint = New Point(0.5, 1),
+            '    .GradientStops = coleccion
+            '}
 
-            grid.Background = brush
+            grid.Background = New SolidColorBrush(ColorHelper.ToColor("#a8bfcc"))
 
             Dim col1 As New ColumnDefinition
             Dim col2 As New ColumnDefinition
@@ -1219,7 +1228,9 @@ Namespace pepeizq.Interfaz
                 .Margin = New Thickness(10, 0, 10, 0),
                 .Tag = grid,
                 .MinWidth = 20,
-                .IsHitTestVisible = False
+                .IsHitTestVisible = False,
+                .RenderTransformOrigin = New Point(0.5, 0.5),
+                .RenderTransform = escalaCB
             }
 
             AddHandler cb.Checked, AddressOf CbChecked
@@ -1239,14 +1250,14 @@ Namespace pepeizq.Interfaz
                         Dim borde As New Border With {
                             .BorderBrush = New SolidColorBrush(App.Current.Resources("ColorSecundario")),
                             .BorderThickness = New Thickness(1, 1, 1, 1),
-                            .Margin = New Thickness(2, 2, 10, 2)
+                            .Margin = New Thickness(2, 2, 15, 2)
                         }
 
                         Dim imagen As New ImageEx With {
                             .Stretch = Stretch.Uniform,
                             .IsCacheEnabled = True,
-                            .MaxHeight = 160,
-                            .MaxWidth = 200,
+                            .MaxHeight = 170,
+                            .MaxWidth = 220,
                             .EnableLazyLoading = True
                         }
 
@@ -1265,15 +1276,17 @@ Namespace pepeizq.Interfaz
 
             Dim sp2 As New StackPanel With {
                 .Orientation = Orientation.Vertical,
-                .VerticalAlignment = VerticalAlignment.Center
+                .VerticalAlignment = VerticalAlignment.Center,
+                .Padding = New Thickness(10, 10, 10, 10)
             }
 
             Dim tbTitulo As New TextBlock With {
                 .Text = juego.Titulo,
                 .VerticalAlignment = VerticalAlignment.Center,
                 .TextWrapping = TextWrapping.Wrap,
-                .Margin = New Thickness(0, 5, 0, 5),
-                .Foreground = New SolidColorBrush(Colors.Black)
+                .Margin = New Thickness(0, 0, 0, 10),
+                .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                .FontSize = 15
             }
 
             sp2.Children.Add(tbTitulo)
@@ -1281,6 +1294,61 @@ Namespace pepeizq.Interfaz
             Dim sp3 As New StackPanel With {
                 .Orientation = Orientation.Horizontal
             }
+
+            '-----------------------------------------------
+
+            If Not juego.Descuento = Nothing Then
+                Dim fondoDescuento As New Grid With {
+                    .Padding = New Thickness(8, 0, 8, 0),
+                    .Height = 34,
+                    .MinWidth = 40,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Background = New SolidColorBrush(Colors.ForestGreen)
+                }
+
+                Dim textoDescuento As New TextBlock With {
+                    .Text = juego.Descuento,
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .FontSize = 15
+                }
+
+                fondoDescuento.Children.Add(textoDescuento)
+                sp3.Children.Add(fondoDescuento)
+            End If
+
+            Dim fondoPrecio As New Grid With {
+                .Background = New SolidColorBrush(Colors.Black),
+                .Padding = New Thickness(7, 0, 7, 0),
+                .Height = 34,
+                .MinWidth = 60,
+                .HorizontalAlignment = HorizontalAlignment.Center,
+                .Margin = New Thickness(0, 0, 20, 0)
+            }
+
+            Dim precio As String = juego.Precio1
+
+            If Not precio = String.Empty Then
+                If precio.Contains("€") Then
+                    precio = precio.Replace("€", Nothing)
+                    precio = precio.Replace(".", ",")
+                    precio = precio.Trim
+                    precio = precio + " €"
+                End If
+
+                Dim textoPrecio As New TextBlock With {
+                    .Text = precio,
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .HorizontalAlignment = HorizontalAlignment.Center,
+                    .Foreground = New SolidColorBrush(Colors.White),
+                    .FontSize = 15
+                }
+
+                fondoPrecio.Children.Add(textoPrecio)
+                sp3.Children.Add(fondoPrecio)
+            End If
+
+            '-----------------------------------------------
 
             If Not juego.DRM = Nothing Then
                 Dim imagenDRM As New ImageEx
@@ -1293,7 +1361,7 @@ Namespace pepeizq.Interfaz
                     imagenDRM.Width = 32
                     imagenDRM.Height = 32
                     imagenDRM.IsCacheEnabled = True
-                    imagenDRM.Margin = New Thickness(0, 0, 15, 0)
+                    imagenDRM.Margin = New Thickness(0, 0, 20, 0)
 
                     sp3.Children.Add(imagenDRM)
                 End If
@@ -1302,9 +1370,8 @@ Namespace pepeizq.Interfaz
             If Not juego.Analisis Is Nothing Then
                 Dim fondoAnalisis As New StackPanel With {
                     .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
+                    .Padding = New Thickness(6, 2, 6, 2),
+                    .Height = 30,
                     .Margin = New Thickness(0, 0, 20, 0),
                     .VerticalAlignment = VerticalAlignment.Center
                 }
@@ -1317,10 +1384,13 @@ Namespace pepeizq.Interfaz
 
                 If juego.Analisis.Porcentaje > 74 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive.png"))
+                    fondoAnalisis.Background = New SolidColorBrush("#a4c5d9".ToColor)
                 ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed.png"))
+                    fondoAnalisis.Background = New SolidColorBrush("#cfc4b1".ToColor)
                 ElseIf juego.Analisis.Porcentaje < 50 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
+                    fondoAnalisis.Background = New SolidColorBrush("#d1afa6".ToColor)
                 End If
 
                 fondoAnalisis.Children.Add(imagenAnalisis)
@@ -1329,8 +1399,8 @@ Namespace pepeizq.Interfaz
                     .Text = juego.Analisis.Porcentaje + "%",
                     .Margin = New Thickness(5, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
+                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                    .FontSize = 13
                 }
 
                 fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
@@ -1339,8 +1409,8 @@ Namespace pepeizq.Interfaz
                     .Text = juego.Analisis.Cantidad + " " + recursos.GetString("Reviews"),
                     .Margin = New Thickness(10, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
+                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                    .FontSize = 13
                 }
 
                 fondoAnalisis.Children.Add(tbAnalisisCantidad)
@@ -1403,9 +1473,8 @@ Namespace pepeizq.Interfaz
             If Not juego.FechaTermina = Nothing Then
                 Dim fondoFecha As New StackPanel With {
                     .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
+                    .Padding = New Thickness(6, 2, 6, 2),
+                    .Height = 30,
                     .Margin = New Thickness(0, 0, 20, 0),
                     .VerticalAlignment = VerticalAlignment.Center
                 }
@@ -1414,8 +1483,8 @@ Namespace pepeizq.Interfaz
                     .Text = juego.FechaTermina.Day.ToString + "/" + juego.FechaTermina.Month.ToString + " - " + juego.FechaTermina.Hour.ToString + ":00",
                     .Margin = New Thickness(0, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
+                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                    .FontSize = 13
                 }
 
                 fondoFecha.Children.Add(tbFecha)
@@ -1426,9 +1495,8 @@ Namespace pepeizq.Interfaz
             If Not juego.Promocion = Nothing Then
                 Dim fondoPromocion As New StackPanel With {
                     .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
+                    .Padding = New Thickness(6, 2, 6, 2),
+                    .Height = 30,
                     .Margin = New Thickness(0, 0, 20, 0)
                 }
 
@@ -1436,8 +1504,8 @@ Namespace pepeizq.Interfaz
                     .Text = juego.Promocion,
                     .Margin = New Thickness(0, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
+                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                    .FontSize = 13
                 }
 
                 fondoPromocion.Children.Add(tbPromocion)
@@ -1450,17 +1518,16 @@ Namespace pepeizq.Interfaz
             If Not juego.Tipo = Nothing Then
                 Dim fondoTipo As New StackPanel With {
                     .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray)
+                    .Padding = New Thickness(6, 2, 6, 2),
+                    .Height = 30
                 }
 
                 Dim tbTipo As New TextBlock With {
                     .Text = juego.Tipo,
                     .Margin = New Thickness(0, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White),
-                    .FontSize = 12
+                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                    .FontSize = 13
                 }
 
                 fondoTipo.Children.Add(tbTipo)
@@ -1471,10 +1538,8 @@ Namespace pepeizq.Interfaz
             If Not juego.Desarrolladores Is Nothing Then
                 Dim fondoDesarrolladores As New StackPanel With {
                     .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(4, 0, 4, 0),
-                    .Height = 26,
-                    .Background = New SolidColorBrush(Colors.SlateGray),
-                    .Margin = New Thickness(0, 0, 20, 0),
+                    .Padding = New Thickness(6, 2, 6, 2),
+                    .Height = 30,
                     .VerticalAlignment = VerticalAlignment.Center
                 }
 
@@ -1504,8 +1569,8 @@ Namespace pepeizq.Interfaz
                             .Text = desarrolladores.Trim,
                             .Margin = New Thickness(0, 0, 0, 0),
                             .VerticalAlignment = VerticalAlignment.Center,
-                            .Foreground = New SolidColorBrush(Colors.White),
-                            .FontSize = 12
+                            .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                            .FontSize = 13
                         }
 
                         fondoDesarrolladores.Children.Add(tbDesarrolladores)
@@ -1536,7 +1601,10 @@ Namespace pepeizq.Interfaz
                 .Visibility = Visibility.Collapsed,
                 .VerticalAlignment = VerticalAlignment.Center,
                 .MinWidth = 30,
-                .Tag = juego
+                .Tag = juego,
+                .Margin = New Thickness(0, 0, 20, 0),
+                .RenderTransformOrigin = New Point(0.5, 0.5),
+                .RenderTransform = escalaCB
             }
 
             AddHandler cbAnalisis.Checked, AddressOf CbAnalisisChecked
@@ -1545,58 +1613,6 @@ Namespace pepeizq.Interfaz
             AddHandler cbAnalisis.PointerExited, AddressOf UsuarioSaleBoton
 
             sp4.Children.Add(cbAnalisis)
-
-            '-----------------------------------------------
-
-            If Not juego.Descuento = Nothing Then
-                Dim fondoDescuento As New Grid With {
-                    .Padding = New Thickness(6, 0, 6, 0),
-                    .Height = 34,
-                    .MinWidth = 40,
-                    .Margin = New Thickness(10, 0, 0, 0),
-                    .HorizontalAlignment = HorizontalAlignment.Center,
-                    .Background = New SolidColorBrush(Colors.ForestGreen)
-                }
-
-                Dim textoDescuento As New TextBlock With {
-                    .Text = juego.Descuento,
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White)
-                }
-
-                fondoDescuento.Children.Add(textoDescuento)
-                sp4.Children.Add(fondoDescuento)
-            End If
-
-            Dim fondoPrecio As New Grid With {
-                .Background = New SolidColorBrush(Colors.Black),
-                .Padding = New Thickness(5, 0, 5, 0),
-                .Height = 34,
-                .MinWidth = 60,
-                .HorizontalAlignment = HorizontalAlignment.Center,
-                .Margin = New Thickness(10, 0, 20, 0)
-            }
-
-            Dim precio As String = juego.Precio1
-
-            If Not precio = String.Empty Then
-                If precio.Contains("€") Then
-                    precio = precio.Replace("€", Nothing)
-                    precio = precio.Replace(".", ",")
-                    precio = precio.Trim
-                    precio = precio + " €"
-                End If
-
-                Dim textoPrecio As New TextBlock With {
-                    .Text = precio,
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .HorizontalAlignment = HorizontalAlignment.Center,
-                    .Foreground = New SolidColorBrush(Colors.White)
-                }
-
-                fondoPrecio.Children.Add(textoPrecio)
-                sp4.Children.Add(fondoPrecio)
-            End If
 
             grid.Children.Add(sp4)
 

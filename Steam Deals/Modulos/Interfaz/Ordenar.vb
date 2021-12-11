@@ -231,7 +231,7 @@ Namespace pepeizq.Interfaz
 
                             If mostrar = True Then
                                 i += 1
-                                lv.Items.Add(Tiendas.AñadirOfertaListado(lv, juegoGrid, enseñarImagen))
+                                lv.Items.Add(Tiendas.AñadirOfertaListado(juegoGrid, enseñarImagen))
                             End If
                         End If
 

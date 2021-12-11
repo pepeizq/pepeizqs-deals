@@ -766,23 +766,25 @@
 
         Public Function Limpiar(desarrollador As String)
 
-            desarrollador = desarrollador.ToLower
+            If Not desarrollador = Nothing Then
+                desarrollador = desarrollador.ToLower
 
-            Dim listaCaracteres As New List(Of String) From {"games", "game",
-                "entertainment", "productions", "studios", "studio", "bundle",
-                "s.l.", "llc", "the", "software", "gmbh", "softworks", "digital",
-                "co.", "co.,", "inc", "inc.", "ltd", "ltd.",
-                "interactive", "developments", "publishing", "media", "online",
-                "foundry", "-soft", "&#174", "(pp)", "international",
-                "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)",
-                " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
-                "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
+                Dim listaCaracteres As New List(Of String) From {"games", "game",
+                    "entertainment", "productions", "studios", "studio", "bundle",
+                    "s.l.", "llc", "the", "software", "gmbh", "softworks", "digital",
+                    "co.", "co.,", "inc", "inc.", "ltd", "ltd.",
+                    "interactive", "developments", "publishing", "media", "online",
+                    "foundry", "-soft", "&#174", "(pp)", "international",
+                    "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)",
+                    " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
+                    "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
-            For Each item In listaCaracteres
-                desarrollador = desarrollador.Replace(item, Nothing)
-            Next
+                For Each item In listaCaracteres
+                    desarrollador = desarrollador.Replace(item, Nothing)
+                Next
 
-            desarrollador = desarrollador.Trim
+                desarrollador = desarrollador.Trim
+            End If
 
             Return desarrollador
         End Function
