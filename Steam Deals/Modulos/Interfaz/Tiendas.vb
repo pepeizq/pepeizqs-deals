@@ -1384,7 +1384,7 @@ Namespace pepeizq.Interfaz
 
                 If juego.Analisis.Porcentaje > 74 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive.png"))
-                    fondoAnalisis.Background = New SolidColorBrush("#a4c5d9".ToColor)
+                    fondoAnalisis.Background = New SolidColorBrush("#6da2c2".ToColor)
                 ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed.png"))
                     fondoAnalisis.Background = New SolidColorBrush("#cfc4b1".ToColor)

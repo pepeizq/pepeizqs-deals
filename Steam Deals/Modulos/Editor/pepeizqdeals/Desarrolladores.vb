@@ -562,6 +562,7 @@
                 New Clases.Desarrolladores("PlayFig", "@PlayFig", Nothing, Nothing),
                 New Clases.Desarrolladores("PLAYISM", "@playismEN", "Assets\LogosPublishers\playsim.png", 330),
                 New Clases.Desarrolladores("Playsaurus", "@ClickerHeroes", Nothing, Nothing),
+                New Clases.Desarrolladores("PlayStation Studios", "@PlayStation", "Assets\LogosPublishers\playstation.png", 120),
                 New Clases.Desarrolladores("Plug In Digital", "@plugindigital", "Assets\LogosPublishers\plugin.png", 240),
                 New Clases.Desarrolladores("Pocketwatch Games", "@PocketwatchG", Nothing, Nothing),
                 New Clases.Desarrolladores("Popcannibal", "@popcannibal", Nothing, Nothing),
@@ -775,7 +776,7 @@
                     "co.", "co.,", "inc", "inc.", "ltd", "ltd.",
                     "interactive", "developments", "publishing", "media", "online",
                     "foundry", "-soft", "&#174", "(pp)", "international",
-                    "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)",
+                    "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)", "pc",
                     " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                     "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
