@@ -135,9 +135,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                     sp.Background = New SolidColorBrush("#99835e".ToColor)
                     titulo = "review_mixed"
                 ElseIf i = 2 Then
-                    imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
-                    sp.Background = New SolidColorBrush("#835144".ToColor)
-                    titulo = "review_negative"
+                    'imagenIcono.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
+                    'sp.Background = New SolidColorBrush("#835144".ToColor)
+                    'titulo = "review_negative"
                 End If
 
                 sp.Children.Add(imagenIcono)
