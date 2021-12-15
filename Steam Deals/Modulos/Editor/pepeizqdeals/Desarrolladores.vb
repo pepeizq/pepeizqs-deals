@@ -203,7 +203,7 @@
                 New Clases.Desarrolladores("Awesome Games Studio", "@AwesomeGamesStd", Nothing, Nothing),
                 New Clases.Desarrolladores("B Negative Games", "@BNegativeGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Bandai Namco", "@BandaiNamcoEU", "Assets\LogosPublishers\bandainamco.png", 200),
-                New Clases.Desarrolladores("BadLand Games", "@BadLand_Publish", "Assets\LogosPublishers\badland.png", 390),
+                New Clases.Desarrolladores("BadLand Games", "@BadLand_Publish", "Assets\LogosPublishers\badland.png", 290),
                 New Clases.Desarrolladores("BattleGoat Studios", "@BattleGoat", Nothing, Nothing),
                 New Clases.Desarrolladores("Beamdog", "@BeamdogInc", "Assets\LogosPublishers\beamdog.png", 300),
                 New Clases.Desarrolladores("BeautiFun Games", "@BeautiFunGames", Nothing, Nothing),
@@ -304,7 +304,7 @@
                 New Clases.Desarrolladores("DLsite", "@DLsite", Nothing, Nothing),
                 New Clases.Desarrolladores("Dodge Roll", "@DodgeRollGames", Nothing, Nothing),
                 New Clases.Desarrolladores("Dotemu", "@Dotemu", Nothing, Nothing),
-                New Clases.Desarrolladores("Double Eleven LTD", "@DoubleElevenLtd", Nothing, Nothing),
+                New Clases.Desarrolladores("Double Eleven", "@DoubleElevenLtd", Nothing, Nothing),
                 New Clases.Desarrolladores("Double Fine", "@DoubleFine", Nothing, Nothing),
                 New Clases.Desarrolladores("Double Stallion Games", "@dblstallion", Nothing, Nothing),
                 New Clases.Desarrolladores("DoubleBear Productions", "@DoubleBearGames", Nothing, Nothing),
@@ -410,13 +410,13 @@
                 New Clases.Desarrolladores("Humble Games", "@humble", "Assets\LogosPublishers\humblegames.png", 200),
                 New Clases.Desarrolladores("HypeTrain Digital", "@HypeTrainD", Nothing, Nothing),
                 New Clases.Desarrolladores("Ice-Pick Lodge", "@IcePickLodge", Nothing, Nothing),
-                New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\LogosPublishers\iceberg.png", 380),
+                New Clases.Desarrolladores("Iceberg", "@Iceberg_Int", "Assets\LogosPublishers\iceberg.png", 280),
                 New Clases.Desarrolladores("IDALGAME", "@IDALGAME", Nothing, Nothing),
                 New Clases.Desarrolladores("Idea Factory", "@IdeaFactoryIntl", "Assets\LogosPublishers\ideafactory.png", 290),
                 New Clases.Desarrolladores("Igloo Studio", "@bountybrawlgame", Nothing, Nothing),
                 New Clases.Desarrolladores("Image & Form", "@ImageForm", Nothing, Nothing),
                 New Clases.Desarrolladores("ImaginationOverflow", "@ImaginationOver", Nothing, Nothing),
-                New Clases.Desarrolladores("IMGN PRO", "@IMGNPRO", "Assets\LogosPublishers\imgnpro.png", 390),
+                New Clases.Desarrolladores("IMGN PRO", "@IMGNPRO", "Assets\LogosPublishers\imgnpro.png", 290),
                 New Clases.Desarrolladores("Imperium42 Game Studio", "@TheThroneOfLies", Nothing, Nothing),
                 New Clases.Desarrolladores("INDIECODE GAMES", "@INDIECODE_GAMES", Nothing, Nothing),
                 New Clases.Desarrolladores("IndieGala", "@IndieGala", Nothing, Nothing),
@@ -603,6 +603,7 @@
                 New Clases.Desarrolladores("roseVeRte", "@rosevertegames", Nothing, Nothing),
                 New Clases.Desarrolladores("Runic Games", "@RunicGames", "Assets\LogosPublishers\runicgames.png", 390),
                 New Clases.Desarrolladores("Running With Scissors", "@RWSbleeter", Nothing, Nothing),
+                New Clases.Desarrolladores("Saber Interactive", "@TweetsSaber", "Assets\LogosPublishers\saber.png", 290),
                 New Clases.Desarrolladores("Sabotage Studio", "@SabotageQc", Nothing, Nothing),
                 New Clases.Desarrolladores("Sad Panda Studios", "@SadPandaStudio", Nothing, Nothing),
                 New Clases.Desarrolladores("SakuraGame", "@SakuraGame_EN", Nothing, Nothing),
@@ -770,17 +771,17 @@
             If Not desarrollador = Nothing Then
                 desarrollador = desarrollador.ToLower
 
-                Dim listaCaracteres As New List(Of String) From {"games", "game",
+                Dim listaQuitar As New List(Of String) From {"games", "game",
                     "entertainment", "productions", "studios", "studio", "bundle",
                     "s.l.", "llc", "the", "software", "gmbh", "softworks", "digital",
-                    "co.", "co.,", "inc", "inc.", "ltd", "ltd.",
+                    "co.", "co.,", "inc", "inc.", "ltd", "ltd.", "indie", "life",
                     "interactive", "developments", "publishing", "media", "online",
                     "foundry", "-soft", "&#174", "(pp)", "international",
                     "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)", "pc",
                     " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                     "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
-                For Each item In listaCaracteres
+                For Each item In listaQuitar
                     desarrollador = desarrollador.Replace(item, Nothing)
                 Next
 
