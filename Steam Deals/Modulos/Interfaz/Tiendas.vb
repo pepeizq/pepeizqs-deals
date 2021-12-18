@@ -885,13 +885,15 @@ Namespace pepeizq.Interfaz
 
                             Dim añadirDesarrollador As Boolean = True
                             For Each desarrollador In listaDesarrolladores
-                                If desarrollador = desarrolladorJuego Then
+                                If Desarrolladores.Limpiar(desarrollador) = Desarrolladores.Limpiar(desarrolladorJuego) Then
                                     añadirDesarrollador = False
                                 End If
                             Next
 
                             If añadirDesarrollador = True Then
-                                listaDesarrolladores.Add(desarrolladorJuego)
+                                If TypeOf desarrolladorJuego Is String Then
+                                    listaDesarrolladores.Add(Desarrolladores.Buscar(Desarrolladores.Limpiar(desarrolladorJuego)))
+                                End If
                             End If
                         End If
                     End If
