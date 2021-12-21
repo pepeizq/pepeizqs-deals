@@ -892,7 +892,11 @@ Namespace pepeizq.Interfaz
 
                             If añadirDesarrollador = True Then
                                 If TypeOf desarrolladorJuego Is String Then
-                                    listaDesarrolladores.Add(Desarrolladores.Buscar(Desarrolladores.Limpiar(desarrolladorJuego)))
+                                    Dim desarrollador As Clases.Desarrolladores = Desarrolladores.Buscar(Desarrolladores.Limpiar(desarrolladorJuego))
+
+                                    If Not desarrollador Is Nothing Then
+                                        listaDesarrolladores.Add(desarrollador.Desarrollador)
+                                    End If
                                 End If
                             End If
                         End If
@@ -926,7 +930,7 @@ Namespace pepeizq.Interfaz
             End If
 
             If iniciar = True Then
-                pepeizq.Interfaz.Pestañas.Botones(False)
+                Pestañas.Botones(False)
 
                 lv.IsEnabled = False
 
@@ -989,7 +993,7 @@ Namespace pepeizq.Interfaz
                     Ordenar.Ofertas(tienda, False, True)
                 End If
             Else
-                pepeizq.Interfaz.Pestañas.Botones(True)
+                Pestañas.Botones(True)
 
                 lv.IsEnabled = True
 
@@ -1015,7 +1019,7 @@ Namespace pepeizq.Interfaz
             Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
             gridProgreso.Visibility = Visibility.Visible
 
-            pepeizq.Interfaz.Pestañas.Botones(False)
+            Pestañas.Botones(False)
 
             Try
                 Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
