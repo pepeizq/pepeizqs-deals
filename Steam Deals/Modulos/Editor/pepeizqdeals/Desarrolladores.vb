@@ -183,7 +183,7 @@
                 New Clases.Desarrolladores("Amplitude Studios", "@Amplitude", Nothing, Nothing),
                 New Clases.Desarrolladores("Analgesic Productions", "@analgesicprod", Nothing, Nothing),
                 New Clases.Desarrolladores("Ankama", "@AnkamaGames", Nothing, Nothing),
-                New Clases.Desarrolladores("Annapurna Interactive", "@A_i", Nothing, Nothing),
+                New Clases.Desarrolladores("Annapurna", "@A_i", "Assets\LogosPublishers\annapurna.png", 150),
                 New Clases.Desarrolladores("Another Indie", "@AnotherIndieS", Nothing, Nothing),
                 New Clases.Desarrolladores("Applava", "@Applava", Nothing, Nothing),
                 New Clases.Desarrolladores("Auroch Digital", "@AurochDigital", Nothing, Nothing),
@@ -776,8 +776,8 @@
                     "s.l.", "llc", "the", "software", "gmbh", "softworks", "digital",
                     "co.", "co.,", "inc", "inc.", "ltd", "ltd.", "indie", "life",
                     "interactive", "developments", "publishing", "media", "online",
-                    "foundry", "-soft", "&#174", "(pp)", "international",
-                    "u.s.a.,", "u.s.a,", "uk", "jp", "america", "europe", "(eu)", "(us)", "pc",
+                    "foundry", "-soft", "&#174", "(pp)", "international", "mobile",
+                    "u.s.a.,", "u.s.a,", "us", "uk", "jp", "america", "europe", "(eu)", "(us)", "pc",
                     " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                     "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}
 
