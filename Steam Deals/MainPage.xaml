@@ -1000,11 +1000,13 @@
                                                             <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenAnuncios" Stretch="UniformToFill" Opacity="1"/>
                                                         </Grid.Background>
 
-                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaAnunciosDatos" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50" Margin="20" BorderBrush="#2e4460" BorderThickness="2">
+                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaAnunciosDatos" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50">
                                                             <Grid.Background>
-                                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="0.5">
-                                                                    <GradientStop x:Name="color1EditorpepeizqdealsImagenEntradaAnuncios" Color="#4e74a2" Offset="0.0"/>
-                                                                    <GradientStop x:Name="color2EditorpepeizqdealsImagenEntradaAnuncios" Color="#2e4460" Offset="0.5"/>
+                                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">                                                 
+                                                                    <GradientStop x:Name="color1EditorpepeizqdealsImagenEntradaAnuncios" Color="#662E4460" Offset="0.0"/>
+                                                                    <GradientStop x:Name="color2EditorpepeizqdealsImagenEntradaAnuncios" Color="#B22E4460" Offset="0.3"/>
+                                                                    <GradientStop x:Name="color3EditorpepeizqdealsImagenEntradaAnuncios" Color="#CC2E4460" Offset="0.4"/>
+                                                                    <GradientStop x:Name="color4EditorpepeizqdealsImagenEntradaAnuncios" Color="#FF2E4460" Offset="0.8"/>
                                                                 </LinearGradientBrush>
                                                             </Grid.Background>
 

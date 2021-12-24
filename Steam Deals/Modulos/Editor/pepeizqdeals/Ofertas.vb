@@ -119,10 +119,13 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If listaTotal.Count = 1 Then
                 precioFinal = listaTotal(0).Precio1
-                precioFinal = precioFinal.Replace(".", ",")
-                precioFinal = precioFinal.Replace("€", Nothing)
-                precioFinal = precioFinal.Trim
-                precioFinal = precioFinal + " €"
+
+                If Not precioFinal = Nothing Then
+                    precioFinal = precioFinal.Replace(".", ",")
+                    precioFinal = precioFinal.Replace("€", Nothing)
+                    precioFinal = precioFinal.Trim
+                    precioFinal = precioFinal + " €"
+                End If
 
                 tbEnlace.Text = listaTotal(0).Enlace
                 tbEnlace.Tag = precioFinal

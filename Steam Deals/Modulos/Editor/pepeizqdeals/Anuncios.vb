@@ -323,18 +323,26 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim grid As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaAnunciosDatos")
             Dim color1 As GradientStop = pagina.FindName("color1EditorpepeizqdealsImagenEntradaAnuncios")
             Dim color2 As GradientStop = pagina.FindName("color2EditorpepeizqdealsImagenEntradaAnuncios")
+            Dim color3 As GradientStop = pagina.FindName("color3EditorpepeizqdealsImagenEntradaAnuncios")
+            Dim color4 As GradientStop = pagina.FindName("color4EditorpepeizqdealsImagenEntradaAnuncios")
+
+            Dim color1T As Color = color1.Color
+            Dim color2T As Color = color2.Color
+            Dim color3T As Color = color3.Color
+            Dim color4T As Color = color4.Color
 
             If cb.IsChecked = True Then
-                grid.BorderBrush = New SolidColorBrush("#2e4460".ToColor)
-                color1.Color = "#4e74a2".ToColor
-                color2.Color = "#2e4460".ToColor
+                color1.Color = color1T
+                color2.Color = color2T
+                color3.Color = color3T
+                color4.Color = color4T
             Else
-                grid.BorderBrush = New SolidColorBrush(Colors.Transparent)
                 color1.Color = Colors.Transparent
                 color2.Color = Colors.Transparent
+                color3.Color = Colors.Transparent
+                color4.Color = Colors.Transparent
             End If
 
         End Sub

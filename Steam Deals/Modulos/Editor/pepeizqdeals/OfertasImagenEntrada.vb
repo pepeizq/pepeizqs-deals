@@ -54,8 +54,10 @@ Namespace pepeizq.Editor.pepeizqdeals
                 gridDescuento.Visibility = Visibility.Collapsed
             End If
 
-            Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2")
-            tbPrecio.Text = precio
+            If Not precio = Nothing Then
+                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2")
+                tbPrecio.Text = precio
+            End If
 
             '--------------------------------------
 

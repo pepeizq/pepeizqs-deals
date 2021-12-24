@@ -303,6 +303,7 @@
     <Content Include="Assets\LogosPublishers\activision.png" />
     <Content Include="Assets\LogosPublishers\adulswim.png" />
     <Content Include="Assets\LogosPublishers\aksysgames.png" />
+    <Content Include="Assets\LogosPublishers\annapurna.png" />
     <Content Include="Assets\LogosPublishers\arcsystemworks.png" />
     <Content Include="Assets\LogosPublishers\aspyr.png" />
     <Content Include="Assets\LogosPublishers\astragon.png" />
@@ -544,7 +545,7 @@
     <Content Include="Assets\Tiendas\wingamestore2.png" />
     <Content Include="Assets\Tiendas\xboxgamepass.png" />
     <Content Include="Assets\Tiendas\xboxgamepass2.png" />
-    <Content Include="Assets\Tiendas\yuplay.ico" />
+    <Content Include="Assets\Tiendas\yuplay.png" />
     <Content Include="Assets\Tiendas\yuplay2.png" />
     <Content Include="Assets\pepeizq\fondo_hexagono.png" />
     <Content Include="Assets\Webs\web_pepeizq.png" />

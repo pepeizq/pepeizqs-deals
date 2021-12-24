@@ -10,54 +10,15 @@ Namespace pepeizq.Ofertas
 
             Dim listaJuegos As New List(Of Oferta)
             Dim listaAnalisis As New List(Of OfertaAnalisis)
-            'Dim listaBloqueo As New List(Of YuplayBloqueo)
-            Dim listaBuscar As New List(Of YuplayBloqueo)
-            Dim listaDesarrolladores As New List(Of YuplayDesarrolladores)
-            'Dim listaIdiomas As New List(Of YuplayIdiomas)
             Dim listaSteam As New List(Of YuplaySteam)
-            Dim rublo As String = String.Empty
-            Dim contadorDB As Integer = 0
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
-
-            Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-            rublo = tbRublo.Text
 
             Dim helper As New LocalObjectStorageHelper
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
                 listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
-
-            'If Await helper.FileExistsAsync("listaBloqueoYuplay") Then
-            '    listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay")
-            'Else
-            '    listaBloqueo = New List(Of YuplayBloqueo)
-            'End If
-
-            If Await helper.FileExistsAsync("listaBuscarYuplay") Then
-                listaBuscar = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay")
-            Else
-                listaBuscar = New List(Of YuplayBloqueo)
-            End If
-
-            If Await helper.FileExistsAsync("listaDesarrolladoresYuplay") Then
-                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay")
-            Else
-                listaDesarrolladores = New List(Of YuplayDesarrolladores)
-            End If
-
-            'If Await helper.FileExistsAsync("listaIdiomasYuplay") Then
-            '    listaIdiomas = Await helper.ReadFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay")
-            'Else
-            '    listaIdiomas = New List(Of YuplayIdiomas)
-            'End If
-
-            If Await helper.FileExistsAsync("listaYuplaySteam") Then
-                listaSteam = Await helper.ReadFileAsync(Of List(Of YuplaySteam))("listaYuplaySteam")
-            Else
-                listaSteam = New List(Of YuplaySteam)
             End If
 
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
@@ -68,406 +29,155 @@ Namespace pepeizq.Ofertas
 
             Dim i As Integer = 1
             While i < 100
-                Dim html As String = Await HttpClient(New Uri("https://yuplay.ru/products/?page=" + i.ToString + "&sort_by=released&drm=steam"))
+                Dim html As String = Await HttpClient(New Uri("https://www.yuplay.com/products/?page=" + i.ToString))
 
                 If Not html = Nothing Then
-                    If html.Contains("<ul class=" + ChrW(34) + "games-box") Then
-                        Dim temp, temp2 As String
-                        Dim int, int2 As Integer
+                    Dim j As Integer = 0
+                    While j < 25
+                        If html.Contains("<article class=" + ChrW(34) + "catalog-item") Then
+                            Dim temp, temp2 As String
+                            Dim int, int2 As Integer
 
-                        int = html.IndexOf("<ul class=" + ChrW(34) + "games-box")
-                        temp = html.Remove(0, int + 2)
+                            int = html.IndexOf("<article class=" + ChrW(34) + "catalog-item")
+                            temp = html.Remove(0, int + 2)
 
-                        int2 = temp.IndexOf("</ul>")
-                        temp2 = temp.Remove(int2, temp.Length - int2)
+                            html = temp
 
-                        Dim j As Integer = 0
-                        While j < 50
-                            If temp2.Contains("<li>") Then
-                                Dim temp3, temp4 As String
-                                Dim int3, int4 As Integer
+                            int2 = temp.IndexOf("</article>")
+                            temp2 = temp.Remove(int2, temp.Length - int2)
 
-                                int3 = temp2.IndexOf("<li>")
-                                temp3 = temp2.Remove(0, int3 + 4)
+                            Dim temp3, temp4 As String
+                            Dim int3, int4 As Integer
 
-                                temp2 = temp3
+                            int3 = temp2.IndexOf("title=")
+                            temp3 = temp2.Remove(0, int3 + 7)
 
-                                int4 = temp3.IndexOf("</li>")
-                                temp4 = temp3.Remove(int4, temp3.Length - int4)
+                            int4 = temp3.IndexOf(ChrW(34))
+                            temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                Dim temp5, temp6 As String
-                                Dim int5, int6 As Integer
+                            Dim titulo As String = temp4.Trim
+                            titulo = WebUtility.HtmlDecode(titulo)
+                            titulo = titulo.Replace("(Steam)", Nothing)
+                            titulo = titulo.Replace("(Bethesda)", Nothing)
+                            titulo = titulo.Replace("(Epic Games)", Nothing)
+                            titulo = titulo.Trim
 
-                                int5 = temp4.LastIndexOf("<span class=" + ChrW(34) + "name")
-                                temp5 = temp4.Remove(0, int5)
+                            Dim temp5, temp6 As String
+                            Dim int5, int6 As Integer
 
-                                int5 = temp5.IndexOf(">")
-                                temp5 = temp5.Remove(0, int5 + 1)
+                            int5 = temp2.IndexOf("href=")
+                            temp5 = temp2.Remove(0, int5 + 6)
 
-                                int6 = temp5.IndexOf("</span>")
-                                temp6 = temp5.Remove(int6, temp5.Length - int6)
+                            int6 = temp5.IndexOf(ChrW(34))
+                            temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                Dim titulo As String = temp6.Trim
-                                titulo = WebUtility.HtmlDecode(titulo)
+                            Dim enlace As String = "https://www.yuplay.com" + temp6.Trim
 
-                                titulo = titulo.Replace("(для Mac)", Nothing)
-                                titulo = titulo.Replace("(для Linux)", Nothing)
-                                titulo = titulo.Replace("(Linux)", Nothing)
-                                titulo = titulo.Replace("(Mac & Linux)", Nothing)
-                                titulo = titulo.Replace("(для Mac & Linux)", Nothing)
-                                titulo = titulo.Replace("(Steam)", Nothing)
+                            Dim temp7, temp8 As String
+                            Dim int7, int8 As Integer
 
-                                titulo = titulo.Trim
+                            int7 = temp2.IndexOf("<img")
+                            temp7 = temp2.Remove(0, int7 + 1)
 
-                                Dim temp7, temp8 As String
-                                Dim int7, int8 As Integer
+                            int7 = temp7.IndexOf("src=")
+                            temp7 = temp7.Remove(0, int7 + 5)
 
-                                int7 = temp4.IndexOf("data-id=")
-                                temp7 = temp4.Remove(0, int7)
+                            int8 = temp7.IndexOf(ChrW(34))
+                            temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                int7 = temp7.IndexOf(ChrW(34))
-                                temp7 = temp7.Remove(0, int7 + 1)
+                            Dim imagen As String = temp8.Trim
+                            Dim imagenes As New OfertaImagenes(imagen, imagen)
 
-                                int8 = temp7.IndexOf(ChrW(34))
-                                temp8 = temp7.Remove(int8, temp7.Length - int8)
-
-                                Dim enlace As String = "https://yuplay.ru/product/" + temp8.Trim + "/"
-
+                            Dim precioBase As String = String.Empty
+                            If temp2.Contains("catalog-item-full-price") Then
                                 Dim temp9, temp10 As String
                                 Dim int9, int10 As Integer
 
-                                int9 = temp4.IndexOf("<img src=")
-                                temp9 = temp4.Remove(0, int9)
+                                int9 = temp2.IndexOf("catalog-item-full-price")
+                                temp9 = temp2.Remove(0, int9)
 
-                                int9 = temp9.IndexOf(ChrW(34))
+                                int9 = temp9.IndexOf(">")
                                 temp9 = temp9.Remove(0, int9 + 1)
 
-                                int10 = temp9.IndexOf(ChrW(34))
+                                int10 = temp9.IndexOf("</")
                                 temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                                Dim imagenPequeña As String = "https://yuplay.ru" + temp10.Trim
-                                Dim imagenGrande As String = imagenPequeña.Replace("/thumb127/", Nothing)
+                                precioBase = temp10.Trim
+                                precioBase = precioBase.Replace("<sup>", Nothing)
+                                precioBase = precioBase.Replace("&#8364;", Nothing)
+                            End If
 
-                                Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
-
+                            Dim descuento As String = String.Empty
+                            Dim precioDescontado As String = String.Empty
+                            If temp2.Contains("catalog-item-sale-price") Then
                                 Dim temp11, temp12 As String
                                 Dim int11, int12 As Integer
 
-                                int11 = temp4.IndexOf("<span class=" + ChrW(34) + "price")
-                                temp11 = temp4.Remove(0, int11 + 1)
+                                int11 = temp2.IndexOf("catalog-item-sale-price")
+                                temp11 = temp2.Remove(0, int11)
 
                                 int11 = temp11.IndexOf(">")
                                 temp11 = temp11.Remove(0, int11 + 1)
 
-                                int12 = temp11.IndexOf("<span")
+                                int12 = temp11.IndexOf("</")
                                 temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                                Dim precio As String = String.Empty
-                                Dim descuento As String = String.Empty
+                                precioDescontado = temp12.Trim
+                                precioDescontado = precioDescontado.Replace("<sup>", Nothing)
+                                precioDescontado = precioDescontado.Replace("&#8364;", Nothing)
 
-                                If temp12.Contains("<s>") Then
-                                    Dim temp13, temp14 As String
-                                    Dim int13, int14 As Integer
+                                descuento = Calculadora.GenerarDescuento(precioBase, precioDescontado)
+                            Else
+                                descuento = "00%"
+                            End If
 
-                                    int13 = temp12.IndexOf("<s>")
-                                    temp13 = temp12.Remove(0, int13 + 3)
+                            If precioDescontado = String.Empty Then
+                                precioDescontado = precioBase
+                            End If
 
-                                    int14 = temp13.IndexOf("</s>")
-                                    temp14 = temp13.Remove(int14, temp13.Length - int14)
+                            Dim drm As String = String.Empty
 
-                                    Dim precioBase As String = temp14.Trim
+                            If temp2.Contains(ChrW(34) + "Steam" + ChrW(34)) Then
+                                drm = "steam"
+                            ElseIf temp2.Contains(ChrW(34) + "Origin" + ChrW(34)) Then
+                                drm = "origin"
+                            ElseIf temp2.Contains(ChrW(34) + "Bethesda Launcher" + ChrW(34)) Then
+                                drm = "bethesda"
+                            ElseIf temp2.Contains(ChrW(34) + "Epic Game Store" + ChrW(34)) Then
+                                drm = "epic games"
+                            End If
 
-                                    int14 = temp12.IndexOf("</s>")
-                                    temp12 = temp12.Remove(0, int14 + 4)
+                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    precio = temp12.Trim
+                            Dim juego As New Oferta(titulo, descuento, precioDescontado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
 
-                                    descuento = Calculadora.GenerarDescuento(precioBase, precio)
-                                Else
-                                    precio = temp12.Trim
-                                    descuento = "00%"
-                                End If
-
-                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
-
-                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, "steam", tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
-
-                                Dim añadir As Boolean = True
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Enlace = juego.Enlace Then
-                                        añadir = False
-                                    End If
-                                    k += 1
-                                End While
-
-                                If juego.Descuento = Nothing Then
+                            Dim añadir As Boolean = True
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Enlace = juego.Enlace Then
                                     añadir = False
                                 End If
+                                k += 1
+                            End While
 
-                                If añadir = True Then
-                                    'Dim buscarBloqueo As Boolean = True
-                                    Dim buscarSteam As Boolean = True
-                                    Dim buscarDesarrollador As Boolean = True
-                                    'Dim buscarIdioma As Boolean = True
-                                    Dim añadirJuegoLista As Boolean = False
+                            If juego.Descuento = Nothing Then
+                                añadir = False
+                            End If
 
-                                    'If Not listaBloqueo Is Nothing Then
-                                    '    For Each juegoBloqueo In listaBloqueo
-                                    '        If juegoBloqueo.Enlace = enlace Then
-                                    '            buscarBloqueo = False
+                            If añadir = True Then
+                                juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
-                                    '            If juegoBloqueo.Bloqueo = False Then
-                                    '                añadirJuegoLista = True
-                                    '            End If
-                                    '        End If
-                                    '    Next
-                                    'End If
-
-                                    If Not listaSteam Is Nothing Then
-                                        For Each juegoSteam In listaSteam
-                                            If juegoSteam.Enlace = enlace Then
-                                                If Not juegoSteam.SubID = Nothing Then
-                                                    If juegoSteam.SubID.Trim.Length > 0 Then
-                                                        buscarSteam = False
-                                                        añadirJuegoLista = True
-                                                    End If
-                                                End If
-                                            End If
-                                        Next
-                                    End If
-
-                                    If Not ana Is Nothing Then
-                                        If Not ana.Publisher = Nothing Then
-                                            buscarDesarrollador = False
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
-                                        End If
-                                    End If
-
-                                    If juego.Desarrolladores Is Nothing Then
-                                        If Not listaDesarrolladores Is Nothing Then
-                                            For Each juegoDesarrollador In listaDesarrolladores
-                                                If juegoDesarrollador.ID = enlace Then
-                                                    If Not juegoDesarrollador.Desarrollador = Nothing Then
-                                                        buscarDesarrollador = False
-                                                    End If
-
-                                                    If juegoDesarrollador.Buscado = True Then
-                                                        buscarDesarrollador = False
-                                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDesarrollador.Desarrollador}, Nothing)
-                                                    End If
-                                                End If
-                                            Next
-                                        End If
-                                    End If
-
-                                    'If Not listaIdiomas Is Nothing Then
-                                    '    For Each juegoIdiomas In listaIdiomas
-                                    '        If juegoIdiomas.ID = enlace Then
-                                    '            If Not juegoIdiomas.Idiomas = Nothing Then
-                                    '                buscarIdioma = False
-                                    '            End If
-
-                                    '            If juegoIdiomas.Buscado = True Then
-                                    '                buscarIdioma = False
-                                    '                juego.Tipo = juegoIdiomas.Idiomas
-                                    '            End If
-                                    '        End If
-                                    '    Next
-                                    'End If
-
-                                    'If buscarBloqueo = True Or buscarDesarrollador = True Or buscarIdioma = True Then
-
-                                    'End If
-
-                                    If buscarSteam = True Or buscarDesarrollador = True Then
-                                        Dim htmlJuego As String = Await HttpClient(New Uri(enlace))
-
-                                        If Not htmlJuego = Nothing Then
-                                            'If buscarBloqueo = True Then
-
-                                            'End If
-
-                                            If buscarSteam = True Then
-                                                If htmlJuego.Contains("Steam SUB_ID:") Then
-                                                    Dim temp15, temp16 As String
-                                                    Dim int15, int16 As Integer
-
-                                                    int15 = htmlJuego.IndexOf("Steam SUB_ID:")
-                                                    temp15 = htmlJuego.Remove(0, int15)
-
-                                                    int15 = temp15.IndexOf("<span>")
-                                                    temp15 = temp15.Remove(0, int15 + 6)
-
-                                                    int16 = temp15.IndexOf("</span>")
-                                                    temp16 = temp15.Remove(int16, temp15.Length - int16)
-
-                                                    If Not temp16.Trim = Nothing Then
-                                                        listaSteam.Add(New YuplaySteam(juego.Enlace, temp16.Trim))
-                                                        añadirJuegoLista = True
-                                                    End If
-
-                                                    'If contadorDB < 150 Then
-                                                    '    contadorDB += 1
-
-                                                    '    Dim temp15, temp16 As String
-                                                    '    Dim int15, int16 As Integer
-
-                                                    '    int15 = htmlJuego.IndexOf("Steam SUB_ID:")
-                                                    '    temp15 = htmlJuego.Remove(0, int15)
-
-                                                    '    int15 = temp15.IndexOf("<span>")
-                                                    '    temp15 = temp15.Remove(0, int15 + 6)
-
-                                                    '    int16 = temp15.IndexOf("</span>")
-                                                    '    temp16 = temp15.Remove(int16, temp15.Length - int16)
-
-                                                    '    Dim htmlSteamDB As String = Await HttpClient(New Uri("https://steamdb.info/sub/" + temp16.Trim + "/info/"))
-
-                                                    '    If Not htmlSteamDB = Nothing Then
-                                                    '        Dim bloqueo As New YuplayBloqueo(titulo, enlace, False, temp16.Trim)
-
-                                                    '        If htmlSteamDB.Contains("This package is only purchasable in specified countries") Then
-                                                    '            bloqueo.Bloqueo = True
-                                                    '        End If
-
-                                                    '        If htmlSteamDB.Contains("This package can only be run in specified countries") Then
-                                                    '            bloqueo.Bloqueo = True
-                                                    '        End If
-
-                                                    '        listaBloqueo.Add(bloqueo)
-
-                                                    '        If bloqueo.Bloqueo = False Then
-                                                    '            añadirJuegoLista = True
-                                                    '        End If
-                                                    '    Else
-                                                    '        Dim añadir2 As Boolean = True
-
-                                                    '        If listaBuscar.Count > 0 Then
-                                                    '            For Each buscar2 In listaBuscar
-                                                    '                If buscar2.Enlace = enlace Then
-                                                    '                    añadir2 = False
-                                                    '                End If
-                                                    '            Next
-                                                    '        End If
-
-                                                    '        If añadir2 = True Then
-                                                    '            Dim buscar As New YuplayBloqueo(titulo, enlace, Nothing, temp16.Trim)
-                                                    '            listaBuscar.Add(buscar)
-                                                    '        End If
-                                                    '    End If
-                                                    'End If
-                                                Else
-                                                    'Notificaciones.Toast(titulo, "No tiene SteamID")
-                                                    'Dim bloqueo As New YuplayBloqueo(titulo, enlace, True, "---")
-                                                    'listaBloqueo.Add(bloqueo)
-                                                End If
-                                            End If
-
-                                            If buscarDesarrollador = True Then
-                                                Dim desarrollador As New YuplayDesarrolladores(enlace, Nothing, False)
-
-                                                If htmlJuego.Contains("Издатели") Then
-                                                    Dim temp17, temp18 As String
-                                                    Dim int17, int18 As Integer
-
-                                                    int17 = htmlJuego.IndexOf("Издатели")
-                                                    temp17 = htmlJuego.Remove(0, int17)
-
-                                                    int17 = temp17.IndexOf("<span>")
-                                                    temp17 = temp17.Remove(0, int17 + 6)
-
-                                                    int18 = temp17.IndexOf("</span>")
-                                                    temp18 = temp17.Remove(int18, temp17.Length - int18)
-
-                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {temp18.Trim}, Nothing)
-
-                                                    desarrollador.Desarrollador = temp18.Trim
-
-                                                    listaDesarrolladores.Add(desarrollador)
-                                                End If
-
-                                                desarrollador.Buscado = True
-                                            End If
-
-                                            'If buscarIdioma = True Then
-                                            '    Dim idioma As New YuplayIdiomas(enlace, Nothing, False)
-
-                                            '    If htmlJuego.Contains("Языки") Then
-                                            '        Dim temp19, temp20 As String
-                                            '        Dim int19, int20 As Integer
-
-                                            '        int19 = htmlJuego.IndexOf("Языки")
-                                            '        temp19 = htmlJuego.Remove(0, int19)
-
-                                            '        int20 = temp19.IndexOf("</p>")
-                                            '        temp20 = temp19.Remove(int20, temp19.Length - int20)
-
-                                            '        Dim idiomas As String = String.Empty
-
-                                            '        If temp20.Contains("Английский") Then
-                                            '            idiomas += "english, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Немецкий") Then
-                                            '            idiomas += "german, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Русский") Then
-                                            '            idiomas += "russian, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Французский") Then
-                                            '            idiomas += "french, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Итальянский") Then
-                                            '            idiomas += "italian, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Испанский") Then
-                                            '            idiomas += "spanish, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Польский") Then
-                                            '            idiomas += "polish, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Португальский") Then
-                                            '            idiomas += "portuguese, "
-                                            '        End If
-
-                                            '        If temp20.Contains("Немецкий") Then
-                                            '            idiomas += "deutsch, "
-                                            '        End If
-
-                                            '        If Not idiomas = String.Empty Then
-                                            '            Dim tempIdiomas As Integer = idiomas.LastIndexOf(",")
-                                            '            idiomas = idiomas.Remove(tempIdiomas, idiomas.Length - tempIdiomas)
-                                            '        End If
-
-                                            '        juego.Tipo = idiomas
-                                            '        idioma.Idiomas = idiomas
-
-                                            '        listaIdiomas.Add(idioma)
-                                            '    End If
-
-                                            '    idioma.Buscado = True
-                                            'End If
-                                        End If
-                                    End If
-
-                                    If añadirJuegoLista = True Then
-                                        juego.Precio1 = CambioMoneda(juego.Precio1, rublo)
-                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
-
-                                        listaJuegos.Add(juego)
+                                If Not ana Is Nothing Then
+                                    If Not ana.Publisher = Nothing Then
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
                                     End If
                                 End If
+
+                                listaJuegos.Add(juego)
                             End If
-                            j += 1
-                        End While
-                    End If
+                        End If
+                        j += 1
+                    End While
                 End If
 
                 pb.Value = i
@@ -476,23 +186,9 @@ Namespace pepeizq.Ofertas
                 i += 1
             End While
 
-            If listaBuscar.Count > 0 Then
-                Dim wv As WebView = pagina.FindName("wvYuplay")
-
-                RemoveHandler wv.NavigationCompleted, AddressOf WvBuscar
-                AddHandler wv.NavigationCompleted, AddressOf WvBuscar
-
-                wv.Navigate(New Uri("https://steamdb.info/sub/" + listaBuscar(0).IDSteam + "/info/"))
-            End If
-
             spProgreso.Visibility = Visibility.Collapsed
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
-            'Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
-            Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay", listaBuscar)
-            Await helper.SaveFileAsync(Of List(Of YuplayDesarrolladores))("listaDesarrolladoresYuplay", listaDesarrolladores)
-            Await helper.SaveFileAsync(Of List(Of YuplaySteam))("listaYuplaySteam", listaSteam)
-            'Await helper.SaveFileAsync(Of List(Of YuplayIdiomas))("listaIdiomasYuplay", listaIdiomas)
 
             pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 

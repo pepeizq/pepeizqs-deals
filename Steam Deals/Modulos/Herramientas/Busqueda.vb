@@ -18,7 +18,7 @@ Module Busqueda
 
         Dim listaCaracteres As New List(Of String) From {"Early Access", "Pre Order", "Pre-Purchase", " ", "•", ">", "<", "¿", "?", "!", "¡", ":",
             ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´", "`", "(", ")", "/", "\", "|", "&", "#", "=", "+", ChrW(34),
-            "@", "^", "[", "]", "ª", "«"}
+            "@", "^", "[", "]", "ª", "«", "Standard", "Deluxe", "Edition", "Ultimate", "Upgrade", "Collector's"}
 
         For Each item In listaCaracteres
             texto = texto.Replace(item, Nothing)

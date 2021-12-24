@@ -105,10 +105,10 @@ Namespace pepeizq.Interfaz
                                         dominio + "2021/04/amazon3.png", "29945", Nothing,
                                         "150", Tienda.FormatoImagen.Vertical)
 
-        Public yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.ico",
-                                     18, Nothing, 1209, dominio + "2019/01/tienda_yuplay.jpg",
-                                     "Assets/Tiendas/yuplay2.png", dominio + "2019/09/yuplay2.png",
-                                     dominio + "2021/03/yuplay3.png", "29962", "No regional restrictions",
+        Public yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.png",
+                                     18, Nothing, 1209, dominio + "2021/12/tienda_yuplay.webp",
+                                     "Assets/Tiendas/yuplay2.png", dominio + "2021/12/yuplay2.webp",
+                                     dominio + "2021/12/yuplay3.webp", "29962", "No regional restrictions",
                                      "150", Tienda.FormatoImagen.Cuadrado)
 
         Public epicT As New Tienda("Epic Games Store", "EpicGamesStore", Nothing,
@@ -1022,7 +1022,7 @@ Namespace pepeizq.Interfaz
             Pestañas.Botones(False)
 
             Try
-                Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+                'Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             End Try
