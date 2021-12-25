@@ -52,9 +52,14 @@ Namespace pepeizq.Ofertas
             Dim html As String = Await HttpClient(New Uri("https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133"))
 
             If Not html = Nothing Then
-                Dim xml As New XmlSerializer(GetType(VoiduJuegos))
-                Dim stream As New StringReader(html)
-                Dim listaJuegosVoidu As VoiduJuegos = xml.Deserialize(stream)
+                'Dim xml As New XmlSerializer(GetType(VoiduJuegos))
+                'Dim stream As New StringReader(html)
+                Dim listaJuegosVoidu As VoiduJuegos = Nothing
+
+                Using stream As New StringReader(html)
+                    Dim xml As New XmlSerializer(GetType(VoiduJuegos))
+                    listaJuegosVoidu = xml.Deserialize(stream)
+                End Using
 
                 If Not listaJuegosVoidu Is Nothing Then
                     If listaJuegosVoidu.Juegos.Count > 0 Then

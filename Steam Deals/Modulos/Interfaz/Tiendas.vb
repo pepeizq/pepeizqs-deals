@@ -108,8 +108,8 @@ Namespace pepeizq.Interfaz
         Public yuplayT As New Tienda("Yuplay", "Yuplay", "Assets/Tiendas/yuplay.png",
                                      18, Nothing, 1209, dominio + "2021/12/tienda_yuplay.webp",
                                      "Assets/Tiendas/yuplay2.png", dominio + "2021/12/yuplay2.webp",
-                                     dominio + "2021/12/yuplay3.webp", "29962", "No regional restrictions",
-                                     "150", Tienda.FormatoImagen.Cuadrado)
+                                     dominio + "2021/12/yuplay3.webp", "29962", Nothing,
+                                     "250", Tienda.FormatoImagen.Ancho)
 
         Public epicT As New Tienda("Epic Games Store", "EpicGamesStore", Nothing,
                                    19, Nothing, Nothing, Nothing,
