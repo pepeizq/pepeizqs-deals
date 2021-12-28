@@ -10,7 +10,6 @@ Namespace pepeizq.Ofertas
 
             Dim listaJuegos As New List(Of Oferta)
             Dim listaAnalisis As New List(Of OfertaAnalisis)
-            Dim listaSteam As New List(Of YuplaySteam)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -194,119 +193,6 @@ Namespace pepeizq.Ofertas
 
         End Function
 
-        Private Async Sub WvBuscar(sender As Object, e As WebViewNavigationCompletedEventArgs)
-
-            Dim listaBloqueo As New List(Of YuplayBloqueo)
-            Dim listaBuscar As New List(Of YuplayBloqueo)
-
-            Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaBloqueoYuplay") Then
-                listaBloqueo = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay")
-            Else
-                listaBloqueo = New List(Of YuplayBloqueo)
-            End If
-
-            If Await helper.FileExistsAsync("listaBuscarYuplay") Then
-                listaBuscar = Await helper.ReadFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay")
-            Else
-                listaBuscar = New List(Of YuplayBloqueo)
-            End If
-
-            If listaBuscar.Count > 0 Then
-                Dim wv As WebView = sender
-                Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
-
-                Dim i As Integer = 0
-                For Each busca In listaBuscar
-                    If wv.Source.AbsoluteUri.Contains("/" + busca.IDSteam + "/") Then
-                        Dim bloqueo As New YuplayBloqueo(busca.Titulo, busca.Enlace, False, busca.IDSteam)
-
-                        If html.Contains("This package is only purchasable in specified countries") Then
-                            bloqueo.Bloqueo = True
-                        End If
-
-                        If html.Contains("This package can only be run in specified countries") Then
-                            bloqueo.Bloqueo = True
-                        End If
-                        Notificaciones.Toast(busca.Titulo, bloqueo.Bloqueo)
-                        listaBloqueo.Add(bloqueo)
-                        Exit For
-                    End If
-                    i += 1
-                Next
-                listaBuscar.RemoveAt(i)
-
-                Try
-                    Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBloqueoYuplay", listaBloqueo)
-                    Await helper.SaveFileAsync(Of List(Of YuplayBloqueo))("listaBuscarYuplay", listaBuscar)
-                Catch ex As Exception
-
-                End Try
-
-                If listaBuscar.Count > 0 Then
-                    wv.Navigate(New Uri("https://steamdb.info/sub/" + listaBuscar(0).IDSteam + "/info/"))
-                End If
-            End If
-
-        End Sub
-
     End Module
 
-    Public Class YuplayBloqueo
-
-        Public Property Titulo As String
-        Public Property Enlace As String
-        Public Property Bloqueo As Boolean
-        Public Property IDSteam As String
-
-        Public Sub New(ByVal titulo As String, ByVal enlace As String, ByVal bloqueo As Boolean, ByVal idSteam As String)
-            Me.Titulo = titulo
-            Me.Enlace = enlace
-            Me.Bloqueo = bloqueo
-            Me.IDSteam = idSteam
-        End Sub
-
-    End Class
-
-    Public Class YuplayDesarrolladores
-
-        Public Property ID As String
-        Public Property Desarrollador As String
-        Public Property Buscado As Boolean
-
-        Public Sub New(ByVal id As String, ByVal desarrollador As String, ByVal buscado As Boolean)
-            Me.ID = id
-            Me.Desarrollador = desarrollador
-            Me.Buscado = buscado
-        End Sub
-
-    End Class
-
-    Public Class YuplayIdiomas
-
-        Public Property ID As String
-        Public Property Idiomas As String
-        Public Property Buscado As Boolean
-
-        Public Sub New(ByVal id As String, ByVal idiomas As String, ByVal buscado As Boolean)
-            Me.ID = id
-            Me.Idiomas = idiomas
-            Me.Buscado = buscado
-        End Sub
-
-    End Class
-
-    Public Class YuplaySteam
-
-        Public Property Enlace As String
-        Public Property SubID As String
-
-        Public Sub New(enlace As String, subid As String)
-            Me.Enlace = enlace
-            Me.SubID = subid
-        End Sub
-
-    End Class
 End Namespace
-
