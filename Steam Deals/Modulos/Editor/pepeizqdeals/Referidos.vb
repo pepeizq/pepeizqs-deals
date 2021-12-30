@@ -38,6 +38,7 @@
         Dim gamebillet As String = "?affiliate=64e186aa-fb0e-436f-a000-069090c06fe9"
         Dim dlgamer As String = "?affil=pepeizqdeals"
         Dim microsoft As String = "https://click.linksynergy.com/link?id=AlDdpr80Ueo&offerid=889916.19023826372&type=2&murl="
+        Dim voidu As String = "https://lt45.net/c/?si=12328&li=1546584&wi=350618&dl="
 
         Public Function Generar(enlace As String)
 
@@ -105,7 +106,7 @@
                     If Not enlace.Contains(greenmangaming) Then
                         enlace = enlace + greenmangaming
                     End If
-                ElseIf enlace.Contains("yuplay.ru") Then
+                ElseIf enlace.Contains("yuplay.com") Then
                     If Not enlace.Contains(yuplay) Then
                         enlace = enlace + yuplay
                     End If
@@ -120,6 +121,11 @@
                 ElseIf enlace.Contains("xbox.com") Then
                     If Not enlace.Contains(microsoft) Then
                         enlace = microsoft + enlace
+                    End If
+                ElseIf enlace.Contains("voidu.com") Then
+                    If Not enlace.Contains(voidu) Then
+                        enlace = enlace.Replace("https://www.voidu.com/en/", Nothing)
+                        enlace = voidu + enlace
                     End If
                 End If
             End If
@@ -181,7 +187,7 @@
                     If enlace.Contains(greenmangaming) Then
                         enlace = enlace.Replace(greenmangaming, Nothing)
                     End If
-                ElseIf enlace.Contains("yuplay.ru") Then
+                ElseIf enlace.Contains("yuplay.com") Then
                     If enlace.Contains(yuplay) Then
                         enlace = enlace.Replace(yuplay, Nothing)
                     End If
@@ -196,6 +202,11 @@
                 ElseIf enlace.Contains("xbox.com") Then
                     If Not enlace.Contains(microsoft) Then
                         enlace = enlace.Replace(microsoft, Nothing)
+                    End If
+                ElseIf enlace.Contains("voidu.com") Then
+                    If Not enlace.Contains(voidu) Then
+                        enlace = enlace.Replace(voidu, Nothing)
+                        enlace = "https://www.voidu.com/en/" + enlace
                     End If
                 End If
 

@@ -1,4 +1,6 @@
-﻿Imports Windows.Web.Http
+﻿Imports Windows.Networking.BackgroundTransfer
+Imports Windows.Storage
+Imports Windows.Web.Http
 
 Module Decompiladores
 
@@ -31,6 +33,19 @@ Module Decompiladores
         Dim cliente As New HttpClient
         Dim resultado As String = Await cliente.GetStringAsync(url)
         Return resultado
+
+    End Function
+
+    Public Async Function Descargador(url As Uri) As Task(Of IStorageFile)
+
+        Dim fichero As IStorageFile = Await ApplicationData.Current.LocalFolder.CreateFileAsync("web", CreationCollisionOption.ReplaceExisting)
+        Dim descargador2 As New BackgroundDownloader
+        Dim descarga As DownloadOperation = descargador2.CreateDownload(url, fichero)
+        descarga.Priority = BackgroundTransferPriority.High
+        Await descarga.StartAsync
+        Dim ficheroDescargado As IStorageFile = descarga.ResultFile
+
+        Return ficheroDescargado
 
     End Function
 

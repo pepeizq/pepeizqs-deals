@@ -1,9 +1,10 @@
-﻿Imports System.Net
-Imports System.Xml.Serialization
+﻿Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
 
 Namespace pepeizq.Ofertas
     Module Voidu
+
+        'https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
@@ -80,20 +81,14 @@ Namespace pepeizq.Ofertas
                     Dim int As Integer
 
                     int = html.IndexOf("<div class=products-container>")
-                    html = html.Remove(0, int)
+
+                    If Not int = -1 Then
+                        html = html.Remove(0, int)
+                    End If
 
                     Dim j As Integer = 0
                     While j < 26
                         If html.Contains("<div class=" + ChrW(34) + "product-item") Then
-                            Try
-
-                            Catch ex As Exception
-                                '    Dim datos As New DataTransfer.DataPackage
-                                'datos.SetText(temp4)
-                                'DataTransfer.Clipboard.SetContent(datos)
-                                'Notificaciones.Toast("error", Nothing)
-                            End Try
-
                             Dim temp3, temp4 As String
                             Dim int3, int4 As Integer
 
@@ -103,108 +98,119 @@ Namespace pepeizq.Ofertas
                             html = temp3
 
                             int4 = temp3.IndexOf("</div></div></div></div>")
-                            temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                            If temp4.Contains("extra-discount") Or temp4.Contains("discount-box") Then
-                                Dim temp5, temp6 As String
-                                Dim int5, int6 As Integer
+                            If Not int4 = -1 Then
+                                temp4 = temp3.Remove(int4, temp3.Length - int4)
 
-                                int5 = temp4.IndexOf("title=")
-                                temp5 = temp4.Remove(0, int5 + 7)
+                                If temp4.Contains("extra-discount") Or temp4.Contains("discount-box") Then
+                                    Dim temp5, temp6 As String
+                                    Dim int5, int6 As Integer
 
-                                int6 = temp5.IndexOf(ChrW(34))
-                                temp6 = temp5.Remove(int6, temp5.Length - int6)
+                                    int5 = temp4.IndexOf("title=")
+                                    temp5 = temp4.Remove(0, int5 + 7)
 
-                                Dim titulo As String = temp6.Trim
-                                titulo = titulo.Replace("[Mac]", Nothing)
-                                titulo = titulo.Replace("Show details for", Nothing)
-                                titulo = titulo.Replace("(DLC)", Nothing)
-                                titulo = titulo.Replace("(ROW)", Nothing)
-                                titulo = titulo.Replace("&amp;", "&")
-                                titulo = titulo.Trim
+                                    int6 = temp5.IndexOf(ChrW(34))
+                                    temp6 = temp5.Remove(int6, temp5.Length - int6)
 
-                                Dim temp7, temp8 As String
-                                Dim int7, int8 As Integer
+                                    Dim titulo As String = temp6.Trim
+                                    titulo = titulo.Replace("[Mac]", Nothing)
+                                    titulo = titulo.Replace("Show details for", Nothing)
+                                    titulo = titulo.Replace("(DLC)", Nothing)
+                                    titulo = titulo.Replace("(ROW)", Nothing)
+                                    titulo = titulo.Replace("|ROW|", Nothing)
+                                    titulo = titulo.Replace("&amp;", "&")
+                                    titulo = titulo.Trim
 
-                                int7 = temp4.IndexOf("<a href=")
-                                temp7 = temp4.Remove(0, int7 + 8)
+                                    If titulo.Contains("<img alt=") Then
+                                        Dim int14 As Integer = titulo.IndexOf("<img alt=")
+                                        titulo = titulo.Remove(0, int14 + 9)
+                                        titulo = titulo.Replace("src=", Nothing)
+                                        titulo = titulo.Trim
+                                    End If
 
-                                int8 = temp7.IndexOf("title=")
-                                temp8 = temp7.Remove(int8, temp7.Length - int8)
+                                    Dim temp7, temp8 As String
+                                    Dim int7, int8 As Integer
 
-                                Dim enlace As String = "https://www.voidu.com" + temp8.Trim
+                                    int7 = temp4.IndexOf("<a href=")
+                                    temp7 = temp4.Remove(0, int7 + 8)
 
-                                Dim temp9, temp10 As String
-                                Dim int9, int10 As Integer
+                                    int8 = temp7.IndexOf("title=")
+                                    temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                                int9 = temp4.IndexOf("<img")
-                                temp9 = temp4.Remove(0, int9)
+                                    Dim enlace As String = "https://www.voidu.com" + temp8.Trim
 
-                                int9 = temp9.IndexOf("src=" + ChrW(34))
-                                temp9 = temp9.Remove(0, int9 + 5)
+                                    Dim temp9, temp10 As String
+                                    Dim int9, int10 As Integer
 
-                                int10 = temp9.IndexOf(ChrW(34))
-                                temp10 = temp9.Remove(int10, temp9.Length - int10)
+                                    int9 = temp4.IndexOf("<img")
+                                    temp9 = temp4.Remove(0, int9)
 
-                                Dim imagen As String = temp10.Trim
-                                Dim imagenes As New OfertaImagenes(imagen, imagen)
+                                    int9 = temp9.IndexOf("src=" + ChrW(34))
+                                    temp9 = temp9.Remove(0, int9 + 5)
 
-                                Dim temp11, temp12 As String
-                                Dim int11, int12 As Integer
+                                    int10 = temp9.IndexOf(ChrW(34))
+                                    temp10 = temp9.Remove(int10, temp9.Length - int10)
 
-                                int11 = temp4.IndexOf("<span class=" + ChrW(34) + "price old-price")
-                                temp11 = temp4.Remove(0, int11)
+                                    Dim imagen As String = temp10.Trim
+                                    Dim imagenes As New OfertaImagenes(imagen, imagen)
 
-                                int11 = temp11.IndexOf(">")
-                                temp11 = temp11.Remove(0, int11 + 1)
+                                    Dim temp11, temp12 As String
+                                    Dim int11, int12 As Integer
 
-                                int12 = temp11.IndexOf("</span>")
-                                temp12 = temp11.Remove(int12, temp11.Length - int12)
+                                    int11 = temp4.IndexOf("<span class=" + ChrW(34) + "price old-price")
+                                    temp11 = temp4.Remove(0, int11)
 
-                                temp12 = temp12.Replace("€", Nothing)
-                                temp12 = temp12.Replace("&#x20AC;", Nothing)
-                                Dim precioBase As String = temp12.Trim
+                                    int11 = temp11.IndexOf(">")
+                                    temp11 = temp11.Remove(0, int11 + 1)
 
-                                Dim temp13 As String
-                                Dim int13 As Integer
+                                    int12 = temp11.IndexOf("</span>")
+                                    temp12 = temp11.Remove(int12, temp11.Length - int12)
 
-                                int13 = temp4.LastIndexOf(">")
-                                temp13 = temp4.Remove(0, int13 + 1)
+                                    temp12 = temp12.Replace("€", Nothing)
+                                    temp12 = temp12.Replace("&#x20AC;", Nothing)
+                                    Dim precioBase As String = temp12.Trim
 
-                                Dim precioDescontado As String = temp13.Trim
-                                precioDescontado = precioDescontado.Replace("&#x20AC;", Nothing)
-                                precioDescontado = precioDescontado.Replace("€", Nothing)
-                                precioDescontado = precioDescontado.Trim
+                                    Dim temp13 As String
+                                    Dim int13 As Integer
 
-                                Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioDescontado)
+                                    int13 = temp4.LastIndexOf(">")
+                                    temp13 = temp4.Remove(0, int13 + 1)
 
-                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                                    Dim precioDescontado As String = temp13.Trim
+                                    precioDescontado = precioDescontado.Replace("&#x20AC;", Nothing)
+                                    precioDescontado = precioDescontado.Replace("€", Nothing)
+                                    precioDescontado = precioDescontado.Trim
 
-                                Dim juego As New Oferta(titulo, descuento, precioDescontado, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioDescontado)
 
-                                Dim añadir As Boolean = True
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Enlace = juego.Enlace Then
+                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+
+                                    Dim juego As New Oferta(titulo, descuento, precioDescontado, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+
+                                    Dim añadir As Boolean = True
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Enlace = juego.Enlace Then
+                                            añadir = False
+                                        End If
+                                        k += 1
+                                    End While
+
+                                    If juego.Descuento = Nothing Then
                                         añadir = False
                                     End If
-                                    k += 1
-                                End While
 
-                                If juego.Descuento = Nothing Then
-                                    añadir = False
-                                End If
+                                    If añadir = True Then
+                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
-                                If añadir = True Then
-                                    juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
-
-                                    If Not ana Is Nothing Then
-                                        If Not ana.Publisher = Nothing Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                        If Not ana Is Nothing Then
+                                            If Not ana.Publisher = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                            End If
                                         End If
-                                    End If
 
-                                    listaJuegos.Add(juego)
+                                        listaJuegos.Add(juego)
+                                    End If
                                 End If
                             End If
                         End If
@@ -224,17 +230,28 @@ Namespace pepeizq.Ofertas
 
 
 
-            'Dim html As String = Await HttpClient(New Uri("https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133"))
+            'Dim fichero As Windows.Storage.IStorageFile = Await Descargador(New Uri("https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133"))
 
-            'If Not html = Nothing Then
+            'If Not fichero Is Nothing Then
+            '    Dim xml2 As XDocument = XDocument.Load(fichero.Path)
+
+            '    Dim resultado As String = String.Empty
+
+            '    Using escritor As New StringWriter
+            '        xml2.Save(escritor)
+            '        resultado = escritor.ToString
+            '    End Using
+
+            '    Notificaciones.Toast(resultado.Length, Nothing)
+
             '    'Dim xml As New XmlSerializer(GetType(VoiduJuegos))
             '    'Dim stream As New StringReader(html)
             '    Dim listaJuegosVoidu As VoiduJuegos = Nothing
 
-            '    Using stream As New StringReader(html)
-            '        Dim xml As New XmlSerializer(GetType(VoiduJuegos))
-            '        listaJuegosVoidu = xml.Deserialize(stream)
-            '    End Using
+            '    'Using stream As New StringReader(html)
+            '    '    Dim xml As New XmlSerializer(GetType(VoiduJuegos))
+            '    '    listaJuegosVoidu = xml.Deserialize(stream)
+            '    'End Using
 
             '    If Not listaJuegosVoidu Is Nothing Then
             '        If listaJuegosVoidu.Juegos.Count > 0 Then
