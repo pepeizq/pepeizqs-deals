@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 Imports Windows.ApplicationModel.DataTransfer
 Imports Windows.Storage
@@ -222,7 +223,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim desarrolladorTwitter As String = cbPublishers.SelectedItem
 
                     If Not desarrolladorTwitter Is Nothing Then
-                        Dim desarrolladorTwitterFinal As Clases.Desarrolladores = Desarrolladores.Buscar(desarrolladorTwitter)
+                        Dim desarrolladorTwitterFinal As Desarrollador = Desarrolladores.Buscar(desarrolladorTwitter)
 
                         If Not desarrolladorTwitterFinal Is Nothing Then
                             tbTituloTwitter.Text = tbTituloTwitter.Text + " " + desarrolladorTwitterFinal.Twitter

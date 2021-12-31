@@ -1,7 +1,7 @@
 ﻿Imports Newtonsoft.Json
 Imports WordPressPCL.Models
 
-Namespace pepeizq.Editor.pepeizqdeals.Clases
+Namespace Clases
     Public Class Post
         Inherits Base
 

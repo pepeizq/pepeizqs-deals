@@ -1,4 +1,6 @@
-﻿Namespace pepeizq.Editor.pepeizqdeals
+﻿Imports Steam_Deals.Clases
+
+Namespace pepeizq.Editor.pepeizqdeals
     Module OfertasEntrada
 
         Public Function GenerarWeb(listaJuegos As List(Of Oferta), comentario As String, tienda As Tienda)
@@ -95,12 +97,12 @@
                     If Not juego.Analisis Is Nothing Then
                         Dim contenidoAnalisis As String = Nothing
 
-                        If juego.Analisis.Porcentaje > 74 Then
-                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                        ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
-                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
-                        ElseIf juego.Analisis.Porcentaje < 50 Then
-                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.Porcentaje + "%</span></td>"
+                        If juego.Analisis.AnalisisPorcentaje > 74 Then
+                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.AnalisisPorcentaje + "%</span></td>"
+                        ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
+                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.AnalisisPorcentaje + "%</span></td>"
+                        ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
+                            contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.AnalisisPorcentaje + "%</span></td>"
                         End If
 
                         contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
@@ -161,8 +163,8 @@
                 Dim analisisEnlace As String = "null"
 
                 If Not juego.Analisis Is Nothing Then
-                    analisisPorcentaje = juego.Analisis.Porcentaje
-                    analisisCantidad = juego.Analisis.Cantidad
+                    analisisPorcentaje = juego.Analisis.AnalisisPorcentaje
+                    analisisCantidad = juego.Analisis.AnalisisCantidad
                     analisisEnlace = juego.Analisis.Enlace
                 End If
 

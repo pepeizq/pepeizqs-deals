@@ -1,4 +1,5 @@
-﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+﻿Imports Steam_Deals.Clases
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Windows.Storage
 
 Namespace pepeizq.Interfaz
@@ -13,7 +14,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Porcentaje > 49 Then
+                                If juego.Analisis.AnalisisPorcentaje > 49 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -26,7 +27,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Porcentaje > 74 Then
+                                If juego.Analisis.AnalisisPorcentaje > 74 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -39,7 +40,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Porcentaje > 79 Then
+                                If juego.Analisis.AnalisisPorcentaje > 79 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -52,7 +53,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Porcentaje > 84 Then
+                                If juego.Analisis.AnalisisPorcentaje > 84 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -65,7 +66,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Porcentaje > 89 Then
+                                If juego.Analisis.AnalisisPorcentaje > 89 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -78,7 +79,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Cantidad.Length > 2 Then
+                                If juego.Analisis.AnalisisCantidad.Length > 2 Then
                                     Dim añadirCheck As Boolean = True
 
                                     If FiltrarTiendas(juego) = False Then
@@ -99,7 +100,7 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.Cantidad.Length > 4 Then
+                                If juego.Analisis.AnalisisCantidad.Length > 4 Then
                                     Dim añadirCheck As Boolean = True
 
                                     If FiltrarTiendas(juego) = False Then

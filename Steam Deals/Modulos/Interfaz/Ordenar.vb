@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Windows.Storage
 
@@ -7,7 +8,7 @@ Namespace pepeizq.Interfaz
 
         Public Async Sub Ofertas(tienda As Tienda, buscar As Boolean, cargarUltimas As Boolean)
 
-            pepeizq.Interfaz.Pestañas.Botones(False)
+            Pestañas.Botones(False)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -318,7 +319,7 @@ Namespace pepeizq.Interfaz
                             For Each desarrollador In listaDesarrolladores
                                 If Not desarrollador = Nothing Then
                                     If desarrollador.Trim.Length > 0 Then
-                                        Dim desarrolladorFinal1 As Clases.Desarrolladores = Desarrolladores.Buscar(desarrollador.Trim)
+                                        Dim desarrolladorFinal1 As Clases.Desarrollador = Desarrolladores.Buscar(desarrollador.Trim)
                                         Dim desarrolladorFinal2 As String = String.Empty
 
                                         If Not desarrolladorFinal1 Is Nothing Then
@@ -358,7 +359,7 @@ Namespace pepeizq.Interfaz
 
                     lv.IsEnabled = True
 
-                    pepeizq.Interfaz.Pestañas.Botones(True)
+                    Pestañas.Botones(True)
 
                     gridProgreso.Visibility = Visibility.Collapsed
                 End If

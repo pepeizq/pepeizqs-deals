@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module GamersGate
@@ -8,7 +9,7 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
             Dim cuponPorcentaje As String = String.Empty
             Dim cupon0PorCiento As Boolean = False
@@ -21,10 +22,6 @@ Namespace pepeizq.Ofertas
             libra = tbLibra.Text
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             Dim listaCupones As New List(Of TiendaCupon)
 
@@ -131,7 +128,7 @@ Namespace pepeizq.Ofertas
                                 fechaTermina = DateTime.Parse(juego.Fecha)
                             End If
 
-                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                            Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
                             Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juego.Desarrollador}, Nothing)
 
@@ -152,7 +149,7 @@ Namespace pepeizq.Ofertas
                             precioRebajado = Math.Round(dprecioEU, 2).ToString + " €"
                             descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                            Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, ana, sistemas, desarrolladores)
+                            Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, juegobbdd, sistemas, desarrolladores)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -178,9 +175,9 @@ Namespace pepeizq.Ofertas
                             End If
 
                             If añadir = True Then
-                                If Not ana Is Nothing Then
-                                    If Not ana.Publisher = Nothing Then
-                                        juegoFinal.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                If Not juegobbdd Is Nothing Then
+                                    If Not juegobbdd.Desarrollador = Nothing Then
+                                        juegoFinal.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                     End If
                                 End If
 

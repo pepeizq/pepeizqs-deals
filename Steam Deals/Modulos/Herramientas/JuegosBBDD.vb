@@ -1,18 +1,44 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
-Module Analisis
+Module JuegosBBDD
 
-    Dim WithEvents Bw As BackgroundWorker
-    Dim listaAnalisis As New List(Of OfertaAnalisis)
-    Dim numPaginas As Integer = 0
+    Public Async Function Cargar() As Task(Of List(Of JuegoBBDD))
 
-    Public Async Sub Generar()
+        Dim bbdd As New List(Of JuegoBBDD)
+        Dim helper As New LocalObjectStorageHelper
+
+        If Await helper.FileExistsAsync("bbddJuegos") Then
+            bbdd = Await helper.ReadFileAsync(Of List(Of JuegoBBDD))("bbddJuegos")
+        End If
+
+        Return bbdd
+
+    End Function
+
+    Public Async Function Guardar(bbdd As List(Of JuegoBBDD)) As Task
 
         Dim helper As New LocalObjectStorageHelper
 
-        If Await helper.FileExistsAsync("listaAnalisis") Then
-            listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
+        If Await helper.FileExistsAsync("bbddJuegos") Then
+            Try
+                Await helper.SaveFileAsync(Of List(Of JuegoBBDD))("bbddJuegos", bbdd)
+            Catch ex As Exception
+
+            End Try
         End If
+
+    End Function
+
+    '------------------------------------------------------
+
+    Dim WithEvents Bw As BackgroundWorker
+    Dim bbddAnalisis As New List(Of JuegoBBDD)
+    Dim numPaginas As Integer = 0
+
+    Public Async Sub BuscarAnalisis()
+
+        bbddAnalisis = Await Cargar()
 
         numPaginas = Await pepeizq.Ofertas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
@@ -71,7 +97,7 @@ Module Analisis
                             temp2 = temp.Remove(int2, temp.Length - int2)
 
                             If temp2.Contains("data-tooltip-html=") Then
-                                AñadirAnalisis(temp2, listaAnalisis)
+                                AñadirAnalisis(temp2, bbddAnalisis)
                             End If
                         End If
                         j += 1
@@ -106,13 +132,13 @@ Module Analisis
         tbAvance.Text = String.Empty
         tbAvance.Visibility = Visibility.Collapsed
 
-        Notificaciones.Toast(listaAnalisis.Count.ToString, Nothing)
+        Notificaciones.Toast(bbddAnalisis.Count.ToString, Nothing)
 
     End Sub
 
-    Public Function AñadirAnalisis(html As String, lista As List(Of OfertaAnalisis))
+    Public Function AñadirAnalisis(html As String, lista As List(Of JuegoBBDD))
 
-        Dim analisis As OfertaAnalisis = Nothing
+        Dim analisis As JuegoBBDD = Nothing
 
         If Not html = Nothing Then
             If html.Contains("data-tooltip-html=") Then
@@ -183,14 +209,14 @@ Module Analisis
 
                 Dim cantidad As String = temp10.Trim
 
-                analisis = New OfertaAnalisis(titulo, porcentaje, cantidad, enlace, Nothing)
+                analisis = New JuegoBBDD(titulo, porcentaje, cantidad, enlace, Nothing, Nothing)
 
                 Dim tituloBool As Boolean = False
                 Dim k As Integer = 0
                 While k < lista.Count
                     If lista(k).Titulo = titulo Then
-                        lista(k).Porcentaje = porcentaje
-                        lista(k).Cantidad = cantidad
+                        lista(k).AnalisisPorcentaje = porcentaje
+                        lista(k).AnalisisCantidad = cantidad
                         lista(k).Enlace = enlace
                         tituloBool = True
                     End If
@@ -204,9 +230,7 @@ Module Analisis
 
                 If tituloBool = False Then
                     lista.Add(analisis)
-
-                    Dim helper As New LocalObjectStorageHelper
-                    helper.SaveFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis", lista)
+                    Guardar(lista)
                 End If
             End If
         End If
@@ -215,7 +239,7 @@ Module Analisis
 
     End Function
 
-    Public Function AñadirDesarrollador(enlace As String, desarrollador As String, lista As List(Of OfertaAnalisis))
+    Public Function AñadirDesarrollador(enlace As String, desarrollador As String, lista As List(Of JuegoBBDD))
 
         enlace = enlace.Replace("#app_reviews_hash", Nothing)
 
@@ -227,7 +251,7 @@ Module Analisis
                         enlaceJuego = enlaceJuego.Replace("#app_reviews_hash", Nothing)
 
                         If enlace = enlaceJuego Then
-                            juego.Publisher = desarrollador
+                            juego.Desarrollador = desarrollador
                         End If
                     End If
                 Next
@@ -238,9 +262,9 @@ Module Analisis
 
     End Function
 
-    Public Function BuscarJuego(titulo As String, lista As List(Of OfertaAnalisis), idSteam As String)
+    Public Function BuscarJuego(titulo As String, lista As List(Of JuegoBBDD), idSteam As String)
 
-        Dim analisis As OfertaAnalisis = Nothing
+        Dim analisis As JuegoBBDD = Nothing
 
         titulo = Busqueda.Limpiar(titulo)
 

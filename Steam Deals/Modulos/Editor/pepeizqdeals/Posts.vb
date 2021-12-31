@@ -2,6 +2,7 @@
 Imports Imgur.API.Endpoints.Impl
 Imports Imgur.API.Models
 Imports Newtonsoft.Json
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 Imports Windows.ApplicationModel.Core
 Imports Windows.Storage

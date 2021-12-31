@@ -1,11 +1,11 @@
-﻿Namespace pepeizq.Editor.pepeizqdeals.Clases
-    Public Class LogosJuegos
+﻿Namespace Clases
+    Public Class LogoJuego
 
         Public Property Titulo As String
         Public Property Logo As String
         Public Property LogoAncho As Integer
 
-        Public Sub New(ByVal titulo As String, ByVal logo As String, ByVal logoAncho As Integer)
+        Public Sub New(titulo As String, logo As String, logoAncho As Integer)
             Me.Titulo = titulo
             Me.Logo = logo
             Me.LogoAncho = logoAncho

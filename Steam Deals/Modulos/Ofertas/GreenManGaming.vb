@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module GreenManGaming
@@ -8,15 +9,12 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
+
             Dim listaDesarrolladores As New List(Of GreenManGamingDesarrolladores)
             Dim cuponPorcentaje As String = String.Empty
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             If Await helper.FileExistsAsync("listaDesarrolladoresGreenManGaming") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of GreenManGamingDesarrolladores))("listaDesarrolladoresGreenManGaming")
@@ -30,7 +28,7 @@ Namespace pepeizq.Ofertas
 
             If listaCupones.Count > 0 Then
                 For Each cupon In listaCupones
-                    If Tienda.NombreUsar = cupon.TiendaNombreUsar Then
+                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
                         If Not cupon.Porcentaje = Nothing Then
                             If cupon.Porcentaje > 0 Then
                                 cuponPorcentaje = cupon.Porcentaje
@@ -51,7 +49,7 @@ Namespace pepeizq.Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
             Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
@@ -120,9 +118,9 @@ Namespace pepeizq.Ofertas
 
                             Dim drm As String = juegoGMG.DRM
 
-                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoGMG.SteamID)
+                            Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, juegoGMG.SteamID)
 
-                            Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -134,9 +132,9 @@ Namespace pepeizq.Ofertas
                             End While
 
                             If añadir = True Then
-                                If Not ana Is Nothing Then
-                                    If Not ana.Publisher = Nothing Then
-                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                If Not juegobbdd Is Nothing Then
+                                    If Not juegobbdd.Desarrollador = Nothing Then
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                     End If
                                 End If
 
@@ -149,9 +147,9 @@ Namespace pepeizq.Ofertas
                                     Next
                                 Else
                                     If juego.Desarrolladores.Desarrolladores(0) = "---" Then
-                                        If Not ana Is Nothing Then
-                                            If Not ana.Publisher = Nothing Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                        If Not juegobbdd Is Nothing Then
+                                            If Not juegobbdd.Desarrollador = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                             End If
                                         End If
                                     End If

@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module AmazonCom
@@ -7,7 +8,8 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
+
             Dim dolar As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
@@ -17,10 +19,6 @@ Namespace pepeizq.Ofertas
             dolar = tbDolar.Text
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
@@ -36,7 +34,7 @@ Namespace pepeizq.Ofertas
                 Dim html As String = Await HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_availability%3A1238047011%2Cp_n_feature_seven_browse-bin%3A7990461011&dc&page=" + i.ToString + "&qid=1540800025&rnid=7990454011&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
-                    ExtraerHtml(html, "steam", listaJuegos, listaAnalisis, dolar, tienda.NombreUsar)
+                    ExtraerHtml(html, "steam", listaJuegos, bbdd, dolar, tienda.NombreUsar)
                 End If
 
                 pb.Value = CInt((100 / numPaginasSteam) * i)
@@ -53,7 +51,7 @@ Namespace pepeizq.Ofertas
                 Dim html As String = Await HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=979455011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A979455011%2Cp_n_feature_seven_browse-bin%3A7990462011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1551357215&rnid=1237984011&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
-                    ExtraerHtml(html, "uplay", listaJuegos, listaAnalisis, dolar, tienda.NombreUsar)
+                    ExtraerHtml(html, "uplay", listaJuegos, bbdd, dolar, tienda.NombreUsar)
                 End If
 
                 pb.Value = CInt((100 / numPaginasUplay) * i)
@@ -70,7 +68,7 @@ Namespace pepeizq.Ofertas
                 Dim html As String = Await HttpClient(New Uri("https://www.amazon.com/s?i=videogames&bbn=4924894011&rh=n%3A468642%2Cn%3A11846801%2Cn%3A229575%2Cn%3A4924894011%2Cp_n_feature_seven_browse-bin%3A7990458011%2Cp_n_availability%3A1238047011&dc&page=" + i.ToString + "&fst=as%3Aoff&qid=1588096033&rnid=1237984011&swrs=6E1CB83E8698BA55BCC39A529BC6CD55&ref=sr_pg_2"))
 
                 If Not html = Nothing Then
-                    ExtraerHtml(html, "origin", listaJuegos, listaAnalisis, dolar, tienda.NombreUsar)
+                    ExtraerHtml(html, "origin", listaJuegos, bbdd, dolar, tienda.NombreUsar)
                 End If
 
                 pb.Value = CInt((100 / numPaginasOrigin) * i)
@@ -89,7 +87,7 @@ Namespace pepeizq.Ofertas
 
         '----------------------------------------------------
 
-        Private Sub ExtraerHtml(html As String, drm As String, listaJuegos As List(Of Oferta), listaAnalisis As List(Of OfertaAnalisis), dolar As String, tiendaNombreUsar As String)
+        Private Sub ExtraerHtml(html As String, drm As String, listaJuegos As List(Of Oferta), bbdd As List(Of JuegoBBDD), dolar As String, tiendaNombreUsar As String)
 
             Dim j As Integer = 0
             While j < 16
@@ -195,9 +193,9 @@ Namespace pepeizq.Ofertas
 
                         Dim imagenes As New OfertaImagenes(imagen, Nothing)
 
-                        Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                        Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                        Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tiendaNombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                        Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tiendaNombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing)
 
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
@@ -233,9 +231,9 @@ Namespace pepeizq.Ofertas
                         End If
 
                         If añadir = True Then
-                            If Not ana Is Nothing Then
-                                If Not ana.Publisher = Nothing Then
-                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                            If Not juegobbdd Is Nothing Then
+                                If Not juegobbdd.Desarrollador = Nothing Then
+                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                 End If
                             End If
 

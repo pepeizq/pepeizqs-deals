@@ -1,5 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Juegos
 Imports Windows.UI
 

@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -74,12 +75,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuegov2")
 
             If Not juego.Analisis Is Nothing Then
-                If Not juego.Analisis.Porcentaje = Nothing Then
-                    If juego.Analisis.Porcentaje > 74 Then
+                If Not juego.Analisis.AnalisisPorcentaje = Nothing Then
+                    If juego.Analisis.AnalisisPorcentaje > 74 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive2.png"))
-                    ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
+                    ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed2.png"))
-                    ElseIf juego.Analisis.Porcentaje < 50 Then
+                    ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative2.png"))
                     End If
                 Else

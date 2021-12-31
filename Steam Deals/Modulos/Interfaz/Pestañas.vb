@@ -1,4 +1,5 @@
-﻿Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+﻿Imports Steam_Deals.Clases
+Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
 
 Namespace pepeizq.Interfaz

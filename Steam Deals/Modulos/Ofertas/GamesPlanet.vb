@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module GamesPlanet
@@ -8,7 +9,8 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
+
             Dim libra As String = String.Empty
             Dim dolar As String = String.Empty
 
@@ -23,10 +25,6 @@ Namespace pepeizq.Ofertas
 
             Dim helper As New LocalObjectStorageHelper
 
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
-
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
@@ -35,15 +33,15 @@ Namespace pepeizq.Ofertas
 
             Dim xml As New XmlSerializer(GetType(GamesPlanetJuegos))
 
-            Dim htmlUK As String = await HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
+            Dim htmlUK As String = Await HttpClient(New Uri("https://uk.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamUK As New StringReader(htmlUK)
             Dim listaJuegosUK As GamesPlanetJuegos = xml.Deserialize(streamUK)
 
-            Dim htmlFR As String = await HttpClient(New Uri("https://fr.gamesplanet.com/api/v1/products/feed.xml"))
+            Dim htmlFR As String = Await HttpClient(New Uri("https://fr.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamFR As New StringReader(htmlFR)
             Dim listaJuegosFR As GamesPlanetJuegos = xml.Deserialize(streamFR)
 
-            Dim htmlDE As String = await HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
+            Dim htmlDE As String = Await HttpClient(New Uri("https://de.gamesplanet.com/api/v1/products/feed.xml"))
             Dim streamDE As New StringReader(htmlDE)
             Dim listaJuegosDE As GamesPlanetJuegos = xml.Deserialize(streamDE)
 
@@ -134,7 +132,7 @@ Namespace pepeizq.Ofertas
 
                         Dim sistemas As New OfertaSistemas(juegoUK.Sistemas.Windows, juegoUK.Sistemas.Mac, juegoUK.Sistemas.Linux)
 
-                        Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoUK.SteamID)
+                        Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, juegoUK.SteamID)
 
                         precio = Divisas.CambioMoneda(precio, libra)
 
@@ -214,7 +212,7 @@ Namespace pepeizq.Ofertas
                             enlace = enlaceUS
                         End If
 
-                        Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, desarrollador)
+                        Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, sistemas, desarrollador)
 
                         Dim añadir As Boolean = True
                         Dim k As Integer = 0
@@ -230,9 +228,9 @@ Namespace pepeizq.Ofertas
                         End If
 
                         If añadir = True Then
-                            If Not ana Is Nothing Then
-                                If Not ana.Publisher = Nothing Then
-                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                            If Not juegobbdd Is Nothing Then
+                                If Not juegobbdd.Desarrollador = Nothing Then
+                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                 End If
                             End If
 

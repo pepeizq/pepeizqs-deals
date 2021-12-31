@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module Steam
@@ -12,14 +13,10 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
             Dim listaAPI As New List(Of SteamAPI)
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             If Await helper.FileExistsAsync("listaSteamAPI") Then
                 listaAPI = Await helper.ReadFileAsync(Of List(Of SteamAPI))("listaSteamAPI")
@@ -199,10 +196,10 @@ Namespace pepeizq.Ofertas
 
                                     Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                                    Dim ana As OfertaAnalisis = Nothing
+                                    Dim ana As JuegoBBDD = Nothing
 
                                     If temp2.Contains("data-tooltip-html=") Then
-                                        ana = Analisis.AñadirAnalisis(temp2, listaAnalisis)
+                                        ana = JuegosBBDD.AñadirAnalisis(temp2, bbdd)
                                     End If
 
                                     Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
@@ -223,7 +220,7 @@ Namespace pepeizq.Ofertas
                                             If juego.Analisis Is Nothing Then
                                                 añadir = False
                                             Else
-                                                If juego.Analisis.Cantidad.Length < 4 Then
+                                                If juego.Analisis.AnalisisCantidad.Length < 4 Then
                                                     añadir = False
                                                 End If
                                             End If
@@ -233,7 +230,7 @@ Namespace pepeizq.Ofertas
                                             If juego.Analisis Is Nothing Then
                                                 añadir = False
                                             Else
-                                                If juego.Analisis.Cantidad.Length < 4 Then
+                                                If juego.Analisis.AnalisisCantidad.Length < 4 Then
                                                     añadir = False
                                                 End If
                                             End If
@@ -277,7 +274,7 @@ Namespace pepeizq.Ofertas
                                         End If
 
                                         If Not juego.Desarrolladores Is Nothing Then
-                                            listaAnalisis = Analisis.AñadirDesarrollador(juego.Enlace, juego.Desarrolladores.Desarrolladores(0), listaAnalisis)
+                                            bbdd = JuegosBBDD.AñadirDesarrollador(juego.Enlace, juego.Desarrolladores.Desarrolladores(0), bbdd)
                                         End If
 
                                         juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
@@ -301,7 +298,7 @@ Namespace pepeizq.Ofertas
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await helper.SaveFileAsync(Of List(Of SteamAPI))("listaSteamAPI", listaAPI)
-            Await helper.SaveFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis", listaAnalisis)
+            Await JuegosBBDD.Guardar(bbdd)
 
             pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 

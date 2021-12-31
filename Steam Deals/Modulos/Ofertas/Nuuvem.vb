@@ -1,12 +1,13 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module Nuuvem
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaJuegos As New List(Of Oferta)
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
+        Dim listaAnalisis As New List(Of JuegoBBDD)
         Dim Tienda As Tienda = Nothing
         Dim dolar As String = String.Empty
 
@@ -23,7 +24,7 @@ Namespace pepeizq.Ofertas
             Dim helper As New LocalObjectStorageHelper
 
             If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
+                listaAnalisis = Await helper.ReadFileAsync(Of List(Of JuegoBBDD))("listaAnalisis")
             End If
 
             listaJuegos.Clear()
@@ -176,7 +177,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                                    Dim ana As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, listaAnalisis, Nothing)
 
                                     Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
 

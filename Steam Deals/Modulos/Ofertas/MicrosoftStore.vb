@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Suscripciones.Xbox
 
 Namespace pepeizq.Ofertas
@@ -16,12 +17,7 @@ Namespace pepeizq.Ofertas
             Dim helper As New LocalObjectStorageHelper
 
             Dim listaJuegos As New List(Of Oferta)
-
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
             Dim listaJuegosAntigua As New List(Of Oferta)
 
@@ -187,11 +183,11 @@ Namespace pepeizq.Ofertas
 
                                     Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
                                     Dim enlace As String = "https://www.microsoft.com/store/apps/" + juego2.ID
 
-                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -207,9 +203,9 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If añadir = True Then
-                                        If Not ana Is Nothing Then
-                                            If Not ana.Publisher = Nothing Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                        If Not juegobbdd Is Nothing Then
+                                            If Not juegobbdd.Desarrollador = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                             End If
                                         End If
 

@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 Imports Windows.Storage
 Imports Windows.System
 
@@ -143,22 +144,15 @@ Module Configuracion
 
     End Sub
 
-    Public Async Sub AnalisisBuscar(estado As Boolean)
+    Public Sub AnalisisBuscar(estado As Boolean)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
         ApplicationData.Current.LocalSettings.Values("analisis") = estado
 
-        Dim listaAnalisis As New List(Of OfertaAnalisis)
-        Dim helper As New LocalObjectStorageHelper
-
-        If Await helper.FileExistsAsync("listaAnalisis") Then
-            listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-        End If
-
         If estado = True Then
-            Analisis.Generar()
+            JuegosBBDD.BuscarAnalisis()
         End If
 
     End Sub

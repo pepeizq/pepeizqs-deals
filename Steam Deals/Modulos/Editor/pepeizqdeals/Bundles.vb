@@ -2,6 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Juegos
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -136,7 +137,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim listaTiendas As List(Of Tienda) = pepeizq.Interfaz.Tiendas.Listado
 
             If tbEnlace.Text.Trim.Length > 0 Then
-                Dim cosas As Clases.Bundles = Nothing
+                Dim cosas As Bundle = Nothing
                 Dim enlace As String = tbEnlace.Text.Trim
 
                 If enlace.Contains("https://store.steampowered.com/bundle/") Then
@@ -284,7 +285,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenBundlesv2")
 
-            Dim cosas As Clases.Bundles = tbTitulo.Tag
+            Dim cosas As Bundle = tbTitulo.Tag
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsBundles")
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsBundles")
@@ -850,9 +851,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Function Steam(enlace As String) As Task(Of Clases.Bundles)
+        Private Async Function Steam(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.steamT, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.steamT, 5, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_steam.png", Nothing, Nothing)
 
             If Not enlace.Contains("?l=english") Then
                 enlace = enlace + "?l=english"
@@ -924,9 +925,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return cosas
         End Function
 
-        Private Async Function Humble(enlace As String) As Task(Of Clases.Bundles)
+        Private Async Function Humble(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.humbleT, 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.humbleT, 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
             cosas.Tienda.NombreMostrar = "Humble Bundle"
 
             Dim html As String = Await HttpClient(New Uri(enlace))
@@ -1029,9 +1030,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Async Function Fanatical(enlace As String) As Task(Of Clases.Bundles)
+        Private Async Function Fanatical(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.fanaticalT, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.fanaticalT, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", Nothing, Nothing)
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
 
@@ -1129,9 +1130,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Async Function IndieGala(enlace As String) As Task(Of Clases.Bundles)
+        Private Async Function IndieGala(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.indiegalaT, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.indiegalaT, 1210, "https://pepeizqdeals.com/wp-content/uploads/2018/09/tienda_indiegala.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -1173,9 +1174,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Function
 
-        Private Async Function GreenManGaming(enlace As String) As Task(Of Clases.Bundles)
+        Private Async Function GreenManGaming(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.greenmangamingT, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.greenmangamingT, 1205, "https://pepeizqdeals.com/wp-content/uploads/2018/10/tienda_greenmangaming.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -1220,9 +1221,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return cosas
         End Function
 
-        Private Async Function WinGameStore(enlace As String) As Task(Of Clases.Bundles)
+        Private Async Function WinGameStore(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Clases.Bundles(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.wingamestoreT, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, pepeizq.Interfaz.Tiendas.wingamestoreT, 14, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_wingamestore.png", Nothing, Nothing)
 
             Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 

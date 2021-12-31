@@ -1,4 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Steam_Deals.Clases
 Imports Windows.Storage
 Imports Windows.UI
 Imports Windows.UI.Core
@@ -222,7 +222,7 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorActualizarAnalisis.Click
 
-        Analisis.Generar()
+        JuegosBBDD.BuscarAnalisis()
 
     End Sub
 

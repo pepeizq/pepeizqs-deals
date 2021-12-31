@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module WinGameStore
@@ -7,7 +8,8 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
+
             Dim listaDesarrolladores As New List(Of WinGameStoreDesarrolladores)
             Dim listaImagenes As New List(Of WinGameStoreImagenes)
             Dim dolar As String = String.Empty
@@ -19,10 +21,6 @@ Namespace pepeizq.Ofertas
             dolar = tbDolar.Text
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             If Await helper.FileExistsAsync("listaDesarrolladoresWinGameStore") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore")
@@ -38,7 +36,7 @@ Namespace pepeizq.Ofertas
             Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
             Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
 
-            Dim html As String = await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
+            Dim html As String = Await HttpClient(New Uri("https://www.macgamestore.com/affiliate/feeds/p_C1B2A3.json"))
 
             If Not html = Nothing Then
                 Dim listaJuegosWGS As List(Of WinGameStoreJuego) = JsonConvert.DeserializeObject(Of List(Of WinGameStoreJuego))(html)
@@ -94,9 +92,9 @@ Namespace pepeizq.Ofertas
 
                                     Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                                    Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, juegoWGS.SteamID)
+                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, juegoWGS.SteamID)
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, sistemas, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
@@ -112,9 +110,9 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If añadir = True Then
-                                        If Not ana Is Nothing Then
-                                            If Not ana.Publisher = Nothing Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                        If Not juegobbdd Is Nothing Then
+                                            If Not juegobbdd.Desarrollador = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                             End If
                                         End If
 

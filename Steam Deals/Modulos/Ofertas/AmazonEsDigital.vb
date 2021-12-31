@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
 
@@ -8,13 +9,9 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -31,7 +28,7 @@ Namespace pepeizq.Ofertas
                 listaJuegosAntigua = Await helper.ReadFileAsync(Of List(Of Oferta))("listaOfertasAntiguaAmazonEs2")
             End If
 
-            Dim htmlPaginas As String = await HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=2774313031&rh=n%3A599382031%2Cn%3A675795031%2Cn%3A675815031%2Cn%3A2774313031%2Cp_n_availability%3A831278031&page=2&qid=1554658639&ref=sr_pg_2"))
+            Dim htmlPaginas As String = Await HttpClient(New Uri("https://www.amazon.es/s?i=videogames&bbn=2774313031&rh=n%3A599382031%2Cn%3A675795031%2Cn%3A675815031%2Cn%3A2774313031%2Cp_n_availability%3A831278031&page=2&qid=1554658639&ref=sr_pg_2"))
             Dim numPaginas As Integer = 100
 
             If Not htmlPaginas = Nothing Then
@@ -196,9 +193,9 @@ Namespace pepeizq.Ofertas
                                     descuento = "00%"
                                 End If
 
-                                Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                                Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -214,9 +211,9 @@ Namespace pepeizq.Ofertas
                                 End If
 
                                 If añadir = True Then
-                                    If Not ana Is Nothing Then
-                                        If Not ana.Publisher = Nothing Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                    If Not juegobbdd Is Nothing Then
+                                        If Not juegobbdd.Desarrollador = Nothing Then
+                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                         End If
                                     End If
 

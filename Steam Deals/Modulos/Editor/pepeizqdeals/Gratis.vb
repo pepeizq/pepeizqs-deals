@@ -2,6 +2,7 @@
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Gratis
 Imports Steam_Deals.pepeizq.Juegos
 
@@ -98,7 +99,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsFree")
 
             If tbEnlace.Text.Trim.Length > 0 Then
-                Dim cosas As Clases.Free = Nothing
+                Dim cosas As Clases.Gratis = Nothing
                 Dim enlace As String = tbEnlace.Text.Trim
 
                 If enlace.Contains("https://store.steampowered.com/") Then
@@ -146,7 +147,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     tbImagenTienda.Text = "https://pepeizqdeals.com/wp-content/uploads/2020/12/ubiconnect.png"
 
                 Else
-                    Dim cosas2 As New Clases.Free("--", Nothing, Nothing, "--")
+                    Dim cosas2 As New Clases.Gratis("--", Nothing, Nothing, "--")
                     cosas = cosas2
                 End If
 
@@ -389,9 +390,9 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Function Steam(enlace As String) As Task(Of Clases.Free)
+        Private Async Function Steam(enlace As String) As Task(Of Clases.Gratis)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Steam")
+            Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Steam")
 
             Dim id As String = enlace.Replace("https://store.steampowered.com/app/", Nothing)
 
@@ -411,9 +412,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return cosas
         End Function
 
-        Private Async Function Humble(enlace As String) As Task(Of Clases.Free)
+        Private Async Function Humble(enlace As String) As Task(Of Clases.Gratis)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Humble Store")
+            Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Humble Store")
 
             Dim html As String = Await HttpClient(New Uri(enlace))
 
@@ -460,9 +461,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return cosas
         End Function
 
-        Private Async Function GOG(enlace As String) As Task(Of Clases.Free)
+        Private Async Function GOG(enlace As String) As Task(Of Clases.Gratis)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "GOG")
+            Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "GOG")
 
             Dim i As Integer = 1
             While i < 100
@@ -502,9 +503,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Return cosas
         End Function
 
-        Private Function Uplay() As Clases.Free
+        Private Function Uplay() As Clases.Gratis
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Ubisoft Connect")
+            Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Ubisoft Connect")
 
             Return cosas
         End Function

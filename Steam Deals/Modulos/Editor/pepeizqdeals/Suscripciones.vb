@@ -1,5 +1,6 @@
 ﻿Imports System.Globalization
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Suscripciones
 Imports Windows.ApplicationModel.DataTransfer
 
@@ -96,7 +97,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenUnaSuscripcion")
             Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
-            Dim cosas As New Clases.Suscripciones(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
+            Dim cosas As New Clases.Suscripcion(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 0 Then
                 botonBuscar.Visibility = Visibility.Collapsed
@@ -261,7 +262,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
-            Dim cosas As Clases.Suscripciones = tbTitulo.Tag
+            Dim cosas As Clases.Suscripcion = tbTitulo.Tag
             cosas.Tienda.LogoWebServidorEnlace300x80 = imagenTienda.Source
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")

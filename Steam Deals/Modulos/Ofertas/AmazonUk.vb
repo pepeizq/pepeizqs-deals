@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module AmazonUk
@@ -51,10 +52,10 @@ Namespace pepeizq.Ofertas
                 listaJuegosAntigua = helper.ReadFileAsync(Of List(Of Oferta))("listaOfertasAntiguaAmazonUk").Result
             End If
 
-            Dim listaValoraciones As List(Of OfertaAnalisis) = Nothing
+            Dim listaValoraciones As List(Of JuegoBBDD) = Nothing
 
             If helper.FileExistsAsync("listaValoraciones").Result Then
-                listaValoraciones = helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaValoraciones").Result
+                listaValoraciones = helper.ReadFileAsync(Of List(Of JuegoBBDD))("listaValoraciones").Result
             End If
 
             listaJuegos = New List(Of Oferta)

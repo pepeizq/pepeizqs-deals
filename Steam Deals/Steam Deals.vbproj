@@ -109,18 +109,18 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Clases\Comprobacion.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Bundles.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Deals.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Assets.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\LogosJuegos.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Pestañas.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Post.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Free.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Desarrolladores.vb" />
-    <Compile Include="Clases\Editor\pepeizqdeals\Suscripciones.vb" />
+    <Compile Include="Clases\Bundle.vb" />
+    <Compile Include="Clases\Deals.vb" />
+    <Compile Include="Clases\Asset.vb" />
+    <Compile Include="Clases\LogoJuego.vb" />
+    <Compile Include="Clases\Pestaña.vb" />
+    <Compile Include="Clases\Post.vb" />
+    <Compile Include="Clases\Gratis.vb" />
+    <Compile Include="Clases\Desarrollador.vb" />
+    <Compile Include="Clases\Suscripcion.vb" />
     <Compile Include="Clases\Traduccion.vb" />
     <Compile Include="Clases\Oferta.vb" />
-    <Compile Include="Clases\OfertaAnalisis.vb" />
+    <Compile Include="Clases\JuegoBBDD.vb" />
     <Compile Include="Clases\OfertaDesarrolladores.vb" />
     <Compile Include="Clases\OfertaImagenes.vb" />
     <Compile Include="Clases\OfertaSistemas.vb" />
@@ -205,7 +205,7 @@
     <Compile Include="Modulos\Ofertas\Steam.vb" />
     <Compile Include="Modulos\Ofertas\Voidu.vb" />
     <Compile Include="Modulos\Ofertas\WinGameStore.vb" />
-    <Compile Include="Modulos\Analisis.vb" />
+    <Compile Include="Modulos\Herramientas\JuegosBBDD.vb" />
     <Compile Include="Modulos\Ofertas\Yuplay.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>

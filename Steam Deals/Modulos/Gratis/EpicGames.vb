@@ -1,12 +1,11 @@
 ﻿Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 
 Namespace pepeizq.Gratis
     Module EpicGames
 
-        Public Async Function Generar(enlace As String) As Task(Of Clases.Free)
+        Public Async Function Generar(enlace As String) As Task(Of Clases.Gratis)
 
-            Dim cosas As New Clases.Free(Nothing, Nothing, Nothing, "Epic Games Store")
+            Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Epic Games Store")
 
             Dim clave As String = enlace.Trim
             clave = clave.Replace("https://www.epicgames.com/store/es-ES/product/", Nothing)

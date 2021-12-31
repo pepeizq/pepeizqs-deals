@@ -1,12 +1,12 @@
-﻿Namespace pepeizq.Editor.pepeizqdeals.Clases
-    Public Class Free
+﻿Namespace Clases
+    Public Class Gratis
 
         Public Property Titulo As String
         Public Property ImagenJuego As String
         Public Property ImagenFondo As String
         Public Property Tienda As String
 
-        Public Sub New(ByVal titulo As String, ByVal imagenJuego As String, ByVal imagenFondo As String, ByVal tienda As String)
+        Public Sub New(titulo As String, imagenJuego As String, imagenFondo As String, tienda As String)
             Me.Titulo = titulo
             Me.ImagenJuego = imagenJuego
             Me.ImagenFondo = imagenFondo

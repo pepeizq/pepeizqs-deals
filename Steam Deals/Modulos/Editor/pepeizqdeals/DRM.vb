@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Windows.UI
 
 Namespace pepeizq.Editor.pepeizqdeals
@@ -127,7 +128,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 }
 
                 boton.Content = sp
-                boton.Tag = New Clases.Assets(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
+                boton.Tag = New Asset(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
 
                 AddHandler boton.Click, AddressOf Assets.GenerarFicheroImagen
 

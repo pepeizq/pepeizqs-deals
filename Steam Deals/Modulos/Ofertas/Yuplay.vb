@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Steam_Deals.Clases
 
 Namespace pepeizq.Ofertas
     Module Yuplay
@@ -9,16 +10,12 @@ Namespace pepeizq.Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
-            Dim listaAnalisis As New List(Of OfertaAnalisis)
+            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaAnalisis") Then
-                listaAnalisis = Await helper.ReadFileAsync(Of List(Of OfertaAnalisis))("listaAnalisis")
-            End If
 
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
@@ -146,9 +143,9 @@ Namespace pepeizq.Ofertas
                                 drm = "epic games"
                             End If
 
-                            Dim ana As OfertaAnalisis = Analisis.BuscarJuego(titulo, listaAnalisis, Nothing)
+                            Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                            Dim juego As New Oferta(titulo, descuento, precioDescontado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, Nothing, Nothing)
+                            Dim juego As New Oferta(titulo, descuento, precioDescontado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
@@ -166,9 +163,9 @@ Namespace pepeizq.Ofertas
                             If añadir = True Then
                                 juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
-                                If Not ana Is Nothing Then
-                                    If Not ana.Publisher = Nothing Then
-                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {ana.Publisher}, Nothing)
+                                If Not juegobbdd Is Nothing Then
+                                    If Not juegobbdd.Desarrollador = Nothing Then
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                     End If
                                 End If
 

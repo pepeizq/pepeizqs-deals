@@ -1,5 +1,5 @@
-﻿Namespace pepeizq.Editor.pepeizqdeals.Clases
-    Public Class Suscripciones
+﻿Namespace Clases
+    Public Class Suscripcion
 
         Public Property Titulo As String
         Public Property Imagen As String
@@ -9,8 +9,8 @@
         Public Property Mensaje As String
         Public Property Html As String
 
-        Public Sub New(ByVal titulo As String, ByVal imagen As String, ByVal tienda As Tienda, ByVal juegos As String,
-                       ByVal enlace As String, ByVal mensaje As String, ByVal html As String)
+        Public Sub New(titulo As String, imagen As String, tienda As Tienda, juegos As String,
+                       enlace As String, mensaje As String, html As String)
             Me.Titulo = titulo
             Me.Imagen = imagen
             Me.Tienda = tienda

@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Animations
 Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
 Imports Windows.Storage
 Imports Windows.UI
@@ -341,13 +342,13 @@ Namespace pepeizq.Interfaz
                                              Dim analisisX As Integer = 0
 
                                              If Not x.Analisis Is Nothing Then
-                                                 analisisX = x.Analisis.Porcentaje
+                                                 analisisX = x.Analisis.AnalisisPorcentaje
                                              End If
 
                                              Dim analisisY As Integer = 0
 
                                              If Not y.Analisis Is Nothing Then
-                                                 analisisY = y.Analisis.Porcentaje
+                                                 analisisY = y.Analisis.AnalisisPorcentaje
                                              End If
 
                                              Dim resultado As Integer = analisisY.CompareTo(analisisX)
@@ -892,7 +893,7 @@ Namespace pepeizq.Interfaz
 
                             If añadirDesarrollador = True Then
                                 If TypeOf desarrolladorJuego Is String Then
-                                    Dim desarrollador As Clases.Desarrolladores = Desarrolladores.Buscar(Desarrolladores.Limpiar(desarrolladorJuego))
+                                    Dim desarrollador As Clases.Desarrollador = Desarrolladores.Buscar(Desarrolladores.Limpiar(desarrolladorJuego))
 
                                     If Not desarrollador Is Nothing Then
                                         listaDesarrolladores.Add(desarrollador.Desarrollador)
@@ -1388,13 +1389,13 @@ Namespace pepeizq.Interfaz
                     .IsCacheEnabled = True
                 }
 
-                If juego.Analisis.Porcentaje > 74 Then
+                If juego.Analisis.AnalisisPorcentaje > 74 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive.png"))
                     fondoAnalisis.Background = New SolidColorBrush("#6da2c2".ToColor)
-                ElseIf juego.Analisis.Porcentaje > 49 And juego.Analisis.Porcentaje < 75 Then
+                ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed.png"))
                     fondoAnalisis.Background = New SolidColorBrush("#cfc4b1".ToColor)
-                ElseIf juego.Analisis.Porcentaje < 50 Then
+                ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
                     imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
                     fondoAnalisis.Background = New SolidColorBrush("#d1afa6".ToColor)
                 End If
@@ -1402,7 +1403,7 @@ Namespace pepeizq.Interfaz
                 fondoAnalisis.Children.Add(imagenAnalisis)
 
                 Dim tbAnalisisPorcentaje As New TextBlock With {
-                    .Text = juego.Analisis.Porcentaje + "%",
+                    .Text = juego.Analisis.AnalisisPorcentaje + "%",
                     .Margin = New Thickness(5, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
                     .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
@@ -1412,7 +1413,7 @@ Namespace pepeizq.Interfaz
                 fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
 
                 Dim tbAnalisisCantidad As New TextBlock With {
-                    .Text = juego.Analisis.Cantidad + " " + recursos.GetString("Reviews"),
+                    .Text = juego.Analisis.AnalisisCantidad + " " + recursos.GetString("Reviews"),
                     .Margin = New Thickness(10, 0, 0, 0),
                     .VerticalAlignment = VerticalAlignment.Center,
                     .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
@@ -1663,13 +1664,13 @@ Namespace pepeizq.Interfaz
                                        Dim xAnalisisCantidad As Integer = 0
 
                                        If Not x.Analisis Is Nothing Then
-                                           xAnalisisCantidad = x.Analisis.Cantidad.Replace(",", Nothing)
+                                           xAnalisisCantidad = x.Analisis.AnalisisCantidad.Replace(",", Nothing)
                                        End If
 
                                        Dim yAnalisisCantidad As Integer = 0
 
                                        If Not y.Analisis Is Nothing Then
-                                           yAnalisisCantidad = y.Analisis.Cantidad.Replace(",", Nothing)
+                                           yAnalisisCantidad = y.Analisis.AnalisisCantidad.Replace(",", Nothing)
                                        End If
 
                                        Dim resultado As Integer = yAnalisisCantidad.CompareTo(xAnalisisCantidad)

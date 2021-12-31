@@ -1,11 +1,13 @@
-﻿Public Class Comprobacion
+﻿Namespace Clases
+    Public Class Comprobacion
 
-    Public Property Tienda As String
-    Public Property Dias As Integer
+        Public Property Tienda As String
+        Public Property Dias As Integer
 
-    Public Sub New(ByVal tienda As String, ByVal dias As Integer)
-        Me.Tienda = tienda
-        Me.Dias = dias
-    End Sub
+        Public Sub New(ByVal tienda As String, ByVal dias As Integer)
+            Me.Tienda = tienda
+            Me.Dias = dias
+        End Sub
 
-End Class
+    End Class
+End Namespace
