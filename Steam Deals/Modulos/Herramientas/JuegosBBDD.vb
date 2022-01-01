@@ -136,9 +136,7 @@ Module JuegosBBDD
 
     End Sub
 
-    Public Function AñadirAnalisis(html As String, lista As List(Of JuegoBBDD))
-
-        Dim analisis As JuegoBBDD = Nothing
+    Public Function AñadirAnalisis(html As String, bbdd As List(Of JuegoBBDD))
 
         If Not html = Nothing Then
             If html.Contains("data-tooltip-html=") Then
@@ -187,7 +185,7 @@ Module JuegosBBDD
                 int8 = temp7.IndexOf("?")
                 temp8 = temp7.Remove(int8, temp7.Length - int8)
 
-                Dim enlace As String = temp8.Trim + "#app_reviews_hash"
+                Dim enlace As String = temp8.Trim
 
                 If enlace.Contains("sub") Then
                     enlace = Nothing
@@ -209,43 +207,38 @@ Module JuegosBBDD
 
                 Dim cantidad As String = temp10.Trim
 
-                analisis = New JuegoBBDD(titulo, porcentaje, cantidad, enlace, Nothing, Nothing)
-
-                Dim tituloBool As Boolean = False
+                Dim añadir As Boolean = True
                 Dim k As Integer = 0
-                While k < lista.Count
-                    If lista(k).Titulo = titulo Then
-                        lista(k).AnalisisPorcentaje = porcentaje
-                        lista(k).AnalisisCantidad = cantidad
-                        lista(k).Enlace = enlace
-                        tituloBool = True
+                While k < bbdd.Count
+                    If bbdd(k).Enlace = enlace Then
+                        bbdd(k).AnalisisPorcentaje = porcentaje
+                        bbdd(k).AnalisisCantidad = cantidad
+                        bbdd(k).Enlace = enlace
+                        añadir = False
                     End If
                     k += 1
                 End While
 
                 If cantidad.Length < 3 Then
-                    tituloBool = True
-                    analisis = Nothing
+                    añadir = False
                 End If
 
-                If tituloBool = False Then
-                    lista.Add(analisis)
-                    Guardar(lista)
+                If añadir = True Then
+                    Dim analisis As New JuegoBBDD(titulo, porcentaje, cantidad, enlace, Nothing, Nothing)
+                    bbdd.Add(analisis)
                 End If
             End If
         End If
 
-        Return analisis
+        Return bbdd
 
     End Function
 
-    Public Function AñadirDesarrollador(enlace As String, desarrollador As String, lista As List(Of JuegoBBDD))
+    Public Function AñadirDesarrollador(enlace As String, desarrollador As String, bbdd As List(Of JuegoBBDD))
 
-        enlace = enlace.Replace("#app_reviews_hash", Nothing)
-
-        If Not lista Is Nothing Then
-            If lista.Count > 0 Then
-                For Each juego In lista
+        If Not bbdd Is Nothing Then
+            If bbdd.Count > 0 Then
+                For Each juego In bbdd
                     If Not juego.Enlace = Nothing Then
                         Dim enlaceJuego As String = juego.Enlace
                         enlaceJuego = enlaceJuego.Replace("#app_reviews_hash", Nothing)
@@ -258,29 +251,29 @@ Module JuegosBBDD
             End If
         End If
 
-        Return lista
+        Return bbdd
 
     End Function
 
-    Public Function BuscarJuego(titulo As String, lista As List(Of JuegoBBDD), idSteam As String)
+    Public Function BuscarJuego(titulo As String, bbdd As List(Of JuegoBBDD), idSteam As String)
 
-        Dim analisis As JuegoBBDD = Nothing
+        Dim juegobbdd As JuegoBBDD = Nothing
 
         titulo = Busqueda.Limpiar(titulo)
 
-        If Not lista Is Nothing Then
-            If lista.Count > 0 Then
-                For Each juego In lista
+        If Not bbdd Is Nothing Then
+            If bbdd.Count > 0 Then
+                For Each juego In bbdd
                     If Not idSteam = Nothing Then
                         If Not juego.Enlace Is Nothing Then
                             If juego.Enlace.Contains("/app/" + idSteam + "/") Then
-                                analisis = juego
+                                juegobbdd = juego
                                 Exit For
                             End If
                         End If
                     End If
 
-                    If analisis Is Nothing Then
+                    If juegobbdd Is Nothing Then
                         If titulo = juego.Titulo Then
                             Dim añadir As Boolean = True
 
@@ -293,7 +286,7 @@ Module JuegosBBDD
                             End If
 
                             If añadir = True Then
-                                analisis = juego
+                                juegobbdd = juego
                                 Exit For
                             End If
                         End If
@@ -302,7 +295,7 @@ Module JuegosBBDD
             End If
         End If
 
-        Return analisis
+        Return juegobbdd
     End Function
 
 End Module

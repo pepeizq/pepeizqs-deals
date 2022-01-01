@@ -5,7 +5,7 @@
         Public Property Mac As Boolean
         Public Property Linux As Boolean
 
-        Public Sub New(ByVal windows As Boolean, ByVal mac As Boolean, ByVal linux As Boolean)
+        Public Sub New(windows As Boolean, mac As Boolean, linux As Boolean)
             Me.Windows = windows
             Me.Mac = mac
             Me.Linux = linux

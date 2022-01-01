@@ -86,7 +86,7 @@ Namespace pepeizq.Interfaz
                                              13, Nothing, 1205, dominio + "2018/10/tienda_greenmangaming.png",
                                              "Assets/Tiendas/gmg2.png", dominio + "2019/09/gmg2.png",
                                              dominio + "2020/08/gmg3.png", "29953", Nothing,
-                                             "150", Tienda.FormatoImagen.Vertical)
+                                             "120", Tienda.FormatoImagen.Vertical)
 
         Public amazoncomT As New Tienda("Amazon.com", "AmazonCom", "Assets/Tiendas/amazon.png",
                                         15, Nothing, 20, dominio + "2018/09/tienda_amazon.png",
@@ -1664,13 +1664,17 @@ Namespace pepeizq.Interfaz
                                        Dim xAnalisisCantidad As Integer = 0
 
                                        If Not x.Analisis Is Nothing Then
-                                           xAnalisisCantidad = x.Analisis.AnalisisCantidad.Replace(",", Nothing)
+                                           If Not x.Analisis.AnalisisCantidad Is Nothing Then
+                                               xAnalisisCantidad = x.Analisis.AnalisisCantidad.Replace(",", Nothing)
+                                           End If
                                        End If
 
                                        Dim yAnalisisCantidad As Integer = 0
 
                                        If Not y.Analisis Is Nothing Then
-                                           yAnalisisCantidad = y.Analisis.AnalisisCantidad.Replace(",", Nothing)
+                                           If Not y.Analisis.AnalisisCantidad Is Nothing Then
+                                               yAnalisisCantidad = y.Analisis.AnalisisCantidad.Replace(",", Nothing)
+                                           End If
                                        End If
 
                                        Dim resultado As Integer = yAnalisisCantidad.CompareTo(xAnalisisCantidad)

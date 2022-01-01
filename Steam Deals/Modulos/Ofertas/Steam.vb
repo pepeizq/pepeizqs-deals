@@ -196,13 +196,22 @@ Namespace pepeizq.Ofertas
 
                                     Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                                    Dim ana As JuegoBBDD = Nothing
+                                    Dim analisis As JuegoBBDD = Nothing
 
                                     If temp2.Contains("data-tooltip-html=") Then
-                                        ana = JuegosBBDD.AñadirAnalisis(temp2, bbdd)
+                                        bbdd = JuegosBBDD.AñadirAnalisis(temp2, bbdd)
+
+                                        Dim l As Integer = 0
+                                        While l < bbdd.Count
+                                            If bbdd(l).Enlace = enlace Then
+                                                analisis = bbdd(l)
+                                                Exit While
+                                            End If
+                                            l += 1
+                                        End While
                                     End If
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, analisis, sistemas, Nothing)
 
                                     Dim añadir As Boolean = True
                                     Dim k As Integer = 0
