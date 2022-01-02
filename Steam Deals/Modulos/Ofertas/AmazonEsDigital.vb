@@ -195,7 +195,7 @@ Namespace pepeizq.Ofertas
 
                                 Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing)
+                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
 
                                 Dim añadir As Boolean = True
                                 Dim k As Integer = 0
@@ -212,6 +212,8 @@ Namespace pepeizq.Ofertas
 
                                 If añadir = True Then
                                     If Not juegobbdd Is Nothing Then
+                                        juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
                                         If Not juegobbdd.Desarrollador = Nothing Then
                                             juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                         End If
@@ -237,6 +239,7 @@ Namespace pepeizq.Ofertas
             spProgreso.Visibility = Visibility.Collapsed
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
+            Await JuegosBBDD.Guardar(bbdd)
 
             pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 

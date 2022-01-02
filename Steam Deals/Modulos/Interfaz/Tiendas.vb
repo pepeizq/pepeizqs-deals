@@ -1375,54 +1375,56 @@ Namespace pepeizq.Interfaz
             End If
 
             If Not juego.Analisis Is Nothing Then
-                Dim fondoAnalisis As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(6, 2, 6, 2),
-                    .Height = 30,
-                    .Margin = New Thickness(0, 0, 20, 0),
-                    .VerticalAlignment = VerticalAlignment.Center
-                }
+                If juego.Analisis.AnalisisPorcentaje > 0 Then
+                    Dim fondoAnalisis As New StackPanel With {
+                        .Orientation = Orientation.Horizontal,
+                        .Padding = New Thickness(6, 2, 6, 2),
+                        .Height = 30,
+                        .Margin = New Thickness(0, 0, 20, 0),
+                        .VerticalAlignment = VerticalAlignment.Center
+                    }
 
-                Dim imagenAnalisis As New ImageEx With {
-                    .Width = 16,
-                    .Height = 16,
-                    .IsCacheEnabled = True
-                }
+                    Dim imagenAnalisis As New ImageEx With {
+                        .Width = 16,
+                        .Height = 16,
+                        .IsCacheEnabled = True
+                    }
 
-                If juego.Analisis.AnalisisPorcentaje > 74 Then
-                    imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive.png"))
-                    fondoAnalisis.Background = New SolidColorBrush("#6da2c2".ToColor)
-                ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
-                    imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed.png"))
-                    fondoAnalisis.Background = New SolidColorBrush("#cfc4b1".ToColor)
-                ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
-                    imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
-                    fondoAnalisis.Background = New SolidColorBrush("#d1afa6".ToColor)
+                    If juego.Analisis.AnalisisPorcentaje > 74 Then
+                        imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive.png"))
+                        fondoAnalisis.Background = New SolidColorBrush("#6da2c2".ToColor)
+                    ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
+                        imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed.png"))
+                        fondoAnalisis.Background = New SolidColorBrush("#cfc4b1".ToColor)
+                    ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
+                        imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
+                        fondoAnalisis.Background = New SolidColorBrush("#d1afa6".ToColor)
+                    End If
+
+                    fondoAnalisis.Children.Add(imagenAnalisis)
+
+                    Dim tbAnalisisPorcentaje As New TextBlock With {
+                        .Text = juego.Analisis.AnalisisPorcentaje + "%",
+                        .Margin = New Thickness(5, 0, 0, 0),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                        .FontSize = 13
+                    }
+
+                    fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
+
+                    Dim tbAnalisisCantidad As New TextBlock With {
+                        .Text = juego.Analisis.AnalisisCantidad + " " + recursos.GetString("Reviews"),
+                        .Margin = New Thickness(10, 0, 0, 0),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                        .FontSize = 13
+                    }
+
+                    fondoAnalisis.Children.Add(tbAnalisisCantidad)
+
+                    sp3.Children.Add(fondoAnalisis)
                 End If
-
-                fondoAnalisis.Children.Add(imagenAnalisis)
-
-                Dim tbAnalisisPorcentaje As New TextBlock With {
-                    .Text = juego.Analisis.AnalisisPorcentaje + "%",
-                    .Margin = New Thickness(5, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
-                    .FontSize = 13
-                }
-
-                fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
-
-                Dim tbAnalisisCantidad As New TextBlock With {
-                    .Text = juego.Analisis.AnalisisCantidad + " " + recursos.GetString("Reviews"),
-                    .Margin = New Thickness(10, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
-                    .FontSize = 13
-                }
-
-                fondoAnalisis.Children.Add(tbAnalisisCantidad)
-
-                sp3.Children.Add(fondoAnalisis)
             End If
 
             'If Not juego.Sistemas Is Nothing Then
@@ -1518,6 +1520,30 @@ Namespace pepeizq.Interfaz
                 fondoPromocion.Children.Add(tbPromocion)
 
                 sp3.Children.Add(fondoPromocion)
+            End If
+
+            If Not juego.PrecioMinimo = Nothing Then
+                If juego.PrecioMinimo = True Then
+                    Dim fondoPrecioMinimo As New StackPanel With {
+                        .Orientation = Orientation.Horizontal,
+                        .Padding = New Thickness(6, 2, 6, 2),
+                        .Height = 34,
+                        .Margin = New Thickness(0, 0, 20, 0),
+                        .Background = New SolidColorBrush(Colors.Black)
+                    }
+
+                    Dim tbPrecioMinimo As New TextBlock With {
+                        .Text = "Precio Mínimo",
+                        .Margin = New Thickness(0, 0, 0, 0),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 15
+                    }
+
+                    fondoPrecioMinimo.Children.Add(tbPrecioMinimo)
+
+                    sp3.Children.Add(fondoPrecioMinimo)
+                End If
             End If
 
             Dim spTooltip As New StackPanel

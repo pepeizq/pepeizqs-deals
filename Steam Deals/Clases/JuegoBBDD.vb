@@ -8,14 +8,14 @@
         Public Property Desarrollador As String
         Public Property PrecioMinimo As String
 
-        Public Sub New(titulo As String, analisisporcentaje As String, analisiscantidad As String, enlace As String,
-                       desarrollador As String, preciominimo As String)
+        Public Sub New(titulo As String, analisisPorcentaje As String, analisisCantidad As String, enlace As String,
+                       desarrollador As String, precioMinimo As String)
             Me.Titulo = titulo
-            Me.AnalisisPorcentaje = analisisporcentaje
-            Me.AnalisisCantidad = analisiscantidad
+            Me.AnalisisPorcentaje = analisisPorcentaje
+            Me.AnalisisCantidad = analisisCantidad
             Me.Enlace = enlace
             Me.Desarrollador = desarrollador
-            Me.PrecioMinimo = preciominimo
+            Me.PrecioMinimo = precioMinimo
         End Sub
 
     End Class

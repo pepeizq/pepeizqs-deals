@@ -32,6 +32,42 @@ Module JuegosBBDD
 
     '------------------------------------------------------
 
+    Public Function CompararPrecioMinimo(juegobbdd As JuegoBBDD, nuevoPrecio As String)
+
+        If Not nuevoPrecio = Nothing Then
+            If juegobbdd.PrecioMinimo = Nothing Then
+                juegobbdd.PrecioMinimo = nuevoPrecio
+                Return True
+            Else
+                Dim tempNuevoPrecio As String = nuevoPrecio
+                tempNuevoPrecio = tempNuevoPrecio.Replace(",", ".")
+                tempNuevoPrecio = tempNuevoPrecio.Replace("€", Nothing)
+                tempNuevoPrecio = tempNuevoPrecio.Trim
+
+                Dim douNuevoPrecio As Double = Double.Parse(tempNuevoPrecio, Globalization.CultureInfo.InvariantCulture)
+
+                Dim tempViejoPrecio As String = juegobbdd.PrecioMinimo
+                tempViejoPrecio = tempViejoPrecio.Replace(",", ".")
+                tempViejoPrecio = tempViejoPrecio.Replace("€", Nothing)
+                tempViejoPrecio = tempViejoPrecio.Trim
+
+                Dim douViejoPrecio As Double = Double.Parse(tempViejoPrecio, Globalization.CultureInfo.InvariantCulture)
+
+                If douNuevoPrecio < douViejoPrecio Then
+                    juegobbdd.PrecioMinimo = nuevoPrecio
+                    Return True
+                Else
+                    Return False
+                End If
+            End If
+        End If
+
+        Return False
+
+    End Function
+
+    '------------------------------------------------------
+
     Dim WithEvents Bw As BackgroundWorker
     Dim bbddAnalisis As New List(Of JuegoBBDD)
     Dim numPaginas As Integer = 0
@@ -120,7 +156,7 @@ Module JuegosBBDD
 
     End Sub
 
-    Private Sub Bw_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+    Private Async Sub Bw_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -132,6 +168,7 @@ Module JuegosBBDD
         tbAvance.Text = String.Empty
         tbAvance.Visibility = Visibility.Collapsed
 
+        Await Guardar(bbddAnalisis)
         Notificaciones.Toast(bbddAnalisis.Count.ToString, Nothing)
 
     End Sub
@@ -234,6 +271,8 @@ Module JuegosBBDD
 
     End Function
 
+    '------------------------------------------------------
+
     Public Function AñadirDesarrollador(enlace As String, desarrollador As String, bbdd As List(Of JuegoBBDD))
 
         If Not bbdd Is Nothing Then
@@ -254,6 +293,8 @@ Module JuegosBBDD
         Return bbdd
 
     End Function
+
+    '------------------------------------------------------
 
     Public Function BuscarJuego(titulo As String, bbdd As List(Of JuegoBBDD), idSteam As String)
 

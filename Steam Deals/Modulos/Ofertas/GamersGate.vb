@@ -71,9 +71,9 @@ Namespace pepeizq.Ofertas
 
             If Not listaJuegosES Is Nothing Then
                 If listaJuegosES.Juegos.Count > 0 Then
-                    For Each juego In listaJuegosES.Juegos
-                        If juego.Estado.ToLower = "available" Or juego.Estado.ToLower = "preorder" Then
-                            Dim titulo As String = WebUtility.HtmlDecode(juego.Titulo)
+                    For Each juegoGG In listaJuegosES.Juegos
+                        If juegoGG.Estado.ToLower = "available" Or juegoGG.Estado.ToLower = "preorder" Then
+                            Dim titulo As String = WebUtility.HtmlDecode(juegoGG.Titulo)
                             titulo = titulo.Replace("(Mac)", Nothing)
                             titulo = titulo.Replace("(Mac & Linux)", Nothing)
                             titulo = titulo.Replace("(Linux)", Nothing)
@@ -82,15 +82,15 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("(Epic)", Nothing)
                             titulo = titulo.Trim
 
-                            Dim enlace As String = juego.Enlace
+                            Dim enlace As String = juegoGG.Enlace
                             enlace = enlace.Replace("?aff=6704538", Nothing)
 
-                            Dim imagenPequeña As String = juego.ImagenPequeña
-                            Dim imagenGrande As String = juego.ImagenGrande
+                            Dim imagenPequeña As String = juegoGG.ImagenPequeña
+                            Dim imagenGrande As String = juegoGG.ImagenGrande
                             Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 
-                            Dim precioBase As String = juego.PrecioBase
-                            Dim precioRebajado As String = juego.PrecioDescontado
+                            Dim precioBase As String = juegoGG.PrecioBase
+                            Dim precioRebajado As String = juegoGG.PrecioDescontado
 
                             If Not precioRebajado.Contains(".") Then
                                 precioRebajado = precioRebajado + ".00"
@@ -98,39 +98,39 @@ Namespace pepeizq.Ofertas
 
                             precioRebajado = precioRebajado + "€"
 
-                            Dim drm As String = juego.DRM
+                            Dim drm As String = juegoGG.DRM
 
                             Dim windows As Boolean = False
 
-                            If juego.Sistemas.Contains("pc") Then
+                            If juegoGG.Sistemas.Contains("pc") Then
                                 windows = True
                             End If
 
                             Dim mac As Boolean = False
 
-                            If juego.Sistemas.Contains("mac") Then
+                            If juegoGG.Sistemas.Contains("mac") Then
                                 mac = True
                             End If
 
                             Dim linux As Boolean = False
 
-                            If juego.Sistemas.Contains("linux") Then
+                            If juegoGG.Sistemas.Contains("linux") Then
                                 linux = True
                             End If
 
                             Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                            Dim tipo As String = juego.Tipo
+                            Dim tipo As String = juegoGG.Tipo
 
                             Dim fechaTermina As DateTime = Nothing
 
-                            If Not juego.Fecha = Nothing Then
-                                fechaTermina = DateTime.Parse(juego.Fecha)
+                            If Not juegoGG.Fecha = Nothing Then
+                                fechaTermina = DateTime.Parse(juegoGG.Fecha)
                             End If
 
                             Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                            Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juego.Desarrollador}, Nothing)
+                            Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoGG.Desarrollador}, Nothing)
 
                             Dim descuento As String = String.Empty
 
@@ -149,12 +149,12 @@ Namespace pepeizq.Ofertas
                             precioRebajado = Math.Round(dprecioEU, 2).ToString + " €"
                             descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                            Dim juegoFinal As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, juegobbdd, sistemas, desarrolladores)
+                            Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, juegobbdd, sistemas, desarrolladores, Nothing)
 
                             Dim añadir As Boolean = True
                             Dim k As Integer = 0
                             While k < listaJuegos.Count
-                                If listaJuegos(k).Enlace = juegoFinal.Enlace Then
+                                If listaJuegos(k).Enlace = juego.Enlace Then
                                     añadir = False
                                 End If
                                 k += 1
@@ -176,14 +176,16 @@ Namespace pepeizq.Ofertas
 
                             If añadir = True Then
                                 If Not juegobbdd Is Nothing Then
+                                    juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
                                     If Not juegobbdd.Desarrollador = Nothing Then
-                                        juegoFinal.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                     End If
                                 End If
 
-                                juegoFinal.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juegoFinal.Precio1)
+                                juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
-                                listaJuegos.Add(juegoFinal)
+                                listaJuegos.Add(juego)
                             End If
                         End If
 
@@ -198,6 +200,7 @@ Namespace pepeizq.Ofertas
             spProgreso.Visibility = Visibility.Collapsed
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
+            Await JuegosBBDD.Guardar(bbdd)
 
             pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
 

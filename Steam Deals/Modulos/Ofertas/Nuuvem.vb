@@ -179,7 +179,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim ana As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, listaAnalisis, Nothing)
 
-                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, Tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, ana, sistemas, Nothing, Nothing)
 
                                     Dim tituloBool As Boolean = False
                                     Dim k As Integer = 0

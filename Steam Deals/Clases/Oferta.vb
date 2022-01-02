@@ -16,11 +16,13 @@
         Public Property Analisis As JuegoBBDD
         Public Property Sistemas As OfertaSistemas
         Public Property Desarrolladores As OfertaDesarrolladores
+        Public Property PrecioMinimo As Boolean
 
         Public Sub New(titulo As String, descuento As String, precio1 As String, precio2 As String, enlace As String,
                        imagenes As OfertaImagenes, drm As String, tiendaNombreUsar As String, promocion As String,
                        tipo As String, fechaAñadido As DateTime, fechaTermina As DateTime,
-                       analisis As JuegoBBDD, sistemas As OfertaSistemas, desarrolladores As OfertaDesarrolladores)
+                       analisis As JuegoBBDD, sistemas As OfertaSistemas, desarrolladores As OfertaDesarrolladores,
+                       precioMinimo As Boolean)
             Me.Titulo = titulo
             Me.Descuento = descuento
             Me.Precio1 = precio1
@@ -36,6 +38,7 @@
             Me.Analisis = analisis
             Me.Sistemas = sistemas
             Me.Desarrolladores = desarrolladores
+            Me.PrecioMinimo = precioMinimo
         End Sub
     End Class
 End Namespace
