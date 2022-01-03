@@ -111,6 +111,7 @@ Namespace pepeizq.Ofertas
                                     temp6 = temp5.Remove(int6, temp5.Length - int6)
 
                                     Dim titulo As String = temp6.Trim
+                                    titulo = titulo.Replace("(Steam)", Nothing)
                                     titulo = titulo.Replace("[Mac]", Nothing)
                                     titulo = titulo.Replace("Show details for", Nothing)
                                     titulo = titulo.Replace("(DLC)", Nothing)
@@ -120,8 +121,8 @@ Namespace pepeizq.Ofertas
                                     titulo = titulo.Trim
 
                                     If titulo.Contains("<img alt=") Then
-                                        Dim int14 As Integer = titulo.IndexOf("<img alt=")
-                                        titulo = titulo.Remove(0, int14 + 9)
+                                        Dim int15 As Integer = titulo.IndexOf("<img alt=")
+                                        titulo = titulo.Remove(0, int15 + 9)
                                         titulo = titulo.Replace("src=", Nothing)
                                         titulo = titulo.Trim
                                     End If
@@ -155,7 +156,7 @@ Namespace pepeizq.Ofertas
                                     Dim temp11, temp12 As String
                                     Dim int11, int12 As Integer
 
-                                    int11 = temp4.IndexOf("<span class=" + ChrW(34) + "price old-price")
+                                    int11 = temp4.IndexOf("price old-price")
                                     temp11 = temp4.Remove(0, int11)
 
                                     int11 = temp11.IndexOf(">")
@@ -168,13 +169,19 @@ Namespace pepeizq.Ofertas
                                     temp12 = temp12.Replace("&#x20AC;", Nothing)
                                     Dim precioBase As String = temp12.Trim
 
-                                    Dim temp13 As String
-                                    Dim int13 As Integer
+                                    Dim temp13, temp14 As String
+                                    Dim int13, int14 As Integer
 
-                                    int13 = temp4.LastIndexOf(">")
+                                    int13 = temp4.IndexOf("actual-price")
                                     temp13 = temp4.Remove(0, int13 + 1)
 
-                                    Dim precioDescontado As String = temp13.Trim
+                                    int13 = temp13.IndexOf(">")
+                                    temp13 = temp13.Remove(0, int13 + 1)
+
+                                    int14 = temp13.IndexOf("</")
+                                    temp14 = temp13.Remove(int14, temp13.Length - int14)
+
+                                    Dim precioDescontado As String = temp14.Trim
                                     precioDescontado = precioDescontado.Replace("&#x20AC;", Nothing)
                                     precioDescontado = precioDescontado.Replace("€", Nothing)
                                     precioDescontado = precioDescontado.Trim
@@ -195,6 +202,8 @@ Namespace pepeizq.Ofertas
                                     End While
 
                                     If juego.Descuento = Nothing Then
+                                        añadir = False
+                                    ElseIf juego.Precio1.Contains("%") Then
                                         añadir = False
                                     End If
 

@@ -1059,7 +1059,7 @@ Namespace pepeizq.Interfaz
             End Try
 
             Try
-                Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
+                'Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + wingamestoreT.NombreMostrar, Nothing)
             End Try

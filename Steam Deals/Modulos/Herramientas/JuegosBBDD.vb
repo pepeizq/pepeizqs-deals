@@ -35,29 +35,31 @@ Module JuegosBBDD
     Public Function CompararPrecioMinimo(juegobbdd As JuegoBBDD, nuevoPrecio As String)
 
         If Not nuevoPrecio = Nothing Then
-            If juegobbdd.PrecioMinimo = Nothing Then
-                juegobbdd.PrecioMinimo = nuevoPrecio
-                Return True
-            Else
-                Dim tempNuevoPrecio As String = nuevoPrecio
-                tempNuevoPrecio = tempNuevoPrecio.Replace(",", ".")
-                tempNuevoPrecio = tempNuevoPrecio.Replace("€", Nothing)
-                tempNuevoPrecio = tempNuevoPrecio.Trim
-
-                Dim douNuevoPrecio As Double = Double.Parse(tempNuevoPrecio, Globalization.CultureInfo.InvariantCulture)
-
-                Dim tempViejoPrecio As String = juegobbdd.PrecioMinimo
-                tempViejoPrecio = tempViejoPrecio.Replace(",", ".")
-                tempViejoPrecio = tempViejoPrecio.Replace("€", Nothing)
-                tempViejoPrecio = tempViejoPrecio.Trim
-
-                Dim douViejoPrecio As Double = Double.Parse(tempViejoPrecio, Globalization.CultureInfo.InvariantCulture)
-
-                If douNuevoPrecio < douViejoPrecio Then
+            If Not juegobbdd Is Nothing Then
+                If juegobbdd.PrecioMinimo = Nothing Then
                     juegobbdd.PrecioMinimo = nuevoPrecio
                     Return True
                 Else
-                    Return False
+                    Dim tempNuevoPrecio As String = nuevoPrecio
+                    tempNuevoPrecio = tempNuevoPrecio.Replace(",", ".")
+                    tempNuevoPrecio = tempNuevoPrecio.Replace("€", Nothing)
+                    tempNuevoPrecio = tempNuevoPrecio.Trim
+
+                    Dim douNuevoPrecio As Double = Double.Parse(tempNuevoPrecio, Globalization.CultureInfo.InvariantCulture)
+
+                    Dim tempViejoPrecio As String = juegobbdd.PrecioMinimo
+                    tempViejoPrecio = tempViejoPrecio.Replace(",", ".")
+                    tempViejoPrecio = tempViejoPrecio.Replace("€", Nothing)
+                    tempViejoPrecio = tempViejoPrecio.Trim
+
+                    Dim douViejoPrecio As Double = Double.Parse(tempViejoPrecio, Globalization.CultureInfo.InvariantCulture)
+
+                    If douNuevoPrecio < douViejoPrecio Then
+                        juegobbdd.PrecioMinimo = nuevoPrecio
+                        Return True
+                    Else
+                        Return False
+                    End If
                 End If
             End If
         End If
