@@ -1522,57 +1522,12 @@ Namespace pepeizq.Interfaz
                 sp3.Children.Add(fondoPromocion)
             End If
 
-            If Not juego.PrecioMinimo = Nothing Then
-                If juego.PrecioMinimo = True Then
-                    Dim fondoPrecioMinimo As New StackPanel With {
-                        .Orientation = Orientation.Horizontal,
-                        .Padding = New Thickness(6, 2, 6, 2),
-                        .Height = 34,
-                        .Margin = New Thickness(0, 0, 20, 0),
-                        .Background = New SolidColorBrush(Colors.Black)
-                    }
-
-                    Dim tbPrecioMinimo As New TextBlock With {
-                        .Text = "Precio Mínimo",
-                        .Margin = New Thickness(0, 0, 0, 0),
-                        .VerticalAlignment = VerticalAlignment.Center,
-                        .Foreground = New SolidColorBrush(Colors.White),
-                        .FontSize = 15
-                    }
-
-                    fondoPrecioMinimo.Children.Add(tbPrecioMinimo)
-
-                    sp3.Children.Add(fondoPrecioMinimo)
-                End If
-            End If
-
-            Dim spTooltip As New StackPanel
-
-            If Not juego.Tipo = Nothing Then
-                Dim fondoTipo As New StackPanel With {
-                    .Orientation = Orientation.Horizontal,
-                    .Padding = New Thickness(6, 2, 6, 2),
-                    .Height = 30
-                }
-
-                Dim tbTipo As New TextBlock With {
-                    .Text = juego.Tipo,
-                    .Margin = New Thickness(0, 0, 0, 0),
-                    .VerticalAlignment = VerticalAlignment.Center,
-                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
-                    .FontSize = 13
-                }
-
-                fondoTipo.Children.Add(tbTipo)
-
-                spTooltip.Children.Add(fondoTipo)
-            End If
-
             If Not juego.Desarrolladores Is Nothing Then
                 Dim fondoDesarrolladores As New StackPanel With {
                     .Orientation = Orientation.Horizontal,
                     .Padding = New Thickness(6, 2, 6, 2),
                     .Height = 30,
+                    .Margin = New Thickness(0, 0, 20, 0),
                     .VerticalAlignment = VerticalAlignment.Center
                 }
 
@@ -1613,9 +1568,54 @@ Namespace pepeizq.Interfaz
                 End If
             End If
 
-            If spTooltip.Children.Count > 0 Then
-                ToolTipService.SetToolTip(grid, spTooltip)
-                ToolTipService.SetPlacement(grid, PlacementMode.Bottom)
+            If Not juego.PrecioMinimo = Nothing Then
+                If juego.PrecioMinimo = True Then
+                    Dim fondoPrecioMinimo As New StackPanel With {
+                        .Orientation = Orientation.Horizontal,
+                        .Padding = New Thickness(8, 4, 8, 4),
+                        .Margin = New Thickness(0, 0, 20, 0),
+                        .Background = New SolidColorBrush(App.Current.Resources("ColorPrimario"))
+                    }
+
+                    Dim tbPrecioMinimo As New TextBlock With {
+                        .Text = "Precio Mínimo",
+                        .Margin = New Thickness(0, 0, 0, 0),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(Colors.White),
+                        .FontSize = 15
+                    }
+
+                    fondoPrecioMinimo.Children.Add(tbPrecioMinimo)
+
+                    sp3.Children.Add(fondoPrecioMinimo)
+                End If
+            End If
+
+            If Not juego.Tipo = Nothing Then
+                Dim spTooltip As New StackPanel
+
+                Dim fondoTipo As New StackPanel With {
+                    .Orientation = Orientation.Horizontal,
+                    .Padding = New Thickness(6, 2, 6, 2),
+                    .Height = 30
+                }
+
+                Dim tbTipo As New TextBlock With {
+                    .Text = juego.Tipo,
+                    .Margin = New Thickness(0, 0, 0, 0),
+                    .VerticalAlignment = VerticalAlignment.Center,
+                    .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                    .FontSize = 13
+                }
+
+                fondoTipo.Children.Add(tbTipo)
+
+                spTooltip.Children.Add(fondoTipo)
+
+                If spTooltip.Children.Count > 0 Then
+                    ToolTipService.SetToolTip(grid, spTooltip)
+                    ToolTipService.SetPlacement(grid, PlacementMode.Bottom)
+                End If
             End If
 
             sp2.Children.Add(sp3)
