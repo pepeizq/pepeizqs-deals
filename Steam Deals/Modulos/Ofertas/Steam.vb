@@ -286,8 +286,8 @@ Namespace pepeizq.Ofertas
                                             bbdd = JuegosBBDD.AñadirDesarrollador(juego.Enlace, juego.Desarrolladores.Desarrolladores(0), bbdd)
                                         End If
 
-                                        juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
                                         juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If

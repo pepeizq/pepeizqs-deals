@@ -180,6 +180,8 @@ Namespace pepeizq.Ofertas
                     End If
 
                     If añadir = True Then
+                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+
                         If Not juegobbdd Is Nothing Then
                             juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
@@ -187,8 +189,6 @@ Namespace pepeizq.Ofertas
                                 juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                             End If
                         End If
-
-                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
                         listaJuegos.Add(juego)
                     End If

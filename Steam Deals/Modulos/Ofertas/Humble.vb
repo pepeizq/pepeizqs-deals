@@ -180,6 +180,13 @@ Namespace pepeizq.Ofertas
                         End If
 
                         If añadir = True Then
+                            If juego.Precio2 = Nothing Then
+                                juego.Precio2 = juego.Precio1
+                            End If
+
+                            juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                            juego.Precio2 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio2)
+
                             If Not juegobbdd Is Nothing Then
                                 juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
@@ -218,13 +225,6 @@ Namespace pepeizq.Ofertas
                                     End If
                                 End If
                             End If
-
-                            If juego.Precio2 = Nothing Then
-                                juego.Precio2 = juego.Precio1
-                            End If
-
-                            juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
-                            juego.Precio2 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio2)
 
                             listaJuegos.Add(juego)
                         End If

@@ -54,7 +54,7 @@ Module JuegosBBDD
 
                     Dim douViejoPrecio As Double = Double.Parse(tempViejoPrecio, Globalization.CultureInfo.InvariantCulture)
 
-                    If douNuevoPrecio < douViejoPrecio Then
+                    If douNuevoPrecio <= douViejoPrecio Then
                         juegobbdd.PrecioMinimo = nuevoPrecio
                         Return True
                     Else

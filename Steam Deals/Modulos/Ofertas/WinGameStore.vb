@@ -10,8 +10,6 @@ Namespace pepeizq.Ofertas
             Dim listaJuegos As New List(Of Oferta)
             Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
-            Dim listaDesarrolladores As New List(Of WinGameStoreDesarrolladores)
-            Dim listaImagenes As New List(Of WinGameStoreImagenes)
             Dim dolar As String = String.Empty
 
             Dim frame As Frame = Window.Current.Content
@@ -21,14 +19,6 @@ Namespace pepeizq.Ofertas
             dolar = tbDolar.Text
 
             Dim helper As New LocalObjectStorageHelper
-
-            If Await helper.FileExistsAsync("listaDesarrolladoresWinGameStore") Then
-                listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore")
-            End If
-
-            If Await helper.FileExistsAsync("listaImagenesWinGameStore") Then
-                listaImagenes = Await helper.ReadFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore")
-            End If
 
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
@@ -92,7 +82,7 @@ Namespace pepeizq.Ofertas
 
                                     Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, juegoWGS.SteamID)
+                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
                                     Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, sistemas, Nothing, Nothing)
 
@@ -110,6 +100,9 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If añadir = True Then
+                                        juego.Precio1 = CambioMoneda(juego.Precio1, dolar)
+                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+
                                         If Not juegobbdd Is Nothing Then
                                             juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
@@ -117,25 +110,6 @@ Namespace pepeizq.Ofertas
                                                 juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                             End If
                                         End If
-
-                                        If juego.Desarrolladores Is Nothing Then
-                                            For Each desarrollador In listaDesarrolladores
-                                                If desarrollador.ID = juegoWGS.ID Then
-                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                                    Exit For
-                                                End If
-                                            Next
-                                        End If
-
-                                        For Each imagen In listaImagenes
-                                            If imagen.ID = juegoWGS.ID Then
-                                                juego.Imagenes.Pequeña = imagen.Imagen
-                                                Exit For
-                                            End If
-                                        Next
-
-                                        juego.Precio1 = CambioMoneda(juego.Precio1, dolar)
-                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
 
                                         listaJuegos.Add(juego)
                                     End If
@@ -146,83 +120,9 @@ Namespace pepeizq.Ofertas
                 End If
             End If
 
-            Dim i As Integer = 0
-            For Each juego In listaJuegos
-                If juego.Desarrolladores Is Nothing Or juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Or juego.Imagenes.Pequeña = "https://www.macgamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
-                    Dim htmlJuego As String = Await HttpClient(New Uri(juego.Enlace))
-
-                    If Not htmlJuego = Nothing Then
-                        Dim id As String = juego.Enlace
-
-                        If id.Contains("/product/") Then
-                            Dim int4 As Integer = id.IndexOf("/product/")
-                            id = id.Remove(0, int4 + 9)
-
-                            int4 = id.IndexOf("/")
-                            id = id.Remove(int4, id.Length - int4)
-                        End If
-
-                        If id.Contains("/product-goto/") Then
-                            Dim int4 As Integer = id.IndexOf("/product-goto/")
-                            id = id.Remove(0, int4 + 14)
-
-                            int4 = id.IndexOf("/")
-                            id = id.Remove(int4, id.Length - int4)
-                        End If
-
-                        If juego.Desarrolladores Is Nothing Then
-                            If htmlJuego.Contains("<th>Publisher</th>") Then
-                                Dim temp, temp2, temp3 As String
-                                Dim int, int2, int3 As Integer
-
-                                int = htmlJuego.IndexOf("<th>Publisher</th>")
-                                temp = htmlJuego.Remove(0, int + 5)
-
-                                int2 = temp.IndexOf("</a>")
-                                temp2 = temp.Remove(int2, temp.Length - int2)
-
-                                int3 = temp2.LastIndexOf(">")
-                                temp3 = temp2.Remove(0, int3 + 1)
-
-                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {temp3.Trim}, Nothing)
-
-                                listaDesarrolladores.Add(New WinGameStoreDesarrolladores(id, temp3.Trim))
-                            End If
-                        End If
-
-                        If juego.Imagenes.Pequeña = "https://www.wingamestore.com/images_boxshots/boxshot-missing-B-s1.png" Or juego.Imagenes.Pequeña = "https://www.macgamestore.com/images_boxshots/boxshot-missing-B-s1.png" Then
-                            If htmlJuego.Contains("<meta property=" + ChrW(34) + "og:image") Then
-                                Dim temp, temp2, temp3 As String
-                                Dim int, int2, int3 As Integer
-
-                                int = htmlJuego.IndexOf("<meta property=" + ChrW(34) + "og:image")
-                                temp = htmlJuego.Remove(0, int + 1)
-
-                                int2 = temp.IndexOf("content=")
-                                temp2 = temp.Remove(0, int2 + 9)
-
-                                int3 = temp2.IndexOf(ChrW(34))
-                                temp3 = temp2.Remove(int3, temp2.Length - int3)
-
-                                juego.Imagenes.Pequeña = temp3.Trim
-
-                                listaImagenes.Add(New WinGameStoreImagenes(id, temp3.Trim))
-                            End If
-                        End If
-                    End If
-                End If
-
-                pb.Value = CInt((100 / listaJuegos.Count) * i)
-                tb.Text = CInt((100 / listaJuegos.Count) * i).ToString + "%"
-
-                i += 1
-            Next
-
             spProgreso.Visibility = Visibility.Collapsed
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
-            Await helper.SaveFileAsync(Of List(Of WinGameStoreDesarrolladores))("listaDesarrolladoresWinGameStore", listaDesarrolladores)
-            Await helper.SaveFileAsync(Of List(Of WinGameStoreImagenes))("listaImagenesWinGameStore", listaImagenes)
             Await JuegosBBDD.Guardar(bbdd)
 
             pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
