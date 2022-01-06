@@ -20,7 +20,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.Items.Add("--")
             cbTiendas.Items.Add("Humble Choice")
             cbTiendas.Items.Add("Prime Gaming")
-            cbTiendas.Items.Add("Xbox Game Pass")
+            cbTiendas.Items.Add("PC Game Pass")
             cbTiendas.Items.Add("EA Play")
             cbTiendas.Items.Add("EA Play Pro")
             cbTiendas.Items.Add("Humble Trove")
@@ -144,12 +144,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed
 
-                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2021/11/xboxgamepass.webp"
-                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2021/11/xboxgamepass.webp"
+                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2022/01/pcgamepass.webp"
+                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2022/01/pcgamepass.webp"
 
                 cosas.Tienda = pepeizq.Interfaz.Tiendas.microsoftstoreT
                 cosas.Enlace = "https://pepeizqdeals.com/xbox-game-pass/"
-                cosas.Titulo = "Xbox Game Pass • New Games Added • " + cosas.Juegos
+                cosas.Titulo = "PC Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 
                 RemoveHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos

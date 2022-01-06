@@ -1023,7 +1023,7 @@ Namespace pepeizq.Interfaz
             Pestañas.Botones(False)
 
             Try
-                'Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
+                Await pepeizq.Ofertas.Steam.BuscarOfertas(steamT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             End Try
@@ -1059,7 +1059,7 @@ Namespace pepeizq.Interfaz
             End Try
 
             Try
-                'Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
+                Await pepeizq.Ofertas.WinGameStore.BuscarOfertas(wingamestoreT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + wingamestoreT.NombreMostrar, Nothing)
             End Try

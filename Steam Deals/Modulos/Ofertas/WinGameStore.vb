@@ -111,6 +111,23 @@ Namespace pepeizq.Ofertas
                                             End If
                                         End If
 
+                                        If juego.Desarrolladores Is Nothing Then
+                                            Dim tempDesarrollador As String = String.Empty
+                                            If Not juegoWGS.Publisher = Nothing Then
+                                                tempDesarrollador = juegoWGS.Publisher
+                                            End If
+
+                                            If tempDesarrollador = String.Empty Then
+                                                If Not juegoWGS.Desarrollador = Nothing Then
+                                                    tempDesarrollador = juegoWGS.Desarrollador
+                                                End If
+                                            End If
+
+                                            If Not tempDesarrollador = String.Empty Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {tempDesarrollador}, Nothing)
+                                            End If
+                                        End If
+
                                         listaJuegos.Add(juego)
                                     End If
                                 End If
@@ -160,29 +177,11 @@ Namespace pepeizq.Ofertas
         <JsonProperty("badge")>
         Public Imagen As String
 
-    End Class
+        <JsonProperty("publisher")>
+        Public Publisher As String
 
-    Public Class WinGameStoreDesarrolladores
-
-        Public Property ID As String
-        Public Property Desarrollador As String
-
-        Public Sub New(ByVal id As String, ByVal desarrollador As String)
-            Me.ID = id
-            Me.Desarrollador = desarrollador
-        End Sub
-
-    End Class
-
-    Public Class WinGameStoreImagenes
-
-        Public Property ID As String
-        Public Property Imagen As String
-
-        Public Sub New(ByVal id As String, ByVal imagen As String)
-            Me.ID = id
-            Me.Imagen = imagen
-        End Sub
+        <JsonProperty("developer")>
+        Public Desarrollador As String
 
     End Class
 End Namespace

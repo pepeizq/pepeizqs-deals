@@ -118,6 +118,7 @@ Namespace pepeizq.Ofertas
                                     titulo = titulo.Replace("(ROW)", Nothing)
                                     titulo = titulo.Replace("|ROW|", Nothing)
                                     titulo = titulo.Replace("(new)", Nothing)
+                                    titulo = titulo.Replace("- Steam (New)", Nothing)
                                     titulo = titulo.Replace("&amp;", "&")
                                     titulo = titulo.Trim
 
