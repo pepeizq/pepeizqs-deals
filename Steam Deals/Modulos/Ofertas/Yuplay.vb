@@ -56,6 +56,7 @@ Namespace pepeizq.Ofertas
                             titulo = titulo.Replace("(Steam)", Nothing)
                             titulo = titulo.Replace("(Bethesda)", Nothing)
                             titulo = titulo.Replace("(Epic Games)", Nothing)
+                            titulo = titulo.Replace("(Mac)", Nothing)
                             titulo = titulo.Trim
 
                             Dim temp5, temp6 As String

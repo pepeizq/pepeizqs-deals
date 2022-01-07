@@ -148,7 +148,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2022/01/pcgamepass.webp"
 
                 cosas.Tienda = pepeizq.Interfaz.Tiendas.microsoftstoreT
-                cosas.Enlace = "https://pepeizqdeals.com/xbox-game-pass/"
+                cosas.Enlace = "https://pepeizqdeals.com/pc-game-pass/"
                 cosas.Titulo = "PC Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
 

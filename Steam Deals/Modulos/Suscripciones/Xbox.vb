@@ -363,10 +363,10 @@ Namespace pepeizq.Suscripciones
             Dim titulo As String = String.Empty
 
             If listaNuevos2.Count = 1 Then
-                titulo = "Xbox Game Pass • New Game Added • " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(0).Titulo)
+                titulo = "PC Game Pass • New Game Added • " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(0).Titulo)
                 SuscripcionesImagenEntrada.UnJuegoGenerar(listaNuevos2(0).Imagen)
             Else
-                titulo = "Xbox Game Pass • New Games Added • "
+                titulo = "PC Game Pass • New Games Added • "
 
                 Dim tituloJuegos As String = String.Empty
                 Dim i As Integer = 0
