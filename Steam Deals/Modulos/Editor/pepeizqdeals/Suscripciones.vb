@@ -155,7 +155,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 RemoveHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos
                 AddHandler botonBuscar.Click, AddressOf Xbox.BuscarJuegos
 
-                fechaDefecto = fechaDefecto.AddDays(2)
+                fechaDefecto = fechaDefecto.AddDays(3)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 4 Then
                 botonBuscar.Visibility = Visibility.Visible
