@@ -352,8 +352,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
 
-            RemoveHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegos
-            AddHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegos
+            RemoveHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegosPicker
+            AddHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegosPicker
 
             '----------------------------------------------------
 
@@ -528,7 +528,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
         End Sub
 
-        Private Async Sub CargarImagenFicheroDosJuegos(sender As Object, e As RoutedEventArgs)
+        Private Async Sub CargarImagenFicheroDosJuegosPicker(sender As Object, e As RoutedEventArgs)
 
             Dim ficheroPicker As New FileOpenPicker
             ficheroPicker.FileTypeFilter.Add(".jpg")
@@ -538,20 +538,28 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim ficheroElegido As StorageFile = Await ficheroPicker.PickSingleFileAsync
 
             If Not ficheroElegido Is Nothing Then
-                Dim frame As Frame = Window.Current.Content
-                Dim pagina As Page = frame.Content
-
-                Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
-                tbImagen.Text = ficheroElegido.Path
-
-                Using stream As IRandomAccessStream = Await ficheroElegido.OpenAsync(FileAccessMode.Read)
-                    Dim bitmap As New BitmapImage
-                    Await bitmap.SetSourceAsync(stream)
-
-                    Dim imagen As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
-                    imagen.Source = bitmap
-                End Using
+                CargarImagenFicheroDosJuegos(ficheroElegido.Path)
             End If
+
+        End Sub
+
+        Public Async Sub CargarImagenFicheroDosJuegos(path As String)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim ficheroElegido As StorageFile = Await StorageFile.GetFileFromPathAsync(path)
+
+            Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            tbImagen.Text = path
+
+            Using stream As IRandomAccessStream = Await ficheroElegido.OpenAsync(FileAccessMode.Read)
+                Dim bitmap As New BitmapImage
+                Await bitmap.SetSourceAsync(stream)
+
+                Dim imagen As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                imagen.Source = bitmap
+            End Using
 
         End Sub
 

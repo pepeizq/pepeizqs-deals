@@ -459,7 +459,7 @@
                                                             <ColumnDefinition Width="*"/>
                                                         </Grid.ColumnDefinitions>
 
-                                                        <controls:DropShadowPanel Grid.Column="0" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                        <controls:DropShadowPanel Grid.Column="0" Margin="60,30,10,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                             <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 

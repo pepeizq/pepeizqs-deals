@@ -375,7 +375,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbCabeceraImagenDimensiones As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenDimensiones")
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
             Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
 
             Dim panelImagenCabecera As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
@@ -392,11 +392,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 If tbCabeceraImagen.Text.Trim.Contains("c:\") Or tbCabeceraImagen.Text.Trim.Contains("C:\") Then
                     modificar = False
+                ElseIf tbCabeceraImagen.Text.Trim.Contains("d:\") Or tbCabeceraImagen.Text.Trim.Contains("D:\") Then
+                    modificar = False
                 End If
 
                 If modificar = True Then
+                    tbCabeceraImagenAncho.Text = "885"
                     imagenCabecera.Source = tbCabeceraImagen.Text.Trim
                     ModificarCabeceraImagenAncho()
+                Else
+                    Ofertas.CargarImagenFicheroDosJuegos(tbCabeceraImagen.Text)
                 End If
             Else
                 panelImagenCabecera.Visibility = Visibility.Collapsed
