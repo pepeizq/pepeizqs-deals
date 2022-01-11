@@ -271,13 +271,11 @@
     <Content Include="Assets\LogosJuegos\dragonball.png" />
     <Content Include="Assets\LogosJuegos\dragonquest.png" />
     <Content Include="Assets\LogosJuegos\farcry.png" />
-    <Content Include="Assets\LogosJuegos\fifa19.png" />
     <Content Include="Assets\LogosJuegos\forza.png" />
     <Content Include="Assets\LogosJuegos\ghostrecon.png" />
     <Content Include="Assets\LogosJuegos\hitman.png" />
     <Content Include="Assets\LogosJuegos\metalgearsolid.png" />
     <Content Include="Assets\LogosJuegos\needforspeed.png" />
-    <Content Include="Assets\LogosJuegos\overcooked.png" />
     <Content Include="Assets\LogosJuegos\projectcars.png" />
     <Content Include="Assets\LogosJuegos\rainbowsiege.png" />
     <Content Include="Assets\LogosJuegos\residentevil.png" />

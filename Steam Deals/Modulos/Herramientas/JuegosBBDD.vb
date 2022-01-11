@@ -326,6 +326,8 @@ Module JuegosBBDD
                                 ElseIf juego.Enlace.Contains("/bundle/") Then
                                     añadir = False
                                 End If
+                            Else
+                                añadir = False
                             End If
 
                             If añadir = True Then

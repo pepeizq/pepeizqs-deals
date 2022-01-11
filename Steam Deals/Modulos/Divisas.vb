@@ -179,7 +179,11 @@ Module Divisas
                 tbRublo.Text = monedas.Rublo.Valor
             End If
 
-            Await helper.SaveFileAsync(Of Monedas)("monedas", monedas)
+            Try
+                Await helper.SaveFileAsync(Of Monedas)("monedas", monedas)
+            Catch ex As Exception
+
+            End Try
         End If
 
     End Sub

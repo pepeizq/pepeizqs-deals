@@ -454,22 +454,37 @@
                                                     </Grid.RowDefinitions>
 
                                                     <Grid Grid.Row="0">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.Background>
+                                                            <ImageBrush x:Name="fondoEditorImagenCabeceraEntradaDosJuegos" Stretch="None"/>
+                                                        </Grid.Background>
+                                                                                                             
+                                                        <Grid>
+                                                            <Grid.Background>
+                                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">
+                                                                    <GradientStop Color="#662E4460" Offset="0.0"/>
+                                                                    <GradientStop Color="#B22E4460" Offset="0.3"/>
+                                                                    <GradientStop Color="#CC2E4460" Offset="0.4"/>
+                                                                    <GradientStop Color="#FF2E4460" Offset="0.8"/>
+                                                                </LinearGradientBrush>
+                                                            </Grid.Background>
 
-                                                        <controls:DropShadowPanel Grid.Column="0" Margin="60,30,10,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                        </controls:DropShadowPanel>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                        <controls:DropShadowPanel x:Name="panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                        </controls:DropShadowPanel>
+                                                            <controls:DropShadowPanel Grid.Column="0" Margin="60,30,10,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                        </controls:DropShadowPanel>
+                                                            <controls:DropShadowPanel x:Name="panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            </controls:DropShadowPanel>
+
+                                                            <controls:DropShadowPanel x:Name="panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Grid.Column="1" Margin="50" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <TextBlock x:Name="tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            </controls:DropShadowPanel>
+                                                        </Grid>
                                                     </Grid>
 
                                                     <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradav2" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0"/>

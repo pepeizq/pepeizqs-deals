@@ -169,7 +169,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTituloComplemento.Text = complementoTitulo
             End If
 
-            '--------------------------------------
+            '------------------------------------------------------------------------
 
             Dim listaFinal As New List(Of Oferta)
 
@@ -183,6 +183,31 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
             RemoveHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
             AddHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
+
+            '------------------------------------------------------------------------
+
+            Dim fondoCabecera As ImageBrush = pagina.FindName("fondoEditorImagenCabeceraEntradaDosJuegos")
+            fondoCabecera.ImageSource = Nothing
+
+            For Each juego In juegos
+                If Not juego.Analisis Is Nothing Then
+                    If Not juego.Analisis.Enlace = Nothing Then
+                        Dim temp As String = juego.Analisis.Enlace
+                        temp = temp.Replace("https://store.steampowered.com/app/", Nothing)
+                        temp = temp.Replace("#app_reviews_hash", Nothing)
+
+                        If temp.Contains("/") Then
+                            Dim int As Integer = temp.IndexOf("/")
+                            Dim int2 As Integer = temp.LastIndexOf("/")
+
+                            temp = temp.Remove(int, int2 - int + 1)
+                        End If
+
+                        fondoCabecera.ImageSource = New BitmapImage(New Uri(pepeizq.Ofertas.Steam.listaDominiosImagenes(0) + "/steam/apps/" + temp + "/page_bg_generated_v6b.jpg"))
+                        Exit For
+                    End If
+                End If
+            Next
 
             '------------------------------------------------------------------------
 
