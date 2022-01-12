@@ -223,6 +223,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Desarrollador("Paradox", "@PdxInteractive", "paradox.png", 260),
                 New Desarrollador("PLAYISM", "@playismEN", "playsim.png", 300),
                 New Desarrollador("PlayStation Studios", "@PlayStation", "playstation.png", 120),
+                New Desarrollador("PlayWay", "@Play_Way", "playway.png", 110),
                 New Desarrollador("Plug In Digital", "@plugindigital", "plugin.png", 210),
                 New Desarrollador("Quantic Dream", "@Quantic_Dream", "quanticdream.png", 280),
                 New Desarrollador("Raw Fury", "@rawfury", "rawfury.png", 170),
@@ -262,7 +263,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     "s.l.", "llc", "the", "software", "gmbh", "softworks", "digital",
                     "co.", "co.,", "inc", "inc.", "ltd", "ltd.", "indie", "life",
                     "interactive", "developments", "publishing", "media", "online",
-                    "foundry", "-soft", "&#174", "(pp)", "international", "mobile",
+                    "foundry", "-soft", "&#174", "(pp)", "international", "mobile", "ab", "s.a.",
                     "u.s.a.,", "u.s.a,", "us", "uk", "jp", "america", "europe", "(eu)", "(us)", "pc",
                     " ", "•", ">", "<", "¿", "?", "!", "¡", ":", ".", "_", "–", "-", ";", ",", "™", "®", "'", "’", "´",
                     "`", "(", ")", "/", "\", "|", "&", "#", "=", ChrW(34), "@", "^", "[", "]", "ª", "«"}

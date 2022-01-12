@@ -337,26 +337,19 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2")
             imagenTienda.Source = tienda.LogoWebServidorEnlace300x80
 
-            Dim panelImagenCabecera As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
-
             Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
-
-            Dim panelTitulo As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim tbCabecera As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
             If tbCabeceraImagen.Text.Trim.Length > 0 Then
-                panelImagenCabecera.Visibility = Visibility.Visible
-                panelTitulo.Visibility = Visibility.Collapsed
-
+                AdaptarCabeceraDosJuegos(1)
                 imagenCabecera.Source = tbCabeceraImagen.Text.Trim
                 ModificarCabeceraImagenAncho()
             Else
-                panelImagenCabecera.Visibility = Visibility.Collapsed
-                panelTitulo.Visibility = Visibility.Visible
+                AdaptarCabeceraDosJuegos(0)
 
                 If tbTituloMaestro.Text.Contains("•") Then
                     Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
-                    tbTitulo.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+                    tbCabecera.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
                 End If
             End If
 
@@ -403,16 +396,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
             Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
 
-            Dim panelImagenCabecera As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
             Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            imagenCabecera.Source = Nothing
 
-            Dim panelTitulo As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim tbCabecera As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
 
             If tbCabeceraImagen.Text.Trim.Length > 0 Then
-                panelImagenCabecera.Visibility = Visibility.Visible
-                panelTitulo.Visibility = Visibility.Collapsed
-
                 Dim modificar As Boolean = True
 
                 If tbCabeceraImagen.Text.Trim.Contains("c:\") Or tbCabeceraImagen.Text.Trim.Contains("C:\") Then
@@ -422,23 +411,26 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
 
                 If modificar = True Then
-                    tbCabeceraImagenAncho.Text = "885"
-                    imagenCabecera.Source = tbCabeceraImagen.Text.Trim
-                    ModificarCabeceraImagenAncho()
+                    If tbCabeceraImagen.Text.Trim.ToLower.Contains("https://") Or tbCabeceraImagen.Text.Trim.ToLower.Contains("http://") Then
+                        AdaptarCabeceraDosJuegos(2)
+                        tbCabeceraImagenAncho.Text = "885"
+                        imagenCabecera.Source = tbCabeceraImagen.Text.Trim
+                        ModificarCabeceraImagenAncho()
+                    Else
+                        AdaptarCabeceraDosJuegos(0)
+                    End If
                 Else
+                    AdaptarCabeceraDosJuegos(1)
                     Ofertas.CargarImagenFicheroDosJuegos(tbCabeceraImagen.Text)
                 End If
             Else
-                panelImagenCabecera.Visibility = Visibility.Collapsed
-                panelTitulo.Visibility = Visibility.Visible
-
-                imagenCabecera.Source = Nothing
+                AdaptarCabeceraDosJuegos(0)
 
                 Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
 
                 If tbTituloMaestro.Text.Contains("•") Then
                     Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
-                    tbTitulo.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
+                    tbCabecera.Text = tbTituloMaestro.Text.Remove(int, tbTituloMaestro.Text.Length - int)
                 End If
             End If
 
@@ -471,6 +463,53 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                     imagenCabecera.Width = ancho
                 End If
+            End If
+
+        End Sub
+
+        Private Sub AdaptarCabeceraDosJuegos(modo As Integer)
+
+            '0 texto
+            '1 imagenes app
+            '2 imagenes https
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim columnaAncho As ColumnDefinition = pagina.FindName("columnaCabeceraImagenEntradaDosJuegos")
+            Dim columnaIzquierda As Grid = pagina.FindName("gridColumnaIzquierdaCabeceraImagenEntradaDosJuegos")
+            Dim columnaDerecha As Grid = pagina.FindName("gridColumnaDerechaCabeceraImagenEntradaDosJuegos")
+
+            Dim panelImagen As DropShadowPanel = pagina.FindName("panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim panelTitulo As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+
+            If modo = 0 Then
+                columnaAncho.Width = New GridLength(1, GridUnitType.Star)
+                columnaIzquierda.HorizontalAlignment = HorizontalAlignment.Right
+                columnaIzquierda.Margin = New Thickness(50, 50, 75, 50)
+                columnaDerecha.HorizontalAlignment = HorizontalAlignment.Left
+                columnaDerecha.Margin = New Thickness(75, 50, 50, 50)
+
+                panelImagen.Visibility = Visibility.Collapsed
+                panelTitulo.Visibility = Visibility.Visible
+            ElseIf modo = 1 Then
+                columnaAncho.Width = New GridLength(1, GridUnitType.Star)
+                columnaIzquierda.HorizontalAlignment = HorizontalAlignment.Right
+                columnaIzquierda.Margin = New Thickness(50, 50, 60, 50)
+                columnaDerecha.HorizontalAlignment = HorizontalAlignment.Left
+                columnaDerecha.Margin = New Thickness(60, 50, 50, 50)
+
+                panelImagen.Visibility = Visibility.Visible
+                panelTitulo.Visibility = Visibility.Collapsed
+            ElseIf modo = 2 Then
+                columnaAncho.Width = New GridLength(1, GridUnitType.Auto)
+                columnaIzquierda.HorizontalAlignment = HorizontalAlignment.Center
+                columnaIzquierda.Margin = New Thickness(50, 50, 35, 50)
+                columnaDerecha.HorizontalAlignment = HorizontalAlignment.Center
+                columnaDerecha.Margin = New Thickness(35, 50, 50, 50)
+
+                panelImagen.Visibility = Visibility.Visible
+                panelTitulo.Visibility = Visibility.Collapsed
             End If
 
         End Sub

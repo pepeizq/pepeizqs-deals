@@ -361,6 +361,7 @@
     <Content Include="Assets\LogosPublishers\paradox.png" />
     <Content Include="Assets\LogosPublishers\playsim.png" />
     <Content Include="Assets\LogosPublishers\playstation.png" />
+    <Content Include="Assets\LogosPublishers\playway.png" />
     <Content Include="Assets\LogosPublishers\plugin.png" />
     <Content Include="Assets\LogosPublishers\quanticdream.png" />
     <Content Include="Assets\LogosPublishers\rawfury.png" />
