@@ -398,11 +398,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim html As String = boton.Tag
 
             If html.Trim.Length > 0 Then
-                Dim datos As New DataPackage With {
-                    .RequestedOperation = DataPackageOperation.Copy
-                }
-                datos.SetText(html)
-                Clipboard.SetContent(datos)
+                Clipboard.Texto(html)
             End If
 
         End Sub

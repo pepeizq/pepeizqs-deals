@@ -218,6 +218,12 @@ Namespace pepeizq.Ofertas
                                     While k < listaJuegos.Count
                                         If listaJuegos(k).Enlace = juego.Enlace Then
                                             añadir = False
+
+                                            If Not listaJuegos(k).Precio1 = juego.Precio1 Then
+                                                If listaJuegos(k).Descuento = juego.Descuento Then
+                                                    añadir = True
+                                                End If
+                                            End If
                                         End If
                                         k += 1
                                     End While

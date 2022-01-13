@@ -4,6 +4,7 @@ Imports Newtonsoft.Json
 Module Divisas
 
     Dim dolar, libra, rublo As Moneda
+    Dim monedas As Monedas = Nothing
     Dim buscarDolar, buscarLibra, buscarRublo As Boolean
     Dim WithEvents bw As New BackgroundWorker
 
@@ -19,7 +20,11 @@ Module Divisas
         Dim helper As New LocalObjectStorageHelper
 
         If Await helper.FileExistsAsync("monedas") Then
-            Dim monedas As Monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
+            Try
+                monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
+            Catch ex As Exception
+
+            End Try
 
             If monedas Is Nothing Then
                 buscarDolar = True
@@ -141,8 +146,6 @@ Module Divisas
         Dim monedas As Monedas = Nothing
 
         If Await helper.FileExistsAsync("monedas") Then
-            monedas = Await helper.ReadFileAsync(Of Monedas)("monedas")
-
             If Not monedas Is Nothing Then
                 If Not dolar Is Nothing Then
                     monedas.Dolar = dolar
@@ -252,7 +255,7 @@ Public Class Monedas
     Public Libra As Moneda
     Public Rublo As Moneda
 
-    Public Sub New(ByVal dolar As Moneda, ByVal libra As Moneda, ByVal rublo As Moneda)
+    Public Sub New(dolar As Moneda, libra As Moneda, rublo As Moneda)
         Me.Dolar = dolar
         Me.Libra = libra
         Me.Rublo = rublo
@@ -265,7 +268,7 @@ Public Class Moneda
     Public Valor As String
     Public Fecha As String
 
-    Public Sub New(ByVal valor As String, ByVal fecha As String)
+    Public Sub New(valor As String, fecha As String)
         Me.Valor = valor
         Me.Fecha = fecha
     End Sub

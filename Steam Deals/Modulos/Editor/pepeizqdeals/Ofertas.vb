@@ -662,7 +662,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
-            Dim cosas As Clases.Deals = botonSubir.Tag
+            Dim cosas As Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
             If cosas.ListaJuegosTotal.Count > 1 Then
@@ -670,9 +670,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If Not textoClipboard = String.Empty Then
-                Dim datos As New DataPackage
-                datos.SetText(textoClipboard)
-                Clipboard.SetContent(datos)
+                Clipboard.Texto(textoClipboard)
             End If
 
             BloquearControles(True)
@@ -687,7 +685,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             BloquearControles(False)
 
             Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
-            Dim cosas As Clases.Deals = botonSubir.Tag
+            Dim cosas As Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
             If cosas.ListaJuegosTotal.Count > 0 Then
@@ -712,10 +710,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not textoClipboard = String.Empty Then
                 textoClipboard = "[spoiler]" + textoClipboard + "[/spoiler]"
-
-                Dim datos As New DataPackage
-                datos.SetText(textoClipboard)
-                Clipboard.SetContent(datos)
+                Clipboard.Texto(textoClipboard)
             End If
 
             BloquearControles(True)
