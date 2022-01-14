@@ -135,6 +135,7 @@
     <Compile Include="Modulos\Editor\pepeizqdeals\Assets.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Bundles.vb" />
     <Compile Include="Modulos\CopiaSeguridad.vb" />
+    <Compile Include="Modulos\Editor\pepeizqdeals\BundlesImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Cuentas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\Ofertas.vb" />
     <Compile Include="Modulos\Editor\pepeizqdeals\OfertasEntrada.vb" />

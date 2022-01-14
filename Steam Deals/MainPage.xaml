@@ -592,30 +592,47 @@
                                                 </Grid.RowDefinitions>
 
                                                 <Grid Grid.Row="0">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="1*"/>
-                                                        <ColumnDefinition Width="2*"/>
-                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.Background>
+                                                        <ImageBrush x:Name="fondoEditorImagenCabeceraEntradaBundles" Stretch="None"/>
+                                                    </Grid.Background>
 
-                                                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                                                        <controls:DropShadowPanel x:Name="panelImagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
-                                                        </controls:DropShadowPanel>
+                                                    <Grid>
+                                                        <Grid.Background>
+                                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">
+                                                                <GradientStop Color="#662E4460" Offset="0.0"/>
+                                                                <GradientStop Color="#B22E4460" Offset="0.4"/>
+                                                                <GradientStop Color="#CC2E4460" Offset="0.5"/>
+                                                                <GradientStop Color="#FF2E4460" Offset="0.8"/>
+                                                            </LinearGradientBrush>
+                                                        </Grid.Background>
 
-                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,30,30,20">
-                                                            <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
-                                                        </StackPanel>
-                                                    </StackPanel>
+                                                        <Grid HorizontalAlignment="Center">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="1*"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                    <controls:DropShadowPanel x:Name="panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2" Grid.Column="1" Margin="40,40,40,20" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="650"/>
-                                                    </controls:DropShadowPanel>
+                                                            <StackPanel x:Name="spColumnaIzquierdaCabeceraImagenEntradaBundles" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                                                                <controls:DropShadowPanel x:Name="panelImagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                                </controls:DropShadowPanel>
 
-                                                    <StackPanel x:Name="spImagenEditorpepeizqdealsGenerarImagenBundleHumble" Grid.Column="1" Margin="40,40,40,20" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                                                        <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio1.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
-                                                        <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
-                                                        <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio2.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
-                                                    </StackPanel>
+                                                                <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,30,30,20">
+                                                                    <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                </StackPanel>
+                                                            </StackPanel>
+
+                                                            <controls:DropShadowPanel x:Name="panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2" Grid.Column="1" Margin="40,40,40,20" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="500"/>
+                                                            </controls:DropShadowPanel>
+
+                                                            <StackPanel x:Name="spImagenEditorpepeizqdealsGenerarImagenBundleHumble" Grid.Column="1" Margin="40" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                                                <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio1.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
+                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
+                                                                <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio2.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
+                                                            </StackPanel>
+                                                        </Grid>                                                        
+                                                    </Grid>
                                                 </Grid>
 
                                                 <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>

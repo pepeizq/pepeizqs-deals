@@ -29,7 +29,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fondo As String = enlaceImagen
 
             If pepeizq.Ofertas.Steam.CompararDominiosImagen(fondo) = True Then
-                fondo = fondo.Replace("header", "page_bg_generated_v6b")
+                Dim int As Integer = fondo.LastIndexOf("/")
+                fondo = fondo.Remove(int, fondo.Length - int)
+                fondo = fondo + "/page_bg_generated_v6b.jpg"
             End If
 
             tbFondo.Text = fondo
@@ -70,10 +72,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim gridContenido As New Grid With {
                     .Background = colorFondo2
                 }
-
-                If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlace) = True Then
-                    enlace = enlace.Replace("header", "library_600x900")
-                End If
 
                 Dim imagenJuego2 As New ImageEx With {
                     .Stretch = Stretch.Uniform,

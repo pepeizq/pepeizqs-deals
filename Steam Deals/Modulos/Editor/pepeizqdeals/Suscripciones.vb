@@ -2,7 +2,6 @@
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
 Imports Steam_Deals.pepeizq.Suscripciones
-Imports Windows.ApplicationModel.DataTransfer
 
 Namespace pepeizq.Editor.pepeizqdeals
     Module Suscripciones
@@ -262,7 +261,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
-            Dim cosas As Clases.Suscripcion = tbTitulo.Tag
+            Dim cosas As Suscripcion = tbTitulo.Tag
             cosas.Tienda.LogoWebServidorEnlace300x80 = imagenTienda.Source
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
@@ -367,6 +366,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     enlace = enlace.Trim
+
+                    Dim int2 As Integer = enlace.LastIndexOf("/")
+                    enlace = enlace.Remove(int2, enlace.Length - int2)
+                    enlace = enlace + "/library_600x900.jpg"
+
                     listaEnlaces.Add(enlace)
                 End If
                 i += 1
