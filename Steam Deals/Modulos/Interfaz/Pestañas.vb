@@ -93,7 +93,7 @@ Namespace pepeizq.Interfaz
             Dim svDeals As ScrollViewer = pagina.FindName("svEditorpepeizqdealsDeals")
             svDeals.Visibility = Visibility.Collapsed
 
-            Dim svBundles As ScrollViewer = pagina.FindName("svEditorpepeizqdealsBundles")
+            Dim svBundles As ScrollViewer = pagina.FindName("svBundles")
             svBundles.Visibility = Visibility.Collapsed
 
             Dim svFree As ScrollViewer = pagina.FindName("svEditorpepeizqdealsFree")

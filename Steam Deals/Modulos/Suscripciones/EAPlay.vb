@@ -8,7 +8,7 @@ Namespace pepeizq.Suscripciones
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaIDs As New List(Of String)
-        Dim listaJuegos As New List(Of JuegoSuscripcion)
+        Dim listaJuegos As New List(Of SuscripcionJuego)
 
         Public Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
 
@@ -54,7 +54,7 @@ Namespace pepeizq.Suscripciones
                                 If añadir = True Then
                                     listaIDs.Add(juego.ID)
 
-                                    listaJuegos.Add(New JuegoSuscripcion(juego.i18n.Titulo.Trim, juego.ImagenRaiz + juego.i18n.ImagenGrande, juego.ID, "https://www.origin.com/store" + juego.Enlace, Nothing))
+                                    listaJuegos.Add(New SuscripcionJuego(juego.i18n.Titulo.Trim, juego.ImagenRaiz + juego.i18n.ImagenGrande, juego.ID, "https://www.origin.com/store" + juego.Enlace, Nothing))
                                 End If
                             End If
                         End If
@@ -69,7 +69,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaOriginBasicSuscripcion", listaIDs)
 
-            Html.Generar("EA Play", "https://www.origin.com/store/ea-play", "https://pepeizqdeals.com/wp-content/uploads/2020/12/eaplay.png", listaJuegos, True)
+            TituloeImagenes(listaJuegos, True)
 
             BloquearControles(True)
 

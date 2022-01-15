@@ -10,10 +10,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim columnaIzquierda As StackPanel = pagina.FindName("spColumnaIzquierdaCabeceraImagenEntradaBundles")
+            Dim columnaIzquierda As StackPanel = pagina.FindName("spColumnaIzquierdaCabeceraBundles")
 
-            Dim imagenBundle As DropShadowPanel = pagina.FindName("panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2")
-            Dim imagenHumble As StackPanel = pagina.FindName("spImagenEditorpepeizqdealsGenerarImagenBundleHumble")
+            Dim imagenBundle As DropShadowPanel = pagina.FindName("panelImagenBundle")
+            Dim imagenHumble As StackPanel = pagina.FindName("spImagenHumbleBundles")
 
             If imagenBundle.Visibility = Visibility.Visible Then
                 columnaIzquierda.Margin = New Thickness(0, 0, 80, 0)
@@ -25,7 +25,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '------------------------------------------------------------------------
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsBundlesIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsBundles")
 
             If tbIDs.Text.Trim.Length > 0 Then
                 If tbIDs.Text.Contains(",") Then
@@ -84,16 +84,16 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '------------------------------------------------------------------------
 
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
-            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            Dim tbJuegos As TextBox = pagina.FindName("tbJuegosTitulosBundles")
+            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbJuegosImagenesBundles")
             tbImagenesJuegos.Text = String.Empty
 
-            Dim tbImagenesDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
+            Dim tbImagenesDLCs As TextBox = pagina.FindName("tbDLCsImagenesBundles")
             tbImagenesDLCs.Text = String.Empty
 
             '------------------------------------------------------------------------
 
-            Dim fondoCabecera As ImageBrush = pagina.FindName("fondoEditorImagenCabeceraEntradaBundles")
+            Dim fondoCabecera As ImageBrush = pagina.FindName("fondoCabeceraBundles")
             fondoCabecera.ImageSource = Nothing
 
             For Each juego In listaJuegos
@@ -162,10 +162,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gv2 As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundlesv2")
+            Dim gv2 As AdaptiveGridView = pagina.FindName("gvJuegosBundles")
             gv2.Items.Clear()
 
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegosImagenespepeizqdealsBundles")
+            Dim tbJuegos As TextBox = pagina.FindName("tbJuegosImagenesBundles")
             Dim textoJuegos As String = tbJuegos.Text.Trim
 
             Dim listaJuegos As New List(Of String)
@@ -241,10 +241,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gv2 As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaBundlesDLCs")
+            Dim gv2 As AdaptiveGridView = pagina.FindName("gvDLCsBundles")
             gv2.Items.Clear()
 
-            Dim tbDLCs As TextBox = pagina.FindName("tbEditorDLCsImagenespepeizqdealsBundles")
+            Dim tbDLCs As TextBox = pagina.FindName("tbDLCsImagenesBundles")
             Dim textoDLCs As String = tbDLCs.Text.Trim
 
             Dim listaDLCs As New List(Of String)
@@ -310,10 +310,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
-            Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
-            Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+            Dim tbPrecio As TextBlock = pagina.FindName("tbPrecioBundles")
+            Dim gridMasJuegos As Grid = pagina.FindName("gridMasJuegosBundles")
+            Dim tbMasJuegos As TextBlock = pagina.FindName("tbMasJuegosBundles")
+            Dim tbJuegos As TextBox = pagina.FindName("tbJuegosTitulosBundles")
 
             Dim cb As CheckBox = sender
 
@@ -350,10 +350,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbPrecio As TextBlock = pagina.FindName("tbPreciopepeizqdealsImagenEntradaBundlesv2")
-            Dim gridMasJuegos As Grid = pagina.FindName("gridEditorMasJuegospepeizqdealsBundlesv2")
-            Dim tbMasJuegos As TextBlock = pagina.FindName("tbEditorpepeizqdealsBundlesMasJuegos")
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorJuegospepeizqdealsBundles")
+            Dim tbPrecio As TextBlock = pagina.FindName("tbPrecioBundles")
+            Dim gridMasJuegos As Grid = pagina.FindName("gridMasJuegosBundles")
+            Dim tbMasJuegos As TextBlock = pagina.FindName("tbMasJuegosBundles")
+            Dim tbJuegos As TextBox = pagina.FindName("tbJuegosTitulosBundles")
 
             Dim cb As CheckBox = sender
 

@@ -118,6 +118,7 @@
     <Compile Include="Clases\Gratis.vb" />
     <Compile Include="Clases\Desarrollador.vb" />
     <Compile Include="Clases\Suscripcion.vb" />
+    <Compile Include="Clases\SuscripcionJuego.vb" />
     <Compile Include="Clases\Traduccion.vb" />
     <Compile Include="Clases\Oferta.vb" />
     <Compile Include="Clases\JuegoBBDD.vb" />
@@ -172,7 +173,6 @@
     <Compile Include="Modulos\Ofertas\DLGamer.vb" />
     <Compile Include="Modulos\Ofertas\Ubisoft.vb" />
     <Compile Include="Modulos\Suscripciones\GeforceNow.vb" />
-    <Compile Include="Modulos\Suscripciones\Html.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleChoice.vb" />
     <Compile Include="Modulos\Suscripciones\HumbleTrove.vb" />
     <Compile Include="Modulos\Suscripciones\EAPlay.vb" />

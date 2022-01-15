@@ -79,18 +79,20 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisCantidad.Length > 2 Then
-                                    Dim añadirCheck As Boolean = True
+                                If Not juego.Analisis.AnalisisCantidad Is Nothing Then
+                                    If juego.Analisis.AnalisisCantidad.Length > 2 Then
+                                        Dim añadirCheck As Boolean = True
 
-                                    If FiltrarTiendas(juego) = False Then
-                                        añadirCheck = False
-                                    End If
+                                        If FiltrarTiendas(juego) = False Then
+                                            añadirCheck = False
+                                        End If
 
-                                    If añadirCheck = True Then
-                                        Dim sp As StackPanel = item.Children(0)
-                                        Dim cb As CheckBox = sp.Children(0)
+                                        If añadirCheck = True Then
+                                            Dim sp As StackPanel = item.Children(0)
+                                            Dim cb As CheckBox = sp.Children(0)
 
-                                        cb.IsChecked = True
+                                            cb.IsChecked = True
+                                        End If
                                     End If
                                 End If
                             End If
@@ -100,18 +102,20 @@ Namespace pepeizq.Interfaz
                             Dim juego As Oferta = item.Tag
 
                             If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisCantidad.Length > 4 Then
-                                    Dim añadirCheck As Boolean = True
+                                If Not juego.Analisis.AnalisisCantidad Is Nothing Then
+                                    If juego.Analisis.AnalisisCantidad.Length > 4 Then
+                                        Dim añadirCheck As Boolean = True
 
-                                    If FiltrarTiendas(juego) = False Then
-                                        añadirCheck = False
-                                    End If
+                                        If FiltrarTiendas(juego) = False Then
+                                            añadirCheck = False
+                                        End If
 
-                                    If añadirCheck = True Then
-                                        Dim sp As StackPanel = item.Children(0)
-                                        Dim cb As CheckBox = sp.Children(0)
+                                        If añadirCheck = True Then
+                                            Dim sp As StackPanel = item.Children(0)
+                                            Dim cb As CheckBox = sp.Children(0)
 
-                                        cb.IsChecked = True
+                                            cb.IsChecked = True
+                                        End If
                                     End If
                                 End If
                             End If

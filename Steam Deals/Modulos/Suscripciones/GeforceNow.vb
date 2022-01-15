@@ -8,7 +8,7 @@ Namespace pepeizq.Suscripciones
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaIDs As New List(Of String)
-        Dim listaJuegos As New List(Of JuegoSuscripcion)
+        Dim listaJuegos As New List(Of SuscripcionJuego)
 
         Public Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
 
@@ -83,7 +83,7 @@ Namespace pepeizq.Suscripciones
                                         titulo = titulo.Replace("– Steam", Nothing)
                                         titulo = titulo.Trim
 
-                                        listaJuegos.Add(New JuegoSuscripcion(titulo, datos.Datos.Imagen, juego.ID, juego.SteamEnlace, video))
+                                        listaJuegos.Add(New SuscripcionJuego(titulo, datos.Datos.Imagen, juego.ID, juego.SteamEnlace, video))
                                     End If
                                 End If
                             End If
@@ -127,7 +127,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("Geforce NOW", "https://www.nvidia.com/en-us/geforce-now/", "https://i.imgur.com/3zW1nu5.png", listaJuegos, False)
+            TituloeImagenes(listaJuegos, False)
 
             BloquearControles(True)
 

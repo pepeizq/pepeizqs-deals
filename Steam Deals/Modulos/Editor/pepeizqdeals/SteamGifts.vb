@@ -119,7 +119,9 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim mensaje As String = String.Empty
 
                 If modo = 0 Then
-                    mensaje = mensaje + "https://pepeizqdeals.com/"
+                    mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
+                    mensaje = mensaje + "Este sorteo está pagado gracias a los referidos usados en vuestras compras a través de la web.\n\n"
+                    mensaje = mensaje + "This giveaway is paid thanks to the referrals used in your purchases through the web."
                 ElseIf modo = 1 Then
                     mensaje = mensaje + "https://pepeizqdeals.com/ \n\n"
                     mensaje = mensaje + "Thank you for entering a giveaway with free access of pepeizq's deals.\n\n"

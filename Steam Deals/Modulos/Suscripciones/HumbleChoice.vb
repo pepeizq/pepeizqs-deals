@@ -6,7 +6,7 @@ Namespace pepeizq.Suscripciones
     Module HumbleChoice
 
         Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of JuegoSuscripcion)
+        Dim listaJuegos As New List(Of SuscripcionJuego)
         Dim textoIDs As String
 
         Public Sub GenerarJuegos(sender As Object, e As RoutedEventArgs)
@@ -70,7 +70,7 @@ Namespace pepeizq.Suscripciones
                             End If
                         End If
 
-                        listaJuegos.Add(New JuegoSuscripcion(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, "https://store.steampowered.com/app/" + clave, video))
+                        listaJuegos.Add(New SuscripcionJuego(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, "https://store.steampowered.com/app/" + clave, video))
                     Else
                         Exit While
                     End If
@@ -131,7 +131,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("Humble Choice", "https://www.humblebundle.com/subscription", "https://i.imgur.com/VEDXuM8.png", listaJuegos, False)
+            TituloeImagenes(listaJuegos, False)
 
             BloquearControles(True)
 

@@ -5,7 +5,7 @@ Namespace pepeizq.Suscripciones
     Module PrimeGaming
 
         Dim WithEvents Bw As New BackgroundWorker
-        Dim listaJuegos As New List(Of JuegoSuscripcion)
+        Dim listaJuegos As New List(Of SuscripcionJuego)
         Dim textoIDs As String
 
         Public Sub GenerarJuegos(sender As Object, e As RoutedEventArgs)
@@ -27,7 +27,7 @@ Namespace pepeizq.Suscripciones
 
         End Sub
 
-        Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles Bw.DoWork
+        Private Sub Bw_DoWork(sender As Object, e As DoWorkEventArgs) Handles Bw.DoWork
 
             Dim i As Integer = 0
             While i < 100
@@ -69,7 +69,7 @@ Namespace pepeizq.Suscripciones
                             End If
                         End If
 
-                        listaJuegos.Add(New JuegoSuscripcion(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, "https://store.steampowered.com/app/" + clave, video))
+                        listaJuegos.Add(New SuscripcionJuego(datos.Datos.Titulo, datos.Datos.Imagen, datos.Datos.ID, "https://store.steampowered.com/app/" + clave, video))
                     Else
                         Exit While
                     End If
@@ -79,7 +79,7 @@ Namespace pepeizq.Suscripciones
 
         End Sub
 
-        Private Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
+        Private Sub Bw_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles Bw.RunWorkerCompleted
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -127,7 +127,7 @@ Namespace pepeizq.Suscripciones
             Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
             tbTitulo.Text = titulo
 
-            Html.Generar("Prime Gaming", "https://gaming.amazon.com/", "https://i.imgur.com/DPDkKNq.png", listaJuegos, False)
+            TituloeImagenes(listaJuegos, False)
 
             BloquearControles(True)
 

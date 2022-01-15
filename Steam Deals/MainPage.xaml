@@ -506,42 +506,42 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsBundles" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svBundles" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <TextBlock x:Uid="Title2"/>
-                                <TextBox x:Name="tbEditorTitulopepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbTituloBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBlock x:Uid="Url"/>
-                                <TextBox x:Name="tbEditorEnlacepepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbEnlaceBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBlock x:Uid="Image"/>
-                                <TextBox x:Name="tbEditorImagenpepeizqdealsBundles" Margin="0,10,0,5" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbImagenBundles" Margin="0,10,0,5" TextWrapping="Wrap"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                    <CheckBox x:Name="cbEditorLogoTiendapepeizqdealsBundles" Content="Mostrar Logo Tienda" VerticalAlignment="Center"/>
-                                    <CheckBox x:Name="cbEditorMasJuegospepeizqdealsBundles" Content="Mas Juegos" VerticalAlignment="Center" Margin="20,0,0,0"/>
-                                    <CheckBox x:Name="cbEditorMasDLCspepeizqdealsBundles" Content="Mas DLCs" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbLogoTiendaBundles" Content="Mostrar Logo Tienda" VerticalAlignment="Center"/>
+                                    <CheckBox x:Name="cbMasJuegosBundles" Content="Mas Juegos" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                    <CheckBox x:Name="cbMasDLCsBundles" Content="Mas DLCs" VerticalAlignment="Center"/>
                                     <TextBlock Text="Ancho" Margin="20,0,5,0" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="tbEditorImagenAnchopepeizqdealsBundles" MaxWidth="100"/>
+                                    <TextBox x:Name="tbImagenAnchoBundles" MaxWidth="100"/>
                                 </StackPanel>
                               
                                 <StackPanel Margin="0,0,0,15">
-                                    <Button x:Name="botonEditorSubirpepeizqdealsBundlesIDs" Margin="0,0,0,10" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonJuegosIDsBundles" Margin="0,0,0,10" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Name="botonEditorSubirpepeizqdealsBundlesIDsTexto" Text="IDs" Foreground="White"/>
+                                                <TextBlock x:Name="botonJuegosIDsTextoBundles" Text="IDs" Foreground="White"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsBundlesIDs" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbJuegosIDsBundles" Grid.Column="1" TextWrapping="Wrap"/>
                                 </StackPanel>
 
                                 <TextBlock x:Uid="Title3"/>
-                                <TextBox x:Name="tbEditorJuegospepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbJuegosTitulosBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <TextBlock Text="Imagenes Juegos"/>
-                                <TextBox x:Name="tbEditorJuegosImagenespepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbJuegosImagenesBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <TextBlock Text="Imagenes DLCs"/>
-                                <TextBox x:Name="tbEditorDLCsImagenespepeizqdealsBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbDLCsImagenesBundles" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <Grid HorizontalAlignment="Stretch" Margin="0,10,0,15">
                                     <Grid.ColumnDefinitions>
@@ -549,11 +549,11 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <DatePicker x:Name="fechaEditorpepeizqdealsBundles" Grid.Column="0" Margin="0,0,20,0"/>
-                                    <TimePicker x:Name="horaEditorpepeizqdealsBundles" Grid.Column="1"/>
+                                    <DatePicker x:Name="fechaBundles" Grid.Column="0" Margin="0,0,20,0"/>
+                                    <TimePicker x:Name="horaBundles" Grid.Column="1"/>
                                 </Grid>
 
-                                <Button x:Name="botonEditorSubirpepeizqdealsBundles" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonSubirBundles" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -563,7 +563,7 @@
                                 </Button>
 
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenBundlesv2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                    <Button x:Name="botonImagenBundles" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
                                         <Button.Resources>
                                             <ResourceDictionary>
                                                 <ResourceDictionary.ThemeDictionaries>
@@ -593,7 +593,7 @@
 
                                                 <Grid Grid.Row="0">
                                                     <Grid.Background>
-                                                        <ImageBrush x:Name="fondoEditorImagenCabeceraEntradaBundles" Stretch="None"/>
+                                                        <ImageBrush x:Name="fondoCabeceraBundles" Stretch="None"/>
                                                     </Grid.Background>
 
                                                     <Grid>
@@ -608,39 +608,39 @@
 
                                                         <Grid HorizontalAlignment="Center">
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="1*"/>
-                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
                                                             </Grid.ColumnDefinitions>
 
-                                                            <StackPanel x:Name="spColumnaIzquierdaCabeceraImagenEntradaBundles" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                                                                <controls:DropShadowPanel x:Name="panelImagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                    <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesTiendav2" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <StackPanel x:Name="spColumnaIzquierdaCabeceraBundles" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                                                                <controls:DropShadowPanel x:Name="panelImagenTiendaBundles" Margin="60,30" Color="Black" ShadowOpacity="1" BlurRadius="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <controls:ImageEx x:Name="imagenTiendaBundles" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                                 </controls:DropShadowPanel>
 
                                                                 <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,30,30,20">
-                                                                    <TextBlock x:Name="tbPreciopepeizqdealsImagenEntradaBundlesv2" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                    <TextBlock x:Name="tbPrecioBundles" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </StackPanel>
                                                             </StackPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelImagenEditorpepeizqdealsGenerarImagenBundlesTiendav2" Grid.Column="1" Margin="40,40,40,20" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundlesv2" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="500"/>
+                                                            <controls:DropShadowPanel x:Name="panelImagenBundle" Grid.Column="1" Margin="40,40,40,20" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <controls:ImageEx x:Name="imagenBundle" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="500"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <StackPanel x:Name="spImagenEditorpepeizqdealsGenerarImagenBundleHumble" Grid.Column="1" Margin="40" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                                            <StackPanel x:Name="spImagenHumbleBundles" Grid.Column="1" Margin="40" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                                                                 <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio1.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
-                                                                <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenBundleHumble" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
+                                                                <controls:ImageEx x:Name="imagenHumbleBundles" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
                                                                 <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio2.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
                                                             </StackPanel>
                                                         </Grid>                                                        
                                                     </Grid>
                                                 </Grid>
 
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesv2" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
+                                                <controls:AdaptiveGridView x:Name="gvJuegosBundles" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10"/>
 
-                                                <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaBundlesDLCs" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10" Visibility="Collapsed"/>
+                                                <controls:AdaptiveGridView x:Name="gvDLCsBundles" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10" Visibility="Collapsed"/>
                                                 
-                                                <Grid x:Name="gridEditorMasJuegospepeizqdealsBundlesv2" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
-                                                    <TextBlock x:Name="tbEditorpepeizqdealsBundlesMasJuegos" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                <Grid x:Name="gridMasJuegosBundles" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
+                                                    <TextBlock x:Name="tbMasJuegosBundles" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>
@@ -888,17 +888,17 @@
                                                         <RowDefinition Height="*"/>
                                                     </Grid.RowDefinitions>
 
-                                                    <Grid Grid.Row="0">
+                                                    <Grid Grid.Row="0" HorizontalAlignment="Center">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="*"/>
                                                             <ColumnDefinition Width="*"/>
                                                         </Grid.ColumnDefinitions>
 
-                                                        <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50,50,50,40">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxHeight="60" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50">
+                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxHeight="50" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="20,30,50,30">
+                                                        <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50">
                                                             <TextBlock x:Name="mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Foreground="White" FontSize="35" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </controls:DropShadowPanel>
                                                     </Grid>

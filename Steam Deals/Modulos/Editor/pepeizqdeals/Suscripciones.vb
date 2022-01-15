@@ -96,7 +96,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenUnaSuscripcion")
             Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
 
-            Dim cosas As New Clases.Suscripcion(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
+            Dim cosas As New Suscripcion(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
             If cbTiendas.SelectedIndex = 0 Then
                 botonBuscar.Visibility = Visibility.Collapsed
@@ -108,6 +108,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
+                imagenTienda2.MaxHeight = 50
 
                 cosas.Tienda = pepeizq.Interfaz.Tiendas.humbleT
                 cosas.Tienda.NombreMostrar = "Humble Bundle"
@@ -129,6 +130,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
+                imagenTienda2.MaxHeight = 60
 
                 cosas.Tienda = pepeizq.Interfaz.Tiendas.amazoncomT
                 cosas.Enlace = "https://gaming.amazon.com/"
@@ -145,6 +147,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2022/01/pcgamepass.webp"
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2022/01/pcgamepass.webp"
+                imagenTienda2.MaxHeight = 80
 
                 cosas.Tienda = pepeizq.Interfaz.Tiendas.microsoftstoreT
                 cosas.Enlace = "https://pepeizqdeals.com/pc-game-pass/"
@@ -338,6 +341,57 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             tb.Select(tb.Text.Length, 0)
+
+        End Sub
+
+        Public Sub TituloeImagenes(listaJuegos As List(Of SuscripcionJuego), titulo As Boolean)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+
+            If Not listaJuegos Is Nothing Then
+                If listaJuegos.Count > 0 Then
+                    Dim i As Integer = 0
+                    For Each juego In listaJuegos
+                        juego.Titulo = juego.Titulo.Trim
+
+                        If juego.Imagen.Contains("/") Then
+                            Dim int As Integer = juego.Imagen.LastIndexOf("/")
+                            juego.Imagen = juego.Imagen.Remove(int, juego.Imagen.Length - int)
+                            juego.Imagen = juego.Imagen + "/library_600x900.jpg"
+                        End If
+
+                        If i = 0 Then
+                            If titulo = True Then
+                                tbTitulo.Text = tbTitulo.Text + juego.Titulo.Trim
+                            End If
+
+                            tbJuegos.Text = juego.Titulo.Trim
+                            tbImagenesGrid.Text = juego.Imagen
+                        ElseIf i = (listaJuegos.Count - 1) Then
+                            If titulo = True Then
+                                tbTitulo.Text = tbTitulo.Text + " and " + juego.Titulo.Trim
+                            End If
+
+                            tbJuegos.Text = tbJuegos.Text + " and " + juego.Titulo.Trim
+                            tbImagenesGrid.Text = tbImagenesGrid.Text + "," + juego.Imagen
+                        Else
+                            If titulo = True Then
+                                tbTitulo.Text = tbTitulo.Text + ", " + juego.Titulo.Trim
+                            End If
+
+                            tbJuegos.Text = tbJuegos.Text + ", " + juego.Titulo.Trim
+                            tbImagenesGrid.Text = tbImagenesGrid.Text + "," + juego.Imagen
+                        End If
+
+                        i += 1
+                    Next
+                End If
+            End If
 
         End Sub
 

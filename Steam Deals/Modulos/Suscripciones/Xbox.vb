@@ -37,7 +37,7 @@ Namespace pepeizq.Suscripciones
             Dim listaDisponibles As New List(Of String)
             Dim listaEAPlay As New List(Of String)
             Dim listaNuevos As New List(Of String)
-            Dim listaNuevos2 As New List(Of JuegoSuscripcion)
+            Dim listaNuevos2 As New List(Of SuscripcionJuego)
 
             Dim htmlCompleto As String = Await Decompiladores.HttpClient(New Uri("https://catalog.gamepass.com/sigls/v2?id=fdd9e2a7-0fee-49f6-ad69-4354098401ff&language=en-us&market=US"))
 
@@ -86,7 +86,7 @@ Namespace pepeizq.Suscripciones
                         End If
                     Next
 
-                    Dim listaDisponibles2 As New List(Of JuegoSuscripcion)
+                    Dim listaDisponibles2 As New List(Of SuscripcionJuego)
 
                     For Each temp In listaTemp
                         temp = temp.Remove(temp.Length - 1)
@@ -123,7 +123,7 @@ Namespace pepeizq.Suscripciones
                                         Dim tituloJuego As String = juego.Detalles(0).Titulo.Trim
                                         tituloJuego = LimpiarTitulo(tituloJuego)
 
-                                        listaDisponibles2.Add(New JuegoSuscripcion(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
+                                        listaDisponibles2.Add(New SuscripcionJuego(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
                                     End If
                                 End If
                             Next
@@ -206,7 +206,7 @@ Namespace pepeizq.Suscripciones
                         End If
                     Next
 
-                    Dim listaEAPlay2 As New List(Of JuegoSuscripcion)
+                    Dim listaEAPlay2 As New List(Of SuscripcionJuego)
 
                     For Each temp In listaTemp
                         temp = temp.Remove(temp.Length - 1)
@@ -243,7 +243,7 @@ Namespace pepeizq.Suscripciones
                                         Dim tituloJuego As String = juego.Detalles(0).Titulo.Trim
                                         tituloJuego = LimpiarTitulo(tituloJuego)
 
-                                        listaEAPlay2.Add(New JuegoSuscripcion(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
+                                        listaEAPlay2.Add(New SuscripcionJuego(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
                                     End If
                                 End If
                             Next
@@ -321,7 +321,7 @@ Namespace pepeizq.Suscripciones
                                         Dim tituloJuego As String = juego.Detalles(0).Titulo.Trim
                                         tituloJuego = LimpiarTitulo(tituloJuego)
 
-                                        listaNuevos2.Add(New JuegoSuscripcion(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
+                                        listaNuevos2.Add(New SuscripcionJuego(tituloJuego, imagenJuego, Nothing, "https://www.xbox.com/games/store/p/" + juego.ID, Nothing))
                                     End If
                                 End If
                             Next

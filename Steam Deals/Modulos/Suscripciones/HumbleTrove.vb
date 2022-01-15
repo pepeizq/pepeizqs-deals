@@ -7,7 +7,7 @@ Namespace pepeizq.Suscripciones
 
         Dim WithEvents Bw As New BackgroundWorker
         Dim listaIDs As New List(Of String)
-        Dim listaJuegos As New List(Of JuegoSuscripcion)
+        Dim listaJuegos As New List(Of SuscripcionJuego)
 
         Public Async Sub BuscarJuegos(sender As Object, e As RoutedEventArgs)
 
@@ -56,7 +56,7 @@ Namespace pepeizq.Suscripciones
                                 If añadir = True Then
                                     listaIDs.Add(juego.ID)
 
-                                    listaJuegos.Add(New JuegoSuscripcion(juego.Titulo.Trim, juego.Imagen, juego.ID, "https://www.humblebundle.com/subscription/trove#trove-main", Nothing))
+                                    listaJuegos.Add(New SuscripcionJuego(juego.Titulo.Trim, juego.Imagen, juego.ID, "https://www.humblebundle.com/subscription/trove#trove-main", Nothing))
                                 End If
                             Next
                         End If
@@ -72,7 +72,7 @@ Namespace pepeizq.Suscripciones
             Dim helper As New LocalObjectStorageHelper
             Await helper.SaveFileAsync(Of List(Of String))("listaHumbleTroveSuscripcion", listaIDs)
 
-            Html.Generar("Humble Trove", "https://www.humblebundle.com/subscription/trove", "https://i.imgur.com/eIKQFsR.png", listaJuegos, True)
+            TituloeImagenes(listaJuegos, True)
 
             BloquearControles(True)
 
