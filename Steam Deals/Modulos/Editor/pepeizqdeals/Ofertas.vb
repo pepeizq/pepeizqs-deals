@@ -30,17 +30,17 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '----------------------------------------------------
 
-            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
             tbCabeceraImagen.Text = String.Empty
 
-            Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbLogosJuegosOfertas")
             cbCabeceraLogosJuegos.SelectedIndex = 0
 
-            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
             tbCabeceraImagenAncho.Text = String.Empty
 
-            Dim spUnJuego As StackPanel = pagina.FindName("spEditorpepeizqdealsUnJuego")
-            Dim spDosJuegos As StackPanel = pagina.FindName("spEditorpepeizqdealsDosJuegos")
+            Dim spUnJuego As StackPanel = pagina.FindName("spUnJuegoOfertas")
+            Dim spDosJuegos As StackPanel = pagina.FindName("spDosJuegosOfertas")
 
             If listaTotal.Count = 1 Then
                 spUnJuego.Visibility = Visibility.Visible
@@ -55,30 +55,30 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
             Dim tbDolar As TextBlock = pagina.FindName("tbDivisasDolar")
 
-            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+            Dim cbPublishers As ComboBox = pagina.FindName("cbDesarrolladoresOfertas")
             cbPublishers.SelectedIndex = 0
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloOfertas")
             tbTitulo.Text = String.Empty
 
             RemoveHandler tbTitulo.TextChanged, AddressOf ModificarTitulo
             AddHandler tbTitulo.TextChanged, AddressOf ModificarTitulo
 
-            Dim tbTituloTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+            Dim tbTituloTwitter As TextBox = pagina.FindName("tbTwitterOfertas")
             tbTituloTwitter.Text = String.Empty
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceJuegoOfertas")
             tbEnlace.Text = String.Empty
 
-            Dim botonEnlaceAbrir As Button = pagina.FindName("botonEditorEnlaceAbrirpepeizqdeals")
+            Dim botonEnlaceAbrir As Button = pagina.FindName("botonAbrirEnlaceJuegoOfertas")
 
             RemoveHandler botonEnlaceAbrir.Click, AddressOf AbrirEnlace
             AddHandler botonEnlaceAbrir.Click, AddressOf AbrirEnlace
 
-            Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+            Dim tbTituloComplemento As TextBox = pagina.FindName("tbTituloComplementoOfertas")
             tbTituloComplemento.Text = String.Empty
 
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
+            Dim tbComentario As TextBox = pagina.FindName("tbComentarioOfertas")
             tbComentario.Text = String.Empty
 
             Dim listaTiendas As List(Of Tienda) = pepeizq.Interfaz.Tiendas.Listado
@@ -232,18 +232,18 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
+            Dim botonImagen As Button = pagina.FindName("botonCambiarImagenOfertas")
 
             RemoveHandler botonImagen.Click, AddressOf CargarImagenFicheroUnJuego
             AddHandler botonImagen.Click, AddressOf CargarImagenFicheroUnJuego
 
-            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEnlaceFondoOfertas")
             tbImagenFondo.Text = String.Empty
 
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
             AddHandler tbImagenFondo.TextChanged, AddressOf CargarFondoEnlace
 
-            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEnlaceImagenOfertas")
             tbImagenJuego.Text = String.Empty
 
             If listaTotal.Count = 1 Then
@@ -298,16 +298,16 @@ Namespace pepeizq.Editor.pepeizqdeals
                 fechaDefecto = fechaDefecto.AddDays(2)
             End If
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaOfertas")
             fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
 
             RemoveHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
             AddHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+            Dim horaPicker As TimePicker = pagina.FindName("horaOfertas")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
-            Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
+            Dim cbError As CheckBox = pagina.FindName("cbErrorPrecioOfertas")
             cbError.IsChecked = False
 
             RemoveHandler cbError.Checked, AddressOf ActivarErrorPrecio
@@ -316,7 +316,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
             AddHandler cbError.Unchecked, AddressOf ActivarErrorPrecio
 
-            Dim tbMensajeIngles As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            Dim tbMensajeIngles As TextBox = pagina.FindName("tbMensajeInglesOfertas")
             tbMensajeIngles.Text = String.Empty
 
             If tbMensajeIngles.Visibility = Visibility.Visible Then
@@ -350,14 +350,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '----------------------------------------------------
 
-            Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
+            Dim botonCabeceraImagen As Button = pagina.FindName("botonCambiarCabeceraImagenOfertas")
 
             RemoveHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegosPicker
             AddHandler botonCabeceraImagen.Click, AddressOf CargarImagenFicheroDosJuegosPicker
 
             '----------------------------------------------------
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim botonSubir As Button = pagina.FindName("botonSubirOfertas")
 
             If listaTotal.Count = 1 Then
                 botonSubir.Tag = New Clases.Deals(listaTotal, listaSeleccionados, tienda, listaTotal(0).Descuento, listaTotal(0).Precio1)
@@ -368,12 +368,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
 
-            Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdeals")
+            Dim botonCopiarHtml As Button = pagina.FindName("botonCopiarHtmlOfertas")
 
             RemoveHandler botonCopiarHtml.Click, AddressOf CopiarHtml
             AddHandler botonCopiarHtml.Click, AddressOf CopiarHtml
 
-            Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
+            Dim botonCopiarForo As Button = pagina.FindName("botonCopiarForoOfertas")
 
             RemoveHandler botonCopiarForo.Click, AddressOf CopiarForo
             AddHandler botonCopiarForo.Click, AddressOf CopiarForo
@@ -391,14 +391,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
-            Dim tbTituloTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
-            Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloOfertas")
+            Dim tbTituloTwitter As TextBox = pagina.FindName("tbTwitterOfertas")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceJuegoOfertas")
+            Dim tbImagen As TextBox = pagina.FindName("tbEnlaceImagenOfertas")
+            Dim tbTituloComplemento As TextBox = pagina.FindName("tbTituloComplementoOfertas")
 
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
-            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            Dim tbComentario As TextBox = pagina.FindName("tbComentarioOfertas")
+            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeInglesOfertas")
 
             Dim mensaje As String = String.Empty
 
@@ -430,12 +430,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tituloComplemento = tbTituloComplemento.Text.Trim
             End If
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenEntradav2")
+            Dim botonImagen As Button = pagina.FindName("botonImagenOfertas")
 
             Dim categoria As Integer = 3
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaOfertas")
+            Dim horaPicker As TimePicker = pagina.FindName("horaOfertas")
 
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
@@ -460,32 +460,32 @@ Namespace pepeizq.Editor.pepeizqdeals
             'Traducciones----------------------
 
             Dim listaTraducciones As New List(Of Traduccion)
-            Dim panelMensajeUnJuego As DropShadowPanel = pagina.FindName("panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim panelMensajeUnJuego As DropShadowPanel = pagina.FindName("panelMensajeUnJuegoOfertas")
 
             If panelMensajeUnJuego.Visibility = Visibility.Visible Then
-                Dim tbMensajeUnJuego As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
-                Dim tbMensajeUnJuegoIngles As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
-                Dim tbMensajeUnJuegoEspañol As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDealsEs")
+                Dim tbMensajeUnJuego As TextBlock = pagina.FindName("tbMensajeUnJuegoOfertas")
+                Dim tbMensajeUnJuegoIngles As TextBox = pagina.FindName("tbMensajeInglesOfertas")
+                Dim tbMensajeUnJuegoEspañol As TextBox = pagina.FindName("tbMensajeEspañolOfertas")
 
                 If tbMensajeUnJuego.Text.Trim.Length > 0 Then
                     listaTraducciones.Add(New Traduccion(tbMensajeUnJuego, tbMensajeUnJuegoIngles.Text, tbMensajeUnJuegoEspañol.Text))
                 End If
             End If
 
-            Dim gridMensajeDosJuegos As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim gridMensajeDosJuegos As Grid = pagina.FindName("gridJuegosRestantesDosJuegosOfertas")
 
             If gridMensajeDosJuegos.Visibility = Visibility.Visible Then
-                Dim tbMensajeDosJuegos As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                Dim tbMensajeDosJuegos As TextBlock = pagina.FindName("tbJuegosRestantesDosJuegosOfertas")
 
                 If tbMensajeDosJuegos.Text.Trim.Length > 0 Then
                     listaTraducciones.Add(New Traduccion(tbMensajeDosJuegos, tbMensajeDosJuegos.Text, Traducciones.OfertasDosJuegos(tbMensajeDosJuegos.Text)))
                 End If
             End If
 
-            Dim panelErrorPrecio As DropShadowPanel = pagina.FindName("panelMensajeErrorPreciov2")
+            Dim panelErrorPrecio As DropShadowPanel = pagina.FindName("panelErrorPrecioUnJuegoOfertas")
 
             If panelErrorPrecio.Visibility = Visibility.Visible Then
-                Dim tbErrorPrecio As TextBlock = pagina.FindName("tbErrorPrecioEditorpepeizqdealsImagenEntrada")
+                Dim tbErrorPrecio As TextBlock = pagina.FindName("tbErrorPrecioUnJuegoOfertas")
 
                 If tbErrorPrecio.Text.Trim.Length > 0 Then
                     listaTraducciones.Add(New Traduccion(tbErrorPrecio, tbErrorPrecio.Text, Traducciones.ErrorPrecio(tbErrorPrecio.Text)))
@@ -514,14 +514,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 Dim frame As Frame = Window.Current.Content
                 Dim pagina As Page = frame.Content
 
-                Dim tbImagen As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+                Dim tbImagen As TextBox = pagina.FindName("tbEnlaceImagenOfertas")
                 tbImagen.Text = ficheroElegido.Path
 
                 Using stream As IRandomAccessStream = Await ficheroElegido.OpenAsync(FileAccessMode.Read)
                     Dim bitmap As New BitmapImage
                     Await bitmap.SetSourceAsync(stream)
 
-                    Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuegov2")
+                    Dim imagen As ImageEx = pagina.FindName("imagenJuegoUnJuegoOfertas")
                     imagen.Source = bitmap
                 End Using
             End If
@@ -550,14 +550,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim ficheroElegido As StorageFile = Await StorageFile.GetFileFromPathAsync(path)
 
-            Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            Dim tbImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
             tbImagen.Text = path
 
             Using stream As IRandomAccessStream = Await ficheroElegido.OpenAsync(FileAccessMode.Read)
                 Dim bitmap As New BitmapImage
                 Await bitmap.SetSourceAsync(stream)
 
-                Dim imagen As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                Dim imagen As ImageEx = pagina.FindName("imagenCabeceraDosJuegosOfertas")
                 imagen.Source = bitmap
             End Using
 
@@ -570,12 +570,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEnlaceFondoOfertas")
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim botonSubir As Button = pagina.FindName("botonSubirOfertas")
             Dim cosas As Clases.Deals = botonSubir.Tag
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceJuegoOfertas")
             Dim precioFinal As String = tbEnlace.Tag
 
             Dim listaTiendas As List(Of Tienda) = pepeizq.Interfaz.Tiendas.Listado
@@ -610,7 +610,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim fondo As ImageBrush = pagina.FindName("imagenFondoUnJuegoOfertas")
 
             If tbImagenFondo.Text.Trim.Length > 0 Then
                 Try
@@ -660,8 +660,8 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim tbComentario As TextBox = pagina.FindName("tbComentarioOfertas")
+            Dim botonSubir As Button = pagina.FindName("botonSubirOfertas")
             Dim cosas As Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
@@ -684,7 +684,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             BloquearControles(False)
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim botonSubir As Button = pagina.FindName("botonSubirOfertas")
             Dim cosas As Deals = botonSubir.Tag
             Dim textoClipboard As String = String.Empty
 
@@ -724,7 +724,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+            Dim tbTwitter As TextBox = pagina.FindName("tbTwitterOfertas")
 
             If Not tbTwitter.Text = Nothing Then
                 If tbTwitter.Text.Trim.Length > 0 Then
@@ -741,10 +741,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '------------------------------
 
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim gridUnJuego As Grid = pagina.FindName("gridUnJuegoOfertas")
 
             If gridUnJuego.Visibility = Visibility.Visible Then
-                Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+                Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoUnJuegoOfertas")
 
                 Dim temp, temp2 As String
                 Dim int, int2 As Integer
@@ -757,7 +757,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
                 tbDescuento.Text = temp2.Trim
 
-                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2")
+                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioUnJuegoOfertas")
 
                 Dim temp3, temp4 As String
                 Dim int3, int4 As Integer
@@ -782,7 +782,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If semanal = True Then
-                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaOfertas")
                 Dim fechaFinal As DateTime = DateTime.Today
                 fechaFinal = fechaFinal.AddDays(7)
                 fechaPicker.SelectedDate = fechaFinal
@@ -797,7 +797,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If medioSemanal = True Then
-                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaOfertas")
                 Dim fechaFinal As DateTime = DateTime.Today
                 fechaFinal = fechaFinal.AddDays(3)
                 fechaPicker.SelectedDate = fechaFinal
@@ -812,7 +812,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If finSemanal = True Then
-                Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+                Dim fechaPicker As DatePicker = pagina.FindName("fechaOfertas")
                 Dim fechaFinal As DateTime = DateTime.Today
                 fechaFinal = fechaFinal.AddDays(4)
                 fechaPicker.SelectedDate = fechaFinal
@@ -827,7 +827,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim panelMensaje2 As DropShadowPanel = pagina.FindName("panelMensajeErrorPreciov2")
+            Dim panelMensaje2 As DropShadowPanel = pagina.FindName("panelErrorPrecioUnJuegoOfertas")
 
             If cbError.IsChecked = True Then
                 panelMensaje2.Visibility = Visibility.Visible
@@ -842,20 +842,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            Dim tbMensaje As TextBox = pagina.FindName("tbMensajeInglesOfertas")
 
-            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeUnJuegoOfertas")
 
             If tbMensaje.Text.Trim.Length > 0 Then
                 panelMensaje.Visibility = Visibility.Visible
 
-                Dim tbMensaje2 As TextBlock = pagina.FindName("tbMensajeEditorpepeizqdealsImagenEntradaUnJuegov2")
+                Dim tbMensaje2 As TextBlock = pagina.FindName("tbMensajeUnJuegoOfertas")
 
                 If Not tbMensaje2 Is Nothing Then
                     tbMensaje2.Text = tbMensaje.Text
 
                     Dim mensajeEspañol As String = tbMensaje2.Text
-                    Dim tbMensajeEspañol As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDealsEs")
+                    Dim tbMensajeEspañol As TextBox = pagina.FindName("tbMensajeEspañolOfertas")
                     tbMensajeEspañol.Text = Traducciones.OfertasUnJuego(mensajeEspañol)
                 End If
             Else
@@ -869,7 +869,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim enlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+            Dim enlace As TextBox = pagina.FindName("tbEnlaceJuegoOfertas")
 
             Try
                 Await Launcher.LaunchUriAsync(New Uri(enlace.Text))
@@ -884,70 +884,70 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloOfertas")
             tbTitulo.IsEnabled = estado
 
-            Dim tbTituloTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+            Dim tbTituloTwitter As TextBox = pagina.FindName("tbTwitterOfertas")
             tbTituloTwitter.IsEnabled = estado
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdeals")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceJuegoOfertas")
             tbEnlace.IsEnabled = estado
 
-            Dim botonEnlaceAbrir As Button = pagina.FindName("botonEditorEnlaceAbrirpepeizqdeals")
+            Dim botonEnlaceAbrir As Button = pagina.FindName("botonAbrirEnlaceJuegoOfertas")
             botonEnlaceAbrir.IsEnabled = estado
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorImagenpepeizqdeals")
+            Dim botonImagen As Button = pagina.FindName("botonCambiarImagenOfertas")
             botonImagen.IsEnabled = estado
 
-            Dim tbImagenJuego As TextBox = pagina.FindName("tbEditorImagenpepeizqdeals")
+            Dim tbImagenJuego As TextBox = pagina.FindName("tbEnlaceImagenOfertas")
             tbImagenJuego.IsEnabled = estado
 
-            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenFondopepeizqdeals")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbEnlaceFondoOfertas")
             tbImagenFondo.IsEnabled = estado
 
-            Dim cbPublishers As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+            Dim cbPublishers As ComboBox = pagina.FindName("cbDesarrolladoresOfertas")
             cbPublishers.IsEnabled = estado
 
-            Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            Dim cbCabeceraLogosJuegos As ComboBox = pagina.FindName("cbLogosJuegosOfertas")
             cbCabeceraLogosJuegos.IsEnabled = estado
 
-            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
             tbCabeceraImagenAncho.IsEnabled = estado
 
-            Dim botonCabeceraImagen As Button = pagina.FindName("botonEditorTitulopepeizqdealsCabeceraImagen")
+            Dim botonCabeceraImagen As Button = pagina.FindName("botonCambiarCabeceraImagenOfertas")
             botonCabeceraImagen.IsEnabled = estado
 
-            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
             tbCabeceraImagen.IsEnabled = estado
 
-            Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+            Dim tbTituloComplemento As TextBox = pagina.FindName("tbTituloComplementoOfertas")
             tbTituloComplemento.IsEnabled = estado
 
-            Dim tbComentario As TextBox = pagina.FindName("tbEditorComentariopepeizqdeals")
+            Dim tbComentario As TextBox = pagina.FindName("tbComentarioOfertas")
             tbComentario.IsEnabled = estado
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsDeals")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaOfertas")
             fechaPicker.IsEnabled = estado
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsDeals")
+            Dim horaPicker As TimePicker = pagina.FindName("horaOfertas")
             horaPicker.IsEnabled = estado
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdeals")
+            Dim botonSubir As Button = pagina.FindName("botonSubirOfertas")
             botonSubir.IsEnabled = estado
 
-            Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdeals")
+            Dim botonCopiarHtml As Button = pagina.FindName("botonCopiarHtmlOfertas")
             botonCopiarHtml.IsEnabled = estado
 
-            Dim botonCopiarForo As Button = pagina.FindName("botonEditorCopiarForopepeizqdeals")
+            Dim botonCopiarForo As Button = pagina.FindName("botonCopiarForoOfertas")
             botonCopiarForo.IsEnabled = estado
 
-            Dim cbError As CheckBox = pagina.FindName("cbEditorErrorPreciopepeizqdealsDeals")
+            Dim cbError As CheckBox = pagina.FindName("cbErrorPrecioOfertas")
             cbError.IsEnabled = estado
 
-            Dim tbMensajeIngles As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDeals")
+            Dim tbMensajeIngles As TextBox = pagina.FindName("tbMensajeInglesOfertas")
             tbMensajeIngles.IsEnabled = estado
 
-            Dim tbMensajeEspañol As TextBox = pagina.FindName("tbMensajeContenidopepeizqdealsDealsEs")
+            Dim tbMensajeEspañol As TextBox = pagina.FindName("tbMensajeEspañolOfertas")
             tbMensajeEspañol.IsEnabled = estado
 
         End Sub

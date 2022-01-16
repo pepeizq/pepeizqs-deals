@@ -10,7 +10,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsLogosJuegos")
+            Dim cb As ComboBox = pagina.FindName("cbLogosJuegosOfertas")
             cb.Items.Clear()
 
             cb.Items.Add("--")
@@ -39,7 +39,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cb As ComboBox = sender
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloOfertas")
 
             If Not cb.SelectedIndex = 0 Then
                 Dim juego As TextBlock = cb.SelectedItem
@@ -62,7 +62,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+                    Dim tbImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
 
                     If Not juego2.Logo = Nothing Then
                         tbImagen.Text = Package.Current.InstalledLocation.Path + "\Assets\LogosJuegos\" + juego2.Logo
@@ -70,7 +70,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         tbImagen.Text = String.Empty
                     End If
 
-                    Dim tbAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+                    Dim tbAncho As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
 
                     If Not juego2.LogoAncho = Nothing Then
                         tbAncho.Text = juego2.LogoAncho

@@ -11,15 +11,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim gridUnJuego As Grid = pagina.FindName("gridUnJuegoOfertas")
             gridUnJuego.Visibility = Visibility.Visible
 
-            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim gridDosJuegos As Grid = pagina.FindName("gridDosJuegosOfertas")
             gridDosJuegos.Visibility = Visibility.Collapsed
 
             '--------------------------------------
 
-            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoUnJuegoOfertas")
 
             If enlaceImagenFondo.Trim.Length > 0 Then
                 If pepeizq.Ofertas.Steam.CompararDominiosImagen(enlaceImagenFondo) = True Then
@@ -33,20 +33,20 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '--------------------------------------
 
-            Dim imagenJuego As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoUnJuegoOfertas")
             imagenJuego.Source = enlaceImagenJuego
             juego.Imagenes.Grande = enlaceImagenJuego
             juego.Imagenes.Pequeña = enlaceImagenJuego
 
             '--------------------------------------
 
-            Dim gridDescuento As Grid = pagina.FindName("gridDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim gridDescuento As Grid = pagina.FindName("gridDescuentoUnJuegoOfertas")
 
             If Not juego.Descuento = Nothing Then
                 If Not juego.Descuento = "00%" Then
                     gridDescuento.Visibility = Visibility.Visible
 
-                    Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoEditorpepeizqdealsImagenEntradaUnJuegov2")
+                    Dim tbDescuento As TextBox = pagina.FindName("tbDescuentoUnJuegoOfertas")
                     tbDescuento.Text = juego.Descuento.Trim
                 Else
                     gridDescuento.Visibility = Visibility.Collapsed
@@ -56,13 +56,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             End If
 
             If Not precio = Nothing Then
-                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioEditorpepeizqdealsImagenEntradaUnJuegov2")
+                Dim tbPrecio As TextBox = pagina.FindName("tbPrecioUnJuegoOfertas")
                 tbPrecio.Text = precio
             End If
 
             '--------------------------------------
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaUnJuegoOfertas")
 
             If Not tienda.LogoWebServidorEnlace300x80 = Nothing Then
                 imagenTienda.Source = tienda.LogoWebServidorEnlace300x80
@@ -72,7 +72,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '--------------------------------------
 
-            Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisUnJuegoOfertas")
 
             If Not juego.Analisis Is Nothing Then
                 If Not juego.Analisis.AnalisisPorcentaje = Nothing Then
@@ -92,7 +92,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '--------------------------------------
 
-            Dim imagenDRM As ImageEx = pagina.FindName("imagenDRMEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim imagenDRM As ImageEx = pagina.FindName("imagenDRMUnJuegoOfertas")
             Dim imagenDRMString As String = String.Empty
 
             If Not juego.DRM = Nothing Then
@@ -122,15 +122,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnJuegov2")
+            Dim gridUnJuego As Grid = pagina.FindName("gridUnJuegoOfertas")
             gridUnJuego.Visibility = Visibility.Collapsed
 
-            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim gridDosJuegos As Grid = pagina.FindName("gridDosJuegosOfertas")
             gridDosJuegos.Visibility = Visibility.Visible
 
             '--------------------------------------
 
-            Dim tbTituloComplemento As TextBox = pagina.FindName("tbEditorTituloComplementopepeizqdeals")
+            Dim tbTituloComplemento As TextBox = pagina.FindName("tbTituloComplementoOfertas")
 
             Dim complementoTitulo As String = LimpiarTitulo(juegos(0).Titulo) + " (" + juegos(0).Descuento + ")"
 
@@ -173,20 +173,20 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim listaFinal As New List(Of Oferta)
 
-            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
             AddHandler tbCabeceraImagenAncho.TextChanged, AddressOf ModificarCabeceraImagenAncho
 
-            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
             RemoveHandler tbCabeceraImagen.TextChanged, AddressOf CambiarCabecera
             AddHandler tbCabeceraImagen.TextChanged, AddressOf CambiarCabecera
 
-            Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTituloMaestro As TextBox = pagina.FindName("tbTituloOfertas")
             RemoveHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
             AddHandler tbTituloMaestro.TextChanged, AddressOf CambiarTitulo
 
             '------------------------------------------------------------------------
 
-            Dim fondoCabecera As ImageBrush = pagina.FindName("fondoEditorImagenCabeceraEntradaDosJuegos")
+            Dim fondoCabecera As ImageBrush = pagina.FindName("imagenFondoDosJuegosOfertas")
             fondoCabecera.ImageSource = Nothing
 
             For Each juego In juegos
@@ -211,7 +211,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             '------------------------------------------------------------------------
 
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradav2")
+            Dim gv As AdaptiveGridView = pagina.FindName("gvJuegosDosJuegosOfertas")
             gv.Items.Clear()
 
             Dim limite As Integer = 6
@@ -334,11 +334,11 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaDosJuegosOfertas")
             imagenTienda.Source = tienda.LogoWebServidorEnlace300x80
 
-            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            Dim tbCabecera As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraDosJuegosOfertas")
+            Dim tbCabecera As TextBlock = pagina.FindName("tbTituloCabeceraDosJuegosOfertas")
 
             If tbCabeceraImagen.Text.Trim.Length > 0 Then
                 AdaptarCabeceraDosJuegos(1)
@@ -353,14 +353,14 @@ Namespace pepeizq.Editor.pepeizqdeals
                 End If
             End If
 
-            Dim gridJuegosRestantes As Grid = pagina.FindName("gridJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim gridJuegosRestantes As Grid = pagina.FindName("gridJuegosRestantesDosJuegosOfertas")
 
             Dim juegosRestantes As Integer = cantidadJuegos
 
             If (juegosRestantes - limite) > 0 Then
                 gridJuegosRestantes.Visibility = Visibility.Visible
 
-                Dim tbJuegosRestantes As TextBlock = pagina.FindName("tbJuegosRestantesEditorpepeizqdealsImagenEntradaDosJuegosv2")
+                Dim tbJuegosRestantes As TextBlock = pagina.FindName("tbJuegosRestantesDosJuegosOfertas")
 
                 If juegosRestantes - limite = 1 Then
                     tbJuegosRestantes.Text = "And other deal"
@@ -378,8 +378,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTitulo As TextBlock = pagina.FindName("tbTituloCabeceraDosJuegosOfertas")
+            Dim tbTituloMaestro As TextBox = pagina.FindName("tbTituloOfertas")
 
             If tbTituloMaestro.Text.Contains("•") Then
                 Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
@@ -393,13 +393,13 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
-            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+            Dim tbCabeceraImagenAncho As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
+            Dim tbCabeceraImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
 
-            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraDosJuegosOfertas")
             imagenCabecera.Source = Nothing
 
-            Dim tbCabecera As TextBlock = pagina.FindName("tbTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim tbCabecera As TextBlock = pagina.FindName("tbTituloCabeceraDosJuegosOfertas")
 
             If tbCabeceraImagen.Text.Trim.Length > 0 Then
                 Dim modificar As Boolean = True
@@ -426,7 +426,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Else
                 AdaptarCabeceraDosJuegos(0)
 
-                Dim tbTituloMaestro As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+                Dim tbTituloMaestro As TextBox = pagina.FindName("tbTituloOfertas")
 
                 If tbTituloMaestro.Text.Contains("•") Then
                     Dim int As Integer = tbTituloMaestro.Text.IndexOf("•")
@@ -441,8 +441,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
-            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim tb As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
+            Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraDosJuegosOfertas")
 
             If tb.Text.Trim.Length > 0 Then
                 Dim resultado As Double = 0
@@ -476,12 +476,12 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim columnaAncho As ColumnDefinition = pagina.FindName("columnaCabeceraImagenEntradaDosJuegos")
-            Dim columnaIzquierda As Grid = pagina.FindName("gridColumnaIzquierdaCabeceraImagenEntradaDosJuegos")
-            Dim columnaDerecha As Grid = pagina.FindName("gridColumnaDerechaCabeceraImagenEntradaDosJuegos")
+            Dim columnaAncho As ColumnDefinition = pagina.FindName("columnaCabeceraDosJuegosOfertas")
+            Dim columnaIzquierda As Grid = pagina.FindName("gridColumnaIzquierdaCabeceraDosJuegosOfertas")
+            Dim columnaDerecha As Grid = pagina.FindName("gridColumnaDerechaCabeceraDosJuegosOfertas")
 
-            Dim panelImagen As DropShadowPanel = pagina.FindName("panelImagenCabeceraEditorpepeizqdealsImagenEntradaDosJuegosv2")
-            Dim panelTitulo As DropShadowPanel = pagina.FindName("panelTituloEditorpepeizqdealsImagenEntradaDosJuegosv2")
+            Dim panelImagen As DropShadowPanel = pagina.FindName("panelImagenCabeceraDosJuegosOfertas")
+            Dim panelTitulo As DropShadowPanel = pagina.FindName("panelTituloCabeceraDosJuegosOfertas")
 
             If modo = 0 Then
                 columnaAncho.Width = New GridLength(1, GridUnitType.Star)

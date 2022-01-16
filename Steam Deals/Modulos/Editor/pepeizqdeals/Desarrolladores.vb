@@ -10,7 +10,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cb As ComboBox = pagina.FindName("cbEditorTitulopepeizqdealsPublishers")
+            Dim cb As ComboBox = pagina.FindName("cbDesarrolladoresOfertas")
             cb.Items.Clear()
 
             If listaPublishers.Count > 0 Then
@@ -74,7 +74,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim cb As ComboBox = sender
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdeals")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloOfertas")
 
             If Not cb.SelectedIndex = 0 Then
                 Dim publisher As String = cb.SelectedItem
@@ -104,7 +104,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         End If
                     End If
 
-                    Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+                    Dim tbImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
 
                     If Not publisher2.Logo = Nothing Then
                         tbImagen.Text = Package.Current.InstalledLocation.Path + "\Assets\LogosPublishers\" + publisher2.Logo
@@ -112,13 +112,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                         tbImagen.Text = String.Empty
                     End If
 
-                    Dim tbAncho As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagenAncho")
+                    Dim tbAncho As TextBox = pagina.FindName("tbCabeceraImagenAnchoOfertas")
 
                     If Not publisher2.LogoAncho = Nothing Then
                         tbAncho.Text = publisher2.LogoAncho
                     End If
 
-                    Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+                    Dim tbTwitter As TextBox = pagina.FindName("tbTwitterOfertas")
 
                     If Not publisher2.Twitter = Nothing Then
                         If Not tbTwitter.Text.Contains(publisher2.Twitter) Then
@@ -127,13 +127,13 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
                 End If
             Else
-                Dim tbImagen As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsCabeceraImagen")
+                Dim tbImagen As TextBox = pagina.FindName("tbEnlaceCabeceraImagenOfertas")
 
                 If Not tbImagen.Text = Nothing Then
                     tbImagen.Text = String.Empty
                 End If
 
-                Dim tbTwitter As TextBox = pagina.FindName("tbEditorTituloTwitterpepeizqdeals")
+                Dim tbTwitter As TextBox = pagina.FindName("tbTwitterOfertas")
 
                 If tbTwitter.Text.Trim.Length > 0 Then
                     If tbTwitter.Text.Contains("@") Then

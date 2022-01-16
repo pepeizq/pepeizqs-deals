@@ -44,7 +44,7 @@ Public NotInheritable Class MainPage
                 Next
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsDeals)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svOfertas)
 
             ElseIf item.Text = "Bundles" Then
 
@@ -363,7 +363,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsGenerarImagenEntradav2_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarImagenEntradav2.Click
+    Private Sub BotonImagenOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenOfertas.Click
 
         Dim boton As Button = sender
         pepeizq.Editor.ImagenFichero.Exportar(boton)

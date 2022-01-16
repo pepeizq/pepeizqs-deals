@@ -90,7 +90,7 @@ Namespace pepeizq.Interfaz
             Dim gridEditor As Grid = pagina.FindName("gridEditor")
             gridEditor.Visibility = Visibility.Visible
 
-            Dim svDeals As ScrollViewer = pagina.FindName("svEditorpepeizqdealsDeals")
+            Dim svDeals As ScrollViewer = pagina.FindName("svOfertas")
             svDeals.Visibility = Visibility.Collapsed
 
             Dim svBundles As ScrollViewer = pagina.FindName("svBundles")
