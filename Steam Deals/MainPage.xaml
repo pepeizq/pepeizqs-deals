@@ -649,16 +649,16 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsFree" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svGratis" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <TextBlock x:Uid="Title2"/>
-                                <TextBox x:Name="tbEditorTitulopepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbTituloGratis" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBlock x:Uid="Url"/>
-                                <TextBox x:Name="tbEditorEnlacepepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbEnlaceGratis" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBlock Text="Imagenes"/>
-                                <TextBox x:Name="tbEditorImagenJuegopepeizqdealsFree" Margin="0,10,0,15" TextWrapping="Wrap"/>
-                                <TextBox x:Name="tbEditorImagenTiendapepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
-                                <TextBox x:Name="tbEditorImagenFondopepeizqdealsFree" Margin="0,0,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbImagenJuegoGratis" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbImagenTiendaGratis" Margin="0,0,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbImagenFondoGratis" Margin="0,0,0,15" TextWrapping="Wrap"/>
                                 <TextBlock Text="Mensaje"/>
        
                                 <Grid Margin="0,10,0,0">
@@ -668,7 +668,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <controls:ImageEx Source="Assets/Banderas/pais_uk.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbEditorMensajepepeizqdealsFree" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbMensajeInglesGratis" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <Grid Margin="0,10,0,15">
@@ -678,24 +678,24 @@
                                     </Grid.ColumnDefinitions>
 
                                     <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbEditorMensajepepeizqdealsGratisEs" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbMensajeEspañolGratis" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
-                                    <DatePicker x:Name="fechaEditorpepeizqdealsFree" Margin="0,0,20,0"/>
-                                    <TimePicker x:Name="horaEditorpepeizqdealsFree" Margin="0,0,40,0"/>
+                                    <DatePicker x:Name="fechaGratis" Margin="0,0,20,0"/>
+                                    <TimePicker x:Name="horaGratis" Margin="0,0,40,0"/>
 
-                                    <Button x:Name="botonEditorSubirpepeizqdealsFreeID" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonJuegosIDsGratis" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="ID Steam" Foreground="White"/>
+                                                <TextBlock Text="IDs Steam" Foreground="White"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <TextBox x:Name="tbEditorSubirpepeizqdealsFreeID" TextWrapping="Wrap" MinWidth="300"/>
+                                    <TextBox x:Name="tbJuegosIDsGratis" TextWrapping="Wrap" MinWidth="300"/>
                                 </StackPanel>
 
-                                <Button x:Name="botonEditorSubirpepeizqdealsFree" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonSubirGratis" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -705,7 +705,7 @@
                                 </Button>
 
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenFreev2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                    <Button x:Name="botonImagenGratis" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
                                         <Button.Resources>
                                             <ResourceDictionary>
                                                 <ResourceDictionary.ThemeDictionaries>
@@ -728,7 +728,7 @@
 
                                                 <Grid>
                                                     <Grid.Background>
-                                                        <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenFree" Stretch="UniformToFill"/>
+                                                        <ImageBrush x:Name="imagenFondoGratis" Stretch="UniformToFill"/>
                                                     </Grid.Background>
 
                                                     <Grid.ColumnDefinitions>
@@ -738,23 +738,23 @@
 
                                                     <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
                                                         <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenFreev2" MaxWidth="280" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:ImageEx x:Name="imagenTiendaGratis" MaxWidth="280" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
                                                         <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                                            <TextBlock x:Name="tbEditorpepeizqdealsImagenGratis" Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbMensajeGratis" Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelMensajeEditorpepeizqdealsImagenFree" Color="Black" Margin="0,50,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                            <TextBlock x:Name="tbMensajeEditorpepeizqdealsImagenFree" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <controls:DropShadowPanel x:Name="panelComentarioGratis" Color="Black" Margin="0,50,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <TextBlock x:Name="tbComentarioGratis" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </controls:DropShadowPanel>
                                                     </StackPanel>
 
-                                                    <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsGenerarImagenFreeUnJuego" Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">
-                                                        <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenFreev2" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                    <controls:DropShadowPanel x:Name="panelImagenJuegoGratis" Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">
+                                                        <controls:ImageEx x:Name="imagenJuegoGratis" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
 
-                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsGenerarImagenFreeDosJuegos" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" ItemHeight="275" Padding="0,10"/>
+                                                    <controls:AdaptiveGridView x:Name="gvJuegosGratis" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" ItemHeight="275" Padding="0,10"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>
