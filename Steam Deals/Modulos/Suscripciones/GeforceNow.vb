@@ -124,7 +124,7 @@ Namespace pepeizq.Suscripciones
                 titulo = "Geforce NOW • " + listaJuegos.Count.ToString + " New Games Supported"
             End If
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
             tbTitulo.Text = titulo
 
             TituloeImagenes(listaJuegos, False)

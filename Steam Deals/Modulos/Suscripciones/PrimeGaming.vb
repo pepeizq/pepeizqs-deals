@@ -15,7 +15,7 @@ Namespace pepeizq.Suscripciones
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsSuscripciones")
             textoIDs = tbIDs.Text.Trim
 
             Bw.WorkerReportsProgress = True
@@ -124,7 +124,7 @@ Namespace pepeizq.Suscripciones
                 titulo = titulo + tituloJuegos
             End If
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
             tbTitulo.Text = titulo
 
             TituloeImagenes(listaJuegos, False)

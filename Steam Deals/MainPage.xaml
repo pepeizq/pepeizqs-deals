@@ -763,7 +763,7 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsSuscripciones" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svSuscripciones" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <Grid Margin="0,0,0,15">
                                     <Grid.ColumnDefinitions>
@@ -772,9 +772,9 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <ComboBox x:Name="cbEditorpepeizqdealsSubscriptionsTiendas" Grid.Column="0" Margin="0,0,20,0"/>
+                                    <ComboBox x:Name="cbTiendasSuscripciones" Grid.Column="0" Margin="0,0,20,0"/>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSubscriptionsBuscar" Grid.Column="1" Margin="0,0,20,0" Visibility="Collapsed" Background="{StaticResource BrushPrimario}" Padding="12,6" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonTiendasGenerarSuscripciones" Grid.Column="1" Margin="0,0,20,0" Visibility="Collapsed" Background="{StaticResource BrushPrimario}" Padding="12,6" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <fa:FontAwesome Icon="Search" Foreground="White"/>
@@ -782,13 +782,13 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsIDs" Grid.Column="2" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbJuegosIDsSuscripciones" Grid.Column="2" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <TextBlock x:Uid="Title2"/>
-                                <TextBox x:Name="tbEditorTitulopepeizqdealsSubscriptions" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbTituloSuscripciones" Margin="0,10,0,15" TextWrapping="Wrap"/>
                                 <TextBlock x:Uid="Title3"/>
-                                <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsJuegos" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbTituloComplementoSuscripciones" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <Grid Margin="0,10,0,15">
                                     <Grid.ColumnDefinitions>
@@ -798,10 +798,10 @@
 
                                     <TextBlock Text="Imágenes Grid:" Grid.Column="0" VerticalAlignment="Center"/>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbJuegosImagenesSuscripciones" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                 </Grid>
 
-                                <Grid x:Name="gridEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion" Margin="0,10,0,15" Visibility="Collapsed">
+                                <Grid x:Name="gridFondoSuscripciones" Margin="0,10,0,15" Visibility="Collapsed">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
@@ -809,14 +809,14 @@
 
                                     <TextBlock Text="Imagen Fondo:" Grid.Column="0" VerticalAlignment="Center"/>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbFondoSuscripciones" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
-                                    <DatePicker x:Name="fechaEditorpepeizqdealsSubscriptions" Margin="0,0,20,0"/>
-                                    <TimePicker x:Name="horaEditorpepeizqdealsSubscriptions" Margin="0,0,30,0"/>
+                                    <DatePicker x:Name="fechaSuscripciones" Margin="0,0,20,0"/>
+                                    <TimePicker x:Name="horaSuscripciones" Margin="0,0,30,0"/>
 
-                                    <Button x:Name="botonEditorCopiarHtmlpepeizqdealsSubscriptions" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonCopiarHtmlSuscripciones" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <fa:FontAwesome Icon="Copy" Foreground="White"/>
@@ -826,7 +826,7 @@
                                     </Button>
                                 </StackPanel>
 
-                                <Button x:Name="botonEditorSubirpepeizqdealsSubscriptions" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonSubirSuscripciones" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -836,7 +836,7 @@
                                 </Button>
 
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                    <Button x:Name="botonEditorpepeizqdealsGenerarImagenSubscriptionsv2" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
+                                    <Button x:Name="botonImagenSuscripciones" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,40,0,0">
                                         <Button.Resources>
                                             <ResourceDictionary>
                                                 <ResourceDictionary.ThemeDictionaries>
@@ -857,9 +857,9 @@
                                                     </LinearGradientBrush>
                                                 </Grid.Background>
 
-                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaUnaSuscripcion" Width="1300" Height="400" Visibility="Collapsed">
+                                                <Grid x:Name="gridUnJuegoSuscripciones" Width="1300" Height="400" Visibility="Collapsed">
                                                     <Grid.Background>
-                                                        <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenUnaSuscripcion" Stretch="UniformToFill"/>
+                                                        <ImageBrush x:Name="fondoUnJuegoSuscripciones" Stretch="UniformToFill"/>
                                                     </Grid.Background>
 
                                                     <Grid.ColumnDefinitions>
@@ -869,20 +869,20 @@
 
                                                     <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
                                                         <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenUnaSuscripcion" MaxWidth="280" MaxHeight="140" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:ImageEx x:Name="imagenTiendaUnJuegoSuscripciones" MaxWidth="280" MaxHeight="140" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
                                                         <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
-                                                            <TextBlock x:Name="tbEditorpepeizqdealsUnaSuscripcionTexto" Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbMensajeUnJuegoSuscripciones" Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
                                                     </StackPanel>
 
                                                     <controls:DropShadowPanel Grid.Column="1" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,70">
-                                                        <controls:ImageEx x:Name="imagenJuegoEditorpepeizqdealsGenerarImagenUnaSuscripcion" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                        <controls:ImageEx x:Name="imagenJuegoUnJuegoSuscripciones" Stretch="Uniform" IsCacheEnabled="True"/>
                                                     </controls:DropShadowPanel>
                                                 </Grid>
 
-                                                <Grid x:Name="gridEditorpepeizqdealsImagenEntradaDosSuscripciones" Width="1300" Visibility="Collapsed">
+                                                <Grid x:Name="gridDosJuegosSuscripciones" Width="1300" Visibility="Collapsed">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="Auto"/>
                                                         <RowDefinition Height="*"/>
@@ -895,15 +895,15 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <controls:DropShadowPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50">
-                                                            <controls:ImageEx x:Name="imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3" MaxHeight="50" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:ImageEx x:Name="imagenTiendaDosJuegosSuscripciones" MaxHeight="50" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <controls:DropShadowPanel x:Name="panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50">
-                                                            <TextBlock x:Name="mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2" Foreground="White" FontSize="35" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <controls:DropShadowPanel x:Name="panelMensajeDosJuegosSuscripciones" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50">
+                                                            <TextBlock x:Name="tbMensajeDosJuegosSuscripciones" Foreground="White" FontSize="35" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </controls:DropShadowPanel>
                                                     </Grid>
 
-                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaSubscriptionsv2" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="20,0,20,10"/>
+                                                    <controls:AdaptiveGridView x:Name="gvJuegosDosJuegosSuscripciones" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="20,0,20,10"/>
                                                 </Grid>                                                    
                                             </Grid>
                                         </Button.Content>

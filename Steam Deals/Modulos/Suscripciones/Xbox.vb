@@ -410,7 +410,7 @@ Namespace pepeizq.Suscripciones
                 SuscripcionesImagenEntrada.DosJuegosGenerar(listaImagenes)
             End If
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
             tbTitulo.Text = titulo
 
             Dim helper As New LocalObjectStorageHelper

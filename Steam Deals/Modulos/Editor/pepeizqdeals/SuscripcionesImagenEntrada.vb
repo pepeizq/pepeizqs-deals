@@ -9,19 +9,19 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnaSuscripcion")
+            Dim gridUnJuego As Grid = pagina.FindName("gridUnJuegoSuscripciones")
             gridUnJuego.Visibility = Visibility.Visible
 
-            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosSuscripciones")
+            Dim gridDosJuegos As Grid = pagina.FindName("gridDosJuegosSuscripciones")
             gridDosJuegos.Visibility = Visibility.Collapsed
 
-            Dim gridFondo As Grid = pagina.FindName("gridEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion")
+            Dim gridFondo As Grid = pagina.FindName("gridFondoSuscripciones")
             gridFondo.Visibility = Visibility.Visible
 
-            Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoEditorpepeizqdealsGenerarImagenUnaSuscripcion")
+            Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoUnJuegoSuscripciones")
             imagenJuego.Source = enlaceImagen
 
-            Dim tbFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion")
+            Dim tbFondo As TextBox = pagina.FindName("tbFondoSuscripciones")
 
             RemoveHandler tbFondo.TextChanged, AddressOf CambiarFondoUnaSuscripcion
             AddHandler tbFondo.TextChanged, AddressOf CambiarFondoUnaSuscripcion
@@ -43,16 +43,16 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gridUnJuego As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnaSuscripcion")
+            Dim gridUnJuego As Grid = pagina.FindName("gridUnJuegoSuscripciones")
             gridUnJuego.Visibility = Visibility.Collapsed
 
-            Dim gridDosJuegos As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosSuscripciones")
+            Dim gridDosJuegos As Grid = pagina.FindName("gridDosJuegosSuscripciones")
             gridDosJuegos.Visibility = Visibility.Visible
 
-            Dim gridFondo As Grid = pagina.FindName("gridEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion")
+            Dim gridFondo As Grid = pagina.FindName("gridFondoSuscripciones")
             gridFondo.Visibility = Visibility.Collapsed
 
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaSubscriptionsv2")
+            Dim gv As AdaptiveGridView = pagina.FindName("gvJuegosDosJuegosSuscripciones")
             gv.Items.Clear()
 
             For Each enlace In listaEnlaces
@@ -97,7 +97,7 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim enlace As String = tb.Text.Trim
 
-            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenUnaSuscripcion")
+            Dim imagenFondo As ImageBrush = pagina.FindName("fondoUnJuegoSuscripciones")
             Dim cambiar As Boolean = False
 
             If imagenFondo.ImageSource Is Nothing Then

@@ -13,7 +13,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
+            Dim cbTiendas As ComboBox = pagina.FindName("cbTiendasSuscripciones")
             cbTiendas.Items.Clear()
 
             cbTiendas.Items.Add("--")
@@ -30,20 +30,20 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler cbTiendas.SelectionChanged, AddressOf GenerarDatos
             AddHandler cbTiendas.SelectionChanged, AddressOf GenerarDatos
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsSuscripciones")
             tbIDs.Text = String.Empty
             tbIDs.Visibility = Visibility.Collapsed
 
             RemoveHandler tbIDs.TextChanged, AddressOf LimpiarTexto
             AddHandler tbIDs.TextChanged, AddressOf LimpiarTexto
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
             tbTitulo.Text = String.Empty
 
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+            Dim tbJuegos As TextBox = pagina.FindName("tbTituloComplementoSuscripciones")
             tbJuegos.Text = String.Empty
 
-            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
             tbImagenesGrid.Text = String.Empty
 
             RemoveHandler tbImagenesGrid.TextChanged, AddressOf GenerarImagenesJuegos
@@ -52,21 +52,21 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddMonths(1)
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaSuscripciones")
             fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
 
             RemoveHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
             AddHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
+            Dim horaPicker As TimePicker = pagina.FindName("horaSuscripciones")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
-            Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdealsSubscriptions")
+            Dim botonCopiarHtml As Button = pagina.FindName("botonCopiarHtmlSuscripciones")
 
             RemoveHandler botonCopiarHtml.Click, AddressOf CopiarHtml
             AddHandler botonCopiarHtml.Click, AddressOf CopiarHtml
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
+            Dim botonSubir As Button = pagina.FindName("botonSubirSuscripciones")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -86,15 +86,15 @@ Namespace pepeizq.Editor.pepeizqdeals
             cbTiendas.IsEnabled = False
 
             Dim fechaDefecto As DateTime = DateTime.Now
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaSuscripciones")
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
 
-            Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            Dim botonBuscar As Button = pagina.FindName("botonTiendasGenerarSuscripciones")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsSuscripciones")
 
-            Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenUnaSuscripcion")
-            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
+            Dim imagenTienda1 As ImageEx = pagina.FindName("imagenTiendaUnJuegoSuscripciones")
+            Dim imagenTienda2 As ImageEx = pagina.FindName("imagenTiendaDosJuegosSuscripciones")
 
             Dim cosas As New Suscripcion(Nothing, Nothing, Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -233,8 +233,8 @@ Namespace pepeizq.Editor.pepeizqdeals
                 tbTitulo.Text = Ofertas.LimpiarTitulo(cosas.Titulo)
             End If
 
-            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
-            Dim mensaje2 As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+            Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeDosJuegosSuscripciones")
+            Dim mensaje2 As TextBlock = pagina.FindName("tbMensajeDosJuegosSuscripciones")
 
             If Not cosas.Mensaje = Nothing Then
                 panelMensaje.Visibility = Visibility.Visible
@@ -257,23 +257,23 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
             Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSubscriptions")
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+            Dim tbJuegos As TextBox = pagina.FindName("tbTituloComplementoSuscripciones")
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenSubscriptionsv2")
-            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv3")
+            Dim botonImagen As Button = pagina.FindName("botonImagenSuscripciones")
+            Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaDosJuegosSuscripciones")
 
             Dim cosas As Suscripcion = tbTitulo.Tag
             cosas.Tienda.LogoWebServidorEnlace300x80 = imagenTienda.Source
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaSuscripciones")
+            Dim horaPicker As TimePicker = pagina.FindName("horaSuscripciones")
 
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
             Dim json As String = String.Empty
 
             If tbImagenesGrid.Text.Length > 0 Then
@@ -284,19 +284,19 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             Dim listaTraducciones As New List(Of Traduccion)
 
-            Dim gridUnaSuscripcion As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaUnaSuscripcion")
+            Dim gridUnaSuscripcion As Grid = pagina.FindName("gridUnJuegoSuscripciones")
 
             If gridUnaSuscripcion.Visibility = Visibility.Visible Then
-                Dim tbTexto As TextBlock = pagina.FindName("tbEditorpepeizqdealsUnaSuscripcionTexto")
+                Dim tbTexto As TextBlock = pagina.FindName("tbMensajeUnJuegoSuscripciones")
                 listaTraducciones.Add(New Traduccion(tbTexto, tbTexto.Text, Traducciones.SuscripcionesUnJuego(tbTexto.Text)))
             Else
-                Dim gridDosSuscripciones As Grid = pagina.FindName("gridEditorpepeizqdealsImagenEntradaDosSuscripciones")
+                Dim gridDosSuscripciones As Grid = pagina.FindName("gridDosJuegosSuscripciones")
 
                 If gridDosSuscripciones.Visibility = Visibility.Visible Then
-                    Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+                    Dim panelMensaje As DropShadowPanel = pagina.FindName("panelMensajeDosJuegosSuscripciones")
 
                     If panelMensaje.Visibility = Visibility.Visible Then
-                        Dim tbMensaje As TextBlock = pagina.FindName("mensajeTiendaEditorpepeizqdealsGenerarImagenSuscripcionesv2")
+                        Dim tbMensaje As TextBlock = pagina.FindName("tbMensajeDosJuegosSuscripciones")
                         Dim mensajeEspañol As String = tbMensaje.Text
                         mensajeEspañol = Traducciones.SuscripcionesDosJuegos(mensajeEspañol)
                         listaTraducciones.Add(New Traduccion(tbMensaje, tbMensaje.Text, mensajeEspañol))
@@ -349,9 +349,9 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
-            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
+            Dim tbJuegos As TextBox = pagina.FindName("tbTituloComplementoSuscripciones")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
 
             If Not listaJuegos Is Nothing Then
                 If listaJuegos.Count > 0 Then
@@ -400,7 +400,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
             Dim enlaces As String = tbImagenesGrid.Text.Trim
             Dim listaEnlaces As New List(Of String)
 
@@ -466,37 +466,37 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cbTiendas As ComboBox = pagina.FindName("cbEditorpepeizqdealsSubscriptionsTiendas")
+            Dim cbTiendas As ComboBox = pagina.FindName("cbTiendasSuscripciones")
             cbTiendas.IsEnabled = estado
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsSubscriptions")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloSuscripciones")
             tbTitulo.IsEnabled = estado
 
-            Dim tbJuegos As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsJuegos")
+            Dim tbJuegos As TextBox = pagina.FindName("tbTituloComplementoSuscripciones")
             tbJuegos.IsEnabled = estado
 
-            Dim tbImagenesGrid As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsEnlacesImagenGrid")
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
             tbImagenesGrid.IsEnabled = estado
 
-            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorpepeizqdealsSuscripcionesImagenFondoUnaSuscripcion")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbFondoSuscripciones")
             tbImagenFondo.IsEnabled = estado
 
-            Dim botonBuscar As Button = pagina.FindName("botonEditorpepeizqdealsSubscriptionsBuscar")
+            Dim botonBuscar As Button = pagina.FindName("botonTiendasGenerarSuscripciones")
             botonBuscar.IsEnabled = estado
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsSubscriptionsIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsSuscripciones")
             tbIDs.IsEnabled = estado
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsSubscriptions")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaSuscripciones")
             fechaPicker.IsEnabled = estado
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsSubscriptions")
+            Dim horaPicker As TimePicker = pagina.FindName("horaSuscripciones")
             horaPicker.IsEnabled = estado
 
-            Dim botonCopiarHtml As Button = pagina.FindName("botonEditorCopiarHtmlpepeizqdealsSubscriptions")
+            Dim botonCopiarHtml As Button = pagina.FindName("botonCopiarHtmlSuscripciones")
             botonCopiarHtml.IsEnabled = estado
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsSubscriptions")
+            Dim botonSubir As Button = pagina.FindName("botonSubirSuscripciones")
             botonSubir.IsEnabled = estado
 
         End Sub
