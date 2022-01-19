@@ -43,11 +43,11 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbJuegos As TextBox = pagina.FindName("tbTituloComplementoSuscripciones")
             tbJuegos.Text = String.Empty
 
-            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
-            tbImagenesGrid.Text = String.Empty
+            Dim tbImagenesJuegos As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
+            tbImagenesJuegos.Text = String.Empty
 
-            RemoveHandler tbImagenesGrid.TextChanged, AddressOf GenerarImagenesJuegos
-            AddHandler tbImagenesGrid.TextChanged, AddressOf GenerarImagenesJuegos
+            RemoveHandler tbImagenesJuegos.TextChanged, AddressOf GenerarImagenesJuegos
+            AddHandler tbImagenesJuegos.TextChanged, AddressOf GenerarImagenesJuegos
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddMonths(1)
@@ -355,6 +355,14 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If Not listaJuegos Is Nothing Then
                 If listaJuegos.Count > 0 Then
+                    Dim extension As String = String.Empty
+
+                    If listaJuegos.Count = 1 Then
+                        extension = "/header.jpg"
+                    Else
+                        extension = "/library_600x900.jpg"
+                    End If
+
                     Dim i As Integer = 0
                     For Each juego In listaJuegos
                         juego.Titulo = juego.Titulo.Trim
@@ -362,7 +370,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                         If juego.Imagen.Contains("/") Then
                             Dim int As Integer = juego.Imagen.LastIndexOf("/")
                             juego.Imagen = juego.Imagen.Remove(int, juego.Imagen.Length - int)
-                            juego.Imagen = juego.Imagen + "/library_600x900.jpg"
+                            juego.Imagen = juego.Imagen + extension
                         End If
 
                         If i = 0 Then
@@ -420,11 +428,6 @@ Namespace pepeizq.Editor.pepeizqdeals
                     End If
 
                     enlace = enlace.Trim
-
-                    Dim int2 As Integer = enlace.LastIndexOf("/")
-                    enlace = enlace.Remove(int2, enlace.Length - int2)
-                    enlace = enlace + "/library_600x900.jpg"
-
                     listaEnlaces.Add(enlace)
                 End If
                 i += 1
@@ -434,6 +437,12 @@ Namespace pepeizq.Editor.pepeizqdeals
                 If listaEnlaces.Count = 1 Then
                     SuscripcionesImagenEntrada.UnJuegoGenerar(listaEnlaces(0))
                 Else
+                    For Each enlace In listaEnlaces
+                        Dim int2 As Integer = enlace.LastIndexOf("/")
+                        enlace = enlace.Remove(int2, enlace.Length - int2)
+                        enlace = enlace + "/library_600x900.jpg"
+                    Next
+
                     SuscripcionesImagenEntrada.DosJuegosGenerar(listaEnlaces)
                 End If
             End If
