@@ -13,10 +13,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
             tbTitulo.Text = String.Empty
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsAnuncios")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceAnuncios")
             tbEnlace.Text = String.Empty
 
             RemoveHandler tbEnlace.TextChanged, AddressOf GenerarDatos
@@ -99,7 +99,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
             Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
             Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
             Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
@@ -138,8 +138,8 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsAnuncios")
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceAnuncios")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
 
             Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
             Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
@@ -388,10 +388,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbTitulo As TextBox = pagina.FindName("tbEditorTitulopepeizqdealsAnuncios")
+            Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
             tbTitulo.IsEnabled = estado
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsAnuncios")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceAnuncios")
             tbEnlace.IsEnabled = estado
 
             Dim tbImagenTitulo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")

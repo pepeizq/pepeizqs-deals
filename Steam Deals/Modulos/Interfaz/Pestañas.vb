@@ -102,7 +102,7 @@ Namespace pepeizq.Interfaz
             Dim svSuscripciones As ScrollViewer = pagina.FindName("svSuscripciones")
             svSuscripciones.Visibility = Visibility.Collapsed
 
-            Dim svAnuncios As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAnuncios")
+            Dim svAnuncios As ScrollViewer = pagina.FindName("svAnuncios")
             svAnuncios.Visibility = Visibility.Collapsed
 
             Dim svConfig As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")

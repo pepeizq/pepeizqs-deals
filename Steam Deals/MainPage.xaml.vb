@@ -64,7 +64,7 @@ Public NotInheritable Class MainPage
             ElseIf item.Text = "Anuncios" Then
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svEditorpepeizqdealsAnuncios)
+                pepeizq.Interfaz.Pestañas.Visibilidad(svAnuncios)
 
             End If
         End If

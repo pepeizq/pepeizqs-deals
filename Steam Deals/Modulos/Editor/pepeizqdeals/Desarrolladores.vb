@@ -232,7 +232,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 New Desarrollador("Runic Games", "@RunicGames", "runicgames.png", 350),
                 New Desarrollador("Saber Interactive", "@TweetsSaber", "saber.png", 290),
                 New Desarrollador("SCS Software", "@SCSsoftware", "scssoftware.png", 130),
-                New Desarrollador("SEGA", "@SEGA", "sega.png", 200),
+                New Desarrollador("SEGA", "@SEGA", "sega.png", 180),
                 New Desarrollador("Slitherine", "@SlitherineGames", "slitherine.png", 120),
                 New Desarrollador("SNK", "@SNKPofficial", "snk.png", 230),
                 New Desarrollador("Spike Chunsoft", "@SpikeChunsoft_e", "spikechunsoft.png", 390),
