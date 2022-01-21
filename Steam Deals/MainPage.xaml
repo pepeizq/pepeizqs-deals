@@ -927,7 +927,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <controls:ImageEx Source="Assets/Banderas/pais_uk.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosTitulo" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbTituloImagenInglesAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <Grid Margin="0,10,0,15">
@@ -937,7 +937,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosTituloEs" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbTituloImagenEspañolAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
                         
                                 <TextBlock Text="Imagen Comentario"/>
@@ -949,7 +949,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <controls:ImageEx Source="Assets/Banderas/pais_uk.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosComentario" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbComentarioImagenInglesAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <Grid Margin="0,10,0,15">
@@ -959,17 +959,17 @@
                                     </Grid.ColumnDefinitions>
 
                                     <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosComentarioEs" Grid.Column="1" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbComentarioImagenEspañolAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <TextBlock Text="Imagen Fondo"/>
-                                <TextBox x:Name="tbEditorImagenpepeizqdealsAnunciosFondo" Margin="0,10,0,15" TextWrapping="Wrap"/>
+                                <TextBox x:Name="tbFondoAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <StackPanel Margin="0,10,0,15" Orientation="Horizontal">
-                                    <CheckBox x:Name="cbEditorImagenpepeizqdealsAnuncioFondoAzul" Content="Texto Fondo Azul" Margin="0,0,15,0"/>
-                                    <CheckBox x:Name="cbEditorpepeizqdealsAnuncioImagenOpacidad" Content="Imagen Fondo Opacidad" Margin="0,0,30,0"/>
+                                    <CheckBox x:Name="cbFondoAzulAnuncios" Content="Texto Fondo Azul" Margin="0,0,15,0"/>
+                                    <CheckBox x:Name="cbFondoOpacidadAnuncios" Content="Imagen Fondo Opacidad" Margin="0,0,30,0"/>
 
-                                    <ComboBox x:Name="cbEditorpepeizqdealsAnuncioOrientacionComentario" Margin="0,0,10,0">
+                                    <ComboBox x:Name="cbOrientacionComentarioAnuncios" Margin="0,0,10,0">
                                         <ComboBoxItem Content="Izquierda"/>
                                         <ComboBoxItem Content="Centrado"/>
                                         <ComboBoxItem Content="Derecha"/>
@@ -984,7 +984,7 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button x:Name="botonEditorSubirpepeizqdealsAnunciosIDs" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonJuegosIDsAnuncios" Grid.Column="0" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="IDs" Foreground="White"/>
@@ -992,15 +992,15 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsAnunciosIDs" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
+                                    <TextBox x:Name="tbJuegosIDsAnuncios" Grid.Column="1" Margin="10,0,0,0" TextWrapping="Wrap"/>
                                 </Grid>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
-                                    <DatePicker x:Name="fechaEditorpepeizqdealsAnuncios" Margin="0,0,20,0"/>
-                                    <TimePicker x:Name="horaEditorpepeizqdealsAnuncios" Margin="0,0,30,0"/>
+                                    <DatePicker x:Name="fechaAnuncios" Margin="0,0,20,0"/>
+                                    <TimePicker x:Name="horaAnuncios" Margin="0,0,30,0"/>
                                 </StackPanel>
 
-                                <Button x:Name="botonEditorSubirpepeizqdealsAnuncios" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonSubirAnuncios" Margin="0,30" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Upload" Foreground="White"/>
@@ -1011,7 +1011,7 @@
 
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                        <Button x:Name="botonEditorpepeizqdealsGenerarImagenAnuncios" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                        <Button x:Name="botonImagenAnuncios" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
                                             <Button.Resources>
                                                 <ResourceDictionary>
                                                     <ResourceDictionary.ThemeDictionaries>
@@ -1032,19 +1032,19 @@
                                                         </LinearGradientBrush>
                                                     </Grid.Background>
 
-                                                    <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsImagenEntradaAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="325" Opacity="0.2"/>
+                                                    <controls:AdaptiveGridView x:Name="gvJuegosAnuncios" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="325" Opacity="0.2"/>
                                                     <Grid>
                                                         <Grid.Background>
-                                                            <ImageBrush x:Name="imagenFondoEditorpepeizqdealsGenerarImagenAnuncios" Stretch="UniformToFill" Opacity="1"/>
+                                                            <ImageBrush x:Name="imagenFondoAnuncios" Stretch="UniformToFill" Opacity="1"/>
                                                         </Grid.Background>
 
-                                                        <Grid x:Name="gridEditorpepeizqdealsImagenEntradaAnunciosDatos" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50">
+                                                        <Grid x:Name="gridDatosAnuncios" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50">
                                                             <Grid.Background>
                                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">                                                 
-                                                                    <GradientStop x:Name="color1EditorpepeizqdealsImagenEntradaAnuncios" Color="#662E4460" Offset="0.0"/>
-                                                                    <GradientStop x:Name="color2EditorpepeizqdealsImagenEntradaAnuncios" Color="#B22E4460" Offset="0.3"/>
-                                                                    <GradientStop x:Name="color3EditorpepeizqdealsImagenEntradaAnuncios" Color="#CC2E4460" Offset="0.4"/>
-                                                                    <GradientStop x:Name="color4EditorpepeizqdealsImagenEntradaAnuncios" Color="#FF2E4460" Offset="0.8"/>
+                                                                    <GradientStop x:Name="color1DegradadoAnuncios" Color="#662E4460" Offset="0.0"/>
+                                                                    <GradientStop x:Name="color2DegradadoAnuncios" Color="#B22E4460" Offset="0.3"/>
+                                                                    <GradientStop x:Name="color3DegradadoAnuncios" Color="#CC2E4460" Offset="0.4"/>
+                                                                    <GradientStop x:Name="color4DegradadoAnuncios" Color="#FF2E4460" Offset="0.8"/>
                                                                 </LinearGradientBrush>
                                                             </Grid.Background>
 
@@ -1053,16 +1053,16 @@
                                                                 <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
 
-                                                            <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosTitulo" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosTitulo" Text="Sorteos" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                            <controls:DropShadowPanel x:Name="panelTituloEntradaAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock x:Name="tbTituloEntradaAnuncios" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosTituloImagen" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
-                                                                <controls:ImageEx x:Name="imagenEditorpepeizqdealsImagenEntradaAnunciosTitulo" IsCacheEnabled="True" MaxWidth="350" MaxHeight="140"/>
+                                                            <controls:DropShadowPanel x:Name="panelImagenEntradaAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
+                                                                <controls:ImageEx x:Name="imagenEntradaAnuncios" IsCacheEnabled="True" MaxWidth="350" MaxHeight="140"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <controls:DropShadowPanel x:Name="panelEditorpepeizqdealsImagenEntradaAnunciosComentario" Grid.Row="1" Margin="0,30,0,0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch">
-                                                                <TextBlock x:Name="tbEditorpepeizqdealsImagenEntradaAnunciosComentario" FontSize="30" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                            <controls:DropShadowPanel x:Name="panelComentarioEntradaAnuncios" Grid.Row="1" Margin="0,30,0,0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch">
+                                                                <TextBlock x:Name="tbComentarioEntradaAnuncios" FontSize="30" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
                                                             </controls:DropShadowPanel>
                                                         </Grid>
                                                     </Grid>

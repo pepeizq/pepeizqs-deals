@@ -22,66 +22,66 @@ Namespace pepeizq.Editor.pepeizqdeals
             RemoveHandler tbEnlace.TextChanged, AddressOf GenerarDatos
             AddHandler tbEnlace.TextChanged, AddressOf GenerarDatos
 
-            Dim tbImagenTitulo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
+            Dim tbImagenTitulo As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
             tbImagenTitulo.Text = String.Empty
 
             RemoveHandler tbImagenTitulo.TextChanged, AddressOf CambiarTituloImagen
             AddHandler tbImagenTitulo.TextChanged, AddressOf CambiarTituloImagen
 
-            Dim tbImagenComentario As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
+            Dim tbImagenComentario As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
             tbImagenComentario.Text = String.Empty
 
             RemoveHandler tbImagenComentario.TextChanged, AddressOf CambiarComentarioImagen
             AddHandler tbImagenComentario.TextChanged, AddressOf CambiarComentarioImagen
 
-            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosFondo")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbFondoAnuncios")
             tbImagenFondo.Text = String.Empty
 
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
             AddHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
 
-            Dim cbFondoAzul As CheckBox = pagina.FindName("cbEditorImagenpepeizqdealsAnuncioFondoAzul")
+            Dim cbFondoAzul As CheckBox = pagina.FindName("cbFondoAzulAnuncios")
             cbFondoAzul.IsChecked = True
 
             RemoveHandler cbFondoAzul.Click, AddressOf CambiarFondoAzul
             AddHandler cbFondoAzul.Click, AddressOf CambiarFondoAzul
 
-            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
+            Dim cbOpacidad As CheckBox = pagina.FindName("cbFondoOpacidadAnuncios")
             cbOpacidad.IsChecked = False
 
             RemoveHandler cbOpacidad.Click, AddressOf CambiarOpacidad
             AddHandler cbOpacidad.Click, AddressOf CambiarOpacidad
 
-            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbEditorpepeizqdealsAnuncioOrientacionComentario")
+            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbOrientacionComentarioAnuncios")
             cbOrientacionComentario.SelectedIndex = 1
 
             RemoveHandler cbOrientacionComentario.SelectionChanged, AddressOf CambiarOrientacionComentario
             AddHandler cbOrientacionComentario.SelectionChanged, AddressOf CambiarOrientacionComentario
 
-            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
+            Dim botonIDs As Button = pagina.FindName("botonJuegosIDsAnuncios")
 
             RemoveHandler botonIDs.Click, AddressOf GenerarImagenes
             AddHandler botonIDs.Click, AddressOf GenerarImagenes
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsAnuncios")
             tbIDs.Text = String.Empty
 
-            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenAnuncios")
+            Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoAnuncios")
             imagenFondo.ImageSource = Nothing
 
             Dim fechaDefecto As DateTime = DateTime.Now
             fechaDefecto = fechaDefecto.AddDays(2)
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaAnuncios")
             fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
 
             RemoveHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
             AddHandler fechaPicker.SelectedDateChanged, AddressOf CambioFechaAviso
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
+            Dim horaPicker As TimePicker = pagina.FindName("horaAnuncios")
             horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
+            Dim botonSubir As Button = pagina.FindName("botonSubirAnuncios")
 
             RemoveHandler botonSubir.Click, AddressOf GenerarDatos2
             AddHandler botonSubir.Click, AddressOf GenerarDatos2
@@ -100,10 +100,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim pagina As Page = frame.Content
 
             Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
-            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
-            Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
-            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
-            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
+            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
+            Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbTituloImagenEspañolAnuncios")
+            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
+            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbComentarioImagenEspañolAnuncios")
 
             Dim enlace As String = tbTexto.Text
 
@@ -120,7 +120,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                     Dim fechaDefecto As DateTime = DateTime.Now
                     fechaDefecto = fechaDefecto.AddDays(7)
 
-                    Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+                    Dim fechaPicker As DatePicker = pagina.FindName("fechaAnuncios")
                     fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
                 Else
                     tbTitulo.Text = "--- • News"
@@ -141,22 +141,22 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceAnuncios")
             Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaAnuncios")
+            Dim horaPicker As TimePicker = pagina.FindName("horaAnuncios")
 
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
-            Dim botonImagen As Button = pagina.FindName("botonEditorpepeizqdealsGenerarImagenAnuncios")
+            Dim botonImagen As Button = pagina.FindName("botonImagenAnuncios")
 
             'Traducciones----------------------
 
-            Dim tbImagenTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
-            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
-            Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
-            Dim tbImagenComentario As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosComentario")
-            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
-            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
+            Dim tbImagenTitulo As TextBlock = pagina.FindName("tbTituloEntradaAnuncios")
+            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
+            Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbTituloImagenEspañolAnuncios")
+            Dim tbImagenComentario As TextBlock = pagina.FindName("tbComentarioEntradaAnuncios")
+            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
+            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbComentarioImagenEspañolAnuncios")
 
             Dim listaTraducciones As New List(Of Traduccion) From {
                     New Traduccion(tbImagenTitulo, tbImagenTituloIngles.Text, tbImagenTituloEspañol.Text),
@@ -179,21 +179,21 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim panelTexto As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsImagenEntradaAnunciosTitulo")
-            Dim panelImagen As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsImagenEntradaAnunciosTituloImagen")
+            Dim panelTexto As DropShadowPanel = pagina.FindName("panelTituloEntradaAnuncios")
+            Dim panelImagen As DropShadowPanel = pagina.FindName("panelImagenEntradaAnuncios")
 
             If tbTexto.Text.Trim.Length > 0 Then
                 If tbTexto.Text.Contains("https://") Or tbTexto.Text.Contains("http://") Then
                     panelTexto.Visibility = Visibility.Collapsed
                     panelImagen.Visibility = Visibility.Visible
 
-                    Dim imagen As ImageEx = pagina.FindName("imagenEditorpepeizqdealsImagenEntradaAnunciosTitulo")
+                    Dim imagen As ImageEx = pagina.FindName("imagenEntradaAnuncios")
                     imagen.Source = tbTexto.Text.Trim
                 Else
                     panelTexto.Visibility = Visibility.Visible
                     panelImagen.Visibility = Visibility.Collapsed
 
-                    Dim tbTitulo As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosTitulo")
+                    Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEntradaAnuncios")
                     tbTitulo.Text = tbTexto.Text.Trim
                 End If
             Else
@@ -210,7 +210,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbComentario As TextBlock = pagina.FindName("tbEditorpepeizqdealsImagenEntradaAnunciosComentario")
+            Dim tbComentario As TextBlock = pagina.FindName("tbComentarioEntradaAnuncios")
             tbComentario.Text = tbTexto.Text.Trim
 
         End Sub
@@ -224,10 +224,10 @@ Namespace pepeizq.Editor.pepeizqdeals
 
             If tbTexto.Text.Trim.Length > 0 Then
                 Try
-                    Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenAnuncios")
+                    Dim imagenFondo As ImageBrush = pagina.FindName("imagenFondoAnuncios")
                     imagenFondo.ImageSource = New BitmapImage(New Uri(tbTexto.Text.Trim))
 
-                    Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaAnuncios")
+                    Dim gv As AdaptiveGridView = pagina.FindName("gvJuegosAnuncios")
                     gv.Items.Clear()
                 Catch ex As Exception
 
@@ -243,7 +243,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsAnuncios")
             Dim enlaces As String = tbIDs.Text.Trim
 
             Dim listaJuegos As New List(Of String)
@@ -280,7 +280,7 @@ Namespace pepeizq.Editor.pepeizqdeals
                 i += 1
             End While
 
-            Dim gv As AdaptiveGridView = pagina.FindName("gvEditorpepeizqdealsImagenEntradaAnuncios")
+            Dim gv As AdaptiveGridView = pagina.FindName("gvJuegosAnuncios")
             gv.Items.Clear()
 
             i = 0
@@ -323,10 +323,10 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim color1 As GradientStop = pagina.FindName("color1EditorpepeizqdealsImagenEntradaAnuncios")
-            Dim color2 As GradientStop = pagina.FindName("color2EditorpepeizqdealsImagenEntradaAnuncios")
-            Dim color3 As GradientStop = pagina.FindName("color3EditorpepeizqdealsImagenEntradaAnuncios")
-            Dim color4 As GradientStop = pagina.FindName("color4EditorpepeizqdealsImagenEntradaAnuncios")
+            Dim color1 As GradientStop = pagina.FindName("color1DegradadoAnuncios")
+            Dim color2 As GradientStop = pagina.FindName("color2DegradadoAnuncios")
+            Dim color3 As GradientStop = pagina.FindName("color3DegradadoAnuncios")
+            Dim color4 As GradientStop = pagina.FindName("color4DegradadoAnuncios")
 
             Dim color1T As Color = color1.Color
             Dim color2T As Color = color2.Color
@@ -354,7 +354,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim fondo As ImageBrush = pagina.FindName("imagenFondoEditorpepeizqdealsGenerarImagenAnuncios")
+            Dim fondo As ImageBrush = pagina.FindName("imagenFondoAnuncios")
 
             If cb.IsChecked = False Then
                 fondo.Opacity = 0.2
@@ -371,7 +371,7 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim panel As DropShadowPanel = pagina.FindName("panelEditorpepeizqdealsImagenEntradaAnunciosComentario")
+            Dim panel As DropShadowPanel = pagina.FindName("panelComentarioEntradaAnuncios")
 
             If cb.SelectedIndex = 0 Then
                 panel.HorizontalAlignment = HorizontalAlignment.Left
@@ -394,43 +394,43 @@ Namespace pepeizq.Editor.pepeizqdeals
             Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceAnuncios")
             tbEnlace.IsEnabled = estado
 
-            Dim tbImagenTitulo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTitulo")
+            Dim tbImagenTitulo As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
             tbImagenTitulo.IsEnabled = estado
 
-            Dim tbImagenTituloEs As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosTituloEs")
+            Dim tbImagenTituloEs As TextBox = pagina.FindName("tbTituloImagenEspañolAnuncios")
             tbImagenTituloEs.IsEnabled = estado
 
-            Dim tbImagenComentario As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentario")
+            Dim tbImagenComentario As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
             tbImagenComentario.IsEnabled = estado
 
-            Dim tbImagenComentarioEs As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosComentarioEs")
+            Dim tbImagenComentarioEs As TextBox = pagina.FindName("tbComentarioImagenEspañolAnuncios")
             tbImagenComentarioEs.IsEnabled = estado
 
-            Dim tbImagenFondo As TextBox = pagina.FindName("tbEditorImagenpepeizqdealsAnunciosFondo")
+            Dim tbImagenFondo As TextBox = pagina.FindName("tbFondoAnuncios")
             tbImagenFondo.IsEnabled = estado
 
-            Dim cbFondoAzul As CheckBox = pagina.FindName("cbEditorImagenpepeizqdealsAnuncioFondoAzul")
+            Dim cbFondoAzul As CheckBox = pagina.FindName("cbFondoAzulAnuncios")
             cbFondoAzul.IsEnabled = estado
 
-            Dim cbOpacidad As CheckBox = pagina.FindName("cbEditorpepeizqdealsAnuncioImagenOpacidad")
+            Dim cbOpacidad As CheckBox = pagina.FindName("cbFondoOpacidadAnuncios")
             cbOpacidad.IsEnabled = estado
 
-            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbEditorpepeizqdealsAnuncioOrientacionComentario")
+            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbOrientacionComentarioAnuncios")
             cbOrientacionComentario.IsEnabled = estado
 
-            Dim botonIDs As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnunciosIDs")
+            Dim botonIDs As Button = pagina.FindName("botonJuegosIDsAnuncios")
             botonIDs.IsEnabled = estado
 
-            Dim tbIDs As TextBox = pagina.FindName("tbEditorpepeizqdealsAnunciosIDs")
+            Dim tbIDs As TextBox = pagina.FindName("tbJuegosIDsAnuncios")
             tbIDs.IsEnabled = estado
 
-            Dim fechaPicker As DatePicker = pagina.FindName("fechaEditorpepeizqdealsAnuncios")
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaAnuncios")
             fechaPicker.IsEnabled = estado
 
-            Dim horaPicker As TimePicker = pagina.FindName("horaEditorpepeizqdealsAnuncios")
+            Dim horaPicker As TimePicker = pagina.FindName("horaAnuncios")
             horaPicker.IsEnabled = estado
 
-            Dim botonSubir As Button = pagina.FindName("botonEditorSubirpepeizqdealsAnuncios")
+            Dim botonSubir As Button = pagina.FindName("botonSubirAnuncios")
             botonSubir.IsEnabled = estado
 
         End Sub
