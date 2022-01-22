@@ -1,9 +1,10 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
-Imports Steam_Deals.pepeizq.Suscripciones.Xbox
+Imports Steam_Deals.Interfaz
+Imports Steam_Deals.Suscripciones
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module MicrosoftStore
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
@@ -171,7 +172,7 @@ Namespace pepeizq.Ofertas
                                     Dim imagenes As New OfertaImagenes(imagen, Nothing)
 
                                     Dim titulo As String = juego2.Detalles(0).Titulo.Trim
-                                    titulo = LimpiarTitulo(titulo)
+                                    titulo = Xbox.LimpiarTitulo(titulo)
 
                                     Dim precioBase As String = juego2.Propiedades2(0).Disponible(0).Datos.Precio.PrecioBase
                                     precioBase = precioBase.Replace(".", ",")
@@ -203,7 +204,7 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If añadir = True Then
-                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                         If Not juegobbdd Is Nothing Then
                                             juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
@@ -229,7 +230,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of String))("listaIDsMicrosoftStore", listaIDs)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 
@@ -240,7 +241,7 @@ Namespace pepeizq.Ofertas
         Public Property ID As String
         Public Property Imagen As String
 
-        Public Sub New(ByVal id As String, ByVal imagen As String)
+        Public Sub New(id As String, imagen As String)
             Me.ID = id
             Me.Imagen = imagen
         End Sub

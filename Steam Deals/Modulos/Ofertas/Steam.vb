@@ -1,8 +1,9 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module Steam
 
         Public listaDominiosImagenes As New List(Of String) From {
@@ -276,7 +277,7 @@ Namespace pepeizq.Ofertas
 
                                         If buscarAPI = True Then
                                             If Not juego Is Nothing Then
-                                                juego = Await pepeizq.Juegos.Steam.BuscarOferta(juego)
+                                                juego = Await Juegos.Steam.BuscarOferta(juego)
 
                                                 Dim desarrolladores As String = String.Empty
 
@@ -292,7 +293,7 @@ Namespace pepeizq.Ofertas
                                             bbdd = JuegosBBDD.AñadirDesarrollador(juego.Enlace, juego.Desarrolladores.Desarrolladores(0), bbdd)
                                         End If
 
-                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
                                         juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
                                         listaJuegos.Add(juego)
@@ -316,7 +317,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of SteamAPI))("listaSteamAPI", listaAPI)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

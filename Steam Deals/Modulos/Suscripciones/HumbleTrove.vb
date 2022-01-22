@@ -1,8 +1,8 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.Editor
 
-Namespace pepeizq.Suscripciones
+Namespace Suscripciones
     Module HumbleTrove
 
         Dim WithEvents Bw As New BackgroundWorker

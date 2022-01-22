@@ -1,7 +1,7 @@
 ﻿Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
 
-Namespace pepeizq.Juegos
+Namespace Juegos
     Module Steam
 
         Public Async Function BuscarOferta(juego As Oferta) As Task(Of Oferta)

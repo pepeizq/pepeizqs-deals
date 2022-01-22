@@ -2,7 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module AmazonUk
 
         Dim WithEvents bw As New BackgroundWorker

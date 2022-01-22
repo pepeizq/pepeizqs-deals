@@ -1,6 +1,6 @@
 ﻿Imports Newtonsoft.Json
 
-Namespace pepeizq.Gratis
+Namespace Gratis
     Module EpicGames
 
         Public Async Function Generar(enlace As String) As Task(Of Clases.Gratis)

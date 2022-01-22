@@ -1,8 +1,9 @@
 ﻿Imports System.Net
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
 
     Module _2Game
 
@@ -196,7 +197,7 @@ Namespace pepeizq.Ofertas
                                         End While
 
                                         If añadir = True Then
-                                            juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                            juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                             If Not juegobbdd Is Nothing Then
                                                 juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
@@ -280,7 +281,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of _2GameDesarrolladores))("listaDesarrolladores2Game", listaDesarrolladores)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 
@@ -291,7 +292,7 @@ Namespace pepeizq.Ofertas
         Public Property ID As String
         Public Property Desarrollador As String
 
-        Public Sub New(ByVal id As String, ByVal desarrollador As String)
+        Public Sub New(id As String, desarrollador As String)
             Me.ID = id
             Me.Desarrollador = desarrollador
         End Sub

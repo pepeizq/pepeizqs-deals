@@ -37,34 +37,34 @@ Public NotInheritable Class MainPage
 
                         Dim lv As ListView = grid.Children(0)
                         gridEditor.Tag = lv
-                        pepeizq.Interfaz.Pestañas.CargarListadoOfertas(lv)
+                        Interfaz.Pestañas.CargarListadoOfertas(lv)
                     End If
 
                     grid.Visibility = Visibility.Collapsed
                 Next
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svOfertas)
+                Interfaz.Pestañas.Visibilidad(svOfertas)
 
             ElseIf item.Text = "Bundles" Then
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svBundles)
+                Interfaz.Pestañas.Visibilidad(svBundles)
 
             ElseIf item.Text = "Gratis" Then
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svGratis)
+                Interfaz.Pestañas.Visibilidad(svGratis)
 
             ElseIf item.Text = "Suscripciones" Then
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svSuscripciones)
+                Interfaz.Pestañas.Visibilidad(svSuscripciones)
 
             ElseIf item.Text = "Anuncios" Then
 
                 GridVisibilidad(gridEditor, item.Text)
-                pepeizq.Interfaz.Pestañas.Visibilidad(svAnuncios)
+                Interfaz.Pestañas.Visibilidad(svAnuncios)
 
             End If
         End If
@@ -83,24 +83,23 @@ Public NotInheritable Class MainPage
         'Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en-US"
 
         Configuracion.Iniciar()
-        pepeizq.Interfaz.Tiendas.Generar()
+        Interfaz.Tiendas.Generar()
         Divisas.Generar()
         CopiaSeguridad.Cargar()
 
-        pepeizq.Editor.pepeizqdeals.RedesSociales.PushFirebase.Escuchar()
+        Editor.RedesSociales.PushFirebase.Escuchar()
 
-        pepeizq.Editor.pepeizqdeals.Cuentas.Cargar()
-        pepeizq.Editor.pepeizqdeals.Bundles.Cargar()
-        pepeizq.Editor.pepeizqdeals.Gratis.Cargar()
-        pepeizq.Editor.pepeizqdeals.Suscripciones.Cargar()
-        pepeizq.Editor.pepeizqdeals.Anuncios.Cargar()
-        pepeizq.Editor.pepeizqdeals.RedesSociales.GrupoSteam.Comprobar()
-        pepeizq.Editor.pepeizqdeals.Amazon.Cargar()
-        pepeizq.Editor.pepeizqdeals.RedesSociales.Twitter.Cargar()
-        'pepeizq.Editor.pepeizqdeals.RedesSociales.Mastodon.Cargar()
-        pepeizq.Editor.pepeizqdeals.RedesSociales.PushWeb.Cargar()
-        pepeizq.Editor.pepeizqdeals.Posts.Borrar()
-        pepeizq.Editor.pepeizqdeals.Assets.Cargar()
+        Editor.Cuentas.Cargar()
+        Editor.Bundles.Cargar()
+        Editor.Gratis.Cargar()
+        Editor.Suscripciones.Cargar()
+        Editor.Anuncios.Cargar()
+        Editor.RedesSociales.GrupoSteam.Comprobar()
+        Editor.Amazon.Cargar()
+        Editor.RedesSociales.Twitter.Cargar()
+        Editor.RedesSociales.PushWeb.Cargar()
+        Editor.Posts.Borrar()
+        Editor.Assets.Cargar()
 
         '--------------------------------------------------------
 
@@ -164,7 +163,7 @@ Public NotInheritable Class MainPage
             gridOfertasTiendas.Visibility = Visibility.Visible
 
             Dim tienda As Tienda = imagenTiendaSeleccionada.Tag
-            pepeizq.Interfaz.Tiendas.IniciarTienda(tienda, True, False, False)
+            Interfaz.Tiendas.IniciarTienda(tienda, True, False, False)
         End If
 
     End Sub
@@ -177,7 +176,7 @@ Public NotInheritable Class MainPage
             If grid.Visibility = Visibility.Visible Then
                 Dim tienda As Tienda = grid.Tag
 
-                pepeizq.Interfaz.Tiendas.IniciarTienda(tienda, True, True, False)
+                Interfaz.Tiendas.IniciarTienda(tienda, True, True, False)
             End If
         Next
 
@@ -191,10 +190,10 @@ Public NotInheritable Class MainPage
 
                 For Each itemlv In lv.Items
                     Dim itemGrid As Grid = itemlv
-                    pepeizq.Interfaz.Filtrados.Seleccion(itemGrid)
+                    Interfaz.Filtrados.Seleccion(itemGrid)
                 Next
 
-                pepeizq.Interfaz.Tiendas.SeñalarImportantes(lv)
+                Interfaz.Tiendas.SeñalarImportantes(lv)
             End If
         Next
 
@@ -214,7 +213,7 @@ Public NotInheritable Class MainPage
                     cb.IsChecked = False
                 Next
 
-                pepeizq.Interfaz.Tiendas.SeñalarImportantes(lv)
+                Interfaz.Tiendas.SeñalarImportantes(lv)
             End If
         Next
 
@@ -356,45 +355,45 @@ Public NotInheritable Class MainPage
 
     Private Sub BotonEditorpepeizqdealsGenerarAssets_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarAssets.Click
 
-        pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosTiendas()
-        pepeizq.Editor.pepeizqdeals.Assets.GenerarIconosReviews()
-        pepeizq.Editor.pepeizqdeals.DRM.GenerarAssets()
-        pepeizq.Editor.pepeizqdeals.Assets.GenerarLogosRedditTiendas()
+        Editor.Assets.GenerarIconosTiendas()
+        Editor.Assets.GenerarIconosReviews()
+        Editor.DRM.GenerarAssets()
+        Editor.Assets.GenerarLogosRedditTiendas()
 
     End Sub
 
     Private Sub BotonImagenOfertas_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenOfertas.Click
 
         Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
+        ImagenFichero.Exportar(boton)
 
     End Sub
 
     Private Sub BotonImagenBundles_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenBundles.Click
 
         Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
+        ImagenFichero.Exportar(boton)
 
     End Sub
 
     Private Sub BotonImagenGratis_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenGratis.Click
 
         Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
+        ImagenFichero.Exportar(boton)
 
     End Sub
 
     Private Sub BotonImagenSuscripciones_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenSuscripciones.Click
 
         Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
+        ImagenFichero.Exportar(boton)
 
     End Sub
 
     Private Sub BotonImagenAnuncios_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenAnuncios.Click
 
         Dim boton As Button = sender
-        pepeizq.Editor.ImagenFichero.Exportar(boton)
+        ImagenFichero.Exportar(boton)
 
     End Sub
 
@@ -402,13 +401,13 @@ Public NotInheritable Class MainPage
 
         Dim boton As Button = sender
         Dim grid As Grid = boton.Content
-        pepeizq.Editor.ImagenFichero.Exportar(grid)
+        ImagenFichero.Exportar(grid)
 
     End Sub
 
     Private Sub BotonEditorpepeizqdealsGenerarRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarRSS.Click
 
-        pepeizq.Editor.pepeizqdeals.RedesSociales.RSS.Generar()
+        Editor.RedesSociales.RSS.Generar()
 
     End Sub
 

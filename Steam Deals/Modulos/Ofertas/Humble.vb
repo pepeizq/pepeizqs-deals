@@ -2,6 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 Imports Windows.Globalization.NumberFormatting
 Imports Windows.System.UserProfile
 
@@ -12,7 +13,7 @@ Imports Windows.System.UserProfile
 'https://www.humblebundle.com/api/v1/subscriptions/humble_monthly/history?from_product=july_2020_choice
 'https://www.humblebundle.com/store/api/lookup?products[]=sonic-mania&request=1
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module Humble
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
@@ -184,8 +185,8 @@ Namespace pepeizq.Ofertas
                                 juego.Precio2 = juego.Precio1
                             End If
 
-                            juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
-                            juego.Precio2 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio2)
+                            juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                            juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
 
                             If Not juegobbdd Is Nothing Then
                                 juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
@@ -244,7 +245,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

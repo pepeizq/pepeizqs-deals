@@ -1,9 +1,9 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Steam_Deals.Clases
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.Editor
 Imports Windows.Storage
 
-Namespace pepeizq.Interfaz
+Namespace Interfaz
     Module Ordenar
 
         Public Async Sub Ofertas(tienda As Tienda, buscar As Boolean, cargarUltimas As Boolean)

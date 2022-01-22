@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Ofertas
 
 Module JuegosBBDD
 
@@ -78,7 +79,7 @@ Module JuegosBBDD
 
         bbddAnalisis = Await Cargar()
 
-        numPaginas = Await pepeizq.Ofertas.Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
+        numPaginas = Await Steam.GenerarNumPaginas(New Uri("https://store.steampowered.com/search/?page=2&l=english"))
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content

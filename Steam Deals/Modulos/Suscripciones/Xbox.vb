@@ -1,10 +1,10 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.Editor
 Imports Windows.Storage
 Imports WordPressPCL
 
-Namespace pepeizq.Suscripciones
+Namespace Suscripciones
 
     'https://www.microsoft.com/en-us/store/collections/pcgaVTaz?rtc=1&s=store&skipitems=0
     'https://catalog.gamepass.com/sigls/v2?id=fdd9e2a7-0fee-49f6-ad69-4354098401ff&language=en-us&market=US
@@ -363,7 +363,7 @@ Namespace pepeizq.Suscripciones
             Dim titulo As String = String.Empty
 
             If listaNuevos2.Count = 1 Then
-                titulo = "PC Game Pass • New Game Added • " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(0).Titulo)
+                titulo = "PC Game Pass • New Game Added • " + Editor.LimpiarTitulo(listaNuevos2(0).Titulo)
                 SuscripcionesImagenEntrada.UnJuegoGenerar(listaNuevos2(0).Imagen)
             Else
                 titulo = "PC Game Pass • New Games Added • "
@@ -375,11 +375,11 @@ Namespace pepeizq.Suscripciones
                     i = 0
                     While i < listaNuevos2.Count
                         If i = 0 Then
-                            tituloJuegos = tituloJuegos + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                            tituloJuegos = tituloJuegos + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         ElseIf i >= 1 Then
-                            tituloJuegos = tituloJuegos + ", " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                            tituloJuegos = tituloJuegos + ", " + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         ElseIf (i + 1) = listaNuevos2.Count Then
-                            tituloJuegos = tituloJuegos + "and " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                            tituloJuegos = tituloJuegos + "and " + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         End If
                         i += 1
                     End While
@@ -387,9 +387,9 @@ Namespace pepeizq.Suscripciones
                     i = 0
                     While i < listaNuevos2.Count
                         If i = 0 Then
-                            tituloJuegos = tituloJuegos + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                            tituloJuegos = tituloJuegos + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         ElseIf i >= 1 And i <= 3 Then
-                            tituloJuegos = tituloJuegos + ", " + Editor.pepeizqdeals.LimpiarTitulo(listaNuevos2(i).Titulo)
+                            tituloJuegos = tituloJuegos + ", " + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         Else
                             Exit While
                         End If

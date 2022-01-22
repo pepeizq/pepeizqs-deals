@@ -1,9 +1,9 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
-Imports Steam_Deals.pepeizq.Juegos
+Imports Steam_Deals.Editor
+Imports Steam_Deals.Juegos
 
-Namespace pepeizq.Suscripciones
+Namespace Suscripciones
     Module GeforceNow
 
         Dim WithEvents Bw As New BackgroundWorker
@@ -105,18 +105,18 @@ Namespace pepeizq.Suscripciones
             Dim titulo As String = String.Empty
 
             If listaJuegos.Count = 1 Then
-                titulo = "Geforce NOW • New Game Supported • " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(0).Titulo)
+                titulo = "Geforce NOW • New Game Supported • " + Editor.LimpiarTitulo(listaJuegos(0).Titulo)
             ElseIf listaJuegos.Count < 5 Then
                 titulo = "Geforce NOW • New Games Supported • "
 
                 Dim i As Integer = 0
                 While i < listaJuegos.Count
                     If i + 1 = listaJuegos.Count Then
-                        titulo = titulo + " and " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        titulo = titulo + " and " + Editor.LimpiarTitulo(listaJuegos(i).Titulo)
                     ElseIf i = 0 Then
-                        titulo = titulo + " " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        titulo = titulo + " " + Editor.LimpiarTitulo(listaJuegos(i).Titulo)
                     Else
-                        titulo = titulo + ", " + Editor.pepeizqdeals.LimpiarTitulo(listaJuegos(i).Titulo)
+                        titulo = titulo + ", " + Editor.LimpiarTitulo(listaJuegos(i).Titulo)
                     End If
                     i += 1
                 End While

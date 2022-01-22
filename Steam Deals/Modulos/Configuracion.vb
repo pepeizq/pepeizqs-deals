@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Steam_Deals.Clases
+﻿Imports Steam_Deals.Interfaz
 Imports Windows.Storage
 Imports Windows.System
 
@@ -184,7 +183,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -194,7 +193,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsGrupoSteam")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -204,7 +203,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAmazonCom")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -214,7 +213,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -224,7 +223,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsMastodon")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -234,7 +233,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsPushWeb")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -244,7 +243,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -254,7 +253,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -264,7 +263,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 
@@ -280,7 +279,7 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamGifts")
-        pepeizq.Interfaz.Pestañas.Visibilidad(sv)
+        Pestañas.Visibilidad(sv)
 
     End Sub
 

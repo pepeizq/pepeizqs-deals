@@ -1,8 +1,8 @@
 ﻿Imports Steam_Deals.Clases
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals.RedesSociales
+Imports Steam_Deals.Editor
+Imports Steam_Deals.Editor.RedesSociales
 
-Namespace pepeizq.Interfaz
+Namespace Interfaz
     Module Pestañas
 
         Public Sub CargarListadoOfertas(lv As ListView)
@@ -74,7 +74,7 @@ Namespace pepeizq.Interfaz
                     cantidadJuegos = listaTotal.Count.ToString
                 End If
 
-                Editor.pepeizqdeals.Ofertas.GenerarDatos(listaTotal, listaSeleccionados, cantidadJuegos)
+                Editor.Ofertas.GenerarDatos(listaTotal, listaSeleccionados, cantidadJuegos)
             End If
 
         End Sub

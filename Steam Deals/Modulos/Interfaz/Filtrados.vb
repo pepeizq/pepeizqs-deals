@@ -1,8 +1,8 @@
 ﻿Imports Steam_Deals.Clases
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
+Imports Steam_Deals.Editor
 Imports Windows.Storage
 
-Namespace pepeizq.Interfaz
+Namespace Interfaz
     Module Filtrados
 
         Public Sub Seleccion(item As Grid)

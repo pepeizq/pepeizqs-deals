@@ -2,8 +2,9 @@
 Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module Ubisoft
 
         'https://store.ubi.com/s/es_ubisoft/dw/shop/v19_8/products/591567f6ca1a6460388b456a?expand=images,prices,availability,variations,promotions&client_id=2a3b13e8-a80b-4795-853a-4cd52645919b
@@ -87,7 +88,7 @@ Namespace pepeizq.Ofertas
                                 End If
 
                                 If añadir = True Then
-                                    juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                    juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                     If Not juegobbdd Is Nothing Then
                                         juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
@@ -110,7 +111,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

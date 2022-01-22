@@ -1,9 +1,9 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
-Imports Steam_Deals.pepeizq.Editor.pepeizqdeals
-Imports Steam_Deals.pepeizq.Ofertas
+Imports Steam_Deals.Editor
+Imports Steam_Deals.Ofertas
 
-Namespace pepeizq.Suscripciones
+Namespace Suscripciones
     Module EAPlay
 
         Dim WithEvents Bw As New BackgroundWorker

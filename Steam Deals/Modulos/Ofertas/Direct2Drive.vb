@@ -1,8 +1,9 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module Direct2Drive
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
@@ -91,7 +92,7 @@ Namespace pepeizq.Ofertas
                                     End If
 
                                     If añadir = True Then
-                                        juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                         If Not juegobbdd Is Nothing Then
                                             juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
@@ -121,7 +122,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 

@@ -2,12 +2,13 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 
 'https://api3.origin.com/supercat/ES/es_ES/supercat-PCWIN_MAC-ES-es_ES.json.gz
 'https://api1.origin.com/xsearch/store/es_es/esp/products?searchTerm=&filterQuery=price%3Aon-sale&sort=rank%20desc&start=0&rows=25
 'https://api2.origin.com/ecommerce2/public/supercat/" + juegoID + "/en_US?country=ES"
 
-Namespace pepeizq.Ofertas
+Namespace Ofertas
     Module Origin
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
@@ -69,7 +70,7 @@ Namespace pepeizq.Ofertas
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await JuegosBBDD.Guardar(bbdd)
 
-            pepeizq.Interfaz.Ordenar.Ofertas(tienda, True, False)
+            Ordenar.Ofertas(tienda, True, False)
 
         End Function
 
@@ -117,7 +118,7 @@ Namespace pepeizq.Ofertas
                                 End If
 
                                 If añadir = True Then
-                                    juego.Precio1 = pepeizq.Interfaz.Ordenar.PrecioPreparar(juego.Precio1)
+                                    juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
 
                                     If Not juegobbdd Is Nothing Then
                                         juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
