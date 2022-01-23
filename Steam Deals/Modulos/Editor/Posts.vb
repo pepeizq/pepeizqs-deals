@@ -428,7 +428,7 @@ Namespace Editor
                 Dim resultados As List(Of Post) = Nothing
 
                 Try
-                    resultados = Await cliente.CustomRequest.Get(Of List(Of Post))("wp/v2/posts?per_page=50")
+                    resultados = Await cliente.CustomRequest.Get(Of List(Of Post))("wp/v2/posts?per_page=100")
                 Catch ex As Exception
 
                 End Try

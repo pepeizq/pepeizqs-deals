@@ -64,6 +64,18 @@
 
     End Class
 
+    Public Class TiendaMensajes
+
+        Public Property UnJuego As String
+        Public Property DosJuegos As String
+
+        Public Sub New(unJuego As String, dosJuegos As String)
+            Me.UnJuego = unJuego
+            Me.DosJuegos = dosJuegos
+        End Sub
+
+    End Class
+
     Public Class TiendaCupon
 
         Public Property TiendaNombreUsar As String
