@@ -12,45 +12,10 @@ Namespace Ofertas
             Dim listaJuegos As New List(Of Oferta)
             Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
-            Dim cuponPorcentaje As String = String.Empty
-            Dim cupon0PorCiento As Boolean = False
-            Dim libra As String = String.Empty
-
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
-            libra = tbLibra.Text
-
             Dim helper As New LocalObjectStorageHelper
-
-            Dim listaCupones As New List(Of TiendaCupon)
-
-            If Await helper.FileExistsAsync("cupones") = True Then
-                listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
-            End If
-
-            If listaCupones.Count > 0 Then
-                For Each cupon In listaCupones
-                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                        If Not cupon.Porcentaje = Nothing Then
-                            If cupon.Porcentaje > 0 Then
-                                cuponPorcentaje = cupon.Porcentaje
-                                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                                cuponPorcentaje = cuponPorcentaje.Trim
-
-                                If cuponPorcentaje.Length = 1 Then
-                                    cuponPorcentaje = "0,0" + cuponPorcentaje
-                                Else
-                                    cuponPorcentaje = "0," + cuponPorcentaje
-                                End If
-
-                                cupon0PorCiento = cupon._0PorCiento
-                            End If
-                        End If
-                    End If
-                Next
-            End If
 
             Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
@@ -134,20 +99,6 @@ Namespace Ofertas
                             Dim desarrolladores As New OfertaDesarrolladores(New List(Of String) From {juegoGG.Desarrollador}, Nothing)
 
                             Dim descuento As String = String.Empty
-
-                            Dim dprecioEU As Double = 0
-
-                            If Not cuponPorcentaje = Nothing Then
-                                If cupon0PorCiento = False Then
-                                    dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                Else
-                                    dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                                End If
-                            Else
-                                dprecioEU = Double.Parse(precioRebajado.Replace("€", Nothing).Trim, Globalization.CultureInfo.InvariantCulture)
-                            End If
-
-                            precioRebajado = Math.Round(dprecioEU, 2).ToString + " €"
                             descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
                             Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, drm, tienda.NombreUsar, Nothing, tipo, DateTime.Today, fechaTermina, juegobbdd, sistemas, desarrolladores, Nothing)
@@ -161,22 +112,9 @@ Namespace Ofertas
                                 k += 1
                             End While
 
-                            If Not cuponPorcentaje = String.Empty Then
-                                Dim descuentoTemp As String = descuento
-                                If descuentoTemp.Length = 1 Then
-                                    descuentoTemp = "0,0" + descuentoTemp
-                                Else
-                                    descuentoTemp = "0," + descuentoTemp
-                                End If
-                                descuentoTemp = descuentoTemp.Replace("%", Nothing)
-
-                                If descuentoTemp = cuponPorcentaje Then
-                                    añadir = False
-                                End If
-                            End If
-
                             If añadir = True Then
                                 juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                juego = Cupones.Calcular(juego, tienda, precioBase)
 
                                 If Not juegobbdd Is Nothing Then
                                     juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)

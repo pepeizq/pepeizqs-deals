@@ -126,9 +126,6 @@ Namespace Interfaz
             Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
             svIconos.Visibility = Visibility.Collapsed
 
-            Dim svCupones As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
-            svCupones.Visibility = Visibility.Collapsed
-
             Dim svRss As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
             svRss.Visibility = Visibility.Collapsed
 

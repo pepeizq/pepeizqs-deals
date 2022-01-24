@@ -74,7 +74,6 @@
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem x:Name="menuItemConfigDatos" Text="Datos" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-                            <MenuFlyoutItem x:Name="menuItemConfigCupones" Text="Cupones" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutSeparator/>
@@ -1276,10 +1275,6 @@
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
-                        </ScrollViewer>
-
-                        <ScrollViewer x:Name="svEditorpepeizqdealsCupones" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
-                            <StackPanel x:Name="spEditorCupones" Orientation="Vertical"/>
                         </ScrollViewer>
 
                         <ScrollViewer x:Name="svEditorpepeizqdealsRss" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">

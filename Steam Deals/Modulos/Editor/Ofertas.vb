@@ -20,12 +20,6 @@ Namespace Editor
 
             Dim helper As New LocalObjectStorageHelper
 
-            Dim listaCupones As New List(Of TiendaCupon)
-
-            If Await helper.FileExistsAsync("cupones") = True Then
-                listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
-            End If
-
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
@@ -91,30 +85,15 @@ Namespace Editor
                 End If
             Next
 
-            For Each cupon In listaCupones
-                If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                    If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
-                        If Not cupon.Porcentaje = Nothing Then
-                            If cupon.Porcentaje > 0 Then
+            If Not tienda.Cupon Is Nothing Then
+                If tienda.Cupon.Porcentaje > 0 Then
+                    tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + tienda.Cupon.Codigo + "</b>"
 
-                                tbComentario.Text = "The prices shown have the following discount coupon applied: <b>" + cupon.Codigo + "</b>"
-
-                                If listaTotal.Count = 1 Then
-                                    tbTituloComplemento.Text = "Discount Code: " + cupon.Codigo
-                                End If
-                            End If
-                        End If
-
-                        If Not cupon.Comentario = Nothing Then
-                            If tbComentario.Text.Trim.Length = 0 Then
-                                tbComentario.Text = cupon.Comentario
-                            Else
-                                tbComentario.Text = tbComentario.Text + " " + cupon.Comentario
-                            End If
-                        End If
+                    If listaTotal.Count = 1 Then
+                        tbTituloComplemento.Text = "Discount Code: " + tienda.Cupon.Codigo
                     End If
                 End If
-            Next
+            End If
 
             Dim listaDescuento As New List(Of String)
             Dim precioFinal As String = String.Empty
@@ -322,23 +301,19 @@ Namespace Editor
 
             If tbMensajeIngles.Visibility = Visibility.Visible Then
                 If listaTotal.Count = 1 Then
-                    For Each cupon In listaCupones
-                        If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                            If Not cupon.Codigo Is Nothing Then
-                                If cupon._0PorCiento = Nothing Or cupon._0PorCiento = False Then
-                                    tbMensajeIngles.Text = "Discount code: " + cupon.Codigo
-                                    ModificarMensaje()
-                                End If
-                            End If
+                    If Not tienda.Cupon Is Nothing Then
+                        If tienda.Cupon.Porcentaje > 0 Then
+                            tbMensajeIngles.Text = "Discount code: " + tienda.Cupon.Codigo
+                            ModificarMensaje()
                         End If
-                    Next
+                    End If
 
-                    If Not tienda.MensajeUnJuego = Nothing Then
-                        If tienda.MensajeUnJuego.Trim.Length > 0 Then
+                    If Not tienda.Mensajes.UnJuego = Nothing Then
+                        If tienda.Mensajes.UnJuego.Trim.Length > 0 Then
                             If tbMensajeIngles.Text = String.Empty Then
-                                tbMensajeIngles.Text = tienda.MensajeUnJuego.Trim
+                                tbMensajeIngles.Text = tienda.Mensajes.UnJuego.Trim
                             Else
-                                tbMensajeIngles.Text = tbMensajeIngles.Text + ". " + tienda.MensajeUnJuego.Trim
+                                tbMensajeIngles.Text = tbMensajeIngles.Text + ". " + tienda.Mensajes.UnJuego.Trim
                             End If
 
                             ModificarMensaje()

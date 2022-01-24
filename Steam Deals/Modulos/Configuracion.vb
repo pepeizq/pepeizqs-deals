@@ -101,10 +101,6 @@ Module Configuracion
         RemoveHandler itemAssets.Click, AddressOf ConfigAbrirAssets
         AddHandler itemAssets.Click, AddressOf ConfigAbrirAssets
 
-        Dim itemCupones As MenuFlyoutItem = pagina.FindName("menuItemConfigCupones")
-        RemoveHandler itemCupones.Click, AddressOf ConfigAbrirCupones
-        AddHandler itemCupones.Click, AddressOf ConfigAbrirCupones
-
         Dim itemRss As MenuFlyoutItem = pagina.FindName("menuItemConfigRss")
         RemoveHandler itemRss.Click, AddressOf ConfigAbrirRss
         AddHandler itemRss.Click, AddressOf ConfigAbrirRss
@@ -243,16 +239,6 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
-        Pestañas.Visibilidad(sv)
-
-    End Sub
-
-    Private Sub ConfigAbrirCupones(sender As Object, e As RoutedEventArgs)
-
-        Dim frame As Frame = Window.Current.Content
-        Dim pagina As Page = frame.Content
-
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsCupones")
         Pestañas.Visibilidad(sv)
 
     End Sub

@@ -5,20 +5,20 @@
         Public Property NombreUsar As String
         Public Property Logos As TiendaLogos
         Public Property Numeraciones As TiendaNumeraciones
+        Public Property Mensajes As TiendaMensajes
         Public Property Cupon As TiendaCupon
-        Public Property MensajeUnJuego As String
         Public Property AnchoImagenTabla As String
         Public Property FormatoCaratulaJuego As FormatoImagen
 
         Public Sub New(nombreMostrar As String, nombreUsar As String, logos As TiendaLogos, numeraciones As TiendaNumeraciones,
-                       cupon As TiendaCupon,
-                       mensajeUnJuego As String, anchoImagenTabla As String, formatoCaratulaJuego As FormatoImagen)
+                       mensajes As TiendaMensajes, cupon As TiendaCupon,
+                       anchoImagenTabla As String, formatoCaratulaJuego As FormatoImagen)
             Me.NombreMostrar = nombreMostrar
             Me.NombreUsar = nombreUsar
             Me.Logos = logos
             Me.Numeraciones = numeraciones
+            Me.Mensajes = mensajes
             Me.Cupon = cupon
-            Me.MensajeUnJuego = mensajeUnJuego
             Me.AnchoImagenTabla = anchoImagenTabla
             Me.FormatoCaratulaJuego = formatoCaratulaJuego
         End Sub
@@ -78,19 +78,12 @@
 
     Public Class TiendaCupon
 
-        Public Property TiendaNombreUsar As String
         Public Property Porcentaje As Integer
         Public Property Codigo As String
-        Public Property _0PorCiento As Boolean
-        Public Property Comentario As String
 
-        Public Sub New(tiendaNombreUsar As String, porcentaje As Integer, codigo As String,
-                       _0porCiento As Boolean, comentario As String)
-            Me.TiendaNombreUsar = tiendaNombreUsar
+        Public Sub New(porcentaje As Integer, codigo As String)
             Me.Porcentaje = porcentaje
             Me.Codigo = codigo
-            Me._0PorCiento = _0porCiento
-            Me.Comentario = comentario
         End Sub
 
     End Class

@@ -21,7 +21,9 @@ Namespace Interfaz
                                                     "2019/09/steam2.png",
                                                     "2020/08/steam3.png", "29959"),
                                     New TiendaNumeraciones(0, 5),
-                                    Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                    New TiendaMensajes(Nothing, Nothing),
+                                    New TiendaCupon(0, Nothing),
+                                    "250", Tienda.FormatoImagen.Ancho)
 
         Public gamersgateT As New Tienda("GamersGate", "GamersGate",
                                          New TiendaLogos("Assets/Tiendas/gamersgate.ico",
@@ -30,7 +32,9 @@ Namespace Interfaz
                                                          "2021/05/gamersgate2.png",
                                                          "2021/05/gamersgate3.png", "29951"),
                                          New TiendaNumeraciones(1, 7),
-                                         Nothing, Nothing, "130", Tienda.FormatoImagen.Vertical)
+                                         New TiendaMensajes(Nothing, Nothing),
+                                         New TiendaCupon(11, "RGAMEDEALS"),
+                                         "130", Tienda.FormatoImagen.Vertical)
 
         Public humbleT As New Tienda("Humble Store", "Humble",
                                      New TiendaLogos("Assets/Tiendas/humble.ico",
@@ -39,7 +43,10 @@ Namespace Interfaz
                                                      "2019/09/humble2.png",
                                                      "2020/08/humble3.png", "29970"),
                                      New TiendaNumeraciones(2, 6),
-                                     Nothing, "Price with Humble Choice", "250", Tienda.FormatoImagen.Ancho)
+                                     New TiendaMensajes("Price with Humble Choice",
+                                                        "The first price of the game corresponds to having Choice activated, and the second price to having it deactivated."),
+                                     New TiendaCupon(0, Nothing),
+                                     "250", Tienda.FormatoImagen.Ancho)
 
         Public gamesplanetT As New Tienda("Gamesplanet", "GamesPlanet",
                                           New TiendaLogos("Assets/Tiendas/gamesplanet.png",
@@ -48,7 +55,9 @@ Namespace Interfaz
                                                           "2020/08/gamesplanet2.png",
                                                           "2020/08/gamesplanet3.png", "29952"),
                                           New TiendaNumeraciones(3, 8),
-                                          Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                          New TiendaMensajes(Nothing, Nothing),
+                                          New TiendaCupon(0, Nothing),
+                                          "250", Tienda.FormatoImagen.Ancho)
 
         Public fanaticalT As New Tienda("Fanatical", "Fanatical",
                                         New TiendaLogos("Assets/Tiendas/fanatical.ico",
@@ -57,7 +66,9 @@ Namespace Interfaz
                                                         "2019/09/fanatical2.png",
                                                         "2020/08/fanatical3.png", "29949"),
                                         New TiendaNumeraciones(4, 10),
-                                        Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                        New TiendaMensajes(Nothing, Nothing),
+                                        New TiendaCupon(0, Nothing),
+                                        "250", Tienda.FormatoImagen.Ancho)
 
         Public gogT As New Tienda("GOG", "GOG",
                                   New TiendaLogos("Assets/Tiendas/gog.ico",
@@ -66,7 +77,9 @@ Namespace Interfaz
                                                   "2019/09/gog2.png",
                                                   "2020/09/gog3.png", "31631"),
                                   New TiendaNumeraciones(5, 9),
-                                  Nothing, Nothing, "200", Tienda.FormatoImagen.Ancho)
+                                  New TiendaMensajes(Nothing, "These games are DRM Free, that means you can install and play them on any computer and they do not need to have Internet to run them."),
+                                  New TiendaCupon(0, Nothing),
+                                  "200", Tienda.FormatoImagen.Ancho)
 
         Public wingamestoreT As New Tienda("WinGameStore", "WinGameStore",
                                            New TiendaLogos("Assets/Tiendas/wingamestore.png",
@@ -75,10 +88,12 @@ Namespace Interfaz
                                                            "2019/09/wingamestore2.png",
                                                            "2020/08/wingamestore3.png", "29961"),
                                            New TiendaNumeraciones(6, 14),
-                                           Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                           New TiendaMensajes(Nothing, Nothing),
+                                           New TiendaCupon(0, Nothing),
+                                           "250", Tienda.FormatoImagen.Ancho)
 
         Public nuuvemT As New Tienda("Nuuvem", "Nuuvem", New TiendaLogos("Assets/Tiendas/nuuvem.ico", Nothing, Nothing, Nothing, Nothing, Nothing),
-                                     New TiendaNumeraciones(8, 9999), Nothing, Nothing, Nothing, Nothing)
+                                     New TiendaNumeraciones(8, 9999), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing)
 
         Public microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore",
                                              New TiendaLogos("Assets/Tiendas/microsoft.ico",
@@ -87,7 +102,9 @@ Namespace Interfaz
                                                              "2020/08/microsoftstore2.png",
                                                              "2020/08/microsoftstore3.png", "29957"),
                                              New TiendaNumeraciones(9, 16),
-                                             Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                             New TiendaMensajes(Nothing, Nothing),
+                                             New TiendaCupon(0, Nothing),
+                                             "150", Tienda.FormatoImagen.Vertical)
 
         Public nexusT As New Tienda("My Nexus Store", "Nexus",
                                     New TiendaLogos("Assets/Tiendas/nexus.png",
@@ -96,7 +113,9 @@ Namespace Interfaz
                                                     "2020/10/nexus2.png",
                                                     "2020/10/nexus2.png", "34033"),
                                     New TiendaNumeraciones(10, 15),
-                                    Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                    New TiendaMensajes(Nothing, Nothing),
+                                    New TiendaCupon(0, Nothing),
+                                    "250", Tienda.FormatoImagen.Ancho)
 
         Public voiduT As New Tienda("Voidu", "Voidu",
                                     New TiendaLogos("Assets/Tiendas/voidu.ico",
@@ -105,7 +124,9 @@ Namespace Interfaz
                                                     "2019/09/voidu2.png",
                                                     "2020/08/voidu3.png", "29971"),
                                     New TiendaNumeraciones(11, 18),
-                                    Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                    New TiendaMensajes(Nothing, Nothing),
+                                    New TiendaCupon(0, Nothing),
+                                    "150", Tienda.FormatoImagen.Vertical)
 
         Public indiegalaT As New Tienda("IndieGala", "IndieGala",
                                         New TiendaLogos("Assets/Tiendas/indiegala.ico",
@@ -114,7 +135,9 @@ Namespace Interfaz
                                                         "2019/09/indiegala2.png",
                                                         "2020/08/indiegala3.png", "29956"),
                                         New TiendaNumeraciones(12, 1210),
-                                        Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                        New TiendaMensajes(Nothing, Nothing),
+                                        New TiendaCupon(0, Nothing),
+                                        "250", Tienda.FormatoImagen.Ancho)
 
         Public greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming",
                                              New TiendaLogos("Assets/Tiendas/gmg.ico",
@@ -123,7 +146,9 @@ Namespace Interfaz
                                                              "2019/09/gmg2.png",
                                                              "2020/08/gmg3.png", "29953"),
                                              New TiendaNumeraciones(13, 1205),
-                                             Nothing, Nothing, "120", Tienda.FormatoImagen.Vertical)
+                                             New TiendaMensajes(Nothing, Nothing),
+                                             New TiendaCupon(0, Nothing),
+                                             "120", Tienda.FormatoImagen.Vertical)
 
         Public amazoncomT As New Tienda("Amazon.com", "AmazonCom",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -132,7 +157,9 @@ Namespace Interfaz
                                                         "2020/08/amazon2.png",
                                                         "2020/08/amazon3.png", "29945"),
                                         New TiendaNumeraciones(15, 20),
-                                        Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                        New TiendaMensajes(Nothing, Nothing),
+                                        New TiendaCupon(0, Nothing),
+                                        "150", Tienda.FormatoImagen.Vertical)
 
         Public amazonesT As New Tienda("Amazon.es (Physical Format)", "AmazonEs",
                                        New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -141,7 +168,9 @@ Namespace Interfaz
                                                         "2020/08/amazon2.png",
                                                         "2020/08/amazon3.png", "29945"),
                                        New TiendaNumeraciones(16, 9999),
-                                       Nothing, "This game is in physical format, you will receive the box with the game", "150", Tienda.FormatoImagen.Vertical)
+                                       New TiendaMensajes("This game is in physical format, you will receive the box with the game", Nothing),
+                                       New TiendaCupon(0, Nothing),
+                                       "150", Tienda.FormatoImagen.Vertical)
 
         Public amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -150,7 +179,9 @@ Namespace Interfaz
                                                         "2020/08/amazon2.png",
                                                         "2020/08/amazon3.png", "29945"),
                                         New TiendaNumeraciones(17, 1211),
-                                        Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                        New TiendaMensajes(Nothing, Nothing),
+                                        New TiendaCupon(0, Nothing),
+                                        "150", Tienda.FormatoImagen.Vertical)
 
         Public yuplayT As New Tienda("Yuplay", "Yuplay",
                                      New TiendaLogos("Assets/Tiendas/yuplay.png",
@@ -159,10 +190,12 @@ Namespace Interfaz
                                                      "2021/12/yuplay2.webp",
                                                      "2021/12/yuplay3.webp", "29962"),
                                      New TiendaNumeraciones(18, 1209),
-                                     Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                     New TiendaMensajes(Nothing, Nothing),
+                                     New TiendaCupon(0, Nothing),
+                                     "250", Tienda.FormatoImagen.Ancho)
 
         Public epicT As New Tienda("Epic Games Store", "EpicGamesStore", New TiendaLogos(Nothing, Nothing, "Assets/Tiendas/epicgames2.png", Nothing, "2020/12/epicgames3.png", Nothing),
-                                   New TiendaNumeraciones(19, 9999), Nothing, Nothing, "250", Nothing)
+                                   New TiendaNumeraciones(19, 9999), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), "250", Nothing)
 
         Public originT As New Tienda("Origin", "Origin",
                                      New TiendaLogos("Assets/Tiendas/origin.png",
@@ -171,7 +204,9 @@ Namespace Interfaz
                                                      "2019/09/origin2.png",
                                                      "2020/08/origin3.png", "29958"),
                                      New TiendaNumeraciones(20, 1213),
-                                     Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                     New TiendaMensajes(Nothing, Nothing),
+                                     New TiendaCupon(0, Nothing),
+                                     "150", Tienda.FormatoImagen.Vertical)
 
         Public gamebilletT As New Tienda("GameBillet", "GameBillet",
                                          New TiendaLogos("Assets/Tiendas/gamebillet.ico",
@@ -180,7 +215,9 @@ Namespace Interfaz
                                                          "2019/09/gamebillet2.png",
                                                          "2020/08/gamebillet3.png", "29950"),
                                          New TiendaNumeraciones(21, 1215),
-                                         Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                         New TiendaMensajes(Nothing, Nothing),
+                                         New TiendaCupon(0, Nothing),
+                                         "250", Tienda.FormatoImagen.Ancho)
 
         Public _2gameT As New Tienda("2Game", "2Game",
                                      New TiendaLogos("Assets/Tiendas/2game.png",
@@ -189,7 +226,9 @@ Namespace Interfaz
                                                      "2019/09/2game2.png",
                                                      "2020/08/2game3.png", "29969"),
                                      New TiendaNumeraciones(22, 1216),
-                                     Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                     New TiendaMensajes(Nothing, Nothing),
+                                     New TiendaCupon(10, "HAPPY2GAME"),
+                                     "250", Tienda.FormatoImagen.Ancho)
 
         Public blizzardT As New Tienda("Battle.net Store", "Blizzard",
                                        New TiendaLogos("Assets/Tiendas/battlenet.png",
@@ -198,7 +237,9 @@ Namespace Interfaz
                                                        "2021/04/battlenet2.png",
                                                        "2021/04/battlenet3.png", "29946"),
                                        New TiendaNumeraciones(23, 1219),
-                                       Nothing, Nothing, "250", Tienda.FormatoImagen.Ancho)
+                                       New TiendaMensajes(Nothing, Nothing),
+                                       New TiendaCupon(0, Nothing),
+                                       "250", Tienda.FormatoImagen.Ancho)
 
         Public direct2driveT As New Tienda("Direct2Drive", "Direct2Drive",
                                            New TiendaLogos("Assets/Tiendas/d2d.ico",
@@ -207,10 +248,12 @@ Namespace Interfaz
                                                            "2019/09/d2d2.png",
                                                            "2020/09/d2d3.png", "31588"),
                                            New TiendaNumeraciones(24, 1238),
-                                           Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                           New TiendaMensajes(Nothing, Nothing),
+                                           New TiendaCupon(0, Nothing),
+                                           "150", Tienda.FormatoImagen.Vertical)
 
         Public robotcacheT As New Tienda("Robot Cache", "RobotCache", New TiendaLogos("Assets/Tiendas/robotcache.png", Nothing, "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing),
-                                         New TiendaNumeraciones(25, 1245), Nothing, Nothing, Nothing, Nothing)
+                                         New TiendaNumeraciones(25, 1245), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), Nothing, Nothing)
 
         Public ubiT As New Tienda("Ubisoft Store", "Ubisoft",
                                   New TiendaLogos("Assets/Tiendas/ubi.png",
@@ -219,7 +262,10 @@ Namespace Interfaz
                                                   "2020/09/ubi2.png",
                                                   "2020/09/ubi3.png", "32092"),
                                   New TiendaNumeraciones(26, 1317),
-                                  Nothing, "Price with Club Units", "150", Tienda.FormatoImagen.Vertical)
+                                  New TiendaMensajes("Price with Club Units",
+                                                     "The prices have been calculated with the discount given by Club Units."),
+                                  New TiendaCupon(0, Nothing),
+                                  "150", Tienda.FormatoImagen.Vertical)
 
         Public allyouplayT As New Tienda("Allyouplay", "Allyouplay",
                                          New TiendaLogos("Assets/Tiendas/allyouplay.ico",
@@ -228,7 +274,9 @@ Namespace Interfaz
                                                          "2020/09/allyouplay2.png",
                                                          "2020/09/allyouplay3.png", "32170"),
                                          New TiendaNumeraciones(27, 1318),
-                                         Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                         New TiendaMensajes(Nothing, Nothing),
+                                         New TiendaCupon(10, "ALLYOUCANPLAY"),
+                                         "150", Tienda.FormatoImagen.Vertical)
 
         Public dlgamerT As New Tienda("DLGamer", "DLGamer",
                                       New TiendaLogos("Assets/Tiendas/dlgamer.png",
@@ -237,7 +285,9 @@ Namespace Interfaz
                                                       "2021/09/dlgamer2.webp",
                                                       "2021/09/dlgamer3.webp", "43678"),
                                       New TiendaNumeraciones(28, 1379),
-                                      Nothing, Nothing, "150", Tienda.FormatoImagen.Vertical)
+                                      New TiendaMensajes(Nothing, Nothing),
+                                      New TiendaCupon(0, Nothing),
+                                      "150", Tienda.FormatoImagen.Vertical)
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
@@ -274,7 +324,6 @@ Namespace Interfaz
 
             Dim tiendasMenu As MenuFlyout = pagina.FindName("botonTiendasMenu")
             Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
-            Dim spCupones As StackPanel = pagina.FindName("spEditorCupones")
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -305,7 +354,6 @@ Namespace Interfaz
                     gvTiendas.Items.Add(AñadirBotonTienda(tienda))
                     spProgreso.Children.Add(AñadirProgresoTienda(tienda))
                     gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
-                    spCupones.Children.Add(Await Cupones.AñadirTienda(tienda))
                 End If
             Next
 

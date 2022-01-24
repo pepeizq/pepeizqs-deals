@@ -13,35 +13,7 @@ Namespace Ofertas
             Dim listaJuegos As New List(Of Oferta)
             Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
-            Dim cuponPorcentaje As String = String.Empty
-
             Dim helper As New LocalObjectStorageHelper
-
-            Dim listaCupones As New List(Of TiendaCupon)
-
-            If Await helper.FileExistsAsync("cupones") = True Then
-                listaCupones = Await helper.ReadFileAsync(Of List(Of TiendaCupon))("cupones")
-            End If
-
-            If listaCupones.Count > 0 Then
-                For Each cupon In listaCupones
-                    If tienda.NombreUsar = cupon.TiendaNombreUsar Then
-                        If Not cupon.Porcentaje = Nothing Then
-                            If cupon.Porcentaje > 0 Then
-                                cuponPorcentaje = cupon.Porcentaje
-                                cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                                cuponPorcentaje = cuponPorcentaje.Trim
-
-                                If cuponPorcentaje.Length = 1 Then
-                                    cuponPorcentaje = "0,0" + cuponPorcentaje
-                                Else
-                                    cuponPorcentaje = "0," + cuponPorcentaje
-                                End If
-                            End If
-                        End If
-                    End If
-                Next
-            End If
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -212,6 +184,7 @@ Namespace Ofertas
 
                                     If añadir = True Then
                                         juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                        juego = Cupones.Calcular(juego, tienda, precioBase)
 
                                         If Not juegobbdd Is Nothing Then
                                             juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
