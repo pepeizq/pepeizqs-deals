@@ -1,5 +1,4 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
 Imports Steam_Deals.Editor.RedesSociales
 Imports Steam_Deals.Interfaz
@@ -12,13 +11,11 @@ Imports Windows.System
 Namespace Editor
     Module Ofertas
 
-        Public Async Sub GenerarDatos(listaTotal As List(Of Oferta), listaSeleccionados As List(Of Oferta), cantidadJuegos As String)
+        Public Sub GenerarDatos(listaTotal As List(Of Oferta), listaSeleccionados As List(Of Oferta), cantidadJuegos As String)
 
             BloquearControles(False)
             Desarrolladores.GenerarDatos()
             LogosJuegos.GenerarDatos()
-
-            Dim helper As New LocalObjectStorageHelper
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -424,6 +421,29 @@ Namespace Editor
                 If cosas.ListaJuegosTotal.Count = 1 Then
                     Dim oferta As Oferta = cosas.ListaJuegosTotal(0)
                     oferta.Imagenes.Grande = tbImagen.Text
+                    oferta.Enlace = Referidos.Generar(tbEnlace.Text)
+
+                    Dim temp, temp2 As String
+                    Dim int, int2 As Integer
+
+                    int = tbTitulo.Text.IndexOf("•")
+                    temp = tbTitulo.Text.Remove(0, int + 1)
+
+                    int2 = temp.IndexOf("•")
+                    temp2 = temp.Remove(int2, temp.Length - int2)
+
+                    oferta.Descuento = temp2.Trim
+
+                    Dim temp3, temp4 As String
+                    Dim int3, int4 As Integer
+
+                    int3 = tbTitulo.Text.LastIndexOf("•")
+                    temp3 = tbTitulo.Text.Remove(int3, tbTitulo.Text.Length - int3)
+
+                    int4 = temp3.LastIndexOf("•")
+                    temp4 = temp3.Remove(0, int4 + 1)
+
+                    oferta.Precio1 = temp4.Trim
 
                     json = OfertasEntrada.GenerarJsonOfertas(New List(Of Oferta) From {oferta}, mensaje, cosas.Tienda)
                 ElseIf cosas.ListaJuegosTotal.Count > 1 Then
@@ -565,11 +585,21 @@ Namespace Editor
 
             If Not tbImagenJuego.Text = String.Empty Then
                 If Steam.CompararDominiosImagen(tbImagenJuego.Text) = True Then
-                    Dim fondo As String = tbImagenJuego.Text
-                    Dim int As Integer = fondo.LastIndexOf("/")
-                    fondo = fondo.Remove(int, fondo.Length - int)
-                    fondo = fondo + "/page_bg_generated_v6b.jpg"
-                    tbImagenFondo.Text = fondo
+                    If tbImagenJuego.Text.Contains("/apps/") Then
+                        Dim fondo As String = tbImagenJuego.Text
+                        Dim int As Integer = fondo.LastIndexOf("/")
+                        fondo = fondo.Remove(int, fondo.Length - int)
+                        fondo = fondo + "/page_bg_generated_v6b.jpg"
+                        tbImagenFondo.Text = fondo
+                    End If
+
+                    If tbImagenJuego.Text.Contains("/bundles/") Then
+                        Dim header As String = tbImagenJuego.Text
+                        Dim int2 As Integer = header.LastIndexOf("/")
+                        header = header.Remove(int2, header.Length - int2)
+                        header = header + "/header_ratio.jpg"
+                        tbImagenJuego.Text = header
+                    End If
                 End If
             End If
 

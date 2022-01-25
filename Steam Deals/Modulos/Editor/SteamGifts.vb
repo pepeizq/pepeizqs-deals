@@ -17,18 +17,18 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
+            Dim cbModo As ComboBox = pagina.FindName("cbModoSteamGifts")
             cbModo.SelectedIndex = 0
 
             RemoveHandler cbModo.SelectionChanged, AddressOf CambiarModo
             AddHandler cbModo.SelectionChanged, AddressOf CambiarModo
 
-            Dim botonActualizarHtml As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsActualizarHtml")
+            Dim botonActualizarHtml As Button = pagina.FindName("botonActualizarHtmlSteamGifts")
 
             RemoveHandler botonActualizarHtml.Click, AddressOf ActualizarHtml
             AddHandler botonActualizarHtml.Click, AddressOf ActualizarHtml
 
-            Dim botonNuevoSorteo As Button = pagina.FindName("botonEditorpepeizqdealsSteamGiftsNuevoSorteo")
+            Dim botonNuevoSorteo As Button = pagina.FindName("botonNuevoSorteoSteamGifts")
 
             RemoveHandler botonNuevoSorteo.Click, AddressOf AbrirNuevoSorteo
             AddHandler botonNuevoSorteo.Click, AddressOf AbrirNuevoSorteo
@@ -48,13 +48,13 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorpepeizqdealsSteamGiftsEnlace")
+            Dim tbEnlace As TextBox = pagina.FindName("tbEnlaceSteamGifts")
             tbEnlace.Text = wv.Source.AbsoluteUri
 
-            Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
+            Dim cbModo As ComboBox = pagina.FindName("cbModoSteamGifts")
             Dim modo As Integer = cbModo.SelectedIndex
 
-            Dim tbPrecargados As TextBlock = pagina.FindName("tbEditorpepeizqdealsSteamGiftsPrecargados")
+            Dim tbPrecargados As TextBlock = pagina.FindName("tbPrecargadosSteamGifts")
 
             If wv.Source.AbsoluteUri = "https://www.steamgifts.com/giveaways/new" Then
 
@@ -239,7 +239,7 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim cbModo As ComboBox = pagina.FindName("cbEditorpepeizqdealsSteamGiftsModo")
+            Dim cbModo As ComboBox = pagina.FindName("cbModoSteamGifts")
             Dim modo As Integer = cbModo.SelectedIndex
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
@@ -305,7 +305,7 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbPrecargados As TextBlock = pagina.FindName("tbEditorpepeizqdealsSteamGiftsPrecargados")
+            Dim tbPrecargados As TextBlock = pagina.FindName("tbPrecargadosSteamGifts")
 
             If modo = 0 Then
                 tbPrecargados.Text = listaVIP.Count.ToString

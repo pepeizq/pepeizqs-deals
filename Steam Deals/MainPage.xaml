@@ -1073,14 +1073,14 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsConfig" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svConfig" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Vertical">
-                                    <Button x:Name="botonEditorActualizarAnalisis" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonActualizarAnalisis" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock x:Uid="Rating" Foreground="White"/>
-                                                <TextBlock x:Name="tbEditorAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
+                                                <TextBlock x:Name="tbAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
@@ -1092,66 +1092,52 @@
                                         <TextBlock x:Name="tbDivisasRublo" VerticalAlignment="Center"/>
                                     </StackPanel>
 
-                                    <TextBlock Text="REST API" Margin="0,30,0,10"/>
+                                    <TextBlock Text="Web / REST API" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="tbEditorUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
+                                        <TextBox x:Name="tbUsuariopepeizqdeals" Margin="10,0" MinWidth="150"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                        <PasswordBox x:Name="tbEditorContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
+                                        <PasswordBox x:Name="pbContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
 
                                     <TextBlock Text="Reddit" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Correo" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="tbEditorUsuariopepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
+                                        <TextBox x:Name="tbUsuarioReddit" Margin="10,0" MinWidth="150"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                        <PasswordBox x:Name="tbEditorContraseñapepeizqdealsReddit" Margin="10,0" MinWidth="150"/>
+                                        <PasswordBox x:Name="pbContraseñaReddit" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
-
-                                    <!--<TextBlock Text="Mastodon" Margin="0,30,0,10"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="tbEditorUsuariopepeizqdealsMastodon" Margin="10,0" MinWidth="150"/>
-                                        <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                        <PasswordBox x:Name="tbEditorContraseñapepeizqdealsMastodon" Margin="10,0" MinWidth="150"/>
-                                    </StackPanel>-->
 
                                     <TextBlock Text="Discord" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="Hook Ofertas" HorizontalAlignment="Left"/>
-                                        <TextBox x:Name="tbEditorpepeizqdealsDiscordHookOfertas" Margin="0,10"/>
+                                        <TextBox x:Name="tbDiscordHookOfertas" Margin="0,10"/>
                                         <TextBlock Text="Hook Bundles" HorizontalAlignment="Left"/>
-                                        <TextBox x:Name="tbEditorpepeizqdealsDiscordHookBundles" Margin="0,10"/>
+                                        <TextBox x:Name="tbDiscordHookBundles" Margin="0,10"/>
                                         <TextBlock Text="Hook Gratis" HorizontalAlignment="Left"/>
-                                        <TextBox x:Name="tbEditorpepeizqdealsDiscordHookGratis" Margin="0,10"/>
+                                        <TextBox x:Name="tbDiscordHookGratis" Margin="0,10"/>
                                         <TextBlock Text="Hook Suscripciones" HorizontalAlignment="Left"/>
-                                        <TextBox x:Name="tbEditorpepeizqdealsDiscordHookSuscripciones" Margin="0,10"/>
+                                        <TextBox x:Name="tbDiscordHookSuscripciones" Margin="0,10"/>
                                         <TextBlock Text="Hook Otros" HorizontalAlignment="Left"/>
-                                        <TextBox x:Name="tbEditorpepeizqdealsDiscordHookOtros" Margin="0,10"/>
+                                        <TextBox x:Name="tbDiscordHookOtros" Margin="0,10"/>
                                     </StackPanel>
 
                                     <TextBlock Text="Copia Seguridad" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="botonEditorpepeizqdealsCopiaSeguridad" Background="{StaticResource BrushPrimario}" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button x:Name="botonCopiaSeguridad" Background="{StaticResource BrushPrimario}" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <StackPanel Orientation="Horizontal">
                                                     <fa:FontAwesome Icon="Folder" Foreground="White"/>
                                                 </StackPanel>
                                             </Button.Content>
                                         </Button>
-                                        <TextBlock x:Name="tbEditorpepeizqdealsCopiaSeguridad" Margin="15,0" VerticalAlignment="Center"/>
-                                    </StackPanel>
-
-                                    <TextBlock Text="IGDB" Margin="0,30,0,10"/>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="user-key" HorizontalAlignment="Left"/>
-                                        <TextBox x:Name="tbEditorpepeizqdealsIGDBClave" Margin="0,10"/>
+                                        <TextBlock x:Name="tbCopiaSeguridad" Margin="15,0" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsGrupoSteam" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svGrupoSteam" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <Grid Margin="0,0,0,20">
                                     <Grid.ColumnDefinitions>
@@ -1161,72 +1147,62 @@
 
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                                         <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
-                                        <TextBox x:Name="tbEditorUsuariopepeizqdealsSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbUsuarioSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                        <PasswordBox x:Name="tbEditorContraseñapepeizqdealsSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
-                                        <Button x:Name="botonEditorpepeizqdealsSteamNuevoAnuncio" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <PasswordBox x:Name="pbContraseñaSteam" Margin="10,0" MinWidth="150" VerticalAlignment="Center"/>
+                                        <Button x:Name="botonNuevoAnuncioSteam" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                             <Button.Content>
                                                 <TextBlock Text="Nuevo Anuncio" Foreground="White"/>
                                             </Button.Content>
                                         </Button>
                                     </StackPanel>
 
-                                    <TextBox x:Name="tbEditorEnlacepepeizqdealsSteam" Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEnlaceSteam" Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
 
-                                <WebView x:Name="wvEditorSteampepeizqdeals" MinWidth="700" MinHeight="700"/>
+                                <WebView x:Name="wvSteam" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsAmazonCom" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svAmazonCom" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
                                     <TextBlock x:Uid="Username" VerticalAlignment="Center"/>
-                                    <TextBox x:Name="tbEditorUsuariopepeizqdealsAmazon" Margin="10,0" MinWidth="150"/>
+                                    <TextBox x:Name="tbUsuarioAmazon" Margin="10,0" MinWidth="150"/>
                                     <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
-                                    <PasswordBox x:Name="tbEditorContraseñapepeizqdealsAmazon" Margin="10,0" MinWidth="150"/>
+                                    <PasswordBox x:Name="pbContraseñaAmazon" Margin="10,0" MinWidth="150"/>
                                 </StackPanel>
 
-                                <WebView x:Name="wvEditorAmazonpepeizqdeals" MinWidth="700" MinHeight="700"/>
+                                <WebView x:Name="wvAmazon" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsTwitter" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svTwitter" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
-                                    <TextBox x:Name="tbEditorTwitterCodigo" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbTwitterCodigo" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                 </StackPanel>
 
-                                <WebView x:Name="wvEditorTwitterpepeizqdeals" MinWidth="700" MinHeight="700"/>
+                                <WebView x:Name="wvTwitter" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
                         </ScrollViewer>
 
-                        <!--<ScrollViewer x:Name="svEditorpepeizqdealsMastodon" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
-                                    <TextBox x:Name="tbEditorMastodonCodigo" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                </StackPanel>
-
-                                <WebView x:Name="wvEditorMastodonpepeizqdeals" MinWidth="700" MinHeight="700"/>
-                            </StackPanel>
-                        </ScrollViewer>-->
-
-                        <ScrollViewer x:Name="svEditorpepeizqdealsPushWeb" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svPushWeb" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBox x:Name="tbEditorpepeizqdealsPushWebEnlace" Grid.Row="0" Margin="0,0,0,20"/>
+                                <TextBox x:Name="tbPushWebEnlace" Grid.Row="0" Margin="0,0,0,20"/>
 
-                                <WebView x:Name="wvEditorPushWebpepeizqdeals" Grid.Row="1"/>
+                                <WebView x:Name="wvPushWeb" Grid.Row="1"/>
                             </Grid>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsIconos" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svAssets" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <Button x:Name="botonEditorpepeizqdealsGenerarAssets" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonGenerarAssets" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Refresh" Foreground="White"/>
@@ -1235,15 +1211,15 @@
                                     </Button.Content>
                                 </Button>
 
-                                <GridView x:Name="gvEditorpepeizqdealsIconosTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+                                <GridView x:Name="gvIconosTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
-                                <GridView x:Name="gvEditorpepeizqdealsIconosReviews" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+                                <GridView x:Name="gvIconosReviews" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
-                                <GridView x:Name="gvEditorpepeizqdealsIconosDRMs" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+                                <GridView x:Name="gvIconosDRMs" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
-                                <GridView x:Name="gvEditorpepeizqdealsLogosRedditTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
+                                <GridView x:Name="gvLogosRedditTiendas" Margin="0,30" ItemContainerStyle="{StaticResource GridViewEstilo1}"/>
 
-                                <Button x:Name="botonEditorpepeizqdealsGenerarFondoRedesSociales" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonFondoRedesSociales" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Refresh" Foreground="White"/>
@@ -1252,11 +1228,11 @@
                                     </Button.Content>
                                 </Button>
 
-                                <TextBox x:Name="tbEditorpepeizqdealsFondoRedesSociales" Margin="0,30,0,0" AcceptsReturn="True"/>
+                                <TextBox x:Name="tbFondoRedesSociales" Margin="0,30,0,0" AcceptsReturn="True"/>
 
-                                <Button x:Name="botonEditorpepeizqdealsFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Width="2260">
+                                <Button x:Name="botonImagenFondoRedesSociales" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0" Margin="0,10,0,30" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Width="2260">
                                     <Button.Content>
-                                        <Grid x:Name="gridEditorpepeizqdealsFondoRedesSociales" HorizontalAlignment="Stretch">
+                                        <Grid x:Name="gridFondoRedesSociales" HorizontalAlignment="Stretch">
                                             <Grid.Background>
                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                     <GradientStop Color="#2e4460" Offset="0.5" />
@@ -1264,7 +1240,7 @@
                                                 </LinearGradientBrush>
                                             </Grid.Background>
 
-                                            <controls:AdaptiveGridView x:Name="gvEditorpepeizqdealsFondoRedesSociales" Opacity="0.3" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false" DesiredWidth="140" Padding="5,5,5,0">
+                                            <controls:AdaptiveGridView x:Name="gvFondoRedesSociales" Opacity="0.3" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsItemClickEnabled="false" DesiredWidth="140" Padding="5,5,5,0">
                                                 <!--<GridView.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <ItemsWrapGrid MaximumRowsOrColumns="10" Orientation="Horizontal"/>
@@ -1277,9 +1253,9 @@
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsRss" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svRss" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <Button x:Name="botonEditorpepeizqdealsGenerarRSS" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonGenerarRSS" Background="{StaticResource BrushPrimario}" Padding="15,10" VerticalAlignment="Top" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
                                             <fa:FontAwesome Icon="Refresh" Foreground="White"/>
@@ -1287,11 +1263,11 @@
                                     </Button.Content>
                                 </Button>
 
-                                <ListView x:Name="lvEditorpepeizqdealsRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}" Margin="0,30,0,0"/>
+                                <ListView x:Name="lvRSS" ItemContainerStyle="{StaticResource ListViewEstilo3}" Margin="0,30,0,0"/>
                             </StackPanel>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsSteamGifts" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svSteamGifts" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -1307,14 +1283,14 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <ComboBox x:Name="cbEditorpepeizqdealsSteamGiftsModo" Grid.Column="0" SelectedIndex="0" VerticalAlignment="Center">
+                                    <ComboBox x:Name="cbModoSteamGifts" Grid.Column="0" SelectedIndex="0" VerticalAlignment="Center">
                                         <ComboBoxItem Content="VIP"/>
                                         <ComboBoxItem Content="Plebeyos"/>
                                     </ComboBox>
 
-                                    <TextBlock x:Name="tbEditorpepeizqdealsSteamGiftsPrecargados" Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="tbPrecargadosSteamGifts" Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center"/>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsActualizarHtml" Grid.Column="2" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonActualizarHtmlSteamGifts" Grid.Column="2" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Actualizar Html" Foreground="White"/>
@@ -1322,7 +1298,7 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <Button x:Name="botonEditorpepeizqdealsSteamGiftsNuevoSorteo" Grid.Column="3" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button x:Name="botonNuevoSorteoSteamGifts" Grid.Column="3" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Nuevo Sorteo" Foreground="White"/>
@@ -1330,14 +1306,14 @@
                                         </Button.Content>
                                     </Button>
 
-                                    <TextBox x:Name="tbEditorpepeizqdealsSteamGiftsEnlace" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbEnlaceSteamGifts" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
                                 
                                 <WebView x:Name="wvSteamGifts" Grid.Row="1"/>
                             </Grid>
                         </ScrollViewer>
 
-                        <ScrollViewer x:Name="svEditorpepeizqdealsOtrasCosas" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                        <ScrollViewer x:Name="svOtrasCosas" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <WebView x:Name="wvNexus"/>
                             </StackPanel> 

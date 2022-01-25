@@ -7,27 +7,18 @@
         Public Property Numeraciones As TiendaNumeraciones
         Public Property Mensajes As TiendaMensajes
         Public Property Cupon As TiendaCupon
-        Public Property AnchoImagenTabla As String
-        Public Property FormatoCaratulaJuego As FormatoImagen
+        Public Property CaratulasJuegos As TiendaCaratulasJuegos
 
         Public Sub New(nombreMostrar As String, nombreUsar As String, logos As TiendaLogos, numeraciones As TiendaNumeraciones,
-                       mensajes As TiendaMensajes, cupon As TiendaCupon,
-                       anchoImagenTabla As String, formatoCaratulaJuego As FormatoImagen)
+                       mensajes As TiendaMensajes, cupon As TiendaCupon, caratulasJuegos As TiendaCaratulasJuegos)
             Me.NombreMostrar = nombreMostrar
             Me.NombreUsar = nombreUsar
             Me.Logos = logos
             Me.Numeraciones = numeraciones
             Me.Mensajes = mensajes
             Me.Cupon = cupon
-            Me.AnchoImagenTabla = anchoImagenTabla
-            Me.FormatoCaratulaJuego = formatoCaratulaJuego
+            Me.CaratulasJuegos = caratulasJuegos
         End Sub
-
-        Enum FormatoImagen
-            Ancho
-            Vertical
-            Cuadrado
-        End Enum
 
     End Class
 
@@ -85,6 +76,24 @@
             Me.Porcentaje = porcentaje
             Me.Codigo = codigo
         End Sub
+
+    End Class
+
+    Public Class TiendaCaratulasJuegos
+
+        Public Property AnchoTabla As Integer
+        Public Property Formato As FormatoImagen
+
+        Public Sub New(anchoTabla As Integer, formato As FormatoImagen)
+            Me.AnchoTabla = anchoTabla
+            Me.Formato = formato
+        End Sub
+
+        Enum FormatoImagen
+            Ancho
+            Vertical
+            Cuadrado
+        End Enum
 
     End Class
 End Namespace

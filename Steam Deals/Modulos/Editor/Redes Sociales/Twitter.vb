@@ -12,9 +12,9 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbCodigo As TextBox = pagina.FindName("tbEditorTwitterCodigo")
+            Dim tbCodigo As TextBox = pagina.FindName("tbTwitterCodigo")
 
-            Dim wvTwitter As WebView = pagina.FindName("wvEditorTwitterpepeizqdeals")
+            Dim wvTwitter As WebView = pagina.FindName("wvTwitter")
             AddHandler wvTwitter.NavigationCompleted, AddressOf Comprobar
 
             Dim appCredenciales As New TwitterCredentials("poGVvY5De5zBqQ4ceqp7jw7cj", "f8PCcuwFZxYi0r5iG6UaysgxD0NoaCT2RgYG8I41mvjghy58rc")
@@ -45,7 +45,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbCodigo As TextBox = pagina.FindName("tbEditorTwitterCodigo")
+            Dim tbCodigo As TextBox = pagina.FindName("tbTwitterCodigo")
 
             Dim wvTwitter As WebView = sender
 

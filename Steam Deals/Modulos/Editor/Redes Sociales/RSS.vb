@@ -12,10 +12,10 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim botonActualizar As Button = pagina.FindName("botonEditorpepeizqdealsGenerarRSS")
+            Dim botonActualizar As Button = pagina.FindName("botonGenerarRSS")
             botonActualizar.IsEnabled = False
 
-            Dim lv As ListView = pagina.FindName("lvEditorpepeizqdealsRSS")
+            Dim lv As ListView = pagina.FindName("lvRSS")
             lv.Items.Clear()
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://pepeizqdeals.com/wp-json/wp/v2/posts?per_page=20"))
@@ -229,7 +229,7 @@ Namespace Editor.RedesSociales
             Dim categoria As Integer = post.Categorias(0)
 
             Dim enlaceFinal As String = post.Enlace
-            Notificaciones.Toast(post.ImagenImgur, Nothing)
+
             Try
                 Await GrupoSteam.Enviar(titulo, post.ImagenImgur, enlaceFinal, post.Redireccion, categoria)
             Catch ex As Exception

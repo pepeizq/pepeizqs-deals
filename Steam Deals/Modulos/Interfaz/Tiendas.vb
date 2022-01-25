@@ -23,7 +23,7 @@ Namespace Interfaz
                                     New TiendaNumeraciones(0, 5),
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
-                                    "250", Tienda.FormatoImagen.Ancho)
+                                    New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public gamersgateT As New Tienda("GamersGate", "GamersGate",
                                          New TiendaLogos("Assets/Tiendas/gamersgate.ico",
@@ -34,7 +34,7 @@ Namespace Interfaz
                                          New TiendaNumeraciones(1, 7),
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(11, "RGAMEDEALS"),
-                                         "130", Tienda.FormatoImagen.Vertical)
+                                         New TiendaCaratulasJuegos(130, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public humbleT As New Tienda("Humble Store", "Humble",
                                      New TiendaLogos("Assets/Tiendas/humble.ico",
@@ -46,7 +46,7 @@ Namespace Interfaz
                                      New TiendaMensajes("Price with Humble Choice",
                                                         "The first price of the game corresponds to having Choice activated, and the second price to having it deactivated."),
                                      New TiendaCupon(0, Nothing),
-                                     "250", Tienda.FormatoImagen.Ancho)
+                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public gamesplanetT As New Tienda("Gamesplanet", "GamesPlanet",
                                           New TiendaLogos("Assets/Tiendas/gamesplanet.png",
@@ -57,7 +57,7 @@ Namespace Interfaz
                                           New TiendaNumeraciones(3, 8),
                                           New TiendaMensajes(Nothing, Nothing),
                                           New TiendaCupon(0, Nothing),
-                                          "250", Tienda.FormatoImagen.Ancho)
+                                          New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public fanaticalT As New Tienda("Fanatical", "Fanatical",
                                         New TiendaLogos("Assets/Tiendas/fanatical.ico",
@@ -68,7 +68,7 @@ Namespace Interfaz
                                         New TiendaNumeraciones(4, 10),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        "250", Tienda.FormatoImagen.Ancho)
+                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public gogT As New Tienda("GOG", "GOG",
                                   New TiendaLogos("Assets/Tiendas/gog.ico",
@@ -79,7 +79,7 @@ Namespace Interfaz
                                   New TiendaNumeraciones(5, 9),
                                   New TiendaMensajes(Nothing, "These games are DRM Free, that means you can install and play them on any computer and they do not need to have Internet to run them."),
                                   New TiendaCupon(0, Nothing),
-                                  "200", Tienda.FormatoImagen.Ancho)
+                                  New TiendaCaratulasJuegos(200, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public wingamestoreT As New Tienda("WinGameStore", "WinGameStore",
                                            New TiendaLogos("Assets/Tiendas/wingamestore.png",
@@ -90,10 +90,10 @@ Namespace Interfaz
                                            New TiendaNumeraciones(6, 14),
                                            New TiendaMensajes(Nothing, Nothing),
                                            New TiendaCupon(0, Nothing),
-                                           "250", Tienda.FormatoImagen.Ancho)
+                                           New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public nuuvemT As New Tienda("Nuuvem", "Nuuvem", New TiendaLogos("Assets/Tiendas/nuuvem.ico", Nothing, Nothing, Nothing, Nothing, Nothing),
-                                     New TiendaNumeraciones(8, 9999), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing)
+                                     New TiendaNumeraciones(8, 9999), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing)
 
         Public microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore",
                                              New TiendaLogos("Assets/Tiendas/microsoft.ico",
@@ -104,7 +104,7 @@ Namespace Interfaz
                                              New TiendaNumeraciones(9, 16),
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
-                                             "150", Tienda.FormatoImagen.Vertical)
+                                             New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public nexusT As New Tienda("My Nexus Store", "Nexus",
                                     New TiendaLogos("Assets/Tiendas/nexus.png",
@@ -115,7 +115,7 @@ Namespace Interfaz
                                     New TiendaNumeraciones(10, 15),
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
-                                    "250", Tienda.FormatoImagen.Ancho)
+                                    New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public voiduT As New Tienda("Voidu", "Voidu",
                                     New TiendaLogos("Assets/Tiendas/voidu.ico",
@@ -126,7 +126,7 @@ Namespace Interfaz
                                     New TiendaNumeraciones(11, 18),
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
-                                    "150", Tienda.FormatoImagen.Vertical)
+                                    New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public indiegalaT As New Tienda("IndieGala", "IndieGala",
                                         New TiendaLogos("Assets/Tiendas/indiegala.ico",
@@ -137,7 +137,7 @@ Namespace Interfaz
                                         New TiendaNumeraciones(12, 1210),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        "250", Tienda.FormatoImagen.Ancho)
+                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming",
                                              New TiendaLogos("Assets/Tiendas/gmg.ico",
@@ -148,7 +148,7 @@ Namespace Interfaz
                                              New TiendaNumeraciones(13, 1205),
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
-                                             "120", Tienda.FormatoImagen.Vertical)
+                                             New TiendaCaratulasJuegos(120, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public amazoncomT As New Tienda("Amazon.com", "AmazonCom",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -159,7 +159,7 @@ Namespace Interfaz
                                         New TiendaNumeraciones(15, 20),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        "150", Tienda.FormatoImagen.Vertical)
+                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public amazonesT As New Tienda("Amazon.es (Physical Format)", "AmazonEs",
                                        New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -170,7 +170,7 @@ Namespace Interfaz
                                        New TiendaNumeraciones(16, 9999),
                                        New TiendaMensajes("This game is in physical format, you will receive the box with the game", Nothing),
                                        New TiendaCupon(0, Nothing),
-                                       "150", Tienda.FormatoImagen.Vertical)
+                                       New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -181,7 +181,7 @@ Namespace Interfaz
                                         New TiendaNumeraciones(17, 1211),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        "150", Tienda.FormatoImagen.Vertical)
+                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public yuplayT As New Tienda("Yuplay", "Yuplay",
                                      New TiendaLogos("Assets/Tiendas/yuplay.png",
@@ -192,10 +192,10 @@ Namespace Interfaz
                                      New TiendaNumeraciones(18, 1209),
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(0, Nothing),
-                                     "250", Tienda.FormatoImagen.Ancho)
+                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public epicT As New Tienda("Epic Games Store", "EpicGamesStore", New TiendaLogos(Nothing, Nothing, "Assets/Tiendas/epicgames2.png", Nothing, "2020/12/epicgames3.png", Nothing),
-                                   New TiendaNumeraciones(19, 9999), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), "250", Nothing)
+                                   New TiendaNumeraciones(19, 9999), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public originT As New Tienda("Origin", "Origin",
                                      New TiendaLogos("Assets/Tiendas/origin.png",
@@ -206,7 +206,7 @@ Namespace Interfaz
                                      New TiendaNumeraciones(20, 1213),
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(0, Nothing),
-                                     "150", Tienda.FormatoImagen.Vertical)
+                                     New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public gamebilletT As New Tienda("GameBillet", "GameBillet",
                                          New TiendaLogos("Assets/Tiendas/gamebillet.ico",
@@ -217,7 +217,7 @@ Namespace Interfaz
                                          New TiendaNumeraciones(21, 1215),
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(0, Nothing),
-                                         "250", Tienda.FormatoImagen.Ancho)
+                                         New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public _2gameT As New Tienda("2Game", "2Game",
                                      New TiendaLogos("Assets/Tiendas/2game.png",
@@ -228,7 +228,7 @@ Namespace Interfaz
                                      New TiendaNumeraciones(22, 1216),
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(10, "HAPPY2GAME"),
-                                     "250", Tienda.FormatoImagen.Ancho)
+                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public blizzardT As New Tienda("Battle.net Store", "Blizzard",
                                        New TiendaLogos("Assets/Tiendas/battlenet.png",
@@ -239,7 +239,7 @@ Namespace Interfaz
                                        New TiendaNumeraciones(23, 1219),
                                        New TiendaMensajes(Nothing, Nothing),
                                        New TiendaCupon(0, Nothing),
-                                       "250", Tienda.FormatoImagen.Ancho)
+                                       New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
 
         Public direct2driveT As New Tienda("Direct2Drive", "Direct2Drive",
                                            New TiendaLogos("Assets/Tiendas/d2d.ico",
@@ -250,10 +250,10 @@ Namespace Interfaz
                                            New TiendaNumeraciones(24, 1238),
                                            New TiendaMensajes(Nothing, Nothing),
                                            New TiendaCupon(0, Nothing),
-                                           "150", Tienda.FormatoImagen.Vertical)
+                                           New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public robotcacheT As New Tienda("Robot Cache", "RobotCache", New TiendaLogos("Assets/Tiendas/robotcache.png", Nothing, "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing),
-                                         New TiendaNumeraciones(25, 1245), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), Nothing, Nothing)
+                                         New TiendaNumeraciones(25, 1245), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), Nothing)
 
         Public ubiT As New Tienda("Ubisoft Store", "Ubisoft",
                                   New TiendaLogos("Assets/Tiendas/ubi.png",
@@ -265,7 +265,7 @@ Namespace Interfaz
                                   New TiendaMensajes("Price with Club Units",
                                                      "The prices have been calculated with the discount given by Club Units."),
                                   New TiendaCupon(0, Nothing),
-                                  "150", Tienda.FormatoImagen.Vertical)
+                                  New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public allyouplayT As New Tienda("Allyouplay", "Allyouplay",
                                          New TiendaLogos("Assets/Tiendas/allyouplay.ico",
@@ -276,7 +276,7 @@ Namespace Interfaz
                                          New TiendaNumeraciones(27, 1318),
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(10, "ALLYOUCANPLAY"),
-                                         "150", Tienda.FormatoImagen.Vertical)
+                                         New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Public dlgamerT As New Tienda("DLGamer", "DLGamer",
                                       New TiendaLogos("Assets/Tiendas/dlgamer.png",
@@ -287,7 +287,7 @@ Namespace Interfaz
                                       New TiendaNumeraciones(28, 1379),
                                       New TiendaMensajes(Nothing, Nothing),
                                       New TiendaCupon(0, Nothing),
-                                      "150", Tienda.FormatoImagen.Vertical)
+                                      New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,

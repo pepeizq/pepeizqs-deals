@@ -9,7 +9,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvEditorPushWebpepeizqdeals")
+            Dim wv As WebView = pagina.FindName("wvPushWeb")
             wv.Navigate(New Uri("https://pepeizqdeals.com/wp-admin/admin.php?page=letspush-send-notification"))
 
             RemoveHandler wv.LoadCompleted, AddressOf NavegadorCargaCompleta
@@ -24,7 +24,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbEnlace As TextBox = pagina.FindName("tbEditorpepeizqdealsPushWebEnlace")
+            Dim tbEnlace As TextBox = pagina.FindName("tbPushWebEnlace")
             tbEnlace.Text = wv.Source.AbsoluteUri
 
             If wv.Source.AbsoluteUri.Contains("https://pepeizqdeals.com/wp-login.php?redirect_to=") Then
@@ -65,7 +65,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvEditorPushWebpepeizqdeals")
+            Dim wv As WebView = pagina.FindName("wvPushWeb")
 
             If wv.Source.AbsoluteUri = "https://pepeizqdeals.com/wp-admin/admin.php?page=letspush-send-notification" Then
 

@@ -8,7 +8,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+            Dim wv As WebView = pagina.FindName("wvSteam")
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
                 If Not wv.DocumentTitle.Contains("Error") Then
@@ -67,7 +67,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+            Dim wv As WebView = pagina.FindName("wvSteam")
             wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
             AddHandler wv.NavigationCompleted, AddressOf Comprobar2
@@ -82,7 +82,7 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBox = pagina.FindName("tbEditorEnlacepepeizqdealsSteam")
+            Dim tb As TextBox = pagina.FindName("tbEnlaceSteam")
             tb.Text = wv.Source.AbsoluteUri
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then

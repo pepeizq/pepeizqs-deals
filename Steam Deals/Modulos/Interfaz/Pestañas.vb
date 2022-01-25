@@ -105,40 +105,40 @@ Namespace Interfaz
             Dim svAnuncios As ScrollViewer = pagina.FindName("svAnuncios")
             svAnuncios.Visibility = Visibility.Collapsed
 
-            Dim svConfig As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")
+            Dim svConfig As ScrollViewer = pagina.FindName("svConfig")
             svConfig.Visibility = Visibility.Collapsed
 
-            Dim svGrupoSteam As ScrollViewer = pagina.FindName("svEditorpepeizqdealsGrupoSteam")
+            Dim svGrupoSteam As ScrollViewer = pagina.FindName("svGrupoSteam")
             svGrupoSteam.Visibility = Visibility.Collapsed
 
-            Dim svAmazonCom As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAmazonCom")
+            Dim svAmazonCom As ScrollViewer = pagina.FindName("svAmazonCom")
             svAmazonCom.Visibility = Visibility.Collapsed
 
-            Dim svTwitter As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
+            Dim svTwitter As ScrollViewer = pagina.FindName("svTwitter")
             svTwitter.Visibility = Visibility.Collapsed
 
             'Dim svMastodon As ScrollViewer = pagina.FindName("svEditorpepeizqdealsMastodon")
             'svMastodon.Visibility = Visibility.Collapsed
 
-            Dim svPushWeb As ScrollViewer = pagina.FindName("svEditorpepeizqdealsPushWeb")
+            Dim svPushWeb As ScrollViewer = pagina.FindName("svPushWeb")
             svPushWeb.Visibility = Visibility.Collapsed
 
-            Dim svIconos As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
+            Dim svIconos As ScrollViewer = pagina.FindName("svAssets")
             svIconos.Visibility = Visibility.Collapsed
 
-            Dim svRss As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
+            Dim svRss As ScrollViewer = pagina.FindName("svRss")
             svRss.Visibility = Visibility.Collapsed
 
-            Dim svSteamGifts As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamGifts")
+            Dim svSteamGifts As ScrollViewer = pagina.FindName("svSteamGifts")
             svSteamGifts.Visibility = Visibility.Collapsed
 
             sv.Visibility = Visibility.Visible
 
             '---------------------------------------
 
-            If sv.Name = "svEditorpepeizqdealsRss" Then
+            If sv.Name = "svRss" Then
                 RSS.Generar()
-            ElseIf sv.Name = "svEditorpepeizqdealsSteamGifts" Then
+            ElseIf sv.Name = "svSteamGifts" Then
                 SteamGifts.Generar()
             End If
 

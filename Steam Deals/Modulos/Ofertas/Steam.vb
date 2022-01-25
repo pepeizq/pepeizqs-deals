@@ -387,6 +387,8 @@ Namespace Ofertas
             For Each dominio In listaDominiosImagenes
                 If enlace.Contains(dominio + "/steam/apps/") Then
                     Return True
+                ElseIf enlace.Contains(dominio + "/steam/bundles/") Then
+                    Return True
                 End If
             Next
 

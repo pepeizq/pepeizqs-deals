@@ -209,7 +209,7 @@ Namespace Editor
                     tiendaS = tiendaS.Trim
 
                     Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaGratis")
-                    tienda = New Tienda(tiendaS, tiendaS, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(0, 0), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing)
+                    tienda = New Tienda(tiendaS, tiendaS, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(0, 0), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing)
 
                     Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoGratis")
                     json = OfertasEntrada.GenerarJsonGratis(imagenJuego.Source)

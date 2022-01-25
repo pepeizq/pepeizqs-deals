@@ -162,7 +162,6 @@
     <Compile Include="Modulos\Herramientas\Busqueda.vb" />
     <Compile Include="Modulos\Herramientas\Captura.vb" />
     <Compile Include="Modulos\Divisas.vb" />
-    <Compile Include="Modulos\Editor\IGDB.vb" />
     <Compile Include="Modulos\Herramientas\Clipboard.vb" />
     <Compile Include="Modulos\Interfaz\Cupones.vb" />
     <Compile Include="Modulos\Interfaz\Filtrados.vb" />

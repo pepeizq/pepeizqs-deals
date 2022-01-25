@@ -178,7 +178,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsConfig")
+        Dim sv As ScrollViewer = pagina.FindName("svConfig")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -188,7 +188,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsGrupoSteam")
+        Dim sv As ScrollViewer = pagina.FindName("svGrupoSteam")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -198,7 +198,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsAmazonCom")
+        Dim sv As ScrollViewer = pagina.FindName("svAmazonCom")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -208,7 +208,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsTwitter")
+        Dim sv As ScrollViewer = pagina.FindName("svTwitter")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -228,7 +228,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsPushWeb")
+        Dim sv As ScrollViewer = pagina.FindName("svPushWeb")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -238,7 +238,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsIconos")
+        Dim sv As ScrollViewer = pagina.FindName("svAssets")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -248,7 +248,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsRss")
+        Dim sv As ScrollViewer = pagina.FindName("svRss")
         Pestañas.Visibilidad(sv)
 
     End Sub
@@ -264,7 +264,7 @@ Module Configuracion
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim sv As ScrollViewer = pagina.FindName("svEditorpepeizqdealsSteamGifts")
+        Dim sv As ScrollViewer = pagina.FindName("svSteamGifts")
         Pestañas.Visibilidad(sv)
 
     End Sub

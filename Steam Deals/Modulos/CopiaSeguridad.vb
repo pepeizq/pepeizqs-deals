@@ -9,7 +9,7 @@ Module CopiaSeguridad
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim botonCarpeta As Button = pagina.FindName("botonEditorpepeizqdealsCopiaSeguridad")
+        Dim botonCarpeta As Button = pagina.FindName("botonCopiaSeguridad")
         RemoveHandler botonCarpeta.Click, AddressOf EscogerCarpeta
         AddHandler botonCarpeta.Click, AddressOf EscogerCarpeta
 
@@ -22,7 +22,7 @@ Module CopiaSeguridad
         End Try
 
         If Not carpeta Is Nothing Then
-            Dim tbCarpeta As TextBlock = pagina.FindName("tbEditorpepeizqdealsCopiaSeguridad")
+            Dim tbCarpeta As TextBlock = pagina.FindName("tbCopiaSeguridad")
             tbCarpeta.Text = carpeta.Path
 
             Dim carpetas As IReadOnlyList(Of StorageFolder) = Await carpeta.GetFoldersAsync
@@ -63,7 +63,7 @@ Module CopiaSeguridad
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tbCarpeta As TextBlock = pagina.FindName("tbEditorpepeizqdealsCopiaSeguridad")
+            Dim tbCarpeta As TextBlock = pagina.FindName("tbCopiaSeguridad")
             tbCarpeta.Text = carpetaSeleccionada.Path
         End If
 

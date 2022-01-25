@@ -8,7 +8,7 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim usuarioPepeizq As TextBox = pagina.FindName("tbEditorUsuariopepeizqdeals")
+            Dim usuarioPepeizq As TextBox = pagina.FindName("tbUsuariopepeizqdeals")
 
             If Not usuarioPepeizq Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") Is Nothing Then
@@ -16,7 +16,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim contraseñaPepeizq As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdeals")
+            Dim contraseñaPepeizq As PasswordBox = pagina.FindName("pbContraseñapepeizqdeals")
 
             If Not contraseñaPepeizq Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") Is Nothing Then
@@ -24,7 +24,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim usuarioReddit As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsReddit")
+            Dim usuarioReddit As TextBox = pagina.FindName("tbUsuarioReddit")
 
             If Not usuarioReddit Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit") Is Nothing Then
@@ -32,7 +32,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim contraseñaReddit As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdealsReddit")
+            Dim contraseñaReddit As PasswordBox = pagina.FindName("pbContraseñaReddit")
 
             If Not contraseñaReddit Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit") Is Nothing Then
@@ -40,7 +40,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim usuarioPepeizqSteam As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsSteam")
+            Dim usuarioPepeizqSteam As TextBox = pagina.FindName("tbUsuarioSteam")
 
             If Not usuarioPepeizqSteam Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") Is Nothing Then
@@ -48,7 +48,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim contraseñaPepeizqSteam As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdealsSteam")
+            Dim contraseñaPepeizqSteam As PasswordBox = pagina.FindName("pbContraseñaSteam")
 
             If Not contraseñaPepeizqSteam Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") Is Nothing Then
@@ -56,12 +56,12 @@ Namespace Editor
                 End If
             End If
 
-            Dim botonPepeizqSteamNuevoAnuncio As Button = pagina.FindName("botonEditorpepeizqdealsSteamNuevoAnuncio")
+            Dim botonPepeizqSteamNuevoAnuncio As Button = pagina.FindName("botonNuevoAnuncioSteam")
 
             RemoveHandler botonPepeizqSteamNuevoAnuncio.Click, AddressOf AbrirNuevoAnuncio
             AddHandler botonPepeizqSteamNuevoAnuncio.Click, AddressOf AbrirNuevoAnuncio
 
-            Dim usuarioPepeizqAmazon As TextBox = pagina.FindName("tbEditorUsuariopepeizqdealsAmazon")
+            Dim usuarioPepeizqAmazon As TextBox = pagina.FindName("tbUsuarioAmazon")
 
             If Not usuarioPepeizqAmazon Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizqAmazon") Is Nothing Then
@@ -69,7 +69,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim contraseñaPepeizqAmazon As PasswordBox = pagina.FindName("tbEditorContraseñapepeizqdealsAmazon")
+            Dim contraseñaPepeizqAmazon As PasswordBox = pagina.FindName("pbContraseñaAmazon")
 
             If Not contraseñaPepeizqAmazon Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon") Is Nothing Then
@@ -77,7 +77,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim tbEditorpepeizqdealsDiscordHookOfertas As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookOfertas")
+            Dim tbEditorpepeizqdealsDiscordHookOfertas As TextBox = pagina.FindName("tbDiscordHookOfertas")
 
             If Not tbEditorpepeizqdealsDiscordHookOfertas Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord") Is Nothing Then
@@ -85,7 +85,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim tbEditorpepeizqdealsDiscordHookBundles As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookBundles")
+            Dim tbEditorpepeizqdealsDiscordHookBundles As TextBox = pagina.FindName("tbDiscordHookBundles")
 
             If Not tbEditorpepeizqdealsDiscordHookBundles Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord") Is Nothing Then
@@ -93,7 +93,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim tbEditorpepeizqdealsDiscordHookGratis As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookGratis")
+            Dim tbEditorpepeizqdealsDiscordHookGratis As TextBox = pagina.FindName("tbDiscordHookGratis")
 
             If Not tbEditorpepeizqdealsDiscordHookGratis Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("hookGratisDiscord") Is Nothing Then
@@ -101,7 +101,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim tbEditorpepeizqdealsDiscordHookSuscripciones As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookSuscripciones")
+            Dim tbEditorpepeizqdealsDiscordHookSuscripciones As TextBox = pagina.FindName("tbDiscordHookSuscripciones")
 
             If Not tbEditorpepeizqdealsDiscordHookSuscripciones Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("hookSuscripcionesDiscord") Is Nothing Then
@@ -109,7 +109,7 @@ Namespace Editor
                 End If
             End If
 
-            Dim tbEditorpepeizqdealsDiscordHookOtros As TextBox = pagina.FindName("tbEditorpepeizqdealsDiscordHookOtros")
+            Dim tbEditorpepeizqdealsDiscordHookOtros As TextBox = pagina.FindName("tbDiscordHookOtros")
 
             If Not tbEditorpepeizqdealsDiscordHookOtros Is Nothing Then
                 If Not ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord") Is Nothing Then
@@ -132,7 +132,7 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvEditorSteampepeizqdeals")
+            Dim wv As WebView = pagina.FindName("wvSteam")
             wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
 
         End Sub

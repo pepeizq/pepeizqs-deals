@@ -425,47 +425,43 @@ Namespace Editor
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim resultados As List(Of Post) = Nothing
+                Dim resultado As Post = Nothing
 
                 Try
-                    resultados = Await cliente.CustomRequest.Get(Of List(Of Post))("wp/v2/posts?per_page=100")
+                    resultado = Await cliente.CustomRequest.Get(Of Post)("wp/v2/posts/" + idWeb + "/")
                 Catch ex As Exception
 
                 End Try
 
-                If Not resultados Is Nothing Then
-                    For Each resultado In resultados
-                        If resultado.Id.ToString = idWeb Then
-                            If resultado.EntradaGrupoSteam = Nothing Then
-                                Dim enlace As String = Referidos.Generar("https://store.steampowered.com/news/group/33500256/view/" + idEntradaSteam)
+                If Not resultado Is Nothing Then
+                    If resultado.EntradaGrupoSteam = Nothing Then
+                        Dim enlace As String = Referidos.Generar("https://store.steampowered.com/news/group/33500256/view/" + idEntradaSteam)
 
-                                resultado.EntradaGrupoSteam = enlace
+                        resultado.EntradaGrupoSteam = enlace
 
-                                Dim compartirIngles As String = resultado.CompartirIngles
+                        Dim compartirIngles As String = resultado.CompartirIngles
 
-                                If Not compartirIngles = String.Empty Then
-                                    Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
+                        If Not compartirIngles = String.Empty Then
+                            Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
                                                          " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
 
-                                    compartirIngles = compartirIngles.Insert(5, html)
-                                    resultado.CompartirIngles = compartirIngles
-                                End If
+                            compartirIngles = compartirIngles.Insert(5, html)
+                            resultado.CompartirIngles = compartirIngles
+                        End If
 
-                                Dim compartirEspañol As String = resultado.CompartirEspañol
+                        Dim compartirEspañol As String = resultado.CompartirEspañol
 
-                                If Not compartirIngles = String.Empty Then
-                                    Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
+                        If Not compartirIngles = String.Empty Then
+                            Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
                                                          " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
 
-                                    compartirEspañol = compartirEspañol.Insert(5, html)
-                                    resultado.CompartirEspañol = compartirEspañol
-                                End If
-
-                                Await cliente.CustomRequest.Update(Of Post, Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
-                                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
-                            End If
+                            compartirEspañol = compartirEspañol.Insert(5, html)
+                            resultado.CompartirEspañol = compartirEspañol
                         End If
-                    Next
+
+                        Await cliente.CustomRequest.Update(Of Post, Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + resultado.Id.ToString + "&action=edit"))
+                    End If
                 End If
             End If
 

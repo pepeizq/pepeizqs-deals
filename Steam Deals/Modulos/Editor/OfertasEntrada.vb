@@ -16,7 +16,7 @@ Namespace Editor
                 contenido = contenido + "[vc_column_text]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenido = contenido + "<tbody>" + Environment.NewLine
                 contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine
-                contenido = contenido + "<td style=" + ChrW(34) + "width: " + tienda.AnchoImagenTabla + "px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
+                contenido = contenido + "<td style=" + ChrW(34) + "width: " + tienda.CaratulasJuegos.AnchoTabla.ToString + "px;" + ChrW(34) + ">Image</td>" + Environment.NewLine
 
                 contenido = contenido + "<td>Title[bg_sort_this_table showinfo=0 responsive=1 pagination=0 perpage=2000 showsearch=0]</td>" + Environment.NewLine
 

@@ -244,9 +244,9 @@ Namespace Editor
                         .VerticalAlignment = VerticalAlignment.Stretch
                     }
 
-                    If tienda.FormatoCaratulaJuego = Tienda.FormatoImagen.Vertical Then
+                    If tienda.CaratulasJuegos.Formato = TiendaCaratulasJuegos.FormatoImagen.Vertical Then
                         panel.Margin = New Thickness(35, 10, 35, 30)
-                    ElseIf tienda.FormatoCaratulaJuego = Tienda.FormatoImagen.Cuadrado Then
+                    ElseIf tienda.CaratulasJuegos.Formato = TiendaCaratulasJuegos.FormatoImagen.Cuadrado Then
                         panel.Margin = New Thickness(65, 10, 65, 30)
                     Else
                         panel.Margin = New Thickness(20, 10, 20, 30)

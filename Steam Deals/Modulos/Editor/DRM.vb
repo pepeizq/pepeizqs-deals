@@ -64,7 +64,7 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim gv As GridView = pagina.FindName("gvEditorpepeizqdealsIconosDRMs")
+            Dim gv As GridView = pagina.FindName("gvIconosDRMs")
 
             Dim i As Integer = 0
             While i < 9

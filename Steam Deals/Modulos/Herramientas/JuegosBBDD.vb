@@ -84,10 +84,10 @@ Module JuegosBBDD
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim boton As Button = pagina.FindName("botonEditorActualizarAnalisis")
+        Dim boton As Button = pagina.FindName("botonActualizarAnalisis")
         boton.IsEnabled = False
 
-        Dim tbAvance As TextBlock = pagina.FindName("tbEditorAnalisisAvance")
+        Dim tbAvance As TextBlock = pagina.FindName("tbAnalisisAvance")
         tbAvance.Text = String.Empty
         tbAvance.Visibility = Visibility.Visible
 
@@ -154,7 +154,7 @@ Module JuegosBBDD
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim tbAvance As TextBlock = pagina.FindName("tbEditorAnalisisAvance")
+        Dim tbAvance As TextBlock = pagina.FindName("tbAnalisisAvance")
         tbAvance.Text = e.ProgressPercentage.ToString + "%"
 
     End Sub
@@ -164,10 +164,10 @@ Module JuegosBBDD
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
 
-        Dim boton As Button = pagina.FindName("botonEditorActualizarAnalisis")
+        Dim boton As Button = pagina.FindName("botonActualizarAnalisis")
         boton.IsEnabled = True
 
-        Dim tbAvance As TextBlock = pagina.FindName("tbEditorAnalisisAvance")
+        Dim tbAvance As TextBlock = pagina.FindName("tbAnalisisAvance")
         tbAvance.Text = String.Empty
         tbAvance.Visibility = Visibility.Collapsed
 

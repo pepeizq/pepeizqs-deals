@@ -219,141 +219,117 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorActualizarAnalisis.Click
+    Private Sub BotonActualizarAnalisis_Click(sender As Object, e As RoutedEventArgs) Handles botonActualizarAnalisis.Click
 
         JuegosBBDD.BuscarAnalisis()
 
     End Sub
 
-    Private Sub TbEditorUsuariopepeizqdeals_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdeals.TextChanged
+    Private Sub TbUsuariopepeizqdeals_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbUsuariopepeizqdeals.TextChanged
 
-        If tbEditorUsuariopepeizqdeals.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") = tbEditorUsuariopepeizqdeals.Text.Trim
+        If tbUsuariopepeizqdeals.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") = tbUsuariopepeizqdeals.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorContraseñapepeizqdeals_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdeals.PasswordChanged
+    Private Sub PbContraseñapepeizqdeals_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles pbContraseñapepeizqdeals.PasswordChanged
 
-        If tbEditorContraseñapepeizqdeals.Password.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") = tbEditorContraseñapepeizqdeals.Password.Trim
+        If pbContraseñapepeizqdeals.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") = pbContraseñapepeizqdeals.Password.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorUsuariopepeizqdealsReddit_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsReddit.TextChanged
+    Private Sub TbUsuarioReddit_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbUsuarioReddit.TextChanged
 
-        If tbEditorUsuariopepeizqdealsReddit.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit") = tbEditorUsuariopepeizqdealsReddit.Text.Trim
+        If tbUsuarioReddit.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqReddit") = tbUsuarioReddit.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorContraseñapepeizqdealsReddit_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsReddit.PasswordChanged
+    Private Sub PbContraseñaReddit_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles pbContraseñaReddit.PasswordChanged
 
-        If tbEditorContraseñapepeizqdealsReddit.Password.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit") = tbEditorContraseñapepeizqdealsReddit.Password.Trim
+        If pbContraseñaReddit.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqReddit") = pbContraseñaReddit.Password.Trim
         End If
 
     End Sub
 
-    'Private Sub TbEditorUsuariopepeizqdealsMastodon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsMastodon.TextChanged
+    Private Sub TbUsuarioSteam_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbUsuarioSteam.TextChanged
 
-    '    If tbEditorUsuariopepeizqdealsMastodon.Text.Trim.Length > 0 Then
-    '        ApplicationData.Current.LocalSettings.Values("usuarioPepeizqMastodon") = tbEditorUsuariopepeizqdealsMastodon.Text.Trim
-    '    End If
-
-    'End Sub
-
-    'Private Sub TbEditorContraseñapepeizqdealsMastodon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsMastodon.PasswordChanged
-
-    '    If tbEditorContraseñapepeizqdealsMastodon.Password.Trim.Length > 0 Then
-    '        ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqMastodon") = tbEditorContraseñapepeizqdealsMastodon.Password.Trim
-    '    End If
-
-    'End Sub
-
-    Private Sub TbEditorUsuariopepeizqdealsSteam_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsSteam.TextChanged
-
-        If tbEditorUsuariopepeizqdealsSteam.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") = tbEditorUsuariopepeizqdealsSteam.Text.Trim
+        If tbUsuarioSteam.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam") = tbUsuarioSteam.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorContraseñapepeizqdealsSteam_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsSteam.PasswordChanged
+    Private Sub PbContraseñaSteam_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles pbContraseñaSteam.PasswordChanged
 
-        If tbEditorContraseñapepeizqdealsSteam.Password.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") = tbEditorContraseñapepeizqdealsSteam.Password.Trim
+        If pbContraseñaSteam.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam") = pbContraseñaSteam.Password.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorUsuariopepeizqdealsAmazon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorUsuariopepeizqdealsAmazon.TextChanged
+    Private Sub TbUsuarioAmazon_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbUsuarioAmazon.TextChanged
 
-        If tbEditorUsuariopepeizqdealsAmazon.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqAmazon") = tbEditorUsuariopepeizqdealsAmazon.Text.Trim
+        If tbUsuarioAmazon.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("usuarioPepeizqAmazon") = tbUsuarioAmazon.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorContraseñapepeizqdealsAmazon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles tbEditorContraseñapepeizqdealsAmazon.PasswordChanged
+    Private Sub PbContraseñaAmazon_PasswordChanged(sender As Object, e As RoutedEventArgs) Handles pbContraseñaAmazon.PasswordChanged
 
-        If tbEditorContraseñapepeizqdealsAmazon.Password.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon") = tbEditorContraseñapepeizqdealsAmazon.Password.Trim
+        If pbContraseñaAmazon.Password.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqAmazon") = pbContraseñaAmazon.Password.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorpepeizqdealsDiscordHookOfertas_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookOfertas.TextChanged
+    Private Sub TbDiscordHookOfertas_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDiscordHookOfertas.TextChanged
 
-        If tbEditorpepeizqdealsDiscordHookOfertas.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord") = tbEditorpepeizqdealsDiscordHookOfertas.Text.Trim
+        If tbDiscordHookOfertas.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookOfertasDiscord") = tbDiscordHookOfertas.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorpepeizqdealsDiscordHookBundles_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookBundles.TextChanged
+    Private Sub TbDiscordHookBundles_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDiscordHookBundles.TextChanged
 
-        If tbEditorpepeizqdealsDiscordHookBundles.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord") = tbEditorpepeizqdealsDiscordHookBundles.Text.Trim
+        If tbDiscordHookBundles.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookBundlesDiscord") = tbDiscordHookBundles.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorpepeizqdealsDiscordHookGratis_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookGratis.TextChanged
+    Private Sub TbDiscordHookGratis_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDiscordHookGratis.TextChanged
 
-        If tbEditorpepeizqdealsDiscordHookGratis.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("hookGratisDiscord") = tbEditorpepeizqdealsDiscordHookGratis.Text.Trim
+        If tbDiscordHookGratis.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookGratisDiscord") = tbDiscordHookGratis.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorpepeizqdealsDiscordHookSuscripciones_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookSuscripciones.TextChanged
+    Private Sub TbDiscordHookSuscripciones_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDiscordHookSuscripciones.TextChanged
 
-        If tbEditorpepeizqdealsDiscordHookSuscripciones.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("hookSuscripcionesDiscord") = tbEditorpepeizqdealsDiscordHookSuscripciones.Text.Trim
+        If tbDiscordHookSuscripciones.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookSuscripcionesDiscord") = tbDiscordHookSuscripciones.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorpepeizqdealsDiscordHookOtros_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsDiscordHookOtros.TextChanged
+    Private Sub TbDiscordHookOtros_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDiscordHookOtros.TextChanged
 
-        If tbEditorpepeizqdealsDiscordHookOtros.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord") = tbEditorpepeizqdealsDiscordHookOtros.Text.Trim
+        If tbDiscordHookOtros.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("hookOtrosDiscord") = tbDiscordHookOtros.Text.Trim
         End If
 
     End Sub
 
-    Private Sub TbEditorpepeizqdealsIGDBClave_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbEditorpepeizqdealsIGDBClave.TextChanged
-
-        If tbEditorpepeizqdealsIGDBClave.Text.Trim.Length > 0 Then
-            ApplicationData.Current.LocalSettings.Values("igdbClave") = tbEditorpepeizqdealsIGDBClave.Text.Trim
-        End If
-
-    End Sub
-
-    Private Sub BotonEditorpepeizqdealsGenerarAssets_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarAssets.Click
+    Private Sub BotonGenerarAssets_Click(sender As Object, e As RoutedEventArgs) Handles botonGenerarAssets.Click
 
         Editor.Assets.GenerarIconosTiendas()
         Editor.Assets.GenerarIconosReviews()
@@ -397,7 +373,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsFondoRedesSociales_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsFondoRedesSociales.Click
+    Private Sub BotonFondoRedesSociales_Click(sender As Object, e As RoutedEventArgs) Handles botonFondoRedesSociales.Click
 
         Dim boton As Button = sender
         Dim grid As Grid = boton.Content
@@ -405,7 +381,7 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub BotonEditorpepeizqdealsGenerarRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonEditorpepeizqdealsGenerarRSS.Click
+    Private Sub BotonGenerarRSS_Click(sender As Object, e As RoutedEventArgs) Handles botonGenerarRSS.Click
 
         Editor.RedesSociales.RSS.Generar()
 
