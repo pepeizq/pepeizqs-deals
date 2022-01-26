@@ -137,6 +137,7 @@
     <Compile Include="Modulos\CopiaSeguridad.vb" />
     <Compile Include="Modulos\Editor\BundlesImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\Cuentas.vb" />
+    <Compile Include="Modulos\Editor\FichasTiendasWeb.vb" />
     <Compile Include="Modulos\Editor\Ofertas.vb" />
     <Compile Include="Modulos\Editor\OfertasEntrada.vb" />
     <Compile Include="Modulos\Editor\DRM.vb" />
@@ -433,12 +434,14 @@
     <Content Include="Assets\Tiendas\gamesplanet2.png" />
     <Content Include="Assets\Tiendas\geforcenow2.png" />
     <Content Include="Assets\Tiendas\geforcenow3.png" />
+    <Content Include="Assets\Tiendas\humblebundle.png" />
     <Content Include="Assets\Tiendas\humblebundlemedio1.png" />
     <Content Include="Assets\Tiendas\humblebundlemedio2.png" />
     <Content Include="Assets\Tiendas\humblechoice.png" />
     <Content Include="Assets\Tiendas\gamebillet.ico" />
     <Content Include="Assets\Tiendas\gamebillet2.png" />
     <Content Include="Assets\Tiendas\gog2.png" />
+    <Content Include="Assets\Tiendas\humblestore.png" />
     <Content Include="Assets\Tiendas\humbletrove.png" />
     <Content Include="Assets\Tiendas\nexus.png" />
     <Content Include="Assets\Tiendas\nexus2.png" />
@@ -448,7 +451,6 @@
     <Content Include="Assets\Tiendas\fanatical2.png" />
     <Content Include="Assets\Tiendas\gamersgate2.png" />
     <Content Include="Assets\Tiendas\gmg2.png" />
-    <Content Include="Assets\Tiendas\humble2.png" />
     <Content Include="Assets\Tiendas\indiegala2.png" />
     <Content Include="Assets\Tiendas\microsoftstore2.png" />
     <Content Include="Assets\Tiendas\origin2.png" />

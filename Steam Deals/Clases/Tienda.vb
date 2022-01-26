@@ -1,4 +1,6 @@
-﻿Namespace Clases
+﻿Imports Steam_Deals.Interfaz
+
+Namespace Clases
     Public Class Tienda
 
         Public Property NombreMostrar As String
@@ -8,9 +10,11 @@
         Public Property Mensajes As TiendaMensajes
         Public Property Cupon As TiendaCupon
         Public Property CaratulasJuegos As TiendaCaratulasJuegos
+        Public Property FichaWeb As TiendaFichaWeb
 
         Public Sub New(nombreMostrar As String, nombreUsar As String, logos As TiendaLogos, numeraciones As TiendaNumeraciones,
-                       mensajes As TiendaMensajes, cupon As TiendaCupon, caratulasJuegos As TiendaCaratulasJuegos)
+                       mensajes As TiendaMensajes, cupon As TiendaCupon, caratulasJuegos As TiendaCaratulasJuegos,
+                       fichaWeb As TiendaFichaWeb)
             Me.NombreMostrar = nombreMostrar
             Me.NombreUsar = nombreUsar
             Me.Logos = logos
@@ -18,6 +22,7 @@
             Me.Mensajes = mensajes
             Me.Cupon = cupon
             Me.CaratulasJuegos = caratulasJuegos
+            Me.FichaWeb = fichaWeb
         End Sub
 
     End Class
@@ -34,10 +39,10 @@
         Public Sub New(iconoApp As String, iconoWeb As String, logoApp As String,
                        logoWeb As String, logoWeb300x80 As String, logoWebID300x80 As String)
             Me.IconoApp = iconoApp
-            Me.IconoWeb = iconoWeb
+            Me.IconoWeb = Tiendas.dominioWeb + iconoWeb
             Me.LogoApp = logoApp
-            Me.LogoWeb = logoWeb
-            Me.LogoWeb300x80 = logoWeb300x80
+            Me.LogoWeb = Tiendas.dominioWeb + logoWeb
+            Me.LogoWeb300x80 = Tiendas.dominioWeb + logoWeb300x80
             Me.LogoWebID300x80 = logoWebID300x80
         End Sub
 
@@ -45,10 +50,10 @@
 
     Public Class TiendaNumeraciones
 
-        Public Property PosicionApp As String
-        Public Property EtiquetaWeb As String
+        Public Property PosicionApp As Integer
+        Public Property EtiquetaWeb As Integer
 
-        Public Sub New(posicionApp As String, etiquetaWeb As String)
+        Public Sub New(posicionApp As Integer, etiquetaWeb As Integer)
             Me.PosicionApp = posicionApp
             Me.EtiquetaWeb = etiquetaWeb
         End Sub
@@ -96,4 +101,17 @@
         End Enum
 
     End Class
+
+    Public Class TiendaFichaWeb
+
+        Public Property Descripcion As String
+        Public Property EnlaceMasOfertas As String
+
+        Public Sub New(descripcion As String, enlaceMasOfertas As String)
+            Me.Descripcion = descripcion
+            Me.EnlaceMasOfertas = enlaceMasOfertas
+        End Sub
+
+    End Class
+
 End Namespace

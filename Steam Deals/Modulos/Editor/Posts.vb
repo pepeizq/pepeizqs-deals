@@ -70,14 +70,14 @@ Namespace Editor
 
                     If Not etiquetas Is Nothing Then
                         If etiquetas.Count > 0 Then
-                            postEditor.Etiquetas = etiquetas
+                            postEditor.TiendaEtiqueta = etiquetas
                         End If
                     End If
 
                     If Not tienda Is Nothing Then
                         postEditor.TiendaNombre = tienda.NombreMostrar
-                        postEditor.TiendaIcono = "<img src=" + ChrW(34) + Tiendas.dominioWeb + tienda.Logos.IconoWeb + ChrW(34) + " />"
-                        postEditor.TiendaLogo = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+                        postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.Logos.IconoWeb + ChrW(34) + " />"
+                        postEditor.TiendaLogo = tienda.Logos.LogoWeb300x80
                     End If
 
                     If Not redireccion = Nothing Then
@@ -132,10 +132,10 @@ Namespace Editor
 
                     postEditor.SEORobots = "nofollow"
 
-                    Dim resultado As Clases.Post = Nothing
+                    Dim resultado As Post = Nothing
 
                     Try
-                        resultado = Await cliente.CustomRequest.Create(Of Clases.Post, Clases.Post)("wp/v2/posts", postEditor)
+                        resultado = Await cliente.CustomRequest.Create(Of Post, Post)("wp/v2/posts", postEditor)
                     Catch ex As Exception
 
                     End Try
@@ -150,7 +150,7 @@ Namespace Editor
                         resultado.CompartirIngles = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsIngles, "en")
                         resultado.CompartirEspañol = AñadirCompartir(titulo, "https://pepeizqdeals.com/" + resultado.Id.ToString + "/", resultado.ImagenPepeizqdealsEspañol, "es")
 
-                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
+                        Await cliente.CustomRequest.Update(Of Post, Post)("wp/v2/posts/" + resultado.Id.ToString, resultado)
 
                         Dim enlaceFinal As String = String.Empty
 
@@ -225,10 +225,10 @@ Namespace Editor
                                                                                                              End Try
 
                                                                                                              If Await cliente.IsValidJWToken = True Then
-                                                                                                                 Dim posts As New List(Of Clases.Post)
+                                                                                                                 Dim posts As New List(Of Post)
 
                                                                                                                  Try
-                                                                                                                     posts = Await cliente.CustomRequest.Get(Of List(Of Clases.Post))("wp/v2/posts?per_page=100")
+                                                                                                                     posts = Await cliente.CustomRequest.Get(Of List(Of Post))("wp/v2/posts?per_page=100")
                                                                                                                  Catch ex As Exception
                                                                                                                      Notificaciones.Toast("Error Posts Delete", Nothing)
                                                                                                                  End Try

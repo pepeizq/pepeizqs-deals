@@ -100,6 +100,7 @@ Public NotInheritable Class MainPage
         Editor.RedesSociales.PushWeb.Cargar()
         Editor.Posts.Borrar()
         Editor.Assets.Cargar()
+        Editor.FichasTiendasWeb.Cargar()
 
         '--------------------------------------------------------
 

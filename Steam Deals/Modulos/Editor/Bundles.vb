@@ -248,10 +248,6 @@ Namespace Editor
                     Dim tiendaLogo As String = String.Empty
 
                     For Each tienda In listaTiendas
-                        If tienda.NombreMostrar = "Humble Store" And cosas.Tienda.NombreMostrar = "Humble Bundle" Then
-                            tiendaLogo = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
-                        End If
-
                         If tienda.NombreUsar = cosas.Tienda.NombreUsar.Replace(" ", Nothing) Then
                             tiendaLogo = tienda.Logos.LogoApp
                         End If

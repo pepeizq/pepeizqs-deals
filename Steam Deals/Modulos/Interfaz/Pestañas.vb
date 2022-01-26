@@ -96,8 +96,8 @@ Namespace Interfaz
             Dim svBundles As ScrollViewer = pagina.FindName("svBundles")
             svBundles.Visibility = Visibility.Collapsed
 
-            Dim svFree As ScrollViewer = pagina.FindName("svGratis")
-            svFree.Visibility = Visibility.Collapsed
+            Dim svGratis As ScrollViewer = pagina.FindName("svGratis")
+            svGratis.Visibility = Visibility.Collapsed
 
             Dim svSuscripciones As ScrollViewer = pagina.FindName("svSuscripciones")
             svSuscripciones.Visibility = Visibility.Collapsed
@@ -117,9 +117,6 @@ Namespace Interfaz
             Dim svTwitter As ScrollViewer = pagina.FindName("svTwitter")
             svTwitter.Visibility = Visibility.Collapsed
 
-            'Dim svMastodon As ScrollViewer = pagina.FindName("svEditorpepeizqdealsMastodon")
-            'svMastodon.Visibility = Visibility.Collapsed
-
             Dim svPushWeb As ScrollViewer = pagina.FindName("svPushWeb")
             svPushWeb.Visibility = Visibility.Collapsed
 
@@ -131,6 +128,9 @@ Namespace Interfaz
 
             Dim svSteamGifts As ScrollViewer = pagina.FindName("svSteamGifts")
             svSteamGifts.Visibility = Visibility.Collapsed
+
+            Dim svFichasWeb As ScrollViewer = pagina.FindName("svFichasWeb")
+            svFichasWeb.Visibility = Visibility.Collapsed
 
             sv.Visibility = Visibility.Visible
 

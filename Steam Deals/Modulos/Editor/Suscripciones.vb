@@ -107,13 +107,12 @@ Namespace Editor
                 tbIDs.Visibility = Visibility.Visible
                 tbIDs.Text = String.Empty
 
-                imagenTienda1.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
-                imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/humblechoice.png"
-                imagenTienda2.MaxHeight = 50
-
-                cosas.Tienda = Tiendas.humbleT
-                cosas.Tienda.NombreMostrar = "Humble Bundle"
+                cosas.Tienda = Tiendas.humbleChoiceT
                 cosas.Enlace = "https://www.humblebundle.com/subscription"
+
+                imagenTienda1.Source = cosas.Tienda.Logos.LogoWeb
+                imagenTienda2.Source = cosas.Tienda.Logos.LogoWeb
+                imagenTienda2.MaxHeight = 50
 
                 Dim ci As CultureInfo = New CultureInfo("en-US")
                 Dim mes As String = DateTime.Now.ToString("MMMM", ci)
@@ -268,6 +267,12 @@ Namespace Editor
             Dim cosas As Suscripcion = tbTitulo.Tag
             cosas.Tienda.Logos.LogoWeb300x80 = imagenTienda.Source
 
+            Dim etiqueta As Integer = 9999
+
+            If Not cosas.Tienda.Numeraciones.EtiquetaWeb = Nothing Then
+                etiqueta = cosas.Tienda.Numeraciones.EtiquetaWeb
+            End If
+
             Dim fechaPicker As DatePicker = pagina.FindName("fechaSuscripciones")
             Dim horaPicker As TimePicker = pagina.FindName("horaSuscripciones")
 
@@ -307,7 +312,7 @@ Namespace Editor
 
             '----------------------------------
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {9999}, cosas.Tienda,
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 13, New List(Of Integer) From {etiqueta}, cosas.Tienda,
                                cosas.Enlace, botonImagen, tbJuegos.Text.Trim, fechaFinal.ToString, Nothing, json, Nothing, listaTraducciones)
 
             BloquearControles(True)

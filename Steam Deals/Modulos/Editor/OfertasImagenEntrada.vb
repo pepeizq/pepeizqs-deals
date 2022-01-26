@@ -67,7 +67,7 @@ Namespace Editor
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaUnJuegoOfertas")
 
             If Not tienda.Logos.LogoWeb300x80 = Nothing Then
-                imagenTienda.Source = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+                imagenTienda.Source = tienda.Logos.LogoWeb300x80
             Else
                 imagenTienda.Source = Nothing
             End If
@@ -337,7 +337,7 @@ Namespace Editor
             End While
 
             Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaDosJuegosOfertas")
-            imagenTienda.Source = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+            imagenTienda.Source = tienda.Logos.LogoWeb300x80
 
             Dim imagenCabecera As ImageEx = pagina.FindName("imagenCabeceraDosJuegosOfertas")
             Dim tbCabecera As TextBlock = pagina.FindName("tbTituloCabeceraDosJuegosOfertas")

@@ -74,6 +74,7 @@
                     <FlyoutBase.AttachedFlyout>
                         <MenuFlyout>
                             <MenuFlyoutItem x:Name="menuItemConfigDatos" Text="Datos" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigCarpetaBBDD" Text="Carpeta BBDD" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigRss" Text="RSS" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutSeparator/>
@@ -81,9 +82,9 @@
                             <MenuFlyoutItem x:Name="menuItemConfigAmazonCom" Text="Amazon.com" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigTwitter" Text="Twitter" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigPushWeb" Text="Push Web" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigFichasWeb" Text="Fichas Web" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-                            <MenuFlyoutItem x:Name="menuItemConfigCarpetaBBDD" Text="Carpeta BBDD" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigSteamGifts" Text="SteamGifts" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                         </MenuFlyout> 
                     </FlyoutBase.AttachedFlyout>
@@ -1076,15 +1077,17 @@
                         <ScrollViewer x:Name="svConfig" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Vertical">
-                                    <Button x:Name="botonActualizarAnalisis" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock x:Uid="Rating" Foreground="White"/>
-                                                <TextBlock x:Name="tbAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="botonActualizarAnalisis" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock x:Uid="Rating" Foreground="White"/>
+                                                    <TextBlock x:Name="tbAnalisisAvance" Margin="10,0,0,0" Foreground="White" Visibility="Collapsed"/>
+                                                </StackPanel>
+                                            </Button.Content>
+                                        </Button>
+                                    </StackPanel>
+                                    
                                     <TextBlock Text="Monedas" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
@@ -1313,6 +1316,24 @@
                             </Grid>
                         </ScrollViewer>
 
+                        <ScrollViewer x:Name="svFichasWeb" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Padding="0,0,0,20">
+                                    <ComboBox x:Name="cbFichas" VerticalAlignment="Center" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+
+                                    <Button x:Name="botonActualizarFichas" Background="{StaticResource BrushPrimario}" Padding="15,10" Margin="30,0,0,0" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Actualizar" Foreground="White"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+
+                                <WebView x:Name="wvFichas" MinWidth="700" MinHeight="700"/>
+                            </StackPanel>
+                        </ScrollViewer> 
+                        
                         <ScrollViewer x:Name="svOtrasCosas" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <WebView x:Name="wvNexus"/>

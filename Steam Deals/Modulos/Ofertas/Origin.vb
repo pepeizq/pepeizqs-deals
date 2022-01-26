@@ -56,10 +56,12 @@ Namespace Ofertas
                         End If
 
                         If (total + i) = juegosOrigin.Juegos.Count Then
-                            superIDs = superIDs.Remove(superIDs.Length - 1, 1)
-                            Dim html2 As String = Await HttpClient(New Uri("https://api1.origin.com/supercarp/rating/offers/anonymous?country=ES&locale=es_ES&pid=&currency=EUR&offerIds=" + superIDs))
+                            If superIDs.Length > 0 Then
+                                superIDs = superIDs.Remove(superIDs.Length - 1, 1)
+                                Dim html2 As String = Await HttpClient(New Uri("https://api1.origin.com/supercarp/rating/offers/anonymous?country=ES&locale=es_ES&pid=&currency=EUR&offerIds=" + superIDs))
 
-                            AñadirPrecios(html2, juegosOrigin.Juegos, listaJuegos, bbdd, tienda.NombreUsar)
+                                AñadirPrecios(html2, juegosOrigin.Juegos, listaJuegos, bbdd, tienda.NombreUsar)
+                            End If
                         End If
                     End If
                 Next

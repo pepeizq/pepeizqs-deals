@@ -89,10 +89,6 @@ Module Configuracion
         RemoveHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
         AddHandler itemTwitter.Click, AddressOf ConfigAbrirTwitter
 
-        'Dim itemMastodon As MenuFlyoutItem = pagina.FindName("menuItemConfigMastodon")
-        'RemoveHandler itemMastodon.Click, AddressOf ConfigAbrirMastodon
-        'AddHandler itemMastodon.Click, AddressOf ConfigAbrirMastodon
-
         Dim itemPushWeb As MenuFlyoutItem = pagina.FindName("menuItemConfigPushWeb")
         RemoveHandler itemPushWeb.Click, AddressOf ConfigAbrirPushWeb
         AddHandler itemPushWeb.Click, AddressOf ConfigAbrirPushWeb
@@ -112,6 +108,10 @@ Module Configuracion
         Dim itemSteamGifts As MenuFlyoutItem = pagina.FindName("menuItemConfigSteamGifts")
         RemoveHandler itemSteamGifts.Click, AddressOf ConfigAbrirSteamGifts
         AddHandler itemSteamGifts.Click, AddressOf ConfigAbrirSteamGifts
+
+        Dim itemFichasWeb As MenuFlyoutItem = pagina.FindName("menuItemConfigFichasWeb")
+        RemoveHandler itemFichasWeb.Click, AddressOf ConfigAbrirFichasWeb
+        AddHandler itemFichasWeb.Click, AddressOf ConfigAbrirFichasWeb
 
     End Sub
 
@@ -265,6 +265,16 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svSteamGifts")
+        Pestañas.Visibilidad(sv)
+
+    End Sub
+
+    Private Sub ConfigAbrirFichasWeb(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim sv As ScrollViewer = pagina.FindName("svFichasWeb")
         Pestañas.Visibilidad(sv)
 
     End Sub

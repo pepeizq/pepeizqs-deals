@@ -170,7 +170,7 @@ Namespace Editor
                 New Desarrollador("Aspyr", "@AspyrMedia", "aspyr.png", 170),
                 New Desarrollador("Astragon", "@astragon_games", "astragon.png", 270),
                 New Desarrollador("Atari", "@atari", "atari.png", 230),
-                New Desarrollador("Bandai Namco", "@BandaiNamcoEU", "bandainamco.png", 200),
+                New Desarrollador("Bandai Namco", "@BandaiNamcoEU", "bandainamco.png", 180),
                 New Desarrollador("BadLand Games", "@BadLand_Publish", "badland.png", 290),
                 New Desarrollador("Beamdog", "@BeamdogInc", "beamdog.png", 280),
                 New Desarrollador("Bethesda", "@bethesda", "bethesda.png", 240),

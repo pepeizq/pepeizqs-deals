@@ -23,7 +23,9 @@ Namespace Interfaz
                                     New TiendaNumeraciones(0, 5),
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
-                                    New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                    New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                    New TiendaFichaWeb("Steam is a video game digital distribution service by Valve. It was launched as a standalone software client in September 2003 as a way for Valve to provide automatic updates for their games, and expanded to include games from third-party publishers.",
+                                                       "https://store.steampowered.com/specials"))
 
         Public gamersgateT As New Tienda("GamersGate", "GamersGate",
                                          New TiendaLogos("Assets/Tiendas/gamersgate.ico",
@@ -34,19 +36,23 @@ Namespace Interfaz
                                          New TiendaNumeraciones(1, 7),
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(11, "RGAMEDEALS"),
-                                         New TiendaCaratulasJuegos(130, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                         New TiendaCaratulasJuegos(130, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                         New TiendaFichaWeb("GamersGate is a Sweden-based online video game store offering electronic strategy guides and games for Windows, macOS, and Linux via direct download. It is a competitor to online video game services such as Steam, GOG.com, and Direct2Drive.",
+                                                            "https://www.gamersgate.com/offers/"))
 
         Public humbleT As New Tienda("Humble Store", "Humble",
                                      New TiendaLogos("Assets/Tiendas/humble.ico",
                                                      "2018/08/tienda_humble.png",
-                                                     "Assets/Tiendas/humble2.png",
-                                                     "2019/09/humble2.png",
-                                                     "2020/08/humble3.png", "29970"),
+                                                     "Assets/Tiendas/humblestore.png",
+                                                     "2022/01/humblestore.webp",
+                                                     "2022/01/humblestore3.webp", "47753"),
                                      New TiendaNumeraciones(2, 6),
                                      New TiendaMensajes("Price with Humble Choice",
                                                         "The first price of the game corresponds to having Choice activated, and the second price to having it deactivated."),
                                      New TiendaCupon(0, Nothing),
-                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                     New TiendaFichaWeb("The Humble Store is an extension of the sales system developed for managing the Humble Bundles. It offers the capabilities of the payment and customer services that they had created for the various Bundles to independent developers as an alternate marketplace for these games.",
+                                                        "https://www.humblebundle.com/store/search?sort=bestselling&filter=onsale"))
 
         Public gamesplanetT As New Tienda("Gamesplanet", "GamesPlanet",
                                           New TiendaLogos("Assets/Tiendas/gamesplanet.png",
@@ -57,7 +63,9 @@ Namespace Interfaz
                                           New TiendaNumeraciones(3, 8),
                                           New TiendaMensajes(Nothing, Nothing),
                                           New TiendaCupon(0, Nothing),
-                                          New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                          New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                          New TiendaFichaWeb("Gamesplanet is a digital video game store operated by french company Metaboli since 2006. It sells digital video games and downloadable content from a range of publishers and developers for PC, Mac and Linux.",
+                                                             "https://gamesplanet.com/games/offers"))
 
         Public fanaticalT As New Tienda("Fanatical", "Fanatical",
                                         New TiendaLogos("Assets/Tiendas/fanatical.ico",
@@ -68,7 +76,9 @@ Namespace Interfaz
                                         New TiendaNumeraciones(4, 10),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                        New TiendaFichaWeb("Fanatical (formerly Bundle Stars) is a United Kingdom-based online video game retailer. It has sold more than 80 million officially authorised game keys to over two million customers globally.",
+                                                           "https://www.fanatical.com/on-sale"))
 
         Public gogT As New Tienda("GOG", "GOG",
                                   New TiendaLogos("Assets/Tiendas/gog.ico",
@@ -79,7 +89,9 @@ Namespace Interfaz
                                   New TiendaNumeraciones(5, 9),
                                   New TiendaMensajes(Nothing, "These games are DRM Free, that means you can install and play them on any computer and they do not need to have Internet to run them."),
                                   New TiendaCupon(0, Nothing),
-                                  New TiendaCaratulasJuegos(200, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                  New TiendaCaratulasJuegos(200, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                  New TiendaFichaWeb("GOG.com (formerly Good Old Games) is a digital distribution platform for video games and films. It is operated by GOG sp. z o.o., a wholly owned subsidiary of CD Projekt based in Warsaw, Poland. GOG.com delivers DRM-free video games through its digital platform for Microsoft Windows, macOS and Linux.",
+                                                     "https://www.gog.com/games/discounted"))
 
         Public wingamestoreT As New Tienda("WinGameStore", "WinGameStore",
                                            New TiendaLogos("Assets/Tiendas/wingamestore.png",
@@ -90,10 +102,12 @@ Namespace Interfaz
                                            New TiendaNumeraciones(6, 14),
                                            New TiendaMensajes(Nothing, Nothing),
                                            New TiendaCupon(0, Nothing),
-                                           New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                           New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                           New TiendaFichaWeb(Nothing, "https://www.wingamestore.com/listing/Specials/"))
 
         Public nuuvemT As New Tienda("Nuuvem", "Nuuvem", New TiendaLogos("Assets/Tiendas/nuuvem.ico", Nothing, Nothing, Nothing, Nothing, Nothing),
-                                     New TiendaNumeraciones(8, 9999), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing)
+                                     New TiendaNumeraciones(8, 9999), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing,
+                                     New TiendaFichaWeb(Nothing, Nothing))
 
         Public microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore",
                                              New TiendaLogos("Assets/Tiendas/microsoft.ico",
@@ -104,7 +118,8 @@ Namespace Interfaz
                                              New TiendaNumeraciones(9, 16),
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
-                                             New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                             New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                             New TiendaFichaWeb(Nothing, Nothing))
 
         Public nexusT As New Tienda("My Nexus Store", "Nexus",
                                     New TiendaLogos("Assets/Tiendas/nexus.png",
@@ -115,7 +130,8 @@ Namespace Interfaz
                                     New TiendaNumeraciones(10, 15),
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
-                                    New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                    New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                    New TiendaFichaWeb(Nothing, Nothing))
 
         Public voiduT As New Tienda("Voidu", "Voidu",
                                     New TiendaLogos("Assets/Tiendas/voidu.ico",
@@ -126,7 +142,8 @@ Namespace Interfaz
                                     New TiendaNumeraciones(11, 18),
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
-                                    New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                    New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                    New TiendaFichaWeb(Nothing, Nothing))
 
         Public indiegalaT As New Tienda("IndieGala", "IndieGala",
                                         New TiendaLogos("Assets/Tiendas/indiegala.ico",
@@ -137,7 +154,9 @@ Namespace Interfaz
                                         New TiendaNumeraciones(12, 1210),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                        New TiendaFichaWeb("IndieGala is an Italy-based digital storefront for video games, which grew out of its original offering of Indie Gala Bundles, a collections of games sold at a price determined by the purchaser and with a portion of the price going towards charity and the rest split between the game developers.",
+                                                           "https://www.indiegala.com/games/on-sale"))
 
         Public greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming",
                                              New TiendaLogos("Assets/Tiendas/gmg.ico",
@@ -148,7 +167,8 @@ Namespace Interfaz
                                              New TiendaNumeraciones(13, 1205),
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
-                                             New TiendaCaratulasJuegos(120, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                             New TiendaCaratulasJuegos(120, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                             New TiendaFichaWeb(Nothing, Nothing))
 
         Public amazoncomT As New Tienda("Amazon.com", "AmazonCom",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -159,7 +179,8 @@ Namespace Interfaz
                                         New TiendaNumeraciones(15, 20),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                        New TiendaFichaWeb(Nothing, Nothing))
 
         Public amazonesT As New Tienda("Amazon.es (Physical Format)", "AmazonEs",
                                        New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -170,7 +191,8 @@ Namespace Interfaz
                                        New TiendaNumeraciones(16, 9999),
                                        New TiendaMensajes("This game is in physical format, you will receive the box with the game", Nothing),
                                        New TiendaCupon(0, Nothing),
-                                       New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                       New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                       New TiendaFichaWeb(Nothing, Nothing))
 
         Public amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -181,7 +203,8 @@ Namespace Interfaz
                                         New TiendaNumeraciones(17, 1211),
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
-                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                        New TiendaFichaWeb(Nothing, Nothing))
 
         Public yuplayT As New Tienda("Yuplay", "Yuplay",
                                      New TiendaLogos("Assets/Tiendas/yuplay.png",
@@ -192,10 +215,8 @@ Namespace Interfaz
                                      New TiendaNumeraciones(18, 1209),
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(0, Nothing),
-                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
-
-        Public epicT As New Tienda("Epic Games Store", "EpicGamesStore", New TiendaLogos(Nothing, Nothing, "Assets/Tiendas/epicgames2.png", Nothing, "2020/12/epicgames3.png", Nothing),
-                                   New TiendaNumeraciones(19, 9999), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                     New TiendaFichaWeb(Nothing, Nothing))
 
         Public originT As New Tienda("Origin", "Origin",
                                      New TiendaLogos("Assets/Tiendas/origin.png",
@@ -206,7 +227,8 @@ Namespace Interfaz
                                      New TiendaNumeraciones(20, 1213),
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(0, Nothing),
-                                     New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                     New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                     New TiendaFichaWeb(Nothing, Nothing))
 
         Public gamebilletT As New Tienda("GameBillet", "GameBillet",
                                          New TiendaLogos("Assets/Tiendas/gamebillet.ico",
@@ -217,7 +239,8 @@ Namespace Interfaz
                                          New TiendaNumeraciones(21, 1215),
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(0, Nothing),
-                                         New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                         New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                         New TiendaFichaWeb(Nothing, "https://www.gamebillet.com/hotdeals"))
 
         Public _2gameT As New Tienda("2Game", "2Game",
                                      New TiendaLogos("Assets/Tiendas/2game.png",
@@ -228,7 +251,8 @@ Namespace Interfaz
                                      New TiendaNumeraciones(22, 1216),
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(10, "HAPPY2GAME"),
-                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                     New TiendaFichaWeb(Nothing, Nothing))
 
         Public blizzardT As New Tienda("Battle.net Store", "Blizzard",
                                        New TiendaLogos("Assets/Tiendas/battlenet.png",
@@ -239,7 +263,8 @@ Namespace Interfaz
                                        New TiendaNumeraciones(23, 1219),
                                        New TiendaMensajes(Nothing, Nothing),
                                        New TiendaCupon(0, Nothing),
-                                       New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho))
+                                       New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                       New TiendaFichaWeb(Nothing, Nothing))
 
         Public direct2driveT As New Tienda("Direct2Drive", "Direct2Drive",
                                            New TiendaLogos("Assets/Tiendas/d2d.ico",
@@ -250,10 +275,12 @@ Namespace Interfaz
                                            New TiendaNumeraciones(24, 1238),
                                            New TiendaMensajes(Nothing, Nothing),
                                            New TiendaCupon(0, Nothing),
-                                           New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                           New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                           New TiendaFichaWeb(Nothing, Nothing))
 
         Public robotcacheT As New Tienda("Robot Cache", "RobotCache", New TiendaLogos("Assets/Tiendas/robotcache.png", Nothing, "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing),
-                                         New TiendaNumeraciones(25, 1245), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), Nothing)
+                                         New TiendaNumeraciones(25, 1245), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), Nothing,
+                                         New TiendaFichaWeb(Nothing, Nothing))
 
         Public ubiT As New Tienda("Ubisoft Store", "Ubisoft",
                                   New TiendaLogos("Assets/Tiendas/ubi.png",
@@ -265,7 +292,8 @@ Namespace Interfaz
                                   New TiendaMensajes("Price with Club Units",
                                                      "The prices have been calculated with the discount given by Club Units."),
                                   New TiendaCupon(0, Nothing),
-                                  New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                  New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                  New TiendaFichaWeb(Nothing, Nothing))
 
         Public allyouplayT As New Tienda("Allyouplay", "Allyouplay",
                                          New TiendaLogos("Assets/Tiendas/allyouplay.ico",
@@ -276,7 +304,8 @@ Namespace Interfaz
                                          New TiendaNumeraciones(27, 1318),
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(10, "ALLYOUCANPLAY"),
-                                         New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                         New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                         New TiendaFichaWeb(Nothing, Nothing))
 
         Public dlgamerT As New Tienda("DLGamer", "DLGamer",
                                       New TiendaLogos("Assets/Tiendas/dlgamer.png",
@@ -287,12 +316,67 @@ Namespace Interfaz
                                       New TiendaNumeraciones(28, 1379),
                                       New TiendaMensajes(Nothing, Nothing),
                                       New TiendaCupon(0, Nothing),
-                                      New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical))
+                                      New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
+                                      New TiendaFichaWeb(Nothing, Nothing))
+
+        '--------------------------------------------------
+
+        Public humbleBundleT As New Tienda("Humble Bundle", "HumbleBundle",
+                                           New TiendaLogos("Assets/Tiendas/humble.ico",
+                                                           "2018/08/tienda_humble.png",
+                                                           "Assets/Tiendas/humblebundle.png",
+                                                           "2022/01/humblebundle.webp",
+                                                           "2022/01/humblebundle3.webp", "47771"),
+                                           New TiendaNumeraciones(-1, 1217),
+                                           New TiendaMensajes(Nothing, Nothing),
+                                           New TiendaCupon(0, Nothing),
+                                           New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                           New TiendaFichaWeb("Humble Bundle is a digital storefront for video games, which grew out of its original offering of Humble Bundles, collections of games sold at a price determined by the purchaser and with a portion of the price going towards charity and the rest split between the game developers.",
+                                                              "https://www.humblebundle.com/games"))
+
+        Public epicT As New Tienda("Epic Games Store", "EpicGamesStore",
+                                   New TiendaLogos(Nothing,
+                                                   Nothing,
+                                                   "Assets/Tiendas/epicgames2.png",
+                                                   "2022/01/epicgames2.webp",
+                                                   "2022/01/epicgames3.webp", "47779"),
+                                   New TiendaNumeraciones(-1, 1246),
+                                   New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                   New TiendaFichaWeb("The Epic Games Store is a digital video game storefront for Microsoft Windows and macOS, operated by Epic Games. It launched in December 2018 as both a website and a standalone launcher, of which the latter is required to download and play games.",
+                                                      Nothing))
+
+        Public humbleChoiceT As New Tienda("Humble Choice", "HumbleChoice",
+                                           New TiendaLogos("Assets/Tiendas/humble.ico",
+                                                           "2018/08/tienda_humble.png",
+                                                           "Assets/Tiendas/humblechoice.png",
+                                                           "2022/01/humblechoice.webp",
+                                                           "2022/01/humblechoice3.webp", "47793"),
+                                           New TiendaNumeraciones(-1, 1690),
+                                           New TiendaMensajes(Nothing, Nothing),
+                                           New TiendaCupon(0, Nothing),
+                                           New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                           New TiendaFichaWeb("Humble Choice is a subscription service; those that subscribed would receive a curated set of games at the start of each month, delivered in a similar manner as other Humble products (such as with Steam key redemption or DRM-free copies).",
+                                                              Nothing))
+
+        Public primeGamingT As New Tienda("Prime Gaming", "PrimeGaming",
+                                           New TiendaLogos(Nothing,
+                                                           Nothing,
+                                                           "Assets/Tiendas/primegaming.png",
+                                                           "2022/01/primegaming.webp",
+                                                           "2022/01/primegaming3.webp", "47801"),
+                                           New TiendaNumeraciones(-1, 1691),
+                                           New TiendaMensajes(Nothing, Nothing),
+                                           New TiendaCupon(0, Nothing),
+                                           New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                           New TiendaFichaWeb(Nothing, Nothing))
+
+        '--------------------------------------------------
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
             microsoftstoreT, nexusT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
-            epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT, dlgamerT
+            epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT, dlgamerT, humbleBundleT,
+            humbleChoiceT, primeGamingT
         }
 
         Public Function Listado()
@@ -334,7 +418,7 @@ Namespace Interfaz
             End If
 
             For Each tienda In listaTiendas
-                If Not tienda.Logos.IconoApp = Nothing Then
+                If tienda.Numeraciones.PosicionApp >= 0 Then
                     Dim mensaje As String = String.Empty
 
                     If Not listaComprobacionesTiendas Is Nothing Then
@@ -946,7 +1030,7 @@ Namespace Interfaz
             End Try
 
             Try
-                Await Yuplay.BuscarOfertas(yuplayT)
+                'Await Yuplay.BuscarOfertas(yuplayT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + yuplayT.NombreMostrar, Nothing)
             End Try

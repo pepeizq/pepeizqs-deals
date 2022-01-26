@@ -14,9 +14,6 @@ Namespace Clases
         <JsonProperty("categories")>
         Public Categorias As List(Of Integer)
 
-        <JsonProperty("tags")>
-        Public Etiquetas As List(Of Integer)
-
         <JsonProperty("status")>
         Public Estado As Status
 
@@ -94,6 +91,9 @@ Namespace Clases
         Public ImagenImgur As String
 
         '-------------------------------------------
+
+        <JsonProperty("stores")>
+        Public TiendaEtiqueta As List(Of Integer)
 
         <JsonProperty("store_name")>
         Public TiendaNombre As String

@@ -109,7 +109,7 @@ Namespace Editor
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+                            tbImagenTienda.Text = tienda.Logos.LogoWeb300x80
                         End If
                     Next
 
@@ -118,7 +118,7 @@ Namespace Editor
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+                            tbImagenTienda.Text = tienda.Logos.LogoWeb300x80
                         End If
                     Next
 
@@ -127,7 +127,7 @@ Namespace Editor
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+                            tbImagenTienda.Text = tienda.Logos.LogoWeb300x80
                         End If
                     Next
 
@@ -139,7 +139,7 @@ Namespace Editor
 
                     For Each tienda In listaTiendas
                         If tienda.NombreMostrar = cosas.Tienda Then
-                            tbImagenTienda.Text = Tiendas.dominioWeb + tienda.Logos.LogoWeb300x80
+                            tbImagenTienda.Text = tienda.Logos.LogoWeb300x80
                         End If
                     Next
 
@@ -199,17 +199,27 @@ Namespace Editor
             Dim fechaFinal As DateTime = fechaPicker.SelectedDate.Value.Date
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
+            Dim etiqueta As Integer = 9999
+
             Dim tienda As Tienda = Nothing
             Dim json As String = String.Empty
 
             If tbTitulo.Text.Trim.Length > 0 Then
                 If tbTitulo.Text.Trim.Contains("•") Then
                     Dim int As Integer = tbTitulo.Text.LastIndexOf("•")
-                    Dim tiendaS As String = tbTitulo.Text.Remove(0, int + 1)
-                    tiendaS = tiendaS.Trim
+                    Dim tiendaString As String = tbTitulo.Text.Remove(0, int + 1)
+                    tiendaString = tiendaString.Trim
+
+                    Dim listaTiendas As List(Of Tienda) = Tiendas.Listado
+
+                    For Each subtienda In listaTiendas
+                        If tiendaString = subtienda.NombreMostrar Then
+                            etiqueta = subtienda.Numeraciones.EtiquetaWeb
+                        End If
+                    Next
 
                     Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaGratis")
-                    tienda = New Tienda(tiendaS, tiendaS, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(0, 0), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing)
+                    tienda = New Tienda(tiendaString, tiendaString, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(-1, etiqueta), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing)
 
                     Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoGratis")
                     json = OfertasEntrada.GenerarJsonGratis(imagenJuego.Source)
@@ -234,8 +244,8 @@ Namespace Editor
 
             '----------------------------------
 
-            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 12, New List(Of Integer) From {9999}, tienda,
-                               tbEnlace.Text.Trim, botonImagen, " ", fechaFinal.ToString, Nothing, json, Nothing, listaTraducciones)
+            Await Posts.Enviar(tbTitulo.Text.Trim, Nothing, 12, New List(Of Integer) From {etiqueta}, tienda,
+                               tbEnlace.Text.Trim, botonImagen, "Free", fechaFinal.ToString, Nothing, json, Nothing, listaTraducciones)
 
             BloquearControles(True)
 
