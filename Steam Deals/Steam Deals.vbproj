@@ -111,7 +111,6 @@
     <Compile Include="Clases\Comprobacion.vb" />
     <Compile Include="Clases\Bundle.vb" />
     <Compile Include="Clases\PostOfertas.vb" />
-    <Compile Include="Clases\Asset.vb" />
     <Compile Include="Clases\LogoJuego.vb" />
     <Compile Include="Clases\Pestaña.vb" />
     <Compile Include="Clases\Post.vb" />
@@ -456,6 +455,7 @@
     <Content Include="Assets\Tiendas\origin2.png" />
     <Content Include="Assets\Tiendas\originaccessbasic.png" />
     <Content Include="Assets\Tiendas\originaccesspremier.png" />
+    <Content Include="Assets\Tiendas\pcgamepass.png" />
     <Content Include="Assets\Tiendas\primegaming.png" />
     <Content Include="Assets\Tiendas\robotcache.png" />
     <Content Include="Assets\Tiendas\robotcache2.png" />

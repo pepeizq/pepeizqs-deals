@@ -128,7 +128,7 @@ Namespace Editor
                 }
 
                 boton.Content = sp
-                boton.Tag = New Asset(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
+                boton.Tag = titulo
 
                 AddHandler boton.Click, AddressOf Assets.GenerarFicheroImagen
 

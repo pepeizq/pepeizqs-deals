@@ -11,10 +11,11 @@ Namespace Clases
         Public Property Cupon As TiendaCupon
         Public Property CaratulasJuegos As TiendaCaratulasJuegos
         Public Property FichaWeb As TiendaFichaWeb
+        Public Property Asset As TiendaAsset
 
         Public Sub New(nombreMostrar As String, nombreUsar As String, logos As TiendaLogos, numeraciones As TiendaNumeraciones,
                        mensajes As TiendaMensajes, cupon As TiendaCupon, caratulasJuegos As TiendaCaratulasJuegos,
-                       fichaWeb As TiendaFichaWeb)
+                       fichaWeb As TiendaFichaWeb, asset As TiendaAsset)
             Me.NombreMostrar = nombreMostrar
             Me.NombreUsar = nombreUsar
             Me.Logos = logos
@@ -23,6 +24,7 @@ Namespace Clases
             Me.Cupon = cupon
             Me.CaratulasJuegos = caratulasJuegos
             Me.FichaWeb = fichaWeb
+            Me.Asset = asset
         End Sub
 
     End Class
@@ -110,6 +112,18 @@ Namespace Clases
         Public Sub New(descripcion As String, enlaceMasOfertas As String)
             Me.Descripcion = descripcion
             Me.EnlaceMasOfertas = enlaceMasOfertas
+        End Sub
+
+    End Class
+
+    Public Class TiendaAsset
+
+        Public Property ColorIcono As String
+        Public Property ColorLogo As String
+
+        Public Sub New(colorIcono As String, colorLogo As String)
+            Me.ColorIcono = colorIcono
+            Me.ColorLogo = colorLogo
         End Sub
 
     End Class

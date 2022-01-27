@@ -25,7 +25,8 @@ Namespace Interfaz
                                     New TiendaCupon(0, Nothing),
                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                     New TiendaFichaWeb("Steam is a video game digital distribution service by Valve. It was launched as a standalone software client in September 2003 as a way for Valve to provide automatic updates for their games, and expanded to include games from third-party publishers.",
-                                                       "https://store.steampowered.com/specials"))
+                                                       "https://store.steampowered.com/specials"),
+                                    New TiendaAsset("#2e4460", "#2e4460"))
 
         Public gamersgateT As New Tienda("GamersGate", "GamersGate",
                                          New TiendaLogos("Assets/Tiendas/gamersgate.ico",
@@ -38,7 +39,8 @@ Namespace Interfaz
                                          New TiendaCupon(11, "RGAMEDEALS"),
                                          New TiendaCaratulasJuegos(130, TiendaCaratulasJuegos.FormatoImagen.Vertical),
                                          New TiendaFichaWeb("GamersGate is a Sweden-based online video game store offering electronic strategy guides and games for Windows, macOS, and Linux via direct download. It is a competitor to online video game services such as Steam, GOG.com, and Direct2Drive.",
-                                                            "https://www.gamersgate.com/offers/"))
+                                                            "https://www.gamersgate.com/offers/"),
+                                         New TiendaAsset("#232A3E", "#232A3E"))
 
         Public humbleT As New Tienda("Humble Store", "Humble",
                                      New TiendaLogos("Assets/Tiendas/humble.ico",
@@ -52,7 +54,8 @@ Namespace Interfaz
                                      New TiendaCupon(0, Nothing),
                                      New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                      New TiendaFichaWeb("The Humble Store is an extension of the sales system developed for managing the Humble Bundles. It offers the capabilities of the payment and customer services that they had created for the various Bundles to independent developers as an alternate marketplace for these games.",
-                                                        "https://www.humblebundle.com/store/search?sort=bestselling&filter=onsale"))
+                                                        "https://www.humblebundle.com/store/search?sort=bestselling&filter=onsale"),
+                                     New TiendaAsset("#ea9192", "#cb2729"))
 
         Public gamesplanetT As New Tienda("Gamesplanet", "GamesPlanet",
                                           New TiendaLogos("Assets/Tiendas/gamesplanet.png",
@@ -65,7 +68,8 @@ Namespace Interfaz
                                           New TiendaCupon(0, Nothing),
                                           New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                           New TiendaFichaWeb("Gamesplanet is a digital video game store operated by french company Metaboli since 2006. It sells digital video games and downloadable content from a range of publishers and developers for PC, Mac and Linux.",
-                                                             "https://gamesplanet.com/games/offers"))
+                                                             "https://gamesplanet.com/games/offers"),
+                                          New TiendaAsset("#000", "#000"))
 
         Public fanaticalT As New Tienda("Fanatical", "Fanatical",
                                         New TiendaLogos("Assets/Tiendas/fanatical.ico",
@@ -78,7 +82,8 @@ Namespace Interfaz
                                         New TiendaCupon(0, Nothing),
                                         New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                         New TiendaFichaWeb("Fanatical (formerly Bundle Stars) is a United Kingdom-based online video game retailer. It has sold more than 80 million officially authorised game keys to over two million customers globally.",
-                                                           "https://www.fanatical.com/on-sale"))
+                                                           "https://www.fanatical.com/on-sale"),
+                                        New TiendaAsset("#ffcf89", "#8a5200"))
 
         Public gogT As New Tienda("GOG", "GOG",
                                   New TiendaLogos("Assets/Tiendas/gog.ico",
@@ -91,7 +96,8 @@ Namespace Interfaz
                                   New TiendaCupon(0, Nothing),
                                   New TiendaCaratulasJuegos(200, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                   New TiendaFichaWeb("GOG.com (formerly Good Old Games) is a digital distribution platform for video games and films. It is operated by GOG sp. z o.o., a wholly owned subsidiary of CD Projekt based in Warsaw, Poland. GOG.com delivers DRM-free video games through its digital platform for Microsoft Windows, macOS and Linux.",
-                                                     "https://www.gog.com/games/discounted"))
+                                                     "https://www.gog.com/games/discounted"),
+                                  New TiendaAsset("#7f3694", "#7f3694"))
 
         Public wingamestoreT As New Tienda("WinGameStore", "WinGameStore",
                                            New TiendaLogos("Assets/Tiendas/wingamestore.png",
@@ -103,11 +109,12 @@ Namespace Interfaz
                                            New TiendaMensajes(Nothing, Nothing),
                                            New TiendaCupon(0, Nothing),
                                            New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                           New TiendaFichaWeb(Nothing, "https://www.wingamestore.com/listing/Specials/"))
+                                           New TiendaFichaWeb(Nothing, "https://www.wingamestore.com/listing/Specials/"),
+                                           New TiendaAsset("#265c92", "#265c92"))
 
         Public nuuvemT As New Tienda("Nuuvem", "Nuuvem", New TiendaLogos("Assets/Tiendas/nuuvem.ico", Nothing, Nothing, Nothing, Nothing, Nothing),
                                      New TiendaNumeraciones(8, 9999), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing,
-                                     New TiendaFichaWeb(Nothing, Nothing))
+                                     New TiendaFichaWeb(Nothing, Nothing), New TiendaAsset(Nothing, Nothing))
 
         Public microsoftstoreT As New Tienda("Microsoft Store", "MicrosoftStore",
                                              New TiendaLogos("Assets/Tiendas/microsoft.ico",
@@ -119,7 +126,8 @@ Namespace Interfaz
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
                                              New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                             New TiendaFichaWeb(Nothing, Nothing))
+                                             New TiendaFichaWeb(Nothing, Nothing),
+                                             New TiendaAsset("#333333", "#333333"))
 
         Public nexusT As New Tienda("My Nexus Store", "Nexus",
                                     New TiendaLogos("Assets/Tiendas/nexus.png",
@@ -131,7 +139,8 @@ Namespace Interfaz
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
                                     New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                    New TiendaFichaWeb(Nothing, Nothing))
+                                    New TiendaFichaWeb(Nothing, Nothing),
+                                    New TiendaAsset("#7f7f7f", "#7f7f7f"))
 
         Public voiduT As New Tienda("Voidu", "Voidu",
                                     New TiendaLogos("Assets/Tiendas/voidu.ico",
@@ -143,7 +152,8 @@ Namespace Interfaz
                                     New TiendaMensajes(Nothing, Nothing),
                                     New TiendaCupon(0, Nothing),
                                     New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                    New TiendaFichaWeb(Nothing, Nothing))
+                                    New TiendaFichaWeb(Nothing, Nothing),
+                                    New TiendaAsset("#fbd3b6", "#f37720"))
 
         Public indiegalaT As New Tienda("IndieGala", "IndieGala",
                                         New TiendaLogos("Assets/Tiendas/indiegala.ico",
@@ -156,7 +166,8 @@ Namespace Interfaz
                                         New TiendaCupon(0, Nothing),
                                         New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                         New TiendaFichaWeb("IndieGala is an Italy-based digital storefront for video games, which grew out of its original offering of Indie Gala Bundles, a collections of games sold at a price determined by the purchaser and with a portion of the price going towards charity and the rest split between the game developers.",
-                                                           "https://www.indiegala.com/games/on-sale"))
+                                                           "https://www.indiegala.com/games/on-sale"),
+                                        New TiendaAsset("#ffccd4", "#620d11"))
 
         Public greenmangamingT As New Tienda("Green Man Gaming", "GreenManGaming",
                                              New TiendaLogos("Assets/Tiendas/gmg.ico",
@@ -168,7 +179,8 @@ Namespace Interfaz
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
                                              New TiendaCaratulasJuegos(120, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                             New TiendaFichaWeb(Nothing, Nothing))
+                                             New TiendaFichaWeb(Nothing, Nothing),
+                                             New TiendaAsset("#97ff9a", "#016603"))
 
         Public amazoncomT As New Tienda("Amazon.com", "AmazonCom",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -180,7 +192,8 @@ Namespace Interfaz
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
                                         New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                        New TiendaFichaWeb(Nothing, Nothing))
+                                        New TiendaFichaWeb(Nothing, Nothing),
+                                        New TiendaAsset("#ebebeb", "#585858"))
 
         Public amazonesT As New Tienda("Amazon.es (Physical Format)", "AmazonEs",
                                        New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -192,7 +205,8 @@ Namespace Interfaz
                                        New TiendaMensajes("This game is in physical format, you will receive the box with the game", Nothing),
                                        New TiendaCupon(0, Nothing),
                                        New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                       New TiendaFichaWeb(Nothing, Nothing))
+                                       New TiendaFichaWeb(Nothing, Nothing),
+                                       New TiendaAsset("#ebebeb", "#585858"))
 
         Public amazonesT2 As New Tienda("Amazon.es (Digital)", "AmazonEs2",
                                         New TiendaLogos("Assets/Tiendas/amazon.png",
@@ -204,7 +218,8 @@ Namespace Interfaz
                                         New TiendaMensajes(Nothing, Nothing),
                                         New TiendaCupon(0, Nothing),
                                         New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                        New TiendaFichaWeb(Nothing, Nothing))
+                                        New TiendaFichaWeb(Nothing, Nothing),
+                                        New TiendaAsset("#ebebeb", "#585858"))
 
         Public yuplayT As New Tienda("Yuplay", "Yuplay",
                                      New TiendaLogos("Assets/Tiendas/yuplay.png",
@@ -216,7 +231,8 @@ Namespace Interfaz
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(0, Nothing),
                                      New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                     New TiendaFichaWeb(Nothing, Nothing))
+                                     New TiendaFichaWeb(Nothing, Nothing),
+                                     New TiendaAsset("#111111", "#111111"))
 
         Public originT As New Tienda("Origin", "Origin",
                                      New TiendaLogos("Assets/Tiendas/origin.png",
@@ -228,7 +244,8 @@ Namespace Interfaz
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(0, Nothing),
                                      New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                     New TiendaFichaWeb(Nothing, Nothing))
+                                     New TiendaFichaWeb(Nothing, Nothing),
+                                     New TiendaAsset("#ffc680", "#ef5a21"))
 
         Public gamebilletT As New Tienda("GameBillet", "GameBillet",
                                          New TiendaLogos("Assets/Tiendas/gamebillet.ico",
@@ -240,7 +257,8 @@ Namespace Interfaz
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(0, Nothing),
                                          New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                         New TiendaFichaWeb(Nothing, "https://www.gamebillet.com/hotdeals"))
+                                         New TiendaFichaWeb(Nothing, "https://www.gamebillet.com/hotdeals"),
+                                         New TiendaAsset("#f8af91", "#f15f22"))
 
         Public _2gameT As New Tienda("2Game", "2Game",
                                      New TiendaLogos("Assets/Tiendas/2game.png",
@@ -252,7 +270,8 @@ Namespace Interfaz
                                      New TiendaMensajes(Nothing, Nothing),
                                      New TiendaCupon(10, "HAPPY2GAME"),
                                      New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                     New TiendaFichaWeb(Nothing, Nothing))
+                                     New TiendaFichaWeb(Nothing, Nothing),
+                                     New TiendaAsset("#bdafd5", "#34274a"))
 
         Public blizzardT As New Tienda("Battle.net Store", "Blizzard",
                                        New TiendaLogos("Assets/Tiendas/battlenet.png",
@@ -264,7 +283,8 @@ Namespace Interfaz
                                        New TiendaMensajes(Nothing, Nothing),
                                        New TiendaCupon(0, Nothing),
                                        New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                       New TiendaFichaWeb(Nothing, Nothing))
+                                       New TiendaFichaWeb(Nothing, Nothing),
+                                       New TiendaAsset("#0e86ca", "#0e86ca"))
 
         Public direct2driveT As New Tienda("Direct2Drive", "Direct2Drive",
                                            New TiendaLogos("Assets/Tiendas/d2d.ico",
@@ -276,11 +296,12 @@ Namespace Interfaz
                                            New TiendaMensajes(Nothing, Nothing),
                                            New TiendaCupon(0, Nothing),
                                            New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                           New TiendaFichaWeb(Nothing, Nothing))
+                                           New TiendaFichaWeb(Nothing, Nothing),
+                                           New TiendaAsset("#1a1a1a", "#1a1a1a"))
 
         Public robotcacheT As New Tienda("Robot Cache", "RobotCache", New TiendaLogos("Assets/Tiendas/robotcache.png", Nothing, "Assets/Tiendas/robotcache2.png", Nothing, Nothing, Nothing),
                                          New TiendaNumeraciones(25, 1245), New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), Nothing,
-                                         New TiendaFichaWeb(Nothing, Nothing))
+                                         New TiendaFichaWeb(Nothing, Nothing), New TiendaAsset(Nothing, Nothing))
 
         Public ubiT As New Tienda("Ubisoft Store", "Ubisoft",
                                   New TiendaLogos("Assets/Tiendas/ubi.png",
@@ -293,7 +314,8 @@ Namespace Interfaz
                                                      "The prices have been calculated with the discount given by Club Units."),
                                   New TiendaCupon(0, Nothing),
                                   New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                  New TiendaFichaWeb(Nothing, Nothing))
+                                  New TiendaFichaWeb(Nothing, Nothing),
+                                  New TiendaAsset("#008aa4", "#008aa4"))
 
         Public allyouplayT As New Tienda("Allyouplay", "Allyouplay",
                                          New TiendaLogos("Assets/Tiendas/allyouplay.ico",
@@ -305,7 +327,8 @@ Namespace Interfaz
                                          New TiendaMensajes(Nothing, Nothing),
                                          New TiendaCupon(10, "ALLYOUCANPLAY"),
                                          New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                         New TiendaFichaWeb(Nothing, Nothing))
+                                         New TiendaFichaWeb(Nothing, Nothing),
+                                         New TiendaAsset("#370a91", "#370a91"))
 
         Public dlgamerT As New Tienda("DLGamer", "DLGamer",
                                       New TiendaLogos("Assets/Tiendas/dlgamer.png",
@@ -317,7 +340,8 @@ Namespace Interfaz
                                       New TiendaMensajes(Nothing, Nothing),
                                       New TiendaCupon(0, Nothing),
                                       New TiendaCaratulasJuegos(150, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                      New TiendaFichaWeb(Nothing, Nothing))
+                                      New TiendaFichaWeb(Nothing, Nothing),
+                                      New TiendaAsset("#523c00", "#523c00"))
 
         '--------------------------------------------------
 
@@ -332,7 +356,8 @@ Namespace Interfaz
                                            New TiendaCupon(0, Nothing),
                                            New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                            New TiendaFichaWeb("Humble Bundle is a digital storefront for video games, which grew out of its original offering of Humble Bundles, collections of games sold at a price determined by the purchaser and with a portion of the price going towards charity and the rest split between the game developers.",
-                                                              "https://www.humblebundle.com/games"))
+                                                              "https://www.humblebundle.com/games"),
+                                           New TiendaAsset("#ea9192", "#cb2729"))
 
         Public epicT As New Tienda("Epic Games Store", "EpicGamesStore",
                                    New TiendaLogos(Nothing,
@@ -343,7 +368,8 @@ Namespace Interfaz
                                    New TiendaNumeraciones(-1, 1246),
                                    New TiendaMensajes(Nothing, Nothing), New TiendaCupon(0, Nothing), New TiendaCaratulasJuegos(250, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                    New TiendaFichaWeb("The Epic Games Store is a digital video game storefront for Microsoft Windows and macOS, operated by Epic Games. It launched in December 2018 as both a website and a standalone launcher, of which the latter is required to download and play games.",
-                                                      Nothing))
+                                                      Nothing),
+                                   New TiendaAsset("#E7E7E7", "#363636"))
 
         Public humbleChoiceT As New Tienda("Humble Choice", "HumbleChoice",
                                            New TiendaLogos("Assets/Tiendas/humble.ico",
@@ -356,19 +382,34 @@ Namespace Interfaz
                                            New TiendaCupon(0, Nothing),
                                            New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
                                            New TiendaFichaWeb("Humble Choice is a subscription service; those that subscribed would receive a curated set of games at the start of each month, delivered in a similar manner as other Humble products (such as with Steam key redemption or DRM-free copies).",
-                                                              Nothing))
+                                                              Nothing),
+                                           New TiendaAsset("#ea9192", "#cb2729"))
 
         Public primeGamingT As New Tienda("Prime Gaming", "PrimeGaming",
-                                           New TiendaLogos(Nothing,
-                                                           Nothing,
-                                                           "Assets/Tiendas/primegaming.png",
-                                                           "2022/01/primegaming.webp",
-                                                           "2022/01/primegaming3.webp", "47801"),
-                                           New TiendaNumeraciones(-1, 1691),
-                                           New TiendaMensajes(Nothing, Nothing),
-                                           New TiendaCupon(0, Nothing),
-                                           New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
-                                           New TiendaFichaWeb(Nothing, Nothing))
+                                          New TiendaLogos(Nothing,
+                                                          Nothing,
+                                                          "Assets/Tiendas/primegaming.png",
+                                                          "2022/01/primegaming.webp",
+                                                          "2022/01/primegaming3.webp", "47801"),
+                                          New TiendaNumeraciones(-1, 1691),
+                                          New TiendaMensajes(Nothing, Nothing),
+                                          New TiendaCupon(0, Nothing),
+                                          New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                          New TiendaFichaWeb(Nothing, Nothing),
+                                          New TiendaAsset("#6441a4", "#6441a4"))
+
+        Public pcGamePassT As New Tienda("PC Game Pass", "PCGamePass",
+                                         New TiendaLogos(Nothing,
+                                                         Nothing,
+                                                         "Assets/Tiendas/pcgamepass.png",
+                                                         "2022/01/pcgamepass.webp",
+                                                         Nothing, Nothing),
+                                         New TiendaNumeraciones(-1, 1692),
+                                         New TiendaMensajes(Nothing, Nothing),
+                                         New TiendaCupon(0, Nothing),
+                                         New TiendaCaratulasJuegos(0, TiendaCaratulasJuegos.FormatoImagen.Ancho),
+                                         New TiendaFichaWeb(Nothing, Nothing),
+                                         New TiendaAsset("#107c10", "#107c10"))
 
         '--------------------------------------------------
 
@@ -376,7 +417,7 @@ Namespace Interfaz
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
             microsoftstoreT, nexusT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2, yuplayT,
             epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT, dlgamerT, humbleBundleT,
-            humbleChoiceT, primeGamingT
+            humbleChoiceT, primeGamingT, pcGamePassT
         }
 
         Public Function Listado()
@@ -465,6 +506,167 @@ Namespace Interfaz
             Dim botonBuscarTodasOfertas As Button = pagina.FindName("botonEditorBuscarTodasOfertas")
             RemoveHandler botonBuscarTodasOfertas.Click, AddressOf BuscarTodasOfertas
             AddHandler botonBuscarTodasOfertas.Click, AddressOf BuscarTodasOfertas
+
+        End Sub
+
+        Private Async Sub BuscarTodasOfertas(sender As Object, e As RoutedEventArgs)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim gridSeleccionar As Grid = pagina.FindName("gridOfertasSeleccionar")
+            gridSeleccionar.Visibility = Visibility.Collapsed
+
+            Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
+            gridProgreso.Visibility = Visibility.Visible
+
+            Pestañas.Botones(False)
+
+            Try
+                Await Steam.BuscarOfertas(steamT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await GamersGate.BuscarOfertas(gamersgateT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + gamersgateT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Humble.BuscarOfertas(humbleT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + humbleT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await GamesPlanet.BuscarOfertas(gamesplanetT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + gamesplanetT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Fanatical.BuscarOfertas(fanaticalT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + fanaticalT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await GOG.BuscarOfertas(gogT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + gogT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await WinGameStore.BuscarOfertas(wingamestoreT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + wingamestoreT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await MicrosoftStore.BuscarOfertas(microsoftstoreT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + microsoftstoreT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Nexus.BuscarOfertas(nexusT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + nexusT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                'Await Voidu.BuscarOfertas(voiduT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + voiduT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await IndieGala.BuscarOfertas(indiegalaT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + indiegalaT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await GreenManGaming.BuscarOfertas(greenmangamingT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + greenmangamingT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await AmazonCom.BuscarOfertas(amazoncomT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + amazoncomT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await AmazonEsFisico.BuscarOfertas(amazonesT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + amazonesT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await AmazonEsDigital.BuscarOfertas(amazonesT2)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + amazonesT2.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                'Await Yuplay.BuscarOfertas(yuplayT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + yuplayT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Origin.BuscarOfertas(originT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + originT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await GameBillet.BuscarOfertas(gamebilletT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + gamebilletT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await _2Game.BuscarOfertas(_2gameT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + _2gameT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await BlizzardStore.BuscarOfertas(blizzardT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + blizzardT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Direct2Drive.BuscarOfertas(direct2driveT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + direct2driveT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Ubisoft.BuscarOfertas(ubiT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + ubiT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await Allyouplay.BuscarOfertas(allyouplayT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + allyouplayT.NombreMostrar, Nothing)
+            End Try
+
+            Try
+                Await DLGamer.BuscarOfertas(dlgamerT)
+            Catch ex As Exception
+                Notificaciones.Toast("Error " + dlgamerT.NombreMostrar, Nothing)
+            End Try
+
+            Notificaciones.Toast("Escaneo Completo", Nothing)
 
         End Sub
 
@@ -923,167 +1125,6 @@ Namespace Interfaz
                     spEditor.Visibility = Visibility.Visible
                 End If
             End If
-
-        End Sub
-
-        Private Async Sub BuscarTodasOfertas(sender As Object, e As RoutedEventArgs)
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim gridSeleccionar As Grid = pagina.FindName("gridOfertasSeleccionar")
-            gridSeleccionar.Visibility = Visibility.Collapsed
-
-            Dim gridProgreso As Grid = pagina.FindName("gridProgreso")
-            gridProgreso.Visibility = Visibility.Visible
-
-            Pestañas.Botones(False)
-
-            Try
-                Await Steam.BuscarOfertas(steamT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await GamersGate.BuscarOfertas(gamersgateT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + gamersgateT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Humble.BuscarOfertas(humbleT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + humbleT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await GamesPlanet.BuscarOfertas(gamesplanetT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + gamesplanetT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Fanatical.BuscarOfertas(fanaticalT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + fanaticalT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await GOG.BuscarOfertas(gogT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + gogT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await WinGameStore.BuscarOfertas(wingamestoreT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + wingamestoreT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await MicrosoftStore.BuscarOfertas(microsoftstoreT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + microsoftstoreT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Nexus.BuscarOfertas(nexusT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + nexusT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                'Await Voidu.BuscarOfertas(voiduT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + voiduT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await IndieGala.BuscarOfertas(indiegalaT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + indiegalaT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await GreenManGaming.BuscarOfertas(greenmangamingT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + greenmangamingT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await AmazonCom.BuscarOfertas(amazoncomT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + amazoncomT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await AmazonEsFisico.BuscarOfertas(amazonesT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + amazonesT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await AmazonEsDigital.BuscarOfertas(amazonesT2)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + amazonesT2.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                'Await Yuplay.BuscarOfertas(yuplayT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + yuplayT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Origin.BuscarOfertas(originT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + originT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await GameBillet.BuscarOfertas(gamebilletT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + gamebilletT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await _2Game.BuscarOfertas(_2gameT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + _2gameT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await BlizzardStore.BuscarOfertas(blizzardT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + blizzardT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Direct2Drive.BuscarOfertas(direct2driveT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + direct2driveT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Ubisoft.BuscarOfertas(ubiT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + ubiT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await Allyouplay.BuscarOfertas(allyouplayT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + allyouplayT.NombreMostrar, Nothing)
-            End Try
-
-            Try
-                Await DLGamer.BuscarOfertas(dlgamerT)
-            Catch ex As Exception
-                Notificaciones.Toast("Error " + dlgamerT.NombreMostrar, Nothing)
-            End Try
-
-            Notificaciones.Toast("Escaneo Completo", Nothing)
 
         End Sub
 

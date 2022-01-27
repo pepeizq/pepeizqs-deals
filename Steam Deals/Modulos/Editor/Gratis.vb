@@ -219,7 +219,7 @@ Namespace Editor
                     Next
 
                     Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaGratis")
-                    tienda = New Tienda(tiendaString, tiendaString, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(-1, etiqueta), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing)
+                    tienda = New Tienda(tiendaString, tiendaString, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(-1, etiqueta), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing, Nothing)
 
                     Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoGratis")
                     json = OfertasEntrada.GenerarJsonGratis(imagenJuego.Source)

@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Interfaz
 Imports Steam_Deals.Juegos
 Imports Windows.Storage
 Imports Windows.Storage.Pickers
@@ -8,40 +9,6 @@ Imports Windows.UI
 
 Namespace Editor
     Module Assets
-
-        Public Function ListaTiendas()
-            Dim lista As New List(Of Asset) From {
-                New Asset("Steam", "Assets/Tiendas/steam.ico", "Assets/Tiendas/steam2.png", "#2e4460", "#2e4460", Nothing, 32, 32),
-                New Asset("Humble", "Assets/Tiendas/humble.ico", "Assets/Tiendas/humble2.png", "#ea9192", "#cb2729", Nothing, 32, 32),
-                New Asset("GamersGate", "Assets/Tiendas/gamersgate.ico", "Assets/Tiendas/gamersgate2.png", "#232A3E", "#232A3E", Nothing, 32, 32),
-                New Asset("Gamesplanet", "Assets/Tiendas/gamesplanet.png", "Assets/Tiendas/gamesplanet2.png", "#000", "#000", Nothing, 32, 32),
-                New Asset("GOG", "Assets/Tiendas/gog.ico", "Assets/Tiendas/gog2.png", "#7f3694", "#7f3694", Nothing, 32, 32),
-                New Asset("Fanatical", "Assets/Tiendas/fanatical.ico", "Assets/Tiendas/fanatical2.png", "#ffcf89", "#8a5200", Nothing, 32, 32),
-                New Asset("WinGameStore", "Assets/Tiendas/wingamestore.png", "Assets/Tiendas/wingamestore2.png", "#265c92", "#265c92", Nothing, 32, 32),
-                New Asset("Nexus", "Assets/Tiendas/nexus.png", "Assets/Tiendas/nexus2.png", "#7f7f7f", "#7f7f7f", Nothing, 32, 32),
-                New Asset("MicrosoftStore", "Assets/Tiendas/microsoft.ico", "Assets/Tiendas/microsoftstore2.png", "#333333", "#333333", Nothing, 32, 32),
-                New Asset("Voidu", "Assets/Tiendas/voidu.ico", "Assets/Tiendas/voidu2.png", "#fbd3b6", "#f37720", Nothing, 32, 32),
-                New Asset("IndieGala", "Assets/Tiendas/indiegala.ico", "Assets/Tiendas/indiegala2.png", "#ffccd4", "#620d11", Nothing, 32, 32),
-                New Asset("AmazonCom", "Assets/Tiendas/amazon.png", "Assets/Tiendas/amazon2.png", "#ebebeb", "#585858", Nothing, 32, 32),
-                New Asset("AmazonEs2", "Assets/Tiendas/amazon.png", "Assets/Tiendas/amazon2.png", "#ebebeb", "#585858", Nothing, 32, 32),
-                New Asset("Twitch", "Assets/Tiendas/twitch.png", "Assets/Tiendas/twitchprime.png", "#6441a4", "#6441a4", Nothing, 32, 32),
-                New Asset("GreenManGaming", "Assets/Tiendas/gmg.ico", "Assets/Tiendas/gmg2.png", "#97ff9a", "#016603", Nothing, 32, 32),
-                New Asset("EpicGamesStore", "Assets/Tiendas/epicgames.ico", "Assets/Tiendas/epicgames2.png", "#E7E7E7", "#363636", Nothing, 32, 32),
-                New Asset("Yuplay", "Assets/Tiendas/yuplay.png", "Assets/Tiendas/yuplay2.png", "#111111", "#111111", Nothing, 32, 32),
-                New Asset("Origin", "Assets/Tiendas/origin.png", "Assets/Tiendas/origin2.png", "#ffc680", "#ef5a21", Nothing, 32, 32),
-                New Asset("GameBillet", "Assets/Tiendas/gamebillet.ico", "Assets/Tiendas/gamebillet2.png", "#f8af91", "#f15f22", Nothing, 32, 32),
-                New Asset("2Game", "Assets/Tiendas/2game.png", "Assets/Tiendas/2game2.png", "#bdafd5", "#34274a", Nothing, 32, 32),
-                New Asset("BattlenetStore", "Assets/Tiendas/battlenet.png", "Assets/Tiendas/battlenet2.png", "#0e86ca", "#0e86ca", Nothing, 32, 32),
-                New Asset("Direct2Drive", "Assets/Tiendas/d2d.ico", "Assets/Tiendas/d2d2.png", "#1a1a1a", "#1a1a1a", Nothing, 32, 32),
-                New Asset("XboxGamePass", "Assets/Tiendas/xboxgamepass2.png", "Assets/Tiendas/xboxgamepass.png", "#107c10", "#107c10", Nothing, 32, 32),
-                New Asset("GeforceNOW", "Assets/Tiendas/geforcenow2.png", "Assets/Tiendas/geforcenow.png", "#446b00", "#446b00", Nothing, 32, 32),
-                New Asset("Uplay", "Assets/Tiendas/ubi.png", "Assets/Tiendas/ubi2.png", "#008aa4", "#008aa4", Nothing, 32, 32),
-                New Asset("Allyouplay", "Assets/Tiendas/allyouplay.ico", "Assets/Tiendas/allyouplay2.png", "#370a91", "#370a91", Nothing, 32, 32),
-                New Asset("DLGamer", "Assets/Tiendas/dlgamer.png", "Assets/Tiendas/dlgamer2.png", "#523c00", "#523c00", Nothing, 32, 32)
-            }
-
-            Return lista
-        End Function
 
         Public Sub Cargar()
 
@@ -65,41 +32,36 @@ Namespace Editor
 
             Dim gv As GridView = pagina.FindName("gvIconosTiendas")
 
-            Dim lista As List(Of Asset) = ListaTiendas()
+            Dim listaTiendas As List(Of Tienda) = Tiendas.Listado
 
-            'New Clases.Icono("Windows", "https://www.iconsdb.com/icons/download/white/os-windows8-16.ico", "#0078d7", Nothing, 32, 32),
-            'New Clases.Icono("Xbox", "https://www.iconsdb.com/icons/download/white/consoles-xbox-16.ico", "#008000", Nothing, 32, 32),
-            'New Clases.Icono("Android", "https://www.iconsdb.com/icons/download/white/android-6-16.ico", "#aac148", Nothing, 32, 32)
+            For Each tienda In listaTiendas
+                If Not tienda.Logos.IconoApp = Nothing And Not tienda.Asset.ColorIcono = Nothing Then
+                    Dim imagenIcono As New ImageEx With {
+                        .Width = 16,
+                        .Height = 16,
+                        .IsCacheEnabled = True,
+                        .Source = tienda.Logos.IconoApp
+                    }
 
-            For Each tienda In lista
-                tienda.Nombre = "tienda_" + tienda.Nombre.ToLower
+                    Dim grid As New Grid With {
+                        .Padding = New Thickness(8, 8, 8, 8),
+                        .Background = New SolidColorBrush(tienda.Asset.ColorIcono.ToColor)
+                    }
 
-                Dim imagenIcono As New ImageEx With {
-                    .Width = (tienda.ObjetoAncho / 2),
-                    .Height = (tienda.ObjetoAlto / 2),
-                    .IsCacheEnabled = True,
-                    .Source = tienda.Icono
-                }
+                    grid.Children.Add(imagenIcono)
 
-                Dim grid As New Grid With {
-                    .Padding = New Thickness(8, 8, 8, 8),
-                    .Background = New SolidColorBrush(tienda.FondoClaro.ToColor)
-                }
+                    Dim boton As New Button With {
+                        .BorderThickness = New Thickness(0, 0, 0, 0),
+                        .Background = New SolidColorBrush(Colors.Transparent)
+                    }
 
-                grid.Children.Add(imagenIcono)
+                    boton.Content = grid
+                    boton.Tag = "tienda_" + tienda.NombreUsar
 
-                Dim boton As New Button With {
-                    .BorderThickness = New Thickness(0, 0, 0, 0),
-                    .Background = New SolidColorBrush(Colors.Transparent)
-                }
+                    AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
-                tienda.Objeto = grid
-                boton.Content = grid
-                boton.Tag = tienda
-
-                AddHandler boton.Click, AddressOf GenerarFicheroImagen
-
-                gv.Items.Add(boton)
+                    gv.Items.Add(boton)
+                End If
             Next
 
         End Sub
@@ -149,7 +111,7 @@ Namespace Editor
                 }
 
                 boton.Content = sp
-                boton.Tag = New Asset(titulo, Nothing, Nothing, Nothing, Nothing, sp, 32, 32)
+                boton.Tag = titulo
 
                 AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
@@ -167,44 +129,37 @@ Namespace Editor
 
             Dim gv As GridView = pagina.FindName("gvLogosRedditTiendas")
 
-            Dim lista As List(Of Asset) = ListaTiendas()
+            Dim listaTiendas As List(Of Tienda) = Tiendas.Listado
 
-            For Each tienda In lista
-                If Not tienda.Logo = Nothing Then
-                    If tienda.Logo.Trim.Length > 0 Then
-                        tienda.Nombre = "reddit_" + tienda.Nombre.ToLower
+            For Each tienda In listaTiendas
+                If Not tienda.Logos.LogoApp = Nothing And Not tienda.Asset.ColorLogo = Nothing Then
+                    Dim imagenIcono As New ImageEx With {
+                        .Stretch = Stretch.Uniform,
+                        .IsCacheEnabled = True,
+                        .Source = tienda.Logos.LogoApp,
+                        .MaxHeight = 128
+                    }
 
-                        Dim imagenIcono As New ImageEx With {
-                            .Stretch = Stretch.Uniform,
-                            .IsCacheEnabled = True,
-                            .Source = tienda.Logo,
-                            .MaxHeight = 128
-                        }
+                    Dim grid As New Grid With {
+                        .Padding = New Thickness(15, 20, 15, 20),
+                        .Background = New SolidColorBrush(tienda.Asset.ColorLogo.ToColor),
+                        .Width = 256,
+                        .Height = 256
+                    }
 
-                        Dim grid As New Grid With {
-                            .Padding = New Thickness(15, 20, 15, 20),
-                            .Background = New SolidColorBrush(tienda.FondoOscuro.ToColor),
-                            .Width = 256,
-                            .Height = 256
-                        }
+                    grid.Children.Add(imagenIcono)
 
-                        grid.Children.Add(imagenIcono)
+                    Dim boton As New Button With {
+                        .BorderThickness = New Thickness(0, 0, 0, 0),
+                        .Background = New SolidColorBrush(Colors.Transparent)
+                    }
 
-                        Dim boton As New Button With {
-                            .BorderThickness = New Thickness(0, 0, 0, 0),
-                            .Background = New SolidColorBrush(Colors.Transparent)
-                        }
+                    boton.Content = grid
+                    boton.Tag = "reddit_" + tienda.NombreUsar
 
-                        tienda.Objeto = grid
-                        tienda.ObjetoAlto = 256
-                        tienda.ObjetoAncho = 256
-                        boton.Content = grid
-                        boton.Tag = tienda
+                    AddHandler boton.Click, AddressOf GenerarFicheroImagen
 
-                        AddHandler boton.Click, AddressOf GenerarFicheroImagen
-
-                        gv.Items.Add(boton)
-                    End If
+                    gv.Items.Add(boton)
                 End If
             Next
 
@@ -310,7 +265,7 @@ Namespace Editor
         Public Async Sub GenerarFicheroImagen(sender As Object, e As RoutedEventArgs)
 
             Dim boton As Button = sender
-            Dim cosas As Asset = boton.Tag
+            Dim nombre As String = boton.Tag
 
             Dim ficheroImagen As New List(Of String) From {
                 ".png"
@@ -320,13 +275,13 @@ Namespace Editor
                 .SuggestedStartLocation = PickerLocationId.PicturesLibrary
             }
 
-            guardarPicker.SuggestedFileName = cosas.Nombre
+            guardarPicker.SuggestedFileName = nombre
             guardarPicker.FileTypeChoices.Add("Imagen", ficheroImagen)
 
             Dim ficheroResultado As StorageFile = Await guardarPicker.PickSaveFileAsync
 
             If Not ficheroResultado Is Nothing Then
-                Await ImagenFichero.Generar(ficheroResultado, cosas.Objeto, cosas.ObjetoAncho, cosas.ObjetoAlto)
+                Await ImagenFichero.Generar(ficheroResultado, boton.Content, Nothing, Nothing)
             End If
 
         End Sub
