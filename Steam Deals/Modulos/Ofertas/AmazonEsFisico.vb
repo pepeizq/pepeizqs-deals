@@ -108,8 +108,11 @@ Namespace Ofertas
                                 Dim temp11, temp12 As String
                                 Dim int11, int12 As Integer
 
-                                int11 = temp.IndexOf("<img src=")
+                                int11 = temp.IndexOf("<img")
                                 temp11 = temp.Remove(0, int11 + 10)
+
+                                int11 = temp11.IndexOf("src=")
+                                temp11 = temp11.Remove(0, int11 + 5)
 
                                 int12 = temp11.IndexOf(ChrW(34))
                                 temp12 = temp11.Remove(int12, temp11.Length - int12)

@@ -75,6 +75,8 @@ Namespace Editor.RedesSociales
                             tituloFinal = tituloFinal.Trim
                         End If
                     End If
+
+                    tituloFinal = tituloFinal.Replace("• Free • Free", "• Free")
                 End If
 
                 Await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, (Sub()

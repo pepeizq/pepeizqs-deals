@@ -4,7 +4,6 @@ Imports Imgur.API.Models
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
 Imports Steam_Deals.Editor.RedesSociales
-Imports Steam_Deals.Interfaz
 Imports Windows.ApplicationModel.Core
 Imports Windows.Storage
 Imports Windows.System
@@ -76,7 +75,11 @@ Namespace Editor
 
                     If Not tienda Is Nothing Then
                         postEditor.TiendaNombre = tienda.NombreMostrar
-                        postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.Logos.IconoWeb + ChrW(34) + " />"
+
+                        If Not tienda.Logos.IconoWeb = Nothing Then
+                            postEditor.TiendaIcono = "<img src=" + ChrW(34) + tienda.Logos.IconoWeb + ChrW(34) + " />"
+                        End If
+
                         postEditor.TiendaLogo = tienda.Logos.LogoWeb300x80
                     End If
 

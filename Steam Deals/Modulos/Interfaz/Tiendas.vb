@@ -179,7 +179,8 @@ Namespace Interfaz
                                              New TiendaMensajes(Nothing, Nothing),
                                              New TiendaCupon(0, Nothing),
                                              New TiendaCaratulasJuegos(120, TiendaCaratulasJuegos.FormatoImagen.Vertical),
-                                             New TiendaFichaWeb(Nothing, Nothing),
+                                             New TiendaFichaWeb("Green Man Gaming is a British-based online video game retailer, distributor and publisher. It has a multi-platform catalogue of 9,000+ games from more than 1,350 publishers, selling games in 195 countries through over 140 payment systems, in 18 currencies. 90% of its revenue is generated from outside the UK.",
+                                                                "https://www.greenmangaming.com/hot-deals/all-results/"),
                                              New TiendaAsset("#97ff9a", "#016603"))
 
         Public amazoncomT As New Tienda("Amazon.com", "AmazonCom",
@@ -523,7 +524,7 @@ Namespace Interfaz
             Pestañas.Botones(False)
 
             Try
-                Await Steam.BuscarOfertas(steamT)
+                'Await Steam.BuscarOfertas(steamT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             End Try

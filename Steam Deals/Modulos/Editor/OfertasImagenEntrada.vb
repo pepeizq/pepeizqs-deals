@@ -1,7 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
-Imports Steam_Deals.Interfaz
 Imports Steam_Deals.Ofertas
 Imports Windows.UI
 

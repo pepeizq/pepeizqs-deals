@@ -741,7 +741,11 @@
                                                             <controls:ImageEx x:Name="imagenTiendaGratis" MaxWidth="280" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                                            <StackPanel.Background>
+                                                                <SolidColorBrush Color="Black" Opacity="0.4"/>
+                                                            </StackPanel.Background>
+
                                                             <TextBlock x:Name="tbMensajeGratis" Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
 
@@ -872,7 +876,11 @@
                                                             <controls:ImageEx x:Name="imagenTiendaUnJuegoSuscripciones" MaxWidth="280" MaxHeight="140" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
-                                                        <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
+                                                            <StackPanel.Background>
+                                                                <SolidColorBrush Color="Black" Opacity="0.4"/>
+                                                            </StackPanel.Background>
+                                                            
                                                             <TextBlock x:Name="tbMensajeUnJuegoSuscripciones" Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
                                                     </StackPanel>
