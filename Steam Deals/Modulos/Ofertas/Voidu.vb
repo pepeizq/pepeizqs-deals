@@ -33,34 +33,48 @@ Namespace Ofertas
                 listaIDs = Await helper.ReadFileAsync(Of List(Of String))("listaIDsVoidu")
             End If
 
-            Dim fichero As IStorageFile = Await Descargador(New Uri("https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133"))
+            Dim fichero As IStorageFile = Nothing
+
+            Try
+                fichero = Await Descargador(New Uri("https://daisycon.io/datafeed/?filter_id=80367&settings_id=10133"))
+            Catch ex As Exception
+
+            End Try
 
             If Not fichero Is Nothing Then
-                Dim lineas As IList(Of String) = Await FileIO.ReadLinesAsync(fichero)
+                Try
+                    Dim lineas As IList(Of String) = Await FileIO.ReadLinesAsync(fichero)
 
-                For Each linea In lineas
-                    If linea.Contains("<sku>") Then
-                        Dim id As String = linea
-                        id = id.Replace("<sku><![CDATA[", Nothing)
-                        id = id.Replace("]]></sku>", Nothing)
-                        id = id.Trim
+                    For Each linea In lineas
+                        If linea.Contains("<sku>") Then
+                            Dim id As String = linea
+                            id = id.Replace("<sku><![CDATA[", Nothing)
+                            id = id.Replace("]]></sku>", Nothing)
+                            id = id.Trim
 
-                        Dim añadir As Boolean = True
+                            Dim añadir As Boolean = True
 
-                        For Each id2 In listaIDs
-                            If id2 = id Then
-                                añadir = False
+                            For Each id2 In listaIDs
+                                If id2 = id Then
+                                    añadir = False
+                                End If
+                            Next
+
+                            If añadir = True Then
+                                listaIDs.Add(id)
                             End If
-                        Next
-
-                        If añadir = True Then
-                            listaIDs.Add(id)
                         End If
-                    End If
-                Next
+                    Next
+                Catch ex As Exception
+
+                End Try
             End If
 
-            Await helper.SaveFileAsync(Of List(Of String))("listaIDs" + tienda.NombreUsar, listaIDs)
+            Try
+                Await helper.SaveFileAsync(Of List(Of String))("listaIDs" + tienda.NombreUsar, listaIDs)
+            Catch ex As Exception
+
+            End Try
 
             Dim i As Integer = 0
             If listaIDs.Count > 0 Then
@@ -75,6 +89,7 @@ Namespace Ofertas
                                 If Not juegoVoidu.Datos Is Nothing Then
                                     Dim titulo As String = juegoVoidu.Datos.Titulo.Trim
                                     titulo = titulo.Replace("(Steam)", Nothing)
+                                    titulo = titulo.Replace("[Mac]", Nothing)
                                     titulo = titulo.Trim
 
                                     Dim enlace As String = "https://beta.voidu.com/product/" + juegoVoidu.Datos.Slug + "/" + juegoVoidu.Datos.ID
