@@ -160,7 +160,7 @@ Namespace Editor
             Dim lista As New List(Of Desarrollador) From {
                 New Desarrollador("11 bit Studios", "@11bitstudios", "11bitstudios.png", 200),
                 New Desarrollador("1C Entertainment", "@1C_Company", "1c.png", 140),
-                New Desarrollador("2K", "@2K", "2k.png", 150),
+                New Desarrollador("2K", "@2K", "2k.png", 130),
                 New Desarrollador("505 Games", "@505_Games", "505games.png", 220),
                 New Desarrollador("Activision", "@Activision", "activision.png", 260),
                 New Desarrollador("Adult Swim", "@adultswimgames", "adulswim.png", 330),
@@ -227,7 +227,7 @@ Namespace Editor
                 New Desarrollador("Plug In Digital", "@plugindigital", "plugin.png", 210),
                 New Desarrollador("Quantic Dream", "@Quantic_Dream", "quanticdream.png", 280),
                 New Desarrollador("Raw Fury", "@rawfury", "rawfury.png", 170),
-                New Desarrollador("Rebellion", "@Rebellion", "rebellion.png", 200),
+                New Desarrollador("Rebellion", "@Rebellion", "rebellion.png", 190),
                 New Desarrollador("Rockstar", "@RockstarGames", "rockstar.png", 120),
                 New Desarrollador("Runic Games", "@RunicGames", "runicgames.png", 350),
                 New Desarrollador("Saber Interactive", "@TweetsSaber", "saber.png", 290),

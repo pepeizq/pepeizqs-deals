@@ -310,8 +310,8 @@ Namespace Editor
 
             Dim fechaPicker As DatePicker = sender
 
-            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
-                Notificaciones.Toast("Same Day", Nothing)
+            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day And fechaPicker.SelectedDate.Value.Month = DateTime.Today.Month Then
+                Notificaciones.Toast("Mismo Dia", Nothing)
             End If
 
         End Sub

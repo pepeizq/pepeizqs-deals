@@ -132,7 +132,7 @@ Namespace Editor
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2020/12/primegaming.png"
                 imagenTienda2.MaxHeight = 60
 
-                cosas.Tienda = Tiendas.amazoncomT
+                cosas.Tienda = Tiendas.primeGamingT
                 cosas.Enlace = "https://gaming.amazon.com/"
                 cosas.Mensaje = "New Games Added"
 
@@ -149,7 +149,7 @@ Namespace Editor
                 imagenTienda2.Source = "https://pepeizqdeals.com/wp-content/uploads/2022/01/pcgamepass.webp"
                 imagenTienda2.MaxHeight = 80
 
-                cosas.Tienda = Tiendas.microsoftstoreT
+                cosas.Tienda = Tiendas.pcGamePassT
                 cosas.Enlace = "https://pepeizqdeals.com/pc-game-pass/"
                 cosas.Titulo = "PC Game Pass • New Games Added • " + cosas.Juegos
                 cosas.Mensaje = "New Games Added"
@@ -284,6 +284,10 @@ Namespace Editor
 
             If tbImagenesGrid.Text.Length > 0 Then
                 json = OfertasEntrada.GenerarJsonSuscripciones(tbImagenesGrid.Text.Trim.Replace("header", "library_600x900"))
+            End If
+
+            If json = Nothing Then
+                Notificaciones.Toast("Json Vacio", "Suscripciones")
             End If
 
             'Traducciones----------------------
@@ -459,8 +463,8 @@ Namespace Editor
 
             Dim fechaPicker As DatePicker = sender
 
-            If fechaPicker.SelectedDate.Value.Month = DateTime.Today.Month And fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
-                Notificaciones.Toast("Hoy es el mismo dia", Nothing)
+            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day And fechaPicker.SelectedDate.Value.Month = DateTime.Today.Month Then
+                Notificaciones.Toast("Mismo Dia", Nothing)
             End If
 
         End Sub

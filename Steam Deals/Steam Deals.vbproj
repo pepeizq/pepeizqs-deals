@@ -241,9 +241,6 @@
     <Content Include="Assets\Fuentes\OpenSans-Regular.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-SemiBold.ttf" />
     <Content Include="Assets\Fuentes\OpenSans-SemiBoldItalic.ttf" />
-    <PRIResource Include="Strings\ru-RU\Resources.resw" />
-    <PRIResource Include="Strings\pl-PL\Resources.resw" />
-    <PRIResource Include="Strings\de-DE\Resources.resw" />
     <PRIResource Include="Strings\es-ES\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>

@@ -219,7 +219,11 @@ Namespace Editor
                     Next
 
                     Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaGratis")
-                    tienda = New Tienda(tiendaString, tiendaString, New TiendaLogos(Nothing, imagenTienda.Source, Nothing, imagenTienda.Source, imagenTienda.Source, Nothing), New TiendaNumeraciones(-1, etiqueta), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing, Nothing)
+
+                    Dim logo As String = imagenTienda.Source
+                    logo = logo.Replace("https://pepeizqdeals.com/wp-content/uploads/", Nothing)
+
+                    tienda = New Tienda(tiendaString, tiendaString, New TiendaLogos(Nothing, logo, Nothing, logo, logo, Nothing), New TiendaNumeraciones(-1, etiqueta), New TiendaMensajes(Nothing, Nothing), Nothing, Nothing, Nothing, Nothing)
 
                     Dim imagenJuego As ImageEx = pagina.FindName("imagenJuegoGratis")
                     json = OfertasEntrada.GenerarJsonGratis(imagenJuego.Source)
@@ -526,8 +530,8 @@ Namespace Editor
 
             Dim fechaPicker As DatePicker = sender
 
-            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
-                Notificaciones.Toast("Same Day", Nothing)
+            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day And fechaPicker.SelectedDate.Value.Month = DateTime.Today.Month Then
+                Notificaciones.Toast("Mismo Dia", Nothing)
             End If
 
         End Sub

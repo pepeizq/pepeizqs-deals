@@ -597,7 +597,7 @@ Namespace Editor
 
         Private Async Function Humble(enlace As String) As Task(Of Bundle)
 
-            Dim cosas As New Bundle(Nothing, "--- €", Nothing, Tiendas.humbleT, 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
+            Dim cosas As New Bundle(Nothing, "--- €", Nothing, Tiendas.humbleBundleT, 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
             cosas.Tienda.NombreMostrar = "Humble Bundle"
 
             Dim html As String = Await HttpClient(New Uri(enlace))
@@ -939,8 +939,8 @@ Namespace Editor
 
             Dim fechaPicker As DatePicker = sender
 
-            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day Then
-                Notificaciones.Toast("Same Day", Nothing)
+            If fechaPicker.SelectedDate.Value.Day = DateTime.Today.Day And fechaPicker.SelectedDate.Value.Month = DateTime.Today.Month Then
+                Notificaciones.Toast("Mismo Dia", Nothing)
             End If
 
         End Sub

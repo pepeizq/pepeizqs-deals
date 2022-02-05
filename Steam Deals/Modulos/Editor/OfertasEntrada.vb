@@ -185,7 +185,7 @@ Namespace Editor
                                               ChrW(34) + "dscnt" + ChrW(34) + ":" + ChrW(34) + juego.Descuento + ChrW(34) + "," +
                                               ChrW(34) + "price" + ChrW(34) + ":" + ChrW(34) + juego.Precio1 + ChrW(34) + "," +
                                               precio2 +
-                                              ChrW(34) + "link" + ChrW(34) + ":" + ChrW(34) + juego.Enlace + ChrW(34) + "," +
+                                              ChrW(34) + "link" + ChrW(34) + ":" + ChrW(34) + Referidos.Generar(juego.Enlace) + ChrW(34) + "," +
                                               ChrW(34) + "drm" + ChrW(34) + ":" + ChrW(34) + drm + ChrW(34) + "," +
                                               ChrW(34) + "revw1" + ChrW(34) + ":" + ChrW(34) + analisisPorcentaje + ChrW(34) + "," +
                                               ChrW(34) + "revw2" + ChrW(34) + ":" + ChrW(34) + analisisCantidad + ChrW(34) + "," +

@@ -360,10 +360,13 @@ Namespace Suscripciones
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbImagenesGrid As TextBox = pagina.FindName("tbJuegosImagenesSuscripciones")
+
             Dim titulo As String = String.Empty
 
             If listaNuevos2.Count = 1 Then
                 titulo = "PC Game Pass • New Game Added • " + Editor.LimpiarTitulo(listaNuevos2(0).Titulo)
+                tbImagenesGrid.Text = listaNuevos2(0).Imagen
                 SuscripcionesImagenEntrada.UnJuegoGenerar(listaNuevos2(0).Imagen)
             Else
                 titulo = "PC Game Pass • New Games Added • "
@@ -405,6 +408,7 @@ Namespace Suscripciones
 
                 For Each nuevo In listaNuevos2
                     listaImagenes.Add(nuevo.Imagen)
+                    tbImagenesGrid.Text = tbImagenesGrid.Text + nuevo.Imagen
                 Next
 
                 SuscripcionesImagenEntrada.DosJuegosGenerar(listaImagenes)

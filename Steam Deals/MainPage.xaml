@@ -86,7 +86,7 @@
                             <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigSteamGifts" Text="SteamGifts" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
-                        </MenuFlyout> 
+                        </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
@@ -177,7 +177,7 @@
                             <ComboBox x:Name="cbFiltradoEditorDesarrolladores" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <TextBlock x:Name="tbNumOfertasCargadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <TextBlock x:Name="tbNumOfertasSeleccionadas2" VerticalAlignment="Center" Margin="20,0,0,0"/>
-                            
+
                             <TextBlock x:Name="tbImportantesSeleccionados" VerticalAlignment="Center" Margin="30,0,0,0"/>
                             <ComboBox x:Name="cbImportantesSeleccionados" VerticalAlignment="Center" Margin="20,0,0,0" Visibility="Collapsed"/>
                         </StackPanel>
@@ -310,8 +310,8 @@
                                     <TextBox x:Name="tbTituloComplementoOfertas" Margin="0,10,0,15" TextWrapping="Wrap" AcceptsReturn="True"/>
                                     <TextBlock x:Uid="Comment"/>
                                     <TextBox x:Name="tbComentarioOfertas" Margin="0,10,0,15" TextWrapping="Wrap" AcceptsReturn="True"/>
-                                </StackPanel> 
-                                                              
+                                </StackPanel>
+
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,15">
                                     <DatePicker x:Name="fechaOfertas" Margin="0,0,20,0"/>
                                     <TimePicker x:Name="horaOfertas" Margin="0,0,30,0"/>
@@ -457,7 +457,7 @@
                                                         <Grid.Background>
                                                             <ImageBrush x:Name="imagenFondoDosJuegosOfertas" Stretch="None"/>
                                                         </Grid.Background>
-                                                                                                             
+
                                                         <Grid>
                                                             <Grid.Background>
                                                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">
@@ -521,7 +521,7 @@
                                     <TextBlock Text="Ancho" Margin="20,0,5,0" VerticalAlignment="Center"/>
                                     <TextBox x:Name="tbImagenAnchoBundles" MaxWidth="100"/>
                                 </StackPanel>
-                              
+
                                 <StackPanel Margin="0,0,0,15">
                                     <Button x:Name="botonJuegosIDsBundles" Margin="0,0,0,10" Background="{StaticResource BrushPrimario}" Padding="10,5" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                         <Button.Content>
@@ -631,14 +631,14 @@
                                                                 <controls:ImageEx x:Name="imagenHumbleBundles" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
                                                                 <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio2.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
                                                             </StackPanel>
-                                                        </Grid>                                                        
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
 
                                                 <controls:AdaptiveGridView x:Name="gvJuegosBundles" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10"/>
 
                                                 <controls:AdaptiveGridView x:Name="gvDLCsBundles" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10" Visibility="Collapsed"/>
-                                                
+
                                                 <Grid x:Name="gridMasJuegosBundles" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
                                                     <TextBlock x:Name="tbMasJuegosBundles" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                 </Grid>
@@ -660,7 +660,7 @@
                                 <TextBox x:Name="tbImagenTiendaGratis" Margin="0,0,0,15" TextWrapping="Wrap"/>
                                 <TextBox x:Name="tbImagenFondoGratis" Margin="0,0,0,15" TextWrapping="Wrap"/>
                                 <TextBlock Text="Mensaje"/>
-       
+
                                 <Grid Margin="0,10,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -880,7 +880,7 @@
                                                             <StackPanel.Background>
                                                                 <SolidColorBrush Color="Black" Opacity="0.4"/>
                                                             </StackPanel.Background>
-                                                            
+
                                                             <TextBlock x:Name="tbMensajeUnJuegoSuscripciones" Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                         </StackPanel>
                                                     </StackPanel>
@@ -912,7 +912,7 @@
                                                     </Grid>
 
                                                     <controls:AdaptiveGridView x:Name="gvJuegosDosJuegosSuscripciones" Grid.Row="1" ItemContainerStyle="{StaticResource GridViewEstilo3}" IsHitTestVisible="False" DesiredWidth="250" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="20,0,20,10"/>
-                                                </Grid>                                                    
+                                                </Grid>
                                             </Grid>
                                         </Button.Content>
                                     </Button>
@@ -947,7 +947,7 @@
                                     <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
                                     <TextBox x:Name="tbTituloImagenEspañolAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
-                        
+
                                 <TextBlock Text="Imagen Comentario"/>
 
                                 <Grid Margin="0,10,0,0">
@@ -981,9 +981,9 @@
                                         <ComboBoxItem Content="Izquierda"/>
                                         <ComboBoxItem Content="Centrado"/>
                                         <ComboBoxItem Content="Derecha"/>
-                                    </ComboBox> 
+                                    </ComboBox>
                                     <TextBlock Text="Orientación Comentario" VerticalAlignment="Center"/>
-                                </StackPanel> 
+                                </StackPanel>
 
                                 <TextBlock Text="Juegos"/>
                                 <Grid Margin="0,10,0,15">
@@ -1048,7 +1048,7 @@
 
                                                         <Grid x:Name="gridDatosAnuncios" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50">
                                                             <Grid.Background>
-                                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">                                                 
+                                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">
                                                                     <GradientStop x:Name="color1DegradadoAnuncios" Color="#662E4460" Offset="0.0"/>
                                                                     <GradientStop x:Name="color2DegradadoAnuncios" Color="#B22E4460" Offset="0.3"/>
                                                                     <GradientStop x:Name="color3DegradadoAnuncios" Color="#CC2E4460" Offset="0.4"/>
@@ -1095,7 +1095,7 @@
                                             </Button.Content>
                                         </Button>
                                     </StackPanel>
-                                    
+
                                     <TextBlock Text="Monedas" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Name="tbDivisasDolar" VerticalAlignment="Center"/>
@@ -1319,7 +1319,7 @@
 
                                     <TextBox x:Name="tbEnlaceSteamGifts" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
-                                
+
                                 <WebView x:Name="wvSteamGifts" Grid.Row="1"/>
                             </Grid>
                         </ScrollViewer>
@@ -1340,18 +1340,16 @@
 
                                 <WebView x:Name="wvFichas" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
-                        </ScrollViewer> 
-                        
+                        </ScrollViewer>
+
                         <ScrollViewer x:Name="svOtrasCosas" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <WebView x:Name="wvNexus"/>
-                            </StackPanel> 
-                        </ScrollViewer> 
+                            </StackPanel>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </Grid>
         </NavigationView>
-
-        <WebView x:Name="wvYuplay" Visibility="Collapsed"/>
     </Grid>
 </Page>

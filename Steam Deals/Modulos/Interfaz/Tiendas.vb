@@ -36,7 +36,7 @@ Namespace Interfaz
                                                          "2021/05/gamersgate3.png", "29951"),
                                          New TiendaNumeraciones(1, 7),
                                          New TiendaMensajes(Nothing, Nothing),
-                                         New TiendaCupon(11, "RGAMEDEALS"),
+                                         New TiendaCupon(0, Nothing),
                                          New TiendaCaratulasJuegos(130, TiendaCaratulasJuegos.FormatoImagen.Vertical),
                                          New TiendaFichaWeb("GamersGate is a Sweden-based online video game store offering electronic strategy guides and games for Windows, macOS, and Linux via direct download. It is a competitor to online video game services such as Steam, GOG.com, and Direct2Drive.",
                                                             "https://www.gamersgate.com/offers/"),
@@ -524,7 +524,7 @@ Namespace Interfaz
             Pestañas.Botones(False)
 
             Try
-                'Await Steam.BuscarOfertas(steamT)
+                Await Steam.BuscarOfertas(steamT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             End Try

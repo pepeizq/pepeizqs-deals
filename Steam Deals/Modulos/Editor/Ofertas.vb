@@ -92,6 +92,12 @@ Namespace Editor
                 End If
             End If
 
+            If listaTotal.Count > 6 Then
+                If Not tienda.Mensajes.DosJuegos = String.Empty Then
+                    tbComentario.Text = tienda.Mensajes.DosJuegos + " " + tbComentario.Text
+                End If
+            End If
+
             Dim listaDescuento As New List(Of String)
             Dim precioFinal As String = String.Empty
 
