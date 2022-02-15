@@ -408,7 +408,7 @@ Namespace Suscripciones
 
                 For Each nuevo In listaNuevos2
                     listaImagenes.Add(nuevo.Imagen)
-                    tbImagenesGrid.Text = tbImagenesGrid.Text + nuevo.Imagen
+                    tbImagenesGrid.Text = tbImagenesGrid.Text + nuevo.Imagen + ","
                 Next
 
                 SuscripcionesImagenEntrada.DosJuegosGenerar(listaImagenes)

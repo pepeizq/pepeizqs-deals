@@ -37,6 +37,7 @@
         Public Function BundlesSeccion1(mensaje As String)
 
             mensaje = mensaje.Replace("Games", "Juegos")
+            mensaje = mensaje.Replace("Minimum", "Mínimo")
 
             Return mensaje
 

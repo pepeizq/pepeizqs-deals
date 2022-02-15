@@ -150,7 +150,7 @@ Namespace Editor
 
                     cosas = Await Steam(enlace)
 
-                ElseIf enlace.Contains("https://www.humblebundle.com/") Then
+                ElseIf enlace.Contains("https://www.humblebundle.com/games/") Then
 
                     cbImagenTienda.IsChecked = False
                     imagenTienda.Visibility = Visibility.Collapsed
@@ -158,7 +158,17 @@ Namespace Editor
                     imagenBundle.Visibility = Visibility.Collapsed
                     imagenHumble.Visibility = Visibility.Visible
 
-                    cosas = Await Humble(enlace)
+                    cosas = Await HumbleBundle(enlace)
+
+                ElseIf enlace.Contains("https://www.humblebundle.com/store/") Then
+
+                    cbImagenTienda.IsChecked = True
+                    imagenTienda.Visibility = Visibility.Visible
+
+                    imagenBundle.Visibility = Visibility.Visible
+                    imagenHumble.Visibility = Visibility.Collapsed
+
+                    cosas = HumbleStore(enlace)
 
                 ElseIf enlace.Contains("https://www.fanatical.com/") Then
 
@@ -595,7 +605,7 @@ Namespace Editor
             Return cosas
         End Function
 
-        Private Async Function Humble(enlace As String) As Task(Of Bundle)
+        Private Async Function HumbleBundle(enlace As String) As Task(Of Bundle)
 
             Dim cosas As New Bundle(Nothing, "--- €", Nothing, Tiendas.humbleBundleT, 1217, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
             cosas.Tienda.NombreMostrar = "Humble Bundle"
@@ -696,6 +706,13 @@ Namespace Editor
                 End If
             End If
 
+            Return cosas
+
+        End Function
+
+        Private Function HumbleStore(enlace As String)
+
+            Dim cosas As New Bundle(Nothing, "Mininum X Games", Nothing, Tiendas.humbleT, 6, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_humble.png", Nothing, Nothing)
             Return cosas
 
         End Function

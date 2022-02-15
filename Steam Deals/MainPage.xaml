@@ -617,7 +617,7 @@
                                                                     <controls:ImageEx x:Name="imagenTiendaBundles" MaxWidth="250" Stretch="Uniform" IsCacheEnabled="True"/>
                                                                 </controls:DropShadowPanel>
 
-                                                                <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40">
+                                                                <StackPanel Background="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40,20">
                                                                     <TextBlock x:Name="tbPrecioBundles" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
                                                                 </StackPanel>
                                                             </StackPanel>
