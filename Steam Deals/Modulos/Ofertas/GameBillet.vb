@@ -72,105 +72,108 @@ Namespace Ofertas
                             temp = temp2
 
                             int3 = temp2.IndexOf("</span>")
-                            temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                            Dim temp4, temp5 As String
-                            Dim int4, int5 As Integer
+                            If Not int3 = -1 Then
+                                temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                            int4 = temp3.IndexOf("title=")
-                            temp4 = temp3.Remove(0, int4 + 7)
+                                Dim temp4, temp5 As String
+                                Dim int4, int5 As Integer
 
-                            int5 = temp4.IndexOf(ChrW(34))
-                            temp5 = temp4.Remove(int5, temp4.Length - int5)
+                                int4 = temp3.IndexOf("title=")
+                                temp4 = temp3.Remove(0, int4 + 7)
 
-                            temp5 = temp5.Replace("Show details for ", Nothing)
+                                int5 = temp4.IndexOf(ChrW(34))
+                                temp5 = temp4.Remove(int5, temp4.Length - int5)
 
-                            Dim titulo As String = WebUtility.HtmlDecode(temp5.Trim)
-                            titulo = titulo.Replace("(DLC)", Nothing)
-                            titulo = titulo.Trim
+                                temp5 = temp5.Replace("Show details for ", Nothing)
 
-                            Dim temp6, temp7 As String
-                            Dim int6, int7 As Integer
+                                Dim titulo As String = WebUtility.HtmlDecode(temp5.Trim)
+                                titulo = titulo.Replace("(DLC)", Nothing)
+                                titulo = titulo.Trim
 
-                            int6 = temp3.IndexOf("<a href=")
-                            temp6 = temp3.Remove(0, int6 + 9)
+                                Dim temp6, temp7 As String
+                                Dim int6, int7 As Integer
 
-                            int7 = temp6.IndexOf(ChrW(34))
-                            temp7 = temp6.Remove(int7, temp6.Length - int7)
+                                int6 = temp3.IndexOf("<a href=")
+                                temp6 = temp3.Remove(0, int6 + 9)
 
-                            temp7 = "https://gamebillet.com" + temp7.Trim
+                                int7 = temp6.IndexOf(ChrW(34))
+                                temp7 = temp6.Remove(int7, temp6.Length - int7)
 
-                            Dim enlace As String = temp7
+                                temp7 = "https://gamebillet.com" + temp7.Trim
 
-                            Dim temp8, temp9 As String
-                            Dim int8, int9 As Integer
+                                Dim enlace As String = temp7
 
-                            int8 = temp3.IndexOf("src=" + ChrW(34))
-                            temp8 = temp3.Remove(0, int8 + 5)
+                                Dim temp8, temp9 As String
+                                Dim int8, int9 As Integer
 
-                            int9 = temp8.IndexOf(ChrW(34))
-                            temp9 = temp8.Remove(int9, temp8.Length - int9)
+                                int8 = temp3.IndexOf("src=" + ChrW(34))
+                                temp8 = temp3.Remove(0, int8 + 5)
 
-                            Dim imagen As String = temp9.Trim
+                                int9 = temp8.IndexOf(ChrW(34))
+                                temp9 = temp8.Remove(int9, temp8.Length - int9)
 
-                            Dim temp10, temp11 As String
-                            Dim int10, int11 As Integer
+                                Dim imagen As String = temp9.Trim
 
-                            If temp3.Contains("Pre-order</a>") Then
-                                int10 = temp3.IndexOf("Pre-order</a>")
-                                temp10 = temp3.Remove(0, int10 + 11)
+                                Dim temp10, temp11 As String
+                                Dim int10, int11 As Integer
 
-                                int11 = temp10.IndexOf("<span>")
-                                temp11 = temp10.Remove(0, int11 + 6)
+                                If temp3.Contains("Pre-order</a>") Then
+                                    int10 = temp3.IndexOf("Pre-order</a>")
+                                    temp10 = temp3.Remove(0, int10 + 11)
 
-                                temp11 = temp11.Replace(".", ",")
-                                temp11 = temp11.Replace("€", Nothing)
-                                temp11 = temp11.Trim + " €"
+                                    int11 = temp10.IndexOf("<span>")
+                                    temp11 = temp10.Remove(0, int11 + 6)
 
-                                Dim precio As String = temp11
+                                    temp11 = temp11.Replace(".", ",")
+                                    temp11 = temp11.Replace("€", Nothing)
+                                    temp11 = temp11.Trim + " €"
 
-                                Dim drm As String = String.Empty
+                                    Dim precio As String = temp11
 
-                                If temp3.Contains("title=" + ChrW(34) + "Steam" + ChrW(34)) Then
-                                    drm = "steam"
-                                ElseIf temp3.Contains("title=" + ChrW(34) + "Uplay" + ChrW(34)) Then
-                                    drm = "uplay"
-                                End If
+                                    Dim drm As String = String.Empty
 
-                                Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
-
-                                Dim juego As New Oferta(titulo, "00%", precio, Nothing, enlace, New OfertaImagenes(imagen, Nothing), drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
-
-                                Dim añadir As Boolean = True
-                                Dim l As Integer = 0
-                                While l < listaJuegos.Count
-                                    If listaJuegos(l).Enlace = juego.Enlace Then
-                                        añadir = False
+                                    If temp3.Contains("title=" + ChrW(34) + "Steam" + ChrW(34)) Then
+                                        drm = "steam"
+                                    ElseIf temp3.Contains("title=" + ChrW(34) + "Uplay" + ChrW(34)) Then
+                                        drm = "uplay"
                                     End If
-                                    l += 1
-                                End While
 
-                                If añadir = True Then
-                                    juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                                    If Not juegobbdd Is Nothing Then
-                                        juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+                                    Dim juego As New Oferta(titulo, "00%", precio, Nothing, enlace, New OfertaImagenes(imagen, Nothing), drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
 
-                                        If Not juegobbdd.Desarrollador = Nothing Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                    Dim añadir As Boolean = True
+                                    Dim l As Integer = 0
+                                    While l < listaJuegos.Count
+                                        If listaJuegos(l).Enlace = juego.Enlace Then
+                                            añadir = False
                                         End If
-                                    End If
+                                        l += 1
+                                    End While
 
-                                    If juego.Desarrolladores Is Nothing Then
-                                        For Each desarrollador In listaDesarrolladores
-                                            If desarrollador.ID = juego.Enlace Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                                Exit For
+                                    If añadir = True Then
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+
+                                        If Not juegobbdd Is Nothing Then
+                                            juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
+                                            If Not juegobbdd.Desarrollador = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                             End If
-                                        Next
-                                    End If
+                                        End If
 
-                                    listaJuegos.Add(juego)
+                                        If juego.Desarrolladores Is Nothing Then
+                                            For Each desarrollador In listaDesarrolladores
+                                                If desarrollador.ID = juego.Enlace Then
+                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                    Exit For
+                                                End If
+                                            Next
+                                        End If
+
+                                        listaJuegos.Add(juego)
+                                    End If
                                 End If
                             End If
                         End If
@@ -229,115 +232,118 @@ Namespace Ofertas
                                 temp = temp2
 
                                 int3 = temp2.IndexOf("</span>")
-                                temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                                Dim temp4, temp5 As String
-                                Dim int4, int5 As Integer
+                                If Not int3 = -1 Then
+                                    temp3 = temp2.Remove(int3, temp2.Length - int3)
 
-                                int4 = temp3.IndexOf("title=")
-                                temp4 = temp3.Remove(0, int4 + 7)
+                                    Dim temp4, temp5 As String
+                                    Dim int4, int5 As Integer
 
-                                int5 = temp4.IndexOf(ChrW(34))
-                                temp5 = temp4.Remove(int5, temp4.Length - int5)
+                                    int4 = temp3.IndexOf("title=")
+                                    temp4 = temp3.Remove(0, int4 + 7)
 
-                                temp5 = temp5.Replace("Show details for ", Nothing)
+                                    int5 = temp4.IndexOf(ChrW(34))
+                                    temp5 = temp4.Remove(int5, temp4.Length - int5)
 
-                                Dim titulo As String = WebUtility.HtmlDecode(temp5.Trim)
-                                titulo = titulo.Replace("(DLC)", Nothing)
-                                titulo = titulo.Trim
+                                    temp5 = temp5.Replace("Show details for ", Nothing)
 
-                                Dim temp6, temp7 As String
-                                Dim int6, int7 As Integer
+                                    Dim titulo As String = WebUtility.HtmlDecode(temp5.Trim)
+                                    titulo = titulo.Replace("(DLC)", Nothing)
+                                    titulo = titulo.Trim
 
-                                int6 = temp3.IndexOf("<a href=")
-                                temp6 = temp3.Remove(0, int6 + 9)
+                                    Dim temp6, temp7 As String
+                                    Dim int6, int7 As Integer
 
-                                int7 = temp6.IndexOf(ChrW(34))
-                                temp7 = temp6.Remove(int7, temp6.Length - int7)
+                                    int6 = temp3.IndexOf("<a href=")
+                                    temp6 = temp3.Remove(0, int6 + 9)
 
-                                temp7 = "https://gamebillet.com" + temp7.Trim
+                                    int7 = temp6.IndexOf(ChrW(34))
+                                    temp7 = temp6.Remove(int7, temp6.Length - int7)
 
-                                Dim enlace As String = temp7
+                                    temp7 = "https://gamebillet.com" + temp7.Trim
 
-                                Dim temp8, temp9 As String
-                                Dim int8, int9 As Integer
+                                    Dim enlace As String = temp7
 
-                                int8 = temp3.IndexOf("src=" + ChrW(34))
-                                temp8 = temp3.Remove(0, int8 + 5)
+                                    Dim temp8, temp9 As String
+                                    Dim int8, int9 As Integer
 
-                                int9 = temp8.IndexOf(ChrW(34))
-                                temp9 = temp8.Remove(int9, temp8.Length - int9)
+                                    int8 = temp3.IndexOf("src=" + ChrW(34))
+                                    temp8 = temp3.Remove(0, int8 + 5)
 
-                                Dim imagen As String = temp9.Trim
+                                    int9 = temp8.IndexOf(ChrW(34))
+                                    temp9 = temp8.Remove(int9, temp8.Length - int9)
 
-                                Dim temp10, temp11 As String
-                                Dim int10, int11 As Integer
+                                    Dim imagen As String = temp9.Trim
 
-                                If temp3.Contains(">Sale") Then
-                                    int10 = temp3.IndexOf(">Sale")
-                                    temp10 = temp3.Remove(0, int10 + 5)
+                                    Dim temp10, temp11 As String
+                                    Dim int10, int11 As Integer
 
-                                    int11 = temp10.IndexOf("</")
-                                    temp11 = temp10.Remove(int11, temp10.Length - int11)
+                                    If temp3.Contains(">Sale") Then
+                                        int10 = temp3.IndexOf(">Sale")
+                                        temp10 = temp3.Remove(0, int10 + 5)
 
-                                    Dim descuento As String = temp11.Trim
+                                        int11 = temp10.IndexOf("</")
+                                        temp11 = temp10.Remove(int11, temp10.Length - int11)
 
-                                    Dim temp12 As String
-                                    Dim int12 As Integer
+                                        Dim descuento As String = temp11.Trim
 
-                                    int12 = temp3.LastIndexOf("<span>")
-                                    temp12 = temp3.Remove(0, int12 + 6)
+                                        Dim temp12 As String
+                                        Dim int12 As Integer
 
-                                    temp12 = temp12.Replace(".", ",")
-                                    temp12 = temp12.Replace("€", Nothing)
-                                    temp12 = temp12.Trim + " €"
+                                        int12 = temp3.LastIndexOf("<span>")
+                                        temp12 = temp3.Remove(0, int12 + 6)
 
-                                    Dim precio As String = temp12
+                                        temp12 = temp12.Replace(".", ",")
+                                        temp12 = temp12.Replace("€", Nothing)
+                                        temp12 = temp12.Trim + " €"
 
-                                    Dim drm As String = String.Empty
+                                        Dim precio As String = temp12
 
-                                    If temp3.Contains("title=" + ChrW(34) + "Steam" + ChrW(34)) Then
-                                        drm = "steam"
-                                    ElseIf temp3.Contains("title=" + ChrW(34) + "Uplay" + ChrW(34)) Then
-                                        drm = "uplay"
-                                    End If
+                                        Dim drm As String = String.Empty
 
-                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
-
-                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, New OfertaImagenes(imagen, Nothing), drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
-
-                                    Dim añadir As Boolean = True
-                                    Dim l As Integer = 0
-                                    While l < listaJuegos.Count
-                                        If listaJuegos(l).Enlace = juego.Enlace Then
-                                            añadir = False
-                                        End If
-                                        l += 1
-                                    End While
-
-                                    If juego.Descuento = Nothing Then
-                                        juego.Descuento = "00%"
-                                    Else
-                                        If juego.Descuento = "0%" Then
-                                            juego.Descuento = "00%"
-                                        End If
-                                    End If
-
-                                    If añadir = True Then
-                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
-
-                                        If Not juegobbdd Is Nothing Then
-                                            juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+                                        If temp3.Contains("title=" + ChrW(34) + "Steam" + ChrW(34)) Then
+                                            drm = "steam"
+                                        ElseIf temp3.Contains("title=" + ChrW(34) + "Uplay" + ChrW(34)) Then
+                                            drm = "uplay"
                                         End If
 
-                                        For Each desarrollador In listaDesarrolladores
-                                            If desarrollador.ID = juego.Enlace Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                                Exit For
+                                        Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
+
+                                        Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, New OfertaImagenes(imagen, Nothing), drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
+
+                                        Dim añadir As Boolean = True
+                                        Dim l As Integer = 0
+                                        While l < listaJuegos.Count
+                                            If listaJuegos(l).Enlace = juego.Enlace Then
+                                                añadir = False
                                             End If
-                                        Next
+                                            l += 1
+                                        End While
 
-                                        listaJuegos.Add(juego)
+                                        If juego.Descuento = Nothing Then
+                                            juego.Descuento = "00%"
+                                        Else
+                                            If juego.Descuento = "0%" Then
+                                                juego.Descuento = "00%"
+                                            End If
+                                        End If
+
+                                        If añadir = True Then
+                                            juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+
+                                            If Not juegobbdd Is Nothing Then
+                                                juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+                                            End If
+
+                                            For Each desarrollador In listaDesarrolladores
+                                                If desarrollador.ID = juego.Enlace Then
+                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                    Exit For
+                                                End If
+                                            Next
+
+                                            listaJuegos.Add(juego)
+                                        End If
                                     End If
                                 End If
                             End If
