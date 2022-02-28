@@ -29,8 +29,28 @@ Namespace Editor.RedesSociales
 
             If wv.Source.AbsoluteUri.Contains("https://pepeizqdeals.com/wp-login.php?redirect_to=") Then
 
+                'If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") Is Nothing Then
+                '    Dim loginUsuarioHtml As String = "document.getElementById('user_login').value = '" + ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") + "'"
+
+                '    Try
+                '        Await wv.InvokeScriptAsync("eval", New List(Of String) From {loginUsuarioHtml})
+                '    Catch ex As Exception
+
+                '    End Try
+                'End If
+
+                'If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") Is Nothing Then
+                '    Dim loginContraseñaHtml As String = "document.getElementById('user_pass').value = '" + ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") + "'"
+
+                '    Try
+                '        Await wv.InvokeScriptAsync("eval", New List(Of String) From {loginContraseñaHtml})
+                '    Catch ex As Exception
+
+                '    End Try
+                'End If
+
                 If Not ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") Is Nothing Then
-                    Dim loginUsuarioHtml As String = "document.getElementById('user_login').value = '" + ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") + "'"
+                    Dim loginUsuarioHtml As String = "document.getElementsByClassName('wpf-login-text')[0].textContent = '" + ApplicationData.Current.LocalSettings.Values("usuarioPepeizq") + "'"
 
                     Try
                         Await wv.InvokeScriptAsync("eval", New List(Of String) From {loginUsuarioHtml})
@@ -40,7 +60,7 @@ Namespace Editor.RedesSociales
                 End If
 
                 If Not ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") Is Nothing Then
-                    Dim loginContraseñaHtml As String = "document.getElementById('user_pass').value = '" + ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") + "'"
+                    Dim loginContraseñaHtml As String = "document.getElementsByClassName('wpf-login-text')[1].textContent = '" + ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq") + "'"
 
                     Try
                         Await wv.InvokeScriptAsync("eval", New List(Of String) From {loginContraseñaHtml})
@@ -48,6 +68,13 @@ Namespace Editor.RedesSociales
 
                     End Try
                 End If
+
+                Try
+                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByName('wpforologin')[0].focus();"})
+                    Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByName('wpforologin')[0].click();"})
+                Catch ex As Exception
+
+                End Try
 
                 Notificaciones.Toast("Logeando en Push Web", Nothing)
             Else

@@ -79,19 +79,10 @@ Namespace Editor
 
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;" + ChrW(34) + " class=" + ChrW(34) + "ofertaTitulo" + ChrW(34) + ">" + tituloFinal + drmFinal + "</td>" + Environment.NewLine
                     contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-descuento" + ChrW(34) + ">" + juego.Descuento + "</span></td>" + Environment.NewLine
-
-                    If tienda.NombreMostrar = "GOG" Then
-                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + "><img class=" + ChrW(34) + "imagen-bandera" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2021/04/europa.svg" + ChrW(34) + " /> " + juego.Precio1.Replace(".", ",") + "</span></td>" + Environment.NewLine
-                    Else
-                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio1.Replace(".", ",") + "</span></td>" + Environment.NewLine
-                    End If
+                    contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio1.Replace(".", ",") + "</span></td>" + Environment.NewLine
 
                     If dosPrecios = True Then
-                        If tienda.NombreMostrar = "GOG" Then
-                            contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + "><img class=" + ChrW(34) + "imagen-bandera" + ChrW(34) + " src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2021/04/rusia.svg" + ChrW(34) + " /> " + juego.Precio2.Replace(".", ",") + "</span></td>" + Environment.NewLine
-                        Else
-                            contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio2.Replace(".", ",") + "</span></td>" + Environment.NewLine
-                        End If
+                        contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio2.Replace(".", ",") + "</span></td>" + Environment.NewLine
                     End If
 
                     If Not juego.Analisis Is Nothing Then

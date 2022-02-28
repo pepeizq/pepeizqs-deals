@@ -619,7 +619,7 @@
 
                                                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40,20">
                                                                     <StackPanel.Background>
-                                                                        <SolidColorBrush Color="Black" Opacity="0.4"/>
+                                                                        <SolidColorBrush Color="Black" Opacity="0.7"/>
                                                                     </StackPanel.Background>
 
                                                                     <TextBlock x:Name="tbPrecioBundles" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
@@ -747,7 +747,7 @@
 
                                                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">
                                                             <StackPanel.Background>
-                                                                <SolidColorBrush Color="Black" Opacity="0.4"/>
+                                                                <SolidColorBrush Color="Black" Opacity="0.7"/>
                                                             </StackPanel.Background>
 
                                                             <TextBlock x:Name="tbMensajeGratis" Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>

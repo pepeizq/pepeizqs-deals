@@ -537,7 +537,13 @@ Namespace Editor
             ficheroPicker.FileTypeFilter.Add(".png")
             ficheroPicker.ViewMode = PickerViewMode.Thumbnail
 
-            Dim ficheroElegido As StorageFile = Await ficheroPicker.PickSingleFileAsync
+            Dim ficheroElegido As StorageFile = Nothing
+
+            Try
+                ficheroElegido = Await ficheroPicker.PickSingleFileAsync
+            Catch ex As Exception
+
+            End Try
 
             If Not ficheroElegido Is Nothing Then
                 CargarImagenFicheroDosJuegos(ficheroElegido.Path)

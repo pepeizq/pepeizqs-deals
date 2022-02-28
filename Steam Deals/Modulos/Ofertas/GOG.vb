@@ -130,39 +130,38 @@ Namespace Ofertas
                 i += 1
             End While
 
-            i = 1
-            While i < limitePaginas
-                Dim html As String = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
+            'i = 1
+            'While i < limitePaginas
+            '    Dim html As String = Await HttpClient(New Uri("https://www.gog.com/games/feed?format=xml&country=RU&currency=RUB&page=" + i.ToString))
 
-                If Not html = Nothing Then
-                    Dim stream As New StringReader(html)
-                    Dim xml As New XmlSerializer(GetType(GOGCatalogo))
-                    Dim listaJuegosGOG As GOGCatalogo = xml.Deserialize(stream)
+            '    If Not html = Nothing Then
+            '        Dim stream As New StringReader(html)
+            '        Dim xml As New XmlSerializer(GetType(GOGCatalogo))
+            '        Dim listaJuegosGOG As GOGCatalogo = xml.Deserialize(stream)
 
-                    If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
-                        Exit While
-                    Else
-                        For Each juegoGOG In listaJuegosGOG.Juegos.Juegos
-                            Dim precio As String = juegoGOG.Precio
-                            precio = Divisas.CambioMoneda(precio, rublo)
+            '        If listaJuegosGOG.Juegos.Juegos.Count = 0 Then
+            '            Exit While
+            '        Else
+            '            For Each juegoGOG In listaJuegosGOG.Juegos.Juegos
+            '                Dim precio As String = juegoGOG.Precio
+            '                precio = Divisas.CambioMoneda(precio, rublo)
 
-                            Dim enlace As String = juegoGOG.Enlace
+            '                Dim enlace As String = juegoGOG.Enlace
 
-                            For Each juego In listaJuegos
-                                If juego.Enlace = enlace Then
-                                    juego.Precio2 = precio
-                                End If
-                            Next
-                        Next
-                    End If
-                End If
+            '                For Each juego In listaJuegos
+            '                    If juego.Enlace = enlace Then
+            '                        juego.Precio2 = precio
+            '                    End If
+            '                Next
+            '            Next
+            '        End If
+            '    End If
 
-                pb.Value = i
-                tb.Text = i.ToString
+            '    pb.Value = i
+            '    tb.Text = i.ToString
 
-                i += 1
-            End While
-
+            '    i += 1
+            'End While
 
             spProgreso.Visibility = Visibility.Collapsed
 
