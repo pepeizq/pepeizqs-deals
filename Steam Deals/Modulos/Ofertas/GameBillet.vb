@@ -2,6 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Editor
 Imports Steam_Deals.Interfaz
 Imports Windows.Storage
 
@@ -13,12 +14,11 @@ Namespace Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
+            Dim listaMinimos As New List(Of Oferta)
             Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
             Dim listaImagenes As New List(Of GameBilletImagenes)
             Dim listaDesarrolladores As New List(Of GameBilletDesarrolladores)
-
-            Dim cuponPorcentaje As String = String.Empty
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -28,20 +28,6 @@ Namespace Ofertas
 
             If Await helper.FileExistsAsync("listaDesarrolladoresGameBillet") Then
                 listaDesarrolladores = Await helper.ReadFileAsync(Of List(Of GameBilletDesarrolladores))("listaDesarrolladoresGameBillet")
-            End If
-
-            If Not ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar) Is Nothing Then
-                If ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar).ToString.Trim.Length > 0 Then
-                    cuponPorcentaje = ApplicationData.Current.LocalSettings.Values("porcentajeCupon" + tienda.NombreUsar)
-                    cuponPorcentaje = cuponPorcentaje.Replace("%", Nothing)
-                    cuponPorcentaje = cuponPorcentaje.Trim
-
-                    If cuponPorcentaje.Length = 1 Then
-                        cuponPorcentaje = "0,0" + cuponPorcentaje
-                    Else
-                        cuponPorcentaje = "0," + cuponPorcentaje
-                    End If
-                End If
             End If
 
             Dim frame As Frame = Window.Current.Content
@@ -157,6 +143,10 @@ Namespace Ofertas
 
                                         If Not juegobbdd Is Nothing Then
                                             juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
+                                            If juego.PrecioMinimo = True Then
+                                                listaMinimos.Add(juego)
+                                            End If
 
                                             If Not juegobbdd.Desarrollador = Nothing Then
                                                 juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
@@ -333,6 +323,10 @@ Namespace Ofertas
 
                                             If Not juegobbdd Is Nothing Then
                                                 juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
+                                                If juego.PrecioMinimo = True Then
+                                                    listaMinimos.Add(juego)
+                                                End If
                                             End If
 
                                             For Each desarrollador In listaDesarrolladores
@@ -508,6 +502,7 @@ Namespace Ofertas
             Await helper.SaveFileAsync(Of List(Of GameBilletImagenes))("listaImagenesGameBillet", listaImagenes)
             Await helper.SaveFileAsync(Of List(Of GameBilletDesarrolladores))("listaDesarrolladoresGameBillet", listaDesarrolladores)
             Await JuegosBBDD.Guardar(bbdd)
+            Await Minimos.AñadirJuegos(listaMinimos)
 
             Ordenar.Ofertas(tienda, True, False)
 

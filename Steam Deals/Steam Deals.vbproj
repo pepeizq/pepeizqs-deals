@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Clases\Comprobacion.vb" />
     <Compile Include="Clases\Bundle.vb" />
+    <Compile Include="Clases\JuegoMinimo.vb" />
     <Compile Include="Clases\PostOfertas.vb" />
     <Compile Include="Clases\LogoJuego.vb" />
     <Compile Include="Clases\Pestaña.vb" />
@@ -137,6 +138,7 @@
     <Compile Include="Modulos\Editor\BundlesImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\Cuentas.vb" />
     <Compile Include="Modulos\Editor\FichasTiendasWeb.vb" />
+    <Compile Include="Modulos\Editor\Minimos.vb" />
     <Compile Include="Modulos\Editor\Ofertas.vb" />
     <Compile Include="Modulos\Editor\OfertasEntrada.vb" />
     <Compile Include="Modulos\Editor\DRM.vb" />

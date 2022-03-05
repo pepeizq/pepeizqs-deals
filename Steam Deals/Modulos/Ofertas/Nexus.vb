@@ -2,6 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
+Imports Steam_Deals.Editor
 Imports Steam_Deals.Interfaz
 
 Namespace Ofertas
@@ -12,6 +13,7 @@ Namespace Ofertas
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
+            Dim listaMinimos As New List(Of Oferta)
             Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
 
             Dim dolar As String = String.Empty
@@ -93,6 +95,10 @@ Namespace Ofertas
                                     If Not juegobbdd Is Nothing Then
                                         juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
+                                        If juego.PrecioMinimo = True Then
+                                            listaMinimos.Add(juego)
+                                        End If
+
                                         If Not juegobbdd.Desarrollador = Nothing Then
                                             juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
                                         End If
@@ -110,6 +116,7 @@ Namespace Ofertas
 
             Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
             Await JuegosBBDD.Guardar(bbdd)
+            Await Minimos.AñadirJuegos(listaMinimos)
 
             Ordenar.Ofertas(tienda, True, False)
 
