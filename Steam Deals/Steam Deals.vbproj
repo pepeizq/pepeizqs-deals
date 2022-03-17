@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Clases\Comprobacion.vb" />
     <Compile Include="Clases\Bundle.vb" />
+    <Compile Include="Clases\JuegoDeck.vb" />
     <Compile Include="Clases\JuegoMinimo.vb" />
     <Compile Include="Clases\PostOfertas.vb" />
     <Compile Include="Clases\LogoJuego.vb" />
@@ -137,6 +138,7 @@
     <Compile Include="Modulos\CopiaSeguridad.vb" />
     <Compile Include="Modulos\Editor\BundlesImagenEntrada.vb" />
     <Compile Include="Modulos\Editor\Cuentas.vb" />
+    <Compile Include="Modulos\Editor\Deck.vb" />
     <Compile Include="Modulos\Editor\FichasTiendasWeb.vb" />
     <Compile Include="Modulos\Editor\Minimos.vb" />
     <Compile Include="Modulos\Editor\Ofertas.vb" />
@@ -217,6 +219,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="Assets\Banderas\pais_es.png" />
+    <Content Include="Assets\Deck\decklogo.png" />
     <Content Include="Assets\DRMs\drm_battlenet.png" />
     <Content Include="Assets\DRMs\drm_battlenet2.png" />
     <Content Include="Assets\DRMs\drm_bethesda.png" />
@@ -307,7 +310,7 @@
     <Content Include="Assets\LogosPublishers\astragon.png" />
     <Content Include="Assets\LogosPublishers\atari.png" />
     <Content Include="Assets\LogosPublishers\badland.png" />
-    <Content Include="Assets\LogosPublishers\bandainamco.png" />
+    <Content Include="Assets\LogosPublishers\bandai.png" />
     <Content Include="Assets\LogosPublishers\beamdog.png" />
     <Content Include="Assets\LogosPublishers\bethesda.png" />
     <Content Include="Assets\LogosPublishers\bigben.png" />

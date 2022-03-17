@@ -109,6 +109,10 @@ Module Configuracion
         RemoveHandler itemSteamGifts.Click, AddressOf ConfigAbrirSteamGifts
         AddHandler itemSteamGifts.Click, AddressOf ConfigAbrirSteamGifts
 
+        Dim itemDeck As MenuFlyoutItem = pagina.FindName("menuItemConfigDeck")
+        RemoveHandler itemDeck.Click, AddressOf ConfigAbrirDeck
+        AddHandler itemDeck.Click, AddressOf ConfigAbrirDeck
+
         Dim itemFichasWeb As MenuFlyoutItem = pagina.FindName("menuItemConfigFichasWeb")
         RemoveHandler itemFichasWeb.Click, AddressOf ConfigAbrirFichasWeb
         AddHandler itemFichasWeb.Click, AddressOf ConfigAbrirFichasWeb
@@ -265,6 +269,16 @@ Module Configuracion
         Dim pagina As Page = frame.Content
 
         Dim sv As ScrollViewer = pagina.FindName("svSteamGifts")
+        Pestañas.Visibilidad(sv)
+
+    End Sub
+
+    Private Sub ConfigAbrirDeck(sender As Object, e As RoutedEventArgs)
+
+        Dim frame As Frame = Window.Current.Content
+        Dim pagina As Page = frame.Content
+
+        Dim sv As ScrollViewer = pagina.FindName("svDeck")
         Pestañas.Visibilidad(sv)
 
     End Sub

@@ -129,6 +129,9 @@ Namespace Interfaz
             Dim svSteamGifts As ScrollViewer = pagina.FindName("svSteamGifts")
             svSteamGifts.Visibility = Visibility.Collapsed
 
+            Dim svDeck As ScrollViewer = pagina.FindName("svDeck")
+            svDeck.Visibility = Visibility.Collapsed
+
             Dim svFichasWeb As ScrollViewer = pagina.FindName("svFichasWeb")
             svFichasWeb.Visibility = Visibility.Collapsed
 

@@ -143,25 +143,25 @@ Module Divisas
     Private Async Sub Bw_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
         Dim helper As New LocalObjectStorageHelper
-        Dim monedas As Monedas = Nothing
+        Dim monedas As New Monedas(dolar, libra, rublo)
 
-        If Await helper.FileExistsAsync("monedas") Then
-            If Not monedas Is Nothing Then
-                If Not dolar Is Nothing Then
-                    monedas.Dolar = dolar
-                End If
+        'If Await helper.FileExistsAsync("monedas") Then
+        '    If Not monedas Is Nothing Then
+        '        If Not dolar Is Nothing Then
+        '            monedas.Dolar = dolar
+        '        End If
 
-                If Not libra Is Nothing Then
-                    monedas.Libra = libra
-                End If
+        '        If Not libra Is Nothing Then
+        '            monedas.Libra = libra
+        '        End If
 
-                If Not rublo Is Nothing Then
-                    monedas.Rublo = rublo
-                End If
-            End If
-        Else
-            monedas = New Monedas(dolar, libra, rublo)
-        End If
+        '        If Not rublo Is Nothing Then
+        '            monedas.Rublo = rublo
+        '        End If
+        '    End If
+        'Else
+        '    monedas = New Monedas(dolar, libra, rublo)
+        'End If
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content

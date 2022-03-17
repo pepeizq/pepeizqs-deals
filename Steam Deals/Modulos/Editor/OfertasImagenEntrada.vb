@@ -414,7 +414,7 @@ Namespace Editor
                 If modificar = True Then
                     If tbCabeceraImagen.Text.Trim.ToLower.Contains("https://") Or tbCabeceraImagen.Text.Trim.ToLower.Contains("http://") Then
                         AdaptarCabeceraDosJuegos(2)
-                        tbCabeceraImagenAncho.Text = "885"
+                        tbCabeceraImagenAncho.Text = "880"
                         imagenCabecera.Source = tbCabeceraImagen.Text.Trim
                         ModificarCabeceraImagenAncho()
                     Else

@@ -86,6 +86,7 @@
                             <MenuFlyoutSeparator/>
                             <MenuFlyoutItem x:Name="menuItemConfigAssets" Text="Assets" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                             <MenuFlyoutItem x:Name="menuItemConfigSteamGifts" Text="SteamGifts" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
+                            <MenuFlyoutItem x:Name="menuItemConfigDeck" Text="Deck" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton"/>
                         </MenuFlyout>
                     </FlyoutBase.AttachedFlyout>
                 </NavigationViewItem>
@@ -1325,6 +1326,87 @@
                                 </Grid>
 
                                 <WebView x:Name="wvSteamGifts" Grid.Row="1"/>
+                            </Grid>
+                        </ScrollViewer>
+
+                        <ScrollViewer x:Name="svDeck" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Margin="0,0,0,20" Orientation="Horizontal">
+                                    <Button x:Name="botonBuscarDeck" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Buscar" Foreground="White"/>
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <StackPanel x:Name="spProgresoDeck" Margin="30,0,0,0" Orientation="Horizontal" Visibility="Collapsed">
+                                        <TextBlock x:Name="tbProgresoDeck" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                                        <ProgressBar x:Name="pbProgresoDeck" Foreground="{StaticResource BrushPrimario}" Width="200" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    
+                                </StackPanel>
+                                
+                                <TextBox x:Name="tbResultadosDeck" Grid.Row="1" Margin="0,0,0,20"/>
+
+                                <Button x:Name="botonSubirDeck" Grid.Row="2" Margin="0,0,0,20" Background="{StaticResource BrushPrimario}" Padding="15,10" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Subir" Foreground="White"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+
+                                <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Button x:Name="botonImagenDeck" Background="Transparent" Padding="0" BorderBrush="Transparent" BorderThickness="0">
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Light">
+                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+
+                                        <Button.Content>
+                                            <Grid Width="1300">
+                                                <Grid.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Color="#101822" Offset="0.8"/>
+                                                        <GradientStop Color="#101822" Offset="0.9"/>
+                                                        <GradientStop Color="#101822" Offset="1.0"/>
+                                                    </LinearGradientBrush>
+                                                </Grid.Background>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal" Padding="30" HorizontalAlignment="Center">
+                                                    <controls:ImageEx Source="Assets/Deck/decklogo.png" MaxHeight="150" IsCacheEnabled="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    <StackPanel Orientation="Vertical" Margin="100,0,0,0" VerticalAlignment="Center">
+                                                        <TextBlock x:Name="tbFechaDeck" Foreground="White" FontSize="35" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                                                        <TextBlock Text="Great new games for Steam Deck" Foreground="White" FontSize="30" FontWeight="SemiBold"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <Grid Grid.Row="1" Margin="40,5" BorderBrush="#293848" BorderThickness="1"/>
+
+                                                <StackPanel x:Name="spJuegosDeck" Grid.Row="2" Orientation="Vertical" Padding="40,20"/>
+                                            </Grid>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
                             </Grid>
                         </ScrollViewer>
 

@@ -95,6 +95,7 @@ Public NotInheritable Class MainPage
         Editor.Suscripciones.Cargar()
         Editor.Anuncios.Cargar()
         Editor.RedesSociales.GrupoSteam.Comprobar()
+        Editor.Deck.Cargar()
         Editor.Amazon.Cargar()
         Editor.RedesSociales.Twitter.Cargar()
         Editor.RedesSociales.PushWeb.Cargar()
@@ -368,6 +369,13 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub BotonImagenAnuncios_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenAnuncios.Click
+
+        Dim boton As Button = sender
+        ImagenFichero.Exportar(boton)
+
+    End Sub
+
+    Private Sub BotonImagenDeck_Click(sender As Object, e As RoutedEventArgs) Handles botonImagenDeck.Click
 
         Dim boton As Button = sender
         ImagenFichero.Exportar(boton)
