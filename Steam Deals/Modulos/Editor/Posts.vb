@@ -271,7 +271,7 @@ Namespace Editor
 
         End Sub
 
-        Private Async Function GenerarFicheroImagen(imagen As Button, codigo As String, idioma As String) As Task(Of StorageFile)
+        Public Async Function GenerarFicheroImagen(imagen As Button, codigo As String, idioma As String) As Task(Of StorageFile)
 
             Dim carpetaImagenes As StorageFolder = Nothing
 
@@ -293,7 +293,7 @@ Namespace Editor
 
         End Function
 
-        Private Async Function SubirImagenImgur(ficheroImagen As StorageFile) As Task(Of String)
+        Public Async Function SubirImagenImgur(ficheroImagen As StorageFile) As Task(Of String)
 
             Dim urlImagen As String = String.Empty
 

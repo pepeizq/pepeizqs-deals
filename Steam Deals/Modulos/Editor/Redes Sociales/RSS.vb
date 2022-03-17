@@ -89,7 +89,7 @@ Namespace Editor.RedesSociales
 
                 Dim botonReddit As New Button With {
                     .Tag = post,
-                    .Content = "Reddit pepeizq",
+                    .Content = "Reddit",
                     .Margin = New Thickness(20, 0, 0, 0)
                 }
 

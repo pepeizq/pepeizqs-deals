@@ -2,6 +2,7 @@
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
+Imports Windows.Storage
 Imports Windows.UI
 
 Namespace Editor
@@ -27,6 +28,11 @@ Namespace Editor
 
             Dim tbFecha As TextBlock = pagina.FindName("tbFechaDeck")
             tbFecha.Text = DateTime.Today.Day.ToString + "/" + DateTime.Today.Month.ToString + "/" + DateTime.Today.Year.ToString
+
+            Dim botonSubir As Button = pagina.FindName("botonSubirDeck")
+
+            RemoveHandler botonSubir.Click, AddressOf Subir
+            AddHandler botonSubir.Click, AddressOf Subir
 
             BloquearControles(True)
 
@@ -299,6 +305,64 @@ Namespace Editor
                     End If
                 Next
             End If
+
+        End Sub
+
+        Private Async Sub Subir(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim botonImagen As Button = pagina.FindName("botonImagenDeck")
+
+            Dim ficheroImagenIngles As StorageFile = Await Posts.GenerarFicheroImagen(botonImagen, "Deck", "en")
+            Dim imagenImgur As String = Await SubirImagenImgur(ficheroImagenIngles)
+
+            If Not imagenImgur = Nothing Then
+                Dim spJuegos As StackPanel = pagina.FindName("spJuegosDeck")
+
+                If spJuegos.Children.Count > 0 Then
+                    Dim juegosPrincipales As String = String.Empty
+                    Dim i As Integer = 0
+                    For Each grid As Grid In spJuegos.Children
+                        If i >= 0 And i <= 2 Then
+                            Dim juego As String = grid.Tag
+                            Dim resultado As Juegos.SteamAPIJson = Await Juegos.Steam.BuscarAPIJson(juego)
+
+                            If i = 0 Then
+                                juegosPrincipales = resultado.Datos.Titulo
+                            ElseIf i > 0 Then
+                                juegosPrincipales = juegosPrincipales + ", " + resultado.Datos.Titulo
+                            End If
+                        End If
+
+                        i += 1
+                    Next
+
+                    If i > 0 And juegosPrincipales.Contains(", ") Then
+                        Dim int As Integer = juegosPrincipales.LastIndexOf(", ")
+                        juegosPrincipales = juegosPrincipales.Remove(int, 2)
+                        juegosPrincipales = juegosPrincipales.Insert(int, " and ")
+                    End If
+
+                    Dim tituloFinal As String = String.Empty
+                    If i = 1 Then
+                        'tituloFinal = "New Game Verified Today: " + juegosPrincipales
+                        tituloFinal = "Nuevo juego verificado Hoy: " + juegosPrincipales
+                    ElseIf i > 1 Then
+                        'tituloFinal = spJuegos.Children.Count.ToString + " New Games Verified Today (" + juegosPrincipales + " among them)"
+                        tituloFinal = spJuegos.Children.Count.ToString + " nuevos juegos Verificados hoy (" + juegosPrincipales + " entre ellos)"
+                    End If
+
+                    If Not tituloFinal = String.Empty Then
+                        Clipboard.Texto(tituloFinal + Environment.NewLine + Environment.NewLine + imagenImgur)
+                    End If
+                End If
+            End If
+
+            BloquearControles(True)
 
         End Sub
 
