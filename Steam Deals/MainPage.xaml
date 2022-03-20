@@ -1396,7 +1396,7 @@
                                                     <controls:ImageEx Source="Assets/Deck/decklogo.png" MaxHeight="150" IsCacheEnabled="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                     <StackPanel Orientation="Vertical" Margin="100,0,0,0" VerticalAlignment="Center">
                                                         <TextBlock x:Name="tbFechaDeck" Foreground="White" FontSize="35" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
-                                                        <TextBlock Text="Great new games for Steam Deck" Foreground="White" FontSize="30" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="Nuevos juegos verificados para Steam Deck" Foreground="White" FontSize="30" FontWeight="SemiBold"/>
                                                     </StackPanel>
                                                 </StackPanel>
 

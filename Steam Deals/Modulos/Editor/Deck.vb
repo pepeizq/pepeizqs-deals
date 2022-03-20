@@ -344,7 +344,7 @@ Namespace Editor
                     If i > 0 And juegosPrincipales.Contains(", ") Then
                         Dim int As Integer = juegosPrincipales.LastIndexOf(", ")
                         juegosPrincipales = juegosPrincipales.Remove(int, 2)
-                        juegosPrincipales = juegosPrincipales.Insert(int, " and ")
+                        juegosPrincipales = juegosPrincipales.Insert(int, " y ")
                     End If
 
                     Dim tituloFinal As String = String.Empty
@@ -357,7 +357,7 @@ Namespace Editor
                     End If
 
                     If Not tituloFinal = String.Empty Then
-                        Clipboard.Texto(tituloFinal + Environment.NewLine + Environment.NewLine + imagenImgur)
+                        Clipboard.Texto(tituloFinal + Environment.NewLine + Environment.NewLine + "[img]" + imagenImgur + "[/img]")
                     End If
                 End If
             End If

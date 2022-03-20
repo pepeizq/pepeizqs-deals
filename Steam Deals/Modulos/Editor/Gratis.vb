@@ -131,7 +131,7 @@ Namespace Editor
                         End If
                     Next
 
-                ElseIf enlace.Contains("https://www.epicgames.com/store/") Then
+                ElseIf enlace.Contains("https://store.epicgames.com/") Then
                     cosas = Await EpicGames.Generar(enlace)
 
                     enlace = enlace.Replace("/en-US/", "/")

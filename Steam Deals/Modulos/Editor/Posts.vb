@@ -202,7 +202,7 @@ Namespace Editor
                         End If
 
                         Try
-                            Await Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, jsonReddit, "/r/pepeizqdeals")
+                            Await RedesSociales.Reddit.Enviar(titulo, enlaceFinal, tituloComplemento, categoria, jsonReddit, "/r/pepeizqdeals")
                         Catch ex As Exception
                             Notificaciones.Toast("Reddit r/pepeizqdeals Error Post", Nothing)
                         End Try
