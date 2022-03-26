@@ -642,7 +642,7 @@
 
                                                 <controls:AdaptiveGridView x:Name="gvJuegosBundles" Grid.Row="1" DesiredWidth="250" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10"/>
 
-                                                <controls:AdaptiveGridView x:Name="gvDLCsBundles" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,10" Visibility="Collapsed"/>
+                                                <controls:AdaptiveGridView x:Name="gvDLCsBundles" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10" Visibility="Collapsed"/>
 
                                                 <Grid x:Name="gridMasJuegosBundles" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
                                                     <TextBlock x:Name="tbMasJuegosBundles" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
@@ -878,7 +878,7 @@
 
                                                     <StackPanel Grid.Column="0" Margin="60,30" Orientation="Vertical" VerticalAlignment="Center">
                                                         <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center">
-                                                            <controls:ImageEx x:Name="imagenTiendaUnJuegoSuscripciones" MaxWidth="280" MaxHeight="140" Stretch="Uniform" IsCacheEnabled="True"/>
+                                                            <controls:ImageEx x:Name="imagenTiendaUnJuegoSuscripciones" MaxWidth="250" MaxHeight="140" Stretch="Uniform" IsCacheEnabled="True"/>
                                                         </controls:DropShadowPanel>
 
                                                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40,0,0">

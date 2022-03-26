@@ -558,6 +558,13 @@
     <Content Include="Assets\Webs\web_reddit.ico" />
     <Content Include="Assets\Webs\web_vayaansias.ico" />
     <Content Include="My Project\Default.rd.xml" />
+    <Content Include="Assets\Fuentes\MotivaSansBlack.woff.ttf" />
+    <Content Include="Assets\Fuentes\MotivaSansBold.woff.ttf" />
+    <Content Include="Assets\Fuentes\MotivaSansExtraBold.ttf" />
+    <Content Include="Assets\Fuentes\MotivaSansLight.woff.ttf" />
+    <Content Include="Assets\Fuentes\MotivaSansMedium.woff.ttf" />
+    <Content Include="Assets\Fuentes\MotivaSansRegular.woff.ttf" />
+    <Content Include="Assets\Fuentes\MotivaSansThin.ttf" />
     <None Include="Package.xml" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="Steam Deals_StoreKey.pfx" />
