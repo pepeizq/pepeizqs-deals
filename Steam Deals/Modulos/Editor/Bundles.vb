@@ -401,7 +401,7 @@ Namespace Editor
                     Else
                         If imagenHumble.Visibility = Visibility.Visible Then
                             If tbImagenAncho.Text = Nothing Then
-                                tbImagenAncho.Text = 300
+                                tbImagenAncho.Text = 220
                             End If
 
                             Dim imagen As ImageEx = pagina.FindName("imagenHumbleBundles")

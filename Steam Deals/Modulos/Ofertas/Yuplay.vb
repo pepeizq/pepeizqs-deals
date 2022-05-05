@@ -6,6 +6,8 @@ Imports Steam_Deals.Interfaz
 Namespace Ofertas
     Module Yuplay
 
+        'https://www.yuplay.com/api/products/?page=3&s=price-asc
+        'https://www.yuplay.com/api/products/?page=2&platforms=steam
         'https://jsonformatter.org/json-viewer
 
         Public Async Function BuscarOfertas(tienda As Tienda) As Task

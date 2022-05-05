@@ -631,7 +631,7 @@
                                                                 <controls:ImageEx x:Name="imagenBundle" Stretch="Uniform" IsCacheEnabled="True" MaxWidth="500"/>
                                                             </controls:DropShadowPanel>
 
-                                                            <StackPanel x:Name="spImagenHumbleBundles" Grid.Column="1" Margin="40" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                                                            <StackPanel x:Name="spImagenHumbleBundles" Grid.Column="1" Margin="20,40,20,40" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                                                                 <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio1.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
                                                                 <controls:ImageEx x:Name="imagenHumbleBundles" Stretch="Uniform" IsCacheEnabled="True" Margin="30,0" VerticalAlignment="Center" MaxHeight="80"/>
                                                                 <controls:ImageEx Source="Assets\Tiendas\humblebundlemedio2.png" Stretch="Uniform" IsCacheEnabled="True" VerticalAlignment="Center" Height="50"/>
