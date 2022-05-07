@@ -450,6 +450,7 @@ Namespace Interfaz
 
             Dim tiendasMenu As MenuFlyout = pagina.FindName("botonTiendasMenu")
             Dim gridOfertasTiendas As Grid = pagina.FindName("gridOfertasTiendas2")
+            Dim cbAnuncios As ComboBox = pagina.FindName("cbTiendasAnuncios")
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -480,6 +481,12 @@ Namespace Interfaz
                     gvTiendas.Items.Add(AñadirBotonTienda(tienda))
                     spProgreso.Children.Add(AñadirProgresoTienda(tienda))
                     gridOfertasTiendas.Children.Add(AñadirGridTienda(tienda))
+
+                    Dim tbTiendaAnuncios As New TextBlock With {
+                        .Text = tienda.NombreMostrar,
+                        .Tag = tienda
+                    }
+                    cbAnuncios.Items.Add(tbTiendaAnuncios)
                 End If
             Next
 

@@ -387,16 +387,16 @@
 
                                                             <controls:DropShadowPanel x:Name="panelErrorPrecioUnJuegoOfertas" Color="Black" Margin="0,30,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
                                                                 <Grid Padding="15,10,15,15" Background="IndianRed">
-                                                                    <TextBlock x:Name="tbErrorPrecioUnJuegoOfertas" Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                    <TextBlock x:Name="tbErrorPrecioUnJuegoOfertas" Text="Possible price error" TextWrapping="Wrap" Foreground="White" FontSize="25" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                                 </Grid>
                                                             </controls:DropShadowPanel>
 
                                                             <controls:DropShadowPanel x:Name="panelDescuentoCodigoUnJuegoOfertas" Color="Black" Margin="50,50,50,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <TextBlock x:Name="tbDescuentoCodigoUnJuegoOfertas" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                <TextBlock x:Name="tbDescuentoCodigoUnJuegoOfertas" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                             </controls:DropShadowPanel>
 
                                                             <controls:DropShadowPanel x:Name="panelMensajeUnJuegoOfertas" Color="Black" Margin="50,50,50,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                                <TextBlock x:Name="tbMensajeUnJuegoOfertas" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                <TextBlock x:Name="tbMensajeUnJuegoOfertas" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                             </controls:DropShadowPanel>
                                                         </StackPanel>
 
@@ -427,11 +427,11 @@
                                                                     </StackPanel>
 
                                                                     <Grid x:Name="gridDescuentoUnJuegoOfertas" Grid.Column="2" Background="ForestGreen" VerticalAlignment="Stretch">
-                                                                        <TextBox x:Name="tbDescuentoUnJuegoOfertas" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="30" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                        <TextBox x:Name="tbDescuentoUnJuegoOfertas" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="30" VerticalAlignment="Center" Padding="14,10" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                                     </Grid>
 
                                                                     <StackPanel Grid.Column="3" Background="Black" VerticalAlignment="Stretch">
-                                                                        <TextBox x:Name="tbPrecioUnJuegoOfertas" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="30" VerticalAlignment="Center" Padding="14,10" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                        <TextBox x:Name="tbPrecioUnJuegoOfertas" Background="Transparent" Foreground="White" IsHitTestVisible="False" BorderThickness="0" FontSize="30" VerticalAlignment="Center" Padding="14,10" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                                     </StackPanel>
                                                                 </Grid>
                                                             </Grid>
@@ -487,7 +487,7 @@
                                                                     </controls:DropShadowPanel>
 
                                                                     <controls:DropShadowPanel x:Name="panelTituloCabeceraDosJuegosOfertas" Color="Black" ShadowOpacity="1" BlurRadius="10">
-                                                                        <TextBlock x:Name="tbTituloCabeceraDosJuegosOfertas" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                        <TextBlock x:Name="tbTituloCabeceraDosJuegosOfertas" Foreground="White" FontSize="50" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                                     </controls:DropShadowPanel>
                                                                 </Grid>
                                                             </Grid>
@@ -497,7 +497,7 @@
                                                     <controls:AdaptiveGridView x:Name="gvJuegosDosJuegosOfertas" Grid.Row="1" DesiredWidth="400" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,0"/>
 
                                                     <Grid x:Name="gridJuegosRestantesDosJuegosOfertas" Grid.Row="2" Margin="30,0,30,40" Visibility="Collapsed">
-                                                        <TextBlock x:Name="tbJuegosRestantesDosJuegosOfertas" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                        <TextBlock x:Name="tbJuegosRestantesDosJuegosOfertas" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                     </Grid>
                                                 </Grid>
                                             </StackPanel>
@@ -623,7 +623,7 @@
                                                                         <SolidColorBrush Color="Black" Opacity="0.7"/>
                                                                     </StackPanel.Background>
 
-                                                                    <TextBlock x:Name="tbPrecioBundles" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                                    <TextBlock x:Name="tbPrecioBundles" Foreground="White" FontSize="38" VerticalAlignment="Center" Margin="20,15,20,15" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                                 </StackPanel>
                                                             </StackPanel>
 
@@ -645,7 +645,7 @@
                                                 <controls:AdaptiveGridView x:Name="gvDLCsBundles" Grid.Row="2" DesiredWidth="350" IsHitTestVisible="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,10" Visibility="Collapsed"/>
 
                                                 <Grid x:Name="gridMasJuegosBundles" Grid.Row="3" Margin="30,0,30,40" Visibility="Collapsed">
-                                                    <TextBlock x:Name="tbMasJuegosBundles" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                    <TextBlock x:Name="tbMasJuegosBundles" Text="And more games" Foreground="White" FontSize="40" HorizontalAlignment="Center" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                 </Grid>
                                             </Grid>
                                         </Button.Content>
@@ -751,11 +751,11 @@
                                                                 <SolidColorBrush Color="Black" Opacity="0.7"/>
                                                             </StackPanel.Background>
 
-                                                            <TextBlock x:Name="tbMensajeGratis" Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbMensajeGratis" Text="Free" Foreground="White" FontSize="37" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                         </StackPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelComentarioGratis" Color="Black" Margin="0,50,0,0" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" Visibility="Collapsed">
-                                                            <TextBlock x:Name="tbComentarioGratis" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbComentarioGratis" TextWrapping="Wrap" TextAlignment="Center" Foreground="White" FontSize="25" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                         </controls:DropShadowPanel>
                                                     </StackPanel>
 
@@ -886,7 +886,7 @@
                                                                 <SolidColorBrush Color="Black" Opacity="0.4"/>
                                                             </StackPanel.Background>
 
-                                                            <TextBlock x:Name="tbMensajeUnJuegoSuscripciones" Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbMensajeUnJuegoSuscripciones" Text="New Game Added" Foreground="White" FontSize="32" VerticalAlignment="Center" Margin="20,12,20,12" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                         </StackPanel>
                                                     </StackPanel>
 
@@ -912,7 +912,7 @@
                                                         </controls:DropShadowPanel>
 
                                                         <controls:DropShadowPanel x:Name="panelMensajeDosJuegosSuscripciones" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Color="Black" ShadowOpacity="1" BlurRadius="10" Margin="50">
-                                                            <TextBlock x:Name="tbMensajeDosJuegosSuscripciones" Foreground="White" FontSize="35" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans"/>
+                                                            <TextBlock x:Name="tbMensajeDosJuegosSuscripciones" Foreground="White" FontSize="35" FontFamily="Open Sans SemiBold" FontWeight="SemiBold"/>
                                                         </controls:DropShadowPanel>
                                                     </Grid>
 
@@ -953,41 +953,13 @@
                                     <TextBox x:Name="tbTituloImagenEspañolAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
                                 </Grid>
 
-                                <TextBlock Text="Imagen Comentario"/>
-
-                                <Grid Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <controls:ImageEx Source="Assets/Banderas/pais_uk.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbComentarioImagenInglesAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
-                                </Grid>
-
-                                <Grid Margin="0,10,0,15">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <controls:ImageEx Source="Assets/Banderas/pais_es.png" Grid.Column="0" IsCacheEnabled="True" VerticalAlignment="Center" Margin="0,0,10,0" Width="24" Height="18"/>
-                                    <TextBox x:Name="tbComentarioImagenEspañolAnuncios" Grid.Column="1" TextWrapping="Wrap"/>
-                                </Grid>
-
                                 <TextBlock Text="Imagen Fondo"/>
                                 <TextBox x:Name="tbFondoAnuncios" Margin="0,10,0,15" TextWrapping="Wrap"/>
 
                                 <StackPanel Margin="0,10,0,15" Orientation="Horizontal">
-                                    <CheckBox x:Name="cbFondoAzulAnuncios" Content="Texto Fondo Azul" Margin="0,0,15,0"/>
-                                    <CheckBox x:Name="cbFondoOpacidadAnuncios" Content="Imagen Fondo Opacidad" Margin="0,0,30,0"/>
-
-                                    <ComboBox x:Name="cbOrientacionComentarioAnuncios" Margin="0,0,10,0">
-                                        <ComboBoxItem Content="Izquierda"/>
-                                        <ComboBoxItem Content="Centrado"/>
-                                        <ComboBoxItem Content="Derecha"/>
-                                    </ComboBox>
-                                    <TextBlock Text="Orientación Comentario" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="cbTiendasAnuncios" Margin="0,0,20,0" SelectedIndex="0">
+                                        <ComboBoxItem Content="---"/>
+                                    </ComboBox> 
                                 </StackPanel>
 
                                 <TextBlock Text="Juegos"/>
@@ -1051,31 +1023,13 @@
                                                             <ImageBrush x:Name="imagenFondoAnuncios" Stretch="UniformToFill" Opacity="1"/>
                                                         </Grid.Background>
 
-                                                        <Grid x:Name="gridDatosAnuncios" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Padding="50">
-                                                            <Grid.Background>
-                                                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" Opacity="1">
-                                                                    <GradientStop x:Name="color1DegradadoAnuncios" Color="#662E4460" Offset="0.0"/>
-                                                                    <GradientStop x:Name="color2DegradadoAnuncios" Color="#B22E4460" Offset="0.3"/>
-                                                                    <GradientStop x:Name="color3DegradadoAnuncios" Color="#CC2E4460" Offset="0.4"/>
-                                                                    <GradientStop x:Name="color4DegradadoAnuncios" Color="#FF2E4460" Offset="0.8"/>
-                                                                </LinearGradientBrush>
-                                                            </Grid.Background>
+                                                        <Grid x:Name="gridTiendaAnuncios" Opacity="0.9" Padding="20" MaxHeight="100" MaxWidth="350" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Collapsed">
+                                                            <controls:ImageEx x:Name="imagenTiendaAnuncios"/>
+                                                        </Grid>
 
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="Auto"/>
-                                                            </Grid.RowDefinitions>
-
-                                                            <controls:DropShadowPanel x:Name="panelTituloEntradaAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                <TextBlock x:Name="tbTituloEntradaAnuncios" FontSize="60" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
-                                                            </controls:DropShadowPanel>
-
-                                                            <controls:DropShadowPanel x:Name="panelImagenEntradaAnuncios" Grid.Row="0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
-                                                                <controls:ImageEx x:Name="imagenEntradaAnuncios" IsCacheEnabled="True" MaxWidth="350" MaxHeight="140"/>
-                                                            </controls:DropShadowPanel>
-
-                                                            <controls:DropShadowPanel x:Name="panelComentarioEntradaAnuncios" Grid.Row="1" Margin="0,30,0,0" Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch">
-                                                                <TextBlock x:Name="tbComentarioEntradaAnuncios" FontSize="30" Foreground="White" FontFamily="Assets/Fuentes/OpenSans-SemiBold.ttf#Open Sans" TextWrapping="Wrap"/>
+                                                        <Grid x:Name="gridDatosAnuncios" Background="#2e4460" Opacity="0.9" Padding="25" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                            <controls:DropShadowPanel Color="Black" ShadowOpacity="1" BlurRadius="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                                <TextBlock x:Name="tbTituloEntradaAnuncios" FontSize="50" Foreground="White" FontFamily="Open Sans SemiBold" FontWeight="SemiBold" TextWrapping="Wrap"/>
                                                             </controls:DropShadowPanel>
                                                         </Grid>
                                                     </Grid>

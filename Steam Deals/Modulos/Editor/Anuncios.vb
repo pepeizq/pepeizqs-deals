@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Steam_Deals.Clases
 Imports Steam_Deals.Juegos
 Imports Windows.UI
@@ -22,41 +23,21 @@ Namespace Editor
             RemoveHandler tbEnlace.TextChanged, AddressOf GenerarDatos
             AddHandler tbEnlace.TextChanged, AddressOf GenerarDatos
 
-            Dim tbImagenTitulo As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
-            tbImagenTitulo.Text = String.Empty
-
-            RemoveHandler tbImagenTitulo.TextChanged, AddressOf CambiarTituloImagen
-            AddHandler tbImagenTitulo.TextChanged, AddressOf CambiarTituloImagen
-
-            Dim tbImagenComentario As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
-            tbImagenComentario.Text = String.Empty
-
-            RemoveHandler tbImagenComentario.TextChanged, AddressOf CambiarComentarioImagen
-            AddHandler tbImagenComentario.TextChanged, AddressOf CambiarComentarioImagen
-
             Dim tbImagenFondo As TextBox = pagina.FindName("tbFondoAnuncios")
             tbImagenFondo.Text = String.Empty
 
             RemoveHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
             AddHandler tbImagenFondo.TextChanged, AddressOf CambiarFondoImagen
 
-            Dim cbFondoAzul As CheckBox = pagina.FindName("cbFondoAzulAnuncios")
-            cbFondoAzul.IsChecked = True
+            Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
 
-            RemoveHandler cbFondoAzul.Click, AddressOf CambiarFondoAzul
-            AddHandler cbFondoAzul.Click, AddressOf CambiarFondoAzul
+            RemoveHandler tbImagenTituloIngles.TextChanged, AddressOf CambiarTituloImagen
+            AddHandler tbImagenTituloIngles.TextChanged, AddressOf CambiarTituloImagen
 
-            Dim cbOpacidad As CheckBox = pagina.FindName("cbFondoOpacidadAnuncios")
-            cbOpacidad.IsChecked = False
+            Dim cbTiendas As ComboBox = pagina.FindName("cbTiendasAnuncios")
 
-            RemoveHandler cbOpacidad.Click, AddressOf CambiarOpacidad
-            AddHandler cbOpacidad.Click, AddressOf CambiarOpacidad
-
-            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbOrientacionComentarioAnuncios")
-            cbOrientacionComentario.SelectedIndex = 1
-
-            RemoveHandler cbOrientacionComentario.SelectionChanged, AddressOf CambiarOrientacionComentario
-            AddHandler cbOrientacionComentario.SelectionChanged, AddressOf CambiarOrientacionComentario
+            RemoveHandler cbTiendas.SelectionChanged, AddressOf CambiarTienda
+            AddHandler cbTiendas.SelectionChanged, AddressOf CambiarTienda
 
             Dim botonIDs As Button = pagina.FindName("botonJuegosIDsAnuncios")
 
@@ -102,8 +83,6 @@ Namespace Editor
             Dim tbTitulo As TextBox = pagina.FindName("tbTituloAnuncios")
             Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
             Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbTituloImagenEspañolAnuncios")
-            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
-            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbComentarioImagenEspañolAnuncios")
 
             Dim enlace As String = tbTexto.Text
 
@@ -112,10 +91,7 @@ Namespace Editor
                     tbTitulo.Text = "New Giveaways on SteamGifts • News"
 
                     tbImagenTituloIngles.Text = "Giveaways"
-                    tbImagenComentarioIngles.Text = "Join the Steam groups to enter the weekly giveaways"
-
                     tbImagenTituloEspañol.Text = "Sorteos"
-                    tbImagenComentarioEspañol.Text = "Únete a los grupos de Steam para entrar a los sorteos semanales"
 
                     Dim fechaDefecto As DateTime = DateTime.Now
                     fechaDefecto = fechaDefecto.AddDays(7)
@@ -154,13 +130,9 @@ Namespace Editor
             Dim tbImagenTitulo As TextBlock = pagina.FindName("tbTituloEntradaAnuncios")
             Dim tbImagenTituloIngles As TextBox = pagina.FindName("tbTituloImagenInglesAnuncios")
             Dim tbImagenTituloEspañol As TextBox = pagina.FindName("tbTituloImagenEspañolAnuncios")
-            Dim tbImagenComentario As TextBlock = pagina.FindName("tbComentarioEntradaAnuncios")
-            Dim tbImagenComentarioIngles As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
-            Dim tbImagenComentarioEspañol As TextBox = pagina.FindName("tbComentarioImagenEspañolAnuncios")
 
             Dim listaTraducciones As New List(Of Traduccion) From {
-                    New Traduccion(tbImagenTitulo, tbImagenTituloIngles.Text, tbImagenTituloEspañol.Text),
-                    New Traduccion(tbImagenComentario, tbImagenComentarioIngles.Text, tbImagenComentarioEspañol.Text)
+                New Traduccion(tbImagenTitulo, tbImagenTituloIngles.Text, tbImagenTituloEspañol.Text)
             }
 
             '----------------------------------
@@ -169,49 +141,6 @@ Namespace Editor
                                tbEnlace.Text.Trim, botonImagen, Nothing, fechaFinal.ToString, Nothing, Nothing, Nothing, listaTraducciones)
 
             BloquearControles(True)
-
-        End Sub
-
-        Private Sub CambiarTituloImagen(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTexto As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim panelTexto As DropShadowPanel = pagina.FindName("panelTituloEntradaAnuncios")
-            Dim panelImagen As DropShadowPanel = pagina.FindName("panelImagenEntradaAnuncios")
-
-            If tbTexto.Text.Trim.Length > 0 Then
-                If tbTexto.Text.Contains("https://") Or tbTexto.Text.Contains("http://") Then
-                    panelTexto.Visibility = Visibility.Collapsed
-                    panelImagen.Visibility = Visibility.Visible
-
-                    Dim imagen As ImageEx = pagina.FindName("imagenEntradaAnuncios")
-                    imagen.Source = tbTexto.Text.Trim
-                Else
-                    panelTexto.Visibility = Visibility.Visible
-                    panelImagen.Visibility = Visibility.Collapsed
-
-                    Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEntradaAnuncios")
-                    tbTitulo.Text = tbTexto.Text.Trim
-                End If
-            Else
-                panelTexto.Visibility = Visibility.Collapsed
-                panelImagen.Visibility = Visibility.Collapsed
-            End If
-
-        End Sub
-
-        Private Sub CambiarComentarioImagen(sender As Object, e As TextChangedEventArgs)
-
-            Dim tbTexto As TextBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim tbComentario As TextBlock = pagina.FindName("tbComentarioEntradaAnuncios")
-            tbComentario.Text = tbTexto.Text.Trim
 
         End Sub
 
@@ -232,6 +161,20 @@ Namespace Editor
                 Catch ex As Exception
 
                 End Try
+            End If
+
+        End Sub
+
+        Private Sub CambiarTituloImagen(sender As Object, e As TextChangedEventArgs)
+
+            Dim tbTexto As TextBox = sender
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            If tbTexto.Text.Trim.Length > 0 Then
+                Dim tbTitulo As TextBlock = pagina.FindName("tbTituloEntradaAnuncios")
+                tbTitulo.Text = tbTexto.Text
             End If
 
         End Sub
@@ -316,69 +259,30 @@ Namespace Editor
 
         End Sub
 
-        Private Sub CambiarFondoAzul(sender As Object, e As RoutedEventArgs)
-
-            Dim cb As CheckBox = sender
+        Private Sub CambiarTienda(sender As Object, e As SelectionChangedEventArgs)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim color1 As GradientStop = pagina.FindName("color1DegradadoAnuncios")
-            Dim color2 As GradientStop = pagina.FindName("color2DegradadoAnuncios")
-            Dim color3 As GradientStop = pagina.FindName("color3DegradadoAnuncios")
-            Dim color4 As GradientStop = pagina.FindName("color4DegradadoAnuncios")
-
-            Dim color1T As Color = color1.Color
-            Dim color2T As Color = color2.Color
-            Dim color3T As Color = color3.Color
-            Dim color4T As Color = color4.Color
-
-            If cb.IsChecked = True Then
-                color1.Color = color1T
-                color2.Color = color2T
-                color3.Color = color3T
-                color4.Color = color4T
-            Else
-                color1.Color = Colors.Transparent
-                color2.Color = Colors.Transparent
-                color3.Color = Colors.Transparent
-                color4.Color = Colors.Transparent
-            End If
-
-        End Sub
-
-        Private Sub CambiarOpacidad(sender As Object, e As RoutedEventArgs)
-
-            Dim cb As CheckBox = sender
-
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
-
-            Dim fondo As ImageBrush = pagina.FindName("imagenFondoAnuncios")
-
-            If cb.IsChecked = False Then
-                fondo.Opacity = 0.2
-            Else
-                fondo.Opacity = 1
-            End If
-
-        End Sub
-
-        Private Sub CambiarOrientacionComentario(sender As Object, e As SelectionChangedEventArgs)
+            Dim gridTienda As Grid = pagina.FindName("gridTiendaAnuncios")
+            Dim gridDatos As Grid = pagina.FindName("gridDatosAnuncios")
 
             Dim cb As ComboBox = sender
 
-            Dim frame As Frame = Window.Current.Content
-            Dim pagina As Page = frame.Content
+            If cb.SelectedIndex > 0 Then
+                gridDatos.Visibility = Visibility.Collapsed
 
-            Dim panel As DropShadowPanel = pagina.FindName("panelComentarioEntradaAnuncios")
+                Dim tienda As TextBlock = cb.SelectedItem
+                Dim tienda2 As Tienda = tienda.Tag
 
-            If cb.SelectedIndex = 0 Then
-                panel.HorizontalAlignment = HorizontalAlignment.Left
-            ElseIf cb.SelectedIndex = 1 Then
-                panel.HorizontalAlignment = HorizontalAlignment.Center
-            ElseIf cb.SelectedIndex = 2 Then
-                panel.HorizontalAlignment = HorizontalAlignment.Right
+                gridTienda.Visibility = Visibility.Visible
+                gridTienda.Background = New SolidColorBrush(tienda2.Asset.ColorLogo.ToColor)
+
+                Dim imagenTienda As ImageEx = pagina.FindName("imagenTiendaAnuncios")
+                imagenTienda.Source = tienda2.Logos.LogoWeb300x80
+            Else
+                gridDatos.Visibility = Visibility.Visible
+                gridTienda.Visibility = Visibility.Collapsed
             End If
 
         End Sub
@@ -400,23 +304,11 @@ Namespace Editor
             Dim tbImagenTituloEs As TextBox = pagina.FindName("tbTituloImagenEspañolAnuncios")
             tbImagenTituloEs.IsEnabled = estado
 
-            Dim tbImagenComentario As TextBox = pagina.FindName("tbComentarioImagenInglesAnuncios")
-            tbImagenComentario.IsEnabled = estado
-
-            Dim tbImagenComentarioEs As TextBox = pagina.FindName("tbComentarioImagenEspañolAnuncios")
-            tbImagenComentarioEs.IsEnabled = estado
-
             Dim tbImagenFondo As TextBox = pagina.FindName("tbFondoAnuncios")
             tbImagenFondo.IsEnabled = estado
 
-            Dim cbFondoAzul As CheckBox = pagina.FindName("cbFondoAzulAnuncios")
-            cbFondoAzul.IsEnabled = estado
-
-            Dim cbOpacidad As CheckBox = pagina.FindName("cbFondoOpacidadAnuncios")
-            cbOpacidad.IsEnabled = estado
-
-            Dim cbOrientacionComentario As ComboBox = pagina.FindName("cbOrientacionComentarioAnuncios")
-            cbOrientacionComentario.IsEnabled = estado
+            Dim cbTiendas As ComboBox = pagina.FindName("cbTiendasAnuncios")
+            cbTiendas.IsEnabled = estado
 
             Dim botonIDs As Button = pagina.FindName("botonJuegosIDsAnuncios")
             botonIDs.IsEnabled = estado
