@@ -89,7 +89,7 @@ Namespace Editor
                 End Try
 
                 Dim paises As New List(Of Integer) From {
-                    2, 14, 21, 27, 34, 55, 57, 58, 59, 68, 71, 73, 74, 75, 81, 84, 97, 98, 103, 106, 117, 123, 143, 151, 161, 172, 173, 176, 177, 192, 196, 197, 203, 207, 209, 222, 231, 236
+                    2, 14, 21, 27, 34, 55, 57, 58, 59, 68, 71, 73, 74, 75, 81, 84, 97, 98, 103, 106, 117, 123, 143, 151, 161, 172, 173, 176, 177, 192, 196, 197, 204, 208, 210, 223, 232, 237
                 }
 
                 For Each pais In paises
@@ -108,9 +108,9 @@ Namespace Editor
 
                 Try
                     If modo = 0 Then
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[248].click();"})
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[249].click();"})
                     ElseIf modo = 1 Then
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[247].click();"})
+                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('form_list_item_uncheck')[248].click();"})
                     End If
                 Catch ex As Exception
 

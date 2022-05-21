@@ -189,7 +189,7 @@ Namespace Editor
                 New Desarrollador("Epic Games", "@EpicGames", "epicgames.png", 120),
                 New Desarrollador("Excalibur Games", "@Excalpublishing", "excalibur.png", 320),
                 New Desarrollador("Fatshark", "@fatsharkgames", "fatshark.png", 140),
-                New Desarrollador("Focus Home", "@FocusHome", "focushome.png", 240),
+                New Desarrollador("Focus Entertainment", "@Focus_entmt", "focus.png", 240),
                 New Desarrollador("Freebird Games", "@Reives_Freebird", "freebird.png", 240),
                 New Desarrollador("Frogwares", "@Frogwares", "frogwares.png", 220),
                 New Desarrollador("Frontier", "@frontierdev", "frontier.png", 220),
