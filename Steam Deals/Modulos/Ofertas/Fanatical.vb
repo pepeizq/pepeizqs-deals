@@ -8,6 +8,9 @@ Imports Steam_Deals.Interfaz
 Namespace Ofertas
     Module Fanatical
 
+        'https://www.fanatical.com/api/products-group/killer-bundle/en
+        'https://www.fanatical.com/api/algolia/bundles?altRank=false
+
         Public Async Function BuscarOfertas(tienda As Tienda) As Task
 
             Dim listaJuegos As New List(Of Oferta)
@@ -267,5 +270,27 @@ Namespace Ofertas
         Public IDSteam As String
 
     End Class
+
+    '--------------------------------------------------------------
+
+    Public Class FanaticalBundle
+
+        <JsonProperty("name")>
+        Public Titulo As String
+
+        <JsonProperty("slug")>
+        Public Slug As String
+
+        <JsonProperty("cover")>
+        Public Imagen As String
+
+        <JsonProperty("price")>
+        Public Precio As FanaticalJuegoPrecio
+
+        <JsonProperty("available_valid_until")>
+        Public Fecha As String
+
+    End Class
+
 End Namespace
 

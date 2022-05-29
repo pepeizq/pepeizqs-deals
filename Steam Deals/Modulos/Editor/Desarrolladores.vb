@@ -185,7 +185,7 @@ Namespace Editor
                 New Desarrollador("Deep Silver", "@deepsilver", "deepsilver.png", 100),
                 New Desarrollador("Devolver Digital", "@devolverdigital", "devolver.png", 250),
                 New Desarrollador("Disney", "@Disney", "disney.png", 200),
-                New Desarrollador("Electronic Arts", "@EA", "ea.png", 140),
+                New Desarrollador("Electronic Arts", "@EA", "ea.png", 120),
                 New Desarrollador("Epic Games", "@EpicGames", "epicgames.png", 120),
                 New Desarrollador("Excalibur Games", "@Excalpublishing", "excalibur.png", 320),
                 New Desarrollador("Fatshark", "@fatsharkgames", "fatshark.png", 140),

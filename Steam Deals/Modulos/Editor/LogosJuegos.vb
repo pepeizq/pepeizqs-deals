@@ -103,7 +103,7 @@ Namespace Editor
                 New LogoJuego("DRAGON QUEST", "dragonquest.png", 290),
                 New LogoJuego("Far Cry", "farcry.png", 240),
                 New LogoJuego("Forza", "forza.png", 170),
-                New LogoJuego("Hitman", "hitman.png", 310),
+                New LogoJuego("Hitman", "hitman.png", 280),
                 New LogoJuego("Metal Gear", "metalgearsolid.png", 350),
                 New LogoJuego("Need for Speed", "needforspeed.png", 240),
                 New LogoJuego("Project CARS", "projectcars.png", 250),

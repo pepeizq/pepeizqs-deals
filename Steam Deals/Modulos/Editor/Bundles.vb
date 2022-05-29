@@ -721,96 +721,133 @@ Namespace Editor
 
             Dim cosas As New Bundle(Nothing, "--- €", Nothing, Tiendas.fanaticalT, 10, "https://pepeizqdeals.com/wp-content/uploads/2018/08/tienda_fanatical.png", Nothing, Nothing)
 
-            Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
+            If enlace.Contains("/pick-and-mix/") Then
+                Dim html As String = Await Decompiladores.HttpClient(New Uri("https://www.fanatical.com/api/algolia/bundles"))
 
-            If Not html = Nothing Then
-                html = "[" + html + "]"
-                html = html.Replace("{" + ChrW(34) + "title" + ChrW(34) + ":", ",{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
-                html = html.Replace("[,{" + ChrW(34) + "title" + ChrW(34) + ":", "[{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
+                If Not html = Nothing Then
+                    Dim bundlesFanatical As List(Of FanaticalBundle) = JsonConvert.DeserializeObject(Of List(Of FanaticalBundle))(html)
 
-                html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
-                html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":")
+                    Dim slug As String = enlace
 
-                Dim juegosFanatical As List(Of FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of FanaticalJuego))(html)
+                    If slug.Contains("/") Then
+                        Dim int As Integer = slug.LastIndexOf("/")
+                        slug = slug.Remove(0, int + 1)
+                    End If
 
-                For Each juegoFanatical In juegosFanatical
-                    Dim enlaceJuego As String = juegoFanatical.Enlace
-
-                    enlace = enlace.Replace("/es/", "/")
-                    enlace = enlace.Replace("/en/", "/")
-
-                    If enlaceJuego = enlace.Trim Then
-                        Dim añadir As Boolean = False
-
-                        If Not juegoFanatical.Regiones Is Nothing Then
-                            If juegoFanatical.Regiones.Count > 0 Then
-                                añadir = False
-                                For Each region In juegoFanatical.Regiones
-                                    If region = "ES" Then
-                                        añadir = True
-                                    End If
-                                Next
-                            Else
-                                añadir = True
-                            End If
-                        Else
-                            añadir = True
-                        End If
-
-                        If añadir = True Then
-                            Dim titulo As String = juegoFanatical.Titulo
+                    For Each bundleFanatical In bundlesFanatical
+                        If slug = bundleFanatical.Slug Then
+                            Dim titulo As String = bundleFanatical.Titulo
                             titulo = WebUtility.HtmlDecode(titulo)
                             titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                             cosas.Titulo = titulo
-                            cosas.Precio = juegoFanatical.PrecioRebajado.EUR.Trim + " €"
-
-                            juegoFanatical.Imagen = juegoFanatical.Imagen.Replace("/400x225/", "/original/")
-
-                            cosas.Imagen = juegoFanatical.Imagen
+                            cosas.Precio = bundleFanatical.Precio.EUR.Trim + " €"
+                            cosas.Imagen = "https://fanatical.imgix.net/product/original/" + bundleFanatical.Imagen
 
                             Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                             Try
-                                fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
+                                fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(bundleFanatical.Fecha))
                                 fechaTermina = fechaTermina.ToLocalTime
                             Catch ex As Exception
 
                             End Try
 
                             cosas.FechaTermina = fechaTermina
-
-                            Dim listaIDs As New List(Of String)
-
-                            If Not juegoFanatical.Bundle.Tier1 Is Nothing Then
-                                If juegoFanatical.Bundle.Tier1.Juegos.Count > 0 Then
-                                    For Each juego In juegoFanatical.Bundle.Tier1.Juegos
-                                        listaIDs.Add(juego.IDSteam)
-                                    Next
-                                End If
-                            End If
-
-                            If Not juegoFanatical.Bundle.Tier2 Is Nothing Then
-                                If juegoFanatical.Bundle.Tier2.Juegos.Count > 0 Then
-                                    For Each juego In juegoFanatical.Bundle.Tier2.Juegos
-                                        listaIDs.Add(juego.IDSteam)
-                                    Next
-                                End If
-                            End If
-
-                            If Not juegoFanatical.Bundle.Tier3 Is Nothing Then
-                                If juegoFanatical.Bundle.Tier3.Juegos.Count > 0 Then
-                                    For Each juego In juegoFanatical.Bundle.Tier3.Juegos
-                                        listaIDs.Add(juego.IDSteam)
-                                    Next
-                                End If
-                            End If
-
-                            cosas.IDsJuegos = listaIDs
-
-                            Exit For
                         End If
-                    End If
-                Next
+                    Next
+                End If
+            Else
+                Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
+
+                If Not html = Nothing Then
+                    html = "[" + html + "]"
+                    html = html.Replace("{" + ChrW(34) + "title" + ChrW(34) + ":", ",{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
+                    html = html.Replace("[,{" + ChrW(34) + "title" + ChrW(34) + ":", "[{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
+
+                    html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
+                    html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":")
+
+                    Dim juegosFanatical As List(Of FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of FanaticalJuego))(html)
+
+                    For Each juegoFanatical In juegosFanatical
+                        Dim enlaceJuego As String = juegoFanatical.Enlace
+
+                        enlace = enlace.Replace("/es/", "/")
+                        enlace = enlace.Replace("/en/", "/")
+
+                        If enlaceJuego = enlace.Trim Then
+                            Dim añadir As Boolean = False
+
+                            If Not juegoFanatical.Regiones Is Nothing Then
+                                If juegoFanatical.Regiones.Count > 0 Then
+                                    añadir = False
+                                    For Each region In juegoFanatical.Regiones
+                                        If region = "ES" Then
+                                            añadir = True
+                                        End If
+                                    Next
+                                Else
+                                    añadir = True
+                                End If
+                            Else
+                                añadir = True
+                            End If
+
+                            If añadir = True Then
+                                Dim titulo As String = juegoFanatical.Titulo
+                                titulo = WebUtility.HtmlDecode(titulo)
+                                titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+
+                                cosas.Titulo = titulo
+                                cosas.Precio = juegoFanatical.PrecioRebajado.EUR.Trim + " €"
+
+                                juegoFanatical.Imagen = juegoFanatical.Imagen.Replace("/400x225/", "/original/")
+
+                                cosas.Imagen = juegoFanatical.Imagen
+
+                                Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                                Try
+                                    fechaTermina = fechaTermina.AddSeconds(Convert.ToDouble(juegoFanatical.Fecha))
+                                    fechaTermina = fechaTermina.ToLocalTime
+                                Catch ex As Exception
+
+                                End Try
+
+                                cosas.FechaTermina = fechaTermina
+
+                                Dim listaIDs As New List(Of String)
+
+                                If Not juegoFanatical.Bundle.Tier1 Is Nothing Then
+                                    If juegoFanatical.Bundle.Tier1.Juegos.Count > 0 Then
+                                        For Each juego In juegoFanatical.Bundle.Tier1.Juegos
+                                            listaIDs.Add(juego.IDSteam)
+                                        Next
+                                    End If
+                                End If
+
+                                If Not juegoFanatical.Bundle.Tier2 Is Nothing Then
+                                    If juegoFanatical.Bundle.Tier2.Juegos.Count > 0 Then
+                                        For Each juego In juegoFanatical.Bundle.Tier2.Juegos
+                                            listaIDs.Add(juego.IDSteam)
+                                        Next
+                                    End If
+                                End If
+
+                                If Not juegoFanatical.Bundle.Tier3 Is Nothing Then
+                                    If juegoFanatical.Bundle.Tier3.Juegos.Count > 0 Then
+                                        For Each juego In juegoFanatical.Bundle.Tier3.Juegos
+                                            listaIDs.Add(juego.IDSteam)
+                                        Next
+                                    End If
+                                End If
+
+                                cosas.IDsJuegos = listaIDs
+
+                                Exit For
+                            End If
+                        End If
+                    Next
+                End If
             End If
 
             Return cosas
