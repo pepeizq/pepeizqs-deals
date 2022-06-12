@@ -381,7 +381,7 @@ Namespace Suscripciones
                             tituloJuegos = tituloJuegos + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         ElseIf i >= 1 Then
                             tituloJuegos = tituloJuegos + ", " + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
-                        ElseIf (i + 1) = listaNuevos2.Count Then
+                        ElseIf i = listaNuevos2.Count Then
                             tituloJuegos = tituloJuegos + "and " + Editor.LimpiarTitulo(listaNuevos2(i).Titulo)
                         End If
                         i += 1
