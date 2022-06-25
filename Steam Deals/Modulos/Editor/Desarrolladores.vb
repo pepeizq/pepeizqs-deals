@@ -223,7 +223,7 @@ Namespace Editor
                 New Desarrollador("NIS America", "@NISAmerica", "nisamerica.png", 240),
                 New Desarrollador("Paradox", "@PdxInteractive", "paradox.png", 260),
                 New Desarrollador("PLAYISM", "@playismEN", "playsim.png", 300),
-                New Desarrollador("PlayStation Studios", "@PlayStation", "playstation.png", 120),
+                New Desarrollador("PlayStation Studios", "@PlayStation", "playstation.png", 100),
                 New Desarrollador("PlayWay", "@Play_Way", "playway.png", 110),
                 New Desarrollador("Plug In Digital", "@plugindigital", "plugin.png", 210),
                 New Desarrollador("Quantic Dream", "@Quantic_Dream", "quanticdream.png", 280),

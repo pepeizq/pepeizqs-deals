@@ -56,7 +56,7 @@ Namespace Ofertas
                             Dim enlace As String = juegoGOG.Enlace
 
                             Dim imagenPequeña As String = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_196.")
-                            Dim imagenGrande As String = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", "_392.")
+                            Dim imagenGrande As String = "https:" + juegoGOG.Imagen.Trim.Replace("_100.", ".")
 
                             Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 

@@ -8,10 +8,10 @@ Namespace Gratis
             Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Epic Games Store")
 
             Dim clave As String = enlace.Trim
-            clave = clave.Replace("https://www.epicgames.com/store/es-ES/product/", Nothing)
-            clave = clave.Replace("https://www.epicgames.com/store/en-US/product/", Nothing)
-            clave = clave.Replace("https://www.epicgames.com/store/es-ES/bundles/", Nothing)
-            clave = clave.Replace("https://www.epicgames.com/store/en-US/bundles/", Nothing)
+            clave = clave.Replace("es-ES/", Nothing)
+            clave = clave.Replace("en-US/", Nothing)
+            clave = clave.Replace("https://store.epicgames.com/p/", Nothing)
+            clave = clave.Replace("https://store.epicgames.com/bundles/", Nothing)
             clave = clave.Replace("/home", Nothing)
 
             Dim html As String = String.Empty
