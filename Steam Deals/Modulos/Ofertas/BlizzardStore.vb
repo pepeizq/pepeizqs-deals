@@ -63,41 +63,44 @@ Namespace Ofertas
 
                             If Not precio = Nothing Then
                                 precio = precio.Replace("EUR", Nothing)
+                                precio = precio.Replace("€", Nothing)
 
                                 Dim descuento As String = juegoFamilia.Precio.Descuento
 
-                                If descuento.Contains(".") Then
-                                    Dim int As Integer = descuento.IndexOf(".")
-                                    descuento = descuento.Remove(int, descuento.Length - int)
-                                End If
-
-                                descuento = descuento.Trim + "%"
-
-                                Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
-
-                                Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
-
-                                Dim añadir As Boolean = True
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Enlace = juego.Enlace Then
-                                        añadir = False
+                                If Not descuento = "0" Then
+                                    If descuento.Contains(".") Then
+                                        Dim int As Integer = descuento.IndexOf(".")
+                                        descuento = descuento.Remove(int, descuento.Length - int)
                                     End If
-                                    k += 1
-                                End While
 
-                                If añadir = True Then
-                                    juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                    descuento = descuento.Trim + "%"
 
-                                    If Not juegobbdd Is Nothing Then
-                                        juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                                        If Not juegobbdd.Desarrollador = Nothing Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                    Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
+
+                                    Dim añadir As Boolean = True
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Enlace = juego.Enlace Then
+                                            añadir = False
                                         End If
-                                    End If
+                                        k += 1
+                                    End While
 
-                                    listaJuegos.Add(juego)
+                                    If añadir = True Then
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+
+                                        If Not juegobbdd Is Nothing Then
+                                            juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
+                                            If Not juegobbdd.Desarrollador = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                            End If
+                                        End If
+
+                                        listaJuegos.Add(juego)
+                                    End If
                                 End If
                             End If
                         Next
