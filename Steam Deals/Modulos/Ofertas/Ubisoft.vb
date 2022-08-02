@@ -42,63 +42,68 @@ Namespace Ofertas
                                 titulo = titulo.Replace("?", Nothing)
                                 titulo = titulo.Trim
 
-                                Dim precioRebajado As String = juegoUbi.PrecioRebajado
                                 Dim precioBase As String = juegoUbi.PrecioBase
+                                precioBase = precioBase.Trim
 
-                                Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
+                                Dim precioRebajado As String = juegoUbi.PrecioRebajado
+                                precioRebajado = precioRebajado.Trim
 
-                                If Not cuponPorcentaje = Nothing Then
-                                    precioRebajado = precioRebajado.Replace(",", ".")
-                                    precioRebajado = precioRebajado.Replace("€", Nothing)
-                                    precioRebajado = precioRebajado.Trim
+                                If Not precioRebajado = Nothing Then
+                                    Dim descuento As String = Calculadora.GenerarDescuento(precioBase, precioRebajado)
 
-                                    Dim dprecio2 As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
-                                    precioRebajado = Math.Round(dprecio2, 2).ToString + " €"
-                                    descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
-                                End If
+                                    If Not cuponPorcentaje = Nothing Then
+                                        precioRebajado = precioRebajado.Replace(",", ".")
+                                        precioRebajado = precioRebajado.Replace("€", Nothing)
+                                        precioRebajado = precioRebajado.Trim
 
-                                Dim imagenPequeña As String = juegoUbi.Imagen.Datos.Enlace
-                                Dim imagenGrande As String = imagenPequeña
-
-                                If imagenGrande.Contains("?") Then
-                                    Dim int As Integer = imagenGrande.IndexOf("?")
-                                    imagenGrande = imagenGrande.Remove(int, imagenGrande.Length - int)
-                                End If
-
-                                Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
-
-                                'Dim enlace As String = "https://store.ubi.com/es/game?pid=" + juegoUbi.ID
-                                Dim enlace As String = juegoUbi.Enlace
-
-                                Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
-
-                                Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
-
-                                Dim añadir As Boolean = True
-                                Dim k As Integer = 0
-                                While k < listaJuegos.Count
-                                    If listaJuegos(k).Enlace = juego.Enlace Then
-                                        añadir = False
+                                        Dim dprecio2 As Double = Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) - (Double.Parse(precioRebajado, Globalization.CultureInfo.InvariantCulture) * cuponPorcentaje)
+                                        precioRebajado = Math.Round(dprecio2, 2).ToString + " €"
+                                        descuento = Calculadora.GenerarDescuento(precioBase, precioRebajado)
                                     End If
-                                    k += 1
-                                End While
 
-                                If juego.Descuento = Nothing Then
-                                    juego.Descuento = "00%"
-                                End If
+                                    Dim imagenPequeña As String = juegoUbi.Imagen.Datos.Enlace
+                                    Dim imagenGrande As String = imagenPequeña
 
-                                If añadir = True Then
-                                    juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                    If imagenGrande.Contains("?") Then
+                                        Dim int As Integer = imagenGrande.IndexOf("?")
+                                        imagenGrande = imagenGrande.Remove(int, imagenGrande.Length - int)
+                                    End If
 
-                                    If Not juegobbdd Is Nothing Then
-                                        juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+                                    Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
 
-                                        If Not juegobbdd.Desarrollador = Nothing Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                    'Dim enlace As String = "https://store.ubi.com/es/game?pid=" + juegoUbi.ID
+                                    Dim enlace As String = juegoUbi.Enlace
+
+                                    Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
+
+                                    Dim juego As New Oferta(titulo, descuento, precioRebajado, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, Nothing, Nothing, Nothing)
+
+                                    Dim añadir As Boolean = True
+                                    Dim k As Integer = 0
+                                    While k < listaJuegos.Count
+                                        If listaJuegos(k).Enlace = juego.Enlace Then
+                                            añadir = False
                                         End If
+                                        k += 1
+                                    End While
+
+                                    If juego.Descuento = Nothing Then
+                                        juego.Descuento = "00%"
                                     End If
 
-                                    listaJuegos.Add(juego)
+                                    If añadir = True Then
+                                        juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+
+                                        If Not juegobbdd Is Nothing Then
+                                            juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
+                                            If Not juegobbdd.Desarrollador = Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                            End If
+                                        End If
+
+                                        listaJuegos.Add(juego)
+                                    End If
                                 End If
                             End If
                         Next
@@ -140,10 +145,10 @@ Namespace Ofertas
         Public Titulo As String
 
         <XmlElement("price_old")>
-        Public PrecioBase As String
+        Public PrecioRebajado As String
 
         <XmlElement("price")>
-        Public PrecioRebajado As String
+        Public PrecioBase As String
 
         <XmlElement("images")>
         Public Imagen As UbiJuegoImagen
