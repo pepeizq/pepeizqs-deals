@@ -107,7 +107,8 @@ Namespace Editor.RedesSociales
                 Dim usuarioGuardado As String = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
 
                 If Not usuarioGuardado = Nothing Then
-                    Dim usuario As String = "document.getElementById('input_username').value = '" + usuarioGuardado + "'"
+                    Await Task.Delay(2000)
+                    Dim usuario As String = "document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[0].value = '" + usuarioGuardado + "'"
 
                     If Not usuario = Nothing Then
                         Try
@@ -119,12 +120,13 @@ Namespace Editor.RedesSociales
                         Dim contraseñaGuardada As String = ApplicationData.Current.LocalSettings.Values("contraseñaPepeizqSteam")
 
                         If Not contraseñaGuardada = Nothing Then
-                            Dim contraseña As String = "document.getElementById('input_password').value = '" + contraseñaGuardada + "'"
+                            Dim contraseña As String = "document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[1].value = '" + contraseñaGuardada + "'"
 
                             Try
                                 Await wv.InvokeScriptAsync("eval", New String() {contraseña})
 
-                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_blue_steamui btn_medium login_btn')[0].click();"})
+                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('newlogindialog_SubmitButton_2QgFE')[0].focus();"})
+                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('newlogindialog_SubmitButton_2QgFE')[0].click();"})
                             Catch ex As Exception
 
                             End Try
