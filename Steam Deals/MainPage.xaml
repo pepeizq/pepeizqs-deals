@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls2="using:Microsoft.UI.Xaml.Controls"
     xmlns:fa="using:FontAwesome.UWP"
     
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -1130,7 +1131,7 @@
                                     <TextBox x:Name="tbEnlaceSteam" Grid.Column="1" Margin="40,0,0,0" VerticalAlignment="Center"/>
                                 </Grid>
 
-                                <WebView x:Name="wvSteam" MinWidth="700" MinHeight="700"/>
+                                <controls2:WebView2 x:Name="wvSteam2" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
                         </ScrollViewer>
 

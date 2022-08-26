@@ -1,4 +1,7 @@
-﻿Imports Windows.Storage
+﻿Imports Microsoft.UI.Xaml.Controls
+Imports Microsoft.Web.WebView2.Core
+Imports Windows.Storage
+Imports Windows.Web.UI
 
 Namespace Editor.RedesSociales
     Module GrupoSteam
@@ -8,17 +11,17 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvSteam")
+            Dim wv As WebView2 = pagina.FindName("wvSteam2")
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
-                If Not wv.DocumentTitle.Contains("Error") Then
+                If Not wv.CoreWebView2.DocumentTitle.Contains("Error") Then
                     titulo = titulo.Replace(ChrW(34), Nothing)
                     titulo = titulo.Replace("'", Nothing)
 
                     Dim tituloHtml As String = "document.getElementById('headline').value = '" + titulo.Trim + "'"
 
                     Try
-                        Await wv.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
+                        Await wv.ExecuteScriptAsync(tituloHtml)
                     Catch ex As Exception
 
                     End Try
@@ -47,11 +50,11 @@ Namespace Editor.RedesSociales
                     mensajeHtml = "document.getElementById('body').value = '" + mensajeHtml + "'"
 
                     Try
-                        Await wv.InvokeScriptAsync("eval", New List(Of String) From {mensajeHtml})
+                        Await wv.ExecuteScriptAsync(mensajeHtml)
 
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementById('checkboxAudienceFollower').click();"})
+                        Await wv.ExecuteScriptAsync("document.getElementById('checkboxAudienceFollower').click();")
 
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();"})
+                        Await wv.ExecuteScriptAsync("document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();")
 
                         wv.Tag = "1"
                     Catch ex As Exception
@@ -67,17 +70,17 @@ Namespace Editor.RedesSociales
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvSteam")
-            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+            Dim wv As WebView2 = pagina.FindName("wvSteam2")
+            wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
             AddHandler wv.NavigationCompleted, AddressOf Comprobar2
-            AddHandler wv.NavigationFailed, AddressOf Comprobar3
+            'AddHandler wv.NavigationFailed, AddressOf Comprobar3
 
         End Sub
 
-        Private Async Sub Comprobar2(sender As Object, e As WebViewNavigationCompletedEventArgs)
+        Private Async Sub Comprobar2(sender As Object, e As CoreWebView2NavigationCompletedEventArgs)
 
-            Dim wv As WebView = sender
+            Dim wv As WebView2 = sender
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
@@ -86,8 +89,8 @@ Namespace Editor.RedesSociales
             tb.Text = wv.Source.AbsoluteUri
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
-                If wv.DocumentTitle.Contains("Error") Then
-                    wv.Navigate(New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate"))
+                If wv.CoreWebView2.DocumentTitle.Contains("Error") Then
+                    wv.Source = New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate")
                 End If
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals" Then
                 VolverCrearAnuncio(wv)
@@ -107,12 +110,54 @@ Namespace Editor.RedesSociales
                 Dim usuarioGuardado As String = ApplicationData.Current.LocalSettings.Values("usuarioPepeizqSteam")
 
                 If Not usuarioGuardado = Nothing Then
-                    Await Task.Delay(2000)
+                    Await Task.Delay(5000)
+
+                    'Try
+                    '    'Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_Checkbox_3tTFg')[0].focus();")
+                    '    'Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_Checkbox_3tTFg')[0].click();")
+                    '    'Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_Checkbox_3tTFg')[0].click();")
+                    'Catch ex As Exception
+
+                    'End Try
+
+                    'Try
+                    '    Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[0].focus();")
+                    'Catch ex As Exception
+
+                    'End Try
+
+                    'Dim i As Integer = 0
+                    'While i < usuarioGuardado.Length
+                    '    Dim test As String = Nothing
+
+                    '    If i > 0 Then
+                    '        test = Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[0].value;")
+                    '        test = test.Remove(0, 1)
+                    '        test = test.Remove(test.Length - 1, 1)
+                    '    End If
+
+                    '    Dim random As New Random
+                    '    Await Task.Delay(random.Next(500, 2000))
+
+                    '    test = test + usuarioGuardado.Substring(i, 1)
+
+                    '    Try
+                    '        Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[0].value = '" + test + "'")
+                    '    Catch ex As Exception
+
+                    '    End Try
+
+                    '    i += 1
+                    'End While
+
+                    Notificaciones.Toast("Aviso: Logear Grupo de Steam", Nothing)
+
                     Dim usuario As String = "document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[0].value = '" + usuarioGuardado + "'"
 
                     If Not usuario = Nothing Then
                         Try
-                            Await wv.InvokeScriptAsync("eval", New String() {usuario})
+                            Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[0].focus();")
+                            Await wv.ExecuteScriptAsync(usuario)
                         Catch ex As Exception
 
                         End Try
@@ -123,10 +168,11 @@ Namespace Editor.RedesSociales
                             Dim contraseña As String = "document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[1].value = '" + contraseñaGuardada + "'"
 
                             Try
-                                Await wv.InvokeScriptAsync("eval", New String() {contraseña})
+                                Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_TextInput_2eKVn')[1].focus();")
+                                Await wv.ExecuteScriptAsync(contraseña)
 
-                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('newlogindialog_SubmitButton_2QgFE')[0].focus();"})
-                                Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('newlogindialog_SubmitButton_2QgFE')[0].click();"})
+                                Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_SubmitButton_2QgFE')[0].focus();")
+                                Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_SubmitButton_2QgFE')[0].click();")
                             Catch ex As Exception
 
                             End Try
@@ -144,19 +190,19 @@ Namespace Editor.RedesSociales
 
         End Sub
 
-        Private Async Sub VolverCrearAnuncio(wv As WebView)
+        Private Async Sub VolverCrearAnuncio(wv As WebView2)
 
             If wv.Tag = Nothing Or wv.Tag = "0" Then
 
                 Await Task.Delay(1000)
-                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+                wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
             ElseIf wv.Tag = "1" Then
                 wv.Tag = "2"
 
                 Await Task.Delay(3000)
 
-                Dim html As String = Await wv.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
+                Dim html As String = Await wv.ExecuteScriptAsync("document.documentElement.outerHTML;")
 
                 If Not html = Nothing Then
                     If html.Contains("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/") Then
@@ -187,16 +233,15 @@ Namespace Editor.RedesSociales
                 End If
 
                 Await Task.Delay(3000)
-                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/listing"))
+                wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/listing")
 
             ElseIf wv.Tag = "2" Then
-
                 wv.Tag = "0"
 
                 Dim i As Integer = 0
                 While i < 20
                     Try
-                        Await wv.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();"})
+                        Await wv.ExecuteScriptAsync("document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();")
                     Catch ex As Exception
 
                     End Try
@@ -205,7 +250,7 @@ Namespace Editor.RedesSociales
                 End While
 
                 Await Task.Delay(3000)
-                wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+                wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
             End If
 

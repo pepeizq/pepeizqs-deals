@@ -1,4 +1,5 @@
-﻿Imports Windows.Storage
+﻿Imports Microsoft.UI.Xaml.Controls
+Imports Windows.Storage
 
 Namespace Editor
     Module Cuentas
@@ -132,8 +133,8 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim wv As WebView = pagina.FindName("wvSteam")
-            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+            Dim wv As WebView2 = pagina.FindName("wvSteam2")
+            wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
         End Sub
 
