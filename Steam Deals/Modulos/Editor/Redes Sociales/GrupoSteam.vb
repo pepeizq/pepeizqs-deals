@@ -1,7 +1,6 @@
 ﻿Imports Microsoft.UI.Xaml.Controls
 Imports Microsoft.Web.WebView2.Core
 Imports Windows.Storage
-Imports Windows.Web.UI
 
 Namespace Editor.RedesSociales
     Module GrupoSteam
@@ -74,7 +73,7 @@ Namespace Editor.RedesSociales
             wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
             AddHandler wv.NavigationCompleted, AddressOf Comprobar2
-            'AddHandler wv.NavigationFailed, AddressOf Comprobar3
+            AddHandler wv.CoreProcessFailed, AddressOf Comprobar3
 
         End Sub
 
@@ -183,10 +182,10 @@ Namespace Editor.RedesSociales
 
         End Sub
 
-        Private Sub Comprobar3(sender As Object, e As WebViewNavigationFailedEventArgs)
+        Private Sub Comprobar3(sender As Object, e As CoreWebView2ProcessFailedEventArgs)
 
-            Dim wv As WebView = sender
-            wv.Navigate(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create"))
+            Dim wv As WebView2 = sender
+            wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
         End Sub
 
