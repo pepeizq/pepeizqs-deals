@@ -46,8 +46,6 @@ Namespace Ofertas
                                 End If
                             End If
 
-
-
                             Dim imagen As String = juegoProducto.Imagen
 
                             If Not imagen = Nothing Then
@@ -125,25 +123,21 @@ Namespace Ofertas
         Private Function Slugs()
 
             Dim lista As New List(Of String) From {
+                "blizzard-arcade-collection",
+                "call-of-duty-black-ops-4",
+                "call-of-duty-black-ops-cold-war",
+                "call-of-duty-modern-warfare",
+                "call-of-duty-modern-warfare-2-campaign-remastered",
                 "call-of-duty-vanguard",
-                "diablo_ii_resurrected"
+                "crash-bandicoot-4",
+                "diablo_ii_resurrected",
+                "diablo-iii",
+                "diablo-iii-ros",
+                "diablo-iii-rise-of-the-necromancer",
+                "starcraft-ii-campaign-collection",
+                "starcraft-ii-nova-covert-ops",
+                "starcraft-remastered"
             }
-
-            '"world-of-warcraft",
-            '"overwatch",
-            '"diablo-iii",
-            '"hearthstone",
-            '"heroes-of-the-storm",
-            '"starcraft-ii",
-            '"starcraft-remastered",
-            '"call-of-duty-mw",
-            '"diablo-ii",
-            '"warcraft-iii",
-            '"call-of-duty",
-            '"call-of-duty-mw2cr",
-            '"call-of-duty-black-ops-cold-war",
-            '"crash-bandicoot-4",
-            '
 
             Return lista
 
