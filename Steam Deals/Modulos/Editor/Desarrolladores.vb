@@ -248,6 +248,7 @@ Namespace Editor
                 New Desarrollador("Ubisoft", "@Ubisoft", "ubisoft.png", 240),
                 New Desarrollador("Versus Evil", "@vs_evil", "versusevil.png", 340),
                 New Desarrollador("Warner Bros", "@wbgames", "warnerbros.png", 110),
+                New Desarrollador("Xbox Game Studios", "@XboxPublishing", "xboxgamestudios.png", 410),
                 New Desarrollador("XSEED Games", "@XSEEDGames", "xseed.png", 230)
             }
 
