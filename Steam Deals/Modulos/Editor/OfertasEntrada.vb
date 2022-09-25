@@ -8,11 +8,12 @@ Namespace Editor
             Dim contenido As String = String.Empty
 
             If listaJuegos.Count > 1 Then
+                contenido = contenido + "[vc_row width=" + ChrW(34) + "1" + ChrW(34) + " us_bg_overlay_color=" + ChrW(34) + "#1b4e6b" + ChrW(34) + "][vc_column]"
+
                 If comentario.Trim.Length > 0 Then
-                    contenido = contenido + "[vc_row width=" + ChrW(34) + "1" + ChrW(34) + " us_bg_overlay_color=" + ChrW(34) + "#1b4e6b" + ChrW(34) + " el_class=" + ChrW(34) + "mensajeOfertasFila" + ChrW(34) + "][vc_column][us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " closing=" + ChrW(34) + "1" + ChrW(34) + " el_class=" + ChrW(34) + "mensajeOfertas" + ChrW(34) + "]<p style=" + ChrW(34) + "font-size: 16px;" + ChrW(34) + ">" + comentario.Trim + "</p>[/us_message][/vc_column][/vc_row]"
+                    contenido = contenido + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " closing=" + ChrW(34) + "1" + ChrW(34) + " el_class=" + ChrW(34) + "mensajeOfertas" + ChrW(34) + "]<p style=" + ChrW(34) + "font-size: 16px;" + ChrW(34) + ">" + comentario.Trim + "</p>[/us_message][us_separator size=" + ChrW(34) + "small" + ChrW(34) + "]"
                 End If
 
-                contenido = contenido + "[vc_row width=" + ChrW(34) + "1" + ChrW(34) + " us_bg_overlay_color=" + ChrW(34) + "#1b4e6b" + ChrW(34) + "][vc_column]"
                 contenido = contenido + "[vc_column_text]<table style=" + ChrW(34) + "border-collapse: collapse; width: 100%;" + ChrW(34) + ">" + Environment.NewLine
                 contenido = contenido + "<tbody>" + Environment.NewLine
                 contenido = contenido + "<tr class=" + ChrW(34) + "filaCabeceraOfertas" + ChrW(34) + ">" + Environment.NewLine

@@ -62,15 +62,15 @@ Namespace Ofertas
                                     imagenPequeña = imagenPequeña + "&s=medium"
                                 End If
 
-                                Dim imagenGrande As String = juegoIG.ImagenGrande
+                                'Dim imagenGrande As String = juegoIG.ImagenGrande
 
-                                If Not imagenGrande.Contains("https://www.indiegalacdn.com/") Then
-                                    imagenGrande = "https://www.indiegalacdn.com/" + imagenGrande
-                                End If
+                                'If Not imagenGrande.Contains("https://www.indiegalacdn.com/") Then
+                                '    imagenGrande = "https://www.indiegalacdn.com/" + imagenGrande
+                                'End If
 
-                                imagenGrande = imagenGrande.Replace("/medium/", "/big/")
+                                'imagenGrande = imagenGrande.Replace("/medium/", "/big/")
 
-                                Dim imagenes As New OfertaImagenes(imagenPequeña, imagenGrande)
+                                Dim imagenes As New OfertaImagenes(imagenPequeña, imagenPequeña)
 
                                 Dim precio As String = juegoIG.PrecioDescontado
 

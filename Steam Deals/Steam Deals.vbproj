@@ -149,6 +149,7 @@
     <Compile Include="Modulos\Editor\LogosJuegos.vb" />
     <Compile Include="Modulos\Editor\Posts.vb" />
     <Compile Include="Modulos\Editor\Redes Sociales\Telegram.vb" />
+    <Compile Include="Modulos\Editor\Sorteos.vb" />
     <Compile Include="Modulos\Herramientas\ImagenFichero.vb" />
     <Compile Include="Modulos\Editor\Desarrolladores.vb" />
     <Compile Include="Modulos\Editor\Redes Sociales\Discord.vb" />
