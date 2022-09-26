@@ -64,6 +64,11 @@
                         <TextBlock Text="Anuncios" Foreground="{StaticResource BrushPrimario}"/>
                     </NavigationViewItem.Content>
                 </NavigationViewItem>
+                <NavigationViewItem x:Name="itemSorteos" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton" Visibility="Collapsed">
+                    <NavigationViewItem.Content>
+                        <TextBlock Text="Sorteos" Foreground="{StaticResource BrushPrimario}"/>
+                    </NavigationViewItem.Content>
+                </NavigationViewItem>
                 <NavigationViewItemSeparator/>
                 <NavigationViewItem x:Name="itemConfig" Tapped="Nv_ItemFlyout" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                     <NavigationViewItem.Icon>
