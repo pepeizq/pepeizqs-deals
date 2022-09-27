@@ -66,6 +66,11 @@ Public NotInheritable Class MainPage
                 GridVisibilidad(gridEditor, item.Text)
                 Interfaz.Pestañas.Visibilidad(svAnuncios)
 
+            ElseIf item.Text = "Sorteos" Then
+
+                GridVisibilidad(gridEditor, item.Text)
+                Interfaz.Pestañas.Visibilidad(svSorteos)
+
             End If
         End If
 

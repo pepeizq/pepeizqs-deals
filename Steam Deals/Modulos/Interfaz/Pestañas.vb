@@ -105,6 +105,9 @@ Namespace Interfaz
             Dim svAnuncios As ScrollViewer = pagina.FindName("svAnuncios")
             svAnuncios.Visibility = Visibility.Collapsed
 
+            Dim svSorteos As ScrollViewer = pagina.FindName("svSorteos")
+            svSorteos.Visibility = Visibility.Collapsed
+
             Dim svConfig As ScrollViewer = pagina.FindName("svConfig")
             svConfig.Visibility = Visibility.Collapsed
 
@@ -175,6 +178,9 @@ Namespace Interfaz
 
             Dim itemAnuncios As NavigationViewItem = pagina.FindName("itemAnuncios")
             itemAnuncios.IsEnabled = estado
+
+            Dim itemSorteos As NavigationViewItem = pagina.FindName("itemSorteos")
+            itemSorteos.IsEnabled = estado
 
             Dim itemConfig As NavigationViewItem = pagina.FindName("itemConfig")
             itemConfig.IsEnabled = estado

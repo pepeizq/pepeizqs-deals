@@ -1047,6 +1047,18 @@
                             </StackPanel>
                         </ScrollViewer>
 
+                        <ScrollViewer x:Name="svSorteos" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
+                            <StackPanel Orientation="Vertical">
+                                <Button x:Name="botonSorteosCargarUsuarios" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                    <Button.Content>
+                                        <TextBlock Text="Cargar Usuarios" Foreground="White"/>
+                                    </Button.Content>
+                                </Button>
+
+                                <TextBlock x:Name="tbSorteosResultado"/>
+                            </StackPanel> 
+                        </ScrollViewer> 
+                        
                         <ScrollViewer x:Name="svConfig" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Vertical">
