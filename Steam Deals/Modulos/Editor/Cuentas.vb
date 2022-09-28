@@ -78,6 +78,14 @@ Namespace Editor
                 End If
             End If
 
+            Dim keySteamAPI As TextBox = pagina.FindName("tbKeySteamAPI")
+
+            If Not keySteamAPI Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("keySteamAPI") Is Nothing Then
+                    keySteamAPI.Text = ApplicationData.Current.LocalSettings.Values("keySteamAPI")
+                End If
+            End If
+
             Dim tbEditorpepeizqdealsDiscordHookOfertas As TextBox = pagina.FindName("tbDiscordHookOfertas")
 
             If Not tbEditorpepeizqdealsDiscordHookOfertas Is Nothing Then

@@ -1049,13 +1049,23 @@
 
                         <ScrollViewer x:Name="svSorteos" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <Button x:Name="botonSorteosCargarUsuarios" Margin="20,0,0,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                <Button x:Name="botonSorteosCargarUsuarios" Margin="0,0,0,20" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
                                     <Button.Content>
                                         <TextBlock Text="Cargar Usuarios" Foreground="White"/>
                                     </Button.Content>
                                 </Button>
 
-                                <TextBlock x:Name="tbSorteosResultado"/>
+                                <controls:Expander x:Name="expanderSorteosUsuarios" Background="{StaticResource BrushPrimario}" Foreground="White" IsExpanded="False">
+                                    <controls:Expander.Header>
+                                        <TextBlock Text="Usuarios" Foreground="White"/>
+                                    </controls:Expander.Header>
+
+                                    <StackPanel Orientation="Vertical">
+                                        <Grid x:Name="gridSorteosUsuarios"/>
+                                    </StackPanel>
+                                </controls:Expander>
+
+
                             </StackPanel> 
                         </ScrollViewer> 
                         
@@ -1094,6 +1104,12 @@
                                         <TextBox x:Name="tbUsuarioReddit" Margin="10,0" MinWidth="150"/>
                                         <TextBlock x:Uid="Password" VerticalAlignment="Center"/>
                                         <PasswordBox x:Name="pbContraseñaReddit" Margin="10,0" MinWidth="150"/>
+                                    </StackPanel>
+
+                                    <TextBlock Text="Steam API" Margin="0,30,0,10"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Key" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbKeySteamAPI" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
 
                                     <TextBlock Text="Discord" Margin="0,30,0,10"/>

@@ -297,6 +297,14 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbKeySteamAPI_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbKeySteamAPI.TextChanged
+
+        If tbKeySteamAPI.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("keySteamAPI") = tbKeySteamAPI.Text.Trim
+        End If
+
+    End Sub
+
     Private Sub TbDiscordHookOfertas_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDiscordHookOfertas.TextChanged
 
         If tbDiscordHookOfertas.Text.Trim.Length > 0 Then
