@@ -1,5 +1,6 @@
 ﻿Imports System.Xml.Serialization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
 Imports Steam_Deals.Ofertas
@@ -9,49 +10,141 @@ Imports WordPressPCL
 Namespace Editor
     Module Sorteos
 
+        Dim archivoUsuarios As String = "listaSorteosUsuarios"
+
         Public Sub Cargar()
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim botonCargarUsuarios As Button = pagina.FindName("botonSorteosCargarUsuarios")
+            Dim tbSorteoPrecargar As TextBox = pagina.FindName("tbSorteosJuegoPrecargar")
+            tbSorteoPrecargar.Text = String.Empty
 
-            RemoveHandler botonCargarUsuarios.Click, AddressOf CargarUsuarios
-            AddHandler botonCargarUsuarios.Click, AddressOf CargarUsuarios
+            RemoveHandler tbSorteoPrecargar.TextChanged, AddressOf PrecargarSorteo
+            AddHandler tbSorteoPrecargar.TextChanged, AddressOf PrecargarSorteo
+
+            Dim botonActualizarUsuarios As Button = pagina.FindName("botonSorteosActualizarUsuarios")
+
+            RemoveHandler botonActualizarUsuarios.Click, AddressOf ActualizarUsuarios
+            AddHandler botonActualizarUsuarios.Click, AddressOf ActualizarUsuarios
 
 
         End Sub
 
-        Private Async Sub CargarUsuarios(sender As Object, e As RoutedEventArgs)
+        Private Async Sub PrecargarSorteo(sender As Object, e As TextChangedEventArgs)
+
+            BloquearControles(False)
 
             Dim helper As New LocalObjectStorageHelper
 
             Dim usuarios As New List(Of SorteosUsuario)
 
-            If Await helper.FileExistsAsync("listaSorteosUsuarios") Then
-                usuarios = Await helper.ReadFileAsync(Of List(Of SorteosUsuario))("listaSorteosUsuarios")
+            If Await helper.FileExistsAsync(archivoUsuarios) Then
+                usuarios = Await helper.ReadFileAsync(Of List(Of SorteosUsuario))(archivoUsuarios)
+            End If
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbSorteoPrecargar As TextBox = pagina.FindName("tbSorteosJuegoPrecargar")
+
+            If Not tbSorteoPrecargar.Text = Nothing Then
+                If tbSorteoPrecargar.Text.Trim.Length > 0 Then
+                    Dim datos As Juegos.SteamAPIJson = Await Juegos.Steam.BuscarAPIJson(tbSorteoPrecargar.Text.Trim)
+
+                    If Not datos Is Nothing Then
+                        Dim imagenSorteo As ImageEx = pagina.FindName("imagenSorteosJuegoPrecargado")
+                        imagenSorteo.Source = datos.Datos.Imagen
+
+                        Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoMensaje")
+                        tbMensaje.Text = datos.Datos.Titulo
+
+                        Dim i As Integer = 0
+                        For Each usuario In usuarios
+                            If Not usuario Is Nothing Then
+                                Dim optimoParticipar As Boolean = True
+
+                                If usuario.Descartado = True Then
+                                    optimoParticipar = False
+                                End If
+
+                                If usuario.ID = Nothing Then
+                                    optimoParticipar = False
+                                End If
+
+                                If usuario.Juegos Is Nothing Then
+                                    optimoParticipar = False
+                                End If
+
+                                If usuario.WebVerificado = False Then
+                                    optimoParticipar = False
+                                End If
+
+                                If optimoParticipar = True Then
+                                    If usuario.Juegos.Count > 10 Then
+                                        Dim tiene As Boolean = False
+
+                                        For Each juego In usuario.Juegos
+                                            If juego = tbSorteoPrecargar.Text.Trim Then
+                                                tiene = True
+                                            End If
+                                        Next
+
+                                        If tiene = False Then
+                                            i += 1
+                                        End If
+                                    End If
+                                End If
+
+                            End If
+                        Next
+
+                        tbMensaje.Text = tbMensaje.Text + " " + i.ToString + " " + usuarios.Count.ToString
+                    End If
+                End If
+            End If
+
+            BloquearControles(True)
+
+        End Sub
+
+        Private Async Sub ActualizarUsuarios(sender As Object, e As RoutedEventArgs)
+
+            BloquearControles(False)
+
+            Dim helper As New LocalObjectStorageHelper
+
+            Dim usuarios As New List(Of SorteosUsuario)
+
+            If Await helper.FileExistsAsync(archivoUsuarios) Then
+                usuarios = Await helper.ReadFileAsync(Of List(Of SorteosUsuario))(archivoUsuarios)
             End If
 
             usuarios = Await SteamBuscarNuevosUsuarios(usuarios)
 
-            usuarios = Await SteamBuscarApodosUsuarios(usuarios)
+            usuarios = Await SteamBuscarIDsUsuarios(usuarios)
 
             usuarios = Await SteamBuscarJuegosUsuarios(usuarios)
 
             usuarios = Await WebVerificarUsuarios(usuarios)
 
-            Await helper.SaveFileAsync(Of List(Of SorteosUsuario))("listaSorteosUsuarios", usuarios)
-
+            Await helper.SaveFileAsync(Of List(Of SorteosUsuario))(archivoUsuarios, usuarios)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim tb As TextBlock = pagina.FindName("tbSorteosResultado")
+            Dim spUsuarios As StackPanel = pagina.FindName("spSorteosUsuarios")
+            spUsuarios.Children.Clear()
 
+            Dim i As Integer = 0
             For Each usuario In usuarios
                 Dim mostrar As Boolean = True
 
-                If usuario.Apodo = Nothing Then
+                If usuario.Descartado = True Then
+                    mostrar = False
+                End If
+
+                If usuario.ID = Nothing Then
                     mostrar = False
                 End If
 
@@ -60,14 +153,28 @@ Namespace Editor
                 End If
 
                 If mostrar = True Then
-                    tb.Text = tb.Text + usuario.Apodo + " " + usuario.Juegos.Count.ToString + " " + usuario.WebVerificado.ToString
-                    tb.Text = tb.Text + Environment.NewLine
+                    If usuario.WebVerificado = True Then
+                        i += 1
+                    End If
+
+                    spUsuarios.Children.Add(GenerarCajaUsuario(usuario))
                 End If
             Next
+
+            Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosMensajeUsuarios")
+            tbMensaje.Text = i.ToString + " usuarios aptos para entrar en sorteos"
+
+            BloquearControles(True)
 
         End Sub
 
         Public Async Function SteamBuscarNuevosUsuarios(usuarios As List(Of SorteosUsuario)) As Task(Of List(Of SorteosUsuario))
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosMensajeUsuarios")
+            tbMensaje.Text = "Buscando nuevos usuarios en el grupo de Steam"
 
             Dim xml As New XmlSerializer(GetType(SorteosGrupoSteamMiembros))
             Dim miembros As SorteosGrupoSteamMiembros = Nothing
@@ -98,7 +205,7 @@ Namespace Editor
                     Next
 
                     If crearUsuario = True Then
-                        Dim nuevoUsuario As New SorteosUsuario(id64, Nothing, Nothing, Nothing, False)
+                        Dim nuevoUsuario As New SorteosUsuario(id64, Nothing, Nothing, Nothing, Nothing, Nothing, False, False)
                         usuarios.Add(nuevoUsuario)
                     End If
                 Next
@@ -108,20 +215,30 @@ Namespace Editor
 
         End Function
 
-        Public Async Function SteamBuscarApodosUsuarios(usuarios As List(Of SorteosUsuario)) As Task(Of List(Of SorteosUsuario))
+        Public Async Function SteamBuscarIDsUsuarios(usuarios As List(Of SorteosUsuario)) As Task(Of List(Of SorteosUsuario))
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosMensajeUsuarios")
+            tbMensaje.Text = "Buscando en Steam datos de los nuevos usuarios"
 
             For Each usuario In usuarios
                 If Not usuario Is Nothing Then
-                    If usuario.Apodo = Nothing Then
-                        Dim htmlUsuario As String = Await Decompiladores.HttpClient(New Uri("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + ApplicationData.Current.LocalSettings.Values("keySteamAPI") + "&steamids=" + usuario.SteamID64))
-                        Dim usuarioDatos As SorteosGrupoSteamUsuario = JsonConvert.DeserializeObject(Of SorteosGrupoSteamUsuario)(htmlUsuario)
-                        Dim enlacePerfil As String = usuarioDatos.Respuesta.Jugador(0).EnlacePerfil
+                    If usuario.ID = Nothing Or usuario.Avatar = Nothing Or usuario.Nombre = Nothing Then
+                        If usuario.Descartado = False Then
+                            Dim htmlUsuario As String = Await Decompiladores.HttpClient(New Uri("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=" + ApplicationData.Current.LocalSettings.Values("keySteamAPI") + "&steamids=" + usuario.SteamID64))
+                            Dim usuarioDatos As SorteosGrupoSteamUsuario = JsonConvert.DeserializeObject(Of SorteosGrupoSteamUsuario)(htmlUsuario)
+                            Dim enlacePerfil As String = usuarioDatos.Respuesta.Jugador(0).EnlacePerfil
 
-                        If Not enlacePerfil.Contains("https://steamcommunity.com/profiles/") Then
-                            enlacePerfil = enlacePerfil.Replace("https://steamcommunity.com/id/", Nothing)
-                            enlacePerfil = enlacePerfil.Replace("/", Nothing)
+                            If Not enlacePerfil.Contains("https://steamcommunity.com/profiles/") Then
+                                enlacePerfil = enlacePerfil.Replace("https://steamcommunity.com/id/", Nothing)
+                                enlacePerfil = enlacePerfil.Replace("/", Nothing)
 
-                            usuario.Apodo = enlacePerfil
+                                usuario.ID = enlacePerfil
+                                usuario.Avatar = usuarioDatos.Respuesta.Jugador(0).Avatar
+                                usuario.Nombre = usuarioDatos.Respuesta.Jugador(0).Nombre
+                            End If
                         End If
                     End If
                 End If
@@ -133,25 +250,37 @@ Namespace Editor
 
         Public Async Function SteamBuscarJuegosUsuarios(usuarios As List(Of SorteosUsuario)) As Task(Of List(Of SorteosUsuario))
 
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosMensajeUsuarios")
+
+            Dim i As Integer = 0
             For Each usuario In usuarios
                 If Not usuario Is Nothing Then
-                    Dim htmlJuegos As String = Await Decompiladores.HttpClient(New Uri("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + ApplicationData.Current.LocalSettings.Values("keySteamAPI") + "&steamid=" + usuario.SteamID64 + "&format=json"))
+                    If usuario.Descartado = False Then
+                        Dim htmlJuegos As String = Await Decompiladores.HttpClient(New Uri("http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + ApplicationData.Current.LocalSettings.Values("keySteamAPI") + "&steamid=" + usuario.SteamID64 + "&format=json"))
 
-                    If Not htmlJuegos = Nothing Then
-                        Dim listaJuegosUsuario As SorteosGrupoSteamJuegos = JsonConvert.DeserializeObject(Of SorteosGrupoSteamJuegos)(htmlJuegos)
+                        If Not htmlJuegos = Nothing Then
+                            Dim listaJuegosUsuario As SorteosGrupoSteamJuegos = JsonConvert.DeserializeObject(Of SorteosGrupoSteamJuegos)(htmlJuegos)
 
-                        If listaJuegosUsuario.Respuesta.CantidadJuegos > 10 Then
-                            Dim juegos As New List(Of String)
+                            If listaJuegosUsuario.Respuesta.CantidadJuegos > 10 Then
+                                Dim juegos As New List(Of String)
 
-                            For Each juego In listaJuegosUsuario.Respuesta.Juegos
-                                juegos.Add(juego.ID)
-                            Next
+                                For Each juego In listaJuegosUsuario.Respuesta.Juegos
+                                    juegos.Add(juego.ID)
+                                Next
 
-                            usuario.Juegos = juegos
-                            usuario.JuegosUltimaComprobacion = DateTime.Today
+                                usuario.Juegos = juegos
+                                usuario.JuegosUltimaComprobacion = DateTime.Today
+
+                                tbMensaje.Text = "Actualizando juegos de usuarios del grupo de Steam (" + i.ToString + "/" + usuarios.Count.ToString + ")"
+                            End If
                         End If
                     End If
                 End If
+
+                i += 1
             Next
 
             Return usuarios
@@ -159,6 +288,12 @@ Namespace Editor
         End Function
 
         Public Async Function WebVerificarUsuarios(usuarios As List(Of SorteosUsuario)) As Task(Of List(Of SorteosUsuario))
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosMensajeUsuarios")
+            tbMensaje.Text = "Verificando usuarios con la web"
 
             Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
                 .AuthMethod = Models.AuthMethod.JWT
@@ -173,7 +308,7 @@ Namespace Editor
                     Dim verificar As Boolean = False
 
                     For Each usuarioWeb In usuariosWeb
-                        If usuarioWeb.Name = usuario.Apodo Then
+                        If usuarioWeb.Name = usuario.ID Then
                             verificar = True
                         End If
                     Next
@@ -188,16 +323,77 @@ Namespace Editor
 
         End Function
 
-        Private Sub GenerarCajaUsuario(grid As Grid, usuario As SorteosUsuario)
+        Private Function GenerarCajaUsuario(usuario As SorteosUsuario)
 
-        End Sub
+            Dim spUsuario As New StackPanel With {
+                .Orientation = Orientation.Horizontal,
+                .Padding = New Thickness(10)
+            }
+
+            Dim simboloVerificado As New FontAwesome.UWP.FontAwesome
+            simboloVerificado.VerticalAlignment = VerticalAlignment.Center
+
+            If usuario.WebVerificado = True Then
+                simboloVerificado.Icon = FontAwesome.UWP.FontAwesomeIcon.Check
+                simboloVerificado.Margin = New Thickness(0, 0, 20, 0)
+            Else
+                simboloVerificado.Icon = FontAwesome.UWP.FontAwesomeIcon.Times
+                simboloVerificado.Margin = New Thickness(0, 0, 23, 0)
+            End If
+
+            spUsuario.Children.Add(simboloVerificado)
+
+            If Not usuario.Avatar = Nothing Then
+                Dim avatar As New ImageEx With {
+                    .Source = usuario.Avatar,
+                    .Width = 40,
+                    .Height = 40,
+                    .Margin = New Thickness(0, 0, 20, 0)
+                }
+
+                spUsuario.Children.Add(avatar)
+            End If
+
+            Dim spDatos As New StackPanel
+            spDatos.Orientation = Orientation.Vertical
+
+            If Not usuario.Nombre = Nothing Then
+                Dim tbNombre As New TextBlock
+                tbNombre.Text = usuario.Nombre
+                tbNombre.FontSize = 16
+                tbNombre.Margin = New Thickness(0, 0, 0, 5)
+
+                spDatos.Children.Add(tbNombre)
+            End If
+
+            If Not usuario.ID = Nothing Then
+                Dim tbDatos As New TextBlock
+                tbDatos.Text = usuario.ID
+                tbDatos.FontSize = 14
+
+                If Not usuario.Juegos Is Nothing Then
+                    tbDatos.Text = tbDatos.Text + " - " + usuario.Juegos.Count.ToString + " juegos"
+                End If
+
+                spDatos.Children.Add(tbDatos)
+            End If
+
+            spUsuario.Children.Add(spDatos)
+
+            Return spUsuario
+
+        End Function
 
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim tbSorteoPrecargar As TextBox = pagina.FindName("tbSorteosJuegoPrecargar")
+            tbSorteoPrecargar.IsEnabled = estado
 
+            Dim botonActualizarUsuarios As Button = pagina.FindName("botonSorteosActualizarUsuarios")
+            botonActualizarUsuarios.IsEnabled = estado
 
         End Sub
 
@@ -205,21 +401,45 @@ Namespace Editor
 
     '------------------------------------------------------------------------------------------
 
+    Public Class SorteoJuego
+
+        Public Property SteamID As String
+        Public Property ClaveJuego As String
+        Public Property FechaAcaba As Date
+        Public Property UsuariosParticipantes As List(Of String)
+
+        Public Sub New(steamid As String, clavejuego As String, fechaacaba As Date, usuariosparticipantes As List(Of String))
+            Me.SteamID = steamid
+            Me.ClaveJuego = clavejuego
+            Me.FechaAcaba = fechaacaba
+            Me.UsuariosParticipantes = usuariosparticipantes
+        End Sub
+
+    End Class
+
+    '------------------------------------------------------------------------------------------
+
     Public Class SorteosUsuario
 
         Public Property SteamID64 As String
-        Public Property Apodo As String
+        Public Property ID As String
+        Public Property Avatar As String
+        Public Property Nombre As String
         Public Property Juegos As List(Of String)
         Public Property JuegosUltimaComprobacion As Date
-        Public Property WebVerificado As Boolean
+        Public Property WebVerificado As Boolean = False
+        Public Property Descartado As Boolean = False
 
-        Public Sub New(steamid64 As String, apodo As String, juegos As List(Of String), juegosultimacomprobacion As Date,
-                       webverificado As Boolean)
+        Public Sub New(steamid64 As String, id As String, avatar As String, nombre As String, juegos As List(Of String),
+                       juegosultimacomprobacion As Date, webverificado As Boolean, descartado As Boolean)
             Me.SteamID64 = steamid64
-            Me.Apodo = apodo
+            Me.ID = id
+            Me.Avatar = avatar
+            Me.Nombre = nombre
             Me.Juegos = juegos
             Me.JuegosUltimaComprobacion = juegosultimacomprobacion
             Me.WebVerificado = webverificado
+            Me.Descartado = descartado
         End Sub
 
     End Class

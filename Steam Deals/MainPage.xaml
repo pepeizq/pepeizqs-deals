@@ -1049,22 +1049,28 @@
 
                         <ScrollViewer x:Name="svSorteos" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <Button x:Name="botonSorteosCargarUsuarios" Margin="0,0,0,20" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                    <Button.Content>
-                                        <TextBlock Text="Cargar Usuarios" Foreground="White"/>
-                                    </Button.Content>
-                                </Button>
+                                <TextBox x:Name="tbSorteosJuegoPrecargar" Margin="0,0,0,20"/>
 
-                                <controls:Expander x:Name="expanderSorteosUsuarios" Background="{StaticResource BrushPrimario}" Foreground="White" IsExpanded="False">
-                                    <controls:Expander.Header>
-                                        <TextBlock Text="Usuarios" Foreground="White"/>
-                                    </controls:Expander.Header>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                    <controls:ImageEx x:Name="imagenSorteosJuegoPrecargado" IsCacheEnabled="True" Width="300" Margin="0,0,20,0"/>
 
-                                    <StackPanel Orientation="Vertical">
-                                        <Grid x:Name="gridSorteosUsuarios"/>
-                                    </StackPanel>
-                                </controls:Expander>
+                                    <TextBlock x:Name="tbSorteosJuegoPrecargadoMensaje" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                </StackPanel>
 
+
+                                <Grid Margin="0,20" BorderThickness="0,1,0,0" BorderBrush="{StaticResource BrushPrimario}"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                    <Button x:Name="botonSorteosActualizarUsuarios" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                        <Button.Content>
+                                            <TextBlock Text="Actualizar Usuarios" Foreground="White"/>
+                                        </Button.Content>
+                                    </Button>
+
+                                    <TextBlock x:Name="tbSorteosMensajeUsuarios" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                </StackPanel>
+
+                                <StackPanel x:Name="spSorteosUsuarios" Orientation="Vertical"/>
 
                             </StackPanel> 
                         </ScrollViewer> 
