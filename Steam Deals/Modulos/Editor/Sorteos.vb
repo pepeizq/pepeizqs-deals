@@ -59,7 +59,8 @@ Namespace Editor
                         Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoMensaje")
                         tbMensaje.Text = datos.Datos.Titulo
 
-                        Dim i As Integer = 0
+                        Dim usuariosOptimos As New List(Of String)
+
                         For Each usuario In usuarios
                             If Not usuario Is Nothing Then
                                 Dim optimoParticipar As Boolean = True
@@ -91,7 +92,7 @@ Namespace Editor
                                         Next
 
                                         If tiene = False Then
-                                            i += 1
+                                            usuariosOptimos.Add(usuario.Nombre)
                                         End If
                                     End If
                                 End If
@@ -99,7 +100,7 @@ Namespace Editor
                             End If
                         Next
 
-                        tbMensaje.Text = tbMensaje.Text + " " + i.ToString + " " + usuarios.Count.ToString
+                        'tbMensaje.Text = tbMensaje.Text + " " + i.ToString + " " + usuarios.Count.ToString
                     End If
                 End If
             End If
