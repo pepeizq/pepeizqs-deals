@@ -10,6 +10,7 @@ Imports WordPressPCL
 Namespace Editor
     Module Sorteos
 
+        Dim archivoSorteosActuales As String = "listaSorteosActuales"
         Dim archivoUsuarios As String = "listaSorteosUsuarios"
 
         Public Sub Cargar()
