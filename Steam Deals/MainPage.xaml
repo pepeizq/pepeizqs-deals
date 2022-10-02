@@ -1049,12 +1049,33 @@
 
                         <ScrollViewer x:Name="svSorteos" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <TextBox x:Name="tbSorteosJuegoPrecargar" Margin="0,0,0,20"/>
-
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                                    <DatePicker x:Name="fechaSorteos" Margin="0,0,20,0"/>
+                                    <TimePicker x:Name="horaSorteos" Margin="0,0,30,0"/>
+
+                                    <TextBlock Text="Steam ID:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBox x:Name="tbSorteosJuegoPrecargar" VerticalAlignment="Center" MinWidth="200"/>
+                                </StackPanel>
+                                
+                                <StackPanel x:Name="spSorteosJuegoPrecargado" Orientation="Horizontal" Margin="0,0,0,20">
                                     <controls:ImageEx x:Name="imagenSorteosJuegoPrecargado" IsCacheEnabled="True" Width="300" Margin="0,0,20,0"/>
 
-                                    <TextBlock x:Name="tbSorteosJuegoPrecargadoMensaje" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock x:Name="tbSorteosJuegoPrecargadoTitulo" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                                        <TextBlock x:Name="tbSorteosJuegoPrecargadoParticipantes" VerticalAlignment="Center" Margin="0,0,0,10"/>
+
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <TextBlock Text="Clave:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <TextBox x:Name="tbSorteosJuegoPrecargadoClave" VerticalAlignment="Center" MinWidth="200"/>
+                                        </StackPanel>
+
+                                        <Button x:Name="botonSorteosJuegoCargar" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <TextBlock Text="Cargar Sorteo" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                    </StackPanel>
+                                    
                                 </StackPanel>
 
 

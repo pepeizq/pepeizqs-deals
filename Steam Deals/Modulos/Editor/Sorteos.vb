@@ -11,6 +11,7 @@ Namespace Editor
     Module Sorteos
 
         Dim archivoSorteosActuales As String = "listaSorteosActuales"
+        Dim archivoSorteosHistorial As String = "listaSorteosHistorial"
         Dim archivoUsuarios As String = "listaSorteosUsuarios"
 
         Public Sub Cargar()
@@ -18,11 +19,25 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim fechaDefecto As DateTime = DateTime.Now
+            fechaDefecto = fechaDefecto.AddDays(7)
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaSorteos")
+            fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaSorteos")
+            horaPicker.SelectedTime = New TimeSpan(fechaDefecto.Hour, 0, 0)
+
             Dim tbSorteoPrecargar As TextBox = pagina.FindName("tbSorteosJuegoPrecargar")
             tbSorteoPrecargar.Text = String.Empty
 
             RemoveHandler tbSorteoPrecargar.TextChanged, AddressOf PrecargarSorteo
             AddHandler tbSorteoPrecargar.TextChanged, AddressOf PrecargarSorteo
+
+            Dim spSorteoPrecargado As StackPanel = pagina.FindName("spSorteosJuegoPrecargado")
+            spSorteoPrecargado.Visibility = Visibility.Collapsed
+
+
 
             Dim botonActualizarUsuarios As Button = pagina.FindName("botonSorteosActualizarUsuarios")
 
@@ -51,14 +66,20 @@ Namespace Editor
 
             If Not tbSorteoPrecargar.Text = Nothing Then
                 If tbSorteoPrecargar.Text.Trim.Length > 0 Then
-                    Dim datos As Juegos.SteamAPIJson = Await Juegos.Steam.BuscarAPIJson(tbSorteoPrecargar.Text.Trim)
+                    tbSorteoPrecargar.Text = tbSorteoPrecargar.Text.Trim
+                    tbSorteoPrecargar.Text = tbSorteoPrecargar.Text.Replace("https://store.steampowered.com/app/", Nothing)
+                    tbSorteoPrecargar.Text = tbSorteoPrecargar.Text.Replace("https://steamdb.info/app/", Nothing)
+                    tbSorteoPrecargar.Text = tbSorteoPrecargar.Text.Replace("/", Nothing)
+
+                    Dim steamID As String = tbSorteoPrecargar.Text.Trim
+                    Dim datos As Juegos.SteamAPIJson = Await Juegos.Steam.BuscarAPIJson(steamID)
 
                     If Not datos Is Nothing Then
                         Dim imagenSorteo As ImageEx = pagina.FindName("imagenSorteosJuegoPrecargado")
                         imagenSorteo.Source = datos.Datos.Imagen
 
-                        Dim tbMensaje As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoMensaje")
-                        tbMensaje.Text = datos.Datos.Titulo
+                        Dim tbTitulo As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoTitulo")
+                        tbTitulo.Text = datos.Datos.Titulo
 
                         Dim usuariosOptimos As New List(Of String)
 
@@ -101,6 +122,13 @@ Namespace Editor
                             End If
                         Next
 
+                        Dim spSorteoPrecargado As StackPanel = pagina.FindName("spSorteosJuegoPrecargado")
+                        spSorteoPrecargado.Visibility = Visibility.Visible
+
+                        Dim tbParticipantes As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoParticipantes")
+                        tbParticipantes.Text = usuariosOptimos.Count.ToString + " participantes"
+
+                        'Dim nuevoSorteo As New SorteoJuego(steamID, )
                         'tbMensaje.Text = tbMensaje.Text + " " + i.ToString + " " + usuarios.Count.ToString
                     End If
                 End If
@@ -390,6 +418,12 @@ Namespace Editor
 
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
+
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaSorteos")
+            fechaPicker.IsEnabled = estado
+
+            Dim horaPicker As TimePicker = pagina.FindName("horaSorteos")
+            horaPicker.IsEnabled = estado
 
             Dim tbSorteoPrecargar As TextBox = pagina.FindName("tbSorteosJuegoPrecargar")
             tbSorteoPrecargar.IsEnabled = estado
