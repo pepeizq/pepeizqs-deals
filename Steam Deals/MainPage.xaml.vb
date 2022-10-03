@@ -107,7 +107,10 @@ Public NotInheritable Class MainPage
         Editor.Posts.Borrar()
         Editor.Assets.Cargar()
         Editor.FichasTiendasWeb.Cargar()
-        Editor.Sorteos.Cargar()
+        Editor.Sorteos.Interfaz.Cargar()
+        Editor.Sorteos.Generador.Cargar()
+        Editor.Sorteos.Usuarios.Cargar()
+        Editor.Sorteos.Repartidor.Cargar()
 
         '--------------------------------------------------------
 
