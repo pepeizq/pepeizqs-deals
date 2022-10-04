@@ -1102,11 +1102,20 @@
 
                                     <TextBlock x:Name="tbSorteosCargadosMensaje" Margin="0,0,0,20"/>
 
-                                    <Button x:Name="botonSorteosSubir" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
-                                        <Button.Content>
-                                            <TextBlock Text="Subir Sorteos" Foreground="White"/>
-                                        </Button.Content>
-                                    </Button>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="botonSorteosSubir" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <TextBlock Text="Subir Sorteos" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <Button x:Name="botonSorteosActualizarParticipantes" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <TextBlock Text="Actualizar Participantes" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
+                                    </StackPanel>
+                                    
                                 </StackPanel>
 
                                 <StackPanel x:Name="spSorteosUsuarios" Orientation="Vertical">

@@ -51,6 +51,11 @@ Namespace Editor.Sorteos
             RemoveHandler botonSubir.Click, AddressOf SubirSorteos
             AddHandler botonSubir.Click, AddressOf SubirSorteos
 
+            Dim botonActualizar As Button = pagina.FindName("botonSorteosActualizarParticipantes")
+
+            RemoveHandler botonActualizar.Click, AddressOf ActualizarParticipantes
+            AddHandler botonActualizar.Click, AddressOf ActualizarParticipantes
+
         End Sub
 
         Private Async Sub PrecargarSorteo(sender As Object, e As TextChangedEventArgs)
@@ -232,6 +237,94 @@ Namespace Editor.Sorteos
                 Next
 
                 If Not htmlEn = String.Empty Then
+                    htmlEn = htmlEn + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
+
+                    Dim id As String = "44456"
+
+                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + id)
+
+                    resultado.Contenido = New Models.Content(htmlEn)
+
+                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + id, resultado)
+
+                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + id + "&action=edit"))
+                End If
+            End If
+
+        End Sub
+
+        Private Async Sub ActualizarParticipantes(sender As Object, e As RoutedEventArgs)
+
+            Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                .AuthMethod = Models.AuthMethod.JWT
+            }
+
+            Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+            If Await cliente.IsValidJWToken = True Then
+                Dim helper As New LocalObjectStorageHelper
+
+                Dim usuarios As New List(Of SorteosUsuario)
+
+                If Await helper.FileExistsAsync(archivoUsuarios) Then
+                    usuarios = Await helper.ReadFileAsync(Of List(Of SorteosUsuario))(archivoUsuarios)
+                End If
+
+                Dim sorteos As New List(Of SorteoJuego)
+
+                If Await helper.FileExistsAsync(archivoSorteosActuales) Then
+                    sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
+                End If
+
+                Dim htmlEn As String = String.Empty
+
+                For Each sorteo In sorteos
+                    Dim usuariosOptimos As New List(Of String)
+
+                    For Each usuario In Usuarios
+                        If Not usuario Is Nothing Then
+                            Dim optimoParticipar As Boolean = True
+
+                            If usuario.Descartado = True Then
+                                optimoParticipar = False
+                            End If
+
+                            If usuario.ID = Nothing Then
+                                optimoParticipar = False
+                            End If
+
+                            If usuario.Juegos Is Nothing Then
+                                optimoParticipar = False
+                            End If
+
+                            If usuario.WebVerificado = False Then
+                                optimoParticipar = False
+                            End If
+
+                            If optimoParticipar = True Then
+                                If usuario.Juegos.Count > 10 Then
+                                    Dim tiene As Boolean = False
+
+                                    For Each juego In usuario.Juegos
+                                        If juego = sorteo.SteamID Then
+                                            tiene = True
+                                        End If
+                                    Next
+
+                                    If tiene = False Then
+                                        usuariosOptimos.Add(usuario.ID)
+                                    End If
+                                End If
+                            End If
+                        End If
+                    Next
+
+                    htmlEn = htmlEn + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, usuariosOptimos)
+                Next
+
+                If Not htmlEn = String.Empty Then
+                    htmlEn = htmlEn + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
+
                     Dim id As String = "44456"
 
                     Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + id)
@@ -277,6 +370,33 @@ Namespace Editor.Sorteos
             Next
 
             html = html + "[/vc_column_text][/vc_tta_section][/vc_tta_accordion][/vc_column][/vc_row]"
+            html = html + "[vc_row][vc_column][/vc_column][/vc_row]"
+
+            Return html
+
+        End Function
+
+        Private Function PlantillaSorteosFechaAcaba(fecha As DateTime)
+
+            Dim dia As String = fecha.Day.ToString
+
+            If dia.Length = 1 Then
+                dia = "0" + dia
+            End If
+
+            Dim minuto As String = fecha.Minute.ToString
+
+            If minuto.Length = 1 Then
+                minuto = "0" + minuto
+            End If
+
+            Dim html As String = String.Empty
+
+            html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" +
+                    ChrW(34) + " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column][vc_column_text]<p style=" +
+                    ChrW(34) + "font-size 16px;" + ChrW(34) + ">These giveaways end on the following date: " +
+                    dia + "/" + fecha.Month.ToString + "/" + fecha.Year.ToString + " " + fecha.Hour.ToString + ":" + minuto + " GMT +2</p>" +
+                    "[/vc_column_text][/vc_column][/vc_row]"
 
             Return html
 
@@ -301,6 +421,9 @@ Namespace Editor.Sorteos
 
             Dim botonSubir As Button = pagina.FindName("botonSorteosSubir")
             botonSubir.IsEnabled = estado
+
+            Dim botonActualizar As Button = pagina.FindName("botonSorteosActualizarParticipantes")
+            botonActualizar.IsEnabled = estado
 
         End Sub
 
