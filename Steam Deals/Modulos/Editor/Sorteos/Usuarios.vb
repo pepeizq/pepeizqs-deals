@@ -155,6 +155,10 @@ Namespace Editor.Sorteos
                                 usuario.ID = enlacePerfil
                                 usuario.Avatar = usuarioDatos.Respuesta.Jugador(0).Avatar
                                 usuario.Nombre = usuarioDatos.Respuesta.Jugador(0).Nombre
+                            Else
+                                usuario.ID = usuarioDatos.Respuesta.Jugador(0).Nombre2
+                                usuario.Avatar = usuarioDatos.Respuesta.Jugador(0).Avatar
+                                usuario.Nombre = usuarioDatos.Respuesta.Jugador(0).Nombre2
                             End If
                         End If
                     End If
@@ -225,8 +229,14 @@ Namespace Editor.Sorteos
                     Dim verificar As Boolean = False
 
                     For Each usuarioWeb In usuariosWeb
-                        If usuarioWeb.Name = usuario.ID Then
-                            verificar = True
+                        If Not usuario.ID = Nothing Then
+                            If usuarioWeb.Name.ToLower = usuario.ID.ToLower Then
+                                verificar = True
+                            End If
+
+                            If usuarioWeb.Slug.ToLower = usuario.ID.ToLower Then
+                                verificar = True
+                            End If
                         End If
                     Next
 
@@ -382,6 +392,9 @@ Namespace Editor.Sorteos
 
         <JsonProperty("profileurl")>
         Public Property EnlacePerfil As String
+
+        <JsonProperty("realname")>
+        Public Property Nombre2 As String
 
     End Class
 
