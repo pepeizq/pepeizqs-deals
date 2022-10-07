@@ -425,6 +425,9 @@ Namespace Editor.Sorteos
             Dim botonActualizar As Button = pagina.FindName("botonSorteosActualizarParticipantes")
             botonActualizar.IsEnabled = estado
 
+            Dim botonRepartir As Button = pagina.FindName("botonSorteosRepartir")
+            botonRepartir.IsEnabled = estado
+
         End Sub
 
     End Module

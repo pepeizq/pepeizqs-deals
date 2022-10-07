@@ -1114,6 +1114,12 @@
                                                 <TextBlock Text="Actualizar Participantes" Foreground="White"/>
                                             </Button.Content>
                                         </Button>
+
+                                        <Button x:Name="botonSorteosRepartir" Margin="0,0,20,0" Background="{StaticResource BrushPrimario}" Padding="15,10" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">
+                                            <Button.Content>
+                                                <TextBlock Text="Repartir" Foreground="White"/>
+                                            </Button.Content>
+                                        </Button>
                                     </StackPanel>
                                     
                                 </StackPanel>
