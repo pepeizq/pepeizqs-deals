@@ -191,7 +191,7 @@ Namespace Editor.Sorteos
             Dim botonCargar As Button = pagina.FindName("botonSorteosJuegoCargar")
             Dim usuariosOptimos As List(Of String) = botonCargar.Tag
 
-            Dim nuevoSorteo As New SorteoJuego(steamID, titulo, clave, fechaFinal, usuariosOptimos)
+            Dim nuevoSorteo As New SorteoJuego(steamID, titulo, clave, fechaFinal, usuariosOptimos, Nothing)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -320,7 +320,10 @@ Namespace Editor.Sorteos
                     Next
 
                     htmlEn = htmlEn + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, usuariosOptimos)
+                    sorteo.UsuariosParticipantes = usuariosOptimos
                 Next
+
+                Await helper.SaveFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales, sorteos)
 
                 If Not htmlEn = String.Empty Then
                     htmlEn = htmlEn + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
@@ -428,6 +431,9 @@ Namespace Editor.Sorteos
             Dim botonRepartir As Button = pagina.FindName("botonSorteosRepartir")
             botonRepartir.IsEnabled = estado
 
+            Dim tbRepartidorUrl As TextBox = pagina.FindName("tbSorteosRepartidorUrl")
+            tbRepartidorUrl.IsEnabled = estado
+
         End Sub
 
     End Module
@@ -441,13 +447,16 @@ Namespace Editor.Sorteos
         Public Property ClaveJuego As String
         Public Property FechaAcaba As Date
         Public Property UsuariosParticipantes As List(Of String)
+        Public Property UsuarioGanador As String
 
-        Public Sub New(steamid As String, titulo As String, clavejuego As String, fechaacaba As Date, usuariosparticipantes As List(Of String))
+        Public Sub New(steamid As String, titulo As String, clavejuego As String, fechaacaba As Date,
+                       usuariosparticipantes As List(Of String), usuarioganador As String)
             Me.SteamID = steamid
             Me.Titulo = titulo
             Me.ClaveJuego = clavejuego
             Me.FechaAcaba = fechaacaba
             Me.UsuariosParticipantes = usuariosparticipantes
+            Me.UsuarioGanador = usuarioganador
         End Sub
 
     End Class

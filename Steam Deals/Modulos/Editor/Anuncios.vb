@@ -88,7 +88,7 @@ Namespace Editor
 
             If enlace.Trim.Length > 0 Then
                 If enlace.Contains("https://pepeizqdeals.com/giveaways/") Then
-                    tbTitulo.Text = "New Giveaways on SteamGifts • News"
+                    tbTitulo.Text = "New Weekly Giveaway • News"
 
                     tbImagenTituloIngles.Text = "Giveaways"
                     tbImagenTituloEspañol.Text = "Sorteos"

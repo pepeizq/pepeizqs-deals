@@ -1139,8 +1139,8 @@
                                 </StackPanel>
 
                                 <StackPanel x:Name="spSorteosRepartidor" Orientation="Vertical">
-                                    <TextBox x:Name="tbSorteosRepartidorUrl"/>
-                                    <WebView x:Name="wvSorteosRepartidor"/>
+                                    <TextBox x:Name="tbSorteosRepartidorUrl" Margin="0,0,0,10"/>
+                                    <WebView x:Name="wvSorteosRepartidor" MinWidth="700" MinHeight="700"/>
                                 </StackPanel>
 
                             </StackPanel> 
