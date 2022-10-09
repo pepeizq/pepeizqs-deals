@@ -43,7 +43,7 @@ Namespace Editor.Sorteos
                 If sorteos.Count > 0 Then
                     For Each sorteo In sorteos
                         Dim azar As New Random
-                        Dim ganadorNumero As Integer = azar.Next(0, sorteo.UsuariosParticipantes.Count)
+                        Dim ganadorNumero As Integer = azar.Next(0, sorteo.UsuariosParticipantes.Count - 1)
 
                         Dim i As Integer = 0
                         For Each usuario In sorteo.UsuariosParticipantes
@@ -110,6 +110,8 @@ Namespace Editor.Sorteos
                     Catch ex As Exception
 
                     End Try
+
+                    Await Task.Delay(1000)
 
                     Dim enviado As Boolean = False
 

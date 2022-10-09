@@ -1,4 +1,5 @@
 ﻿Imports System.Xml.Serialization
+Imports Microsoft
 Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Microsoft.Toolkit.Uwp.UI.Controls
 Imports Newtonsoft.Json
@@ -237,6 +238,14 @@ Namespace Editor.Sorteos
                             If usuarioWeb.Slug.ToLower = usuario.ID.ToLower Then
                                 verificar = True
                             End If
+
+                            If usuarioWeb.Name.ToLower = usuario.Nombre.ToLower Then
+                                verificar = True
+                            End If
+
+                            If usuarioWeb.Slug.ToLower = usuario.Nombre.ToLower Then
+                                verificar = True
+                            End If
                         End If
                     Next
 
@@ -427,6 +436,24 @@ Namespace Editor.Sorteos
 
         <JsonProperty("img_icon_url")>
         Public Icono As String
+
+    End Class
+
+    '------------------------------------------------------------------------------------------
+
+    Public Class UsuarioWeb
+        Inherits Models.Base
+
+        <JsonProperty("acf")>
+        Public ACF As UsuarioWebACF
+
+
+    End Class
+
+    Public Class UsuarioWebACF
+
+        <JsonProperty("steam_profileurl")>
+        Public SteamID As String
 
     End Class
 
