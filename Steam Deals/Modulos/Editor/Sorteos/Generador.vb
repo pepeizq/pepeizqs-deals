@@ -191,7 +191,7 @@ Namespace Editor.Sorteos
             Dim botonCargar As Button = pagina.FindName("botonSorteosJuegoCargar")
             Dim usuariosOptimos As List(Of String) = botonCargar.Tag
 
-            Dim nuevoSorteo As New SorteoJuego(steamID, titulo, clave, fechaFinal, usuariosOptimos, Nothing)
+            Dim nuevoSorteo As New SorteoJuego(steamID, titulo, clave, fechaFinal, usuariosOptimos, Nothing, False)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -448,15 +448,17 @@ Namespace Editor.Sorteos
         Public Property FechaAcaba As Date
         Public Property UsuariosParticipantes As List(Of String)
         Public Property UsuarioGanador As String
+        Public Property Entregado As Boolean
 
         Public Sub New(steamid As String, titulo As String, clavejuego As String, fechaacaba As Date,
-                       usuariosparticipantes As List(Of String), usuarioganador As String)
+                       usuariosparticipantes As List(Of String), usuarioganador As String, entregado As Boolean)
             Me.SteamID = steamid
             Me.Titulo = titulo
             Me.ClaveJuego = clavejuego
             Me.FechaAcaba = fechaacaba
             Me.UsuariosParticipantes = usuariosparticipantes
             Me.UsuarioGanador = usuarioganador
+            Me.Entregado = entregado
         End Sub
 
     End Class

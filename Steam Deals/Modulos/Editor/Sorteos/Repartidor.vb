@@ -53,10 +53,10 @@ Namespace Editor.Sorteos
                             End If
                             i += 1
                         Next
-
-                        wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteo.UsuarioGanador))
-                        wvRepartidor.Tag = sorteo
                     Next
+
+                    wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(0).UsuarioGanador))
+                    wvRepartidor.Tag = sorteos
                 End If
             End If
 
@@ -76,65 +76,85 @@ Namespace Editor.Sorteos
             tbUrl.Text = wvRepartidor.Source.ToString
 
             If Not wvRepartidor.Tag Is Nothing Then
-                Dim sorteo As SorteoJuego = wvRepartidor.Tag
+                Dim sorteos As List(Of SorteoJuego) = wvRepartidor.Tag
+                Dim i As Integer = 0
 
-                If wvRepartidor.Source.AbsoluteUri = "https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteo.UsuarioGanador Then
-                    Dim ganadorHtml As String = "document.getElementById('fep-message-to').value = '" + sorteo.UsuarioGanador + "'"
+                For Each sorteo In sorteos
+                    If sorteo.Entregado = False Then
+                        Exit For
+                    End If
+                    i += 1
+                Next
 
-                    Try
-                        Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {ganadorHtml})
-                    Catch ex As Exception
+                If Not sorteos(i) Is Nothing Then
+                    If wvRepartidor.Source.AbsoluteUri = "https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i).UsuarioGanador Then
+                        Await Task.Delay(2000)
 
-                    End Try
+                        Dim ganadorHtml As String = "document.getElementById('fep-message-to').value = '" + sorteos(i).UsuarioGanador + "'"
 
-                    Dim ganador2Html As String = "document.getElementById('fep-message-top').value = '" + sorteo.UsuarioGanador + "'"
+                        Try
+                            Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {ganadorHtml})
+                        Catch ex As Exception
 
-                    Try
-                        Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {ganador2Html})
-                    Catch ex As Exception
+                        End Try
 
-                    End Try
+                        Dim ganador2Html As String = "document.getElementById('fep-message-top').value = '" + sorteos(i).UsuarioGanador + "'"
 
-                    Dim tituloHtml As String = "document.getElementById('message_title').value = 'You have won the " + sorteo.Titulo + " giveaway '"
+                        Try
+                            Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {ganador2Html})
+                        Catch ex As Exception
 
-                    Try
-                        Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
-                    Catch ex As Exception
+                        End Try
 
-                    End Try
+                        Dim tituloHtml As String = "document.getElementById('message_title').value = 'You have won the " + sorteos(i).Titulo + " giveaway '"
 
-                    Dim contenidoHtml As String = "document.getElementById('message_content').value = '" + sorteo.ClaveJuego + "'"
+                        Try
+                            Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {tituloHtml})
+                        Catch ex As Exception
 
-                    Try
-                        Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {contenidoHtml})
-                    Catch ex As Exception
+                        End Try
 
-                    End Try
+                        Dim contenidoHtml As String = "document.getElementById('message_content').value = '" + sorteos(i).ClaveJuego + "'"
 
-                    Await Task.Delay(1000)
+                        Try
+                            Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {contenidoHtml})
+                        Catch ex As Exception
 
-                    Dim enviado As Boolean = False
+                        End Try
 
-                    Try
-                        Await wvRepartidor.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('fep-button')[5].focus();"})
-                        Await wvRepartidor.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('fep-button')[5].click();"})
-                        enviado = True
-                    Catch ex As Exception
+                        Await Task.Delay(1000)
 
-                    End Try
+                        Dim enviado As Boolean = False
 
-                    If enviado = True Then
-                        Dim helper As New LocalObjectStorageHelper
+                        Try
+                            Await wvRepartidor.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('fep-button')[5].focus();"})
+                            Await wvRepartidor.InvokeScriptAsync("eval", New String() {"document.getElementsByClassName('fep-button')[5].click();"})
+                            enviado = True
+                        Catch ex As Exception
 
-                        Dim sorteosHistorico As New List(Of SorteoJuego)
+                        End Try
 
-                        If Await helper.FileExistsAsync(archivoSorteosHistorial) Then
-                            sorteosHistorico = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial)
+                        If enviado = True Then
+                            sorteos(i).Entregado = True
+
+                            Dim helper As New LocalObjectStorageHelper
+
+                            Dim sorteosHistorico As New List(Of SorteoJuego)
+
+                            If Await helper.FileExistsAsync(archivoSorteosHistorial) Then
+                                sorteosHistorico = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial)
+                            End If
+
+                            sorteosHistorico.Add(sorteos(i))
+
+                            Await helper.SaveFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial, sorteosHistorico)
+
+                            wvRepartidor.Tag = sorteos
+
+                            If i < sorteos.Count Then
+                                wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i + 1).UsuarioGanador))
+                            End If
                         End If
-
-                        sorteosHistorico.Add(sorteo)
-
-                        Await helper.SaveFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial, sorteosHistorico)
                     End If
                 End If
             End If
