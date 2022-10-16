@@ -224,6 +224,9 @@ Namespace Editor.Sorteos
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
+                'Dim usuariosWeb2 As String = Await cliente.CustomRequest.Get(Of String)("acf/v3/users?per_page=100")
+                'Notificaciones.Toast(usuariosWeb2.Count, Nothing)
+
                 Dim usuariosWeb As List(Of Models.User) = Await cliente.Users.GetAll(False, True)
 
                 For Each usuario In usuarios
@@ -443,6 +446,12 @@ Namespace Editor.Sorteos
 
     Public Class UsuarioWeb
         Inherits Models.Base
+
+        <JsonProperty("id")>
+        Public ID2 As String
+
+        '<JsonProperty("name")>
+        'Public Nombre As String
 
         <JsonProperty("acf")>
         Public ACF As UsuarioWebACF

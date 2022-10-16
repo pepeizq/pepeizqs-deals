@@ -151,7 +151,7 @@ Namespace Editor.Sorteos
 
                             wvRepartidor.Tag = sorteos
 
-                            If i < sorteos.Count Then
+                            If i - 1 < sorteos.Count Then
                                 wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i + 1).UsuarioGanador))
                             End If
                         End If
