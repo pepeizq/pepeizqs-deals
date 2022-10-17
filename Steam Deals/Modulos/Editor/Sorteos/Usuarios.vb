@@ -456,7 +456,6 @@ Namespace Editor.Sorteos
         <JsonProperty("acf")>
         Public ACF As UsuarioWebACF
 
-
     End Class
 
     Public Class UsuarioWebACF
