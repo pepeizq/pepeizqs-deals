@@ -320,6 +320,7 @@ Namespace Editor.Sorteos
                 spDatos.Children.Add(tbDatos)
             End If
 
+
             spUsuario.Children.Add(spDatos)
 
             Return spUsuario
