@@ -93,7 +93,7 @@ Namespace Editor.Sorteos
                         Dim tbTitulo As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoTitulo")
                         tbTitulo.Text = datos.Datos.Titulo
 
-                        Dim usuariosOptimos As New List(Of String)
+                        Dim usuariosOptimos As New List(Of SorteoUsuario)
 
                         For Each usuario In usuarios
                             If Not usuario Is Nothing Then
@@ -126,7 +126,7 @@ Namespace Editor.Sorteos
                                         Next
 
                                         If tiene = False Then
-                                            usuariosOptimos.Add(usuario.ID)
+                                            usuariosOptimos.Add(New SorteoUsuario(usuario.ID, usuario.Nombre))
                                         End If
                                     End If
                                 End If
@@ -189,7 +189,7 @@ Namespace Editor.Sorteos
             fechaFinal = fechaFinal.AddHours(horaPicker.SelectedTime.Value.Hours)
 
             Dim botonCargar As Button = pagina.FindName("botonSorteosJuegoCargar")
-            Dim usuariosOptimos As List(Of String) = botonCargar.Tag
+            Dim usuariosOptimos As List(Of SorteoUsuario) = botonCargar.Tag
 
             Dim nuevoSorteo As New SorteoJuego(steamID, titulo, clave, fechaFinal, usuariosOptimos, Nothing, False)
 
@@ -279,7 +279,7 @@ Namespace Editor.Sorteos
                 Dim htmlEn As String = String.Empty
 
                 For Each sorteo In sorteos
-                    Dim usuariosOptimos As New List(Of String)
+                    Dim usuariosOptimos As New List(Of SorteoUsuario)
 
                     For Each usuario In Usuarios
                         If Not usuario Is Nothing Then
@@ -312,7 +312,7 @@ Namespace Editor.Sorteos
                                     Next
 
                                     If tiene = False Then
-                                        usuariosOptimos.Add(usuario.ID)
+                                        usuariosOptimos.Add(New SorteoUsuario(usuario.ID, usuario.Nombre))
                                     End If
                                 End If
                             End If
@@ -342,7 +342,7 @@ Namespace Editor.Sorteos
 
         End Sub
 
-        Private Async Function PlantillaSorteoWeb(steamID As String, titulo As String, participantes As List(Of String)) As Task(Of String)
+        Private Async Function PlantillaSorteoWeb(steamID As String, titulo As String, participantes As List(Of SorteoUsuario)) As Task(Of String)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -366,7 +366,7 @@ Namespace Editor.Sorteos
 
             For Each participante In participantes
                 For Each usuario In usuarios
-                    If usuario.ID = participante Then
+                    If usuario.ID = participante.ID Then
                         html = html + "<div>" + usuario.Nombre + "</div>"
                     End If
                 Next
@@ -446,12 +446,12 @@ Namespace Editor.Sorteos
         Public Property Titulo As String
         Public Property ClaveJuego As String
         Public Property FechaAcaba As Date
-        Public Property UsuariosParticipantes As List(Of String)
-        Public Property UsuarioGanador As String
+        Public Property UsuariosParticipantes As List(Of SorteoUsuario)
+        Public Property UsuarioGanador As SorteoUsuario
         Public Property Entregado As Boolean
 
         Public Sub New(steamid As String, titulo As String, clavejuego As String, fechaacaba As Date,
-                       usuariosparticipantes As List(Of String), usuarioganador As String, entregado As Boolean)
+                       usuariosparticipantes As List(Of SorteoUsuario), usuarioganador As SorteoUsuario, entregado As Boolean)
             Me.SteamID = steamid
             Me.Titulo = titulo
             Me.ClaveJuego = clavejuego
@@ -459,6 +459,18 @@ Namespace Editor.Sorteos
             Me.UsuariosParticipantes = usuariosparticipantes
             Me.UsuarioGanador = usuarioganador
             Me.Entregado = entregado
+        End Sub
+
+    End Class
+
+    Public Class SorteoUsuario
+
+        Public Property ID As String
+        Public Property Nombre As String
+
+        Public Sub New(id As String, nombre As String)
+            Me.ID = id
+            Me.Nombre = nombre
         End Sub
 
     End Class

@@ -55,7 +55,7 @@ Namespace Editor.Sorteos
                         Next
                     Next
 
-                    wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(0).UsuarioGanador))
+                    wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(0).UsuarioGanador.ID))
                     wvRepartidor.Tag = sorteos
                 End If
             End If
@@ -87,10 +87,10 @@ Namespace Editor.Sorteos
                 Next
 
                 If Not sorteos(i) Is Nothing Then
-                    If wvRepartidor.Source.AbsoluteUri = "https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i).UsuarioGanador Then
+                    If wvRepartidor.Source.AbsoluteUri = "https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i).UsuarioGanador.ID Then
                         Await Task.Delay(2000)
 
-                        Dim ganadorHtml As String = "document.getElementById('fep-message-to').value = '" + sorteos(i).UsuarioGanador + "'"
+                        Dim ganadorHtml As String = "document.getElementById('fep-message-to').value = '" + sorteos(i).UsuarioGanador.Nombre + "'"
 
                         Try
                             Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {ganadorHtml})
@@ -98,7 +98,7 @@ Namespace Editor.Sorteos
 
                         End Try
 
-                        Dim ganador2Html As String = "document.getElementById('fep-message-top').value = '" + sorteos(i).UsuarioGanador + "'"
+                        Dim ganador2Html As String = "document.getElementById('fep-message-top').value = '" + sorteos(i).UsuarioGanador.Nombre + "'"
 
                         Try
                             Await wvRepartidor.InvokeScriptAsync("eval", New List(Of String) From {ganador2Html})
@@ -151,8 +151,11 @@ Namespace Editor.Sorteos
 
                             wvRepartidor.Tag = sorteos
 
-                            If i - 1 < sorteos.Count Then
-                                wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i + 1).UsuarioGanador))
+                            If i < sorteos.Count Then
+                                Await Task.Delay(5000)
+                                wvRepartidor.Navigate(New Uri("https://pepeizqdeals.com/messages/?fepaction=newmessage&fep_to=" + sorteos(i + 1).UsuarioGanador.ID))
+                            Else
+                                Notificaciones.Toast("Sorteos Entregados", Nothing)
                             End If
                         End If
                     End If
