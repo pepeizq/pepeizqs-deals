@@ -230,6 +230,7 @@ Namespace Editor.Sorteos
                     sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
                 End If
 
+
                 Dim htmlEn As String = String.Empty
 
                 For Each sorteo In sorteos
