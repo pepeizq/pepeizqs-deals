@@ -536,7 +536,6 @@ Namespace Interfaz
             '    Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             'End Try
 
-
             Try
                 Await GamersGate.BuscarOfertas(gamersgateT)
             Catch ex As Exception
