@@ -145,7 +145,6 @@ Namespace Editor.Sorteos
                                 sorteosHistorico = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial)
                             End If
 
-
                             sorteosHistorico.Add(sorteos(i))
 
                             Await helper.SaveFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial, sorteosHistorico)
