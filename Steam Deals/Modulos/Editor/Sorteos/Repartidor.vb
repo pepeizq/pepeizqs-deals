@@ -142,7 +142,11 @@ Namespace Editor.Sorteos
                             Dim sorteosHistorico As New List(Of SorteoJuego)
 
                             If Await helper.FileExistsAsync(archivoSorteosHistorial) Then
-                                sorteosHistorico = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial)
+                                Try
+                                    sorteosHistorico = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosHistorial)
+                                Catch ex As Exception
+
+                                End Try
                             End If
 
                             sorteosHistorico.Add(sorteos(i))
