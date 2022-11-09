@@ -134,7 +134,6 @@ Namespace Editor.Sorteos
 
                         End Try
 
-
                         If enviado = True Then
                             sorteos(i).Entregado = True
 
