@@ -1167,6 +1167,11 @@
                                         <TextBlock x:Name="tbDivisasRublo" VerticalAlignment="Center"/>
                                     </StackPanel>
 
+                                    <TextBlock Text="Monedas API" Margin="0,30,0,10"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="tbDivisasAPI" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
                                     <TextBlock Text="Web / REST API" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock x:Uid="Username" VerticalAlignment="Center"/>

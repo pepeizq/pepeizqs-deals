@@ -236,6 +236,14 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbDivisasAPI_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbDivisasAPI.TextChanged
+
+        If tbDivisasAPI.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("divisasAPI") = tbDivisasAPI.Text.Trim
+        End If
+
+    End Sub
+
     Private Sub TbUsuariopepeizqdeals_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbUsuariopepeizqdeals.TextChanged
 
         If tbUsuariopepeizqdeals.Text.Trim.Length > 0 Then

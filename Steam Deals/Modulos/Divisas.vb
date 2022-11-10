@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
+Imports Windows.Storage
 
 Module Divisas
 
@@ -99,44 +100,30 @@ Module Divisas
 
     Private Sub Bw_DoWork(sender As Object, e As DoWorkEventArgs) Handles bw.DoWork
 
-        If buscarDolar = True Then
-            Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_USD&compact=ultra&apiKey=8bd7dd197b4256fa10bd"))
-            Dim html As String = html_.Result
+        If Not ApplicationData.Current.LocalSettings.Values("divisasAPI") Is Nothing Then
+            If buscarDolar = True Then
+                Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_USD&compact=ultra&apiKey=" + ApplicationData.Current.LocalSettings.Values("divisasAPI")))
+                Dim html As String = html_.Result
+                If Not html = Nothing Then
+                    Dim cambioDolar As CambioDolar = JsonConvert.DeserializeObject(Of CambioDolar)(html)
 
-            If Not html = Nothing Then
-                Dim cambioDolar As CambioDolar = JsonConvert.DeserializeObject(Of CambioDolar)(html)
+                    If Not cambioDolar Is Nothing Then
+                        dolar = New Moneda(cambioDolar.Dolar, FechaHoy)
+                    End If
+                End If
+            End If
 
-                If Not cambioDolar Is Nothing Then
-                    dolar = New Moneda(cambioDolar.Dolar, FechaHoy)
+            If buscarLibra = True Then
+                Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_GBP&compact=ultra&apiKey=" + ApplicationData.Current.LocalSettings.Values("divisasAPI")))
+                Dim html As String = html_.Result
+                If Not html = Nothing Then
+                    Dim cambioLibra As CambioLibra = JsonConvert.DeserializeObject(Of CambioLibra)(html)
+                    If Not cambioLibra Is Nothing Then
+                        libra = New Moneda(cambioLibra.Libra, FechaHoy)
+                    End If
                 End If
             End If
         End If
-
-        If buscarLibra = True Then
-            Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_GBP&compact=ultra&apiKey=8bd7dd197b4256fa10bd"))
-            Dim html As String = html_.Result
-
-            If Not html = Nothing Then
-                Dim cambioLibra As CambioLibra = JsonConvert.DeserializeObject(Of CambioLibra)(html)
-
-                If Not cambioLibra Is Nothing Then
-                    libra = New Moneda(cambioLibra.Libra, FechaHoy)
-                End If
-            End If
-        End If
-
-        'If buscarRublo = True Then
-        '    Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_RUB&compact=ultra&apiKey=bb8354afbc0142d7fb17"))
-        '    Dim html As String = html_.Result
-
-        '    If Not html = Nothing Then
-        '        Dim cambioRublo As CambioRublo = JsonConvert.DeserializeObject(Of CambioRublo)(html)
-
-        '        If Not cambioRublo Is Nothing Then
-        '            rublo = New Moneda(cambioRublo.Rublo, FechaHoy)
-        '        End If
-        '    End If
-        'End If
 
     End Sub
 

@@ -9,6 +9,14 @@ Namespace Editor
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
+            Dim divisasAPI As TextBox = pagina.FindName("tbDivisasAPI")
+
+            If Not divisasAPI Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("divisasAPI") Is Nothing Then
+                    divisasAPI.Text = ApplicationData.Current.LocalSettings.Values("divisasAPI")
+                End If
+            End If
+
             Dim usuarioPepeizq As TextBox = pagina.FindName("tbUsuariopepeizqdeals")
 
             If Not usuarioPepeizq Is Nothing Then
