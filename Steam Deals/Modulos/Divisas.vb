@@ -220,7 +220,6 @@ Module Divisas
                             End If
                         End If
 
-
                         temporalEuros = temporalEuros + " €"
                     End If
                 End If
