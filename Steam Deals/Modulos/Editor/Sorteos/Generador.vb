@@ -11,6 +11,9 @@ Namespace Editor.Sorteos
         Public archivoSorteosActuales As String = "listaSorteosActuales"
         Public archivoSorteosHistorial As String = "listaSorteosHistorial"
 
+        Dim idIngles As String = "44456"
+        Dim idEspañol As String = ""
+
         Public Sub Cargar()
 
             Dim frame As Frame = Window.Current.Content
@@ -55,6 +58,11 @@ Namespace Editor.Sorteos
 
             RemoveHandler botonActualizar.Click, AddressOf ActualizarParticipantes
             AddHandler botonActualizar.Click, AddressOf ActualizarParticipantes
+
+            Dim botonNo As Button = pagina.FindName("botonSorteosNo")
+
+            RemoveHandler botonNo.Click, AddressOf NoSorteos
+            AddHandler botonNo.Click, AddressOf NoSorteos
 
         End Sub
 
@@ -230,24 +238,22 @@ Namespace Editor.Sorteos
                     sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
                 End If
 
-                Dim htmlEn As String = String.Empty
+                Dim htmlIngles As String = String.Empty
 
                 For Each sorteo In sorteos
-                    htmlEn = htmlEn + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes)
+                    htmlIngles = htmlIngles + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes)
                 Next
 
-                If Not htmlEn = String.Empty Then
-                    htmlEn = htmlEn + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
+                If Not htmlIngles = String.Empty Then
+                    htmlIngles = htmlIngles + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
 
-                    Dim id As String = "44456"
+                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
 
-                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + id)
+                    resultado.Contenido = New Models.Content(htmlIngles)
 
-                    resultado.Contenido = New Models.Content(htmlEn)
+                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
 
-                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + id, resultado)
-
-                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + id + "&action=edit"))
+                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
                 End If
             End If
 
@@ -276,12 +282,12 @@ Namespace Editor.Sorteos
                     sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
                 End If
 
-                Dim htmlEn As String = String.Empty
+                Dim htmlIngles As String = String.Empty
 
                 For Each sorteo In sorteos
                     Dim usuariosOptimos As New List(Of SorteoUsuario)
 
-                    For Each usuario In Usuarios
+                    For Each usuario In usuarios
                         If Not usuario Is Nothing Then
                             Dim optimoParticipar As Boolean = True
 
@@ -319,24 +325,22 @@ Namespace Editor.Sorteos
                         End If
                     Next
 
-                    htmlEn = htmlEn + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, usuariosOptimos)
+                    htmlIngles = htmlIngles + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, usuariosOptimos)
                     sorteo.UsuariosParticipantes = usuariosOptimos
                 Next
 
                 Await helper.SaveFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales, sorteos)
 
-                If Not htmlEn = String.Empty Then
-                    htmlEn = htmlEn + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
+                If Not htmlIngles = String.Empty Then
+                    htmlIngles = htmlIngles + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
 
-                    Dim id As String = "44456"
+                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
 
-                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + id)
+                    resultado.Contenido = New Models.Content(htmlIngles)
 
-                    resultado.Contenido = New Models.Content(htmlEn)
+                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
 
-                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + id, resultado)
-
-                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + id + "&action=edit"))
+                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
                 End If
             End If
 
@@ -405,6 +409,33 @@ Namespace Editor.Sorteos
 
         End Function
 
+        Private Async Sub NoSorteos(sender As Object, e As RoutedEventArgs)
+
+            Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
+                .AuthMethod = Models.AuthMethod.JWT
+            }
+
+            Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
+
+            If Await cliente.IsValidJWToken = True Then
+                Dim html As String = String.Empty
+
+                html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" +
+                        ChrW(34) + " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column][vc_column_text]<p style=" +
+                        ChrW(34) + "font-size 16px;" + ChrW(34) + ">There are currently no giveaways, follow the social media of this web to find out about new giveaways.</p>" +
+                        "[/vc_column_text][/vc_column][/vc_row]"
+
+                Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
+
+                resultado.Contenido = New Models.Content(html)
+
+                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
+
+                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
+            End If
+
+        End Sub
+
         Private Sub BloquearControles(estado As Boolean)
 
             Dim frame As Frame = Window.Current.Content
@@ -430,6 +461,9 @@ Namespace Editor.Sorteos
 
             Dim botonRepartir As Button = pagina.FindName("botonSorteosRepartir")
             botonRepartir.IsEnabled = estado
+
+            Dim botonNo As Button = pagina.FindName("botonSorteosNo")
+            botonNo.IsEnabled = estado
 
             Dim tbRepartidorUrl As TextBox = pagina.FindName("tbSorteosRepartidorUrl")
             tbRepartidorUrl.IsEnabled = estado
