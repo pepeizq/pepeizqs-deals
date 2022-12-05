@@ -429,7 +429,6 @@ Namespace Editor.Sorteos
 
                 resultado.Contenido = New Models.Content(html)
 
-
                 Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
 
                 Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
