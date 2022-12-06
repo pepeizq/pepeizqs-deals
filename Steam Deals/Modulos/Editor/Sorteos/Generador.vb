@@ -468,6 +468,7 @@ Namespace Editor.Sorteos
             Dim tbRepartidorUrl As TextBox = pagina.FindName("tbSorteosRepartidorUrl")
             tbRepartidorUrl.IsEnabled = estado
 
+
         End Sub
 
     End Module
