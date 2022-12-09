@@ -358,7 +358,6 @@ Namespace Editor.Sorteos
 
             Dim html As String = String.Empty
 
-
             html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" + ChrW(34) +
                    " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) +
                    "][vc_column_text]<img src=" + ChrW(34) + "https://cdn.cloudflare.steamstatic.com/steam/apps/" + steamID +
