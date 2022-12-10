@@ -14,6 +14,12 @@ Namespace Editor.Sorteos
         Dim idIngles As String = "44456"
         Dim idEspañol As String = ""
 
+        Dim textoInglesAcaban As String = ""
+        Dim textoInglesNo As String = ""
+
+        Dim textoEspañolAcaban As String = ""
+        Dim textoEspañolNo As String = ""
+
         Public Sub Cargar()
 
             Dim frame As Frame = Window.Current.Content
