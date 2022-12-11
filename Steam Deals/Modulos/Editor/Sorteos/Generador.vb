@@ -15,7 +15,7 @@ Namespace Editor.Sorteos
         Dim idEspañol As String = ""
 
         Dim textoInglesAcaban As String = ""
-        Dim textoInglesNo As String = ""
+        Dim textoInglesNo As String = "There are currently no giveaways, follow the social media of this web to find out about new giveaways."
 
         Dim textoEspañolAcaban As String = ""
         Dim textoEspañolNo As String = ""
@@ -428,7 +428,7 @@ Namespace Editor.Sorteos
 
                 html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" +
                         ChrW(34) + " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column][vc_column_text]<p style=" +
-                        ChrW(34) + "font-size 16px;" + ChrW(34) + ">There are currently no giveaways, follow the social media of this web to find out about new giveaways.</p>" +
+                        ChrW(34) + "font-size 16px;" + ChrW(34) + ">" + textoInglesNo + "</p>" +
                         "[/vc_column_text][/vc_column][/vc_row]"
 
                 Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
