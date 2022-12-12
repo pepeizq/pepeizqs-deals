@@ -20,6 +20,10 @@ Namespace Editor.Sorteos
         Dim textoEspañolAcaban As String = ""
         Dim textoEspañolNo As String = ""
 
+        Dim idiomas As New List(Of SorteoIdioma) From {
+            New SorteoIdioma("44456", "", "")
+        }
+
         Public Sub Cargar()
 
             Dim frame As Frame = Window.Current.Content
@@ -511,6 +515,20 @@ Namespace Editor.Sorteos
         Public Sub New(id As String, nombre As String)
             Me.ID = id
             Me.Nombre = nombre
+        End Sub
+
+    End Class
+
+    Public Class SorteoIdioma
+
+        Public Property ID As String
+        Public Property TextoAcaban As String
+        Public Property TextoNo As String
+
+        Public Sub New(id As String, textoacaban As String, textono As String)
+            Me.ID = id
+            Me.TextoAcaban = textoacaban
+            Me.TextoNo = textono
         End Sub
 
     End Class
