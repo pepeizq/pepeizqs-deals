@@ -14,14 +14,10 @@ Namespace Editor.Sorteos
         Dim idIngles As String = "44456"
         Dim idEspañol As String = ""
 
-        Dim textoInglesAcaban As String = ""
-        Dim textoInglesNo As String = "There are currently no giveaways, follow the social media of this web to find out about new giveaways."
-
-        Dim textoEspañolAcaban As String = ""
-        Dim textoEspañolNo As String = ""
-
         Dim idiomas As New List(Of SorteoIdioma) From {
-            New SorteoIdioma("44456", "", "")
+            New SorteoIdioma("44456",
+                             "These giveaways end on the following date:",
+                             "There are currently no giveaways, follow the social media of this web to find out about new giveaways.")
         }
 
         Public Sub Cargar()
@@ -428,20 +424,22 @@ Namespace Editor.Sorteos
             Await cliente.RequestJWToken(ApplicationData.Current.LocalSettings.Values("usuarioPepeizq"), ApplicationData.Current.LocalSettings.Values("contraseñaPepeizq"))
 
             If Await cliente.IsValidJWToken = True Then
-                Dim html As String = String.Empty
+                For Each idioma In idiomas
+                    Dim html As String = String.Empty
 
-                html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" +
-                        ChrW(34) + " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column][vc_column_text]<p style=" +
-                        ChrW(34) + "font-size 16px;" + ChrW(34) + ">" + textoInglesNo + "</p>" +
-                        "[/vc_column_text][/vc_column][/vc_row]"
+                    html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" +
+                            ChrW(34) + " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column][vc_column_text]<p style=" +
+                            ChrW(34) + "font-size 16px;" + ChrW(34) + ">" + idioma.TextoNo + "</p>" +
+                            "[/vc_column_text][/vc_column][/vc_row]"
 
-                Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
+                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
 
-                resultado.Contenido = New Models.Content(html)
+                    resultado.Contenido = New Models.Content(html)
 
-                Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
+                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idioma.ID, resultado)
 
-                Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
+                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idioma.ID + "&action=edit"))
+                Next
             End If
 
         End Sub
