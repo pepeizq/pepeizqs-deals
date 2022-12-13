@@ -17,7 +17,10 @@ Namespace Editor.Sorteos
         Dim idiomas As New List(Of SorteoIdioma) From {
             New SorteoIdioma("44456",
                              "These giveaways end on the following date:",
-                             "There are currently no giveaways, follow the social media of this web to find out about new giveaways.")
+                             "There are currently no giveaways, follow the social media of this web to find out about new giveaways."),
+            New SorteoIdioma("44457",
+                             "Estos sorteos acaban en la siguiente fecha:",
+                             "Actualmente no hay sorteos, sigue las redes sociales para enterarte de los nuevos sorteos.")
         }
 
         Public Sub Cargar()
@@ -366,7 +369,7 @@ Namespace Editor.Sorteos
 
             html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" + ChrW(34) +
                    " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column width=" + ChrW(34) + "1/3" + ChrW(34) +
-                   "][vc_column_text]<img src=" + ChrW(34) + "https://cdn.cloudflare.steamstatic.com/steam/apps/" + steamID +
+                   "][vc_column_text]<img src=" + ChrW(34) + Steam_Deals.Ofertas.Steam.listaDominiosImagenes(0) + "/steam/apps/" + steamID +
                    "/header.jpg" + ChrW(34) + "/>[/vc_column_text][/vc_column][vc_column width=" + ChrW(34) + "2/3" + ChrW(34) +
                    "][vc_column_text]<p style=" + ChrW(34) + "font-size: 16px" + ChrW(34) + ">" + titulo +
                    "</p>[/vc_column_text][us_separator size=" + ChrW(34) + "small" + ChrW(34) + "][vc_tta_accordion scrolling=" +
