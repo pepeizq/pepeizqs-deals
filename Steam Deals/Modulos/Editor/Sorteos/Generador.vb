@@ -17,10 +17,12 @@ Namespace Editor.Sorteos
         Dim idiomas As New List(Of SorteoIdioma) From {
             New SorteoIdioma("44456",
                              "These giveaways end on the following date:",
-                             "There are currently no giveaways, follow the social media of this web to find out about new giveaways."),
+                             "There are currently no giveaways, follow the social media of this web to find out about new giveaways.",
+                             "Users eligible for the giveaway"),
             New SorteoIdioma("44457",
                              "Estos sorteos acaban en la siguiente fecha:",
-                             "Actualmente no hay sorteos, sigue las redes sociales para enterarte de los nuevos sorteos.")
+                             "Actualmente no hay sorteos, sigue las redes sociales para enterarte de los nuevos sorteos.",
+                             "Usuarios aptos para el sorteo")
         }
 
         Public Sub Cargar()
@@ -247,14 +249,16 @@ Namespace Editor.Sorteos
                     sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
                 End If
 
+
+
                 Dim htmlIngles As String = String.Empty
 
                 For Each sorteo In sorteos
-                    htmlIngles = htmlIngles + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes)
+                    'htmlIngles = htmlIngles + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes)
                 Next
 
                 If Not htmlIngles = String.Empty Then
-                    htmlIngles = htmlIngles + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
+                    htmlIngles = htmlIngles + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba, idiomas(0).TextoAcaban)
 
                     Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
 
@@ -290,8 +294,6 @@ Namespace Editor.Sorteos
                 If Await helper.FileExistsAsync(archivoSorteosActuales) Then
                     sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
                 End If
-
-                Dim htmlIngles As String = String.Empty
 
                 For Each sorteo In sorteos
                     Dim usuariosOptimos As New List(Of SorteoUsuario)
@@ -334,28 +336,35 @@ Namespace Editor.Sorteos
                         End If
                     Next
 
-                    htmlIngles = htmlIngles + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, usuariosOptimos)
                     sorteo.UsuariosParticipantes = usuariosOptimos
                 Next
 
                 Await helper.SaveFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales, sorteos)
 
-                If Not htmlIngles = String.Empty Then
-                    htmlIngles = htmlIngles + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba)
+                For Each idioma In idiomas
+                    Dim html As String = String.Empty
 
-                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
+                    For Each sorteo In sorteos
+                        html = html + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes, idioma)
+                    Next
 
-                    resultado.Contenido = New Models.Content(htmlIngles)
+                    If Not html = String.Empty Then
+                        html = html + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba, idioma.TextoAcaban)
 
-                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
+                        Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idioma.ID)
 
-                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
-                End If
+                        resultado.Contenido = New Models.Content(html)
+
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idioma.ID, resultado)
+
+                        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idioma.ID + "&action=edit"))
+                    End If
+                Next
             End If
 
         End Sub
 
-        Private Async Function PlantillaSorteoWeb(steamID As String, titulo As String, participantes As List(Of SorteoUsuario)) As Task(Of String)
+        Private Async Function PlantillaSorteoWeb(steamID As String, titulo As String, participantes As List(Of SorteoUsuario), idioma As SorteoIdioma) As Task(Of String)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -374,7 +383,7 @@ Namespace Editor.Sorteos
                    "][vc_column_text]<p style=" + ChrW(34) + "font-size: 16px" + ChrW(34) + ">" + titulo +
                    "</p>[/vc_column_text][us_separator size=" + ChrW(34) + "small" + ChrW(34) + "][vc_tta_accordion scrolling=" +
                    ChrW(34) + "0" + ChrW(34) + " remove_indents=" + ChrW(34) + "1" + ChrW(34) + " c_position=" + ChrW(34) +
-                   "left" + ChrW(34) + "][vc_tta_section title=" + ChrW(34) + "Users eligible for the giveaway (" + participantes.Count.ToString +
+                   "left" + ChrW(34) + "][vc_tta_section title=" + ChrW(34) + idioma.TextoUsuarios + " (" + participantes.Count.ToString +
                    ")" + ChrW(34) + "][vc_column_text]"
 
             For Each participante In participantes
@@ -392,7 +401,7 @@ Namespace Editor.Sorteos
 
         End Function
 
-        Private Function PlantillaSorteosFechaAcaba(fecha As DateTime)
+        Private Function PlantillaSorteosFechaAcaba(fecha As DateTime, textoAcaba As String)
 
             Dim dia As String = fecha.Day.ToString
 
@@ -410,7 +419,7 @@ Namespace Editor.Sorteos
 
             html = "[vc_row content_placement=" + ChrW(34) + "middle" + ChrW(34) + " columns_type=" + ChrW(34) + "1" +
                     ChrW(34) + " el_class=" + ChrW(34) + "fondoCajaSorteo" + ChrW(34) + "][vc_column][vc_column_text]<p style=" +
-                    ChrW(34) + "font-size 16px;" + ChrW(34) + ">These giveaways end on the following date: " +
+                    ChrW(34) + "font-size 16px;" + ChrW(34) + ">" + textoAcaba + " " +
                     dia + "/" + fecha.Month.ToString + "/" + fecha.Year.ToString + " " + fecha.Hour.ToString + ":" + minuto + " GMT +2</p>" +
                     "[/vc_column_text][/vc_column][/vc_row]"
 
@@ -525,11 +534,13 @@ Namespace Editor.Sorteos
         Public Property ID As String
         Public Property TextoAcaban As String
         Public Property TextoNo As String
+        Public Property TextoUsuarios As String
 
-        Public Sub New(id As String, textoacaban As String, textono As String)
+        Public Sub New(id As String, textoacaban As String, textono As String, textousuarios As String)
             Me.ID = id
             Me.TextoAcaban = textoacaban
             Me.TextoNo = textono
+            Me.TextoUsuarios = textousuarios
         End Sub
 
     End Class
