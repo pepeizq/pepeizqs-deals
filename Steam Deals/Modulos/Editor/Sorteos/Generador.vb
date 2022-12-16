@@ -11,9 +11,6 @@ Namespace Editor.Sorteos
         Public archivoSorteosActuales As String = "listaSorteosActuales"
         Public archivoSorteosHistorial As String = "listaSorteosHistorial"
 
-        Dim idIngles As String = "44456"
-        Dim idEspañol As String = ""
-
         Dim idiomas As New List(Of SorteoIdioma) From {
             New SorteoIdioma("44456",
                              "These giveaways end on the following date:",
@@ -161,6 +158,8 @@ Namespace Editor.Sorteos
                         Dim tbParticipantes As TextBlock = pagina.FindName("tbSorteosJuegoPrecargadoParticipantes")
                         tbParticipantes.Text = usuariosOptimos.Count.ToString + " participantes"
 
+                        Dim tbClave As TextBox = pagina.FindName("tbSorteosJuegoPrecargadoClave")
+                        tbClave.Text = String.Empty
                     End If
                 End If
             End If
@@ -249,25 +248,25 @@ Namespace Editor.Sorteos
                     sorteos = Await helper.ReadFileAsync(Of List(Of SorteoJuego))(archivoSorteosActuales)
                 End If
 
+                For Each idioma In idiomas
+                    Dim html As String = String.Empty
 
+                    For Each sorteo In sorteos
+                        html = html + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes, idioma)
+                    Next
 
-                Dim htmlIngles As String = String.Empty
+                    If Not html = Nothing Then
+                        html = html + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba, idioma.TextoAcaban)
 
-                For Each sorteo In sorteos
-                    'htmlIngles = htmlIngles + Await PlantillaSorteoWeb(sorteo.SteamID, sorteo.Titulo, sorteo.UsuariosParticipantes)
+                        Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idioma.ID)
+
+                        resultado.Contenido = New Models.Content(html)
+
+                        Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idioma.ID, resultado)
+
+                        Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idioma.ID + "&action=edit"))
+                    End If
                 Next
-
-                If Not htmlIngles = String.Empty Then
-                    htmlIngles = htmlIngles + PlantillaSorteosFechaAcaba(sorteos(0).FechaAcaba, idiomas(0).TextoAcaban)
-
-                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
-
-                    resultado.Contenido = New Models.Content(htmlIngles)
-
-                    Await cliente.CustomRequest.Update(Of Clases.Post, Clases.Post)("wp/v2/us_page_block/" + idIngles, resultado)
-
-                    Await Launcher.LaunchUriAsync(New Uri("https://pepeizqdeals.com/wp-admin/post.php?post=" + idIngles + "&action=edit"))
-                End If
             End If
 
         End Sub
@@ -444,7 +443,7 @@ Namespace Editor.Sorteos
                             ChrW(34) + "font-size 16px;" + ChrW(34) + ">" + idioma.TextoNo + "</p>" +
                             "[/vc_column_text][/vc_column][/vc_row]"
 
-                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idIngles)
+                    Dim resultado As Clases.Post = Await cliente.CustomRequest.Get(Of Clases.Post)("wp/v2/us_page_block/" + idioma.ID)
 
                     resultado.Contenido = New Models.Content(html)
 

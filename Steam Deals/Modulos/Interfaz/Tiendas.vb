@@ -416,7 +416,7 @@ Namespace Interfaz
 
         Dim listaTiendas As New List(Of Tienda) From {
             steamT, gamersgateT, humbleT, gamesplanetT, fanaticalT, gogT, wingamestoreT,
-            microsoftstoreT, nexusT, voiduT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2,
+            microsoftstoreT, nexusT, indiegalaT, greenmangamingT, amazoncomT, amazonesT, amazonesT2,
             epicT, originT, gamebilletT, _2gameT, blizzardT, direct2driveT, ubiT, allyouplayT, dlgamerT, humbleBundleT,
             humbleChoiceT, primeGamingT, pcGamePassT
         }
