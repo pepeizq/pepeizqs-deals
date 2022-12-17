@@ -11,6 +11,8 @@ Namespace Editor.Sorteos
         Public archivoSorteosActuales As String = "listaSorteosActuales"
         Public archivoSorteosHistorial As String = "listaSorteosHistorial"
 
+        Dim normaUsuarioMinimoJuegos As Integer = 10
+
         Dim idiomas As New List(Of SorteoIdioma) From {
             New SorteoIdioma("44456",
                              "These giveaways end on the following date:",
@@ -132,7 +134,7 @@ Namespace Editor.Sorteos
                                 End If
 
                                 If optimoParticipar = True Then
-                                    If usuario.Juegos.Count > 10 Then
+                                    If usuario.Juegos.Count > normaUsuarioMinimoJuegos Then
                                         Dim tiene As Boolean = False
 
                                         For Each juego In usuario.Juegos
@@ -318,7 +320,7 @@ Namespace Editor.Sorteos
                             End If
 
                             If optimoParticipar = True Then
-                                If usuario.Juegos.Count > 10 Then
+                                If usuario.Juegos.Count > normaUsuarioMinimoJuegos Then
                                     Dim tiene As Boolean = False
 
                                     For Each juego In usuario.Juegos

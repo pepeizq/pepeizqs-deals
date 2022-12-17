@@ -122,7 +122,7 @@ Namespace Editor
                         End If
                     Next
 
-                ElseIf enlace.Contains("https://www.gog.com/game/") Then
+                ElseIf enlace.Contains("https://www.gog.com/") Then
                     cosas = Await GOG(enlace)
 
                     For Each tienda In listaTiendas
@@ -148,6 +148,14 @@ Namespace Editor
 
                     tbImagenTienda.Text = "https://pepeizqdeals.com/wp-content/uploads/2020/12/ubiconnect.png"
 
+                ElseIf enlace.Contains("https://www.fanatical.com/") Then
+                    cosas = Fanatical()
+
+                    For Each tienda In listaTiendas
+                        If tienda.NombreMostrar = cosas.Tienda Then
+                            tbImagenTienda.Text = tienda.Logos.LogoWeb300x80
+                        End If
+                    Next
                 Else
                     Dim cosas2 As New Clases.Gratis("--", Nothing, Nothing, "--")
                     cosas = cosas2
@@ -522,6 +530,13 @@ Namespace Editor
         Private Function Uplay() As Clases.Gratis
 
             Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Ubisoft Connect")
+
+            Return cosas
+        End Function
+
+        Private Function Fanatical() As Clases.Gratis
+
+            Dim cosas As New Clases.Gratis(Nothing, Nothing, Nothing, "Fanatical")
 
             Return cosas
         End Function
