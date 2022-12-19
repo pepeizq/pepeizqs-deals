@@ -191,7 +191,6 @@ Namespace Editor
 
         Private Async Sub GenerarDatos2(sender As Object, e As RoutedEventArgs)
 
-
             BloquearControles(False)
 
             Dim frame As Frame = Window.Current.Content
