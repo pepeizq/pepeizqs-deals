@@ -199,7 +199,7 @@ Namespace Editor.RedesSociales
             ElseIf wv.Tag = "1" Then
                 wv.Tag = "2"
 
-                Await Task.Delay(3000)
+                Await Task.Delay(6000)
 
                 Dim html As String = Await wv.ExecuteScriptAsync("document.documentElement.outerHTML;")
 
@@ -231,7 +231,7 @@ Namespace Editor.RedesSociales
                     End If
                 End If
 
-                Await Task.Delay(3000)
+                Await Task.Delay(6000)
                 wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/listing")
 
             ElseIf wv.Tag = "2" Then
@@ -248,7 +248,7 @@ Namespace Editor.RedesSociales
                     i += 2
                 End While
 
-                Await Task.Delay(3000)
+                Await Task.Delay(6000)
                 wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
             End If

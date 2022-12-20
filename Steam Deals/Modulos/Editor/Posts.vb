@@ -446,7 +446,7 @@ Namespace Editor
 
                         If Not compartirIngles = String.Empty Then
                             Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
-                                                         " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
+                                                 " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Share this" + ChrW(34) + " aria-label=" + ChrW(34) + "Share this" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
 
                             compartirIngles = compartirIngles.Insert(5, html)
                             resultado.CompartirIngles = compartirIngles
@@ -456,7 +456,7 @@ Namespace Editor
 
                         If Not compartirIngles = String.Empty Then
                             Dim html As String = "<a class=" + ChrW(34) + "entradasFilaInteriorCompartir" + ChrW(34) + " href=" + ChrW(34) + enlace + ChrW(34) +
-                                                         " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
+                                                 " target=" + ChrW(34) + "_blank" + ChrW(34) + " title=" + ChrW(34) + "Comparte esto" + ChrW(34) + " aria-label=" + ChrW(34) + "Comparte esto" + ChrW(34) + "><i class=" + ChrW(34) + "fab fa-steam" + ChrW(34) + "></i></a>"
 
                             compartirEspañol = compartirEspañol.Insert(5, html)
                             resultado.CompartirEspañol = compartirEspañol
