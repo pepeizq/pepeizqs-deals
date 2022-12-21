@@ -1,19 +1,19 @@
-﻿Imports Microsoft.Toolkit.Uwp.Helpers
+﻿Imports System.Xml
+Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Newtonsoft.Json
 Imports Windows.Storage
 
 Module Divisas
 
-    Dim dolar, libra, rublo As Moneda
+    Dim dolar, libra As Moneda
     Dim monedas As Monedas = Nothing
-    Dim buscarDolar, buscarLibra, buscarRublo As Boolean
+    Dim buscarDolar, buscarLibra As Boolean
     Dim WithEvents bw As New BackgroundWorker
 
     Public Async Sub Generar()
 
         buscarDolar = False
         buscarLibra = False
-        buscarRublo = False
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -30,7 +30,6 @@ Module Divisas
             If monedas Is Nothing Then
                 buscarDolar = True
                 buscarLibra = True
-                buscarRublo = True
             Else
                 If Not monedas.Dolar Is Nothing Then
                     If Not monedas.Dolar.Valor Is Nothing Then
@@ -67,29 +66,10 @@ Module Divisas
                 Else
                     buscarLibra = True
                 End If
-
-                If Not monedas.Rublo Is Nothing Then
-                    If Not monedas.Rublo.Valor Is Nothing Then
-                        Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                        tbRublo.Text = monedas.Rublo.Valor
-                        rublo = New Moneda(monedas.Rublo.Valor, monedas.Rublo.Fecha)
-
-                        If monedas.Rublo.Fecha = FechaHoy() Then
-                            buscarRublo = False
-                        Else
-                            buscarRublo = True
-                        End If
-                    Else
-                        buscarRublo = True
-                    End If
-                Else
-                    buscarRublo = True
-                End If
             End If
         Else
             buscarDolar = True
             buscarLibra = True
-            buscarRublo = True
         End If
 
         If bw.IsBusy = False Then
@@ -101,27 +81,23 @@ Module Divisas
     Private Sub Bw_DoWork(sender As Object, e As DoWorkEventArgs) Handles bw.DoWork
 
         If Not ApplicationData.Current.LocalSettings.Values("divisasAPI") Is Nothing Then
-            If buscarDolar = True Then
-                Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_USD&compact=ultra&apiKey=" + ApplicationData.Current.LocalSettings.Values("divisasAPI")))
-                Dim html As String = html_.Result
-                If Not html = Nothing Then
-                    Dim cambioDolar As CambioDolar = JsonConvert.DeserializeObject(Of CambioDolar)(html)
+            If buscarDolar = True Or buscarLibra = True Then
+                Dim xmlDoc As New XmlDocument()
+                xmlDoc.Load("http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml")
 
-                    If Not cambioDolar Is Nothing Then
-                        dolar = New Moneda(cambioDolar.Dolar, FechaHoy)
+                For Each nodo As XmlNode In xmlDoc.DocumentElement.ChildNodes(2).ChildNodes(0).ChildNodes
+                    If buscarDolar = True Then
+                        If nodo.Attributes("currency").Value = "USD" Then
+                            dolar = New Moneda(nodo.Attributes("rate").Value.ToString, FechaHoy)
+                        End If
                     End If
-                End If
-            End If
 
-            If buscarLibra = True Then
-                Dim html_ As Task(Of String) = Decompiladores.HttpClient(New Uri("https://free.currconv.com/api/v7/convert?q=EUR_GBP&compact=ultra&apiKey=" + ApplicationData.Current.LocalSettings.Values("divisasAPI")))
-                Dim html As String = html_.Result
-                If Not html = Nothing Then
-                    Dim cambioLibra As CambioLibra = JsonConvert.DeserializeObject(Of CambioLibra)(html)
-                    If Not cambioLibra Is Nothing Then
-                        libra = New Moneda(cambioLibra.Libra, FechaHoy)
+                    If buscarLibra = True Then
+                        If nodo.Attributes("currency").Value = "GBP" Then
+                            libra = New Moneda(nodo.Attributes("rate").Value.ToString, FechaHoy)
+                        End If
                     End If
-                End If
+                Next
             End If
         End If
 
@@ -130,25 +106,7 @@ Module Divisas
     Private Async Sub Bw_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
 
         Dim helper As New LocalObjectStorageHelper
-        Dim monedas As New Monedas(dolar, libra, rublo)
-
-        'If Await helper.FileExistsAsync("monedas") Then
-        '    If Not monedas Is Nothing Then
-        '        If Not dolar Is Nothing Then
-        '            monedas.Dolar = dolar
-        '        End If
-
-        '        If Not libra Is Nothing Then
-        '            monedas.Libra = libra
-        '        End If
-
-        '        If Not rublo Is Nothing Then
-        '            monedas.Rublo = rublo
-        '        End If
-        '    End If
-        'Else
-        '    monedas = New Monedas(dolar, libra, rublo)
-        'End If
+        Dim monedas As New Monedas(dolar, libra)
 
         Dim frame As Frame = Window.Current.Content
         Dim pagina As Page = frame.Content
@@ -162,11 +120,6 @@ Module Divisas
             If Not monedas.Libra Is Nothing Then
                 Dim tbLibra As TextBlock = pagina.FindName("tbDivisasLibra")
                 tbLibra.Text = monedas.Libra.Valor
-            End If
-
-            If Not monedas.Rublo Is Nothing Then
-                Dim tbRublo As TextBlock = pagina.FindName("tbDivisasRublo")
-                tbRublo.Text = monedas.Rublo.Valor
             End If
 
             Try
@@ -240,12 +193,10 @@ Public Class Monedas
 
     Public Dolar As Moneda
     Public Libra As Moneda
-    Public Rublo As Moneda
 
-    Public Sub New(dolar As Moneda, libra As Moneda, rublo As Moneda)
+    Public Sub New(dolar As Moneda, libra As Moneda)
         Me.Dolar = dolar
         Me.Libra = libra
-        Me.Rublo = rublo
     End Sub
 
 End Class
@@ -259,26 +210,5 @@ Public Class Moneda
         Me.Valor = valor
         Me.Fecha = fecha
     End Sub
-
-End Class
-
-Public Class CambioDolar
-
-    <JsonProperty("EUR_USD")>
-    Public Dolar As String
-
-End Class
-
-Public Class CambioLibra
-
-    <JsonProperty("EUR_GBP")>
-    Public Libra As String
-
-End Class
-
-Public Class CambioRublo
-
-    <JsonProperty("EUR_RUB")>
-    Public Rublo As String
 
 End Class
