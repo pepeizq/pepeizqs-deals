@@ -1,6 +1,5 @@
 ﻿Imports System.Xml
 Imports Microsoft.Toolkit.Uwp.Helpers
-Imports Newtonsoft.Json
 Imports Windows.Storage
 
 Module Divisas
