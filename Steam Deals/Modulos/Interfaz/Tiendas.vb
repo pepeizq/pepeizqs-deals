@@ -235,7 +235,7 @@ Namespace Interfaz
                                      New TiendaFichaWeb(Nothing, Nothing),
                                      New TiendaAsset("#111111", "#111111"))
 
-        Public originT As New Tienda("Origin", "Origin",
+        Public originT As New Tienda("Electronic Arts", "Origin",
                                      New TiendaLogos("Assets/Tiendas/origin.png",
                                                      "2018/09/drm_origin.png",
                                                      "Assets/Tiendas/origin2.png",
@@ -531,7 +531,7 @@ Namespace Interfaz
             Pestañas.Botones(False)
 
             Try
-                Await Steam.BuscarOfertas(steamT)
+                'Await Steam.BuscarOfertas(steamT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             End Try
