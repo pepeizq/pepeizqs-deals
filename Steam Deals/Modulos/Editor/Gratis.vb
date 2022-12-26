@@ -593,7 +593,9 @@ Namespace Editor
 
                     If Not datos Is Nothing Then
                         If tbImagenJuego.Text = Nothing Then
-                            tbImagenJuego.Text = datos.Datos.Imagen
+                            If Not datos.Datos Is Nothing Then
+                                tbImagenJuego.Text = datos.Datos.Imagen
+                            End If
                         Else
                             tbImagenJuego.Text = tbImagenJuego.Text + "," + datos.Datos.Imagen
                         End If
