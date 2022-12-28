@@ -111,7 +111,6 @@ Namespace Editor.RedesSociales
                 If Not usuarioGuardado = Nothing Then
                     Await Task.Delay(5000)
 
-
                     'Try
                     '    'Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_Checkbox_3tTFg')[0].focus();")
                     '    'Await wv.ExecuteScriptAsync("document.getElementsByClassName('newlogindialog_Checkbox_3tTFg')[0].click();")
