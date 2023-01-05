@@ -530,6 +530,7 @@ Namespace Interfaz
 
             Pestañas.Botones(False)
 
+
             Try
                 'Await Steam.BuscarOfertas(steamT)
             Catch ex As Exception
