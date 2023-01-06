@@ -530,9 +530,8 @@ Namespace Interfaz
 
             Pestañas.Botones(False)
 
-
             Try
-                'Await Steam.BuscarOfertas(steamT)
+                Await Steam.BuscarOfertas(steamT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
             End Try
