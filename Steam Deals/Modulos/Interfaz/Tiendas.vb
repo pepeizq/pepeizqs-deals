@@ -558,6 +558,9 @@ Namespace Interfaz
                 Await Fanatical.BuscarOfertas(fanaticalT)
             Catch ex As Exception
                 Notificaciones.Toast("Error " + fanaticalT.NombreMostrar, Nothing)
+
+                Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + fanaticalT.NombreUsar)
+                spProgreso.Visibility = Visibility.Collapsed
             End Try
 
             Try

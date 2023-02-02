@@ -82,23 +82,28 @@ Module Divisas
         If Not ApplicationData.Current.LocalSettings.Values("divisasAPI") Is Nothing Then
             If buscarDolar = True Or buscarLibra = True Then
                 Dim xmlDoc As New XmlDocument()
-                xmlDoc.Load("http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml")
 
-                For Each nodo As XmlNode In xmlDoc.DocumentElement.ChildNodes(2).ChildNodes(0).ChildNodes
-                    If Not nodo.Attributes("rate").Value = Nothing Then
-                        If buscarDolar = True Then
-                            If nodo.Attributes("currency").Value = "USD" Then
-                                dolar = New Moneda(nodo.Attributes("rate").Value.ToString, FechaHoy)
+                Try
+                    xmlDoc.Load("http://www.ecb.int/stats/eurofxref/eurofxref-daily.xml")
+
+                    For Each nodo As XmlNode In xmlDoc.DocumentElement.ChildNodes(2).ChildNodes(0).ChildNodes
+                        If Not nodo.Attributes("rate").Value = Nothing Then
+                            If buscarDolar = True Then
+                                If nodo.Attributes("currency").Value = "USD" Then
+                                    dolar = New Moneda(nodo.Attributes("rate").Value.ToString, FechaHoy)
+                                End If
+                            End If
+
+                            If buscarLibra = True Then
+                                If nodo.Attributes("currency").Value = "GBP" Then
+                                    libra = New Moneda(nodo.Attributes("rate").Value.ToString, FechaHoy)
+                                End If
                             End If
                         End If
+                    Next
+                Catch ex As Exception
 
-                        If buscarLibra = True Then
-                            If nodo.Attributes("currency").Value = "GBP" Then
-                                libra = New Moneda(nodo.Attributes("rate").Value.ToString, FechaHoy)
-                            End If
-                        End If
-                    End If
-                Next
+                End Try
             End If
         End If
 

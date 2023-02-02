@@ -26,12 +26,19 @@ Namespace Ofertas
             spProgreso.Visibility = Visibility.Visible
 
             Dim html As String = Await Decompiladores.HttpClient(New Uri("https://feed.fanatical.com/feed"))
-            html = "[" + html + "]"
-            html = html.Replace("{" + ChrW(34) + "title" + ChrW(34) + ":", ",{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
-            html = html.Replace("[,{" + ChrW(34) + "title" + ChrW(34) + ":", "[{" + ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
 
-            html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34) + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34))
-            html = html.Replace(ChrW(34) + "title" + ChrW(34) + ":" + ChrW(34), ChrW(34) + "title" + ChrW(34) + ":")
+            Try
+                html = html.Replace("{" + ChrW(34) + "title" + ChrW(34), ",{" + ChrW(34) + "title" + ChrW(34))
+            Catch ex As Exception
+
+            End Try
+
+            Try
+                html = html.Remove(0, 1)
+                html = "[" + html + "]"
+            Catch ex As Exception
+
+            End Try
 
             Dim juegosFanatical As List(Of FanaticalJuego) = JsonConvert.DeserializeObject(Of List(Of FanaticalJuego))(html)
 

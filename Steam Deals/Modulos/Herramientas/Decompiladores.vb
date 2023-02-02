@@ -15,9 +15,11 @@ Module Decompiladores
         Try
             Dim respuesta As New HttpResponseMessage
             respuesta = Await cliente.GetAsync(url)
+            cliente.Dispose()
             respuesta.EnsureSuccessStatusCode()
 
             httpFinal = TryCast(Await respuesta.Content.ReadAsStringAsync(), String)
+            respuesta.Dispose()
         Catch ex As Exception
 
         End Try
