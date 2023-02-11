@@ -1396,6 +1396,7 @@ Namespace Interfaz
                 End If
             End If
 
+
             'If Not juego.Sistemas Is Nothing Then
             '    Dim fondoSistemas As New StackPanel With {
             '            .Orientation = Orientation.Horizontal,
