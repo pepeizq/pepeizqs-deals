@@ -8,7 +8,7 @@ Namespace Editor
             Dim contenido As String = String.Empty
 
             If listaJuegos.Count > 1 Then
-                contenido = contenido + "[vc_row width=" + ChrW(34) + "1" + ChrW(34) + " us_bg_overlay_color=" + ChrW(34) + "#1b4e6b" + ChrW(34) + "][vc_column]"
+                contenido = contenido + "[vc_row width=" + ChrW(34) + "1" + ChrW(34) + " us_bg_overlay_color=" + ChrW(34) + "#1b2838" + ChrW(34) + "][vc_column]"
 
                 If comentario.Trim.Length > 0 Then
                     contenido = contenido + "[us_message icon=" + ChrW(34) + "fas|info-circle" + ChrW(34) + " closing=" + ChrW(34) + "1" + ChrW(34) + " el_class=" + ChrW(34) + "mensajeOfertas" + ChrW(34) + "]<p style=" + ChrW(34) + "font-size: 16px;" + ChrW(34) + ">" + comentario.Trim + "</p>[/us_message][us_separator size=" + ChrW(34) + "small" + ChrW(34) + "]"

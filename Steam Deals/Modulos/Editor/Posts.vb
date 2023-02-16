@@ -184,6 +184,12 @@ Namespace Editor
                         End Try
 
                         Try
+                            Await RedesSociales.Telegram.Enviar(titulo, enlaceFinal, imagenPepeizqdealsIngles.Trim)
+                        Catch ex As Exception
+                            Notificaciones.Toast("Telegram Error Post", Nothing)
+                        End Try
+
+                        Try
                             Await PushFirebase.Enviar(titulo, enlaceFinal, imagenPepeizqdealsIngles.Trim, Date.Today.DayOfYear)
                         Catch ex As Exception
                             Notificaciones.Toast("Push Firebase Error Post", Nothing)

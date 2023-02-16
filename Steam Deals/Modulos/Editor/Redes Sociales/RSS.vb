@@ -111,6 +111,18 @@ Namespace Editor.RedesSociales
 
                 spBotones.Children.Add(botonDiscord)
 
+                Dim botonTelegram As New Button With {
+                    .Tag = post,
+                    .Content = "Telegram",
+                    .Margin = New Thickness(20, 0, 0, 0)
+                }
+
+                AddHandler botonTelegram.Click, AddressOf Telegram
+                AddHandler botonTelegram.PointerEntered, AddressOf UsuarioEntraBoton
+                AddHandler botonTelegram.PointerExited, AddressOf UsuarioSaleBoton
+
+                spBotones.Children.Add(botonTelegram)
+
                 Dim botonPush As New Button With {
                     .Tag = post,
                     .Content = "Push Firebase",
@@ -282,6 +294,24 @@ Namespace Editor.RedesSociales
                 Await RedesSociales.Discord.Enviar(titulo, enlaceFinal, categoria, post.ImagenFeatured)
             Catch ex As Exception
                 Notificaciones.Toast("Discord Error Post", Nothing)
+            End Try
+
+        End Sub
+
+        Private Async Sub Telegram(sender As Object, e As RoutedEventArgs)
+
+            Dim boton As Button = sender
+            Dim post As Clases.Post = boton.Tag
+
+            Dim titulo As String = post.Titulo.Rendered
+            titulo = WebUtility.HtmlDecode(titulo)
+
+            Dim enlaceFinal As String = post.Enlace
+
+            Try
+                Await RedesSociales.Telegram.Enviar(titulo, enlaceFinal, post.ImagenFeatured)
+            Catch ex As Exception
+                Notificaciones.Toast("Telegram Error Post", Nothing)
             End Try
 
         End Sub
