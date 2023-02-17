@@ -1215,6 +1215,12 @@
                                         <TextBox x:Name="tbDiscordHookOtros" Margin="0,10"/>
                                     </StackPanel>
 
+                                    <TextBlock Text="Telegram" Margin="0,30,0,10"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Token" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbTelegramToken" Margin="10,0" MinWidth="150"/>
+                                    </StackPanel>
+                                    
                                     <TextBlock Text="Copia Seguridad" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <Button x:Name="botonCopiaSeguridad" Background="{StaticResource BrushPrimario}" Style="{StaticResource ButtonRevealStyle}" PointerEntered="UsuarioEntraBoton" PointerExited="UsuarioSaleBoton">

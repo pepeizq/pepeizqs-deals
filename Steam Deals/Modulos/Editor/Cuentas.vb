@@ -134,6 +134,14 @@ Namespace Editor
                 End If
             End If
 
+            Dim tbEditorpepeizqdealsTelegramToken As TextBox = pagina.FindName("tbTelegramToken")
+
+            If Not tbEditorpepeizqdealsTelegramToken Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("tokenTelegram") Is Nothing Then
+                    tbEditorpepeizqdealsTelegramToken.Text = ApplicationData.Current.LocalSettings.Values("tokenTelegram")
+                End If
+            End If
+
             Dim tbEditorpepeizqdealsIGDBClave As TextBox = pagina.FindName("tbEditorpepeizqdealsIGDBClave")
 
             If Not tbEditorpepeizqdealsIGDBClave Is Nothing Then
