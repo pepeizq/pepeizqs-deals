@@ -89,7 +89,7 @@ Namespace Editor.RedesSociales
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
                 If wv.CoreWebView2.DocumentTitle.Contains("Error") Then
-                    wv.Source = New Uri("https://steamcommunity.com/login/home/?goto=groups%2Fpepeizqdeals%2Fannouncements%2Fcreate")
+                    Notificaciones.Toast("Logeado pero Error en Grupo de Steam", Nothing)
                 End If
             ElseIf wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals" Then
                 VolverCrearAnuncio(wv)
