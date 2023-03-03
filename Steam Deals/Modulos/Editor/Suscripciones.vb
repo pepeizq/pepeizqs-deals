@@ -123,6 +123,17 @@ Namespace Editor
 
                 fechaDefecto = fechaDefecto.AddMonths(1)
                 fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
+
+                Dim i As Integer = 1
+                While i < 7
+                    If Not fechaPicker.Date.DayOfWeek = DayOfWeek.Tuesday Then
+                        fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, i)
+                    Else
+                        Exit While
+                    End If
+                    i += 1
+                End While
+
             ElseIf cbTiendas.SelectedIndex = 2 Then
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Visible
@@ -139,8 +150,8 @@ Namespace Editor
                 RemoveHandler botonBuscar.Click, AddressOf PrimeGaming.GenerarJuegos
                 AddHandler botonBuscar.Click, AddressOf PrimeGaming.GenerarJuegos
 
-                fechaDefecto = fechaDefecto.AddMonths(1)
-                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, 1)
+                fechaDefecto = fechaDefecto.AddDays(30)
+                fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
             ElseIf cbTiendas.SelectedIndex = 3 Then
                 botonBuscar.Visibility = Visibility.Visible
                 tbIDs.Visibility = Visibility.Collapsed

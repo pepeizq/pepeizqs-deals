@@ -98,6 +98,10 @@ Namespace Editor
             Dim tbImagenTienda As TextBox = pagina.FindName("tbImagenTiendaGratis")
             Dim tbImagenJuego As TextBox = pagina.FindName("tbImagenJuegoGratis")
             Dim tbImagenFondo As TextBox = pagina.FindName("tbImagenFondoGratis")
+
+            Dim fechaDefecto As DateTime = DateTime.Now
+            Dim fechaPicker As DatePicker = pagina.FindName("fechaGratis")
+
             Dim botonSubir As Button = pagina.FindName("botonSubirGratis")
 
             If tbEnlace.Text.Trim.Length > 0 Then
@@ -142,6 +146,9 @@ Namespace Editor
                             tbImagenTienda.Text = tienda.Logos.LogoWeb300x80
                         End If
                     Next
+
+                    fechaDefecto = fechaDefecto.AddDays(7)
+                    fechaPicker.SelectedDate = New DateTime(fechaDefecto.Year, fechaDefecto.Month, fechaDefecto.Day)
 
                 ElseIf enlace.Contains("https://register.ubisoft.com/") Or enlace.Contains("https://www.ubisoft.com/") Then
                     cosas = Uplay()

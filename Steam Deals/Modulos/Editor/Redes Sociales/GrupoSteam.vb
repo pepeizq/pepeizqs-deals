@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.UI.Xaml.Controls
 Imports Microsoft.Web.WebView2.Core
 Imports Windows.Storage
+Imports Windows.System
 
 Namespace Editor.RedesSociales
     Module GrupoSteam
@@ -14,6 +15,8 @@ Namespace Editor.RedesSociales
 
             If wv.Source.AbsoluteUri = "https://steamcommunity.com/groups/pepeizqdeals/announcements/create" Then
                 If Not wv.CoreWebView2.DocumentTitle.Contains("Error") Then
+                    Await Task.Delay(1000)
+
                     titulo = titulo.Replace(ChrW(34), Nothing)
                     titulo = titulo.Replace("'", Nothing)
 
@@ -55,7 +58,7 @@ Namespace Editor.RedesSociales
 
                         Await wv.ExecuteScriptAsync("document.getElementsByClassName('btn_green_white_innerfade btn_medium')[0].click();")
 
-                        wv.Tag = "1"
+                        Await Launcher.LaunchUriAsync(New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/"))
                     Catch ex As Exception
 
                     End Try
@@ -191,67 +194,8 @@ Namespace Editor.RedesSociales
 
         Private Async Sub VolverCrearAnuncio(wv As WebView2)
 
-            If wv.Tag = Nothing Or wv.Tag = "0" Then
-
-                Await Task.Delay(1000)
-                wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
-
-            ElseIf wv.Tag = "1" Then
-                wv.Tag = "2"
-
-                Await Task.Delay(6000)
-
-                Dim html As String = Await wv.ExecuteScriptAsync("document.documentElement.outerHTML;")
-
-                If Not html = Nothing Then
-                    If html.Contains("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/") Then
-                        Dim int As Integer = html.IndexOf("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/")
-                        Dim temp As String = html.Remove(0, int + 25)
-
-                        int = temp.IndexOf("https://pepeizqdeals.com/")
-                        temp = temp.Remove(0, int + 25)
-
-                        Dim int2 As Integer = temp.IndexOf("/")
-                        Dim temp2 As String = temp.Remove(int2, temp.Length - int2)
-
-                        Dim idWeb As String = temp2.Trim
-
-                        Dim int3 As Integer = html.IndexOf("https://steamcommunity.com/groups/pepeizqdeals/announcements/detail/")
-                        Dim temp3 As String = html.Remove(0, int3 + 7)
-
-                        int3 = temp3.IndexOf("/detail/")
-                        temp3 = temp3.Remove(0, int3 + 8)
-
-                        Dim int4 As Integer = temp3.IndexOf(ChrW(34))
-                        Dim temp4 As String = temp3.Remove(int4, temp3.Length - int4)
-
-                        Dim idGrupoSteam As String = temp4.Trim
-
-                        Posts.AñadirEntradaGrupoSteam(idWeb, idGrupoSteam)
-                    End If
-                End If
-
-                Await Task.Delay(6000)
-                wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/listing")
-
-            ElseIf wv.Tag = "2" Then
-                wv.Tag = "0"
-
-                Dim i As Integer = 0
-                While i < 20
-                    Try
-                        Await wv.ExecuteScriptAsync("document.getElementsByClassName('btn_grey_grey btn_small_thin ico_hover')[" + i.ToString + "].click();")
-                    Catch ex As Exception
-
-                    End Try
-
-                    i += 2
-                End While
-
-                Await Task.Delay(6000)
-                wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
-
-            End If
+            Await Task.Delay(3000)
+            wv.Source = New Uri("https://steamcommunity.com/groups/pepeizqdeals/announcements/create")
 
         End Sub
 
