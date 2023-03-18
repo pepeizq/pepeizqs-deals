@@ -22,11 +22,16 @@ Module JuegosBBDD
         Dim helper As New LocalObjectStorageHelper
 
         If Await helper.FileExistsAsync("bbddJuegos") Then
-            Try
-                Await helper.SaveFileAsync(Of List(Of JuegoBBDD))("bbddJuegos", bbdd)
-            Catch ex As Exception
-
-            End Try
+            Dim j As Integer = 0
+            While j < 10000
+                Try
+                    Await Task.Delay(1000)
+                    Await helper.SaveFileAsync(Of List(Of JuegoBBDD))("bbddJuegos", bbdd)
+                    Exit While
+                Catch ex As Exception
+                    j += 1
+                End Try
+            End While
         End If
 
     End Function
@@ -58,8 +63,6 @@ Module JuegosBBDD
                     If douNuevoPrecio <= douViejoPrecio Then
                         juegobbdd.PrecioMinimo = nuevoPrecio
                         Return True
-                    Else
-                        Return False
                     End If
                 End If
             End If

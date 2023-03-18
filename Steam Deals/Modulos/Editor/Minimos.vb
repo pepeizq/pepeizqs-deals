@@ -9,54 +9,68 @@ Namespace Editor
 
         Public Async Function AñadirJuegos(nuevosJuegos As List(Of Oferta)) As Task
 
-            'If nuevosJuegos.Count > 0 Then
-            '    Dim viejosJuegos As New List(Of JuegoMinimo)
+            If nuevosJuegos.Count > 0 Then
+                Dim viejosJuegos As New List(Of JuegoMinimo)
 
-            '    Dim helper As New LocalObjectStorageHelper
+                Dim helper As New LocalObjectStorageHelper
 
-            '    If Await helper.FileExistsAsync("juegosMinimos") Then
-            '        viejosJuegos = Await helper.ReadFileAsync(Of List(Of JuegoMinimo))("juegosMinimos")
-            '    End If
+                If Await helper.FileExistsAsync("juegosMinimos") Then
+                    viejosJuegos = Await helper.ReadFileAsync(Of List(Of JuegoMinimo))("juegosMinimos")
+                End If
 
-            '    If viejosJuegos.Count > 0 Then
-            '        Dim listaBorrar As New List(Of Integer)
-            '        Dim i As Integer = 0
+                If viejosJuegos.Count > 0 Then
+                    Dim listaBorrar As New List(Of Integer)
+                    Dim i As Integer = 0
 
-            '        While i < viejosJuegos.Count
-            '            Dim fechaTermina As Date = viejosJuegos(i).Fecha
-            '            Dim fechaAhora As Date = Date.Now.AddDays(7)
+                    While i < viejosJuegos.Count
+                        Dim fechaTermina As Date = viejosJuegos(i).Fecha
+                        Dim fechaAhora As Date = Date.Now.AddDays(7)
 
-            '            If fechaTermina > fechaAhora Then
-            '                viejosJuegos.RemoveAt(i)
-            '            End If
-            '            i += 1
-            '        End While
-            '    End If
+                        If fechaTermina > fechaAhora Then
+                            viejosJuegos.RemoveAt(i)
+                        End If
+                        i += 1
+                    End While
+                End If
 
-            '    For Each nuevoJuego In nuevosJuegos
-            '        Dim añadir As Boolean = True
+                For Each nuevoJuego In nuevosJuegos
+                    Dim añadir As Boolean = True
 
-            '        If viejosJuegos.Count > 0 Then
-            '            Dim i As Integer = 0
+                    If viejosJuegos.Count > 0 Then
+                        Dim i As Integer = 0
 
-            '            While i < viejosJuegos.Count
-            '                If viejosJuegos(i).Juego.Enlace = nuevoJuego.Enlace And viejosJuegos(i).Juego.Precio1 = nuevoJuego.Precio1 Then
-            '                    añadir = False
-            '                End If
+                        While i < viejosJuegos.Count
+                            If viejosJuegos(i).Juego.Enlace = nuevoJuego.Enlace And viejosJuegos(i).Juego.Precio1 = nuevoJuego.Precio1 Then
+                                añadir = False
+                                Exit While
+                            End If
 
-            '                If viejosJuegos(i).Juego.Analisis.Enlace = nuevoJuego.Analisis.Enlace And Not viejosJuegos(i).Juego.TiendaNombreUsar = nuevoJuego.TiendaNombreUsar Then
-            '                    viejosJuegos.RemoveAt(i)
-            '                End If
-            '                i += 1
-            '            End While
-            '        End If
+                            i += 1
+                        End While
 
-            '        If añadir = True Then
-            '            viejosJuegos.Add(New JuegoMinimo(nuevoJuego, Date.Today))
-            '        End If
-            '    Next
+                        If añadir = False Then
+                            If viejosJuegos(i).Juego.BaseDatos.Enlace = nuevoJuego.BaseDatos.Enlace And Not viejosJuegos(i).Juego.TiendaNombreUsar = nuevoJuego.TiendaNombreUsar Then
+                                viejosJuegos.RemoveAt(i)
+                            End If
+                        End If
+                    End If
 
-            'Await helper.SaveFileAsync(Of List(Of JuegoMinimo))("juegosMinimos", viejosJuegos)
+                    If añadir = True Then
+                        viejosJuegos.Add(New JuegoMinimo(nuevoJuego, Date.Today))
+                    End If
+                Next
+
+                Dim j As Integer = 0
+                While j < 10000
+                    Try
+                        Await Task.Delay(1000)
+                        Await helper.SaveFileAsync(Of List(Of JuegoMinimo))("juegosMinimos", viejosJuegos)
+                        Exit While
+                    Catch ex As Exception
+                        j += 1
+                    End Try
+                End While
+            End If
 
             'Dim cliente As New WordPressClient("https://pepeizqdeals.com/wp-json/") With {
             '    .AuthMethod = Models.AuthMethod.JWT
@@ -88,7 +102,7 @@ Namespace Editor
             '            drm = True
             '        End If
 
-            '        If drm = True And viejoJuego.Juego.Descuento > "33%" Then
+            '        If drm = True And viejoJuego.Juego.Descuento > "20%" Then
             '            If Not viejoJuego.Juego.Analisis Is Nothing Then
             '                Dim analisis As Integer = 2
 

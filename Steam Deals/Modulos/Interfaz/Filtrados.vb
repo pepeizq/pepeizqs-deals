@@ -13,8 +13,8 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisPorcentaje > 49 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If juego.BaseDatos.AnalisisPorcentaje > 49 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -26,8 +26,8 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisPorcentaje > 74 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If juego.BaseDatos.AnalisisPorcentaje > 74 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -39,8 +39,8 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisPorcentaje > 79 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If juego.BaseDatos.AnalisisPorcentaje > 79 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -52,8 +52,8 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisPorcentaje > 84 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If juego.BaseDatos.AnalisisPorcentaje > 84 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -65,8 +65,8 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If juego.Analisis.AnalisisPorcentaje > 89 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If juego.BaseDatos.AnalisisPorcentaje > 89 Then
                                     Dim sp As StackPanel = item.Children(0)
                                     Dim cb As CheckBox = sp.Children(0)
 
@@ -78,9 +78,9 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If Not juego.Analisis.AnalisisCantidad Is Nothing Then
-                                    If juego.Analisis.AnalisisCantidad.Length > 2 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If Not juego.BaseDatos.AnalisisCantidad Is Nothing Then
+                                    If juego.BaseDatos.AnalisisCantidad.Length > 2 Then
                                         Dim añadirCheck As Boolean = True
 
                                         If FiltrarTiendas(juego) = False Then
@@ -101,9 +101,9 @@ Namespace Interfaz
                         If TypeOf item.Tag Is Oferta Then
                             Dim juego As Oferta = item.Tag
 
-                            If Not juego.Analisis Is Nothing Then
-                                If Not juego.Analisis.AnalisisCantidad Is Nothing Then
-                                    If juego.Analisis.AnalisisCantidad.Length > 4 Then
+                            If Not juego.BaseDatos Is Nothing Then
+                                If Not juego.BaseDatos.AnalisisCantidad Is Nothing Then
+                                    If juego.BaseDatos.AnalisisCantidad.Length > 4 Then
                                         Dim añadirCheck As Boolean = True
 
                                         If FiltrarTiendas(juego) = False Then
@@ -116,6 +116,27 @@ Namespace Interfaz
 
                                             cb.IsChecked = True
                                         End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    ElseIf ApplicationData.Current.LocalSettings.Values("filtrado") = 8 Then
+                        If TypeOf item.Tag Is Oferta Then
+                            Dim juego As Oferta = item.Tag
+
+                            If Not juego.PrecioMinimo = Nothing Then
+                                If juego.PrecioMinimo = True Then
+                                    Dim añadirCheck As Boolean = True
+
+                                    If FiltrarTiendas(juego) = False Then
+                                        añadirCheck = False
+                                    End If
+
+                                    If añadirCheck = True Then
+                                        Dim sp As StackPanel = item.Children(0)
+                                        Dim cb As CheckBox = sp.Children(0)
+
+                                        cb.IsChecked = True
                                     End If
                                 End If
                             End If

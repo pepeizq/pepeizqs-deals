@@ -230,9 +230,9 @@ Namespace Editor
             tbImagenJuego.Text = String.Empty
 
             If listaTotal.Count = 1 Then
-                If Not listaTotal(0).Analisis Is Nothing Then
-                    If Not listaTotal(0).Analisis.Enlace = Nothing Then
-                        Dim id As String = listaTotal(0).Analisis.Enlace
+                If Not listaTotal(0).BaseDatos Is Nothing Then
+                    If Not listaTotal(0).BaseDatos.Enlace = Nothing Then
+                        Dim id As String = listaTotal(0).BaseDatos.Enlace
 
                         If id.Contains("https://store.steampowered.com/app/") Then
                             id = id.Replace("https://store.steampowered.com/app/", Nothing)

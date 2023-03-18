@@ -756,14 +756,14 @@ Namespace Interfaz
                         listaJuegos.Sort(Function(x As Oferta, y As Oferta)
                                              Dim analisisX As Integer = 0
 
-                                             If Not x.Analisis Is Nothing Then
-                                                 analisisX = x.Analisis.AnalisisPorcentaje
+                                             If Not x.BaseDatos Is Nothing Then
+                                                 analisisX = x.BaseDatos.AnalisisPorcentaje
                                              End If
 
                                              Dim analisisY As Integer = 0
 
-                                             If Not y.Analisis Is Nothing Then
-                                                 analisisY = y.Analisis.AnalisisPorcentaje
+                                             If Not y.BaseDatos Is Nothing Then
+                                                 analisisY = y.BaseDatos.AnalisisPorcentaje
                                              End If
 
                                              Dim resultado As Integer = analisisY.CompareTo(analisisX)
@@ -1343,8 +1343,8 @@ Namespace Interfaz
                 End If
             End If
 
-            If Not juego.Analisis Is Nothing Then
-                If juego.Analisis.AnalisisPorcentaje > 0 Then
+            If Not juego.BaseDatos Is Nothing Then
+                If juego.BaseDatos.AnalisisPorcentaje > 0 Then
                     Dim fondoAnalisis As New StackPanel With {
                         .Orientation = Orientation.Horizontal,
                         .Padding = New Thickness(6, 2, 6, 2),
@@ -1359,13 +1359,13 @@ Namespace Interfaz
                         .IsCacheEnabled = True
                     }
 
-                    If juego.Analisis.AnalisisPorcentaje > 74 Then
+                    If juego.BaseDatos.AnalisisPorcentaje > 74 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive.png"))
                         fondoAnalisis.Background = New SolidColorBrush("#6da2c2".ToColor)
-                    ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
+                    ElseIf juego.BaseDatos.AnalisisPorcentaje > 49 And juego.BaseDatos.AnalisisPorcentaje < 75 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed.png"))
                         fondoAnalisis.Background = New SolidColorBrush("#cfc4b1".ToColor)
-                    ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
+                    ElseIf juego.BaseDatos.AnalisisPorcentaje < 50 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative.png"))
                         fondoAnalisis.Background = New SolidColorBrush("#d1afa6".ToColor)
                     End If
@@ -1373,7 +1373,7 @@ Namespace Interfaz
                     fondoAnalisis.Children.Add(imagenAnalisis)
 
                     Dim tbAnalisisPorcentaje As New TextBlock With {
-                        .Text = juego.Analisis.AnalisisPorcentaje + "%",
+                        .Text = juego.BaseDatos.AnalisisPorcentaje + "%",
                         .Margin = New Thickness(5, 0, 0, 0),
                         .VerticalAlignment = VerticalAlignment.Center,
                         .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
@@ -1383,7 +1383,7 @@ Namespace Interfaz
                     fondoAnalisis.Children.Add(tbAnalisisPorcentaje)
 
                     Dim tbAnalisisCantidad As New TextBlock With {
-                        .Text = juego.Analisis.AnalisisCantidad + " " + recursos.GetString("Reviews"),
+                        .Text = juego.BaseDatos.AnalisisCantidad + " " + recursos.GetString("Reviews"),
                         .Margin = New Thickness(10, 0, 0, 0),
                         .VerticalAlignment = VerticalAlignment.Center,
                         .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
@@ -1560,6 +1560,20 @@ Namespace Interfaz
                 End If
             End If
 
+            If Not juego.BaseDatos Is Nothing Then
+                If Not juego.BaseDatos.PrecioMinimo = Nothing Then
+                    Dim tbPrecioMinimo As New TextBlock With {
+                        .Text = juego.BaseDatos.PrecioMinimo,
+                        .Margin = New Thickness(0, 0, 20, 0),
+                        .VerticalAlignment = VerticalAlignment.Center,
+                        .Foreground = New SolidColorBrush(ColorHelper.ToColor(colorFuente)),
+                        .FontSize = 14
+                    }
+
+                    sp3.Children.Add(tbPrecioMinimo)
+                End If
+            End If
+
             If Not juego.Tipo = Nothing Then
                 Dim spTooltip As New StackPanel
 
@@ -1639,8 +1653,8 @@ Namespace Interfaz
 
                     If listaAnalisis.Count > 0 Then
                         For Each juegoAnalisis In listaAnalisis
-                            If Not juego.Analisis Is Nothing And Not juegoAnalisis.Analisis Is Nothing Then
-                                If juego.Analisis.Enlace = juegoAnalisis.Analisis.Enlace Then
+                            If Not juego.BaseDatos Is Nothing And Not juegoAnalisis.BaseDatos Is Nothing Then
+                                If juego.BaseDatos.Enlace = juegoAnalisis.BaseDatos.Enlace Then
                                     añadirAnalisis = False
                                 End If
                             End If
@@ -1658,17 +1672,17 @@ Namespace Interfaz
 
                                        Dim xAnalisisCantidad As Integer = 0
 
-                                       If Not x.Analisis Is Nothing Then
-                                           If Not x.Analisis.AnalisisCantidad Is Nothing Then
-                                               xAnalisisCantidad = x.Analisis.AnalisisCantidad.Replace(",", Nothing)
+                                       If Not x.BaseDatos Is Nothing Then
+                                           If Not x.BaseDatos.AnalisisCantidad Is Nothing Then
+                                               xAnalisisCantidad = x.BaseDatos.AnalisisCantidad.Replace(",", Nothing)
                                            End If
                                        End If
 
                                        Dim yAnalisisCantidad As Integer = 0
 
-                                       If Not y.Analisis Is Nothing Then
-                                           If Not y.Analisis.AnalisisCantidad Is Nothing Then
-                                               yAnalisisCantidad = y.Analisis.AnalisisCantidad.Replace(",", Nothing)
+                                       If Not y.BaseDatos Is Nothing Then
+                                           If Not y.BaseDatos.AnalisisCantidad Is Nothing Then
+                                               yAnalisisCantidad = y.BaseDatos.AnalisisCantidad.Replace(",", Nothing)
                                            End If
                                        End If
 

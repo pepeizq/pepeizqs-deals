@@ -75,13 +75,13 @@ Namespace Editor
 
             Dim imagenAnalisis As ImageEx = pagina.FindName("imagenAnalisisUnJuegoOfertas")
 
-            If Not juego.Analisis Is Nothing Then
-                If Not juego.Analisis.AnalisisPorcentaje = Nothing Then
-                    If juego.Analisis.AnalisisPorcentaje > 74 Then
+            If Not juego.BaseDatos Is Nothing Then
+                If Not juego.BaseDatos.AnalisisPorcentaje = Nothing Then
+                    If juego.BaseDatos.AnalisisPorcentaje > 74 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/positive2.png"))
-                    ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
+                    ElseIf juego.BaseDatos.AnalisisPorcentaje > 49 And juego.BaseDatos.AnalisisPorcentaje < 75 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/mixed2.png"))
-                    ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
+                    ElseIf juego.BaseDatos.AnalisisPorcentaje < 50 Then
                         imagenAnalisis.Source = New BitmapImage(New Uri("ms-appx:///Assets/Analisis/negative2.png"))
                     End If
                 Else
@@ -191,9 +191,9 @@ Namespace Editor
             fondoCabecera.ImageSource = Nothing
 
             For Each juego In juegos
-                If Not juego.Analisis Is Nothing Then
-                    If Not juego.Analisis.Enlace = Nothing Then
-                        Dim temp As String = juego.Analisis.Enlace
+                If Not juego.BaseDatos Is Nothing Then
+                    If Not juego.BaseDatos.Enlace = Nothing Then
+                        Dim temp As String = juego.BaseDatos.Enlace
                         temp = temp.Replace("https://store.steampowered.com/app/", Nothing)
                         temp = temp.Replace("#app_reviews_hash", Nothing)
 

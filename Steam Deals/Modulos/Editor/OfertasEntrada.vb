@@ -85,16 +85,16 @@ Namespace Editor
                         contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + "><span class=" + ChrW(34) + "span-precio" + ChrW(34) + ">" + juego.Precio2.Replace(".", ",") + "</span></td>" + Environment.NewLine
                     End If
 
-                    If Not juego.Analisis Is Nothing Then
-                        If juego.Analisis.AnalisisPorcentaje > 0 Then
+                    If Not juego.BaseDatos Is Nothing Then
+                        If juego.BaseDatos.AnalisisPorcentaje > 0 Then
                             Dim contenidoAnalisis As String = Nothing
 
-                            If juego.Analisis.AnalisisPorcentaje > 74 Then
-                                contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.AnalisisPorcentaje + "%</span></td>"
-                            ElseIf juego.Analisis.AnalisisPorcentaje > 49 And juego.Analisis.AnalisisPorcentaje < 75 Then
-                                contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.AnalisisPorcentaje + "%</span></td>"
-                            ElseIf juego.Analisis.AnalisisPorcentaje < 50 Then
-                                contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.Analisis.AnalisisPorcentaje + "%</span></td>"
+                            If juego.BaseDatos.AnalisisPorcentaje > 74 Then
+                                contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-positivo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/positive.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.BaseDatos.AnalisisPorcentaje + "%</span></td>"
+                            ElseIf juego.BaseDatos.AnalisisPorcentaje > 49 And juego.BaseDatos.AnalisisPorcentaje < 75 Then
+                                contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-mixed" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/mixed.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.BaseDatos.AnalisisPorcentaje + "%</span></td>"
+                            ElseIf juego.BaseDatos.AnalisisPorcentaje < 50 Then
+                                contenidoAnalisis = "<span class=" + ChrW(34) + "span-analisis-negativo" + ChrW(34) + "><img src=" + ChrW(34) + "https://pepeizqdeals.com/wp-content/uploads/2018/08/negative.png" + ChrW(34) + " class=" + ChrW(34) + "imagen-analisis" + ChrW(34) + "/> " + juego.BaseDatos.AnalisisPorcentaje + "%</span></td>"
                             End If
 
                             contenidoJuego = contenidoJuego + "<td style=" + ChrW(34) + "vertical-align:middle;text-align:center;" + ChrW(34) + ">" + contenidoAnalisis + "</td>" + Environment.NewLine
@@ -157,10 +157,10 @@ Namespace Editor
                 Dim analisisCantidad As String = "null"
                 Dim analisisEnlace As String = "null"
 
-                If Not juego.Analisis Is Nothing Then
-                    analisisPorcentaje = juego.Analisis.AnalisisPorcentaje
-                    analisisCantidad = juego.Analisis.AnalisisCantidad
-                    analisisEnlace = juego.Analisis.Enlace
+                If Not juego.BaseDatos Is Nothing Then
+                    analisisPorcentaje = juego.BaseDatos.AnalisisPorcentaje
+                    analisisCantidad = juego.BaseDatos.AnalisisCantidad
+                    analisisEnlace = juego.BaseDatos.Enlace
                 End If
 
                 Dim precio2 As String = String.Empty

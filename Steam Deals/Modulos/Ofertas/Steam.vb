@@ -235,20 +235,20 @@ Namespace Ofertas
                                         añadir = False
                                     ElseIf juego.Precio1.Contains("0.") Then
                                         If juego.Precio1.IndexOf("0." = 0) Then
-                                            If juego.Analisis Is Nothing Then
+                                            If juego.BaseDatos Is Nothing Then
                                                 añadir = False
                                             Else
-                                                If juego.Analisis.AnalisisCantidad.Length < 4 Then
+                                                If juego.BaseDatos.AnalisisCantidad.Length < 4 Then
                                                     añadir = False
                                                 End If
                                             End If
                                         End If
                                     ElseIf juego.Precio1.Contains("1.") Then
                                         If juego.Precio1.IndexOf("1." = 0) Then
-                                            If juego.Analisis Is Nothing Then
+                                            If juego.BaseDatos Is Nothing Then
                                                 añadir = False
                                             Else
-                                                If juego.Analisis.AnalisisCantidad.Length < 4 Then
+                                                If juego.BaseDatos.AnalisisCantidad.Length < 4 Then
                                                     añadir = False
                                                 End If
                                             End If
