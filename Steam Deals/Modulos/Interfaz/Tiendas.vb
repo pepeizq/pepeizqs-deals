@@ -519,6 +519,7 @@ Namespace Interfaz
 
         Private Async Sub BuscarTodasOfertas(sender As Object, e As RoutedEventArgs)
 
+
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
