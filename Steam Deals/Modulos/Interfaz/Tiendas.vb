@@ -533,151 +533,160 @@ Namespace Interfaz
             Try
                 Await Steam.BuscarOfertas(steamT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + steamT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(steamT.NombreMostrar, steamT.NombreUsar)
             End Try
 
             Try
                 Await GamersGate.BuscarOfertas(gamersgateT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + gamersgateT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(gamersgateT.NombreMostrar, gamersgateT.NombreUsar)
             End Try
 
             Try
                 Await Humble.BuscarOfertas(humbleT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + humbleT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(humbleT.NombreMostrar, humbleT.NombreUsar)
             End Try
 
             Try
                 Await GamesPlanet.BuscarOfertas(gamesplanetT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + gamesplanetT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(gamesplanetT.NombreMostrar, gamesplanetT.NombreUsar)
             End Try
 
             Try
                 Await Fanatical.BuscarOfertas(fanaticalT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + fanaticalT.NombreMostrar, Nothing)
-
-                Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + fanaticalT.NombreUsar)
-                spProgreso.Visibility = Visibility.Collapsed
+                BuscarTodasOfertasError(fanaticalT.NombreMostrar, fanaticalT.NombreUsar)
             End Try
 
             Try
                 Await GOG.BuscarOfertas(gogT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + gogT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(gogT.NombreMostrar, gogT.NombreUsar)
             End Try
 
             Try
                 Await WinGameStore.BuscarOfertas(wingamestoreT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + wingamestoreT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(wingamestoreT.NombreMostrar, wingamestoreT.NombreUsar)
             End Try
 
             Try
                 Await MicrosoftStore.BuscarOfertas(microsoftstoreT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + microsoftstoreT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(microsoftstoreT.NombreMostrar, microsoftstoreT.NombreUsar)
             End Try
 
             Try
                 Await Nexus.BuscarOfertas(nexusT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + nexusT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(nexusT.NombreMostrar, nexusT.NombreUsar)
             End Try
 
             Try
                 'Await Voidu.BuscarOfertas(voiduT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + voiduT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(voiduT.NombreMostrar, voiduT.NombreUsar)
             End Try
 
             Try
                 Await IndieGala.BuscarOfertas(indiegalaT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + indiegalaT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(indiegalaT.NombreMostrar, indiegalaT.NombreUsar)
             End Try
 
             Try
                 Await GreenManGaming.BuscarOfertas(greenmangamingT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + greenmangamingT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(greenmangamingT.NombreMostrar, greenmangamingT.NombreUsar)
             End Try
 
             Try
                 Await AmazonCom.BuscarOfertas(amazoncomT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + amazoncomT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(amazoncomT.NombreMostrar, amazoncomT.NombreUsar)
             End Try
 
             Try
                 Await AmazonEsFisico.BuscarOfertas(amazonesT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + amazonesT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(amazonesT.NombreMostrar, amazonesT.NombreUsar)
             End Try
 
             Try
                 Await AmazonEsDigital.BuscarOfertas(amazonesT2)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + amazonesT2.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(amazonesT2.NombreMostrar, amazonesT2.NombreUsar)
             End Try
 
             Try
                 'Await Yuplay.BuscarOfertas(yuplayT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + yuplayT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(yuplayT.NombreMostrar, yuplayT.NombreUsar)
             End Try
 
             Try
                 Await Origin.BuscarOfertas(originT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + originT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(originT.NombreMostrar, originT.NombreUsar)
             End Try
 
             Try
                 Await GameBillet.BuscarOfertas(gamebilletT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + gamebilletT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(gamebilletT.NombreMostrar, gamebilletT.NombreUsar)
             End Try
 
             Try
                 Await _2Game.BuscarOfertas(_2gameT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + _2gameT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(_2gameT.NombreMostrar, _2gameT.NombreUsar)
             End Try
 
             Try
                 Await BlizzardStore.BuscarOfertas(blizzardT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + blizzardT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(blizzardT.NombreMostrar, blizzardT.NombreUsar)
             End Try
 
             Try
                 Await Direct2Drive.BuscarOfertas(direct2driveT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + direct2driveT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(direct2driveT.NombreMostrar, direct2driveT.NombreUsar)
             End Try
 
             Try
                 Await Ubisoft.BuscarOfertas(ubiT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + ubiT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(ubiT.NombreMostrar, ubiT.NombreUsar)
             End Try
 
             Try
                 Await Allyouplay.BuscarOfertas(allyouplayT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + allyouplayT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(allyouplayT.NombreMostrar, allyouplayT.NombreUsar)
             End Try
 
             Try
                 Await DLGamer.BuscarOfertas(dlgamerT)
             Catch ex As Exception
-                Notificaciones.Toast("Error " + dlgamerT.NombreMostrar, Nothing)
+                BuscarTodasOfertasError(dlgamerT.NombreMostrar, dlgamerT.NombreUsar)
             End Try
 
             Notificaciones.Toast("Escaneo Completo", Nothing)
+
+        End Sub
+
+        Private Sub BuscarTodasOfertasError(nombreMostrar As String, nombreUsar As String)
+
+            Dim frame As Frame = Window.Current.Content
+            Dim pagina As Page = frame.Content
+
+            Notificaciones.Toast("Error " + nombreMostrar, Nothing)
+
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + nombreUsar)
+            spProgreso.Visibility = Visibility.Collapsed
 
         End Sub
 

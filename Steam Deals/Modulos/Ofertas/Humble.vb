@@ -1,5 +1,6 @@
 ﻿Imports System.Globalization
 Imports Microsoft.Toolkit.Uwp.Helpers
+Imports Microsoft.Web.WebView2.Core
 Imports Newtonsoft.Json
 Imports Steam_Deals.Clases
 Imports Steam_Deals.Editor
@@ -17,13 +18,24 @@ Imports Windows.System.UserProfile
 Namespace Ofertas
     Module Humble
 
-        Public Async Function BuscarOfertas(tienda As Tienda) As Task
+        Dim listaJuegos As List(Of Oferta)
+        Dim tienda As Tienda
+        Dim bbdd As List(Of JuegoBBDD)
+        Dim listaMinimos As List(Of Oferta)
+        Dim listaDesarrolladores As New List(Of HumbleDesarrolladores)
 
-            Dim listaJuegos As New List(Of Oferta)
-            Dim listaMinimos As New List(Of Oferta)
-            Dim bbdd As List(Of JuegoBBDD) = Await JuegosBBDD.Cargar
+        Dim numPagina As Integer
+        Dim numPaginas As Integer
 
-            Dim listaDesarrolladores As New List(Of HumbleDesarrolladores)
+        Public Async Function BuscarOfertas(tienda_ As Tienda) As Task
+
+            listaJuegos = New List(Of Oferta)
+            tienda = tienda_
+
+            listaMinimos = New List(Of Oferta)
+            bbdd = Await JuegosBBDD.Cargar
+
+            listaDesarrolladores = New List(Of HumbleDesarrolladores)
 
             Dim helper As New LocalObjectStorageHelper
 
@@ -34,225 +46,231 @@ Namespace Ofertas
             Dim frame As Frame = Window.Current.Content
             Dim pagina As Page = frame.Content
 
-            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
+            Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + Tienda.NombreUsar)
             spProgreso.Visibility = Visibility.Visible
 
-            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
-            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
+            Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + Tienda.NombreUsar)
+            Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + Tienda.NombreUsar)
 
-            Dim numPaginas As Integer = 0
-            Dim htmlPaginas As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0"))
+            Dim wv As Microsoft.UI.Xaml.Controls.WebView2 = pagina.FindName("wvHumble")
+            AddHandler wv.NavigationCompleted, AddressOf Comprobar
 
-            If Not htmlPaginas = Nothing Then
-                Dim paginas As HumblePaginas = JsonConvert.DeserializeObject(Of HumblePaginas)(htmlPaginas)
+            wv.Tag = 0
+            wv.Source = New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0")
 
-                If Not paginas Is Nothing Then
-                    numPaginas = paginas.Numero
-                Else
-                    numPaginas = 100
-                End If
-            End If
+            'Dim numPaginas As Integer = 0
+            'Dim htmlPaginas As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0"))
 
-            Dim i As Integer = 0
-            While i < (numPaginas + 1)
-                Dim html As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + i.ToString))
+            'If Not htmlPaginas = Nothing Then
+            '    Dim paginas As HumblePaginas = JsonConvert.DeserializeObject(Of HumblePaginas)(htmlPaginas)
 
-                If Not html = Nothing Then
-                    Dim listaJuegosHumble As HumbleResultados = JsonConvert.DeserializeObject(Of HumbleResultados)(html)
+            '    If Not paginas Is Nothing Then
+            '        numPaginas = paginas.Numero
+            '    Else
+            '        numPaginas = 100
+            '    End If
+            'End If
 
-                    For Each juegoHumble In listaJuegosHumble.Juegos
-                        Dim titulo As String = juegoHumble.Titulo
-                        titulo = titulo.Trim
-                        titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+            'Dim i As Integer = 0
+            'While i < (numPaginas + 1)
+            '    Dim html As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + i.ToString))
 
-                        Dim imagenes As New OfertaImagenes(juegoHumble.ImagenPequeña, juegoHumble.ImagenGrande)
+            '    If Not html = Nothing Then
+            '        Dim listaJuegosHumble As HumbleResultados = JsonConvert.DeserializeObject(Of HumbleResultados)(html)
 
-                        Dim enlace As String = "https://www.humblebundle.com/store/" + juegoHumble.Enlace
+            '        For Each juegoHumble In listaJuegosHumble.Juegos
+            '            Dim titulo As String = juegoHumble.Titulo
+            '            titulo = titulo.Trim
+            '            titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
-                        Dim precioChoice As String = String.Empty
-                        Dim precioRebajado As String = String.Empty
+            '            Dim imagenes As New OfertaImagenes(juegoHumble.ImagenPequeña, juegoHumble.ImagenGrande)
 
-                        If Not juegoHumble.PrecioDescontado Is Nothing Then
-                            If juegoHumble.PrecioDescontado.Cantidad.Trim.Length > 0 Then
-                                Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado.Cantidad, CultureInfo.InvariantCulture).ToString
+            '            Dim enlace As String = "https://www.humblebundle.com/store/" + juegoHumble.Enlace
 
-                                Dim moneda As String = GlobalizationPreferences.Currencies(0)
+            '            Dim precioChoice As String = String.Empty
+            '            Dim precioRebajado As String = String.Empty
 
-                                Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
-                                    .Mode = CurrencyFormatterMode.UseSymbol
-                                }
+            '            If Not juegoHumble.PrecioDescontado Is Nothing Then
+            '                If juegoHumble.PrecioDescontado.Cantidad.Trim.Length > 0 Then
+            '                    Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado.Cantidad, CultureInfo.InvariantCulture).ToString
 
-                                precioChoice = formateador.Format(tempDouble)
-                            End If
-                        End If
+            '                    Dim moneda As String = GlobalizationPreferences.Currencies(0)
 
-                        Dim descuento As String = String.Empty
+            '                    Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
+            '                        .Mode = CurrencyFormatterMode.UseSymbol
+            '                    }
 
-                        If Not juegoHumble.PrecioBase Is Nothing Then
-                            If juegoHumble.PrecioBase.Cantidad.Trim.Length > 0 Then
-                                Try
-                                    Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase.Cantidad, CultureInfo.InvariantCulture).ToString
+            '                    precioChoice = formateador.Format(tempDouble)
+            '                End If
+            '            End If
 
-                                    descuento = Calculadora.GenerarDescuento(tempDescuento, precioChoice)
-                                Catch ex As Exception
+            '            Dim descuento As String = String.Empty
 
-                                End Try
-                            End If
-                        End If
+            '            If Not juegoHumble.PrecioBase Is Nothing Then
+            '                If juegoHumble.PrecioBase.Cantidad.Trim.Length > 0 Then
+            '                    Try
+            '                        Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase.Cantidad, CultureInfo.InvariantCulture).ToString
 
-                        Dim cuponPorcentaje As String = String.Empty
-                        cuponPorcentaje = DescuentoMonthly(juegoHumble.DescuentoMonthly)
+            '                        descuento = Calculadora.GenerarDescuento(tempDescuento, precioChoice)
+            '                    Catch ex As Exception
 
-                        If Not juegoHumble.CosasIncompatibles Is Nothing Then
-                            If juegoHumble.CosasIncompatibles.Count > 0 Then
-                                If juegoHumble.CosasIncompatibles(0) = "subscriber-discount-coupons" Then
-                                    cuponPorcentaje = String.Empty
-                                End If
-                            End If
-                        End If
+            '                    End Try
+            '                End If
+            '            End If
 
-                        If Not cuponPorcentaje = String.Empty Then
-                            If Not precioChoice = String.Empty Then
-                                precioChoice = precioChoice.Replace(",", ".")
-                                precioChoice = precioChoice.Replace("€", Nothing)
-                                precioChoice = precioChoice.Trim
+            '            Dim cuponPorcentaje As String = String.Empty
+            '            cuponPorcentaje = DescuentoMonthly(juegoHumble.DescuentoMonthly)
 
-                                precioRebajado = precioChoice
+            '            If Not juegoHumble.CosasIncompatibles Is Nothing Then
+            '                If juegoHumble.CosasIncompatibles.Count > 0 Then
+            '                    If juegoHumble.CosasIncompatibles(0) = "subscriber-discount-coupons" Then
+            '                        cuponPorcentaje = String.Empty
+            '                    End If
+            '                End If
+            '            End If
 
-                                Dim dcupon As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) * cuponPorcentaje
-                                Dim dprecio As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) - dcupon
-                                precioChoice = Math.Round(dprecio, 2).ToString + " €"
-                                descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase.Cantidad, precioChoice)
-                            End If
-                        End If
+            '            If Not cuponPorcentaje = String.Empty Then
+            '                If Not precioChoice = String.Empty Then
+            '                    precioChoice = precioChoice.Replace(",", ".")
+            '                    precioChoice = precioChoice.Replace("€", Nothing)
+            '                    precioChoice = precioChoice.Trim
 
-                        Dim drm As String = String.Empty
+            '                    precioRebajado = precioChoice
 
-                        For Each itemDRM In juegoHumble.DRM
-                            If itemDRM.ToLower.Contains("steam") Then
-                                drm = "steam"
-                                Exit For
-                            Else
-                                drm = itemDRM
-                            End If
-                        Next
+            '                    Dim dcupon As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) * cuponPorcentaje
+            '                    Dim dprecio As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) - dcupon
+            '                    precioChoice = Math.Round(dprecio, 2).ToString + " €"
+            '                    descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase.Cantidad, precioChoice)
+            '                End If
+            '            End If
 
-                        Dim windows As Boolean = False
-                        Dim mac As Boolean = False
-                        Dim linux As Boolean = False
+            '            Dim drm As String = String.Empty
 
-                        For Each itemSistema In juegoHumble.Sistemas
-                            If itemSistema = "windows" Then
-                                windows = True
-                            ElseIf itemSistema = "mac" Then
-                                mac = True
-                            ElseIf itemSistema = "linux" Then
-                                linux = True
-                            End If
-                        Next
+            '            For Each itemDRM In juegoHumble.DRM
+            '                If itemDRM.ToLower.Contains("steam") Then
+            '                    drm = "steam"
+            '                    Exit For
+            '                Else
+            '                    drm = itemDRM
+            '                End If
+            '            Next
 
-                        Dim sistemas As New OfertaSistemas(windows, mac, linux)
+            '            Dim windows As Boolean = False
+            '            Dim mac As Boolean = False
+            '            Dim linux As Boolean = False
 
-                        Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
-                        Try
-                            fechaTermina = fechaTermina.AddSeconds(juegoHumble.FechaTermina)
-                            fechaTermina = fechaTermina.ToLocalTime
-                        Catch ex As Exception
+            '            For Each itemSistema In juegoHumble.Sistemas
+            '                If itemSistema = "windows" Then
+            '                    windows = True
+            '                ElseIf itemSistema = "mac" Then
+            '                    mac = True
+            '                ElseIf itemSistema = "linux" Then
+            '                    linux = True
+            '                End If
+            '            Next
 
-                        End Try
+            '            Dim sistemas As New OfertaSistemas(windows, mac, linux)
 
-                        Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
+            '            Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+            '            Try
+            '                fechaTermina = fechaTermina.AddSeconds(juegoHumble.FechaTermina)
+            '                fechaTermina = fechaTermina.ToLocalTime
+            '            Catch ex As Exception
 
-                        Dim juego As New Oferta(titulo, descuento, precioChoice, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, juegobbdd, sistemas, Nothing, Nothing)
+            '            End Try
 
-                        Dim añadir As Boolean = True
-                        Dim k As Integer = 0
-                        While k < listaJuegos.Count
-                            If listaJuegos(k).Enlace = juego.Enlace Then
-                                añadir = False
-                            End If
-                            k += 1
-                        End While
+            '            Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
 
-                        If juego.Descuento = Nothing Then
-                            juego.Descuento = "00%"
-                        Else
-                            If juego.Descuento.Contains("-") Then
-                                juego.Descuento = "00%"
-                            End If
-                        End If
+            '            Dim juego As New Oferta(titulo, descuento, precioChoice, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, juegobbdd, sistemas, Nothing, Nothing)
 
-                        If añadir = True Then
-                            If juego.Precio2 = Nothing Then
-                                juego.Precio2 = juego.Precio1
-                            End If
+            '            Dim añadir As Boolean = True
+            '            Dim k As Integer = 0
+            '            While k < listaJuegos.Count
+            '                If listaJuegos(k).Enlace = juego.Enlace Then
+            '                    añadir = False
+            '                End If
+            '                k += 1
+            '            End While
 
-                            juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
-                            juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
+            '            If juego.Descuento = Nothing Then
+            '                juego.Descuento = "00%"
+            '            Else
+            '                If juego.Descuento.Contains("-") Then
+            '                    juego.Descuento = "00%"
+            '                End If
+            '            End If
 
-                            If Not juegobbdd Is Nothing Then
-                                juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+            '            If añadir = True Then
+            '                If juego.Precio2 = Nothing Then
+            '                    juego.Precio2 = juego.Precio1
+            '                End If
 
-                                If juego.PrecioMinimo = True Then
-                                    listaMinimos.Add(juego)
-                                End If
+            '                juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+            '                juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
 
-                                If Not juegobbdd.Desarrollador = Nothing Then
-                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
-                                End If
-                            End If
+            '                If Not juegobbdd Is Nothing Then
+            '                    juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
 
-                            If juego.Desarrolladores Is Nothing Then
-                                For Each desarrollador In listaDesarrolladores
-                                    If desarrollador.ID = juegoHumble.ID Then
-                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                        Exit For
-                                    End If
-                                Next
-                            End If
+            '                    If juego.PrecioMinimo = True Then
+            '                        listaMinimos.Add(juego)
+            '                    End If
 
-                            If juego.Desarrolladores Is Nothing Then
-                                Dim htmlP As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
+            '                    If Not juegobbdd.Desarrollador = Nothing Then
+            '                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+            '                    End If
+            '                End If
 
-                                If Not htmlP = Nothing Then
-                                    Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
+            '                If juego.Desarrolladores Is Nothing Then
+            '                    For Each desarrollador In listaDesarrolladores
+            '                        If desarrollador.ID = juegoHumble.ID Then
+            '                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+            '                            Exit For
+            '                        End If
+            '                    Next
+            '                End If
 
-                                    If Not juegoDev Is Nothing Then
-                                        If Not juegoDev.Resultado(0).Publishers Is Nothing Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Publishers(0).Nombre}, Nothing)
-                                            listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Publishers(0).Nombre))
-                                        End If
+            '                If juego.Desarrolladores Is Nothing Then
+            '                    Dim htmlP As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
 
-                                        If juego.Desarrolladores Is Nothing Then
-                                            If Not juegoDev.Resultado(0).Desarrolladores Is Nothing Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Desarrolladores(0).Nombre}, Nothing)
-                                                listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Desarrolladores(0).Nombre))
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
+            '                    If Not htmlP = Nothing Then
+            '                        Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
 
-                            listaJuegos.Add(juego)
-                        End If
-                    Next
-                End If
+            '                        If Not juegoDev Is Nothing Then
+            '                            If Not juegoDev.Resultado(0).Publishers Is Nothing Then
+            '                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Publishers(0).Nombre}, Nothing)
+            '                                listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Publishers(0).Nombre))
+            '                            End If
 
-                If numPaginas > 0 Then
-                    pb.Value = CInt((100 / numPaginas) * i)
-                    tb.Text = CInt((100 / numPaginas) * i).ToString + "%"
-                End If
-                i += 1
-            End While
+            '                            If juego.Desarrolladores Is Nothing Then
+            '                                If Not juegoDev.Resultado(0).Desarrolladores Is Nothing Then
+            '                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Desarrolladores(0).Nombre}, Nothing)
+            '                                    listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Desarrolladores(0).Nombre))
+            '                                End If
+            '                            End If
+            '                        End If
+            '                    End If
+            '                End If
 
-            spProgreso.Visibility = Visibility.Collapsed
+            '                listaJuegos.Add(juego)
+            '            End If
+            '        Next
+            '    End If
 
-            Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
-            Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
-            Await JuegosBBDD.Guardar(bbdd)
-            Await Minimos.AñadirJuegos(listaMinimos)
+            '    If numPaginas > 0 Then
+            '        pb.Value = CInt((100 / numPaginas) * i)
+            '        tb.Text = CInt((100 / numPaginas) * i).ToString + "%"
+            '    End If
+            '    i += 1
+            'End While
 
-            Ordenar.Ofertas(tienda, True, False)
+            'spProgreso.Visibility = Visibility.Collapsed
+
+            'Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
+            'Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
+            'Await JuegosBBDD.Guardar(bbdd)
+            'Await Minimos.AñadirJuegos(listaMinimos)
+
+            'Ordenar.Ofertas(tienda, True, False)
 
         End Function
 
@@ -273,8 +291,255 @@ Namespace Ofertas
             End If
 
             Return cuponPorcentaje
-
         End Function
+
+        Private Async Sub Comprobar(sender As Object, e As CoreWebView2NavigationCompletedEventArgs)
+
+            Dim wv As Microsoft.UI.Xaml.Controls.WebView2 = sender
+
+            Dim html As String = Await wv.CoreWebView2.ExecuteScriptAsync("document.body.outerHTML")
+            html = JsonConvert.DeserializeObject(html).ToString()
+
+            If html.Contains("<body></body>") = False Then
+                html = html.Replace("</pre></body>", Nothing)
+
+                If html.Contains("<body>") = True Then
+                    Dim int As Integer = html.IndexOf("{")
+                    html = html.Remove(0, int)
+                End If
+
+                If wv.Tag = 0 Then
+
+                    If Not html = Nothing Then
+                        Dim paginas As HumblePaginas = JsonConvert.DeserializeObject(Of HumblePaginas)(html)
+
+                        If Not paginas Is Nothing Then
+                            numPaginas = paginas.Numero
+                        Else
+                            numPaginas = 0
+                            Notificaciones.Toast("No se ha detectado numpaginas", "Humble Store")
+                        End If
+                    End If
+
+                    wv.Tag = 1
+                    wv.Source = New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=0")
+                    numPagina = 0
+
+                ElseIf wv.Tag = 1 Then
+
+                    Dim frame As Frame = Window.Current.Content
+                    Dim pagina As Page = frame.Content
+
+                    Dim pb As ProgressBar = pagina.FindName("pbTiendaProgreso" + tienda.NombreUsar)
+                    Dim tb As TextBlock = pagina.FindName("tbTiendaProgreso" + tienda.NombreUsar)
+
+                    pb.Value = CInt((100 / numPaginas) * numPagina)
+                    tb.Text = CInt((100 / numPaginas) * numPagina).ToString + "%"
+
+                    If Not html = Nothing Then
+                        Dim listaJuegosHumble As HumbleResultados = JsonConvert.DeserializeObject(Of HumbleResultados)(html)
+
+                        For Each juegoHumble In listaJuegosHumble.Juegos
+                            Dim titulo As String = juegoHumble.Titulo
+                            titulo = titulo.Trim
+                            titulo = Text.RegularExpressions.Regex.Unescape(titulo)
+
+                            Dim imagenes As New OfertaImagenes(juegoHumble.ImagenPequeña, juegoHumble.ImagenGrande)
+                            imagenes.Pequeña = imagenes.Pequeña.Replace("&amp;", "&")
+                            imagenes.Grande = imagenes.Grande.Replace("&amp;", "&")
+
+                            Dim enlace As String = "https://www.humblebundle.com/store/" + juegoHumble.Enlace
+
+                            Dim precioChoice As String = String.Empty
+                            Dim precioRebajado As String = String.Empty
+
+                            If Not juegoHumble.PrecioDescontado Is Nothing Then
+                                If juegoHumble.PrecioDescontado.Cantidad.Trim.Length > 0 Then
+                                    Dim tempDouble As Double = Double.Parse(juegoHumble.PrecioDescontado.Cantidad, CultureInfo.InvariantCulture).ToString
+
+                                    Dim moneda As String = GlobalizationPreferences.Currencies(0)
+
+                                    Dim formateador As CurrencyFormatter = New CurrencyFormatter(moneda) With {
+                                        .Mode = CurrencyFormatterMode.UseSymbol
+                                    }
+
+                                    precioChoice = formateador.Format(tempDouble)
+                                End If
+                            End If
+
+                            Dim descuento As String = String.Empty
+
+                            If Not juegoHumble.PrecioBase Is Nothing Then
+                                If juegoHumble.PrecioBase.Cantidad.Trim.Length > 0 Then
+                                    Try
+                                        Dim tempDescuento As String = Double.Parse(juegoHumble.PrecioBase.Cantidad, CultureInfo.InvariantCulture).ToString
+
+                                        descuento = Calculadora.GenerarDescuento(tempDescuento, precioChoice)
+                                    Catch ex As Exception
+
+                                    End Try
+                                End If
+                            End If
+
+                            Dim cuponPorcentaje As String = String.Empty
+                            cuponPorcentaje = DescuentoMonthly(juegoHumble.DescuentoMonthly)
+
+                            If Not juegoHumble.CosasIncompatibles Is Nothing Then
+                                If juegoHumble.CosasIncompatibles.Count > 0 Then
+                                    If juegoHumble.CosasIncompatibles(0) = "subscriber-discount-coupons" Then
+                                        cuponPorcentaje = String.Empty
+                                    End If
+                                End If
+                            End If
+
+                            If Not cuponPorcentaje = String.Empty Then
+                                If Not precioChoice = String.Empty Then
+                                    precioChoice = precioChoice.Replace(",", ".")
+                                    precioChoice = precioChoice.Replace("€", Nothing)
+                                    precioChoice = precioChoice.Trim
+
+                                    precioRebajado = precioChoice
+
+                                    Dim dcupon As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) * cuponPorcentaje
+                                    Dim dprecio As Double = Double.Parse(precioChoice, CultureInfo.InvariantCulture) - dcupon
+                                    precioChoice = Math.Round(dprecio, 2).ToString + " €"
+                                    descuento = Calculadora.GenerarDescuento(juegoHumble.PrecioBase.Cantidad, precioChoice)
+                                End If
+                            End If
+
+                            Dim drm As String = String.Empty
+
+                            For Each itemDRM In juegoHumble.DRM
+                                If itemDRM.ToLower.Contains("steam") Then
+                                    drm = "steam"
+                                    Exit For
+                                Else
+                                    drm = itemDRM
+                                End If
+                            Next
+
+                            Dim windows As Boolean = False
+                            Dim mac As Boolean = False
+                            Dim linux As Boolean = False
+
+                            For Each itemSistema In juegoHumble.Sistemas
+                                If itemSistema = "windows" Then
+                                    windows = True
+                                ElseIf itemSistema = "mac" Then
+                                    mac = True
+                                ElseIf itemSistema = "linux" Then
+                                    linux = True
+                                End If
+                            Next
+
+                            Dim sistemas As New OfertaSistemas(windows, mac, linux)
+
+                            Dim fechaTermina As New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
+                            Try
+                                fechaTermina = fechaTermina.AddSeconds(juegoHumble.FechaTermina)
+                                fechaTermina = fechaTermina.ToLocalTime
+                            Catch ex As Exception
+
+                            End Try
+
+                            Dim juegobbdd As JuegoBBDD = JuegosBBDD.BuscarJuego(titulo, bbdd, Nothing)
+
+                            Dim juego As New Oferta(titulo, descuento, precioChoice, precioRebajado, enlace, imagenes, drm, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, fechaTermina, juegobbdd, sistemas, Nothing, Nothing)
+
+                            Dim añadir As Boolean = True
+                            Dim k As Integer = 0
+                            While k < listaJuegos.Count
+                                If listaJuegos(k).Enlace = juego.Enlace Then
+                                    añadir = False
+                                End If
+                                k += 1
+                            End While
+
+                            If juego.Descuento = Nothing Then
+                                juego.Descuento = "00%"
+                            Else
+                                If juego.Descuento.Contains("-") Then
+                                    juego.Descuento = "00%"
+                                End If
+                            End If
+
+                            If añadir = True Then
+                                If juego.Precio2 = Nothing Then
+                                    juego.Precio2 = juego.Precio1
+                                End If
+
+                                juego.Precio1 = Ordenar.PrecioPreparar(juego.Precio1)
+                                juego.Precio2 = Ordenar.PrecioPreparar(juego.Precio2)
+
+                                If Not juegobbdd Is Nothing Then
+                                    juego.PrecioMinimo = JuegosBBDD.CompararPrecioMinimo(juegobbdd, juego.Precio1)
+
+                                    If juego.PrecioMinimo = True Then
+                                        listaMinimos.Add(juego)
+                                    End If
+
+                                    If Not juegobbdd.Desarrollador = Nothing Then
+                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegobbdd.Desarrollador}, Nothing)
+                                    End If
+                                End If
+
+                                If juego.Desarrolladores Is Nothing Then
+                                    For Each desarrollador In listaDesarrolladores
+                                        If desarrollador.ID = juegoHumble.ID Then
+                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                            Exit For
+                                        End If
+                                    Next
+                                End If
+
+                                If juego.Desarrolladores Is Nothing Then
+                                    Dim htmlP As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
+
+                                    If Not htmlP = Nothing Then
+                                        Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
+
+                                        If Not juegoDev Is Nothing Then
+                                            If Not juegoDev.Resultado(0).Publishers Is Nothing Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Publishers(0).Nombre}, Nothing)
+                                                listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Publishers(0).Nombre))
+                                            End If
+
+                                            If juego.Desarrolladores Is Nothing Then
+                                                If Not juegoDev.Resultado(0).Desarrolladores Is Nothing Then
+                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Desarrolladores(0).Nombre}, Nothing)
+                                                    listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Desarrolladores(0).Nombre))
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+
+                                listaJuegos.Add(juego)
+                            End If
+                        Next
+                    End If
+
+                    If numPagina = numPaginas Then
+                        Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
+                        spProgreso.Visibility = Visibility.Collapsed
+
+                        Dim helper As New LocalObjectStorageHelper
+
+                        Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
+                        Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
+                        Await JuegosBBDD.Guardar(bbdd)
+                        Await Minimos.AñadirJuegos(listaMinimos)
+
+                        Ordenar.Ofertas(tienda, True, False)
+                    End If
+
+                    numPagina += 1
+                    wv.Source = New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + numPagina.ToString)
+
+                End If
+            End If
+
+        End Sub
 
     End Module
 

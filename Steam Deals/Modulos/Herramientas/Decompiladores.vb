@@ -1,4 +1,5 @@
-﻿Imports Windows.Networking.BackgroundTransfer
+﻿Imports System.Net
+Imports Windows.Networking.BackgroundTransfer
 Imports Windows.Storage
 Imports Windows.Web.Http
 
@@ -35,6 +36,35 @@ Module Decompiladores
         Dim cliente As New HttpClient
         Dim resultado As String = Await cliente.GetStringAsync(url)
         Return resultado
+
+    End Function
+
+    Public Function HttpClient3(url As Uri) As String
+
+        Dim cookies As New CookieContainer
+        cookies.GetCookies(url)
+
+        Dim request As HttpWebRequest = TryCast(WebRequest.Create(url.AbsoluteUri), HttpWebRequest)
+        request.CookieContainer = cookies
+        request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+        request.Headers.Add("Accept-Encoding", "gzip, deflate, br")
+        request.Headers.Add("Accept-Language", "es,en-US;q=0.7,en;q=0.3")
+        request.Host = "www.humblebundle.com"
+        request.Headers.Add("Sec-Fetch-Dest", "document")
+        request.Headers.Add("Sec-Fetch-Mode", "navigate")
+        request.Headers.Add("Sec-Fetch-Site", "none")
+        request.Headers.Add("Sec-Fetch-User", "?1")
+        'request.Connection = "keep-alive"
+        request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/111.0"
+
+        Dim response As HttpWebResponse = TryCast(request.GetResponse(), HttpWebResponse)
+        Dim dataStream As Stream = response.GetResponseStream()
+        Dim reader As New StreamReader(dataStream)
+        Dim responseFromServer As String = reader.ReadToEnd()
+        reader.Close()
+        response.Close()
+
+        Return responseFromServer
 
     End Function
 
