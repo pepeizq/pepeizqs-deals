@@ -300,7 +300,7 @@ Namespace Ofertas
             Dim html As String = Await wv.CoreWebView2.ExecuteScriptAsync("document.body.outerHTML")
             html = JsonConvert.DeserializeObject(html).ToString()
 
-            If html.Contains("<body></body>") = False Then
+            If html.Contains("Ahora mismo esta página no está disponible") = False Then
                 html = html.Replace("</pre></body>", Nothing)
 
                 If html.Contains("<body>") = True Then
@@ -537,6 +537,12 @@ Namespace Ofertas
                     wv.Source = New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + numPagina.ToString)
 
                 End If
+            Else
+                Dim frame As Frame = Window.Current.Content
+                Dim pagina As Page = frame.Content
+
+                Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
+                spProgreso.Visibility = Visibility.Collapsed
             End If
 
         End Sub

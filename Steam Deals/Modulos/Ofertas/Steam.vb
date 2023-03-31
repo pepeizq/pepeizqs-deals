@@ -202,16 +202,18 @@ Namespace Ofertas
                                     Dim juegobbdd As JuegoBBDD = Nothing
 
                                     If temp2.Contains("data-tooltip-html=") Then
-                                        bbdd = JuegosBBDD.AñadirAnalisis(temp2, bbdd)
+                                        If Not bbdd Is Nothing Then
+                                            bbdd = JuegosBBDD.AñadirAnalisis(temp2, bbdd)
 
-                                        Dim l As Integer = 0
-                                        While l < bbdd.Count
-                                            If bbdd(l).Enlace = enlace Then
-                                                juegobbdd = bbdd(l)
-                                                Exit While
-                                            End If
-                                            l += 1
-                                        End While
+                                            Dim l As Integer = 0
+                                            While l < bbdd.Count
+                                                If bbdd(l).Enlace = enlace Then
+                                                    juegobbdd = bbdd(l)
+                                                    Exit While
+                                                End If
+                                                l += 1
+                                            End While
+                                        End If
                                     End If
 
                                     Dim juego As New Oferta(titulo, descuento, precio, Nothing, enlace, imagenes, Nothing, tienda.NombreUsar, Nothing, Nothing, DateTime.Today, Nothing, juegobbdd, sistemas, Nothing, Nothing)

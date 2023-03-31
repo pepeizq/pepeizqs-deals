@@ -251,24 +251,28 @@ Module JuegosBBDD
                 Dim cantidad As String = temp10.Trim
 
                 Dim añadir As Boolean = True
-                Dim k As Integer = 0
-                While k < bbdd.Count
-                    If bbdd(k).Enlace = enlace Then
-                        bbdd(k).AnalisisPorcentaje = porcentaje
-                        bbdd(k).AnalisisCantidad = cantidad
-                        bbdd(k).Enlace = enlace
+
+                If Not bbdd Is Nothing Then
+                    Dim k As Integer = 0
+
+                    While k < bbdd.Count
+                        If bbdd(k).Enlace = enlace Then
+                            bbdd(k).AnalisisPorcentaje = porcentaje
+                            bbdd(k).AnalisisCantidad = cantidad
+                            bbdd(k).Enlace = enlace
+                            añadir = False
+                        End If
+                        k += 1
+                    End While
+
+                    If cantidad.Length < 3 Then
                         añadir = False
                     End If
-                    k += 1
-                End While
 
-                If cantidad.Length < 3 Then
-                    añadir = False
-                End If
-
-                If añadir = True Then
-                    Dim analisis As New JuegoBBDD(titulo, porcentaje, cantidad, enlace, Nothing, Nothing)
-                    bbdd.Add(analisis)
+                    If añadir = True Then
+                        Dim analisis As New JuegoBBDD(titulo, porcentaje, cantidad, enlace, Nothing, Nothing)
+                        bbdd.Add(analisis)
+                    End If
                 End If
             End If
         End If
