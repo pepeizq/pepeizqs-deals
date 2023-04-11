@@ -545,6 +545,7 @@ Namespace Ofertas
                 spProgreso.Visibility = Visibility.Collapsed
             End If
 
+
         End Sub
 
     End Module
