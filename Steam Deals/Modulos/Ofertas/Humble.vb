@@ -345,8 +345,14 @@ Namespace Ofertas
                             titulo = Text.RegularExpressions.Regex.Unescape(titulo)
 
                             Dim imagenes As New OfertaImagenes(juegoHumble.ImagenPequeña, juegoHumble.ImagenGrande)
-                            imagenes.Pequeña = imagenes.Pequeña.Replace("&amp;", "&")
-                            imagenes.Grande = imagenes.Grande.Replace("&amp;", "&")
+
+                            If Not imagenes.Pequeña = Nothing Then
+                                imagenes.Pequeña = imagenes.Pequeña.Replace("&amp;", "&")
+                            End If
+
+                            If Not imagenes.Grande = Nothing Then
+                                imagenes.Grande = imagenes.Grande.Replace("&amp;", "&")
+                            End If
 
                             Dim enlace As String = "https://www.humblebundle.com/store/" + juegoHumble.Enlace
 
