@@ -339,6 +339,10 @@ Namespace Ofertas
                     If Not html = Nothing Then
                         Dim listaJuegosHumble As HumbleResultados = JsonConvert.DeserializeObject(Of HumbleResultados)(html)
 
+                        If listaJuegosHumble.Juegos.Count = 0 Then
+                            numPaginas = numPagina
+                        End If
+
                         For Each juegoHumble In listaJuegosHumble.Juegos
                             Dim titulo As String = juegoHumble.Titulo
                             titulo = titulo.Trim
@@ -549,6 +553,15 @@ Namespace Ofertas
 
                 Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
                 spProgreso.Visibility = Visibility.Collapsed
+
+                Dim helper As New LocalObjectStorageHelper
+
+                Await helper.SaveFileAsync(Of List(Of Oferta))("listaOfertas" + tienda.NombreUsar, listaJuegos)
+                Await helper.SaveFileAsync(Of List(Of HumbleDesarrolladores))("listaDesarrolladoresHumble", listaDesarrolladores)
+                Await JuegosBBDD.Guardar(bbdd)
+                Await Minimos.AñadirJuegos(listaMinimos)
+
+                Ordenar.Ofertas(tienda, True, False)
             End If
 
         End Sub
