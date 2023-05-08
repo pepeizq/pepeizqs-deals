@@ -562,6 +562,7 @@ Namespace Ofertas
                 Await Minimos.AñadirJuegos(listaMinimos)
 
                 Ordenar.Ofertas(tienda, True, False)
+
             End If
 
         End Sub
