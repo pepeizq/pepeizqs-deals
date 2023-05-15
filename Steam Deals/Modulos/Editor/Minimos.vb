@@ -1,8 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.Helpers
 Imports Steam_Deals.Clases
-Imports Steam_Deals.Interfaz
-Imports Windows.Storage
-Imports WordPressPCL
 
 Namespace Editor
     Module Minimos
