@@ -11,23 +11,29 @@ Namespace Editor
 
                 Dim helper As New LocalObjectStorageHelper
 
-                If Await helper.FileExistsAsync("juegosMinimos") Then
-                    viejosJuegos = Await helper.ReadFileAsync(Of List(Of JuegoMinimo))("juegosMinimos")
-                End If
+                Try
+                    If Await helper.FileExistsAsync("juegosMinimos") Then
+                        viejosJuegos = Await helper.ReadFileAsync(Of List(Of JuegoMinimo))("juegosMinimos")
+                    End If
+                Catch ex As Exception
 
-                If viejosJuegos.Count > 0 Then
-                    Dim listaBorrar As New List(Of Integer)
-                    Dim i As Integer = 0
+                End Try
 
-                    While i < viejosJuegos.Count
-                        Dim fechaTermina As Date = viejosJuegos(i).Fecha
-                        Dim fechaAhora As Date = Date.Now.AddDays(7)
+                If Not viejosJuegos Is Nothing Then
+                    If viejosJuegos.Count > 0 Then
+                        Dim listaBorrar As New List(Of Integer)
+                        Dim i As Integer = 0
 
-                        If fechaTermina > fechaAhora Then
-                            viejosJuegos.RemoveAt(i)
-                        End If
-                        i += 1
-                    End While
+                        While i < viejosJuegos.Count
+                            Dim fechaTermina As Date = viejosJuegos(i).Fecha
+                            Dim fechaAhora As Date = Date.Now.AddDays(7)
+
+                            If fechaTermina > fechaAhora Then
+                                viejosJuegos.RemoveAt(i)
+                            End If
+                            i += 1
+                        End While
+                    End If
                 End If
 
                 For Each nuevoJuego In nuevosJuegos
