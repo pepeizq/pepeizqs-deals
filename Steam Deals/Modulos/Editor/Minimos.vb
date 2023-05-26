@@ -34,34 +34,34 @@ Namespace Editor
                             i += 1
                         End While
                     End If
-                End If
 
-                For Each nuevoJuego In nuevosJuegos
-                    Dim añadir As Boolean = True
+                    For Each nuevoJuego In nuevosJuegos
+                        Dim añadir As Boolean = True
 
-                    If viejosJuegos.Count > 0 Then
-                        Dim i As Integer = 0
+                        If viejosJuegos.Count > 0 Then
+                            Dim i As Integer = 0
 
-                        While i < viejosJuegos.Count
-                            If viejosJuegos(i).Juego.Enlace = nuevoJuego.Enlace And viejosJuegos(i).Juego.Precio1 = nuevoJuego.Precio1 Then
-                                añadir = False
-                                Exit While
-                            End If
+                            While i < viejosJuegos.Count
+                                If viejosJuegos(i).Juego.Enlace = nuevoJuego.Enlace And viejosJuegos(i).Juego.Precio1 = nuevoJuego.Precio1 Then
+                                    añadir = False
+                                    Exit While
+                                End If
 
-                            i += 1
-                        End While
+                                i += 1
+                            End While
 
-                        If añadir = False Then
-                            If viejosJuegos(i).Juego.BaseDatos.Enlace = nuevoJuego.BaseDatos.Enlace And Not viejosJuegos(i).Juego.TiendaNombreUsar = nuevoJuego.TiendaNombreUsar Then
-                                viejosJuegos.RemoveAt(i)
+                            If añadir = False Then
+                                If viejosJuegos(i).Juego.BaseDatos.Enlace = nuevoJuego.BaseDatos.Enlace And Not viejosJuegos(i).Juego.TiendaNombreUsar = nuevoJuego.TiendaNombreUsar Then
+                                    viejosJuegos.RemoveAt(i)
+                                End If
                             End If
                         End If
-                    End If
 
-                    If añadir = True Then
-                        viejosJuegos.Add(New JuegoMinimo(nuevoJuego, Date.Today))
-                    End If
-                Next
+                        If añadir = True Then
+                            viejosJuegos.Add(New JuegoMinimo(nuevoJuego, Date.Today))
+                        End If
+                    Next
+                End If
 
                 Dim j As Integer = 0
                 While j < 10000

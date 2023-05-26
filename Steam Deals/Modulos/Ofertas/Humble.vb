@@ -530,6 +530,7 @@ Namespace Ofertas
                     End If
 
                     If numPagina = numPaginas Then
+
                         Dim spProgreso As StackPanel = pagina.FindName("spTiendaProgreso" + tienda.NombreUsar)
                         spProgreso.Visibility = Visibility.Collapsed
 
@@ -541,10 +542,13 @@ Namespace Ofertas
                         Await Minimos.AñadirJuegos(listaMinimos)
 
                         Ordenar.Ofertas(tienda, True, False)
-                    End If
 
-                    numPagina += 1
-                    wv.Source = New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + numPagina.ToString)
+                    Else
+
+                        numPagina += 1
+                        wv.Source = New Uri("https://www.humblebundle.com/store/api/search?filter=onsale&sort=discount&request=2&page_size=20&page=" + numPagina.ToString)
+
+                    End If
 
                 End If
             Else

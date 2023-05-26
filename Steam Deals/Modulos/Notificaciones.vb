@@ -15,7 +15,7 @@ Module Notificaciones
 
     End Sub
 
-    Public Sub Toast(titulo As String, contenido As String)
+    Public Sub Toast(titulo As String, Optional contenido As String = Nothing)
 
         Dim notificador As ToastNotifier = ToastNotificationManager.CreateToastNotifier()
         Dim xml As Windows.Data.Xml.Dom.XmlDocument = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText02)
