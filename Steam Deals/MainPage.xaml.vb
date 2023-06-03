@@ -260,6 +260,22 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub TbConsumerIDTwitter_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbConsumerIDTwitter.TextChanged
+
+        If tbConsumerIDTwitter.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("consumerIDTwitter") = tbConsumerIDTwitter.Text.Trim
+        End If
+
+    End Sub
+
+    Private Sub TbConsumerSecretTwitter_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbConsumerSecretTwitter.TextChanged
+
+        If tbConsumerSecretTwitter.Text.Trim.Length > 0 Then
+            ApplicationData.Current.LocalSettings.Values("consumerSecretTwitter") = tbConsumerSecretTwitter.Text.Trim
+        End If
+
+    End Sub
+
     Private Sub TbUsuarioReddit_TextChanged(sender As Object, e As TextChangedEventArgs) Handles tbUsuarioReddit.TextChanged
 
         If tbUsuarioReddit.Text.Trim.Length > 0 Then

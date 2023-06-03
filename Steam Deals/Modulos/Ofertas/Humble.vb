@@ -494,12 +494,14 @@ Namespace Ofertas
                                 End If
 
                                 If juego.Desarrolladores Is Nothing Then
-                                    For Each desarrollador In listaDesarrolladores
-                                        If desarrollador.ID = juegoHumble.ID Then
-                                            juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
-                                            Exit For
-                                        End If
-                                    Next
+                                    If Not listaDesarrolladores Is Nothing Then
+                                        For Each desarrollador In listaDesarrolladores
+                                            If desarrollador.ID = juegoHumble.ID Then
+                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {desarrollador.Desarrollador}, Nothing)
+                                                Exit For
+                                            End If
+                                        Next
+                                    End If
                                 End If
 
                                 If juego.Desarrolladores Is Nothing Then

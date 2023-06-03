@@ -33,6 +33,22 @@ Namespace Editor
                 End If
             End If
 
+            Dim consumerIDTwitter As TextBox = pagina.FindName("tbConsumerIDTwitter")
+
+            If Not consumerIDTwitter Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("consumerIDTwitter") Is Nothing Then
+                    consumerIDTwitter.Text = ApplicationData.Current.LocalSettings.Values("consumerIDTwitter")
+                End If
+            End If
+
+            Dim consumerSecretTwitter As TextBox = pagina.FindName("tbConsumerSecretTwitter")
+
+            If Not consumerSecretTwitter Is Nothing Then
+                If Not ApplicationData.Current.LocalSettings.Values("consumerSecretTwitter") Is Nothing Then
+                    consumerSecretTwitter.Text = ApplicationData.Current.LocalSettings.Values("consumerSecretTwitter")
+                End If
+            End If
+
             Dim usuarioReddit As TextBox = pagina.FindName("tbUsuarioReddit")
 
             If Not usuarioReddit Is Nothing Then

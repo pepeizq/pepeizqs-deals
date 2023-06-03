@@ -221,9 +221,9 @@ Namespace Editor.RedesSociales
             Dim enlaceFinal As String = post.Enlace
 
             Dim categoria As Integer = post.Categorias(0)
-
+            Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenFeatured)
             Try
-                Await RedesSociales.Twitter.Enviar(titulo, enlaceFinal, post.ImagenFeatured)
+
             Catch ex As Exception
                 Notificaciones.Toast("Twitter Error Post", Nothing)
             End Try

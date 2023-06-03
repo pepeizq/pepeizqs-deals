@@ -1187,6 +1187,14 @@
                                         <PasswordBox x:Name="pbContraseñapepeizqdeals" Margin="10,0" MinWidth="150"/>
                                     </StackPanel>
 
+                                    <TextBlock Text="Twitter" Margin="0,30,0,10"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Consumer ID" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbConsumerIDTwitter" Margin="10,0" MinWidth="150"/>
+                                        <TextBlock Text="Consumer Secret" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="tbConsumerSecretTwitter" Margin="10,0" MinWidth="150"/>
+                                    </StackPanel>
+
                                     <TextBlock Text="Reddit" Margin="0,30,0,10"/>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Correo" VerticalAlignment="Center"/>
@@ -1278,7 +1286,7 @@
 
                         <ScrollViewer x:Name="svTwitter" Padding="0,0,15,0" VerticalScrollBarVisibility="Visible" Visibility="Collapsed">
                             <StackPanel Orientation="Vertical">
-                                <TextBox x:Name="tbTwitterEnlace" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,0,20"/>
+                                <TextBox x:Name="tbTwitterCodigo" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,0,20"/>
 
                                 <controls2:WebView2 x:Name="wvTwitter" MinWidth="700" MinHeight="700"/>
                             </StackPanel>
