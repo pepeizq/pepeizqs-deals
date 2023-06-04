@@ -504,22 +504,26 @@ Namespace Ofertas
                                     End If
                                 End If
 
-                                If juego.Desarrolladores Is Nothing Then
-                                    Dim htmlP As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
+                                If Not listaDesarrolladores Is Nothing Then
+                                    If juego.Desarrolladores Is Nothing Then
+                                        Dim htmlP As String = Await HttpClient(New Uri("https://www.humblebundle.com/store/api/lookup?products[]=" + juegoHumble.ID + "&request=1"))
 
-                                    If Not htmlP = Nothing Then
-                                        Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
+                                        If Not htmlP = Nothing Then
+                                            Dim juegoDev As HumbleJuegoDatos = JsonConvert.DeserializeObject(Of HumbleJuegoDatos)(htmlP)
 
-                                        If Not juegoDev Is Nothing Then
-                                            If Not juegoDev.Resultado(0).Publishers Is Nothing Then
-                                                juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Publishers(0).Nombre}, Nothing)
-                                                listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Publishers(0).Nombre))
-                                            End If
+                                            If Not juegoDev Is Nothing Then
+                                                If Not juegoDev.Resultado Is Nothing Then
+                                                    If Not juegoDev.Resultado(0).Publishers Is Nothing Then
+                                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Publishers(0).Nombre}, Nothing)
+                                                        listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Publishers(0).Nombre))
+                                                    End If
+                                                End If
 
-                                            If juego.Desarrolladores Is Nothing Then
-                                                If Not juegoDev.Resultado(0).Desarrolladores Is Nothing Then
-                                                    juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Desarrolladores(0).Nombre}, Nothing)
-                                                    listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Desarrolladores(0).Nombre))
+                                                If juego.Desarrolladores Is Nothing Then
+                                                    If Not juegoDev.Resultado(0).Desarrolladores Is Nothing Then
+                                                        juego.Desarrolladores = New OfertaDesarrolladores(New List(Of String) From {juegoDev.Resultado(0).Desarrolladores(0).Nombre}, Nothing)
+                                                        listaDesarrolladores.Add(New HumbleDesarrolladores(juegoHumble.ID, juegoDev.Resultado(0).Desarrolladores(0).Nombre))
+                                                    End If
                                                 End If
                                             End If
                                         End If
